@@ -96,12 +96,10 @@
 <p>注意：  </p>
 <ul>
 <li>务必要仔细查看用户手册上对系统和必要环境的依赖。</li>
-<li><p>如果 kernel header 不一致，需要更新 kernel：  </p>
-<ul>
-<li><figure class="highlight plain"><figcaption><span>apt-get install linux-headers-generic```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- ```sudo apt-get install linux-headers-$(uname -r)</div></pre></td></tr></table></figure>
-</li>
+<li>如果 kernel header 不一致，需要更新 kernel：  <ul>
+<li>`sudo apt-get install linux-headers-generic</li>
+<li><code>sudo apt-get install linux-headers-$(uname -r)</code><br><code>uname -r</code> 等于你的版本内核，比如我的：<code>4.4.0-21-generic</code></li>
 </ul>
-<p><code>uname -r</code> 等于你的版本内核，比如我的：<code>4.4.0-21-generic</code></p>
 </li>
 <li>如果不能<a href="http://askubuntu.com/questions/762136/cannot-reinstall-virtualbox-on-ubuntu-16-04" target="_blank" rel="external">重装VBox</a>，需要修改BIOS设置：  <ul>
 <li>Security 中的 Secure Boot 设置为“Disabled” （一般设置这个就可以了吧）</li>
@@ -122,8 +120,8 @@
 </li>
 <li><p>如果输入 <code>vagrant</code> 的命令出现以下错误时，可能需要重新安装  vagrant，地址在这里：<a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="external">vagrantup</a>  </p>
 <blockquote>
-<p><strong>$ vagrant package</strong><br>No usable default provider could be found for your system.<br>Vagrant relies on interactions with 3rd party systems, known as<br>“providers”, to provide Vagrant with resources to run development<br>environments. Examples are VirtualBox, VMware, Hyper-V.<br>The easiest solution to this message is to install VirtualBox, which<br>is available for free on all major platforms.<br>If you believe you already have a provider available, make sure it<br>is properly installed and configured. You can see more details about<br>why a particular provider isn’t working by forcing usage with<br><code>vagrant up --provider=PROVIDER</code>, which should give you a more specific<br>error message for that particular provider.</p>
-<p><strong>$ vagrant package –base vagrant-ubuntu64</strong><br>Vagrant has detected that you have a version of VirtualBox installed<br>that is not supported by this version of Vagrant. Please install one of<br>the supported versions listed below to use Vagrant:<br>4.0, 4.1, 4.2, 4.3, 5.0<br>A Vagrant update may also be available that adds support for the version<br>you specified. Please check <a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="external">vagrantup</a> to download<br>the latest version.  </p>
+<p><strong>$ vagrant package</strong><br>No usable default provider could be found for your system.<br>Vagrant relies on interactions with 3rd party systems, known as “providers”, to provide Vagrant with resources to run development environments. Examples are VirtualBox, VMware, Hyper-V.<br>The easiest solution to this message is to install VirtualBox, which is available for free on all major platforms.<br>If you believe you already have a provider available, make sure it is properly installed and configured. You can see more details about why a particular provider isn’t working by forcing usage with <code>vagrant up --provider=PROVIDER</code>, which should give you a more specific error message for that particular provider.</p>
+<p><strong>$ vagrant package –base vagrant-ubuntu64</strong><br>Vagrant has detected that you have a version of VirtualBox installed that is not supported by this version of Vagrant. Please install one of the supported versions listed below to use Vagrant:<br>4.0, 4.1, 4.2, 4.3, 5.0<br>A Vagrant update may also be available that adds support for the version you specified. Please check <a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="external">vagrantup</a> to download the latest version.  </p>
 </blockquote>
 <p> 可参考这两个地方：  </p>
 <ul>
