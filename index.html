@@ -90,13 +90,57 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="Ubuntu-下安装-VirtualBox"><a href="#Ubuntu-下安装-VirtualBox" class="headerlink" title="Ubuntu 下安装 VirtualBox"></a>Ubuntu 下安装 VirtualBox</h2><ul>
+<li><a href="http://blog.csdn.net/flm2003/article/details/8168628" target="_blank" rel="external">Ubuntu下轻松安装virtualbox</a></li>
+</ul>
+<p>注意：  </p>
+<ul>
+<li>务必要仔细查看用户手册上对系统和必要环境的依赖。</li>
+<li><p>如果 kernel header 不一致，需要更新 kernel：  </p>
+<ul>
+<li><figure class="highlight plain"><figcaption><span>apt-get install linux-headers-generic```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- ```sudo apt-get install linux-headers-$(uname -r)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><code>uname -r</code> 等于你的版本内核，比如我的：<code>4.4.0-21-generic</code></p>
+</li>
+<li>如果不能<a href="http://askubuntu.com/questions/762136/cannot-reinstall-virtualbox-on-ubuntu-16-04" target="_blank" rel="external">重装VBox</a>，需要修改BIOS设置：  <ul>
+<li>Security 中的 Secure Boot 设置为“Disabled” （一般设置这个就可以了吧）</li>
+<li>Startup中的 UEFI/Legacy Boot 选 Both</li>
+<li>Priority 选 Legacy First，CSM Support 选 Yes<br>包括类似 Surface Pro，都可以这样操作。<br>另外，由于现在的主板很多都带有 UEFI Secure Boot 功能，可能导致使用USB设备启动不了系统。用此方法也可以搞定。<br>参考至： <a href="http://blog.csdn.net/tanaya/article/details/8846779" target="_blank" rel="external">电脑无法从USB启动可能是 UEFI Secure Boot 在捣鬼！</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="使用-Vagrant-管理-VirtualBox"><a href="#使用-Vagrant-管理-VirtualBox" class="headerlink" title="使用 Vagrant 管理 VirtualBox"></a>使用 Vagrant 管理 VirtualBox</h2><ul>
+<li><a href="http://wp.fungo.me/linux/vagrant-for-programmer-ch1.html" target="_blank" rel="external">Vagrant：程序员的VirtualBox</a>  </li>
+</ul>
+<p>注意：  </p>
+<ul>
+<li>如果在 <code>vagrant up</code> 时碰到<a href="https://github.com/lynnaloo/xtuple-vagrant/issues/13" target="_blank" rel="external">VirtualBox is complaining that the kernel module is not loaded</a>，可能需要这个命令：  <ul>
+<li><code>sudo /usr/lib/virtualbox/vboxdrv.sh setup</code><br>注意此命令支持Ubuntu15.0，16.0，其他版本不一定支持。  </li>
+<li>或者 <code>sudo /etc/init.d/vboxdrv setup</code><br>参见：<a href="https://gist.github.com/geraldvillorente/977d16624e079ba12741" target="_blank" rel="external">vagrant-virtualbox-failed</a>  </li>
+</ul>
+</li>
+<li><p>如果输入 <code>vagrant</code> 的命令出现以下错误时，可能需要重新安装  vagrant，地址在这里：<a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="external">vagrantup</a>  </p>
+<blockquote>
+<p><strong>$ vagrant package</strong><br>No usable default provider could be found for your system.<br>Vagrant relies on interactions with 3rd party systems, known as<br>“providers”, to provide Vagrant with resources to run development<br>environments. Examples are VirtualBox, VMware, Hyper-V.<br>The easiest solution to this message is to install VirtualBox, which<br>is available for free on all major platforms.<br>If you believe you already have a provider available, make sure it<br>is properly installed and configured. You can see more details about<br>why a particular provider isn’t working by forcing usage with<br><code>vagrant up --provider=PROVIDER</code>, which should give you a more specific<br>error message for that particular provider.</p>
+<p><strong>$ vagrant package –base vagrant-ubuntu64</strong><br>Vagrant has detected that you have a version of VirtualBox installed<br>that is not supported by this version of Vagrant. Please install one of<br>the supported versions listed below to use Vagrant:<br>4.0, 4.1, 4.2, 4.3, 5.0<br>A Vagrant update may also be available that adds support for the version<br>you specified. Please check <a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="external">vagrantup</a> to download<br>the latest version.  </p>
+</blockquote>
+<p> 可参考这两个地方：  </p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/29450437/unable-to-vagrant-up-how-to-set-providers" target="_blank" rel="external">Unable to vagrant up - how to set “providers”</a></li>
+<li><a href="https://github.com/mitchellh/vagrant/issues/7578" target="_blank" rel="external">Make Virtualbox 5.1 final version compatible</a></li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
       <a data-url="http://www.yam.gift/2016/09/04/Ubuntu-VirtualBox-Vagrant-questions/" data-id="cisomn4pa00014b9ap6mj25k8" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
+
     </footer>
   </div>
   
@@ -165,7 +209,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
     </div>
   </div>
 
@@ -175,7 +219,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a>
+      <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a>
     </div>
   </div>
 
