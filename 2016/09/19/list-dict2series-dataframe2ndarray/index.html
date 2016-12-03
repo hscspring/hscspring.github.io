@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>List, Dict 转换为 Series, DataFrame | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="目录
+list to series
+list to dataframe
+dict to series
+dict to dataframe
+
+list to ndarray
+
+series to ndarray
+dataframe to ndarray
+
+输入 dict
+dict to series
+dict to dataframe
+
+12345678910111213141516#coding:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="List, Dict 转换为 Series, DataFrame">
+<meta property="og:url" content="http://www.yam.gift/2016/09/19/list-dict2series-dataframe2ndarray/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="目录
+list to series
+list to dataframe
+dict to series
+dict to dataframe
+
+list to ndarray
+
+series to ndarray
+dataframe to ndarray
+
+输入 dict
+dict to series
+dict to dataframe
+
+12345678910111213141516#coding:">
+<meta property="og:updated_time" content="2016-12-03T15:41:24.224Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="List, Dict 转换为 Series, DataFrame">
+<meta name="twitter:description" content="目录
+list to series
+list to dataframe
+dict to series
+dict to dataframe
+
+list to ndarray
+
+series to ndarray
+dataframe to ndarray
+
+输入 dict
+dict to series
+dict to dataframe
+
+12345678910111213141516#coding:">
+  
+    <link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Yam</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">From Yam to May</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://www.yam.gift"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-list-dict2series-dataframe2ndarray" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/19/list-dict2series-dataframe2ndarray/" class="article-date">
+  <time datetime="2016-09-19T13:32:55.000Z" itemprop="datePublished">2016-09-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      List, Dict 转换为 Series, DataFrame
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>list to series</li>
+<li>list to dataframe</li>
+<li>dict to series</li>
+<li><p>dict to dataframe</p>
+</li>
+<li><p>list to ndarray</p>
+</li>
+<li>series to ndarray</li>
+<li>dataframe to ndarray</li>
+</ul>
+<h2 id="输入-dict"><a href="#输入-dict" class="headerlink" title="输入 dict"></a>输入 dict</h2><ul>
+<li>dict to series</li>
+<li>dict to dataframe</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding:utf-8</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</div><div class="line"></div><div class="line"><span class="comment"># dict</span></div><div class="line">data = &#123; <span class="string">'state'</span>: [<span class="string">'Ohino'</span>, <span class="string">'Ohino'</span>, <span class="string">'Ohino'</span>, <span class="string">'Nevada'</span>, <span class="string">'Nevada'</span>],</div><div class="line">         <span class="string">'year'</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>],</div><div class="line">         <span class="string">'pop'</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>]&#125;  <span class="comment"># type(data) 为 dict</span></div><div class="line"></div><div class="line"><span class="comment"># dict to series，若不指定 index，data 的 key 充当 Series 的 index</span></div><div class="line">ser = Series(data)</div><div class="line"></div><div class="line"><span class="comment"># dict to dataframe，若不指定 columns，data 的 key 充当 DataFrame 的 columns</span></div><div class="line">df = DataFrame(data)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data</div></pre></td></tr></table></figure>
+<pre><code>{&apos;pop&apos;: [1.5, 1.7, 3.6, 2.4, 2.9],
+ &apos;state&apos;: [&apos;Ohino&apos;, &apos;Ohino&apos;, &apos;Ohino&apos;, &apos;Nevada&apos;, &apos;Nevada&apos;],
+ &apos;year&apos;: [2000, 2001, 2002, 2001, 2002]}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># dict to series，若不指定 index，data 的 key 充当 Series 的 index</span></div><div class="line">ser = Series(data)</div><div class="line">ser</div></pre></td></tr></table></figure>
+<pre><code>pop                  [1.5, 1.7, 3.6, 2.4, 2.9]
+state    [Ohino, Ohino, Ohino, Nevada, Nevada]
+year            [2000, 2001, 2002, 2001, 2002]
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ser.shape</div></pre></td></tr></table></figure>
+<pre><code>(3,)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># dict to dataframe，若不指定 columns，data 的 key 充当 DataFrame 的 columns</span></div><div class="line">df = DataFrame(data)</div><div class="line">df</div></pre></td></tr></table></figure>
+<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>pop</th><br>      <th>state</th><br>      <th>year</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>0</th><br>      <td>1.5</td><br>      <td>Ohino</td><br>      <td>2000</td><br>    </tr><br>    <tr><br>      <th>1</th><br>      <td>1.7</td><br>      <td>Ohino</td><br>      <td>2001</td><br>    </tr><br>    <tr><br>      <th>2</th><br>      <td>3.6</td><br>      <td>Ohino</td><br>      <td>2002</td><br>    </tr><br>    <tr><br>      <th>3</th><br>      <td>2.4</td><br>      <td>Nevada</td><br>      <td>2001</td><br>    </tr><br>    <tr><br>      <th>4</th><br>      <td>2.9</td><br>      <td>Nevada</td><br>      <td>2002</td><br>    </tr><br>  </tbody><br></table><br></div>
+
+
+
+<h2 id="输入-List"><a href="#输入-List" class="headerlink" title="输入 List"></a>输入 List</h2><ul>
+<li>list to series</li>
+<li>list to dataframe</li>
+<li>list to ndarray</li>
+<li>series to ndarray</li>
+<li>dataframe to ndarray</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding:utf-8</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</div><div class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</div><div class="line"></div><div class="line"><span class="comment"># list</span></div><div class="line">data = [[<span class="number">2000</span>, <span class="string">'Ohino'</span>, <span class="number">1.5</span>],</div><div class="line">        [<span class="number">2001</span>, <span class="string">'Ohino'</span>, <span class="number">1.7</span>],</div><div class="line">        [<span class="number">2002</span>, <span class="string">'Ohino'</span>, <span class="number">3.6</span>],</div><div class="line">        [<span class="number">2001</span>, <span class="string">'Nevada'</span>, <span class="number">2.4</span>],</div><div class="line">        [<span class="number">2002</span>, <span class="string">'Nevada, 2.9'</span>]]  <span class="comment"># type(data) 为 list</span></div><div class="line"></div><div class="line"><span class="comment"># list to series</span></div><div class="line">ser = Series(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>])</div><div class="line"></div><div class="line"><span class="comment"># list to dataframe</span></div><div class="line">df = DataFrame(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</div><div class="line"></div><div class="line"><span class="comment"># list to ndarray</span></div><div class="line">ndarray = np.array(data)</div><div class="line"></div><div class="line"><span class="comment"># series to ndarray</span></div><div class="line">foo = ser.as_matrix()</div><div class="line">foo0 = Series.as_matrix(ser)</div><div class="line"></div><div class="line"><span class="comment"># dataframe to ndarray foo2 foo3 foo4 结果相同</span></div><div class="line">foo1 = DataFrame.as_matrix(df)</div><div class="line">foo2 = df.as_matrix()</div><div class="line">foo3 = df.values</div><div class="line">foo4 = np.array(df)</div><div class="line"></div><div class="line">foo5 = df.as_matrix([<span class="string">"pop"</span>])</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(data)</div></pre></td></tr></table></figure>
+<pre><code>list
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data</div></pre></td></tr></table></figure>
+<pre><code>[[2000, &apos;Ohino&apos;, 1.5],
+ [2001, &apos;Ohino&apos;, 1.7],
+ [2002, &apos;Ohino&apos;, 3.6],
+ [2001, &apos;Nevada&apos;, 2.4],
+ [2002, &apos;Nevada, 2.9&apos;]]
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># list to series</span></div><div class="line">ser = Series(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>])</div><div class="line">ser</div></pre></td></tr></table></figure>
+<pre><code>one       [2000, Ohino, 1.5]
+two       [2001, Ohino, 1.7]
+three     [2002, Ohino, 3.6]
+four     [2001, Nevada, 2.4]
+five     [2002, Nevada, 2.9]
+dtype: object
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(ser)</div></pre></td></tr></table></figure>
+<pre><code>pandas.core.series.Series
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ser.shape</div></pre></td></tr></table></figure>
+<pre><code>(5,)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># list to dataframe</span></div><div class="line">df = DataFrame(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</div><div class="line">df</div></pre></td></tr></table></figure>
+<div><br><table border="1" class="dataframe"><br>  <thead><br>    <tr style="text-align: right;"><br>      <th></th><br>      <th>year</th><br>      <th>state</th><br>      <th>pop</th><br>    </tr><br>  </thead><br>  <tbody><br>    <tr><br>      <th>one</th><br>      <td>2000</td><br>      <td>Ohino</td><br>      <td>1.5</td><br>    </tr><br>    <tr><br>      <th>two</th><br>      <td>2001</td><br>      <td>Ohino</td><br>      <td>1.7</td><br>    </tr><br>    <tr><br>      <th>three</th><br>      <td>2002</td><br>      <td>Ohino</td><br>      <td>3.6</td><br>    </tr><br>    <tr><br>      <th>four</th><br>      <td>2001</td><br>      <td>Nevada</td><br>      <td>2.4</td><br>    </tr><br>    <tr><br>      <th>five</th><br>      <td>2002</td><br>      <td>Nevada, 2.9</td><br>      <td>NaN</td><br>    </tr><br>  </tbody><br></table><br></div>
+
+
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(df)</div></pre></td></tr></table></figure>
+<pre><code>pandas.core.frame.DataFrame
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">df.shape</div></pre></td></tr></table></figure>
+<pre><code>(5, 3)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(df)</div></pre></td></tr></table></figure>
+<pre><code>pandas.core.frame.DataFrame
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># list to ndarray</span></div><div class="line">ndarray = np.array(data)</div><div class="line">ndarray</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5], [2001, &apos;Ohino&apos;, 1.7], [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4], [2002, &apos;Nevada, 2.9&apos;]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ndarray.shape</div></pre></td></tr></table></figure>
+<pre><code>(5,)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># series to ndarray</span></div><div class="line">foo = ser.as_matrix()</div><div class="line">foo0 = Series.as_matrix(ser)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5], [2001, &apos;Ohino&apos;, 1.7], [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4], [2002, &apos;Nevada, 2.9&apos;]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo0</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5], [2001, &apos;Ohino&apos;, 1.7], [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4], [2002, &apos;Nevada, 2.9&apos;]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(foo)</div></pre></td></tr></table></figure>
+<pre><code>numpy.ndarray
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo.shape, foo0.shape</div></pre></td></tr></table></figure>
+<pre><code>((5,), (5,))
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># dataframe to ndarray foo2 foo3 foo4 结果相同</span></div><div class="line">foo1 = DataFrame.as_matrix(df)</div><div class="line">foo2 = df.as_matrix()</div><div class="line">foo3 = df.values</div><div class="line">foo4 = np.array(df)</div><div class="line"></div><div class="line">foo5 = df.as_matrix([<span class="string">"pop"</span>])</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo1</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5],
+       [2001, &apos;Ohino&apos;, 1.7],
+       [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4],
+       [2002, &apos;Nevada, 2.9&apos;, nan]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo2</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5],
+       [2001, &apos;Ohino&apos;, 1.7],
+       [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4],
+       [2002, &apos;Nevada, 2.9&apos;, nan]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo3</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5],
+       [2001, &apos;Ohino&apos;, 1.7],
+       [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4],
+       [2002, &apos;Nevada, 2.9&apos;, nan]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo4</div></pre></td></tr></table></figure>
+<pre><code>array([[2000, &apos;Ohino&apos;, 1.5],
+       [2001, &apos;Ohino&apos;, 1.7],
+       [2002, &apos;Ohino&apos;, 3.6],
+       [2001, &apos;Nevada&apos;, 2.4],
+       [2002, &apos;Nevada, 2.9&apos;, nan]], dtype=object)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo5</div></pre></td></tr></table></figure>
+<pre><code>array([[ 1.5],
+       [ 1.7],
+       [ 3.6],
+       [ 2.4],
+       [ nan]])
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">foo1.shape, foo2.shape, foo3.shape, foo4.shape, foo5.shape</div></pre></td></tr></table></figure>
+<pre><code>((5, 3), (5, 3), (5, 3), (5, 3), (5, 1))
+</code></pre><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>本文整理自：<a href="http://www.lining0806.com/numpy%E7%9A%84ndarray%E4%B8%8Epandas%E7%9A%84series%E5%92%8Cdataframe%E4%B9%8B%E9%97%B4%E4%BA%92%E8%BD%AC/" target="_blank" rel="external">宁哥的小站</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.yam.gift/2016/09/19/list-dict2series-dataframe2ndarray/" data-id="ciw9e03xb0001wb9a4bb3qi9b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataClearing/">DataClearing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataScience/">DataScience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/09/19/NumPy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          numpy
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/09/04/Ubuntu-VirtualBox-Vagrant-questions/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 20px;">DataScience</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/09/19/NumPy/">numpy</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/list-dict2series-dataframe2ndarray/">List, Dict 转换为 Series, DataFrame</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/04/Ubuntu-VirtualBox-Vagrant-questions/">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/03/Simpson-Paradox/">辛普森悖论及其哲学思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Yam<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
