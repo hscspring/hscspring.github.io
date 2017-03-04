@@ -32,7 +32,7 @@
   });
 
   // Share
-  $('body').on('click', function(){
+  /*$('body').on('click', function(){
     $('.article-share-box.on').removeClass('on');
   }).on('click', '.article-share-link', function(e){
     e.stopPropagation();
@@ -55,10 +55,10 @@
         '<div id="' + id + '" class="article-share-box">',
           '<input class="article-share-input" value="' + url + '">',
           '<div class="article-share-links">',
-            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
+			'<a href="http://tieba.baidu.com/f/commit/share/openShareApi?url=' + encodedUrl + '" class="article-share-tieba" target="_blank" title="百度贴吧"></a>',
+			'<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="article-share-weibo" target="_blank" title="新浪微博"></a>',
+			'<a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=' + encodedUrl + '" class="article-share-tqq" target="_blank" title="腾讯微博"></a>',
+			'<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '" class="article-share-renren" target="_blank" title="人人"></a>',
           '</div>',
         '</div>'
       ].join('');
@@ -83,7 +83,7 @@
     e.stopPropagation();
 
     window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-  });
+  });*/
 
   // Caption
   $('.article-entry').each(function(i){
@@ -134,4 +134,16 @@
 
     $container.removeClass('mobile-nav-on');
   });
+  
+    // link
+    var $linkUl = $('#link-list');
+    var $list = $('#link-list li');
+    $linkUl.empty();
+    var count = $list.length;
+    for(var i = 0; i < count; i++)
+    {
+        var ran = Math.floor(Math.random() * $list.length);
+        $linkUl.append($list.eq(ran));
+        $list.splice(ran, 1);
+    }
 })(jQuery);
