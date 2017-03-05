@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <meta name="description" content="Coding, Quanting, Feeling, Thinking" />
+  
+
+  
+  
+  
+  
+  
+  
+  <title>Python 编码笔记整理 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Table of Contents 1&amp;nbsp;&amp;nbsp;Python 中文编码1.1&amp;nbsp;&amp;nbsp;字符串和编码1.2&amp;nbsp;&amp;nbsp;存储和执行时的状态1.3&amp;nbsp;&amp;nbsp;Python 字符串1.3.1&amp;nbsp;&amp;nbsp;encode1.3.2&amp;nbsp;&amp;nbsp;decode1.3.3&amp;nbsp;&amp;nbsp;str1.3.4&amp;nbsp;&amp;nbsp;type2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 编码笔记整理">
+<meta property="og:url" content="http://www.yam.gift/2017/03/05/Python-encode-decode/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="Table of Contents 1&amp;nbsp;&amp;nbsp;Python 中文编码1.1&amp;nbsp;&amp;nbsp;字符串和编码1.2&amp;nbsp;&amp;nbsp;存储和执行时的状态1.3&amp;nbsp;&amp;nbsp;Python 字符串1.3.1&amp;nbsp;&amp;nbsp;encode1.3.2&amp;nbsp;&amp;nbsp;decode1.3.3&amp;nbsp;&amp;nbsp;str1.3.4&amp;nbsp;&amp;nbsp;type2">
+<meta property="og:updated_time" content="2017-03-05T08:59:07.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 编码笔记整理">
+<meta name="twitter:description" content="Table of Contents 1&amp;nbsp;&amp;nbsp;Python 中文编码1.1&amp;nbsp;&amp;nbsp;字符串和编码1.2&amp;nbsp;&amp;nbsp;存储和执行时的状态1.3&amp;nbsp;&amp;nbsp;Python 字符串1.3.1&amp;nbsp;&amp;nbsp;encode1.3.2&amp;nbsp;&amp;nbsp;decode1.3.3&amp;nbsp;&amp;nbsp;str1.3.4&amp;nbsp;&amp;nbsp;type2">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+  <script src='//push.zhanzhang.baidu.com/push.js'></script>
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">From Yam to May</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives">Archives</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Python-encode-decode" class="post-Python-encode-decode post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Python 编码笔记整理
+    </h1>
+  
+
+        
+        <div class="comments-link">
+            
+            <a href="/2017/03/05/Python-encode-decode/#comments" class="leave-reply">Reply</a>
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/Python-encode-decode/" data-id="cizwfzm3k0001rl9ak5ggh4v0" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+        </div><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><p> </p><p><div class="lev1 toc-item"><a href="#Python-中文编码" data-toc-modified-id="Python-中文编码-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python 中文编码</a></div><div class="lev2 toc-item"><a href="#字符串和编码" data-toc-modified-id="字符串和编码-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>字符串和编码</a></div><div class="lev2 toc-item"><a href="#存储和执行时的状态" data-toc-modified-id="存储和执行时的状态-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>存储和执行时的状态</a></div><div class="lev2 toc-item"><a href="#Python-字符串" data-toc-modified-id="Python-字符串-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python 字符串</a></div><div class="lev3 toc-item"><a href="#encode" data-toc-modified-id="encode-131"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span><code>encode</code></a></div><div class="lev3 toc-item"><a href="#decode" data-toc-modified-id="decode-132"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span><code>decode</code></a></div><div class="lev3 toc-item"><a href="#str" data-toc-modified-id="str-133"><span class="toc-item-num">1.3.3&nbsp;&nbsp;</span><code>str</code></a></div><div class="lev3 toc-item"><a href="#type" data-toc-modified-id="type-134"><span class="toc-item-num">1.3.4&nbsp;&nbsp;</span><code>type</code></a></div><div class="lev1 toc-item"><a href="#实际程序中的编码" data-toc-modified-id="实际程序中的编码-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>实际程序中的编码</a></div><div class="lev2 toc-item"><a href="#Python-源代码中的说明" data-toc-modified-id="Python-源代码中的说明-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Python 源代码中的说明</a></div><div class="lev2 toc-item"><a href="#要循环处理字符串的时候需要解码" data-toc-modified-id="要循环处理字符串的时候需要解码-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>要循环处理字符串的时候需要解码</a></div><div class="lev2 toc-item"><a href="#字符匹配的时候需要解码" data-toc-modified-id="字符匹配的时候需要解码-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>字符匹配的时候需要解码</a></div><div class="lev2 toc-item"><a href="#结巴分词" data-toc-modified-id="结巴分词-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>结巴分词</a></div><div class="lev3 toc-item"><a href="#jieba-分词后词语变为-unicode-编码" data-toc-modified-id="jieba-分词后词语变为-unicode-编码-241"><span class="toc-item-num">2.4.1&nbsp;&nbsp;</span>jieba 分词后词语变为 unicode 编码</a></div><div class="lev3 toc-item"><a href="#去掉标点符号" data-toc-modified-id="去掉标点符号-242"><span class="toc-item-num">2.4.2&nbsp;&nbsp;</span>去掉标点符号</a></div><div class="lev1 toc-item"><a href="#读存文档时的编码" data-toc-modified-id="读存文档时的编码-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>读存文档时的编码</a></div><div class="lev2 toc-item"><a href="#读取文档注意事项" data-toc-modified-id="读取文档注意事项-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>读取文档注意事项</a></div><div class="lev2 toc-item"><a href="#txt-文档" data-toc-modified-id="txt-文档-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>txt 文档</a></div><div class="lev2 toc-item"><a href="#codecs" data-toc-modified-id="codecs-33"><span class="toc-item-num">3.3&nbsp;&nbsp;</span><code>codecs</code></a></div><div class="lev2 toc-item"><a href="#JSON" data-toc-modified-id="JSON-34"><span class="toc-item-num">3.4&nbsp;&nbsp;</span><code>JSON</code></a></div><div class="lev2 toc-item"><a href="#直接存储-Unicode" data-toc-modified-id="直接存储-Unicode-35"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>直接存储 Unicode</a></div><div class="lev2 toc-item"><a href="#直接存储-String" data-toc-modified-id="直接存储-String-36"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>直接存储 String</a></div><div class="lev1 toc-item"><a href="#参考资料" data-toc-modified-id="参考资料-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>参考资料</a></div></p>
+<h1 id="Python-中文编码"><a href="#Python-中文编码" class="headerlink" title="Python 中文编码"></a>Python 中文编码</h1><p>Python 中文编码是新人常见的一个问题，其实这是一个涉及到 Python 字符串、编码、IO 读写等方面的问题。</p>
+<h2 id="字符串和编码"><a href="#字符串和编码" class="headerlink" title="字符串和编码"></a>字符串和编码</h2><p>计算机只能处理数字，文本需要转为数字。最早的计算机采用 8 个 bit（比特，计算机最小数据单位） 作为一个 byte（字节，存储和传输容量的一种基本计量单位）。所以一个字节表示的最大整数是 255（二进制：11111111 = 十进制 255：2^7 + 2^6 +…+ 2^1 +2^0），更大整数需要更多字节。</p>
+<p>最早只有 127 个字母（英文的大小写字母和数字，一些符号等）被编码到计算机，这个编码表就是 <code>ASCII</code>，没有中文。<br>中文至少需要两个字节，并且不能和已有的 <code>ASCII</code> 冲突，于是有了中国制定的 <code>GB2312</code> 编码，用来把中文编进去。  </p>
+<p>全世界很多语言，就会有很多编码，因此 <code>Unicode</code> 就出现了，从字面意思也可以看出这是一套“整合”的编码。不过由于中文等语言编码长度很长，就会导致只使用英文的文本多占用很多存储空间，在存储和传输上十分不方便。于是，出现了把 Unicode 转化为“可变长编码”的 <code>UTF-8</code> 编码。</p>
+<p><code>UTF-8</code> 编码把一个 Unicode 字符根据不同的数字大小编码成 1-6 个字节：  </p>
+<ul>
+<li>英文字母 1 个字节</li>
+<li>汉字通常 3 个字节<br>这样，无论传输什么文本，<code>UTF-8</code> 都能节省空间。总结下就是，<code>ASCII</code> 实际可以看成是 <code>UTF-8</code> 的一部分，所以之前的软件现在也能使用，这个也可以看作是一种向下兼容。</li>
+</ul>
+<h2 id="存储和执行时的状态"><a href="#存储和执行时的状态" class="headerlink" title="存储和执行时的状态"></a>存储和执行时的状态</h2><p>在计算机内存中，统一使用 Unicode 编码；当需要保存到硬盘，或者在网络上传输时，就转为 UTF-8 编码  </p>
+<p>记事本编辑时，从文件读取的 UTF-8 字符被转为 Unicode 字符到内存里；编辑完成保存时，把 Unicode 转换为 UTF-8 保存  </p>
+<p>浏览网页时，服务器会把生成的 Unicode 转换为 UTF-8 再传输导浏览器，所以很多网页是用 UTF-8 编码的</p>
+<h2 id="Python-字符串"><a href="#Python-字符串" class="headerlink" title="Python 字符串"></a>Python 字符串</h2><p>Python 诞生早于 Unicode 标准发布，所以最早只支持 ASCII 编码（不支持中文），后来增加了对 Unicode 的编码，就是看到的 <code>u&#39;...&#39;</code>，就表示是用 Unicode 编码的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> <span class="string">u'中文'</span></div></pre></td></tr></table></figure>
+<pre><code>中文
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">u'中'</span></div></pre></td></tr></table></figure>
+<pre><code>u&apos;\u4e2d&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">u'A'</span></div></pre></td></tr></table></figure>
+<pre><code>u&apos;A&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">u'\u0041'</span></div></pre></td></tr></table></figure>
+<pre><code>u&apos;A&apos;
+</code></pre><p><code>u&#39;中&#39;</code> 和 <code>u&#39;\u4e2d&#39;</code> 一致，<code>\u</code> 后面是十六进制的 Unicode 码。  </p>
+<p>对英文来说，字符串 <code>&#39;xxx&#39;</code> 可以看作是 ASCII 编码，也可以看作是 UTF-8 编码，但是 <code>u&#39;xxx&#39;</code> 一定是 Unicode 编码  </p>
+<p>Unicode 转换为 UTF-8 用 encode，相反则用 decode：  </p>
+<h3 id="encode"><a href="#encode" class="headerlink" title="encode"></a><code>encode</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">u'ABC'</span>.encode(<span class="string">'utf-8'</span>) <span class="comment"># 没变化，但占用的存储空间不同，UTF-8 占用的少</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;ABC&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>) <span class="comment"># 1 个 Unicode 的汉字转为 3 个字节</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe4\xb8\xad\xe6\x96\x87&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">len(<span class="string">u'ABC'</span>), len(<span class="string">'ABC'</span>) <span class="comment"># 长度一样</span></div></pre></td></tr></table></figure>
+<pre><code>(3, 3)
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">len(<span class="string">u'中文'</span>), len(<span class="string">u'中文'</span>.encode(<span class="string">'utf-8'</span>))</div></pre></td></tr></table></figure>
+<pre><code>(2, 6)
+</code></pre><h3 id="decode"><a href="#decode" class="headerlink" title="decode"></a><code>decode</code></h3><p><code>decode</code> 可以把 UTF-8 表示的字符串转换为 Unicode 字符串</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'abc'</span>.decode(<span class="string">'utf-8'</span>)</div></pre></td></tr></table></figure>
+<pre><code>u&apos;abc&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span>.decode(<span class="string">'utf-8'</span>)</div></pre></td></tr></table></figure>
+<pre><code>u&apos;\u4e2d\u6587&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">print</span> <span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span>.decode(<span class="string">'utf-8'</span>)</div></pre></td></tr></table></figure>
+<pre><code>中文
+</code></pre><h3 id="str"><a href="#str" class="headerlink" title="str"></a><code>str</code></h3><p>用 str 也可以把 unicode 重新编码 utf-8</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line">str(<span class="string">'中文'</span>)</div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe4\xb8\xad\xe6\x96\x87&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">str(<span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span>)</div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe4\xb8\xad\xe6\x96\x87&apos;
+</code></pre><h3 id="type"><a href="#type" class="headerlink" title="type"></a><code>type</code></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(<span class="string">u'中文'</span>)</div></pre></td></tr></table></figure>
+<pre><code>unicode
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(<span class="string">'中文'</span>) <span class="comment"># 中文字符串是 UTF-8 编码</span></div></pre></td></tr></table></figure>
+<pre><code>str
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'中文'</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe4\xb8\xad\xe6\x96\x87&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">type(<span class="string">'\xe4\xb8\xad\xe6\x96\x87'</span>.decode(<span class="string">'utf-8'</span>)) <span class="comment"># UTF-8 码转为 Unicode</span></div></pre></td></tr></table></figure>
+<pre><code>unicode
+</code></pre><h1 id="实际程序中的编码"><a href="#实际程序中的编码" class="headerlink" title="实际程序中的编码"></a>实际程序中的编码</h1><h2 id="Python-源代码中的说明"><a href="#Python-源代码中的说明" class="headerlink" title="Python 源代码中的说明"></a>Python 源代码中的说明</h2><p>在保存源代码时要声明程序的编码类型为 utf-8，这样当 Python 解释器去读取源代码时就会明白：</p>
+<ul>
+<li><code>!/usr/bin/env python2.7</code>  </li>
+<li><code>-*- coding: utf-8 -*-</code>  </li>
+</ul>
+<p>第一行告诉 Linux/OS X 这是一个 Python 可执行程序<br>第二行告诉 Python 解释器，按照 UTF-8 读取源代码，否则源代码中的中文可能会乱码</p>
+<h2 id="要循环处理字符串的时候需要解码"><a href="#要循环处理字符串的时候需要解码" class="headerlink" title="要循环处理字符串的时候需要解码"></a>要循环处理字符串的时候需要解码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line">token = <span class="string">"，.!?？：:"</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> token:</div><div class="line">    <span class="keyword">print</span> t</div></pre></td></tr></table></figure>
+<pre><code>�
+�
+�
+.
+!
+?
+�
+�
+�
+�
+�
+�
+:
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 解码</span></div><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> token.decode(<span class="string">'utf-8'</span>):</div><div class="line">    <span class="keyword">print</span> t</div></pre></td></tr></table></figure>
+<pre><code>，
+.
+!
+?
+？
+：
+:
+</code></pre><p>把字符串 decode 为 utf-8 后，就可以被遍历<strong>循环</strong>了。</p>
+<h2 id="字符匹配的时候需要解码"><a href="#字符匹配的时候需要解码" class="headerlink" title="字符匹配的时候需要解码"></a>字符匹配的时候需要解码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line">token = <span class="string">"，。！？：；"</span>.decode(<span class="string">'utf8'</span>)</div><div class="line">string_list = [<span class="string">'我'</span>, <span class="string">'是'</span>, <span class="string">'中国'</span>, <span class="string">'人'</span> ,<span class="string">'，'</span>, <span class="string">'我'</span>, <span class="string">'爱'</span>, <span class="string">'她'</span>, <span class="string">'。'</span>]</div><div class="line"></div><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> token:</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> s1 <span class="keyword">in</span> string_list:</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> t == s1: <span class="comment"># 逗号和句号无法匹配的，因为编码不同</span></div><div class="line">            <span class="keyword">print</span> t</div></pre></td></tr></table></figure>
+<pre><code>/home/evil_rabbit/anaconda2/lib/python2.7/site-packages/ipykernel/__main__.py:10: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> token:</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> s1 <span class="keyword">in</span> string_list:</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> t == s1.decode(<span class="string">'utf-8'</span>): <span class="comment"># 编码相同，可以匹配；UTF-8 转为 Unicode</span></div><div class="line">            <span class="keyword">print</span> t</div></pre></td></tr></table></figure>
+<pre><code>，
+。
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">'我'</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe6\x88\x91&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> t <span class="keyword">in</span> token:</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> s1 <span class="keyword">in</span> string_list:</div><div class="line">        </div><div class="line">        <span class="keyword">if</span> t.encode(<span class="string">'utf-8'</span>) == s1: <span class="comment"># 编码相同，可以匹配</span></div><div class="line">            <span class="keyword">print</span> t</div></pre></td></tr></table></figure>
+<pre><code>，
+。
+</code></pre><h2 id="结巴分词"><a href="#结巴分词" class="headerlink" title="结巴分词"></a>结巴分词</h2><h3 id="jieba-分词后词语变为-unicode-编码"><a href="#jieba-分词后词语变为-unicode-编码" class="headerlink" title="jieba 分词后词语变为 unicode 编码"></a>jieba 分词后词语变为 unicode 编码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line"><span class="keyword">import</span> jieba</div><div class="line"></div><div class="line">string = <span class="string">"我是中国人，我喜欢编程、音乐、运动、看书。"</span></div><div class="line"></div><div class="line">string_list = []</div><div class="line"></div><div class="line">seg = jieba.cut(string)</div><div class="line"></div><div class="line"><span class="keyword">for</span> word <span class="keyword">in</span> seg:</div><div class="line">    string_list.append(word)</div><div class="line"></div><div class="line"><span class="keyword">print</span> string_list</div></pre></td></tr></table></figure>
+<pre><code>[u&apos;\u6211&apos;, u&apos;\u662f&apos;, u&apos;\u4e2d\u56fd&apos;, u&apos;\u4eba&apos;, u&apos;\uff0c&apos;, u&apos;\u6211&apos;, u&apos;\u559c\u6b22&apos;, u&apos;\u7f16\u7a0b&apos;, u&apos;\u3001&apos;, u&apos;\u97f3\u4e50&apos;, u&apos;\u3001&apos;, u&apos;\u8fd0\u52a8&apos;, u&apos;\u3001&apos;, u&apos;\u770b\u4e66&apos;, u&apos;\u3002&apos;]
+</code></pre><h3 id="去掉标点符号"><a href="#去掉标点符号" class="headerlink" title="去掉标点符号"></a>去掉标点符号</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line"><span class="keyword">import</span> jieba</div><div class="line"></div><div class="line">string = <span class="string">"我是中国人，我喜欢编程、音乐、运动、看书。"</span></div><div class="line"></div><div class="line">string_list = []</div><div class="line"></div><div class="line">seg = jieba.cut(string)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> seg:</div><div class="line">    string_list.append(i)</div><div class="line"></div><div class="line">token = <span class="string">"，。！？：；、"</span>.decode(<span class="string">'utf-8'</span>)</div><div class="line"></div><div class="line">filter_seg = [fil <span class="keyword">for</span> fil <span class="keyword">in</span> string_list <span class="keyword">if</span> fil <span class="keyword">not</span> <span class="keyword">in</span> token]</div><div class="line"></div><div class="line"><span class="keyword">for</span> word <span class="keyword">in</span> filter_seg:</div><div class="line">    </div><div class="line">    <span class="keyword">print</span> word</div></pre></td></tr></table></figure>
+<pre><code>我
+是
+中国
+人
+我
+喜欢
+编程
+音乐
+运动
+看书
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line"><span class="keyword">import</span> jieba</div><div class="line"></div><div class="line">string = <span class="string">"我是中国人，我喜欢编程、音乐、运动、看书。"</span></div><div class="line"></div><div class="line">string_list = []</div><div class="line"></div><div class="line">seg = jieba.cut(string)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> seg:</div><div class="line">    string_list.append(i)</div><div class="line"></div><div class="line">token = <span class="string">"，。！？：；、"</span>.decode(<span class="string">'utf-8'</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> word <span class="keyword">in</span> string_list:</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> word <span class="keyword">not</span> <span class="keyword">in</span> token:</div><div class="line">        <span class="keyword">print</span> word</div></pre></td></tr></table></figure>
+<pre><code>我
+是
+中国
+人
+我
+喜欢
+编程
+音乐
+运动
+看书
+</code></pre><h1 id="读存文档时的编码"><a href="#读存文档时的编码" class="headerlink" title="读存文档时的编码"></a>读存文档时的编码</h1><h2 id="读取文档注意事项"><a href="#读取文档注意事项" class="headerlink" title="读取文档注意事项"></a>读取文档注意事项</h2><p>为了避免每次都要 close 文件，建议使用 with</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">with</span> open(<span class="string">'/./xx.txt'</span>, <span class="string">'r'</span>) <span class="keyword">as</span> f:</div><div class="line">    f.read()</div></pre></td></tr></table></figure>
+<p><code>read()</code> 会一次性读取全部内容，如果文件太大，可以用 <code>read(size)</code> 读取 size 个字节的内容。<br>或者调用 <code>readline()</code> 按行读取；调用 <code>readlines()</code> 一次读取所有内容并按行返回 list</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f.readlines():</div><div class="line">    line.strip() <span class="comment"># 去掉末尾的 '\n'</span></div></pre></td></tr></table></figure>
+<h2 id="txt-文档"><a href="#txt-文档" class="headerlink" title="txt 文档"></a>txt 文档</h2><ul>
+<li>txt 文档存储时要另存为 utf-8 编码。txt 文档默认编码为 ascii</li>
+<li><p>列表内容存储回 txt 文档时，要把 Python 里的 unicode 编码为 utf-8。只有编码为 utf-8，才能正常在 txt 文档中显示出来  </p>
+<ul>
+<li><code>encode(&#39;utf-8&#39;)</code></li>
+<li>str()</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding: utf-8 -*- </span></div><div class="line"></div><div class="line"><span class="keyword">import</span> jieba</div><div class="line"></div><div class="line">string = <span class="string">"我是中国人，我喜欢编程、音乐、运动、看书。"</span></div><div class="line"></div><div class="line">string_list = []</div><div class="line"></div><div class="line">seg = jieba.cut(string)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> seg:</div><div class="line">    string_list.append(i)</div><div class="line"></div><div class="line">token = <span class="string">"，。！？：；、"</span>.decode(<span class="string">'utf-8'</span>) <span class="comment"># 对 UTF-8 的字符串解为 Unicode</span></div><div class="line"></div><div class="line">filter_seg = [fil <span class="keyword">for</span> fil <span class="keyword">in</span> string_list <span class="keyword">if</span> fil <span class="keyword">not</span> <span class="keyword">in</span> token]</div><div class="line"></div><div class="line">f = open(<span class="string">'output.txt'</span>, <span class="string">'w'</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> word <span class="keyword">in</span> filter_seg:</div><div class="line">    f.write(word.encode(<span class="string">'utf-8'</span>) + <span class="string">' '</span>)</div><div class="line">    <span class="comment">#f.write(str(word)+' ') # 不成功，采用 encode</span></div><div class="line">f.close()</div></pre></td></tr></table></figure>
+<p>如果读取非 ASCII 编码的文本文件，可以用二进制模式打开，再解码；或者给 <code>open</code> 函数传入 <code>encoing</code> 参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GBK 编码的文件</span></div><div class="line">f = open(<span class="string">'./xx.txt'</span>, <span class="string">'rb'</span>) <span class="comment"># 二进制读取</span></div><div class="line">u = f.read().decode(<span class="string">'gbk'</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">f = open(<span class="string">'/./xx.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'gbk'</span>)</div><div class="line">f.read()</div></pre></td></tr></table></figure>
+<p>遇到编码不规范的文件，可以给 <code>open</code> 函数一个 <code>errors</code> 的参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f = open(<span class="string">'/./xx.txt'</span>, <span class="string">'r'</span>, encoding=<span class="string">'gbk'</span>, errors=<span class="string">'ignore'</span>) <span class="comment"># 忽略错误编码</span></div></pre></td></tr></table></figure>
+<h2 id="codecs"><a href="#codecs" class="headerlink" title="codecs"></a><code>codecs</code></h2><p>python 的 <code>codecs</code> 模块可以帮助我们在读取文件时自动转换编码，直接读出 Unicode</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># GBK 编码的文件</span></div><div class="line"><span class="keyword">import</span> codecs</div><div class="line"><span class="keyword">with</span> codecs.open(<span class="string">'/./xx.txt'</span>, <span class="string">'r'</span>, <span class="string">'gbk'</span>) <span class="keyword">as</span> f:</div><div class="line">    f.read()</div></pre></td></tr></table></figure>
+<h2 id="JSON"><a href="#JSON" class="headerlink" title="JSON"></a><code>JSON</code></h2><p>JSON 是不同语言的标准格式，速度快，而且可以直接在 Web 页面读取，非常方便。<br>因此，我们可以将一些需要调取的 dict 存储为 JSON。<br>另外一个原因，JSON 标准规定编码是 UTF-8，所以 Python 内置的 <code>json</code> 模块让我们很方便地在 Python 的 <code>str</code> 与 JSON 字符串之间转换。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> json</div><div class="line">d = dict(name=<span class="string">'Bob'</span>, age=<span class="number">20</span>, score=<span class="number">88</span>)</div><div class="line">json.dumps(d) <span class="comment"># dumps 返回一个 str，内容就是标准的 JSON</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;{&quot;age&quot;: 20, &quot;score&quot;: 88, &quot;name&quot;: &quot;Bob&quot;}&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">json_str = <span class="string">'&#123;"age": 20, "score": 88, "name": "Bob"&#125;'</span></div><div class="line">json.loads(json_str) <span class="comment"># 成功读取</span></div></pre></td></tr></table></figure>
+<pre><code>{u&apos;age&apos;: 20, u&apos;name&apos;: u&apos;Bob&apos;, u&apos;score&apos;: 88}
+</code></pre><p>实际操作中，可以直接将 <code>json.dumps(d)</code> 写入 txt 文档，读取时 <code>json.loads(f.read())</code> 即可。</p>
+<h2 id="直接存储-Unicode"><a href="#直接存储-Unicode" class="headerlink" title="直接存储 Unicode"></a>直接存储 Unicode</h2><p>不将 Unicode 转为实际的文本存储字符集，而是将 Unicode 的内存编码值直接存储，读取文件时再反向转换回来</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 存储</span></div><div class="line"><span class="comment"># 从 Unicode 到 Unicode-escape</span></div><div class="line"><span class="comment"># unicodestr.encode('unicode-escape')</span></div><div class="line"><span class="string">u'中文'</span>.encode(<span class="string">'unicode-escape'</span>)</div></pre></td></tr></table></figure>
+<pre><code>&apos;\\u4e2d\\u6587&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 读取</span></div><div class="line"><span class="comment"># 从 Unicode-escape 到 Unicode</span></div><div class="line"><span class="comment"># unicodestr.decode('unicode-escape')</span></div><div class="line"><span class="string">'\\u4e2d\\u6587'</span>.decode(<span class="string">'unicode-escape'</span>)</div></pre></td></tr></table></figure>
+<pre><code>u&apos;\u4e2d\u6587&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(<span class="string">u'\u4e2d\u6587'</span>)</div></pre></td></tr></table></figure>
+<pre><code>中文
+</code></pre><h2 id="直接存储-String"><a href="#直接存储-String" class="headerlink" title="直接存储 String"></a>直接存储 String</h2><p>对于 UTF-8 编码的字符串，在存储时也可以直接存储编码值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 存储</span></div><div class="line"><span class="comment"># 从 UTF-8 到 string-escape</span></div><div class="line"><span class="comment"># utf8str.encode('string-escape')</span></div><div class="line"><span class="string">'中文'</span>.encode(<span class="string">'string-escape'</span>)<span class="comment"># 注意 '中文' 是 UTF-8</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;\\xe4\\xb8\\xad\\xe6\\x96\\x87&apos;
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 读取</span></div><div class="line"><span class="comment"># 从 string-escape 到 UTF-8</span></div><div class="line"><span class="comment"># utf8str.decode('string-escape')</span></div><div class="line"><span class="string">'\\xe4\\xb8\\xad\\xe6\\x96\\x87'</span>.decode(<span class="string">'string-escape'</span>)<span class="comment"># 注意 string '中文' 是 UTF-8</span></div></pre></td></tr></table></figure>
+<pre><code>&apos;\xe4\xb8\xad\xe6\x96\x87&apos;
+</code></pre><h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000" target="_blank" rel="external">廖雪峰 Python 教程：廖神教程强烈推荐</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_6285b6f60100u15a.html" target="_blank" rel="external">python 的中文编码_乱码问题的解决方法和探寻</a>  </li>
+<li><a href="http://blog.csdn.net/liuxincumt/article/details/8183391" target="_blank" rel="external">初探 python 编码</a></li>
+<li><a href="http://bbs.csdn.net/topics/390388139" target="_blank" rel="external">Python 中 Unicode 字符串</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/03/05/Python-encode-decode/">
+    <time datetime="2017-03-05T08:59:07.126Z" class="entry-date">
+        2017-03-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2017/02/15/list-dict-series-dataframe-ndarray-transform/" rel="next">List, Dict, Array, Series, DataFrame 相互转换 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+<section id="comments">
+  <!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-Python-encode-decode" data-title="Python 编码笔记整理" data-url="http://www.yam.gift/2017/03/05/Python-encode-decode/"></div>
+  <!-- 多说评论框 end -->
+  <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:'Yam'};
+    (function() {
+	  var ds = document.createElement('script');
+	  ds.type = 'text/javascript';ds.async = true;
+	  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	  ds.charset = 'UTF-8';
+	  (document.getElementsByTagName('head')[0]
+	   || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+  <!-- 多说公共JS代码 end -->
+</section>
+
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://omaxbcyvb.bkt.clouddn.com/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/05/Python-encode-decode/">Python 编码笔记整理</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/15/list-dict-series-dataframe-ndarray-transform/">List, Dict, Array, Series, DataFrame 相互转换</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/19/NumPy/">Numpy 入门</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/04/Ubuntu-VirtualBox-Vagrant-questions/">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结</a>
+          </li>
+        
+          <li>
+            <a href="/2016/09/03/Simpson-Paradox/">辛普森悖论及其哲学思考</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 15px;">DataScience</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2017 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+</footer>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"16"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+</body>
+</html>
