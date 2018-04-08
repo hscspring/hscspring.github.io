@@ -1,22 +1,21 @@
-<% if (!index && post.comments && theme.laibili_shortname){ %>
-<section id="comments">
-  <!-- 来必力City版安装代码 -->
-  <div id="lv-container" data-id="city" data-uid="MTAyMC8zNTUzOC8xMjA3NA==">
-  <script type="text/javascript">
-     (function(d, s) {
-         var j, e = d.getElementsByTagName(s)[0];
-
-         if (typeof LivereTower === 'function') { return; }
-
-         j = d.createElement(s);
-         j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-         j.async = true;
-
-         e.parentNode.insertBefore(j, e);
-     })(document, 'script');
+<% if (!index && post.comments && theme.gitment_shortname){ %>
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    id: '<%=page.date%>', // 可选。默认为 location.href  比如我本人的就删除了
+    owner: 'hscspring',              //比如我的叫anTtutu
+    repo: 'hscspring.github.io',                 //比如我的叫anTtutu.github.io
+    oauth: {
+      client_id: '0eb512031083d6e7edfb',          //比如我的828***********
+      client_secret: 'e830808995dd813ca26fed50573760963457da37',  //比如我的49e************************
+    },
+  })
+  gitment.render('container')
   </script>
-  <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
-  </div>
-  <!-- City版安装代码已完成 -->
+  <!-- 评论代码已完成 -->
 </section>
 <% } %>
