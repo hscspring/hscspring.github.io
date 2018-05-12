@@ -14,18 +14,18 @@
   
   <title>Gan 系列笔记 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="说明：本系列为 Gan 系列笔记链接汇总  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer  1&amp;nbsp;&amp;nbsp;简介 2&amp;nbsp;&amp;nbsp;证明 2.1&amp;nbsp;&amp;nbsp;概念与过程形式化 2.2&amp;nbsp;&amp;nbsp;理论推导 2.3&amp;n">
+  <meta name="description" content="说明：本系列为 Gan 系列笔记链接汇总。  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer   文章目录 1  简介2  证明2.1  概念与过程形式化2.2  理论推导2.3  证明2.3.1  最优判别器2.3.2  最优生成器2.4  重述训练过程">
 <meta name="keywords" content="DeepLearning,AI,Gan">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gan 系列笔记">
 <meta property="og:url" content="http://www.yam.gift/2018/05/12/2018-03-26-Gan-Series/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="说明：本系列为 Gan 系列笔记链接汇总  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer  1&amp;nbsp;&amp;nbsp;简介 2&amp;nbsp;&amp;nbsp;证明 2.1&amp;nbsp;&amp;nbsp;概念与过程形式化 2.2&amp;nbsp;&amp;nbsp;理论推导 2.3&amp;n">
+<meta property="og:description" content="说明：本系列为 Gan 系列笔记链接汇总。  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer   文章目录 1  简介2  证明2.1  概念与过程形式化2.2  理论推导2.3  证明2.3.1  最优判别器2.3.2  最优生成器2.4  重述训练过程">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-12T10:24:39.869Z">
+<meta property="og:updated_time" content="2018-05-12T10:29:45.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gan 系列笔记">
-<meta name="twitter:description" content="说明：本系列为 Gan 系列笔记链接汇总  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer  1&amp;nbsp;&amp;nbsp;简介 2&amp;nbsp;&amp;nbsp;证明 2.1&amp;nbsp;&amp;nbsp;概念与过程形式化 2.2&amp;nbsp;&amp;nbsp;理论推导 2.3&amp;n">
+<meta name="twitter:description" content="说明：本系列为 Gan 系列笔记链接汇总。  Gan: From 0 to 1/2本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   注意：.ipynb 格式的如果打不开，可以借助：nbviewer   文章目录 1  简介2  证明2.1  概念与过程形式化2.2  理论推导2.3  证明2.3.1  最优判别器2.3.2  最优生成器2.4  重述训练过程">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -86,7 +86,7 @@
             
             <a href="/2018/05/12/2018-03-26-Gan-Series/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/05/12/2018-03-26-Gan-Series/" data-id="cjh38d4xv000mtdcaoc8mk3s8" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/05/12/2018-03-26-Gan-Series/" data-id="cjh391g7m000j9bca0ict9w1i" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,13 +95,17 @@
             <!-- Table of Contents -->
               
         <blockquote>
-<p>说明：本系列为 Gan 系列笔记链接汇总</p>
+<p>说明：本系列为 Gan 系列笔记链接汇总。</p>
 </blockquote>
 <h1 id="Gan-From-0-to-1-2"><a href="#Gan-From-0-to-1-2" class="headerlink" title="Gan: From 0 to 1/2"></a>Gan: From 0 to 1/2</h1><p>本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：<a href="https://github.com/hscspring/Note_GAN/blob/master/Gan.ipynb" target="_blank" rel="noopener">Gan</a> </p>
 <blockquote>
 <p>注意：<code>.ipynb</code> 格式的如果打不开，可以借助：<a href="http://nbviewer.jupyter.org" target="_blank" rel="noopener">nbviewer</a></p>
 </blockquote>
-<p></p><p><div class="lev1 toc-item"><a href="#简介" data-toc-modified-id="简介-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>简介 </a></div><div class="lev1 toc-item"><a href="#证明" data-toc-modified-id="证明-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>证明 </a></div><div class="lev2 toc-item"><a href="#概念与过程形式化" data-toc-modified-id="概念与过程形式化-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>概念与过程形式化 </a></div><div class="lev2 toc-item"><a href="#理论推导" data-toc-modified-id="理论推导-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>理论推导 </a></div><div class="lev2 toc-item"><a href="#证明" data-toc-modified-id="证明-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>证明 </a></div><div class="lev3 toc-item"><a href="#最优判别器" data-toc-modified-id="最优判别器-231"><span class="toc-item-num">2.3.1&nbsp;&nbsp;</span>最优判别器 </a></div><div class="lev3 toc-item"><a href="#最优生成器" data-toc-modified-id="最优生成器-232"><span class="toc-item-num">2.3.2&nbsp;&nbsp;</span>最优生成器 </a></div><div class="lev2 toc-item"><a href="#重述训练过程" data-toc-modified-id="重述训练过程-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>重述训练过程 </a></div><div class="lev3 toc-item"><a href="#参数优化过程" data-toc-modified-id="参数优化过程-241"><span class="toc-item-num">2.4.1&nbsp;&nbsp;</span>参数优化过程 </a></div><div class="lev3 toc-item"><a href="#实际训练过程" data-toc-modified-id="实际训练过程-242"><span class="toc-item-num">2.4.2&nbsp;&nbsp;</span>实际训练过程 </a></div><div class="lev3 toc-item"><a href="#最终过程" data-toc-modified-id="最终过程-243"><span class="toc-item-num">2.4.3&nbsp;&nbsp;</span>最终过程 </a></div><div class="lev1 toc-item"><a href="#代码" data-toc-modified-id="代码-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>代码 </a></div><div class="lev1 toc-item"><a href="#代码学习" data-toc-modified-id="代码学习-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>代码学习 </a></div><div class="lev1 toc-item"><a href="#应用" data-toc-modified-id="应用-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>应用 </a></div><div class="lev1 toc-item"><a href="#数据集" data-toc-modified-id="数据集-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>数据集 </a></div><div class="lev1 toc-item"><a href="#其他资料" data-toc-modified-id="其他资料-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>其他资料 </a></div><div class="lev1 toc-item"><a href="#参考文献" data-toc-modified-id="参考文献-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>参考文献 </a></div></p>
+<ul>
+<li><p>文章目录</p>
+<p>1  简介<br>2  证明<br>2.1  概念与过程形式化<br>2.2  理论推导<br>2.3  证明<br>2.3.1  最优判别器<br>2.3.2  最优生成器<br>2.4  重述训练过程<br>2.4.1  参数优化过程<br>2.4.2  实际训练过程<br>2.4.3  最终过程<br>3  代码<br>4  代码学习<br>5  应用<br>6  数据集<br>7  其他资料<br>8  参考文献</p>
+</li>
+</ul>
 <ul>
 <li><a href="https://github.com/hscspring/Note_GAN/tree/master/Demo1" target="_blank" rel="noopener">Demo1: 手写数字生成</a></li>
 <li><a href="https://github.com/hscspring/Note_GAN/tree/master/Demo2" target="_blank" rel="noopener">Demo2: 二次元头像生成</a></li>
