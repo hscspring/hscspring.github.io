@@ -1,6 +1,6 @@
 ---
 title: Gan 系列笔记
-date: 2018-05-12 17:07:19
+date: 2018-03-26 16:11:19
 categories: Coding
 tags: [Gan, AI, DeepLearning]
 ---
