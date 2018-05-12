@@ -5,7 +5,7 @@ categories: Coding
 tags: [Gan, AI, DeepLearning]
 ---
 
->说明：本系列为 Gan 系列笔记链接汇总
+>说明：本系列为 Gan 系列笔记链接汇总。
 
 # Gan: From 0 to 1/2
 
@@ -13,7 +13,28 @@ tags: [Gan, AI, DeepLearning]
 
 >注意：`.ipynb` 格式的如果打不开，可以借助：[nbviewer](http://nbviewer.jupyter.org)
 
-<p><div class="lev1 toc-item"><a href="#简介" data-toc-modified-id="简介-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>简介 </a></div><div class="lev1 toc-item"><a href="#证明" data-toc-modified-id="证明-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>证明 </a></div><div class="lev2 toc-item"><a href="#概念与过程形式化" data-toc-modified-id="概念与过程形式化-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>概念与过程形式化 </a></div><div class="lev2 toc-item"><a href="#理论推导" data-toc-modified-id="理论推导-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>理论推导 </a></div><div class="lev2 toc-item"><a href="#证明" data-toc-modified-id="证明-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>证明 </a></div><div class="lev3 toc-item"><a href="#最优判别器" data-toc-modified-id="最优判别器-231"><span class="toc-item-num">2.3.1&nbsp;&nbsp;</span>最优判别器 </a></div><div class="lev3 toc-item"><a href="#最优生成器" data-toc-modified-id="最优生成器-232"><span class="toc-item-num">2.3.2&nbsp;&nbsp;</span>最优生成器 </a></div><div class="lev2 toc-item"><a href="#重述训练过程" data-toc-modified-id="重述训练过程-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>重述训练过程 </a></div><div class="lev3 toc-item"><a href="#参数优化过程" data-toc-modified-id="参数优化过程-241"><span class="toc-item-num">2.4.1&nbsp;&nbsp;</span>参数优化过程 </a></div><div class="lev3 toc-item"><a href="#实际训练过程" data-toc-modified-id="实际训练过程-242"><span class="toc-item-num">2.4.2&nbsp;&nbsp;</span>实际训练过程 </a></div><div class="lev3 toc-item"><a href="#最终过程" data-toc-modified-id="最终过程-243"><span class="toc-item-num">2.4.3&nbsp;&nbsp;</span>最终过程 </a></div><div class="lev1 toc-item"><a href="#代码" data-toc-modified-id="代码-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>代码 </a></div><div class="lev1 toc-item"><a href="#代码学习" data-toc-modified-id="代码学习-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>代码学习 </a></div><div class="lev1 toc-item"><a href="#应用" data-toc-modified-id="应用-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>应用 </a></div><div class="lev1 toc-item"><a href="#数据集" data-toc-modified-id="数据集-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>数据集 </a></div><div class="lev1 toc-item"><a href="#其他资料" data-toc-modified-id="其他资料-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>其他资料 </a></div><div class="lev1 toc-item"><a href="#参考文献" data-toc-modified-id="参考文献-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>参考文献 </a></div>
+
+
+- 文章目录
+
+  1  简介
+  2  证明
+  2.1  概念与过程形式化
+  2.2  理论推导
+  2.3  证明
+  2.3.1  最优判别器
+  2.3.2  最优生成器
+  2.4  重述训练过程
+  2.4.1  参数优化过程
+  2.4.2  实际训练过程
+  2.4.3  最终过程
+  3  代码
+  4  代码学习
+  5  应用
+  6  数据集
+  7  其他资料
+  8  参考文献
+
 
 - [Demo1: 手写数字生成](https://github.com/hscspring/Note_GAN/tree/master/Demo1)
 - [Demo2: 二次元头像生成](https://github.com/hscspring/Note_GAN/tree/master/Demo2)
