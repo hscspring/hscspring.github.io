@@ -22,6 +22,13 @@
           </p>
         <% } %>
       <% } else { %>
+            <!-- Table of Contents -->
+              <% if(post.toc == true){ %>
+              <div id="toc" class="toc-article">
+                <strong class="toc-title">目录</strong>
+                <%- toc(post.content,{list_number:false}) %>
+              </div>
+            <% } %>
         <%- post.content %>
       <% } %>
     </div><!-- .entry-content -->
