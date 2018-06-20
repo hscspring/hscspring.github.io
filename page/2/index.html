@@ -86,7 +86,7 @@
             
             <a href="/2017/03/05/2017-03-05-Python-encode-decode/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/2017-03-05-Python-encode-decode/" data-id="cjh3cxjqh0007gtcatpkn7s38" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/2017-03-05-Python-encode-decode/" data-id="cjimfek490000ydcayu3r590x" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -283,6 +283,66 @@
 
 
   
+    <article id="post-2017-03-05-Pandas" class="post-2017-03-05-Pandas post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/03/05/2017-03-05-Pandas/">Pandas 入门</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="/2017/03/05/2017-03-05-Pandas/#comments" class="leave-reply">undefined</a>
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/2017-03-05-Pandas/" data-id="cjimfeaia0008thca9ztu91h1" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><p> </p><p><div class="lev1 toc-item"><a href="#Pandas-数据结构入门" data-toc-modified-id="Pandas-数据结构入门-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Pandas 数据结构入门</a></div><div class="lev2 toc-item"><a href="#Series" data-toc-modified-id="Series-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Series</a></div><div class="lev2 toc-item"><a href="#DataFrame" data-toc-modified-id="DataFrame-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>DataFrame</a></div><div class="lev2 toc-item"><a href="#索引对象" data-toc-modified-id="索引对象-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>索引对象</a></div><div class="lev1 toc-item"><a href="#重新索引：reindex" data-toc-modified-id="重新索引：reindex-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>重新索引：reindex</a></div><div class="lev1 toc-item"><a href="#从一个坐标轴删除条目" data-toc-modified-id="从一个坐标轴删除条目-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>从一个坐标轴删除条目</a></div><div class="lev2 toc-item"><a href="#索引，挑选和过滤" data-toc-modified-id="索引，挑选和过滤-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>索引，挑选和过滤</a></div><div class="lev3 toc-item"><a href="#使用标签选取数据" data-toc-modified-id="使用标签选取数据-311"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>使用标签选取数据</a></div><div class="lev3 toc-item"><a href="#使用位置选取数据" data-toc-modified-id="使用位置选取数据-312"><span class="toc-item-num">3.1.2&nbsp;&nbsp;</span>使用位置选取数据</a></div><div class="lev2 toc-item"><a href="#算术运算" data-toc-modified-id="算术运算-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>算术运算</a></div><div class="lev3 toc-item"><a href="#广播" data-toc-modified-id="广播-321"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>广播</a></div><div class="lev1 toc-item"><a href="#文件操作" data-toc-modified-id="文件操作-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>文件操作</a></div><div class="lev1 toc-item"><a href="#基本运算" data-toc-modified-id="基本运算-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>基本运算</a></div><div class="lev1 toc-item"><a href="#常用操作" data-toc-modified-id="常用操作-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>常用操作</a></div><div class="lev2 toc-item"><a href="#排序" data-toc-modified-id="排序-61"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>排序</a></div><div class="lev2 toc-item"><a href="#重命名列" data-toc-modified-id="重命名列-62"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>重命名列</a></div><div class="lev2 toc-item"><a href="#设置索引" data-toc-modified-id="设置索引-63"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>设置索引</a></div><div class="lev2 toc-item"><a href="#重设索引" data-toc-modified-id="重设索引-64"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>重设索引</a></div><div class="lev2 toc-item"><a href="#查看最大最小值" data-toc-modified-id="查看最大最小值-65"><span class="toc-item-num">6.5&nbsp;&nbsp;</span>查看最大最小值</a></div><div class="lev2 toc-item"><a href="#改变数据类型" data-toc-modified-id="改变数据类型-66"><span class="toc-item-num">6.6&nbsp;&nbsp;</span>改变数据类型</a></div><div class="lev2 toc-item"><a href="#计算-Series-每个值的频率" data-toc-modified-id="计算-Series-每个值的频率-67"><span class="toc-item-num">6.7&nbsp;&nbsp;</span>计算 Series 每个值的频率</a></div><div class="lev1 toc-item"><a href="#DataFrame-的合并" data-toc-modified-id="DataFrame-的合并-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>DataFrame 的合并</a></div><div class="lev2 toc-item"><a href="#Concat" data-toc-modified-id="Concat-71"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Concat</a></div><div class="lev2 toc-item"><a href="#Merge" data-toc-modified-id="Merge-72"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Merge</a></div><div class="lev2 toc-item"><a href="#Groupby" data-toc-modified-id="Groupby-73"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>Groupby</a></div><div class="lev1 toc-item"><a href="#透视表" data-toc-modified-id="透视表-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>透视表</a></div><div class="lev2 toc-item"><a href="#pivot_table" data-toc-modified-id="pivot_table-81"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>pivot_table</a></div><div class="lev2 toc-item"><a href="#crosstab" data-toc-modified-id="crosstab-82"><span class="toc-item-num">8.2&nbsp;&nbsp;</span>crosstab</a></div><div class="lev1 toc-item"><a href="#时间序列分析" data-toc-modified-id="时间序列分析-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>时间序列分析</a></div><div class="lev1 toc-item"><a href="#参考网站" data-toc-modified-id="参考网站-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>参考网站</a></div></p>
+<p>Pandas 建造在 NumPy 之上，它使得以 NumPy 为中心的应用很容易使用。</p>
+<p>由于 Hexo 对 Pandas 输出的表格支持不好，详细内容可点击：<a href="https://github.com/hscspring/DataScience/blob/master/DataClearing/Pandas.ipynb" target="_blank" rel="noopener">https://github.com/hscspring/DataScience/blob/master/DataClearing/Pandas.ipynb</a></p>
+<h2 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h2><ul>
+<li><a href="http://cloga.info/python/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/2013/09/17/pandasintro" target="_blank" rel="noopener">Cloga 的互联网笔记 </a>大神～</li>
+<li><a href="http://pda.readthedocs.io/en/latest/chp5.html" target="_blank" rel="noopener">Python For Data Analysis 0.1</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/03/05/2017-03-05-Pandas/">
+    <time datetime="2017-03-05T10:00:00.000Z" class="entry-date">
+        2017-03-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataScience/">DataScience</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-2017-02-15-list-dict-series-dataframe-ndarray-transform" class="post-2017-02-15-list-dict-series-dataframe-ndarray-transform post type-post status-publish format-standard hentry">
     <!---->
 
@@ -300,7 +360,7 @@
             
             <a href="/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/" data-id="cjh3cxjqf0005gtcaw3z5nmpj" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/" data-id="cjimfeai70003thcajolfw5i6" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -792,7 +852,7 @@ dtype: object
             
             <a href="/2016/09/19/2017-03-05-NumPy/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/19/2017-03-05-NumPy/" data-id="cjh3cxjqe0004gtca98l20hop" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/19/2017-03-05-NumPy/" data-id="cjimfeai80005thcandro3a0o" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -977,7 +1037,7 @@ dtype: object
             
             <a href="/2016/09/04/2016-09-20-Ubuntu-VirtualBox-Vagrant-questions/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/04/2016-09-20-Ubuntu-VirtualBox-Vagrant-questions/" data-id="cjh3cxjq40000gtcassitdv5t" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/04/2016-09-20-Ubuntu-VirtualBox-Vagrant-questions/" data-id="cjimfeahy0000thcafbu1bgsw" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1066,7 +1126,7 @@ dtype: object
             
             <a href="/2016/09/03/2016-09-21-Simpson-Paradox/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/03/2016-09-21-Simpson-Paradox/" data-id="cjh3cxjq90001gtcauinb6tg0" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/03/2016-09-21-Simpson-Paradox/" data-id="cjimfeai40001thca4sarb2w3" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1147,7 +1207,7 @@ dtype: object
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">4</span></li></ul>
     </div>
   </aside>
 
@@ -1157,6 +1217,10 @@ dtype: object
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/">浙大翁恺老师《程序设计入门——C语言》笔记</a>
+          </li>
         
           <li>
             <a href="/2018/05/16/2018-05-13-Essence-of-LinearAlgebra/">线性代数的本质笔记</a>
@@ -1174,10 +1238,6 @@ dtype: object
             <a href="/2018/04/22/2018-04-22-ML-Concept/">机器学习概念</a>
           </li>
         
-          <li>
-            <a href="/2018/04/07/2018-04-07-AI-Philosophy-Note/">人工智能哲学笔记</a>
-          </li>
-        
       </ul>
     </div>
   </aside>
@@ -1187,7 +1247,7 @@ dtype: object
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1196,7 +1256,7 @@ dtype: object
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 15px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Math/" style="font-size: 12.5px;">Math</a> <a href="/tags/NLP/" style="font-size: 12.5px;">NLP</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 10px;">Philosophy</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a>
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/C/" style="font-size: 10px;">C</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 15px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Math/" style="font-size: 12.5px;">Math</a> <a href="/tags/NLP/" style="font-size: 12.5px;">NLP</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 10px;">Philosophy</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a>
     </div>
   </aside>
 
