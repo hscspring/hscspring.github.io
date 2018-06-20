@@ -48,4 +48,4 @@ Please install one of the supported versions listed below to use Vagrant: 4.0, 4
 ```
    可参考这两个地方：  
    - [Unable to vagrant up - how to set “providers”](http://stackoverflow.com/questions/29450437/unable-to-vagrant-up-how-to-set-providers)
-   - [Make Virtualbox 5.1 final version compatible](https://github.com/mitchellh/vagrant/issues/7578)
+   - [Make Virtualbox 5.1 final version compatible](https://github.com/mitchellh/vagrant/issues/7578)  

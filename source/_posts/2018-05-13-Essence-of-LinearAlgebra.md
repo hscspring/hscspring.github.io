@@ -1,6 +1,6 @@
 ---
 title: 线性代数的本质笔记
-date: 2018-05-16 09:23:27
+date: 2018-05-13 09:23:27
 categories: Feeling
 tags: [LinearAlgebra, Math]
 ---
