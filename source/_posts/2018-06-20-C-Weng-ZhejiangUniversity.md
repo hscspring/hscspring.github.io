@@ -2,7 +2,7 @@
 title: 浙大翁恺老师《程序设计入门——C语言》笔记
 date: 2018-06-20 08:32:00
 categories: Coding
-tags: [C语言]
+tags: [C]
 ---
 
 >说明：本文档为浙大翁恺老师《程序设计入门——C语言》课程内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，内容不一定适合其他人。
@@ -11,7 +11,45 @@ tags: [C语言]
 
 # 目录
 
- <p><div class="lev1 toc-item"><a href="#1.-程序设计与-C-语言" data-toc-modified-id="1.-程序设计与-C-语言-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>1. 程序设计与 C 语言</a></div><div class="lev2 toc-item"><a href="#1.1-计算机和编程语言" data-toc-modified-id="1.1-计算机和编程语言-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>1.1 计算机和编程语言</a></div><div class="lev2 toc-item"><a href="#1.2-C-语言" data-toc-modified-id="1.2-C-语言-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>1.2 C 语言</a></div><div class="lev2 toc-item"><a href="#1.3-第一个程序" data-toc-modified-id="1.3-第一个程序-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>1.3 第一个程序</a></div><div class="lev1 toc-item"><a href="#2.-计算" data-toc-modified-id="2.-计算-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>2. 计算</a></div><div class="lev2 toc-item"><a href="#2.1-变量" data-toc-modified-id="2.1-变量-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>2.1 变量</a></div><div class="lev2 toc-item"><a href="#2.2-数据类型" data-toc-modified-id="2.2-数据类型-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>2.2 数据类型</a></div><div class="lev2 toc-item"><a href="#2.3-表达式" data-toc-modified-id="2.3-表达式-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>2.3 表达式</a></div><div class="lev1 toc-item"><a href="#3.-判断与循环" data-toc-modified-id="3.-判断与循环-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>3. 判断与循环</a></div><div class="lev2 toc-item"><a href="#3.1-判断" data-toc-modified-id="3.1-判断-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>3.1 判断</a></div><div class="lev2 toc-item"><a href="#3.2-循环" data-toc-modified-id="3.2-循环-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>3.2 循环</a></div><div class="lev1 toc-item"><a href="#4.-进一步的判断与循环" data-toc-modified-id="4.-进一步的判断与循环-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>4. 进一步的判断与循环</a></div><div class="lev2 toc-item"><a href="#4.1-逻辑类型和运算" data-toc-modified-id="4.1-逻辑类型和运算-41"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>4.1 逻辑类型和运算</a></div><div class="lev2 toc-item"><a href="#4.2-级联和嵌套的判断" data-toc-modified-id="4.2-级联和嵌套的判断-42"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>4.2 级联和嵌套的判断</a></div><div class="lev2 toc-item"><a href="#4.3-多路分支" data-toc-modified-id="4.3-多路分支-43"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>4.3 多路分支</a></div><div class="lev2 toc-item"><a href="#4.4-循环的例子" data-toc-modified-id="4.4-循环的例子-44"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>4.4 循环的例子</a></div><div class="lev2 toc-item"><a href="#4.5-判断和循环常见的错误" data-toc-modified-id="4.5-判断和循环常见的错误-45"><span class="toc-item-num">4.5&nbsp;&nbsp;</span>4.5 判断和循环常见的错误</a></div><div class="lev1 toc-item"><a href="#5.-循环控制" data-toc-modified-id="5.-循环控制-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>5. 循环控制</a></div><div class="lev2 toc-item"><a href="#5.1-循环控制" data-toc-modified-id="5.1-循环控制-51"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>5.1 循环控制</a></div><div class="lev2 toc-item"><a href="#5.2-多重循环" data-toc-modified-id="5.2-多重循环-52"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>5.2 多重循环</a></div><div class="lev2 toc-item"><a href="#5.3-循环应用" data-toc-modified-id="5.3-循环应用-53"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>5.3 循环应用</a></div><div class="lev1 toc-item"><a href="#6.-数组与函数" data-toc-modified-id="6.-数组与函数-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>6. 数组与函数</a></div><div class="lev2 toc-item"><a href="#6.1-数组" data-toc-modified-id="6.1-数组-61"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>6.1 数组</a></div><div class="lev2 toc-item"><a href="#6.2-函数的定义与使用" data-toc-modified-id="6.2-函数的定义与使用-62"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>6.2 函数的定义与使用</a></div><div class="lev2 toc-item"><a href="#6.3-函数的参数和变量" data-toc-modified-id="6.3-函数的参数和变量-63"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>6.3 函数的参数和变量</a></div><div class="lev2 toc-item"><a href="#6.4-二维数组" data-toc-modified-id="6.4-二维数组-64"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>6.4 二维数组</a></div><div class="lev1 toc-item"><a href="#7.-数组运算" data-toc-modified-id="7.-数组运算-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>7. 数组运算</a></div><div class="lev2 toc-item"><a href="#7.1-数组运算" data-toc-modified-id="7.1-数组运算-71"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>7.1 数组运算</a></div><div class="lev2 toc-item"><a href="#7.2-搜索" data-toc-modified-id="7.2-搜索-72"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>7.2 搜索</a></div><div class="lev2 toc-item"><a href="#7.3-排序初步" data-toc-modified-id="7.3-排序初步-73"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>7.3 排序初步</a></div><div class="lev1 toc-item"><a href="#8.-指针与字符串" data-toc-modified-id="8.-指针与字符串-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>8. 指针与字符串</a></div><div class="lev2 toc-item"><a href="#8.1-指针" data-toc-modified-id="8.1-指针-81"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>8.1 指针</a></div><div class="lev2 toc-item"><a href="#8.2-字符类型" data-toc-modified-id="8.2-字符类型-82"><span class="toc-item-num">8.2&nbsp;&nbsp;</span>8.2 字符类型</a></div><div class="lev2 toc-item"><a href="#8.3-字符串" data-toc-modified-id="8.3-字符串-83"><span class="toc-item-num">8.3&nbsp;&nbsp;</span>8.3 字符串</a></div><div class="lev2 toc-item"><a href="#8.4-字符串计算" data-toc-modified-id="8.4-字符串计算-84"><span class="toc-item-num">8.4&nbsp;&nbsp;</span>8.4 字符串计算</a></div><div class="lev1 toc-item"><a href="#期中测验" data-toc-modified-id="期中测验-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>期中测验</a></div><div class="lev1 toc-item"><a href="#期末考试" data-toc-modified-id="期末考试-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>期末考试</a></div><div class="lev1 toc-item"><a href="#附录" data-toc-modified-id="附录-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>附录</a></div>
+1. 程序设计与 C 语言
+  1.1 计算机和编程语言
+  1.2 C 语言
+  1.3 第一个程序
+2. 计算
+  2.1 变量
+  2.2 数据类型
+  2.3 表达式
+3. 判断与循环
+  3.1 判断
+  3.2 循环
+4. 进一步的判断与循环
+  4.1 逻辑类型和运算
+  4.2 级联和嵌套的判断
+  4.3 多路分支
+  4.4 循环的例子
+  4.5 判断和循环常见的错误
+5. 循环控制
+  5.1 循环控制
+  5.2 多重循环
+  5.3 循环应用
+6. 数组与函数
+  6.1 数组
+  6.2 函数的定义与使用
+  6.3 函数的参数和变量
+  6.4 二维数组
+7. 数组运算
+  7.1 数组运算
+  7.2 搜索
+  7.3 排序初步
+8. 指针与字符串
+  8.1 指针
+  8.2 字符类型
+  8.3 字符串
+  8.4 字符串计算
+
+期中测验
+期末考试
+附录
 
 # 1. 程序设计与 C 语言
 
@@ -450,7 +488,7 @@ C 语言不允许函数嵌套定义，但是可以放声明。
 二维数组的初始化：
 
 - 列数必须给出，行数可以由编译器来数；
-- 每行一个 {}，逗号分隔；
+- 每行一个 `{}`，逗号分隔；
 - 最后的逗号可以存在；
 - 如果省略，表示补零；
 
@@ -481,7 +519,7 @@ C 语言不允许函数嵌套定义，但是可以放声明。
 
 - `int a[] = {2,3,4}; int b[] = a;` 是不能赋值的
 - 必须遍历：`for (i=0; i<length; i++) {b[i] = a[i];}`
-- `int a[][3] = {{0},{1},{2}};`，`a = [[0,0,0],[1,0,0],[2,0,0]]`
+- `int a[][3] = { {0},{1},{2} };`，`a = [[0,0,0],[1,0,0],[2,0,0]]`
 
 遍历数组：
 
@@ -489,7 +527,7 @@ C 语言不允许函数嵌套定义，但是可以放声明。
 
 数组作为函数参数时，往往**必须再用另一个参数来传入数组大小**：
 
-- 不能在 [] 中给出数组大小
+- 不能在 `[]` 中给出数组大小
 - 不能再利用 sizeof 来计算数组的元素个数
 
 求素数（待补充）：
@@ -858,10 +896,10 @@ int main()
 
 1. `scanf("%d%c%f", &op1, &op, &op2);` 输入什么后，op1 的值为 1，op 的值为 `*`，op2 的值为 2.0
 
-   - A. 1 * 2.0
-   - B. 1 * 2.
-   - C. 1 *2.
-   - D. 1* 2（√）没有空格遇到整数停下。
+   - A. `1 * 2.0`
+   - B. `1 * 2.`
+   - C. `1 *2.`
+   - D. `1* 2`（√）没有空格遇到整数停下。
 
 2. `while (!x&&!y)` 等价于 `!(x||y)`
 
@@ -871,14 +909,14 @@ int main()
 
 5. 给定原型 `void f(double dd);` 和如下变量定义：`double a;`，那个函数调用不能被编译：
 
-   - A. f(1u);
-   - B. f(1);
-   - C. f(a);
-   - D. f(&a);（√）
+   - A. `f(1u);`
+   - B. `f(1);`
+   - C. `f(a);`
+   - D. `f(&a)`;（√）
 
 6. `struct` 是无效的 C 语言变量名。
 
-7. 以下代码的输出为：3#Zhe#
+7. 以下代码的输出为：`3#Zhe#`
 
   ```c
    char s[]="Zhejiang";
