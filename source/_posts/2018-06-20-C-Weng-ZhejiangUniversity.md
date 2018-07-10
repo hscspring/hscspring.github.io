@@ -840,7 +840,7 @@ int main()
     - `char buffer[100] = "";`， 此时：`buffer[0] == '\0'`
     - `char buffer[] = "";` 这个数组的长度只有 1
 
-- 字符串函数（string.h）
+- 字符串函数（string.h）：部分内容来自进阶课程，在此处合并。
   - strlen：
 
     - 字符串长度，不包括结尾的 0
@@ -853,17 +853,86 @@ int main()
 
   - strcmp：
 
+    - `int strcmp(const char *s1, const char *s2);`
+
     - 比较两个字符串，**不相等时，给出的是差值**
 
     - 相等时：`if (strcmp(s1, s2)==0)`，数组的比较永远是 false，因为永远不会是相同的地址，所以不能用 `s1==s2`
 
-    - `'abc'-'abc '=-32;`
+    - `'abc'-'abc '=-32;// 注意：第二个字符串后面有个空格，空格 ASCII 就是 32`
 
       ![](http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg)
 
+    - mystrcmp
+
+      ```C
+      int mycmp1(const char* s1, const char* s2)
+      {
+      	int idx = 0;
+      	while (s1[idx] == s2[idx] && s1[idx] != '\0') {
+      		idx ++;
+      	}
+      	return s1[idx] - s2[idx];
+      }
+      
+      int mycmp2(const char* s1, const char* s2)
+      {
+      	while (*s1 == *s2 && *s1 != '\0') {
+      		s1 ++;
+      		s2 ++;
+      	}
+      	return *s1 - *s2;
+      }
+      ```
+
   - strcpy：
 
+    - `char *strcpy(char *restrict dst, const char *restrict src);`
+
     - copy，把第二个字符串拷贝到第一个字符串所在的空间
+
+    - restrict 表明 src 和 dst 不重叠（C99）
+
+    - 返回 dst：为了能连起代码来
+
+    - 经常用来**复制字符串**：
+
+      - `char *dst = (char*)malloc(strlen(src)+1);`
+      - `strcpy(dst, src);`
+
+    - mystrcpy
+
+      ```C
+      int mycpy1(char* dst, const char* src)
+      {
+      	int idx = 0;
+      	while (src[idx] != '\0') { // while (src[idx])
+      		dst[idx] = src[idx];
+      		idx++;	
+      	}
+      	dst[idx] = src[idx]; // or '\0'
+      	return dst;
+      }
+      
+      int mycpy2(char* dst, const char* src)
+      {	
+      	char* ret = dst;
+      	while (*src) {
+      		*dst++ = *src++;
+      	}
+      	*dst = '\0';
+      	return ret;
+      }
+      
+      int mycpy3(char* dst, const char* src)
+      {	
+      	char* ret = dst;
+      	while (*dst++ = *src++) 
+      		;
+      	*dst = '\0';
+      	return ret;
+      }
+      ```
 
   - strcat：
 
@@ -880,8 +949,44 @@ int main()
   - strchr 字符串中从左边开始找字符；strrchr 从右边开始
 
     - `char *strchr(const char *s, int c);`
+
     - `char *strrchr(const char *s, int c);`
-    - 返回 NULL 表示没有找到，否则返回一个指针指向你要找的字符。
+
+    - 返回 NULL 表示没有找到，否则**返回一个指针指向你要找的字符**。
+
+    - 如何寻找第二个？`strchr(p+1, 'l');`
+
+      ```C
+      int main(int argc, char const *argv[])
+      {
+      	char s[] = "Hello";
+      	char *p = strchr(s, 'l');
+      	
+      	// 第一段：获得 l 前面的
+      	char c = *p;
+      	*p = '\0';
+          char *t1 = (char*)malloc(strlen(s)+1);
+      	strcpy(t1, s); // 此时的 s 即为：he
+          *p = c; // 把原来位置的东西给写回去
+          printf("%s\n", t1);
+      	
+          // 第二段：获得 l 后面的
+      	char *t2 = (char*)malloc(strlen(p)+1);
+      	strcpy(t2, p); // 将 p 所指的东西拷到 t，此时的 p 为 llo
+          printf("%s\n", t2);
+      	p = strchr(p+1, 'l'); // 获得第二个 l 之后的，此时的 p 为 lo
+      	printf("%s\n", p); // llo，返回第一个 l 指向的指针，指向那个字符及后面的字符串
+      
+      	free(t1);
+          free(t2);
+          return 0;
+      }
+      ```
+
+  - 字符串中查找字符串：
+
+    - `char *strstr(const char *s1, const char *s2);`
+    - `char *strcasestr(const char *s1, const char *s2); // 忽略大小写`
 
 # 期中测验
 
