@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-9.jpeg">
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-10.jpeg">
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg">
-<meta property="og:updated_time" content="2018-06-20T01:39:29.031Z">
+<meta property="og:updated_time" content="2018-07-10T15:14:17.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浙大翁恺老师《程序设计入门——C语言》笔记">
 <meta name="twitter:description" content="说明：本文档为浙大翁恺老师《程序设计入门——C语言》课程内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，内容不一定适合其他人。 翁老师讲课真的很通俗易懂，这个课程作为入门课难度适中，推荐需要学习 C 语言的同学从这门课开始。  目录 程序设计与 C 语言1.1 计算机和编程语言1.2 C 语言1.3 第一个程序 计算2.1 变量2.2 数据类型2.3 表达式 判断与循环3.1 判断3.">
@@ -96,7 +96,7 @@
             
             <a href="/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/" data-id="cjimgc30w0010npcavxct9sxn" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/" data-id="cjjfu3v55002xwacaci6j955p" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -646,7 +646,7 @@
 </li>
 </ul>
 </li>
-<li><p>字符串函数（string.h）</p>
+<li><p>字符串函数（string.h）：部分内容来自进阶课程，在此处合并。</p>
 <ul>
 <li><p>strlen：</p>
 <ul>
@@ -664,18 +664,39 @@
 </li>
 <li><p>strcmp：</p>
 <ul>
+<li><p><code>int strcmp(const char *s1, const char *s2);</code></p>
+</li>
 <li><p>比较两个字符串，<strong>不相等时，给出的是差值</strong></p>
 </li>
 <li><p>相等时：<code>if (strcmp(s1, s2)==0)</code>，数组的比较永远是 false，因为永远不会是相同的地址，所以不能用 <code>s1==s2</code></p>
 </li>
-<li><p><code>&#39;abc&#39;-&#39;abc &#39;=-32;</code></p>
+<li><p><code>&#39;abc&#39;-&#39;abc &#39;=-32;// 注意：第二个字符串后面有个空格，空格 ASCII 就是 32</code></p>
 <p><img src="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg" alt=""></p>
+</li>
+<li><p>mystrcmp</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycmp1</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s1, <span class="keyword">const</span> <span class="keyword">char</span>* s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (s1[idx] == s2[idx] &amp;&amp; s1[idx] != <span class="string">'\0'</span>) &#123;</span><br><span class="line">		idx ++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> s1[idx] - s2[idx];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycmp2</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* s1, <span class="keyword">const</span> <span class="keyword">char</span>* s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (*s1 == *s2 &amp;&amp; *s1 != <span class="string">'\0'</span>) &#123;</span><br><span class="line">		s1 ++;</span><br><span class="line">		s2 ++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> *s1 - *s2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 <li><p>strcpy：</p>
 <ul>
-<li>copy，把第二个字符串拷贝到第一个字符串所在的空间</li>
+<li><p><code>char *strcpy(char *restrict dst, const char *restrict src);</code></p>
+</li>
+<li><p>copy，把第二个字符串拷贝到第一个字符串所在的空间</p>
+</li>
+<li><p>restrict 表明 src 和 dst 不重叠（C99）</p>
+</li>
+<li><p>返回 dst：为了能连起代码来</p>
+</li>
+<li><p>经常用来<strong>复制字符串</strong>：</p>
+<ul>
+<li><code>char *dst = (char*)malloc(strlen(src)+1);</code></li>
+<li><code>strcpy(dst, src);</code></li>
+</ul>
+</li>
+<li><p>mystrcpy</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy1</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (src[idx] != <span class="string">'\0'</span>) &#123; <span class="comment">// while (src[idx])</span></span><br><span class="line">		dst[idx] = src[idx];</span><br><span class="line">		idx++;	</span><br><span class="line">	&#125;</span><br><span class="line">	dst[idx] = src[idx]; <span class="comment">// or '\0'</span></span><br><span class="line">	<span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy2</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*src) &#123;</span><br><span class="line">		*dst++ = *src++;</span><br><span class="line">	&#125;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy3</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*dst++ = *src++) </span><br><span class="line">		;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p>strcat：</p>
@@ -694,9 +715,21 @@
 </li>
 <li><p>strchr 字符串中从左边开始找字符；strrchr 从右边开始</p>
 <ul>
-<li><code>char *strchr(const char *s, int c);</code></li>
-<li><code>char *strrchr(const char *s, int c);</code></li>
-<li>返回 NULL 表示没有找到，否则返回一个指针指向你要找的字符。</li>
+<li><p><code>char *strchr(const char *s, int c);</code></p>
+</li>
+<li><p><code>char *strrchr(const char *s, int c);</code></p>
+</li>
+<li><p>返回 NULL 表示没有找到，否则<strong>返回一个指针指向你要找的字符</strong>。</p>
+</li>
+<li><p>如何寻找第二个？<code>strchr(p+1, &#39;l&#39;);</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> s[] = <span class="string">"Hello"</span>;</span><br><span class="line">	<span class="keyword">char</span> *p = <span class="built_in">strchr</span>(s, <span class="string">'l'</span>);</span><br><span class="line">	<span class="comment">// 第一段：获得 l 前面的</span></span><br><span class="line">	<span class="keyword">char</span> c = *p;</span><br><span class="line">	*p = <span class="string">'\0'</span>;</span><br><span class="line">    <span class="keyword">char</span> *t1 = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="built_in">strlen</span>(s)+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">strcpy</span>(t1, s); <span class="comment">// 此时的 s 即为：he</span></span><br><span class="line">    *p = c; <span class="comment">// 把原来位置的东西给写回去</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, t1);</span><br><span class="line">    <span class="comment">// 第二段：获得 l 后面的</span></span><br><span class="line">	<span class="keyword">char</span> *t2 = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="built_in">strlen</span>(p)+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">strcpy</span>(t2, p); <span class="comment">// 将 p 所指的东西拷到 t，此时的 p 为 llo</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, t2);</span><br><span class="line">	p = <span class="built_in">strchr</span>(p+<span class="number">1</span>, <span class="string">'l'</span>); <span class="comment">// 获得第二个 l 之后的，此时的 p 为 lo</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, p); <span class="comment">// llo，返回第一个 l 指向的指针，指向那个字符及后面的字符串</span></span><br><span class="line">	<span class="built_in">free</span>(t1);</span><br><span class="line">    <span class="built_in">free</span>(t2);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>字符串中查找字符串：</p>
+<ul>
+<li><code>char *strstr(const char *s1, const char *s2);</code></li>
+<li><code>char *strcasestr(const char *s1, const char *s2); // 忽略大小写</code></li>
 </ul>
 </li>
 </ul>
