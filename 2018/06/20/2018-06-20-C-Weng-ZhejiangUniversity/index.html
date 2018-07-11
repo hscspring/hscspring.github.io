@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-9.jpeg">
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-10.jpeg">
 <meta property="og:image" content="http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg">
-<meta property="og:updated_time" content="2018-07-10T15:14:17.065Z">
+<meta property="og:updated_time" content="2018-07-11T13:56:59.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浙大翁恺老师《程序设计入门——C语言》笔记">
 <meta name="twitter:description" content="说明：本文档为浙大翁恺老师《程序设计入门——C语言》课程内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，内容不一定适合其他人。 翁老师讲课真的很通俗易懂，这个课程作为入门课难度适中，推荐需要学习 C 语言的同学从这门课开始。  目录 程序设计与 C 语言1.1 计算机和编程语言1.2 C 语言1.3 第一个程序 计算2.1 变量2.2 数据类型2.3 表达式 判断与循环3.1 判断3.">
@@ -96,7 +96,7 @@
             
             <a href="/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/#comments" class="leave-reply">undefined</a>
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/" data-id="cjjfu3v55002xwacaci6j955p" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/06/20/2018-06-20-C-Weng-ZhejiangUniversity/" data-id="cjjh8xqmd002swncarlatf22u" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -646,9 +646,7 @@
 </li>
 </ul>
 </li>
-<li><p>字符串函数（string.h）：部分内容来自进阶课程，在此处合并。</p>
-<ul>
-<li><p>strlen：</p>
+<li><p>strlen：部分内容来自进阶课程，在此处合并。 </p>
 <ul>
 <li><p>字符串长度，不包括结尾的 0</p>
 </li>
@@ -662,7 +660,7 @@
 </li>
 </ul>
 </li>
-<li><p>strcmp：</p>
+<li><p>strcmp：部分内容来自进阶课程，在此处合并。</p>
 <ul>
 <li><p><code>int strcmp(const char *s1, const char *s2);</code></p>
 </li>
@@ -678,7 +676,7 @@
 </li>
 </ul>
 </li>
-<li><p>strcpy：</p>
+<li><p>strcpy：部分内容来自进阶课程，在此处合并。</p>
 <ul>
 <li><p><code>char *strcpy(char *restrict dst, const char *restrict src);</code></p>
 </li>
@@ -695,10 +693,10 @@
 </ul>
 </li>
 <li><p>mystrcpy</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy1</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (src[idx] != <span class="string">'\0'</span>) &#123; <span class="comment">// while (src[idx])</span></span><br><span class="line">		dst[idx] = src[idx];</span><br><span class="line">		idx++;	</span><br><span class="line">	&#125;</span><br><span class="line">	dst[idx] = src[idx]; <span class="comment">// or '\0'</span></span><br><span class="line">	<span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy2</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*src) &#123;</span><br><span class="line">		*dst++ = *src++;</span><br><span class="line">	&#125;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mycpy3</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*dst++ = *src++) </span><br><span class="line">		;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">mycpy1</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (src[idx] != <span class="string">'\0'</span>) &#123; <span class="comment">// while (src[idx])</span></span><br><span class="line">		dst[idx] = src[idx];</span><br><span class="line">		idx++;	</span><br><span class="line">	&#125;</span><br><span class="line">	dst[idx] = src[idx]; <span class="comment">// or '\0'</span></span><br><span class="line">	<span class="keyword">return</span> dst;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">mycpy2</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*src) &#123;</span><br><span class="line">		*dst++ = *src++;</span><br><span class="line">	&#125;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">mycpy3</span><span class="params">(<span class="keyword">char</span>* dst, <span class="keyword">const</span> <span class="keyword">char</span>* src)</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">char</span>* ret = dst;</span><br><span class="line">	<span class="keyword">while</span> (*dst++ = *src++) </span><br><span class="line">		;</span><br><span class="line">	*dst = <span class="string">'\0'</span>;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
+<ul>
 <li><p>strcat：</p>
 <ul>
 <li>把 s2 拷贝到 s1 的后面，接成一个长的字符串</li>
@@ -713,7 +711,7 @@
 <li>对于比较有：strncmp 表示<strong>比较前 n 个</strong> <code>int strncmp(const char *s1, const char *s2, size_t n);</code>，这个 n 不是为了安全，为了方便比较前 n 个。</li>
 </ul>
 </li>
-<li><p>strchr 字符串中从左边开始找字符；strrchr 从右边开始</p>
+<li><p>strchr 字符串中从左边开始找字符；strrchr 从右边开始。部分内容来自进阶课程，在此处合并。</p>
 <ul>
 <li><p><code>char *strchr(const char *s, int c);</code></p>
 </li>
