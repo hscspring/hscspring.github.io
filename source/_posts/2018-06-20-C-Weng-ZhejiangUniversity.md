@@ -840,32 +840,30 @@ int main()
     - `char buffer[100] = "";`， 此时：`buffer[0] == '\0'`
     - `char buffer[] = "";` 这个数组的长度只有 1
 
-- 字符串函数（string.h）：部分内容来自进阶课程，在此处合并。
-  - strlen：
+- strlen：部分内容来自进阶课程，在此处合并。 
+  - 字符串长度，不包括结尾的 0
 
-    - 字符串长度，不包括结尾的 0
+  - `size_t strlen(const char *s);`
 
-    - `size_t strlen(const char *s);`
+    - 作为参数，数组和指针一样，所以这里用指针的形式表达
 
-      - 作为参数，数组和指针一样，所以这里用指针的形式表达
+    - `const` 保证 strlen 不会修改字符串
 
-      - `const` 保证 strlen 不会修改字符串
+- strcmp：部分内容来自进阶课程，在此处合并。
 
-  - strcmp：
+  - `int strcmp(const char *s1, const char *s2);`
 
-    - `int strcmp(const char *s1, const char *s2);`
+  - 比较两个字符串，**不相等时，给出的是差值**
 
-    - 比较两个字符串，**不相等时，给出的是差值**
+  - 相等时：`if (strcmp(s1, s2)==0)`，数组的比较永远是 false，因为永远不会是相同的地址，所以不能用 `s1==s2`
 
-    - 相等时：`if (strcmp(s1, s2)==0)`，数组的比较永远是 false，因为永远不会是相同的地址，所以不能用 `s1==s2`
+  - `'abc'-'abc '=-32;// 注意：第二个字符串后面有个空格，空格 ASCII 就是 32`
 
-    - `'abc'-'abc '=-32;// 注意：第二个字符串后面有个空格，空格 ASCII 就是 32`
+    ![](http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg)
 
-      ![](http://ohjwan9tm.bkt.clouddn.com/video-zhedac-11.jpeg)
+  - mystrcmp
 
-    - mystrcmp
-
-      ```C
+    ```C
       int mycmp1(const char* s1, const char* s2)
       {
       	int idx = 0;
@@ -883,9 +881,9 @@ int main()
       	}
       	return *s1 - *s2;
       }
-      ```
+    ```
 
-  - strcpy：
+- strcpy：部分内容来自进阶课程，在此处合并。
 
     - `char *strcpy(char *restrict dst, const char *restrict src);`
 
@@ -903,7 +901,7 @@ int main()
     - mystrcpy
 
       ```C
-      int mycpy1(char* dst, const char* src)
+      char* mycpy1(char* dst, const char* src)
       {
       	int idx = 0;
       	while (src[idx] != '\0') { // while (src[idx])
@@ -914,7 +912,7 @@ int main()
       	return dst;
       }
       
-      int mycpy2(char* dst, const char* src)
+      char* mycpy2(char* dst, const char* src)
       {	
       	char* ret = dst;
       	while (*src) {
@@ -924,7 +922,7 @@ int main()
       	return ret;
       }
       
-      int mycpy3(char* dst, const char* src)
+      char* mycpy3(char* dst, const char* src)
       {	
       	char* ret = dst;
       	while (*dst++ = *src++) 
@@ -946,7 +944,7 @@ int main()
     - `char * strncat(char *restrict s1, const char *restrict s2, size_t n)`
     - 对于比较有：strncmp 表示**比较前 n 个** `int strncmp(const char *s1, const char *s2, size_t n);`，这个 n 不是为了安全，为了方便比较前 n 个。
 
-  - strchr 字符串中从左边开始找字符；strrchr 从右边开始
+  - strchr 字符串中从左边开始找字符；strrchr 从右边开始。部分内容来自进阶课程，在此处合并。
 
     - `char *strchr(const char *s, int c);`
 
