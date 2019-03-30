@@ -84,7 +84,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/19/2016-09-19-NumPy/" data-id="cjtvir6zu001zbzccdnigcv2j" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/19/2016-09-19-NumPy/" data-id="cjtvlc04k001zexcc4rorhohp" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -173,7 +173,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a[:,j]   # i.e., a[ : , j]</span><br><span class="line">array(</span><br><span class="line">[[[ 2,  1],</span><br><span class="line">    [ 3,  3]],</span><br><span class="line">   [[ 6,  5],</span><br><span class="line">    [ 7,  7]],</span><br><span class="line">   [[10,  9],</span><br><span class="line">    [11, 11]]])</span><br></pre></td></tr></table></figure>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; l = [i,j]</span><br><span class="line">&gt;&gt;&gt; a[l]      # equivalent to a[i,j]</span><br><span class="line">array(</span><br><span class="line">[[ 2,  5],</span><br><span class="line">   [ 7, 11]])</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; s = np.array( [i,j] ) # s.shape = (2, 2, 2)</span><br><span class="line">&gt;&gt;&gt; a[s]      # not what we want</span><br><span class="line">Traceback (most recent call last): File &quot;&lt;stdin&gt;&quot;, line 1, in ?</span><br><span class="line">IndexError: index (3) out of range (0&lt;=index&lt;=2) in dimension 0</span><br><span class="line">&gt;&gt;&gt; a[tuple(s)]       # same as a[i,j]</span><br><span class="line">array(</span><br><span class="line">[[ 2,  5],</span><br><span class="line">   [ 7, 11]])</span><br></pre></td></tr></table></figure>
-<h4 id="Search max & min">Search max &amp; min</h4>
+<h4 id="Search max & min">Search max & min</h4>
 
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; time = np.linspace(20, 145, 5)    # time scale</span><br><span class="line">&gt;&gt;&gt; data = np.sin(np.arange(20)).reshape(5,4)</span><br><span class="line">&gt;&gt;&gt; time</span><br><span class="line">array([  20\.  ,   51.25,   82.5 ,  113.75,  145\.  ])</span><br><span class="line">&gt;&gt;&gt; data</span><br><span class="line">array(</span><br><span class="line">[[ 0\.       ,  0.84147098,  0.90929743,  0.14112001],</span><br><span class="line">   [-0.7568025 , -0.95892427, -0.2794155 ,  0.6569866 ],</span><br><span class="line">   [ 0.98935825,  0.41211849, -0.54402111, -0.99999021],</span><br><span class="line">   [-0.53657292,  0.42016704,  0.99060736,  0.65028784],</span><br><span class="line">   [-0.28790332, -0.96139749, -0.75098725,  0.14987721]])</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; ind = data.argmax(axis=0)  # index of the maxima for each series</span><br><span class="line">&gt;&gt;&gt; ind</span><br><span class="line">array([2, 0, 3, 1]) # 位置</span><br></pre></td></tr></table></figure>
@@ -395,6 +395,38 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
