@@ -1,4 +1,4 @@
-<% if (!index && post.comments && theme.gitment_shortname){ %>
+<% if (!index && post.comments && theme.gitalk){ %>
 
 <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
 <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
@@ -10,12 +10,12 @@
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
-    clientID: '0eb512031083d6e7edfb',
-    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
-    repo: 'hscspring.github.io',
-    owner: 'hscspring',
-    admin: ['hscspring'],
-    id: location.pathname,
+    clientID: '{{theme.gitalk.id}}',,
+    clientSecret: '{{ theme.gitalk.secret }}',
+    repo: '{{ theme.gitalk.repo }}',
+    owner: '{{ theme.gitalk.owner }}',
+    admin: ['{{ theme.gitalk.owner }}'],
+    id: location.href,
     distractionFreeMode: false
   })
   gitalk.render('gitalk-container')
