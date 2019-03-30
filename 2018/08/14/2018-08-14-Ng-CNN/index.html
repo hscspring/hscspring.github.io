@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-86.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-87.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpg">
-<meta property="og:updated_time" content="2019-03-30T14:47:23.170Z">
+<meta property="og:updated_time" content="2019-03-30T14:55:53.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NG CNN 笔记">
 <meta name="twitter:description" content="说明：来自卷积神经网络 - 网易云课堂的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）  目录 1&amp;nbsp;&amp;nbsp;Week1 卷积神经网络 1.1&amp;nbsp;&amp;nbsp;计算机视觉 1.2&amp;nbsp;&amp;nbsp;边缘检测示例 1.3&amp;nbsp;&amp;nbsp;更多边缘检测内容 1.4&amp;nbsp;&amp;nbsp;Padding1.5&amp;nbsp;&amp;nbsp;卷积步长 1.6&amp;nbsp;&amp;">
@@ -468,10 +468,10 @@
 </li>
 <li><p>Style Cost</p>
 <ul>
-<li><p><strong>Style matrix</strong> is also called a “Gram matrix.” In linear algebra, the Gram matrix G of a set of vectors $(v<em>{1},\dots ,v</em>{n})$ is the matrix of dot products, whose entries are ${\displaystyle G<em>{ij} = v</em>{i}^T v<em>{j} = np.dot(v</em>{i}, v<em>{j})  }$. In other words, $G</em>{ij}$ compares how similar $v<em>i$ is to $v_j$: If they are highly similar, you would expect them to have a large dot product, and thus for $G</em>{ij}$ to be large. </p>
+<li><p><strong>Style matrix</strong> is also called a “Gram matrix.” In linear algebra, the Gram matrix G of a set of vectors $(v_{1},\dots ,v_{n})$ is the matrix of dot products, whose entries are ${\displaystyle G_{ij} = v_{i}^T v_{j} = np.dot(v_{i}, v_{j})  }$. In other words, $G_{ij}$ compares how similar $v_i$ is to $v_j$: If they are highly similar, you would expect them to have a large dot product, and thus for $G_{ij}$ to be large. </p>
 <p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpg" alt=""></p>
-<p>The result is a matrix of dimension $(n<em>C,n_C)$ where $n_C$ is the number of filters. The value $G</em>{ij}$ measures how similar the activations of filter $i$ are to the activations of filter $j$. </p>
-<p>One important part of the gram matrix is that the diagonal elements such as $G<em>{ii}$ also measures how active filter $i$ is. For example, suppose filter $i$ is detecting vertical textures in the image. Then $G</em>{ii}$ measures how common  vertical textures are in the image as a whole: If $G_{ii}$ is large, this means that the image has a lot of vertical texture. </p>
+<p>The result is a matrix of dimension $(n_C,n_C)$ where $n_C$ is the number of filters. The value $G_{ij}$ measures how similar the activations of filter $i$ are to the activations of filter $j$. </p>
+<p>One important part of the gram matrix is that the diagonal elements such as $G_{ii}$ also measures how active filter $i$ is. For example, suppose filter $i$ is detecting vertical textures in the image. Then $G_{ii}$ measures how common  vertical textures are in the image as a whole: If $G_{ii}$ is large, this means that the image has a lot of vertical texture. </p>
 </li>
 <li><p><strong>Style cost</strong>: After generating the Style matrix (Gram matrix), the goal will be to minimize the distance between the Gram matrix of the “style” image S and that of the “generated” image G. </p>
 </li>
