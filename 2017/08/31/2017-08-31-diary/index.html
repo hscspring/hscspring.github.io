@@ -84,8 +84,6 @@
         
         <!-- <div class="comments-link">
             
-            <a href="/2017/08/31/2017-08-31-diary/#comments" class="leave-reply">undefined</a>
-            
             <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/08/31/2017-08-31-diary/" data-id="cjtvir6yz0008bzccbb8muv9y" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
@@ -153,12 +151,12 @@
   <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
-    clientID: '0eb512031083d6e7edfb',
-    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
-    repo: 'hscspring.github.io',
-    owner: 'hscspring',
-    admin: ['hscspring'],
-    id: location.pathname,
+    clientID: '{{theme.gitalk.id}}',,
+    clientSecret: '{{ theme.gitalk.secret }}',
+    repo: '{{ theme.gitalk.repo }}',
+    owner: '{{ theme.gitalk.owner }}',
+    admin: ['{{ theme.gitalk.owner }}'],
+    id: location.href,
     distractionFreeMode: false
   })
   gitalk.render('gitalk-container')
