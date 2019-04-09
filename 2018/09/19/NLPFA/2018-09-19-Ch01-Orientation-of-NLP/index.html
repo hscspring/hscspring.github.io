@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>自然语言计算机形式分析的理论与方法笔记(Ch01) | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第一章：自然语言处理的学科定位从自然语言处理的过程、范围和历史三个角度考察学科定位问题。  过程：纵的角度 范围：横的角度 历史：发展的角度  从自然语言处理的过程考察 计算机对自然语言研究和处理的四个过程： 语言 “形式化” 形式 “算法化” 算法 “程序化” 程序 “实用化”   建立自然语言处理模型需要不同平面的知识： 声学和韵律学的知识：描述语言的节奏、语调和声调的规律，说明语音怎样形成音">
+<meta name="keywords" content="NLP,AI,Orientation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言计算机形式分析的理论与方法笔记(Ch01)">
+<meta property="og:url" content="http://www.yam.gift/2018/09/19/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="第一章：自然语言处理的学科定位从自然语言处理的过程、范围和历史三个角度考察学科定位问题。  过程：纵的角度 范围：横的角度 历史：发展的角度  从自然语言处理的过程考察 计算机对自然语言研究和处理的四个过程： 语言 “形式化” 形式 “算法化” 算法 “程序化” 程序 “实用化”   建立自然语言处理模型需要不同平面的知识： 声学和韵律学的知识：描述语言的节奏、语调和声调的规律，说明语音怎样形成音">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-09T13:26:25.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch01)">
+<meta name="twitter:description" content="第一章：自然语言处理的学科定位从自然语言处理的过程、范围和历史三个角度考察学科定位问题。  过程：纵的角度 范围：横的角度 历史：发展的角度  从自然语言处理的过程考察 计算机对自然语言研究和处理的四个过程： 语言 “形式化” 形式 “算法化” 算法 “程序化” 程序 “实用化”   建立自然语言处理模型需要不同平面的知识： 声学和韵律学的知识：描述语言的节奏、语调和声调的规律，说明语音怎样形成音">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLPFA/2018-09-19-Ch01-Orientation-of-NLP" class="post-NLPFA/2018-09-19-Ch01-Orientation-of-NLP post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      自然语言计算机形式分析的理论与方法笔记(Ch01)
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/09/19/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/" data-id="cju9u9zam000n5occkug1yigb" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h1 id="第一章：自然语言处理的学科定位"><a href="#第一章：自然语言处理的学科定位" class="headerlink" title="第一章：自然语言处理的学科定位"></a>第一章：自然语言处理的学科定位</h1><p>从自然语言处理的过程、范围和历史三个角度考察学科定位问题。</p>
+<ul>
+<li>过程：纵的角度</li>
+<li>范围：横的角度</li>
+<li>历史：发展的角度</li>
+</ul>
+<h2 id="从自然语言处理的过程考察"><a href="#从自然语言处理的过程考察" class="headerlink" title="从自然语言处理的过程考察"></a>从自然语言处理的过程考察</h2><ul>
+<li>计算机对自然语言研究和处理的四个过程：<ul>
+<li>语言 “形式化”</li>
+<li>形式 “算法化”</li>
+<li>算法 “程序化”</li>
+<li>程序 “实用化”</li>
+</ul>
+</li>
+<li>建立自然语言处理模型需要不同平面的知识：<ul>
+<li>声学和韵律学的知识：描述语言的节奏、语调和声调的规律，说明语音怎样形成音位</li>
+<li>音位学的知识：描述音位的结合规律，说明音位怎样形成语素</li>
+<li>形态学的知识：描述语素的结合规律，说明语素怎样形成单词</li>
+<li>词汇学的知识：描述词汇系统的规律，说明单词本身固有的语义特性和语法特性</li>
+<li>句法学的知识：描述单词（或词组）之间的结构规则，说明单词（或词组）怎样形成句子</li>
+<li>语义学的知识：描述句子中各个成分之间的语义关系，这样的语义关系是与情景无关的，说明怎样从构成的句子的各个成分中推导出整个句子的语义</li>
+<li>话语分析的知识：描述句子与句子之间的结合规律，说明怎样由句子形成话语或对话</li>
+<li>语用学的知识：描述与情境有关的情景语义，说明怎样推导出句子具有的与周围话语有关的各种含义</li>
+<li>外界世界的常识性知识：描述关于语言使用者和语言使用环境的一般性常识，例如语言使用者的信念和目的，说明怎样推导出这样的信念和目的的内在内容</li>
+</ul>
+</li>
+</ul>
+<h2 id="从自然语言处理的范围考察"><a href="#从自然语言处理的范围考察" class="headerlink" title="从自然语言处理的范围考察"></a>从自然语言处理的范围考察</h2><ul>
+<li>归纳为四个大方向：<ul>
+<li>语言学方向</li>
+<li>数据处理方向</li>
+<li>人工智能和认知科学方向</li>
+<li>语言工程方向</li>
+</ul>
+</li>
+<li>具体细分为 13 个方面：<ul>
+<li>口语输入</li>
+<li>书面语输入</li>
+<li>语言分析和理解</li>
+<li>语言生成</li>
+<li>口语输出技术</li>
+<li>话语分析与对话</li>
+<li>文献处理</li>
+<li>多语</li>
+<li>多模态</li>
+<li>信息的传输与存储</li>
+<li>自然语言处理中的数学方法</li>
+<li>语言资源</li>
+<li>自然语言处理系统评测</li>
+</ul>
+</li>
+</ul>
+<h2 id="从自然语言处理的历史考察"><a href="#从自然语言处理的历史考察" class="headerlink" title="从自然语言处理的历史考察"></a>从自然语言处理的历史考察</h2><h3 id="萌芽期"><a href="#萌芽期" class="headerlink" title="萌芽期"></a>萌芽期</h3><ul>
+<li>20 世纪 40 年代到 50 年代末<ul>
+<li>A.M.Turing 算法计算模型</li>
+<li>N.Chomsky 形式语言理论</li>
+<li>C.E.Shannon 概率和信息论模型</li>
+<li>机器翻译</li>
+</ul>
+</li>
+<li>20 世纪 50 年代末到 60 年代中期<ul>
+<li>自然语言处理分成两个阵营：符号派和随机派</li>
+<li>符号派<ul>
+<li>Chomsky 等的形式语言理论和生成句法研究<ul>
+<li>早期的自顶向下和自底向上算法研究</li>
+<li>后期的动态规划研究</li>
+<li>Zelig Harris 的 “转换与话语分析课题”</li>
+</ul>
+</li>
+<li>人工智能的研究<ul>
+<li>着重研究推理和逻辑问题</li>
+<li>Newell 和 Simon 关于 “逻辑理论家” 和 “通用问题解答器”</li>
+<li>把模式匹配和关键词搜索与简单试探的方法结合起来进行推理和自动问答</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>随机派<ul>
+<li>贝叶斯方法被用于解决最优字符识别问题</li>
+<li>基于转换语法的第一个人类语言计算机处理的可严格测定的心理模型</li>
+<li>第一个联机语料库——布朗语料库</li>
+</ul>
+</li>
+<li>机器翻译<ul>
+<li>Yngve 主张机器翻译分三个阶段：（1）用代码化的结构标志来表示原语文句的结构；（2）把原语的结构标志转换为译语的结构标志；构成译语的输出问句。把句法分析放在第一位，促进了句法的形式化研究。</li>
+<li>语法与算法分开，即语言分析和程序设计分开</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="发展期"><a href="#发展期" class="headerlink" title="发展期"></a>发展期</h3><p>20 世纪 60 年代中期到 80 年代末期。</p>
+<ul>
+<li><p>B.Vauquois 的 “机器翻译金字塔”  六个步骤</p>
+<ul>
+<li>原语词法分析</li>
+<li>原语句法分析</li>
+<li>原语译语词汇转换</li>
+<li>原语译语机构转换</li>
+<li>译语句法生成</li>
+<li><p>译语词法生成</p>
+</li>
+<li><p>翻译软件 ARIANE-78</p>
+</li>
+</ul>
+</li>
+<li>斯坦福大学 Y.A.Wilks 提出了 “优选语义学”，强调无论在原语还是译语生成阶段都要把语义问题放在第一位。</li>
+<li>1976 年，蒙特利尔大学与联邦政府翻译局：TAUM-METEO 系统，里程碑</li>
+<li>1978 年，欧共体（欧盟）提出多语种机器翻译计划 EUROTRA，至今未取得预期效果</li>
+<li>1982-1986 年，日本 Mu 系统；随后原定于 1987-1992 年完成实际延迟到 1995 年完成的日本多语言机器翻译 ODA 计划，实验效果不尽如人意</li>
+<li>1987 年，TELECOM’87 会议，自动翻译电话通话试验</li>
+<li>中科院 NLPR 与韩国 ETRI 合作进行了汉韩口语翻译实验</li>
+<li>1991 年，成立国际语音翻译先进研究联盟（C-STAR）</li>
+<li>2000 年，中科院 NLPR 成为该组织的核心成员之一，汉语成为 C-STAR 多语言语音翻译系统的主要语言之一</li>
+</ul>
+<p><strong>统计学方法在语音识别算法研制中取得成功</strong>：</p>
+<ul>
+<li>隐马尔科夫模型、噪声信道与解码模型<ul>
+<li>Jelinek、Bahl、Mercer 和 IBM 华生研究中心</li>
+<li>卡内基梅隆大学的 Baker</li>
+<li>AT&amp;T 的贝尔实验室</li>
+<li>科大讯飞</li>
+</ul>
+</li>
+</ul>
+<p><strong>逻辑方法在 NLP 中取得成绩</strong>：</p>
+<ul>
+<li>1970 年 A.Colmerauer 及同事研制的 Q 系统和变形文法</li>
+<li>1980 年 Pereira 和 Warren 剔除的定子句文法</li>
+<li>1979 年 M.Kay 对功能语法的研究，1982 年 Bresnan 和 Kaplan 在词汇功能语法方面的工作，都是特征结构合一方面的研究成果</li>
+</ul>
+<p><strong>自然语言理解也取得成绩</strong>：</p>
+<ul>
+<li><p>1972 年 Terry 研制的 SHRDLU 系统，能够模拟一个嵌入玩具积木世界的机器人的行为；该系统首次尝试建立基于 Halliday 系统语法的英语语法；该系统说明，句法剖析也应该重视语义和话语的形式模型的研究。</p>
+</li>
+<li><p>1977 年 R.Schank 与其在耶鲁大学的同事和学生建立了一些语言理解程序；他们使用基于网络的语义学理论，并在表达方式中引进 C.Fillmore 在 1968 年提出的关于<strong>格角色</strong>的概念。</p>
+</li>
+<li><p>自然语言理解中的逻辑方法：1967 年 Woods 研制的 LUNAR 问答系统使用谓词逻辑进行语义解释</p>
+</li>
+<li><p>话语分析四个关键领域：话语子结构的研究，话语焦点的研究，自动参照消解研究和基于逻辑的言语行为研究</p>
+<ul>
+<li>1977 年，Crosz 和同事研究了话语子结构和话语焦点</li>
+<li>1972 年，Hobbs 开始研究自动参照消解</li>
+<li>1980 年，Perrault 和 Allen 建立了 “信念-愿望-意图”（BDI）框架</li>
+</ul>
+</li>
+</ul>
+<p><strong>1983-1993 十年中：NLP 又回到了 20 世纪 50 年代末期 60 年代初期几乎被否定的有限状态模型和经验主义方法上</strong></p>
+<ul>
+<li><p>重新评价有限状态模型</p>
+<ul>
+<li>Kaplan 和 Key 在有限状态音系学和形态学方面的工作</li>
+<li>Church 在句法的有限状态模型方面的工作</li>
+</ul>
+</li>
+<li><p>重新回到经验主义</p>
+<ul>
+<li>语音和语言处理的概率模型</li>
+<li>传播到连接主义方法的研究中</li>
+</ul>
+</li>
+</ul>
+<h3 id="繁荣期"><a href="#繁荣期" class="headerlink" title="繁荣期"></a>繁荣期</h3><p>1989 年，机器翻译进入新纪元：基于规则的技术中引入了语料库方法。</p>
+<p>1994-1999 年以及 21 世纪初期，自然语言处理的研究出现了空前的繁荣：</p>
+<ul>
+<li>概率和数据驱动的方法几乎成了 NLP 标准方法</li>
+<li>由于计算机速度和存储量增加，在语音和语言处理的一些子领域有可能进行商品开发</li>
+<li>网络技术的发展对 NLP 产生了巨大推力</li>
+</ul>
+<h2 id="当前自然语言处理发展的几个特点"><a href="#当前自然语言处理发展的几个特点" class="headerlink" title="当前自然语言处理发展的几个特点"></a>当前自然语言处理发展的几个特点</h2><ul>
+<li>基于句法-语义规则的理性主义方法受到质疑，随着语料库建设和语料库语言学的崛起，随着 Web 的日益普及，大规模真实文本的处理成为 NLP 的主要战略目标。<ul>
+<li>基于规则的理性主义方法，哲学基础是逻辑实证主义：智能的基本单位是符号，认知过程就是在符号的表征下进行符号运算，因此思维就是符号运算。语言学家 J.A.Fodor 认为心理操作和图灵机的操作十分类似。</li>
+<li>反驳与弱点<ul>
+<li>塞尔 “中文屋子” 质疑，详见：<a href="http://yam.gift/2018/04/07/2018-04-07-AI-Philosophy-Note/#%E6%B1%89%E5%AD%97%E5%B1%8B%E5%AE%9E%E9%AA%8C" target="_blank" rel="noopener">人工智能哲学笔记 | Yam</a></li>
+<li>实践方面，在处理大规模真实文本时有很大困难</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NLP 中越来越多地使用机器学习的方法来获取语言知识。<ul>
+<li>有监督</li>
+<li>无监督</li>
+<li>半监督</li>
+</ul>
+</li>
+<li>统计数学方法越来越受到重视。<ul>
+<li>估计语言成分出现的可能性，而不是单纯地判断这样的语言成分是否符合语言学规则（与传统的规则型语言模型对比）</li>
+<li>语言统计模型已经相当成熟，如：隐马尔科夫模型、概率上下文无关语法、基于决策树的语言模型、最大熵语言模型、条件随机场等</li>
+</ul>
+</li>
+<li>NLP 中越来越重视词汇的作用，出现了强烈的 “词汇主义” 倾向。<ul>
+<li>Chomsky 提出的 “最简方案” 将所有重要的语法原则直接运用于表层，把具体的规则减少到最低限度，不同语言之间的差异由词汇来处理。</li>
+<li>词汇知识库的构建成为普遍关注的问题。</li>
+</ul>
+</li>
+</ul>
+<p><strong>小结：</strong>主要介绍了自然语言处理的历史、研究对象、特点等，可以让我们对自然语言处理的横向、纵向有更加深刻的认识。书籍介绍的非常详细，作者熟知整个脉络，严谨又开放，熟悉各种技术且均能做出中立和中肯的判断及评价，可谓大师。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/09/19/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/">
+    <time datetime="2018-09-19T03:32:00.000Z" class="entry-date">
+        2018-09-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Orientation/">Orientation</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/09/30/2018-09-30-The-Science-of-Artificial/" rel="prev"><span class="meta-nav">←</span> 西蒙《人工科学》笔记</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/09/05/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/" rel="next">自然语言计算机形式分析的理论与方法笔记(Ch16) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">8</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/2019-03-31-Nabokov-Favorite-Word/">《纳博科夫最喜欢的词》读书笔记与思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/">自然语言计算机形式分析的理论与方法笔记(Ch15)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">自然语言计算机形式分析的理论与方法笔记(Ch14)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/">自然语言计算机形式分析的理论与方法笔记(Ch13)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 11.67px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 13.33px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 13.33px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 16.67px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18.33px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 11.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 11.67px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

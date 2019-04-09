@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>自然语言计算机形式分析的理论与方法笔记(Ch11) | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第十一章：概率语法基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。 概率上下文无关语法与句子的歧义上下文无关语法（CFG）定义为四元组：G={N, Σ, P">
+<meta name="keywords" content="NLP,AI,Probabilistic Grammar">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言计算机形式分析的理论与方法笔记(Ch11)">
+<meta property="og:url" content="http://www.yam.gift/2019/03/01/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="第十一章：概率语法基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。 概率上下文无关语法与句子的歧义上下文无关语法（CFG）定义为四元组：G={N, Σ, P">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-09T13:27:06.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch11)">
+<meta name="twitter:description" content="第十一章：概率语法基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。 概率上下文无关语法与句子的歧义上下文无关语法（CFG）定义为四元组：G={N, Σ, P">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLPFA/2019-03-01-Ch11-Probabilistic-Grammar" class="post-NLPFA/2019-03-01-Ch11-Probabilistic-Grammar post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      自然语言计算机形式分析的理论与方法笔记(Ch11)
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/01/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" data-id="cju9u9z9v00005occp2q2fulm" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h1 id="第十一章：概率语法"><a href="#第十一章：概率语法" class="headerlink" title="第十一章：概率语法"></a>第十一章：概率语法</h1><p>基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。</p>
+<h2 id="概率上下文无关语法与句子的歧义"><a href="#概率上下文无关语法与句子的歧义" class="headerlink" title="概率上下文无关语法与句子的歧义"></a>概率上下文无关语法与句子的歧义</h2><p>上下文无关语法（CFG）定义为四元组：G={N, Σ, P, S}，N 是非终极符号集合，Σ 是终极符号集合，S 是初始符号，P 是重写规则。规则形式为 A→β，A 是单独的非终极符号，β 可以由终极符号组成，也可以由非终极符号组成。</p>
+<p>在句法分析时，由于词的词性和词义的多样性会导致歧义，于是学者们试图通过基于统计的方法，计算上下文无关语法重写规则的使用概率。</p>
+<h2 id="概率上下文无关语法的基本原理"><a href="#概率上下文无关语法的基本原理" class="headerlink" title="概率上下文无关语法的基本原理"></a>概率上下文无关语法的基本原理</h2><p>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由 Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率 p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D 是给每一个规则指派概率 p 的函数。这个函数表示某个非终极符号 A 重写为符号 β 时的概率 p。规则可写为：p(A→β) 或 p(A→β|A)，从 A 写为 β 时应考虑所有情况且其概率和为 1。</p>
+<p>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T 的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积：</p>
+<script type="math/tex; mode=display">P(T) = \prod_{n \in T} p(r(n))</script><p>其中，n 表示非终极符号的结点，r 表示由该非终极符号扩充的规则，小写字母 p 表示规则 r 的概率，P 表示整个树形图 T 的概率。从句子 S 的若干个树形图中选出最好的 T(S) = arg max P(T)。</p>
+<p>用于 CYK 算法叫作 “概率 CYK 算法”，同样也有 Earley 算法、概率线图分析法等。</p>
+<p>如何获取概率？</p>
+<ul>
+<li>使用句子已经的到剖析的语料库：树库，对其中的树形图进行统计</li>
+<li>通过未加工的语料库自动学习语法规则，采用 “向内向外算法”（Baker 1979 年提出）</li>
+</ul>
+<h2 id="概率上下文无关语法的三个假设"><a href="#概率上下文无关语法的三个假设" class="headerlink" title="概率上下文无关语法的三个假设"></a>概率上下文无关语法的三个假设</h2><ul>
+<li>假设一：位置无关性假设：子结点的概率与该子结点所直接管辖的字符串在句子中的位置无关</li>
+<li>假设二：上下文无关性假设：子结点的概率与不受该子结点直接管辖的其他符号串无关</li>
+<li>假设三：祖先结点无关性假设：子结点的概率与支配该结点的所有祖先结点的概率无关</li>
+</ul>
+<p>概率上下文无关语法存在结构依存和词汇依存的问题。</p>
+<ul>
+<li>结点上规则的转写与节点在树形图中的位置是有关的（如代词）</li>
+<li>PP 附着（PP 可以做 VP 的状语，或它前面 NP 的修饰语）问题</li>
+<li>并列结构的歧义</li>
+</ul>
+<h2 id="概率词汇化上下文无关语法"><a href="#概率词汇化上下文无关语法" class="headerlink" title="概率词汇化上下文无关语法"></a>概率词汇化上下文无关语法</h2><p>Charniak 1997 年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</p>
+<p>除此之外，还有一些附加条件，以及各种回退和平滑算法。还有一些剖析器包括更多的因素，比如，区分论元成分与附属成分，对于树形图中那些比较接近的词汇依存关系比那些比较疏远的词汇依存关系给以更大的权重，考虑在给定成分中的三个最左的词类，考虑一般的结构依存关系等等。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li>概率上下文无关语法与句子的歧义<ul>
+<li>基于统计的方法，计算上下文无关语法重写规则的使用概率。</li>
+</ul>
+</li>
+<li>概率上下文无关语法的基本原理<ul>
+<li>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由 Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率 p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D 是给每一个规则指派概率 p 的函数。</li>
+<li>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T 的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积。</li>
+</ul>
+</li>
+<li>概率上下文无关语法的三个假设<ul>
+<li>三个假设：<ul>
+<li>位置无关</li>
+<li>上下文无关</li>
+<li>祖先结点无关</li>
+</ul>
+</li>
+<li>问题：<ul>
+<li>结点上规则的转写与节点在树形图中的位置是有关的（如代词）</li>
+<li>PP 附着（PP 可以做 VP 的状语，或它前面 NP 的修饰语）问题</li>
+<li>并列结构的歧义</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>概率词汇化上下文无关语法<ul>
+<li>Charniak 1997 年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</li>
+</ul>
+</li>
+</ul>
+<p>这章内容非常简单，其思想与隐马尔科夫有些类似，不过后面的改进都没有提到基于贝叶斯的推理。可能是个不错的改进方向。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/01/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/">
+    <time datetime="2019-03-01T03:32:00.000Z" class="entry-date">
+        2019-03-01
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" rel="prev"><span class="meta-nav">←</span> 自然语言计算机形式分析的理论与方法笔记(Ch12)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/02/27/NLPFA/2019-02-27-Ch10-Formal-Model-of-Pragmatic-Automatic-Processing/" rel="next">自然语言计算机形式分析的理论与方法笔记(Ch10) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">8</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/2019-03-31-Nabokov-Favorite-Word/">《纳博科夫最喜欢的词》读书笔记与思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/">自然语言计算机形式分析的理论与方法笔记(Ch15)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">自然语言计算机形式分析的理论与方法笔记(Ch14)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/">自然语言计算机形式分析的理论与方法笔记(Ch13)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 11.67px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 13.33px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 13.33px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 16.67px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18.33px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 11.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 11.67px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

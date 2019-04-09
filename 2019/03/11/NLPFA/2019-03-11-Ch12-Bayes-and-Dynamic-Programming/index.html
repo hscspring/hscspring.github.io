@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>自然语言计算机形式分析的理论与方法笔记(Ch12) | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="第十二章：Bayes 公式与动态规划算法拼写错误的检查与更正1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正 打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→th">
+<meta name="keywords" content="NLP,AI,Bayes,Spell Check,Viterbi,Minimum Edit Distance,FSM,Forward,Backward">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言计算机形式分析的理论与方法笔记(Ch12)">
+<meta property="og:url" content="http://www.yam.gift/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="第十二章：Bayes 公式与动态规划算法拼写错误的检查与更正1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正 打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→th">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-08T15:50:00.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch12)">
+<meta name="twitter:description" content="第十二章：Bayes 公式与动态规划算法拼写错误的检查与更正1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正 打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→th">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming" class="post-NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      自然语言计算机形式分析的理论与方法笔记(Ch12)
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="cju9u9zas000r5occ9m4ula4v" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h1 id="第十二章：Bayes-公式与动态规划算法"><a href="#第十二章：Bayes-公式与动态规划算法" class="headerlink" title="第十二章：Bayes 公式与动态规划算法"></a>第十二章：Bayes 公式与动态规划算法</h1><h2 id="拼写错误的检查与更正"><a href="#拼写错误的检查与更正" class="headerlink" title="拼写错误的检查与更正"></a>拼写错误的检查与更正</h2><p>1992 年，Kukich 把这个领域分解为三大问题：</p>
+<ul>
+<li>非词错误检查</li>
+<li>孤立词错误更正</li>
+<li>依赖于上下文的错误检查和更正<ul>
+<li>打字操作时的错误：插入、脱落、改变位置等</li>
+<li>书写错误地拼写同音词和准同音词</li>
+</ul>
+</li>
+</ul>
+<p>1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：</p>
+<ul>
+<li>插入：the→ther</li>
+<li>脱落：the→th</li>
+<li>替代：the→thw</li>
+<li>换位：the→hte</li>
+</ul>
+<p>Kukich 把打字错误分为两类：</p>
+<ul>
+<li>打字操作错误：一般与键盘有关</li>
+<li>认知错误：不知道如何拼写</li>
+</ul>
+<p>OCR 错误一般分为五类：替代、多重替代、空白脱落、空白插入和识别失败。</p>
+<p>检查方法最通常的做法是使用词典，为了表示能产生的屈折变化和派生，词典一般还包括形态分析模式。</p>
+<blockquote>
+<p>中文和英文情况不太一样，最大的不同是中文不会出现打出一个不存在的字这种情况。根据我们之前<a href="http://aiwriter.cn/home" target="_blank" rel="noopener">项目</a>的经验，中文的拼写错误主要包括以下几种：</p>
+<ul>
+<li><p>拼音输入法导致的同音、近音错误，比如 “拼音” 打成 “朋友”，“打成” 打成 “达成” 或 “调查” 之类</p>
+</li>
+<li><p>五笔输入法导致的形近错误，比如 “土” 打成 “士” 之类</p>
+</li>
+<li><p>键盘邻近键位导致的错误，比如 “爱情” 打成 “矮穷”，就是把 “情” 的 i 打成了 o 之类</p>
+</li>
+</ul>
+<p>上面的分法是从输入的角度看，每种其实又有两个维度：</p>
+<ul>
+<li>输入的词不成词，比如：“维吾尔族” 打成 “维吾尔组”</li>
+<li>输入的词在上下文语境中不对，比如 “体现出XXX” 打成 “体系出XXX”</li>
+</ul>
+<p>第一个维度用词典可以，第二个维度则需要借助其他一些方法结合词典才能起作用。</p>
+<p>由于项目时间很短，我们重点做了第一种错误，此外还做了很多词法、语法、语义方面的检查和更正，后面的这几种错误主要是本章所说的认知错误，就是用户不知道那个是错的，比如 “过早夭折” 这个词的错误叫 “书面语重复”，因为 “夭折” 就包含了 “过早” 的意思，再比如 “定金” 和 “订金” 这类属于 “易混淆词”，必须要根据句子的语义才能做出正确的判断。</p>
+</blockquote>
+<h2 id="Bayes-公式与噪声信道模型"><a href="#Bayes-公式与噪声信道模型" class="headerlink" title="Bayes 公式与噪声信道模型"></a>Bayes 公式与噪声信道模型</h2><p>”噪声信道“ 这个比喻来自 20 世纪 70 年代 IBM 实验室应用于语音识别的模型，F. JelineK 在 1976 年把这样的模型叫作 ”噪声信道模型“，是 Bayes 推理的一个特殊情况。</p>
+<p>用 w* 表示 ”对正确单词 w 的估计“，O 表示 ”观察序列，从中选出最优单词的等式为：</p>
+<script type="math/tex; mode=display">w^{*} = arg_{w\in V} max P(w|O)</script><p>P(w|O) 无法直接计算，可以通过贝叶斯公式将上式变为：</p>
+<script type="math/tex; mode=display">w^* = arg_{w \in V} max \frac {P(O|w)P(w)}{P(O)} = arg_{w \in V} max{P(O|w)P(w)}</script><p>P(O) 很难估计但却不影响等式，P(w) 是先验概率，可以在语料中统计出来，P(O|w) 是似然度也可以通过语料估计出来。</p>
+<p>P577 页的例子比较详细，不过是关于单词拼写错误的，但和我们平时了解的单词或字级别的也没有太多区别。比如我们要对 “我 书 兔” 进行纠错，问题可以转换为：“我后面出现 书 的概率”：</p>
+<p>P(书|我） = P(我书)/P(我)，后面的两个概率都可以通过语料计算出来，语料足够大时，可近似认为频率等于概率，于是我们就获得 P(书|我）的概率估计。我们同样可以估计出 P（属|我）、P（输|我）……等等的概率，这些都是 “书” 可能被打错（这里假设根据拼音输入法）的情况，然后我们找出最高概率的情况，就可以当作把它当作是正确的。这种做法在 NLP 中有个名词叫 N-gram，如果只考虑上一个词就是 Bi-gram，考虑上两个词的是 Tri-gram，更加详细的介绍可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/Note_NLP/blob/master/CMU-NeuralNetworksforNLP2017/02-lm/02-lmNote.ipynb" target="_blank" rel="noopener">Language Model</a>。</p>
+<h2 id="最小编辑距离算法"><a href="#最小编辑距离算法" class="headerlink" title="最小编辑距离算法"></a>最小编辑距离算法</h2><p>Wagner 和 Fischer 1974 年提出，两个符号串的最小编辑距离就是指把一个符号串转换为另一个符号串时所需要的最小编辑操作的次数。最小编辑距离使用动态规划来计算。</p>
+<p>关于最小编辑距离大家可以阅读：<a href="">最小编辑距离</a>。</p>
+<h2 id="发音问题研究中的-Bayes-方法"><a href="#发音问题研究中的-Bayes-方法" class="headerlink" title="发音问题研究中的 Bayes 方法"></a>发音问题研究中的 Bayes 方法</h2><p>发音变异有两类：词汇变异和音位变异。前者用来表示词表中单词的语音片段的差异，后者是单独的语音片段在不同的上下文中的发音差异。</p>
+<ul>
+<li>词汇变异的一个重要来源是社会语言变异。由语言外的因素引起，如社会背景等。<ul>
+<li>方言变异是一种社会语言变异</li>
+<li>另一个原因是语域或风格</li>
+</ul>
+</li>
+<li>音位变异发生在表层形式，反映了语音因素和发音因素。每一条音位变体规则都依赖于一组十分复杂的因素，这些因素需要在概率上加以解释。很多这样的规则都是模拟协同发音的。协同发音是由相邻语音片段的发音运动而引起的某一语音片段发音的改变。英语的大多数音位变体规则有这几种类型：<ul>
+<li>同化：把一个语音片段改变得更像它邻接的语音片段。普遍的同化是腭化（跨语言同化现象）。</li>
+<li>异化</li>
+<li>脱落</li>
+<li>闪音化：闪音化时，前面的元音发的高一些，后面的元音倾向于非重读；但并不总是必要的。</li>
+<li>元音弱化：很多非重读音节中的原因变为弱化元音。最常见的弱化元音是混元音。是否弱化取决于很多因素，如不同场合、单词的频率、是否为短语最后一个元音、语言习惯等。</li>
+<li>增音</li>
+</ul>
+</li>
+</ul>
+<p>使用 Bayes 的基本原理是，发音为 y 的单词（可能有很多个）的前一个单词是 X 的时候，这个发音最可能对应的单词。即：p(w) * p(y|w)，p(w) 为 X 的先验概率，p(y|w) 为单词 X 下个发音为 y 的概率。</p>
+<h2 id="发音变异的决策树模型"><a href="#发音变异的决策树模型" class="headerlink" title="发音变异的决策树模型"></a>发音变异的决策树模型</h2><p>1984 年，Breiman 等使用分类回归树（一种决策树），从标注语料库中自动地推导出词汇到表层发音的映射关系。决策树提取由特征集所描述的情况，并把这种情况分类为范畴和相关的概率。</p>
+<p>在发音问题研究中，可以训练决策树来提取一个词汇音子和它的各种上下文特征（包围的音子、重音、音节结构信息等），并选择适合的表层音子（一个概率分布）来实现它。</p>
+<h2 id="加权自动机"><a href="#加权自动机" class="headerlink" title="加权自动机"></a>加权自动机</h2><p>为了提高效率通常把编辑好的发音变异存储在词表中，这种词表的两种最普遍的方式是 trie 和加权有限状态自动机（概率有限状态自动机）。Markov 链是加权自动机的一种特殊情况（也包括 Ngram 语法）。任何一个加权自动机，只要其中的输入序列不是唯一地指定其状态序列，就可以被模拟为一个 HMM（隐马尔科夫模型）。</p>
+<p>关于自动机的大家可以查看：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Automata/FSM_Tutorial.ipynb" target="_blank" rel="noopener">FSM</a></p>
+<h2 id="向前算法"><a href="#向前算法" class="headerlink" title="向前算法"></a>向前算法</h2><p>对于给定的加权自动机计算出音子串对于某一单词的似然读，这个算法叫 ”向前算法“。</p>
+<p>向前算法是另外一种动态规划算法，可以看成是最小编辑距离算法的轻度泛化。二者相同的是，当用它求观察序列的概率的时候，要使用一个表来存储中间值；不同的是，向前算法在列上所标记的不总是以线性顺序排列的状态，而且还隐含着一个状态图，在这个状态图中，从一个状态到另一个状态之间存在着多条路径。在最小编辑距离算法中，从周围的三个单元计算每一个单元的值，并把结果填到矩阵中；向前算法中，可能会有其他的状态进入一个状态中。最小编辑距离算法只需要计算概率的最小值，而向前算法要计算能够观察的所有可能路径的概率总和。</p>
+<p>关于向前算法大家可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb" target="_blank" rel="noopener">HMM-Tutorial</a></p>
+<h2 id="Viterbi-算法"><a href="#Viterbi-算法" class="headerlink" title="Viterbi 算法"></a>Viterbi 算法</h2><p>Viterbi 算法是向前算法的特殊情况，向前算法把前面所有的路径总和放到当前单元中，Viterbi 算法则把前面所有路径中最大的放到当前单元中。</p>
+<p>Viterbi 算法在 NLP 中的一个重要应用是分词，分词就是找到词语的边界，Sproat 等人提出一个非常简单的算法：选择包含最高频率的单词的切分为正确的切分。换言之，把每一种潜在切分中每一个单词的概率相乘，选择最大的作为最终的切分。</p>
+<p>具体实现时，要把表示汉语词表的加权有限状态转录机（FST）和 Viterbi 结合。FST 词表中每个单词表示为弧的一个序列，序列中的每个弧代表一个汉字，概率通过熵来计算，选择最小熵的切分。</p>
+<p>关于 Viterbi 算法大家可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb" target="_blank" rel="noopener">HMM-Tutorial</a></p>
+<p>这章内容涉及到的算法对大部分 NLPer 来说都比较熟悉了，Bayes、自动机、向前算法、Viterbi 等，书中讲的比较简单，也没有代码，所以很有必要扩充阅读。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/">
+    <time datetime="2019-03-11T03:32:00.000Z" class="entry-date">
+        2019-03-11
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Backward/">Backward</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bayes/">Bayes</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FSM/">FSM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Forward/">Forward</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spell-Check/">Spell Check</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Viterbi/">Viterbi</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" rel="prev"><span class="meta-nav">←</span> 自然语言计算机形式分析的理论与方法笔记(Ch13)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/03/01/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" rel="next">自然语言计算机形式分析的理论与方法笔记(Ch11) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">25</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">8</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/2019-03-31-Nabokov-Favorite-Word/">《纳博科夫最喜欢的词》读书笔记与思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/">自然语言计算机形式分析的理论与方法笔记(Ch15)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">自然语言计算机形式分析的理论与方法笔记(Ch14)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/">自然语言计算机形式分析的理论与方法笔记(Ch13)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 11.67px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 13.33px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 13.33px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 16.67px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18.33px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 11.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 11.67px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
