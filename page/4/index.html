@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yam">
+<meta property="og:url" content="http://www.yam.gift/page/4/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yam">
+<meta name="twitter:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-2018-05-13-Essence-of-LinearAlgebra" class="post-2018-05-13-Essence-of-LinearAlgebra post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/13/2018-05-13-Essence-of-LinearAlgebra/">线性代数的本质笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/05/13/2018-05-13-Essence-of-LinearAlgebra/" data-id="cjtx2yw7v003gvccczpts9b3x" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：来自：<a href="https://space.bilibili.com/88461692/#/channel/detail?cid=9450" target="_blank" rel="noopener">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅和再学习的。多图。<br>感谢作者的付出，真心很赞。</p>
+<p>吐槽一下：B 站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。</p>
+<p>后面六个视频要多看几遍。</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#序言" data-toc-modified-id="序言-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>序言 </a></div><div class="lev1 toc-item"><a href="#向量究竟是什么？" data-toc-modified-id="向量究竟是什么？-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>向量究竟是什么？</a></div><div class="lev1 toc-item"><a href="#线性组合、张成的空间与基" data-toc-modified-id="线性组合、张成的空间与基-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>线性组合、张成的空间与基 </a></div><div class="lev1 toc-item"><a href="#矩阵与线性变换" data-toc-modified-id="矩阵与线性变换-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>矩阵与线性变换 </a></div><div class="lev1 toc-item"><a href="#矩阵乘法与线性变换复合" data-toc-modified-id="矩阵乘法与线性变换复合-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>矩阵乘法与线性变换复合 </a></div><div class="lev2 toc-item"><a href="#三维空间中的线性变换" data-toc-modified-id="三维空间中的线性变换-51"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>三维空间中的线性变换 </a></div><div class="lev1 toc-item"><a href="#行列式" data-toc-modified-id="行列式-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>行列式 </a></div><div class="lev1 toc-item"><a href="#逆矩阵、列空间与零空间" data-toc-modified-id="逆矩阵、列空间与零空间-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>逆矩阵、列空间与零空间 </a></div><div class="lev2 toc-item"><a href="#非方阵" data-toc-modified-id="非方阵-71"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>非方阵 </a></div><div class="lev1 toc-item"><a href="#点积与对偶性" data-toc-modified-id="点积与对偶性-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>点积与对偶性 </a></div><div class="lev1 toc-item"><a href="#叉积的标准介绍" data-toc-modified-id="叉积的标准介绍-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>叉积的标准介绍 </a></div><div class="lev1 toc-item"><a href="#以线性变换的思想看叉积" data-toc-modified-id="以线性变换的思想看叉积-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>以线性变换的思想看叉积 </a></div><div class="lev1 toc-item"><a href="#基变换" data-toc-modified-id="基变换-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>基变换 </a></div><div class="lev1 toc-item"><a href="#特征向量与特征值" data-toc-modified-id="特征向量与特征值-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>特征向量与特征值 </a></div><div class="lev1 toc-item"><a href="#抽象向量空间" data-toc-modified-id="抽象向量空间-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>抽象向量空间 </a></div></p>
+<h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>几何水平上的理解能让你判断出解决特定问题需要用什么样的工具，感受到他们为什么有用，以及如何解读最终结果。数值水平上的理解则能让你顺利应用这些工具。</p>
+<h1 id="向量究竟是什么？"><a href="#向量究竟是什么？" class="headerlink" title="向量究竟是什么？"></a>向量究竟是什么？</h1><p>将向量看作运动（就像在数轴上一样）。</p>
+<p>看作空间中的箭头，看作数字列表。</p>
+<h1 id="线性组合、张成的空间与基"><a href="#线性组合、张成的空间与基" class="headerlink" title="线性组合、张成的空间与基"></a>线性组合、张成的空间与基</h1><p>将向量看作单位向量的缩放（缩放向量并相加）：选择标量，对向量分别进行缩放，然后把结果相加。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi1.jpeg" alt=""></p>
+<p>如果选择不同的基向量会怎样？</p>
+<p>它同样允许我们在<strong>一对数和二维向量之间自由转化</strong>。但这种变换关系与之前用 i 帽和 j 帽的变换关系完全不同。</p>
+<p>每当我们用数字描述向量时，它都依赖于我们正在使用的基。<br><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi2.jpeg" alt=""></p>
+<p>但当共线时，它们张成的空间就是终点落在一条直线上的向量的集合。</p>
+<p>两个向量张成的空间实际上是问仅通过向量加法与向量数乘这两种基础运算，能获得的所有可能向量的集合是什么？</p>
+<p>Trick：单个向量看作箭头；多个向量看作点（否则会太拥挤）。所以对大部分二维向量对来说，它们张成的空间是整个无限大的二维平面；但如果共线，它们张成的空间就是一条直线。</p>
+<p>三维与二维类似：当你缩放第三个向量时，它将前两个向量张成的平面沿它的方向来回异动，从而扫过整个空间。另一种思考方式是：利用自由变化的三个标量，从而得到空间中所有的三维向量。</p>
+<p>一组向量中如果有至少一个是多余的（没有对张成空间做出任何贡献，如二维的共线、三维的共面等），也就是移除那个向量而不减小张成的空间，此时它们是 “线性相关” 的。另一种表述是，其中一个向量可以表示为其他向量的线性组合，因为这个向量已经落在其他向量张成的空间之中。</p>
+<p>另一方面，如果所有向量都给张成的空间增加了新的维度，它们就被称为 “线性无关” 的。</p>
+<p>空间的一组基的严格定义：张成该空间的一个线性无关向量的集合。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/13/2018-05-13-Essence-of-LinearAlgebra/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/13/2018-05-13-Essence-of-LinearAlgebra/">
+    <time datetime="2018-05-13T01:23:27.000Z" class="entry-date">
+        2018-05-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-05-12-Essence-of-Calculus" class="post-2018-05-12-Essence-of-Calculus post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/12/2018-05-12-Essence-of-Calculus/">微积分的本质笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/05/12/2018-05-12-Essence-of-Calculus/" data-id="cjtx2yw7b0028vcccvygobuz0" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：来自：<a href="https://space.bilibili.com/88461692/#/channel/detail?cid=13407" target="_blank" rel="noopener">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅的。多图（69张）。<br>感谢作者的付出，真心很赞。</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#导论" data-toc-modified-id="导论-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>导论 </a></div><div class="lev1 toc-item"><a href="#导数的悖论" data-toc-modified-id="导数的悖论-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>导数的悖论 </a></div><div class="lev1 toc-item"><a href="#用几何来求导" data-toc-modified-id="用几何来求导-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>用几何来求导 </a></div><div class="lev1 toc-item"><a href="#链式法则和乘积法则" data-toc-modified-id="链式法则和乘积法则-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>链式法则和乘积法则 </a></div><div class="lev1 toc-item"><a href="#指数函数求导" data-toc-modified-id="指数函数求导-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>指数函数求导 </a></div><div class="lev1 toc-item"><a href="#隐函数求导" data-toc-modified-id="隐函数求导-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>隐函数求导 </a></div><div class="lev1 toc-item"><a href="#极限" data-toc-modified-id="极限-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>极限 </a></div><div class="lev1 toc-item"><a href="#积分与微积分基本定理" data-toc-modified-id="积分与微积分基本定理-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>积分与微积分基本定理 </a></div><div class="lev1 toc-item"><a href="#面积和斜率有什么联系？" data-toc-modified-id="面积和斜率有什么联系？-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>面积和斜率有什么联系？</a></div><div class="lev2 toc-item"><a href="#脚注：高阶导数" data-toc-modified-id="脚注：高阶导数-91"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>脚注：高阶导数 </a></div><div class="lev1 toc-item"><a href="#泰勒级数" data-toc-modified-id="泰勒级数-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>泰勒级数 </a></div></p>
+<h1 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h1><p>微积分的三个中心思想：积分、微分、两者互逆。  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi1.jpeg" alt="">  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi2.jpeg" alt="">  </p>
+<p>（难怪正态分布这么多见……）  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi3.jpeg" alt="">  </p>
+<p>f(x) 可以是任意函数  </p>
+<p>微积分基本定理：积分与导数之间的来回转化关系，也就是某个图像下方面积函数的导数能够还原出定义这个图像的函数。它将积分和导数两大概念联系起来。  </p>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/12/2018-05-12-Essence-of-Calculus/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/12/2018-05-12-Essence-of-Calculus/">
+    <time datetime="2018-05-12T04:23:27.000Z" class="entry-date">
+        2018-05-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Calculus/">Calculus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-05-07-RL-Series" class="post-2018-05-07-RL-Series post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/07/2018-05-07-RL-Series/">“心有麟熙”《强化学习炼金术》系列笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/05/07/2018-05-07-RL-Series/" data-id="cjtx2yw6k000gvccchda02hkb" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：本系列主要为李飞飞教授博士范麟熙个人公众号（DrJimFan）： “心有麟熙” 《强化学习炼金术》系列笔记。范博士的讲解简单易懂，由浅入深，每一期都有视频和文字内容，非常贴心，大家可以关注公众号学习。另外，本系列还在持续更新中……</p>
+<p>注意：<code>.ipynb</code> 格式的如果打不开，可以借助：<a href="http://nbviewer.jupyter.org" target="_blank" rel="noopener">nbviewer</a></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/hscspring/Note_RL/blob/master/RL-Alchemy/Chap1-Bandit.ipynb" target="_blank" rel="noopener">Chap1-Bandit</a></li>
+<li><a href="https://github.com/hscspring/Note_RL/blob/master/RL-Alchemy/Chap1-Exercise.ipynb" target="_blank" rel="noopener">Chap1-Exercise</a></li>
+<li><a href="https://github.com/hscspring/Note_RL/blob/master/RL-Alchemy/Chap2-MDP.ipynb" target="_blank" rel="noopener">Chap2-MDP</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/07/2018-05-07-RL-Series/">
+    <time datetime="2018-05-07T09:07:19.000Z" class="entry-date">
+        2018-05-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-04-22-ML-Concept" class="post-2018-04-22-ML-Concept post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/22/2018-04-22-ML-Concept/">机器学习概念</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/04/22/2018-04-22-ML-Concept/" data-id="cjtx2yw6i000bvccccuqt43x0" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>有幸与 <a href="https://github.com/ahangchen" target="_blank" rel="noopener">ahangchen (梦里茶) </a>和 <a href="https://github.com/luopengting" target="_blank" rel="noopener">luopengting (lpt)</a> 一起参与了《机器学习》（周志华）概念整理<a href="https://github.com/ahangchen/windy-afternoon/blob/master/ml/melon/README.md" target="_blank" rel="noopener">项目</a>，今天正式完稿。我负责整理了以下章节：</p>
+<ul>
+<li>第 11 章：<a href="https://github.com/hscspring/Note_ML/blob/master/ZhouZhihua-MLConcepts/ch11.md" target="_blank" rel="noopener">特征选择与稀疏学习</a></li>
+<li>第 14 章：<a href="https://github.com/hscspring/Note_ML/blob/master/ZhouZhihua-MLConcepts/ch14.md" target="_blank" rel="noopener">概率图模型</a></li>
+<li>第 15 章：<a href="https://github.com/hscspring/Note_ML/blob/master/ZhouZhihua-MLConcepts/ch15.md" target="_blank" rel="noopener">规则学习</a></li>
+<li>第 16 章：<a href="https://github.com/hscspring/Note_ML/blob/master/ZhouZhihua-MLConcepts/ch16.md" target="_blank" rel="noopener">强化学习</a></li>
+<li>附录：<a href="https://github.com/hscspring/Note_ML/blob/master/ZhouZhihua-MLConcepts/ch17.md" target="_blank" rel="noopener">相关数学知识</a></li>
+</ul>
+<p>最终的电子书：<a href="https://ahangchen.gitbooks.io/windy-afternoon/content/ml/melon/" target="_blank" rel="noopener">西瓜书概念整理</a>。欢迎大家阅读。如任何疑问或建议，随时欢迎提出。</p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>由于作了一些简化，可能会与上面链接中的内容不太一致。</li>
+<li>GitHub 中公式无法渲染，下载到本地即可，推荐用 <a href="https://typora.io/" target="_blank" rel="noopener">Typora — a markdown editor, markdown reader.</a>。</li>
+</ol>
+</blockquote>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/22/2018-04-22-ML-Concept/">
+    <time datetime="2018-04-22T08:41:19.000Z" class="entry-date">
+        2018-04-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MachineLearning/">MachineLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-04-07-AI-Philosophy-Note" class="post-2018-04-07-AI-Philosophy-Note post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/07/2018-04-07-AI-Philosophy-Note/">人工智能哲学笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/04/07/2018-04-07-AI-Philosophy-Note/" data-id="cjtx2yw84003svcccjep75ujw" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#背景" data-toc-modified-id="背景-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>背景 </a></div><div class="lev1 toc-item"><a href="#为何人工智能科学需要哲学的参与" data-toc-modified-id="为何人工智能科学需要哲学的参与-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>为何人工智能科学需要哲学的参与 </a></div><div class="lev1 toc-item"><a href="#近代欧洲哲学与人工智能" data-toc-modified-id="近代欧洲哲学与人工智能-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>近代欧洲哲学与人工智能</a></div><div class="lev2 toc-item"><a href="#希腊文明对-AI-的滋养" data-toc-modified-id="希腊文明对-AI-的滋养-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>希腊文明对 AI 的滋养</a></div><div class="lev2 toc-item"><a href="#近代哲学" data-toc-modified-id="近代哲学-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>近代哲学</a></div><div class="lev1 toc-item"><a href="#康德、类比推理和-“照猫画虎”" data-toc-modified-id="康德、类比推理和-“照猫画虎”-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>康德、类比推理和 “照猫画虎”</a></div><div class="lev2 toc-item"><a href="#康德" data-toc-modified-id="康德-41"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>康德</a></div><div class="lev2 toc-item"><a href="#类比推理" data-toc-modified-id="类比推理-42"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>类比推理</a></div><div class="lev2 toc-item"><a href="#照猫画虎" data-toc-modified-id="照猫画虎-43"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>照猫画虎</a></div><div class="lev1 toc-item"><a href="#汉字屋论证" data-toc-modified-id="汉字屋论证-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>汉字屋论证</a></div><div class="lev2 toc-item"><a href="#塞尔" data-toc-modified-id="塞尔-51"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>塞尔</a></div><div class="lev2 toc-item"><a href="#汉字屋实验" data-toc-modified-id="汉字屋实验-52"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>汉字屋实验</a></div><div class="lev2 toc-item"><a href="#反驳" data-toc-modified-id="反驳-53"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>反驳</a></div><div class="lev2 toc-item"><a href="#衍生性问题讨论" data-toc-modified-id="衍生性问题讨论-54"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>衍生性问题讨论</a></div><div class="lev2 toc-item"><a href="#其他讨论" data-toc-modified-id="其他讨论-55"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>其他讨论</a></div><div class="lev1 toc-item"><a href="#维特根斯坦、“颜色不相容”、框架问题和拆弹机器人" data-toc-modified-id="维特根斯坦、“颜色不相容”、框架问题和拆弹机器人-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>维特根斯坦、“颜色不相容”、框架问题和拆弹机器人</a></div><div class="lev2 toc-item"><a href="#早期《逻辑哲学论》" data-toc-modified-id="早期《逻辑哲学论》-61"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>早期《逻辑哲学论》</a></div><div class="lev2 toc-item"><a href="#晚期《哲学研究》" data-toc-modified-id="晚期《哲学研究》-62"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>晚期《哲学研究》</a></div><div class="lev2 toc-item"><a href="#维特根斯坦和框架问题" data-toc-modified-id="维特根斯坦和框架问题-63"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>维特根斯坦和框架问题</a></div><div class="lev3 toc-item"><a href="#心灵模块论" data-toc-modified-id="心灵模块论-631"><span class="toc-item-num">6.3.1&nbsp;&nbsp;</span>心灵模块论</a></div><div class="lev3 toc-item"><a href="#拆弹机器人" data-toc-modified-id="拆弹机器人-632"><span class="toc-item-num">6.3.2&nbsp;&nbsp;</span>拆弹机器人</a></div><div class="lev3 toc-item"><a href="#颜色不相容" data-toc-modified-id="颜色不相容-633"><span class="toc-item-num">6.3.3&nbsp;&nbsp;</span>颜色不相容</a></div><div class="lev2 toc-item"><a href="#结论" data-toc-modified-id="结论-64"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>结论</a></div></p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul>
+<li>来源：<a href="http://open.163.com/special/cuvocw/rengongzhinengzhexue.html" target="_blank" rel="noopener">复旦大学公开课：人工智能哲学_全 7 集_网易公开课</a></li>
+<li>讲师：徐英瑾教授</li>
+<li>课程介绍：本课程从人工智能科学发展的科学史概要出发，讨论了哲学思辨和人工智能研究之间的密切关系，并从人工智能的角度，重新审视了近代欧洲哲学对于 “机器是否能够思维” 这个问题的思辨结论。尔后，讨论了如何从当代计算机科学的角度来解读康德哲学，并从中得到一个关于类比推理的计算模型。本课程也讨论了当代美国哲学家塞尔对于 “计算模型如何获得关于符号的语义知识” 的忧虑，并进一步探讨了这一忧虑在计算机科学内部的表达形式：框架问题。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/07/2018-04-07-AI-Philosophy-Note/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/07/2018-04-07-AI-Philosophy-Note/">
+    <time datetime="2018-04-07T12:00:00.000Z" class="entry-date">
+        2018-04-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Philosophy/">Philosophy</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-03-26-Gan-Series" class="post-2018-03-26-Gan-Series post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/03/26/2018-03-26-Gan-Series/">Gan 原理、证明与实现</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2018/03/26/2018-03-26-Gan-Series/" data-id="cjtx2yw6g000avccc03ivnyl3" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：<a href="https://github.com/hscspring/Note_GAN/blob/master/Gan.ipynb" target="_blank" rel="noopener">Gan</a> </p>
+<p>注意：<code>.ipynb</code> 格式的如果打不开，可以借助：<a href="http://nbviewer.jupyter.org" target="_blank" rel="noopener">nbviewer</a></p>
+</blockquote>
+<ul>
+<li>文章目录<br>1  简介<br>2  证明<br>2.1  概念与过程形式化<br>2.2  理论推导<br>2.3  证明<br>2.3.1  最优判别器<br>2.3.2  最优生成器<br>2.4  重述训练过程<br>2.4.1  参数优化过程<br>2.4.2  实际训练过程<br>2.4.3  最终过程<br>3  代码<br>4  代码学习<br>5  应用<br>6  数据集<br>7  其他资料<br>8  参考文献</li>
+</ul>
+<ul>
+<li><a href="https://github.com/hscspring/Note_GAN/tree/master/Demo1" target="_blank" rel="noopener">Demo1: 手写数字生成</a></li>
+<li><a href="https://github.com/hscspring/Note_GAN/tree/master/Demo2" target="_blank" rel="noopener">Demo2: 二次元头像生成</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/03/26/2018-03-26-Gan-Series/">
+    <time datetime="2018-03-26T08:11:19.000Z" class="entry-date">
+        2018-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gan/">Gan</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-12-23-Thinking-From-a-Supply-Chain-Lecture" class="post-2017-12-23-Thinking-From-a-Supply-Chain-Lecture post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/23/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/">由一场供应链讲座引发的思考</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/12/23/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" data-id="cjtx2yw7n0031vccc4khe4ouc" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>今天恰逢时机听了一场刘大成老师关于物流和供应链的讲座，略有所感，记录如下。</p>
+<p>一直在思考所做项目的问题，中间基本处于一心二用的状态，只是抽几个有所感触的点记录。第一，顶层设计；第二，源头和本质。</p>
+<h2 id="顶层设计"><a href="#顶层设计" class="headerlink" title="顶层设计"></a>顶层设计</h2><p>有三个例子我觉得特别有意思。</p>
+<p>第一个是秦始皇的长城，怎么理解这个顶层设计呢？我们知道，长城第一次完整的修建是在秦始皇统一六国后，当时修建长城的战略意义是防止北方游牧民族入侵。游牧民族那时候被称为半兽人（掠夺和存储财产），他们从来没有补给线，不存在后勤保障的问题，基本是以战养战；相反，秦国则需要从长安运送粮食过去，基本的比例是三担粮食，两担消耗在运输中，一担供给前线，因为道路不好，运输工具是牛（农村的朋友应该知道牛是有多慢，不过它力气大），太慢了（这其实是个物流问题😅）。而长城解决了两个问题：第一，游牧民族的马上不来，进攻速度受到影响，同时后勤供给反过来成了影响他们的一个问题；第二，在长城内驻守军民可以开荒，需要多少粮草种多少，解决了后勤保障问题，其实之后的防守也一直都是这么做的。</p>
+<p>讲到这里的时候还有个题外话：为什么四大文明古国除了中国都消失了？一个很重要的原因是天然屏障，我们东、南有大海，西有喜马拉雅和青藏高原，北有长城，很好地阻隔了外强入侵。另外，恶劣的环境下才能最早孕育出文化，比如是黄河、尼罗河、印度河、幼发拉底等流域，而不是长江、爱琴海、亚马逊等。举了个非洲人很懒的例子，说他们每个人坐在一棵水果树下，饿了就上去摘一个水果吃，吃完了就换一棵树。有一些道理，权当调味品就行。</p>
+<p>第二个是隋炀帝的京杭大运河。我们且不说真实历史中的隋炀帝如何，不过单就他的这项工程确实很了不起。京杭大运河（隋朝）北起长江南岸之京口（今镇江），南通余杭（今浙江杭州），全场两千七百余公里。当时的目的是为了加强中央对东方和南方的统治，同时也是为了从南方漕运粮食，便于对北方用兵，对南北经济、文化交流起到巨大作用，只是想想牛车和船只的巨大区别就知道意义所在了。当然，我觉得杨广当时可能没有想到这一层：）</p>
+<p>第三个是 Jobs 的 ITunes 和 AppStore，真正让其他手机厂商感到无解的可能既不是 IPhone，当然更加不可能是 IPad，Mac 之类，我当然不否认这些东西非常 Nice。他的这一套与创作者捆绑的机制简直把音乐人、开发者都拉进了自己的阵营，而他们一旦习惯了这种模式，路径依赖就会发生作用。我自己觉得这点蛮有启发的。</p>
+<p>这就是顶层设计的三个小例子，挺有感触，因为这个东西适用于很多方面，它更多的是一种思想。比如我们熟知的 git，比如我们常说的 “结构效率高于运营效率”，比如我们感触深刻的 “三观和志同道合”……顶层设计一旦做好，剩下的就是不停进化、完善。也许，“物竞天择，适者生存” 是生命和社会发展的顶层设计，前者是导向，后者是结果。我甚至觉得这就是最本质的顶层设计，试想一下我们所能想到的所有东西，无一不符合这条设计，生命自不必说，从我们每天用的手机、打开的 APP、浏览的网页、吃的美食、买的衣服……有哪项不是这样呢？再把 “物竞天择” 四个字拆开来解读，又会发现新的不一样的意味。有关这部分内容不再赘述，我正在写一篇《关于世界、宇宙与评价、选择》的文章，感兴趣的可以关注。</p>
+<p>谈个题外话，无论男女，在找对象时，首先应该考虑的也是 “顶层设计”，也就是你俩在这方面是否一致。一致最好，如果不一致趁早分开的好，省得到时候更加痛苦。也许有人会说，人都是可以改变的嘛，没错，我非常认同 “人是会改变的” 这个观点，但是恕我很难相信有人能真正改变自己的 “顶层设计”，“江山易改本性难移” 我想说的就是这个意思。另外，对组织、商业、政策来说，“顶层设计” 更加重要，因为它几乎无法改变。经济学中有一个分支叫 “制度经济学”，里面有个非常基本的概念 “路径依赖”（大牛诺斯提出），就像物理中的 “惯性”，在受到外力之前保持之前的运动状态。想想键盘的例子可能会更加有感觉。最后，其实代码工程也一样，刚开始的不合理设计可能会导致后面无穷无尽的麻烦，程序猿肯定听过 “百度 GCC 被三体人锁定在 3.4.5 版本” 的段子，不知道的搜一下百度：）当然，运用到具体场景得看实际情况，这个是常识。好了，题外话到此为止。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/12/23/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/23/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/">
+    <time datetime="2017-12-23T15:00:00.000Z" class="entry-date">
+        2017-12-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Business/">Business</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Industry/">Industry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System/">System</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-09-07-Language-AI-Emotion" class="post-2017-09-07-Language-AI-Emotion post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/07/2017-09-07-Language-AI-Emotion/">语言、AI、情感</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/" data-id="cjtx2yw790025vcccjhhupf57" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="语言的本质"><a href="#语言的本质" class="headerlink" title="语言的本质"></a>语言的本质</h2><p>抽象来看，语言大致可分为描述客观现象和表达主观感受两个方面。<br>客观的语言广泛存在于世间，从人类到动物，到植物、化学元素都有自己的『语言』，它们通过特定的语言向外传达一种『信息』，而这种信息被人类加工后成为『知识』。<br>而人类或其他高等动物之所以特殊是因为他们能表达自己的感受，他们有喜怒哀乐，有七情六欲，他们对万事万物有自己的认识。也许可以称之为『情感』，或许是『意识』。<br>由于语言有多种，个人主观方面又大不相同，所以当人与人沟通时经常会信息不对称，导致沟通障碍。而同样的东西、同一件事物，不同的人看到的也会不尽相同。<br>所以，有时候与其说是语言的魅力，不如说是人类主观的魅力、意识的魅力。譬如『如果你认识以前的我，也许你就会原谅现在的我』，大多数人可能会觉得这句话和有意境，觉得写的很好。为什么？也许从信息的角度来看，它高度抽象描述了大量的客观现象，但我想更多地是因为它勾起了你心中的一点点涟漪，或者引起了你一点点的共鸣。<br>再比如 “他死了，她也死了” 和 “他死了，她伤心而死”。从信息论（效率）角度而言第一句更容易记住，因为它短，但人们更能记住第二句，因为它有 “情感”。所以，我们其实关注的并不是信息本身，而是信息所附加的、能引起我们心灵触动的、能带给我们思考的东西。<br>所以，语言我更倾向于把它当做人类表达自身情感的一种方式。至于记录客观世界，其实完全可以通过其他方式，比如数学公式、物理公式…… 而语言的本质或者核心其实是『情感』，是『意识』的产物。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/">
+    <time datetime="2017-09-07T05:00:00.000Z" class="entry-date">
+        2017-09-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-08-31-diary" class="post-2017-08-31-diary post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/08/31/2017-08-31-diary/">随笔：人生，当有所为有所不为</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/08/31/2017-08-31-diary/" data-id="cjtx2yw6e0008vccc8k4o9nwr" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>是夜，阴沉天空，淅淅沥沥的小雨，落到了地上，没入了尘埃。<br>空旷的房间，通明的白织灯下，桌上一罐哈啤，一罐纯净水，耳边响着最爱的史诗乐。<br>回想近日之事，一时竟感慨万千，内心色彩斑斓。</p>
+<p>人的一生会遇到许许多多的事，会交到许许多多的朋友，你永远无法预测明天会发生什么，下一秒将会认识谁。但是，总有些事、总有些人，会让你的人生泛起涟漪、波澜。<br>有些事，能让你认清一个人；有些人，能让你知道一件事。</p>
+<p>我们生活在这个世界，物欲横流、欲壑难填。<br>每个人都想任性地活，想要想尽一切办法满足自己不断膨胀的私欲。<br>我们以为这是自由，这是活出自己，这是人生的精彩。<br>但却忘记了什么是责任，什么是担当，什么是本分。<br>忘记了克己修身，忘记了每日三省，忘记了拷问良心。也许从未有过。</p>
+<p>任性过后，还剩下什么？还能剩下什么？<br>人生在世，当有所为有所不为，大丈夫立于天地间更应如此。<br>忍让不是天生懦弱，关心不是精力过剩，<br>然而我们总是看不到这些或者习惯了如此，一次次用所谓的个性去刺向那呵护着自己的外壳。<br>人性本如此。</p>
+<p>感受周边人群，与日俱增的寂寞和空虚，让人不得不想方设法去寻找释放的窗口。<br>同样寂寞空虚的人遇到了一起，生产出更多的寂寞空虚，以及一些私欲，泛滥成灾。<br>然后，终日活在这样的世界，通过感官上的各种刺激才知道自己还，活着。</p>
+<p>谈使命，说使命太虚；谈梦想，说梦想太空。<br>浑浑噩噩度过一天一天，一年一年，接着是一生。</p>
+<p>做人，该当知轻重，明对错。<br>然后，去做一个有品性、有道德的人。<br>这样的你也会是一个三观正、人品赞的人。<br>扪心自问，你是吗？</p>
+<p>后记：发现自己慢慢喜欢上在这种环境下用键盘缓缓抒发自己内心的情感，就好像一篇娓娓道来的故事，好像一副徐徐展开的画卷，好像一首缓缓奏起的乐章。随着文章终了，内心的情感渐渐平复，由内而外不再充满戾气，不再焦躁不安，不再五味陈杂。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/08/31/2017-08-31-diary/">
+    <time datetime="2017-08-31T14:00:00.000Z" class="entry-date">
+        2017-08-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Diary/">Diary</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-04-09-NLPKnowledgeTree" class="post-2017-04-09-NLPKnowledgeTree post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/04/09/2017-04-09-NLPKnowledgeTree/">自然语言处理（NLP）知识地图</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/04/09/2017-04-09-NLPKnowledgeTree/" data-id="cjtx2yw6d0006vccckpei2hmd" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><p> </p><p><div class="lev1 toc-item"><a href="#什么是-NLP" data-toc-modified-id="什么是-NLP-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>什么是 NLP</a></div><div class="lev1 toc-item"><a href="#NLP-有什么用？" data-toc-modified-id="NLP-有什么用？-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>NLP 有什么用？</a></div><div class="lev1 toc-item"><a href="#NLP-要学什么" data-toc-modified-id="NLP-要学什么-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>NLP 要学什么</a></div><div class="lev1 toc-item"><a href="#深度学习与-NLP" data-toc-modified-id="深度学习与-NLP-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>深度学习与 NLP</a></div><div class="lev1 toc-item"><a href="#扩展阅读" data-toc-modified-id="扩展阅读-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>扩展阅读</a></div><div class="lev1 toc-item"><a href="#参考资料" data-toc-modified-id="参考资料-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>参考资料</a></div></p>
+<h1 id="什么是-NLP"><a href="#什么是-NLP" class="headerlink" title="什么是 NLP"></a>什么是 NLP</h1><p>计算机领域中自然语言处理（Natural Language Processing: NLP）的目的，就是让计算机能够理解和生成人类语言。  </p>
+<ul>
+<li>自然语言处理是一门交叉学科，包括计算机科学，人工智能和语言学</li>
+<li>目标：让计算机去处理或“理解”自然语言, 完成一些有用的任务例如问答系统，机器翻译</li>
+<li>完全理解或者表示语言的意义（甚至去定义它）都是一个虚幻的目标</li>
+<li>完美的理解语言是一个“<a href="https://en.wikipedia.org/wiki/AI-complete" target="_blank" rel="noopener">AI-complete</a>”的问题</li>
+</ul>
+<h1 id="NLP-有什么用？"><a href="#NLP-有什么用？" class="headerlink" title="NLP 有什么用？"></a>NLP 有什么用？</h1><ul>
+<li>拼写检查</li>
+<li>同义词查找&amp;替换</li>
+</ul>
+<ul>
+<li>文本分类与情感分析<ul>
+<li>例如对教科书的文本进行分级，对长文本进行正负情绪判断</li>
+<li>市场营销或者金融交易领域的情感分析</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>信息检索与问答系统</li>
+</ul>
+<ul>
+<li>关键词、信息提取<ul>
+<li>从网页中提取有用的信息例如产品价格，日期，地址，人名或公司名等</li>
+</ul>
+</li>
+<li>自动文摘</li>
+<li>自动写作</li>
+</ul>
+<ul>
+<li>机器翻译</li>
+<li>语音翻译</li>
+</ul>
+<ul>
+<li>语音识别</li>
+<li>人机对话</li>
+</ul>
+<ul>
+<li>……</li>
+</ul>
+<h1 id="NLP-要学什么"><a href="#NLP-要学什么" class="headerlink" title="NLP 要学什么"></a>NLP 要学什么</h1><ul>
+<li><a href="https://zh.wikipedia.org/zh-hans/%E8%AF%AD%E8%A8%80%E5%AD%A6" target="_blank" rel="noopener">语言学</a><ul>
+<li>语言学是研究所有人类语文发展有关的一门学术科目（通常只有根据语言，非文字）。</li>
+<li>语言学研究句法和词语等语言的描述，也研究语言的发展史。</li>
+</ul>
+</li>
+<li><a href="https://zh.wikipedia.org/zh-hans/%E8%AF%AD%E9%9F%B3%E5%AD%A6" target="_blank" rel="noopener">语音学</a><ul>
+<li>发音语音学</li>
+<li>声学语音学</li>
+<li>听觉语音学</li>
+</ul>
+</li>
+<li>概率论<ul>
+<li>贝叶斯</li>
+<li>马尔科夫</li>
+</ul>
+</li>
+<li>信息论<ul>
+<li>香农、熵</li>
+</ul>
+</li>
+<li>机器学习</li>
+<li>形式语言与自动机<ul>
+<li>形式语言包括：短语结构语言、上下文有关语言、上下文无关语言、正则语言等</li>
+<li>自动机包括：图灵机、有穷自动机、下推自动机、线性有界自动机</li>
+</ul>
+</li>
+<li>语言知识库</li>
+<li>语言模型<ul>
+<li>n 元语法</li>
+<li>数据平滑</li>
+</ul>
+</li>
+<li>自动分词、命名实体识别、词性标注<ul>
+<li>自动分词就是让计算机自动区分出汉字组成的词语</li>
+<li>命名实体识别就是分词之后能够根据各种短语形式判断出哪个词表示的是一个物体或组织或人名或……</li>
+<li>词性标注就是在给定句子中判定每个词的语法范畴，识别出“名动形、数量代、副介连助叹拟声”</li>
+</ul>
+</li>
+<li>句法分析<ul>
+<li>确定句子的句法结构或句子中词汇之间的依存关系</li>
+<li>句法结构分析</li>
+<li>依存关系分析：词与词之间的依存关系</li>
+</ul>
+</li>
+<li>语义分析<ul>
+<li>词义消歧</li>
+<li>语义角色标注</li>
+</ul>
+</li>
+<li>篇章分析<ul>
+<li>理解篇章</li>
+<li>分析篇章结构</li>
+</ul>
+</li>
+</ul>
+<h1 id="深度学习与-NLP"><a href="#深度学习与-NLP" class="headerlink" title="深度学习与 NLP"></a>深度学习与 NLP</h1><ul>
+<li>神经网络语言模型</li>
+<li>卷积神经网络 CNN</li>
+<li>词向量<ul>
+<li>localist representation 与 distributed representation</li>
+<li>word embedding</li>
+</ul>
+</li>
+<li>word2vec<ul>
+<li>基于霍夫曼树的 Hierarchical Softmax 技术</li>
+<li>基于 Negative Sampling 的模型</li>
+</ul>
+</li>
+<li>递归神经网络 RNN<ul>
+<li>LSTM</li>
+</ul>
+</li>
+</ul>
+<h1 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h1><ul>
+<li><a href="https://arxiv.org/pdf/1404.7828.pdf" target="_blank" rel="noopener">Deep Learning in Neural Networks: An Overview</a></li>
+<li><a href="http://www.52nlp.cn/%E6%96%AF%E5%9D%A6%E7%A6%8F%E5%A4%A7%E5%AD%A6%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8E%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%AC%AC%E4%B8%80%E8%AE%B2%E5%BC%95%E8%A8%80" target="_blank" rel="noopener">斯坦福大学深度学习与自然语言处理</a><ul>
+<li><a href="http://cs224d.stanford.edu/index.html" target="_blank" rel="noopener">Stanford University CS224d: Deep Learning for Natural Language Processing</a></li>
+</ul>
+</li>
+<li><a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/ICASSP_DeepTextLearning_v07.pdf" target="_blank" rel="noopener">PowerPoint Presentation - ICASSP_DeepTextLearning</a></li>
+</ul>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://book.douban.com/subject/25746399/" target="_blank" rel="noopener">统计自然语言处理（第2版）</a></li>
+<li><a href="https://github.com/warmheartli/ChatBotCourse" target="_blank" rel="noopener">warmheartli/ChatBotCourse</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/04/09/2017-04-09-NLPKnowledgeTree/">
+    <time datetime="2017-04-09T10:00:00.000Z" class="entry-date">
+        2017-04-09
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">26</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/09/2019-04-09-Information-Extraction-Note/">Information Extraction Note</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/31/2019-03-31-Nabokov-Favorite-Word/">《纳博科夫最喜欢的词》读书笔记与思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/">自然语言计算机形式分析的理论与方法笔记(Ch15)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">自然语言计算机形式分析的理论与方法笔记(Ch14)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">29</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">24</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 14px;">Computer Science</a> <a href="/tags/Data-Structure/" style="font-size: 14px;">Data Structure</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 14px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 10px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>
