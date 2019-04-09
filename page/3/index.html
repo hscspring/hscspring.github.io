@@ -90,297 +90,17 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
         <h1 id="第十七章：自然语言处理系统评测"><a href="#第十七章：自然语言处理系统评测" class="headerlink" title="第十七章：自然语言处理系统评测"></a>第十七章：自然语言处理系统评测</h1><h2 id="测评的一般原则和方法"><a href="#测评的一般原则和方法" class="headerlink" title="测评的一般原则和方法"></a>测评的一般原则和方法</h2><p>两种不同的测评方法：</p>
 <ul>
 <li>黑箱评测（外在评测）：不关心 NLP 系统内部机制和组成结构，主要根据输入输出结果判断，有助于了解外在的总体性能。</li>
 <li>白箱评测（内在评测）：对 NLP 内部机制分别分析，测评各组成部分性能，有助于了解内部组成部分的性能。</li>
 </ul>
 <p>主要采用黑箱评测，“宽进严出”。</p>
-<h2 id="语音合成和文语转换系统的评测"><a href="#语音合成和文语转换系统的评测" class="headerlink" title="语音合成和文语转换系统的评测"></a>语音合成和文语转换系统的评测</h2><p>包括语音学模块评测和语言学模块评测。语音合成只包括语音学评测；文语转换包括两者。</p>
-<p>语音学评测包括语音清晰度和语音自然度两部分。前者指输出语音是否容易听清楚；后者指输出语音听起来是否自然。</p>
-<p>语音清晰度又分为音节清晰度测试、单词清晰度测试和单句清晰度测试。</p>
-<ul>
-<li><p>音节清晰度测试方法主要有诊断性押韵测试（Diagnostic Rhyme Test，DRT）和改进的押韵测试（Modified Rhyme Test，MRT）两种。</p>
-<ul>
-<li>DRT 一般以三个音节为一组，每个组为一个文本文件</li>
-<li>MRT 一般以一个音节为一组，每个组为一个文本文件</li>
-<li>MRT 的结果可以作为 DRT 测试法的参考</li>
-</ul>
-</li>
-<li><p>单词清晰度测试采用 “语义不可预测句”（Semantic Unpredictable Sentence，SUS），句子在语义上不可预测，避免根据上下文猜测，并在一定程度上削弱学习效应。</p>
-</li>
-<li><p>单句清晰度测试主要测试单句中语调的清晰性和单句类型的差异性。应注意区分单句的类型（如陈述句、疑问句、感叹句、命令句等），注意测试标点符号对于句子语音清晰度的影响。</p>
-</li>
-<li>音节清晰度采用 DRT 或 MRT 方法测试，单词、单句清晰度采用 SUS 方法测试。收集完所有系统的合成语音，打乱顺序播放，由听音人对合成语音结果测试进行打分，按百分比进行评分。<ul>
-<li>DRT 和 MRT：P = (R-W)/T，R 和 W 分别是正确和错误辨识的音节数，T 是测试的总音节数</li>
-<li>单词只要其中一个音节错则该词错；单句只要有一个关键词错则全句错：P = R/T</li>
-</ul>
-</li>
-</ul>
-<p>语言自然度主要测试合成语音的拟人性、连贯性和韵律感。</p>
-<ul>
-<li><p>拟人性考察合成语音是否与人的语音接近</p>
-</li>
-<li><p>连贯性考察合成语音是否连贯，切词是否正确，节奏与停顿是否自然，语速是否正常，发音是否流利</p>
-</li>
-<li><p>韵律感考察合成语音的语调、重音位置、轻声和儿化是否正确，听起来是否费力</p>
-</li>
-<li><p>这些特征在短文中得到了比较全面的体现，因此一般以短文作为测试材料</p>
-<ul>
-<li>短文根据领域分为通用领域和特定领域，长度 50-200 字</li>
-<li>通用领域由不同体裁若干短文组成</li>
-<li>特定领域由若干欢迎语、提示语、情景对话、信息服务内容片断组成</li>
-</ul>
-</li>
-<li><p>语言自然度评分方法有两两比较法和平均评价法两种</p>
-<ul>
-<li>两两评分法（Paired Comparison，PC）：对同一段短文，n 个参测系统，共有 n(n-1)/2 个对比组合，听音人按照拟人性、连贯性、韵律感等因素对合成结果采用五级评分值（+2 +1 0 -1 -2）评分。</li>
-<li>平均评分法（Mean Opinion Score，MOS）：需要专家参与评分，根据总体印象用优良中差劣五级计分评价。</li>
-<li>PC 评分为主，MOS 评分为辅。</li>
-<li>具体要求如下：<ul>
-<li>切词：特别注意实体及术语切词是否正确</li>
-<li>多音字</li>
-<li>姓氏的特殊读音</li>
-<li>数字进位制</li>
-<li>年代、时间、电话号码、百分比、分数和小数</li>
-<li>符号与单位</li>
-<li>以西文字母开头的词语</li>
-<li>“一” “不” 的读音</li>
-<li>上声变调</li>
-<li>轻声的读音</li>
-<li>儿化的读音</li>
-<li>专有名词读音</li>
-<li>专业术语读音</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>语音识别系统的评测主要测试语音文本转换和音节转换。</p>
-<ul>
-<li><p>语音文本转换测评指标有：</p>
-<ul>
-<li>汉字正识率</li>
-<li>插入汉字错误率</li>
-<li>删除汉字错误率</li>
-<li>替换汉字错误率</li>
-<li>句子正识率</li>
-<li>完成时间</li>
-<li>系统故障数</li>
-</ul>
-</li>
-<li>音节识别测评指标有：<ul>
-<li>音节正识率</li>
-<li>插入音节错误率</li>
-<li>删除音节错误率</li>
-<li>替换音节错误率</li>
-<li>完成时间</li>
-<li>系统故障数</li>
-</ul>
-</li>
-<li>对语音识别系统产生的文本也要进行语言学方面测评，具体要求包括：<ul>
-<li>字形</li>
-<li>异形词</li>
-<li>同音词</li>
-<li>歧义（切分）</li>
-<li>儿化词</li>
-</ul>
-</li>
-</ul>
-<h2 id="机器翻译系统的评测"><a href="#机器翻译系统的评测" class="headerlink" title="机器翻译系统的评测"></a>机器翻译系统的评测</h2><p>机器翻译系统一般分为如下几种类型：</p>
-<ul>
-<li>用于浏览者的机器翻译（MT for the Watcher，MT-W）：目的是帮助浏览者查阅外文资料，对译文质量要求不高</li>
-<li>用于修订者的机器翻译（MT for the Reviser，MT-R）：目的是帮助用户修订粗糙的译文，质量比 MT-W 有所提高</li>
-<li>用于翻译者的机器翻译（MT for the Translator，MT-T）：目的是帮用户在线翻译，质量要求较高</li>
-<li>用于写作者的机器翻译（MT for the Author，MT-A）：目的是帮助用户翻译或写作，质量要求更高</li>
-</ul>
-<p>根据类型不同，测评时考虑不同的重点。评测题目选取应遵循以下原则：</p>
-<ul>
-<li>外汉机翻系统中，源语言应以相应外语大学教学大纲作为题目选取的主要依据；汉外机翻系统中，汉语应以常用句型作为题目选取的主要依据</li>
-<li>通用机翻系统测试题目的词汇选自一般领域；专业机翻系统测试题目的词汇和语法结构应体现不同专业领域的特点</li>
-<li>测试题目可以包含少量常用固定词组</li>
-<li>测试题目应该注意区别兼类词</li>
-<li>测试题目应该注意区别多义词或同音词</li>
-<li>测试题目应该有一定数量的用于区别结构歧义的句子</li>
-<li>测试题目应该选取现代书面语中的规范句子</li>
-</ul>
-<p>机翻系统评测分为人工和自动评测两种。</p>
-<ul>
-<li>人工：<ul>
-<li>忠实度（0-5分）：是否忠实地表达了原文内容；流畅度（0-5分）：是否流畅和地道</li>
-<li>可理解度</li>
-<li>符合语言文字规范：字形、异形词、标点符号、术语、人名等</li>
-<li>注意不同风格、不同语体文章</li>
-</ul>
-</li>
-<li>自动：<ul>
-<li>BLEU 基于 N 元语法，通过对译文跟参考译文进行 N-gram 的比较综合得出译文的好坏的评价分数，可以参考这篇<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/BLEU/BLEU-Tutorial.ipynb" target="_blank" rel="noopener">笔记</a></li>
-<li>NIST 是在 BLEU 基础上的改进方案，采用各阶 N-gram 的平均值而不是加权平均值，使得总体评价结果更偏重于忠实度，而且也不至于因为某一阶 N-gram 的匹配率为零而导致总体评价为零。另外，NIST 考虑到每一个 N-gram 在多个参考译文中出现的次数不同能够表现出该词的重要性，因此根据其在多个参考译文中出现的次数而给每一个 N-gram 赋予一个权值。可以参考这篇<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/BLEU/NIST-Tutorial.ipynb" target="_blank" rel="noopener">笔记</a></li>
-</ul>
-</li>
-</ul>
-<p>其他测评机翻译文质量的方式：</p>
-<ul>
-<li>根据编辑对译文的修改量</li>
-<li>机翻译文与人翻译文比较</li>
-<li>根据最终费用</li>
-</ul>
-<p>除了译文质量，还可以采用以下指标评测机翻系统：</p>
-<ul>
-<li>根据机翻所需要的时间</li>
-<li>根据使用环境的要求</li>
-<li>根据可维护性</li>
-<li>根据可扩充性</li>
-<li>根据系统性价比</li>
-<li>根据系统鲁棒性</li>
-<li>根据模块性</li>
-<li>根据单调性</li>
-</ul>
-<h2 id="语料库系统的评测"><a href="#语料库系统的评测" class="headerlink" title="语料库系统的评测"></a>语料库系统的评测</h2><p>语料库是为一个或多个应用目标而专门收集的、有一定结构的、有代表性的、可被计算机程序检索的、具有一定规模的语料的集合。实际上是对自然语言运用的随机抽样。</p>
-<p>语料库可以从规范性、代表性、结构性和平衡性等四个方面进行评测。</p>
-<p>语料的元数据可以反映语料库的基本信息。</p>
-<p>语料库自动切词和标注的评测遵循以下原则：</p>
-<ul>
-<li>应当遵循《分词规范》</li>
-<li>不确定的参照《现代汉语词典》</li>
-<li>不同应用对切词的颗粒度不同，可以容许同一语言结构按照不同层次切分</li>
-<li><p>注意切分时的歧义</p>
-<ul>
-<li>交集型：从小|学|电脑，从|小学|毕业</li>
-<li>多义组合型：他|将|来|北京|工作，情况|将来|会变</li>
-</ul>
-</li>
-<li><p>注意命名实体</p>
-</li>
-<li>标注时注意区分兼类词</li>
-</ul>
-<p>计算公式：</p>
-<ul>
-<li>切词正确率 = 正确的切词数/标准切词数</li>
-<li>词性标注正确率 = 正确标注的切词数/标准切词数</li>
-<li>词性标注相对正确率 = 正确标注的切词数/正确的切词数（由于切词错误时标注自然没有意义）</li>
-</ul>
-<h2 id="国外自然语言处理系统的评测"><a href="#国外自然语言处理系统的评测" class="headerlink" title="国外自然语言处理系统的评测"></a>国外自然语言处理系统的评测</h2><p>除了 BLEU 和 NIST，还有词对齐、基于编辑距离的方法，以及分类、回归和排序。研究发现回归比分类更可靠。</p>
-<ul>
-<li>分类是从多个机翻系统中选最好的</li>
-<li>回归通过调节不同特征参数，使得结果接近训练数据的人工评分</li>
-<li>根据不同机翻系统之间译文质量进行排序</li>
-</ul>
-<p>两种自动增加参考译文的方法：</p>
-<ul>
-<li>使用伪参考译文：“伪参考译文” 是指其他机翻系统的译文。</li>
-<li>使用同义互训：把一些句子或短语表示为语义上对等的句子或短语。</li>
-</ul>
-<p>其他方面的评测：</p>
-<ul>
-<li><p>C-STAR 组织口语机翻系统评测</p>
-</li>
-<li><p>DARPA 组织语音识别和语音合成的评测</p>
-</li>
-<li>NIST 组织文本检索的评测</li>
-<li>NIST 组织问答系统评测，任务包括：<ul>
-<li>Factoid 任务：对基于事实、有简短答案的提问的处理能力</li>
-<li>List 任务：列出满足用户提问的若干答案</li>
-<li>Definition 任务：给出对于某个概念、术语或现象的定义</li>
-<li>Context 任务：对于相互关联的系列提问的处理能力</li>
-<li>Passage 任务：要求系统给出包含答案的字符序列</li>
-<li>Other 任务：要求返回非空、无序、无限定内容的关于目标的描述，但不能包含 Factoid 和 List 已经回答的内容</li>
-</ul>
-</li>
-<li>NIST 组织文档理解评测，人工五项指标：<ul>
-<li>文摘是否合乎语法</li>
-<li>文摘是否冗余</li>
-<li>指代是否清晰</li>
-<li>聚焦情况</li>
-<li>结构和连贯性</li>
-</ul>
-</li>
-<li>MUC 对文本信息抽取系统的评测，评测任务包括：<ul>
-<li>场景模板填充</li>
-<li>命名实体识别</li>
-<li>共指关系确定</li>
-<li>模板元素填充</li>
-<li>模板关系确定</li>
-</ul>
-</li>
-<li>NIST 组织自动内容测评对 MUC 的任务进行融合：<ul>
-<li>实体检测和识别：命名实体识别+共指关系确定</li>
-<li>关系检测和识别：模板元素填充+模板关系确定</li>
-<li>事件检测和识别：场景模板填充</li>
-<li>时间短语表达和数量值识别</li>
-</ul>
-</li>
-</ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li><p>测评的一般原则和方法</p>
-<ul>
-<li>黑箱测评+白箱测评</li>
-<li>主要采用黑箱评测，“宽进严出”</li>
-</ul>
-</li>
-<li><p>语音合成和文语转换系统的评测</p>
-<ul>
-<li>包括语音学模块评测和语言学模块评测。语音合成只包括语音学评测；文语转换包括两者。</li>
-<li>语音学评测包括语音清晰度和语音自然度两部分。前者指输出语音是否容易听清楚；后者指输出语音听起来是否自然。</li>
-<li>语音清晰度又分为音节清晰度测试、单词清晰度测试和单句清晰度测试。音节清晰度采用 DRT 或 MRT 方法测试，单词、单句清晰度采用 SUS 方法测试。收集完所有系统的合成语音，打乱顺序播放，由听音人对合成语音结果测试进行打分，按百分比进行评分。</li>
-<li>语言自然度主要测试合成语音的拟人性、连贯性和韵律感。<ul>
-<li>拟人性考察合成语音是否与人的语音接近</li>
-<li>连贯性考察合成语音是否连贯，切词是否正确，节奏与停顿是否自然，语速是否正常，发音是否流利</li>
-<li>韵律感考察合成语音的语调、重音位置、轻声和儿化是否正确，听起来是否费力</li>
-</ul>
-</li>
-<li>语言自然度评分方法有两两比较法和平均评价法两种，PC 评分为主，MOS 评分为辅。</li>
-<li>语音识别系统的评测主要测试语音文本转换和音节转换。对语音识别系统产生的文本也要进行语言学方面测评。</li>
-</ul>
-</li>
-<li><p>机器翻译系统的评测</p>
-<ul>
-<li>机器翻译系统一般分为如下几种类型：用于浏览者的机器翻译、用于修订者的机器翻译、用于翻译者的机器翻译和用于写作者的机器翻译</li>
-<li>根据类型不同，测评时考虑不同的重点。评测题目选取应遵循以下原则：<ul>
-<li>外汉机翻系统中，源语言应以相应外语大学教学大纲作为题目选取的主要依据；汉外机翻系统中，汉语应以常用句型作为题目选取的主要依据</li>
-<li>通用机翻系统测试题目的词汇选自一般领域；专业机翻系统测试题目的词汇和语法结构应体现不同专业领域的特点</li>
-<li>测试题目可以包含少量常用固定词组</li>
-<li>测试题目应该注意区别兼类词</li>
-<li>测试题目应该注意区别多义词或同音词</li>
-<li>测试题目应该有一定数量的用于区别结构歧义的句子</li>
-<li>测试题目应该选取现代书面语中的规范句子</li>
-</ul>
-</li>
-<li><p>机翻系统人工测评：忠实度、流畅度、可理解度</p>
-</li>
-<li><p>机翻系统自动测评：BLEU 和 NIST</p>
-</li>
-</ul>
-</li>
-<li>语料库系统的评测<ul>
-<li>语料库可以从规范性、代表性、结构性和平衡性等四个方面进行评测。</li>
-<li>语料库自动切词和标注的评测遵循以下原则：<ul>
-<li>应当遵循《分词规范》</li>
-<li>不确定的参照《现代汉语词典》</li>
-<li>不同应用对切词的颗粒度不同，可以容许同一语言结构按照不同层次切分</li>
-<li>注意切分时的歧义</li>
-<li>注意命名实体</li>
-<li>标注时注意区分兼类词</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>国外自然语言处理系统的评测<ul>
-<li>机翻：除了 BLEU 和 NIST，还有词对齐、基于编辑距离的方法，以及分类、回归和排序。研究发现回归比分类更可靠。</li>
-<li>C-STAR 组织口语机翻系统评测</li>
-<li>DARPA 组织语音识别和语音合成的评测</li>
-<li>NIST 组织文本检索的评测</li>
-<li>NIST 组织问答系统评测</li>
-<li>NIST 组织文档理解评测</li>
-<li>MUC 对文本信息抽取系统的评测</li>
-<li>NIST 组织自动内容测评对 MUC 的任务进行融合</li>
-</ul>
-</li>
-</ul>
-<p>本章内容可以了解一下，某些内容也可以在 NLP 很多任务中参考，比如语言自然度评测的一些要求也可以用在纠错中。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/09/05/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
@@ -1086,7 +806,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataClearing/">DataClearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataScience/">DataScience</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Model/">Formal Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinearAlgebra/">LinearAlgebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MachineLearning/">MachineLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">23</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReinforcementLearning/">ReinforcementLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SimpsonParadox/">SimpsonParadox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -1095,7 +815,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 11.67px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 13.33px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 13.33px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 16.67px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18.33px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 11.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 11.67px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/DataClearing/" style="font-size: 10px;">DataClearing</a> <a href="/tags/DataScience/" style="font-size: 14px;">DataScience</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Model/" style="font-size: 10px;">Formal Model</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/LinearAlgebra/" style="font-size: 10px;">LinearAlgebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/MachineLearning/" style="font-size: 10px;">MachineLearning</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/ReinforcementLearning/" style="font-size: 10px;">ReinforcementLearning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/SimpsonParadox/" style="font-size: 10px;">SimpsonParadox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
     </div>
   </aside>
 
@@ -1126,6 +846,38 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
