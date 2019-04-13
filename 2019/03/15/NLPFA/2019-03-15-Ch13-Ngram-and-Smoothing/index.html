@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T04:54:56.732Z">
+<meta property="og:updated_time" content="2019-04-13T13:37:51.485Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch13)">
 <meta name="twitter:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
@@ -115,13 +115,13 @@
 </li>
 <li><p>Witten-Bell</p>
 <ul>
-<li>思想：看一个零概率 N 元语法的概率可以用首次看一个 N 元语法的概率模拟，即借助 “第一次看过的事物” 的数量估计 “从没见过的事物” 的概率。</li>
+<li>1991年提出，思想：看一个零概率 N 元语法的概率可以用首次看一个 N 元语法的概率模拟，即借助 “第一次看过的事物” 的数量估计 “从没见过的事物” 的概率。</li>
 <li>所有零的 N 元语法的全部概率为：T/(N+T)，N 表示所有 Ngram 数，T 表示不重复的 Ngram 数。假设有 Z 个零次 Ngram，每个的概率为：T/((N+T)Z)；非零次的 Ngram，每个的概率为：Ci/(N+T)。</li>
 </ul>
 </li>
 <li><p>Good-Turing</p>
 <ul>
-<li><p>思想：用观察计数较高的 N 元语法数的方法，来重新估计概率，并把它指派给零计数或低计数的 N 元语法。新的平滑计数：<script type="math/tex">c^* = (c+1) \frac{N_{c+1}}{N_C}</script></p>
+<li><p>1953 年提出，思想：用观察计数较高的 N 元语法数的方法，来重新估计概率，并把它指派给零计数或低计数的 N 元语法。新的平滑计数：<script type="math/tex">c^* = (c+1) \frac{N_{c+1}}{N_C}</script></p>
 </li>
 <li><p>c 表示从未出现过的 N 元语法计数，比如 c=0，Nc=10 万 表示 10 万个 N 元语法计数为 0，c*=(0+1) × N_(c+1)/Nc；依次类推可以求出 c=1、2…… 时的 c*，进而可以使用 c* 来表示原来的计数 c。出现 0 次的自然也被 c=0 对应的 c*（一般是一个比较小的数）替换，也就实现了平滑。</p>
 </li>
@@ -129,14 +129,30 @@
 <script type="math/tex; mode=display">c^* = \frac{(c+1)\frac{N_{c+1}}{N_c} -c \frac{(k+1)N_{k+1}}{N_1}} {1-\frac{(k+1)N_{k+1}}{N_1}}, 1≤ c ≤ k</script></li>
 </ul>
 </li>
-<li><p>Interpolation</p>
+</ul>
+<p>上面的方法都是解决零频率 N 元语法问题，此外还可以通过利用对应的 N-1 元或更低元的语法来计算。主要有两种方法：Backoff 和 Interpolation，Backoff 中，只有当阶数较高的 N 元语法中存在零计数时，才把阶数较高的 N  元语法降为阶数较低的 N 元语法。</p>
+<ul>
+<li><p>Katz Smoothing (Backoff)</p>
+<ul>
+<li>1987 年提出</li>
+<li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {P(w_i|w_{i-2}w_{i-1}), c(w_{i-2}w_{i-1}w_i) > 0}​</script></li>
+<li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {\alpha_1 P(w_i|w_{i-1}), c(w_{i-2}w_{i-1}w_i) = 0\ and\ c(w_{i-1}w_i) > 0}</script></li>
+<li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {\alpha_2 P(w_i), other}</script></li>
+<li>α 的目的是使等式的结果为真正的概率，保证：<script type="math/tex">\sum_{i,j} P(w_n|w_iw_j) = 1</script></li>
+</ul>
 </li>
-<li><p>Backoff</p>
+<li><p>Jelinek-Mercer Smoothing (Deleted Interpolation)</p>
+<ul>
+<li>1980 年提出，使用线性插值把不同阶的语法结合起来，不同阶通过权值加权</li>
+<li><script type="math/tex; mode=display">\hat {P}(w_n|w_{n-1}w_{n-2}) = {\lambda_1 P(w_n|w_{n-1}w_{n-2}) +\lambda_2 P(w_n|w_{n-1}) + \lambda_3 P(w_n)},\ \sum_i \lambda_i = 1</script></li>
+<li>实际不仅仅只为三元语法训练三个 λ，还把每一个 λ 看成上下文的函数。</li>
+</ul>
 </li>
-<li><p>Absolute discounting</p>
-</li>
-<li><p>Kneser-Ney Smoothing</p>
-</li>
+</ul>
+<p>另外还有以下两种表现不错的平滑算法，可以参考：<a href="https://nbviewer.jupyter.org/github/hscspring/Note_NLP/blob/master/CMU-NeuralNetworksforNLP2017/02-lm/02-lmNote.ipynb" target="_blank" rel="noopener">LM</a></p>
+<ul>
+<li>Absolute Discounting: Discounting of the counts for frequent N-grams is necessary to save some probability mass for the smoothing algorithm to distribute to the unseen N-grams.</li>
+<li>Kneser-Ney Smoothing: Augments absolute discounting with a more sophisticated way to handle the lower-order unigram distribution.</li>
 </ul>
 <p>Example（语料中共有 1616 个不同的 Type），假设咱们需要平滑下面 Bi-gram：</p>
 <div class="table-container">
@@ -647,17 +663,44 @@
 </tbody>
 </table>
 </div>
+<p>以上具体计算可以参考代码：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/Smoothing.ipynb" target="_blank" rel="noopener">Smoothing</a></p>
 <p>Ngram 可以用于处理上下文有关的错误，基本思想是：对于句子中的每个单词生成它的一切可能的错误拼写，或者是只包括排版印刷错误而造成的错拼，或者是也包括同音词造成的错拼，然后选出使该句子具有最高先验概率的拼写。此外还有 Bayes 分类法、Bayes 分类法与三元语法结合、判定表方法、基于转换的学习方法、潜在语义分析法、筛选算法（效果最好）。</p>
-<p></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li>N 元语法</li>
-<li>数据平滑</li>
+<li>N 元语法<ul>
+<li>一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。</li>
+<li>N 增加时，精确度相应增加，同时生成句子的局限性增加（可选的下个词减少）；严重依赖于语料库。</li>
 </ul>
-<p>这章虽然是非常简单的 Ngram 语法，但 Smooth 方面还是有不少坑的，网上各种各样的教程五花八门。关于 Witten-Bell Smoothing 找了好久才找到一个容易理解的资料（参考文献 2），更多关于 N-gram 和 Smoothing 可以参阅：<a href="https://nbviewer.jupyter.org/github/hscspring/Note_NLP/blob/master/CMU-NeuralNetworksforNLP2017/02-lm/02-lmNote.ipynb" target="_blank" rel="noopener">LM</a></p>
+</li>
+<li>数据平滑<ul>
+<li>Add-One (Add-α)：简单，未登录词或低概率词会被给予过高的概率。</li>
+<li>Witten-Bell：看一个零概率 N 元语法的概率可以用首次看一个 N 元语法的概率模拟。</li>
+<li>Good-Turing：可以复杂，但简单修改也能工作的很好；仍然没有区分不同类型的罕见事件。</li>
+<li>Katz Smoothing (Backoff)/Jelinek-Mercer Smoothing (Deleted Interpolation)：利用对应的 N-1 元或更低元的语法（结合不同阶）来计算；前者只有当阶数较高的 N 元语法中存在零计数时，才把阶数较高的 N  元语法降为阶数较低的 N 元语法。。</li>
+<li>Absolute Discounting/Kneser-Ney Smoothing：前者对 N 元语法计数进行绝对折扣；后者假设过去在更多情境中出现的词语更有可能出现在某些新的语境中。</li>
+</ul>
+</li>
+<li><p>具体表现（参考自：<a href="https://nlp.stanford.edu/~wcmac/papers/20050421-smoothing-tutorial.pdf" target="_blank" rel="noopener">moothing-tutorialf</a>）</p>
+<ul>
+<li>Jelinek-Mercer 在小型训练集上表现更好； Katz 在大型训练集上表现更好。</li>
+<li>Katz 平滑对大数量的 N-gram 表现良好； Kneser-Ney 最适合小数量。</li>
+<li>Absolute Discounting 优于 Linear Discounting。</li>
+<li>在低（非零）计数的 Ngram 上，Jelinek-Mercer 优于 Katz。</li>
+</ul>
+</li>
+</ul>
+<p>这章虽然是非常简单的 Ngram 语法，但 Smoothing 的各种算法却非常有意思，从中可以深刻地感受到对一个简单问题处理的智慧，我想这可能也是算法的魅力吧。关于 Witten-Bell Smoothing 找了好久才找到一个容易理解的资料（参考文献 2），更多关于 N-gram 和 Smoothing 可以参阅：<a href="https://nbviewer.jupyter.org/github/hscspring/Note_NLP/blob/master/CMU-NeuralNetworksforNLP2017/02-lm/02-lmNote.ipynb" target="_blank" rel="noopener">LM</a></p>
 <p><strong>参考文献</strong>：</p>
 <ul>
-<li><a href="https://gawron.sdsu.edu/compling/course_core/lectures/smoothing.htm" target="_blank" rel="noopener">Computational Linguistics</a></li>
+<li><a href="https://gawron.sdsu.edu/compling/course_core/lectures/smoothing.htm" target="_blank" rel="noopener">Computational Linguistics</a> 加一平滑的例子不错。</li>
 <li><a href="http://gki.informatik.uni-freiburg.de/teaching/ws0607/advanced/lecture.html" target="_blank" rel="noopener">Foundations of Artificial Intelligence · Advanced AI Techniques - Lectures</a> 参考了 7b 的平滑部分，强烈推荐，2006 年的课件清晰度（Witten-Bell）超过了网上能找到的任何一个教程或博客。</li>
+<li><a href="https://nlp.stanford.edu/~wcmac/papers/20050421-smoothing-tutorial.pdf" target="_blank" rel="noopener">20050421-smoothing-tutorial.pdf</a> 和 <a href="https://www.cl.uni-heidelberg.de/courses/ss15/smt/scribe6.pdf" target="_blank" rel="noopener">scribe6.pdf</a> 比较全面介绍了各种平滑算法的思想。</li>
+</ul>
+<p>几个不错的课件：</p>
+<ul>
+<li><a href="http://l2r.cs.uiuc.edu/~danr/Teaching/CS546-09/Lectures/Lec5-Stat-09-ext.pdf" target="_blank" rel="noopener">CS546:Learning and NLP Lec 6: Ngrams and Backoff Models</a></li>
+<li><a href="https://www.cs.jhu.edu/~jason/665/PDFSlides/lect05-smoothing.pdf" target="_blank" rel="noopener">lect05-smoothing.pdf</a></li>
+<li><a href="http://www.cs.virginia.edu/~kc2wc/teaching/NLP16/slides/03-smooth.pdf" target="_blank" rel="noopener">lect03-smooth</a></li>
+<li><a href="http://www.cs.brandeis.edu/~cs136a/CS136a_Slides/CS136a_Lect11_PerplexityAndSmoothing.pdf" target="_blank" rel="noopener">CS136a_Lect11_PerplexityAndSmoothing</a></li>
 </ul>
 
       
