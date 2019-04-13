@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T13:37:51.485Z">
+<meta property="og:updated_time" content="2019-04-13T14:01:43.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch13)">
 <meta name="twitter:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
@@ -154,7 +154,8 @@
 <li>Absolute Discounting: Discounting of the counts for frequent N-grams is necessary to save some probability mass for the smoothing algorithm to distribute to the unseen N-grams.</li>
 <li>Kneser-Ney Smoothing: Augments absolute discounting with a more sophisticated way to handle the lower-order unigram distribution.</li>
 </ul>
-<p>Example（语料中共有 1616 个不同的 Type），假设咱们需要平滑下面 Bi-gram：</p>
+<p>对于大语料，可以使用非常简单的 Stupid Backoff：放弃了计算真实的概率分布，高阶没有折扣概率，如果高阶 N-gram 的计数为零，只需退回到低阶 N-gram，使用固定权重，可以参考：<a href="https://nbviewer.jupyter.org/github/hscspring/Note_NLP/blob/master/CMU-NeuralNetworksforNLP2017/02-lm/02-lmNote.ipynb" target="_blank" rel="noopener">LM</a>。</p>
+<p><strong>Add-One and Witten-Bell Example</strong>（语料中共有 1616 个不同的 Type），假设咱们需要平滑下面 Bi-gram：</p>
 <div class="table-container">
 <table>
 <thead>
@@ -679,12 +680,18 @@
 <li>Absolute Discounting/Kneser-Ney Smoothing：前者对 N 元语法计数进行绝对折扣；后者假设过去在更多情境中出现的词语更有可能出现在某些新的语境中。</li>
 </ul>
 </li>
-<li><p>具体表现（参考自：<a href="https://nlp.stanford.edu/~wcmac/papers/20050421-smoothing-tutorial.pdf" target="_blank" rel="noopener">moothing-tutorialf</a>）</p>
+<li><p>具体表现</p>
 <ul>
 <li>Jelinek-Mercer 在小型训练集上表现更好； Katz 在大型训练集上表现更好。</li>
 <li>Katz 平滑对大数量的 N-gram 表现良好； Kneser-Ney 最适合小数量。</li>
-<li>Absolute Discounting 优于 Linear Discounting。</li>
 <li>在低（非零）计数的 Ngram 上，Jelinek-Mercer 优于 Katz。</li>
+<li>Absolute Discounting 优于 Linear Discounting。</li>
+</ul>
+</li>
+<li>应用场景<ul>
+<li>Applications like Text Categorization Add one smoothing can be used.</li>
+<li>State of the art technique Kneser-Ney Smoothing: both interpolation and backoff versions can be used.</li>
+<li>Very large training set like web data like Stupid Backoff are more efficient.</li>
 </ul>
 </li>
 </ul>
@@ -692,10 +699,11 @@
 <p><strong>参考文献</strong>：</p>
 <ul>
 <li><a href="https://gawron.sdsu.edu/compling/course_core/lectures/smoothing.htm" target="_blank" rel="noopener">Computational Linguistics</a> 加一平滑的例子不错。</li>
-<li><a href="http://gki.informatik.uni-freiburg.de/teaching/ws0607/advanced/lecture.html" target="_blank" rel="noopener">Foundations of Artificial Intelligence · Advanced AI Techniques - Lectures</a> 参考了 7b 的平滑部分，强烈推荐，2006 年的课件清晰度（Witten-Bell）超过了网上能找到的任何一个教程或博客。</li>
+<li><a href="http://gki.informatik.uni-freiburg.de/teaching/ws0607/advanced/lecture.html" target="_blank" rel="noopener">Foundations of Artificial Intelligence · Advanced AI Techniques - Lectures</a> 参考了 7b 的 Witten-Bell 平滑。</li>
 <li><a href="https://nlp.stanford.edu/~wcmac/papers/20050421-smoothing-tutorial.pdf" target="_blank" rel="noopener">20050421-smoothing-tutorial.pdf</a> 和 <a href="https://www.cl.uni-heidelberg.de/courses/ss15/smt/scribe6.pdf" target="_blank" rel="noopener">scribe6.pdf</a> 比较全面介绍了各种平滑算法的思想。</li>
+<li><a href="https://github.com/hscspring/All4NLP/tree/master/Ngram" target="_blank" rel="noopener">All4NLP/Ngram at master · hscspring/All4NLP</a> 有两个不错的 PPT。</li>
 </ul>
-<p>几个不错的课件：</p>
+<p>还有几个可以的课件：</p>
 <ul>
 <li><a href="http://l2r.cs.uiuc.edu/~danr/Teaching/CS546-09/Lectures/Lec5-Stat-09-ext.pdf" target="_blank" rel="noopener">CS546:Learning and NLP Lec 6: Ngrams and Backoff Models</a></li>
 <li><a href="https://www.cs.jhu.edu/~jason/665/PDFSlides/lect05-smoothing.pdf" target="_blank" rel="noopener">lect05-smoothing.pdf</a></li>
