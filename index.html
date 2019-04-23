@@ -661,25 +661,6 @@
 <li>认知错误：不知道如何拼写</li>
 </ul>
 <p>OCR 错误一般分为五类：替代、多重替代、空白脱落、空白插入和识别失败。</p>
-<p>检查方法最通常的做法是使用词典，为了表示能产生的屈折变化和派生，词典一般还包括形态分析模式。</p>
-<blockquote>
-<p>中文和英文情况不太一样，最大的不同是中文不会出现打出一个不存在的字这种情况。根据我们之前<a href="http://aiwriter.cn/home" target="_blank" rel="noopener">项目</a>的经验，中文的拼写错误主要包括以下几种：</p>
-<ul>
-<li><p>拼音输入法导致的同音、近音错误，比如 “拼音” 打成 “朋友”，“打成” 打成 “达成” 或 “调查” 之类</p>
-</li>
-<li><p>五笔输入法导致的形近错误，比如 “土” 打成 “士” 之类</p>
-</li>
-<li><p>键盘邻近键位导致的错误，比如 “爱情” 打成 “矮穷”，就是把 “情” 的 i 打成了 o 之类</p>
-</li>
-</ul>
-<p>上面的分法是从输入的角度看，每种其实又有两个维度：</p>
-<ul>
-<li>输入的词不成词，比如：“维吾尔族” 打成 “维吾尔组”</li>
-<li>输入的词在上下文语境中不对，比如 “体现出XXX” 打成 “体系出XXX”</li>
-</ul>
-<p>第一个维度用词典可以，第二个维度则需要借助其他一些方法结合词典才能起作用。</p>
-<p>由于项目时间很短，我们重点做了第一种错误，此外还做了很多词法、语法、语义方面的检查和更正，后面的这几种错误主要是本章所说的认知错误，就是用户不知道那个是错的，比如 “过早夭折” 这个词的错误叫 “书面语重复”，因为 “夭折” 就包含了 “过早” 的意思，再比如 “定金” 和 “订金” 这类属于 “易混淆词”，必须要根据句子的语义才能做出正确的判断。</p>
-</blockquote>
         
           <p class="article-more-link">
             <a href="/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/#more" class="more-link">More <span class="meta-nav">→</span></a>
@@ -825,6 +806,38 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

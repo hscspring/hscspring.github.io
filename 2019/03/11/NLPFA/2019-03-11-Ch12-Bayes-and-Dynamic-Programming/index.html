@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第十二章：Bayes 公式与动态规划算法拼写错误的检查与更正1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正 打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→th">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T06:10:00.953Z">
+<meta property="og:updated_time" content="2019-04-23T08:15:48.187Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch12)">
 <meta name="twitter:description" content="第十二章：Bayes 公式与动态规划算法拼写错误的检查与更正1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正 打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→th">
@@ -115,6 +115,7 @@
 <li>认知错误：不知道如何拼写</li>
 </ul>
 <p>OCR 错误一般分为五类：替代、多重替代、空白脱落、空白插入和识别失败。</p>
+<a id="more"></a>
 <p>检查方法最通常的做法是使用词典，为了表示能产生的屈折变化和派生，词典一般还包括形态分析模式。</p>
 <blockquote>
 <p>中文和英文情况不太一样，最大的不同是中文不会出现打出一个不存在的字这种情况。根据我们之前<a href="http://aiwriter.cn/home" target="_blank" rel="noopener">项目</a>的经验，中文的拼写错误主要包括以下几种：</p>
@@ -134,7 +135,6 @@
 <p>第一个维度用词典可以，第二个维度则需要借助其他一些方法结合词典才能起作用。</p>
 <p>由于项目时间很短，我们重点做了第一种错误，此外还做了很多词法、语法、语义方面的检查和更正，后面的这几种错误主要是本章所说的认知错误，就是用户不知道那个是错的，比如 “过早夭折” 这个词的错误叫 “书面语重复”，因为 “夭折” 就包含了 “过早” 的意思，再比如 “定金” 和 “订金” 这类属于 “易混淆词”，必须要根据句子的语义才能做出正确的判断。</p>
 </blockquote>
-<a id="more"></a>
 <h2 id="Bayes-公式与噪声信道模型"><a href="#Bayes-公式与噪声信道模型" class="headerlink" title="Bayes 公式与噪声信道模型"></a>Bayes 公式与噪声信道模型</h2><p>”噪声信道“ 这个比喻来自 20 世纪 70 年代 IBM 实验室应用于语音识别的模型，F. JelineK 在 1976 年把这样的模型叫作 ”噪声信道模型“，是 Bayes 推理的一个特殊情况。</p>
 <p>用 w* 表示 ”对正确单词 w 的估计“，O 表示 ”观察序列，从中选出最优单词的等式为：</p>
 <script type="math/tex; mode=display">w^{*} = arg_{w\in V} max P(w|O)</script><p>P(w|O) 无法直接计算，可以通过贝叶斯公式将上式变为：</p>
@@ -344,6 +344,38 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
