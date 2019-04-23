@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>Language Model | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+<meta name="keywords" content="NLP,AI,Ngram,Language Model,LM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Language Model">
+<meta property="og:url" content="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-kneser-ney-smoothing-pcontinuation.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-interpolated-kneser-ney-smoothing.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-interpolated-lambda.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-general-recursive-formulation.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-ckn.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg">
+<meta property="og:updated_time" content="2019-04-23T07:49:58.336Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Language Model">
+<meta name="twitter:description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SLP/2019-04-09-Language-Model" class="post-SLP/2019-04-09-Language-Model post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Language Model
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/" data-id="cjuthphe5000p53cci9xecj7v" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>[TOC]</p>
+<h2 id="Ngram"><a href="#Ngram" class="headerlink" title="Ngram"></a>Ngram</h2><ul>
+<li><p>Count up the frequency and divide (use maximum likelihood estimation or MLE):</p>
+<ul>
+<li><script type="math/tex; mode=display">P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})}</script></li>
+<li>Example: <script type="math/tex">P(you | i\ love) := \frac {c(i\ love\ you)}{c(i\ love)}</script>  </li>
+<li>More Generally: <script type="math/tex">P(w_1^n) = P(w_1)P(w_2 | w_1)P(w_3|w_1^2)...P(w_n|w_1^{n-1}) = \prod_{i=1}^{n} P(w_i|w_1^{i-1})</script></li>
+</ul>
+</li>
+<li><p>For N-gram </p>
+<ul>
+<li>Next Word: <script type="math/tex">P(w_n|w_1^{n-1}) \approx P(w_n|w_{n-N+1}^{n-1}) = \frac {C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}</script> </li>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1}...w_{i-N+1})</script> </li>
+</ul>
+</li>
+<li>For Bigram <ul>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1})</script> </li>
+<li>Next Word: <script type="math/tex">P(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1} w)} = \frac {C(w_{n-1}w_n)}{C(w_{n-1})}</script></li>
+</ul>
+</li>
+</ul>
+<h2 id="Why-Bi-gram-or-Tri-gram"><a href="#Why-Bi-gram-or-Tri-gram" class="headerlink" title="Why Bi-gram or Tri-gram"></a>Why Bi-gram or Tri-gram</h2><blockquote>
+<p>While this method of estimating probabilities directly from counts works ﬁne in many cases, it turns out that even the web isn’t big enough to give us good estimates in most cases. This is because language is creative; new sentences are created all the time, and we won’t always be able to count entire sentences. Even simple extensions of the example sentence may have counts of zero on the web (such as “Walden Pond’s water is so transparent that the”).  </p>
+<p>Similarly, if we wanted to know the joint probability of an entire sequence of words like its water is so transparent, we could do it by asking “out of all possible sequences of ﬁve words, how many of them are its water is so transparent?” We would have to get the count of its water is so transparent and divide by the sum of the counts of all possible ﬁve word sequences. That seems rather a lot to estimate! </p>
+</blockquote>
+<ul>
+<li><p>语言具有极强的创造性（尤其是中文！！），它是无穷的，我们无法数完所有的句子；而且，也正是如此，会导致很多并不复杂的句子出现次数为 0，比如：“我喜欢张馨予”，这句话可能在语料中压根就不存在，那模型就会认为这句话的概率为 0，但这句话其实是很普通的一句话。 </p>
+</li>
+<li><p>另一方面，要数出 “我喜欢张馨予” 的次数，我们需要把语料全部变成六元短语。比如我们假设语料是这么一句话：“我喜欢吃面，我不喜欢张雨绮，我喜欢张馨予。”因为我们事先并不知道 “我喜欢张馨予” 不存在，所以只好把语料变成：“我喜欢吃面，|喜欢吃面，我|欢吃面，我不|……“，然后去数。但是这个规模就太大了（因为 N 越大，不重复的越多） </p>
+</li>
+</ul>
+<p>正是因为语言的创造性（任何特殊的内容都有可能从来没有出现过）以及长短语的不好评估性，我们可以用近似的方法求解，也就是说我们判断某句话出现的概率，在计算每个词的概率时不选择该词之前的所有词，而是选择最近的<strong>几个</strong>词。还是拿刚刚的例子说明，比如我们要计算 ”我喜欢张馨予“ 的概率（注意，我们这里用字模型，也就是每个字是一个 word，换成词也是一样的道理）。  </p>
+<p>注意，我们使用 MLE 的思想，从语料中统计出现频率，并将频率标准化为概率。</p>
+<p>完整的计算过程是： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">P（我喜欢张馨予）  </span><br><span class="line">= P（第一个词是我）* P（第二个词是喜）*...* P（倒数第二个词是馨）* P（最后一个词是予）    </span><br><span class="line">= P（我|B）* P（喜|B我）*...* P（予|B我喜欢张馨）* P（E|B我喜欢张馨予）  </span><br><span class="line">= C（B我）/ΣC（BX）*  C（B我喜）/ΣC（B我X）* C（B我喜欢）/ΣC（B我喜X）*...* C（B我喜欢张馨予）/ΣC（B我喜欢张馨X）* C（B我喜欢张馨予E）/ ΣC（B我喜欢张馨予X）  </span><br><span class="line">= C（B我）/C（B）* C（B我喜）/C（B我）*...* C（我喜欢张馨予）/ΣC（B我喜欢张馨）* C（B我喜欢张馨予E）/ΣC（B我喜欢张馨予）  </span><br><span class="line">= C（B我喜欢张馨予E）/C（B），其中 X 是词表中的任意一个可能的字，B 是 Begining，E 是 End。</span><br></pre></td></tr></table></figure>
+<p>你没看错，就是这样，都约掉了，乍一看有点怪，仔细想想的确如此：因为我们现在依赖的是前面的所有词，那这句话出现的概率其实就是所有句子中这句话的次数。Bingo！计算没问题，但是想想刚刚提到的 ”语言的创造性“，这样的 LanguageModel 其实并没有什么卵用。从机器学习的角度看，这模型 ”过拟合“ 了。 </p>
+<p>那我们自然而然想到的就是减少依赖的词数，那 N 选多少呢？不能太多，计算是个问题（其实存储也有问题）；不能太少，比如 Unigram，也就是每个单词相互独立，这种模型解释力不强，随便举个例子 ”的的的的的的“ 这句话的概率会非常高，但是……或者每个字都换成高频词，随便组合一下……实际中，我们一般取 Bigram 或 Trigram，我自己的经验是 Trigram 比 Bigram 更好一些。Trigram 只要不是<strong>介词、助词、连词</strong>这样的词开头或结尾，基本具备一定的独立性；Bigram 就不是了，大概比单个词好了一些。不过具体怎么选择还要看实际应用场景，我们信奉实用：）</p>
+<p>Trigram 的计算过程： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P（我喜欢张馨予）  </span><br><span class="line">= P（第一个词是我）* P（第二个词是喜）*...* P（倒数第二个词是馨）* P（最后一个词是予）  </span><br><span class="line">= P（喜|B我）*...\* P（予|张馨）* P（E|馨予）  </span><br><span class="line">= C（B我喜）/C（B我）*...*C（张馨予）/C（张馨）*C（馨予E）/C（馨予）</span><br></pre></td></tr></table></figure>
+<p>最后，补充一下如何统计 Ngram 的词频。  </p>
+<ul>
+<li>数据规模不大时：<code>collections.Counter()</code></li>
+<li>数据规模太大时：先把语料全部处理成 Ngram，用空格或其他分隔符分开存储好；逐行读入，逐词存入字典，如果字典中已有则 +1，否则为 1。提示：所有读取操作用 generator，这种操作方式基本不耗内存，而且可以处理任意大的语料。</li>
+</ul>
+<h2 id="Smoothing"><a href="#Smoothing" class="headerlink" title="Smoothing"></a>Smoothing</h2><p><a href="https://yam.gift/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" target="_blank" rel="noopener">第十三章：N 元语法和数据平滑</a> 这里也有一些关于数据平滑的资料。</p>
+<ul>
+<li>处理 OOV（未登录词）<ul>
+<li>选择固定词表，没有在词表中的词为 UNK</li>
+<li>选择固定数量的词或频次高于某个数的词，其余词为 UNK</li>
+</ul>
+</li>
+<li>Why Smoothing<ul>
+<li>words that are in our vocabulary (they are not unknown words) but appear in a test set in an unseen <strong>context</strong> (for example they appear after a word they never appeared after in training). </li>
+<li>即词在词表中，但测试/预测数据上部分词的组合训练数据中没出现过，这时候就需要 Smoothing。比如上面的例子，“张、馨、予” 三个字在词表中，如果训练数据上没有 “张馨予”，测试数据上出现了，我们不能说 “张馨予” 这个词出现的概率为 0。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Laplace-Smoothing"><a href="#Laplace-Smoothing" class="headerlink" title="Laplace Smoothing"></a>Laplace Smoothing</h3><ul>
+<li>Laplace smoothing merely adds one to each count (hence its alternate name addone smoothing). Since there are V words in the vocabulary and each one was incremented, we also need to adjust the denominator to take into account the extra V observations. </li>
+<li>What happens to our P values if we don’t increase the denominator? The P value will bigger than 1</li>
+<li><script type="math/tex; mode=display">P_{Laplace} (w_i) = \frac {c_i+1} {N+V}</script></li>
+<li>Instead of changing both the numerator and denominator, it is convenient to describe how a smoothing algorithm affects the numerator, by deﬁning an adjusted count c ∗ . </li>
+<li><script type="math/tex; mode=display">c_i^* = (c_i+1) \frac {N} {N+V}</script></li>
+<li>Bigram: <ul>
+<li><script type="math/tex; mode=display">P(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)} {C(w_{n-1})}</script></li>
+<li><script type="math/tex; mode=display">P^*_{Laplace}(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)+1} {C(w_{n-1})+V}</script></li>
+<li><script type="math/tex; mode=display">C^*_{(w_{n-1}\ w_n)} = \frac {[C(w_{n-1}w_n)+1] C(w_{n-1})} {C(w_{n-1})+V}</script></li>
+<li>这个很简单，也很直观，如果你要给 $C(w_{n-1}w_n)$ 加 1，意味着 $C(w_{n-1})$ 要加 1，那所有词就是要加 V（词表大小）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Add-k-Smoothing"><a href="#Add-k-Smoothing" class="headerlink" title="Add-k Smoothing"></a>Add-k Smoothing</h3><ul>
+<li><script type="math/tex; mode=display">P^*_{Add-k}(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)+k} {C(w_{n-1})+kV}</script></li>
+<li>Although add-k is useful for some tasks (including text classiﬁcation), it turns out that it still doesn’t work well for language modeling, generating counts with poor variances and often inappropriate discounts (Gale and Church, 1994).</li>
+</ul>
+<h3 id="Backoff-and-Interpolation"><a href="#Backoff-and-Interpolation" class="headerlink" title="Backoff and Interpolation"></a>Backoff and Interpolation</h3><ul>
+<li>Backoff: we only “back off” to a lower-order N-gram if we have zero evidence for a higher-order N-gram.</li>
+<li>Interpolation: we always mix the probability estimates from all the N-gram estimators, weighing and combining the trigram, bigram, and unigram counts. </li>
+<li><script type="math/tex; mode=display">P(w_n|w_{n−2}w_{n−1}) = λ_1(w^{n−1}_{n−2})P(w_n|w_{n−2}w_{n−1}) + λ_2(w^{n−1}_{n−2})P(w_n|w_{n−1}) + λ_3(w_{n−2}^{n−1})P(w_n), \sum_i {\lambda_i} = 1</script></li>
+<li>How are these λ values set?<ul>
+<li>learned from a <strong>held-out</strong> corpus</li>
+<li>A held-out corpus is an additional training corpus that we use to set hyperparameters like these λ values, by choosing the λ values that maximize the likelihood of the held-out corpus.</li>
+<li>One way: EM</li>
+</ul>
+</li>
+<li>discount<ul>
+<li>In order for a backoff model to give a correct probability distribution, we have to discount the higher-order N-grams to save some probability mass for the lower order N-grams.  </li>
+<li>如果高阶的 Ngram 不存在，用低阶替换时需要 discount，否则会导致低阶的系数暴增。</li>
+<li>Just as with add-one smoothing, if the higher-order N-grams aren’t discounted and we just used the undiscounted MLE probability, then as soon as we replaced an N-gram which has zero probability with a lower-order N-gram, we would be adding probability mass, and the total probability assigned to all possible strings by the language model would be greater than 1! In addition to this explicit discount factor, we’ll need a function α to distribute this probability mass to the lower order N-grams.</li>
+</ul>
+</li>
+<li>Katz backoff<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg" alt=""></li>
+</ul>
+</li>
+<li>Katz backoff is often combined with a smoothing method called <strong>Good-Turing</strong>.</li>
+</ul>
+<h3 id="Kneser-Ney-Smoothing"><a href="#Kneser-Ney-Smoothing" class="headerlink" title="Kneser-Ney Smoothing"></a>Kneser-Ney Smoothing</h3><ul>
+<li><p>One of the most commonly used and best performing N-gram smoothing methods is the interpolated Kneser-Ney algorithm (Kneser and Ney 1995, Chen and Goodman 1998). </p>
+</li>
+<li><p>Kneser-Ney has its roots in a method called <strong>absolute discounting</strong>. Discounting of the counts for frequent N-grams is necessary to save some probability mass for the smoothing algorithm to distribute to the unseen N-grams.</p>
+</li>
+<li><p>大规模语料上的统计 Bigram 结果，训练数据出现的次数与同等规模的 held-out 语料出现次数比为 4:3 </p>
+</li>
+<li><p>Absolute discounting formalizes this intuition by subtracting a ﬁxed (absolute) discount <strong>d(0.75)</strong> from each count.  </p>
+<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg" alt="PAbsoluteDiscounting"></li>
+<li>the second term the unigram with an interpolation weight λ.</li>
+</ul>
+</li>
+<li><p><strong>Kneser-Ney discounting</strong> (Kneser and Ney, 1995) augments absolute discounting with a more sophisticated way to handle the lower-order unigram distribution.  </p>
+<ul>
+<li>P_CONTINUATION: We hypothesize that words that have appeared in more contexts in the past are more likely to appear in some new context as well. 如果一个词以前更容易与别的词组成词组，那么在新的文本中也会更容易组成词组。比如：“蝶” 出现的次数远高于 “榨”（因为 “蝴蝶” 出现的次数高），但 “蝶” 组合成词的可能性（基本上只有 “蝴蝶”）低于 “榨”，所以在给定上文的情况下，下一个字更可能是 “榨” 而不是 “蝶”。注：<a href="http://lingua.mtsu.edu/chinese-computing/statistics/char/list.php?Which=TO" target="_blank" rel="noopener">词频参考</a> </li>
+<li>The Kneser-Ney intuition is to base our estimate of P CONTINUATION on the number of different contexts word w has appeared in, that is, the number of bigram types it completes. The number of times a word w appears as a novel continuation can be expressed as: <ul>
+<li><img src="http://qnimg.lovevivian.cn/books-kneser-ney-smoothing-pcontinuation.jpeg" alt=""></li>
+<li>其实就是给能组成更多 Bigram 的单个词更高的概率分布，A frequent word (“蝴”) occurring in only one context (“蝶”) will have a low continuation probability.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The ﬁnal equation for <strong>Interpolated Kneser-Ney smoothing</strong> is</p>
+<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-interpolated-kneser-ney-smoothing.jpeg" alt=""></li>
+<li>The λ is a normalizing constant that is used to distribute the probability mass we’ve discounted:  <img src="http://qnimg.lovevivian.cn/books-interpolated-lambda.jpeg" alt=""><ul>
+<li>The ﬁrst term $\frac {d} {C(w_{i-1\ })}$ is the normalized discount.  </li>
+<li>The second term $\lvert {w : C(w_{i−1}w) &gt; 0} \rvert$ is the number of word types that can follow $w_{i−1}$ or, equivalently, the number of word types that we discounted; in other words, the number of times we applied the normalized discount.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The <strong>general recursive formulation</strong> is as follows: <ul>
+<li><img src="http://qnimg.lovevivian.cn/books-general-recursive-formulation.jpeg" alt=""><ul>
+<li><img src="http://qnimg.lovevivian.cn/books-ckn.jpeg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg" alt=""></li>
+</ul>
+<p>The best-performing version of Kneser-Ney smoothing is called <strong>modiﬁed KneserNey smoothing</strong>, and is due to Chen and Goodman (1998). Rather than use a single ﬁxed discount d, modiﬁed Kneser-Ney uses three different discounts d1 , d2 , and d3+ for N-grams with counts of 1, 2 and three or more, respectively.</p>
+<h3 id="The-Web-and-Stupid-Backoff"><a href="#The-Web-and-Stupid-Backoff" class="headerlink" title="The Web and Stupid Backoff"></a>The Web and Stupid Backoff</h3><p><img src="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg" alt=""></p>
+<p>S is score, not probability.<br>The backoff terminates in the unigram, which has probability S(w) = count(w)/N .<br>Brants et al. (2007) ﬁnd that a value of 0.4 worked well for λ. </p>
+<p>举个例子：<br>k = 3，<code>S（予|张馨）= C（张馨予）/C（张馨）or 0.4 * C（馨予）/C（馨）</code></p>
+<h2 id="Evaluating-Language-Models"><a href="#Evaluating-Language-Models" class="headerlink" title="Evaluating Language Models"></a>Evaluating Language Models</h2><ul>
+<li>The best way to evaluate the performance of a language model is to embed it in an application and measure how much the application improves. Such end-to-end evaluation is called <strong>extrinsic evaluation</strong>. </li>
+<li>An <strong>intrinsic evaluation</strong> metric is one that measures the quality of a model independent of any application. For an intrinsic evaluation of a language model we need a <strong>test set</strong>. </li>
+<li>Sometimes we use a particular test set so often that we implicitly tune to its characteristics. We call the initial test set the development test set or, <strong>devset</strong>.</li>
+<li>what does it mean to “model the test set”? The answer is simple: whichever model assigns a <strong>higher probability</strong> to the test set—meaning it more accurately predicts the test set—is a better model.</li>
+<li>In practice, we often just divide our data into 80% training, 10% development, and 10% test.</li>
+</ul>
+<h3 id="Perplexity"><a href="#Perplexity" class="headerlink" title="Perplexity"></a>Perplexity</h3><ul>
+<li>In practice we don’t use raw probability as our metric for evaluating language models, but a variant called perplexity.</li>
+<li>For a test set W = w1, w2 … wN:<ul>
+<li><script type="math/tex; mode=display">PP(W) = P(w_1w_2...w_N)^{-\frac{1}{N}}</script><script type="math/tex; mode=display">=\sqrt[N]{\frac {1}{P(w_1w_2...w_N)}}</script><script type="math/tex; mode=display">=\sqrt[N]{\prod_{i=1}^N \frac {1}{P(w_i|w_1w_2...w_{i-1})}}</script><script type="math/tex; mode=display">\approx \sqrt[N]{\prod_{i=1}^N \frac {1}{P(w_i|w_{i-1})}} \quad Bigram</script></li>
+</ul>
+</li>
+<li>The <strong>higher the conditional probability</strong> of the word sequence, the <strong>lower the perplexity</strong>.</li>
+<li>What we generally use for word sequence in Eq above is the <strong>entire sequence of words in some test set</strong>. <ul>
+<li>Since this sequence will cross many sentence boundaries, we need to include the begin- and end-sentence markers <code>&lt;s&gt;</code> and <code>&lt;/s&gt;</code> in the probability computation. </li>
+<li>We also need to include the end-of-sentence marker <code>&lt;/s&gt;</code> (<strong>but not the beginning-of-sentence marker <code>&lt;s&gt;</code></strong>) in the total count of word tokens N.</li>
+</ul>
+</li>
+<li>Any kind of knowledge of the test set can cause the perplexity to be artiﬁcially low. The perplexity of two language models is only comparable if they use the <strong>same vocabulary</strong>.</li>
+</ul>
+<h3 id="Advanced-Perplexity’s-Relation-to-Entropy"><a href="#Advanced-Perplexity’s-Relation-to-Entropy" class="headerlink" title="Advanced: Perplexity’s Relation to Entropy"></a>Advanced: Perplexity’s Relation to Entropy</h3><ul>
+<li>By making some incorrect but convenient simplifying assumptions, we can compute the entropy of some <strong>stochastic process</strong> by taking a very long sample of the output and computing its <strong>average log probability</strong>. <script type="math/tex; mode=display">H(W) \approx − \frac{1}{N} logP(w_1w_2...w_N)</script></li>
+<li><script type="math/tex; mode=display">Perplexity(W) = 2^{H(W)}</script></li>
+<li>PPT 上的 A Refresher on Evaluation:<br><img src="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg" alt=""></li>
+</ul>
+<h2 id="What-Can-we-Do-w-LMs"><a href="#What-Can-we-Do-w-LMs" class="headerlink" title="What Can we Do w/ LMs?"></a>What Can we Do w/ LMs?</h2><ul>
+<li>Score sentences</li>
+<li>Generate sentences<ul>
+<li>while didn’t choose end-of-sentence symbol</li>
+<li>calculate probability</li>
+<li>sample a new word from the probability distribution</li>
+</ul>
+</li>
+</ul>
+<h2 id="Problems-and-Solutions"><a href="#Problems-and-Solutions" class="headerlink" title="Problems and Solutions?"></a>Problems and Solutions?</h2><ul>
+<li>Cannot share strength among <strong>similar words</strong><ul>
+<li>example: she _bought_ a _car_, she _purchased_ a _car_ || she _bought_ a _bicycle_, she _purchased_ a _bicycle_</li>
+<li>solution: class based language models</li>
+</ul>
+</li>
+<li>Cannot condition on context with <strong>intervening words</strong><ul>
+<li>example: _Dr._ Jane _Smith_ || _Dr._ Gertrude _Smith_</li>
+<li>solution: skip-gram language models</li>
+</ul>
+</li>
+<li>Cannot handle <strong>long-distance dependencies</strong><ul>
+<li>example: for _tennis_ class he wanted to buy his own _racquet_ || for _programming_ class he wanted to buy his own _computer_</li>
+<li>solution: cache, trigger, topic, syntactic models, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/10/14/SLP/2019-04-09-Language-Model/">
+    <time datetime="2017-10-14T14:00:00.000Z" class="entry-date">
+        2017-10-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LM/">LM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Language-Model/">Language Model</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ngram/">Ngram</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/12/23/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" rel="prev"><span class="meta-nav">←</span> 由一场供应链讲座引发的思考</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/09/07/2017-09-07-Language-AI-Emotion/" rel="next">语言、AI、情感 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">29</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/">Regular Expressions, Text Normalization, and Edit Distance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/21/2019-04-21-DB-FDW/">DataBase Foreign Data Wrapper</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/NLPFA/2019-04-13-NLP-Formal-Analysis/">自然语言计算机形式分析的理论与方法笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/09/SLP/2019-04-09-Information-Extraction/">Information Extraction Note</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Analysis/">Formal Analysis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 14px;">Computer Science</a> <a href="/tags/DB/" style="font-size: 10px;">DB</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 14px;">Data Structure</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Analysis/" style="font-size: 10px;">Formal Analysis</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/LM/" style="font-size: 10px;">LM</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 12px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

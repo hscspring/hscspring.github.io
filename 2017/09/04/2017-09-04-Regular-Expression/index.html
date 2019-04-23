@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>正则表达式笔记 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作  在字符串前加个 r 反斜杠就不会被任何特殊方式处理  re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECA">
+<meta name="keywords" content="Python,Regular Expression,Regex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式笔记">
+<meta property="og:url" content="http://www.yam.gift/2017/09/04/2017-09-04-Regular-Expression/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="[TOC] 操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作  在字符串前加个 r 反斜杠就不会被任何特殊方式处理  re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECA">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-23T07:27:23.236Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式笔记">
+<meta name="twitter:description" content="[TOC] 操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作  在字符串前加个 r 反斜杠就不会被任何特殊方式处理  re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECA">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="http://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-2017-09-04-Regular-Expression" class="post-2017-09-04-Regular-Expression post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      正则表达式笔记
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/09/04/2017-09-04-Regular-Expression/" data-id="cjuthphd0000853ccm2ibc66o" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>[TOC]</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h3><ul>
+<li><p>compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作</p>
+</li>
+<li><p>在字符串前加个 <code>r</code> 反斜杠就不会被任何特殊方式处理</p>
+</li>
+<li><code>re.findall(rf&#39;{t}&#39;, s)</code>: <strong><code>f</code> 表示 <code>t</code> 可以使用变量</strong></li>
+<li><code>re.compile(pattern, re.IGNORECASE)</code>: IGNORECASE 忽略大小写</li>
+<li><code>re.compile(pattern, re.MULTILINE)</code>: 是否按行匹配，带参数按行，不带参数整个字符串为整体（不考虑换行符）</li>
+<li><code>re.compile(pattern, re.DOTALL)</code>: 默认不匹配换行符，带参数匹配换行符</li>
+<li><code>re.compile(pattern, re.Unicode | re.VERBOSE)</code>: 让 pattern 看起来更易读。多个标志可以通过按位 OR-ing 它们来指定。如 <code>re.I | re.M</code> 被设置成 I 和 M 标志</li>
+<li>嵌入标志（编译表达式无法添加标志时，可以在表达式字符串本身内嵌入标志）<ul>
+<li>打开不区分大小写匹配项: <code>(?i)</code> 添加到 pattern 的最前面就好</li>
+<li><code>i: IGNORECASE; m: MULTILINE; s: DOTALL; u: UNICODE; x: VERBOSE</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="无捕获组和命名组"><a href="#无捕获组和命名组" class="headerlink" title="无捕获组和命名组"></a>无捕获组和命名组</h3><ul>
+<li><p><code>(?:pattern)</code>: 无捕获组，对于修改已有组尤其有用，因为你可以不用改变所有其他组号的情况下添加一个新组。</p>
+</li>
+<li><p><code>(?P&lt;name&gt;...)</code> 定义一个命名组，<code>(?P=name)</code> 则是对命名组的逆向引用；逆向引用允许你指定先前捕获组的内容，该组也必须在字符串当前位置被找到。举个例子，如果组 1 的内容能够在当前位置找到的话，<code>\1</code> 就成功否则失败。除了用数字指定组，它可以用名字来指定，如：<code>(\b\w+)\s+\1</code> 也可以被写成 <code>(?P&lt;word&gt;\b\w+)\s+(?P=word)</code></p>
+<ul>
+<li><code>re.compile(r&#39;(\w+)\1\1\1&#39;)</code>: 匹配一个字重复四次的那个「字」</li>
+<li><code>re.compile(r&#39;((\w+)\2+)&#39;)</code>: 匹配重复两次或两次以上的，返回对应的值和那个重复的「字」，必须整个用括号括起来</li>
+</ul>
+</li>
+</ul>
+<h3 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h3><p><code>条件：(?(id)yes-expression|no-expression)</code>,  id 是 group name or number</p>
+<ul>
+<li><code>yes-expression</code> is the pattern to use if the group has a value，如果 group 有返回值时执行 </li>
+<li><code>no-expression</code> is the pattern to use otherwise. </li>
+<li><code>(?=(&lt;.*&gt;$)|([^&lt;].*[^&gt;]$))</code></li>
+<li><code>条件表达式例子1：(?(name)(?=(\w+))|(?=([^&lt;].*[^&gt;]$)))</code>，如果找到 <code>name</code>，执行前面的，否则执行后面的</li>
+<li><code>条件表达式例子2：(?(name)(?P&lt;brackets&gt;(?=(&lt;.*&gt;$)))|(?=([^&lt;].*[^&gt;]$)))</code></li>
+<li><code>调用（非条件表达式）：(?P&lt;email&gt;(?P=first_name)\.(?P=last_name)@([\w\d.]+\.)+(com|org|edu))</code></li>
+</ul>
+<h3 id="环视"><a href="#环视" class="headerlink" title="环视"></a>环视</h3><ul>
+<li><code>(?!pattern)</code>: 前向否定，不匹配 pattern，匹配不是 bat 或 exe 后缀的：<code>.*[.](?!bat$|exe$).*$</code>；<code>re.compile(r&#39;Isaac(?!Asimov)&#39;)</code>：Isaac 前面有 Asimov <strong>不</strong>能匹配 Isaac</li>
+<li><code>(?=pattern)</code>: 前向肯定，匹配，A positive look ahead assertion，条件不占匹配符；<code>re.compile(r&#39;Isaac(?=Asimov)&#39;)</code>：Isaac 前面有 Asimov 才能匹配 Isaac</li>
+<li><code>(?&lt;!noreply)</code> 后向否定，放在匹配到的 username 下和 <code>(?!noreply@.*$)</code> 放在最前面匹配是一样的；<code>re.compile(r&#39;(?&lt;!Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov <strong>不</strong>能匹配 Isaac</li>
+<li><code>(?&lt;=@)</code>: 后向肯定，A positive look behind assertion, must use a fixed length pattern；<code>re.compile(r&#39;(?&lt;=Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov 才能匹配 Isaac</li>
+</ul>
+<p>上面的只支持固定长度，如果要使用可变长度，需要 <code>regex</code> 包：<a href="https://bitbucket.org/mrabarnett/mrab-regex" target="_blank" rel="noopener">mrabarnett / mrab-regex — Bitbucket</a></p>
+<ul>
+<li><code>regex.compile(rf&#39;(?&lt;![{quantifier}]+\w*)(之一)([{punc}]?)&#39;)</code>: 非固定宽度否定逆序环视，用后面的符号即做隔断，在结尾又可不存在。不等于 “数量词” + XXX + 之一，且标点结尾的；注意：quantifier 是变量</li>
+<li><code>regex</code> 的环视<strong>可以跳跃查找，而普通的 <code>re</code> 只能连在一起</strong>。举个例子：找到 非量词 + 之一<ul>
+<li>普通正则：<code>(!量词)\w+之一</code>：这样因为 <code>\w</code> 包括了量词，所以并不能查找出来</li>
+<li>环视方法：<code>(?&lt;!量词)\w+之一</code>：可以分成三部分：非量词+其他词+之一</li>
+</ul>
+</li>
+</ul>
+<h3 id="匹配查找"><a href="#匹配查找" class="headerlink" title="匹配查找"></a>匹配查找</h3><ul>
+<li><code>re.search()</code><ul>
+<li>使用 pattern 扫描文本</li>
+<li>如果找到则返回 Match 对象，否则返回 <code>None</code>，<code>match.start(), match.end()</code> 或 <code>match.span()</code> 返回匹配到对象的起止位置</li>
+<li><strong><code>pattern.search()</code></strong>：返回子串，而不是 <code>re.search()</code> 的整个字符串</li>
+</ul>
+</li>
+<li><code>re.match()</code><ul>
+<li>只有 pattern 在文本的最开始才返回结果，否则返回 <code>None</code></li>
+</ul>
+</li>
+<li><code>re.findall()</code><ul>
+<li><code>finditer</code> 返回一个迭代器，可以使用 <code>match.start(), match.end()</code> 返回起止位置</li>
+<li><code>re.findall(r&#39;a((a*)(b*))&#39;,t)</code>: 类似这种，第一个 a 是不返回到结果的，只返回括号里面的</li>
+</ul>
+</li>
+<li>如果没有匹配到的话，<code>match()</code> 和 <code>search()</code> 将返回 <code>None</code>。如果成功的话，就会返回一个 <code>MatchObject</code> 实例，其中有这次匹配的信息：它是从哪里开始和结束，它所匹配的子串等等。<code>findall()</code> 在它返回结果时不得不创建一个列表。</li>
+<li><code>groups()</code><ul>
+<li><strong>返回匹配到的字符序列</strong>，不需要再用起止位置确定返回的字符串</li>
+<li><code>group(index)</code>: 返回单独的一个 group（匹配到的结果）</li>
+<li><code>match.groupdict()</code> 返回 <code>{名字:值}</code> 的字典</li>
+<li>组可以被嵌套。计数的数值可以通过从左到右计算打开的括号数来确定。<code>The groups()</code> 方法返回一个包含所有小组字符串的元组，从 <strong>1</strong> 到 所含的小组号。</li>
+</ul>
+</li>
+<li>list 作为参数：<code>re.compile(&#39;二&#39; + str([&quot;位&quot;, &quot;十&quot;, &quot;百&quot;, &quot;千&quot;, &quot;万&quot;, &quot;亿&quot;]))</code> <ul>
+<li>和 list 的顺序有关，所以首字一样的，长的放前面，否则长的匹配不到（肯定模式）</li>
+<li>会匹配到空格（list 元素中间有空格）</li>
+<li>还会匹配到单个词里面的每个词中间字的组合（肯定模式）。</li>
+<li>不推荐这样的写法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分割替换"><a href="#分割替换" class="headerlink" title="分割替换"></a>分割替换</h3><ul>
+<li><code>split(string [, maxsplit = 0])</code><ul>
+<li><code>p2 = re.compile(r&#39;(\W+)&#39;)</code>: 打印出定界符，如果不需要则为：<code>p = re.compile(r&#39;\W+&#39;)</code></li>
+<li><code>re.compile().split(text, num)</code>: num 非 0 时，最多分成 num 段</li>
+</ul>
+</li>
+<li><code>sub(replacement, string[, count = 0])</code> <ul>
+<li>可选参数 count 是模式匹配后替换的最大次数；count 必须是非负整数。缺省值是 0 表示替换所有的匹配。 </li>
+<li>空匹配只有在它们没有紧挨着前一个匹配时才会被替换掉。<code>re.compile(&#39;x*&#39;).sub(&#39;-&#39;, &#39;abxd&#39;)</code>: <code>&#39;-a-b-d-&#39;</code></li>
+<li>可以指定用 <code>(?P&lt;name&gt;...)</code> 语法定义的命名组。”<code>\g&lt;name&gt;</code>“ 将通过组名 “name” 用子串来匹配，并且 “<code>\g&lt;number&gt;</code>“ 使用相应的组号。使用它可以消除组号和周围文字数字之间的任何歧义。</li>
+<li>替换也可以是一个函数，该函数将会被模式中每一个不重复的匹配所调用。</li>
+<li><code>subn()</code> 返回修改后的字符串和替换的数量</li>
+</ul>
+</li>
+<li><code>replace</code>: 更快的替换</li>
+<li><code>translate()</code>: 从一个字符串中删除单个字符或用另一个字符来替代它<ul>
+<li>可以用 <code>re.sub(&#39;\n&#39;,&#39; &#39;, s)</code> 这样来实现，但 <code>translate()</code> 能够实现这两个任务，而且比任何正则表达式操作起来更快。</li>
+<li><code>translate</code> 需要配合<code>string.maketrans</code> 使用。例如：<code>import string</code> 后 <code>&#39;a1b3&#39;.translate(string.maketrans(&#39;ab&#39;, &#39;cd&#39;))</code> </li>
+</ul>
+</li>
+</ul>
+<h2 id="要义"><a href="#要义" class="headerlink" title="要义"></a>要义</h2><h3 id="数量"><a href="#数量" class="headerlink" title="数量"></a>数量</h3><ul>
+<li><code>{}</code> 多少次</li>
+<li><code>*</code> 等于 <code>{0,}</code>，0 次或任意正次数</li>
+<li><code>+</code>  等于 <code>{1,}</code>，1 次或任意正次数</li>
+<li><code>?</code>  等于 <code>{0,1}</code>，0 次或 1 次</li>
+<li>pattern 后面加「?」（英文的问号）就是非贪婪匹配，默认是贪婪匹配（匹配尽可能多的字符）。也就是匹配数量少的次数（也就是 {} 左边的数字次数）</li>
+</ul>
+<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><ul>
+<li>范围<ul>
+<li><code>[ab]</code>: a or b，<code>[\w\d.+-]</code> 里面的「.+-」就是代表自身</li>
+<li><code>a[ab]+</code>: aa… or ab…</li>
+<li><code>a[ab]+?</code>: aa or ab</li>
+<li><code>[^-. ]+</code>: 不含 <code>-, ., 空格</code> 的，用补集来匹配不在区间范围内的字符，其做法是把”^”作为<strong>类别</strong>的<strong>首个字符</strong>；其它地方的”^”只会简单匹配 “^”字符本身</li>
+<li><code>[A-Z][a-z]+</code>: 一个大写字母后面跟着小写字母</li>
+<li>元字符在类别里（<code>[]</code> 里）并不起作用</li>
+</ul>
+</li>
+<li>小数点<ul>
+<li><code>.</code> 表示任何单独的字符，除了换行符（\n）</li>
+<li><code>a.*b</code>: a 后面任意字符，b 结尾</li>
+<li><code>a.*?b</code>: a 后面任意字符，b 结尾，非贪婪</li>
+</ul>
+</li>
+<li>反斜杠<ul>
+<li><code>\d</code>: a digit</li>
+<li><code>\D</code>: a non-digit</li>
+<li><code>\s</code>: whitespace(tab, space, newline, etc.)</li>
+<li><code>\S</code>: non-whitespace</li>
+<li><code>\w</code>: alphanumeric 字母数字</li>
+<li><code>\W</code>: non-alphanumeric 非字母数字（标点，符号如#等）</li>
+<li><code>\</code>: 转义</li>
+</ul>
+</li>
+<li>大多数字母和字符一般都会和自身匹配</li>
+</ul>
+<h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><ul>
+<li><code>^</code>: string or line 开始</li>
+<li><code>$</code>: string or line 结尾</li>
+<li><code>\A</code>: string 开始</li>
+<li><code>\Z</code>: string 结尾</li>
+<li><code>\b</code>: empty string at the beginning or end of a word</li>
+<li><code>\B</code>: empty string not at the beginning or end of a word</li>
+<li>例子<ul>
+<li><code>r&#39;^\w+&#39;,     # word at start of string</code></li>
+<li><code>r&#39;\A\w+&#39;,    # word at start of string</code></li>
+<li><code>r&#39;\w+\S*$&#39;,  # word at end of string, with optional punctuation</code></li>
+<li><code>r&#39;\w+\S*\Z&#39;, # word at end of string, with optional punctuation</code></li>
+<li><code>r&#39;\w*t\w*&#39;,  # word containing &#39;t&#39;</code></li>
+<li><code>r&#39;\bt\w+&#39;,   # &#39;t&#39; at start of word</code></li>
+<li><code>r&#39;\w+t\b&#39;,   # &#39;t&#39; at end of word</code></li>
+<li><code>r&#39;\Bt\B&#39;,    # &#39;t&#39;, not start or end of word</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><ul>
+<li><code>()</code>: 分组，视为整体</li>
+<li><code>|</code>: 管道符，要么用左边的字符串匹配，要么用右边的匹配</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">p_email = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                     (?P&lt;email&gt;</span></span><br><span class="line"><span class="string">                     [\w+\d]+</span></span><br><span class="line"><span class="string">                     @</span></span><br><span class="line"><span class="string">                     .+</span></span><br><span class="line"><span class="string">                     )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_telephone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;telephone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;3&#125;\s.+</span></span><br><span class="line"><span class="string">                         | \d&#123;3,4&#125;-\d&#123;8&#125;.*</span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_cellphone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;cellphone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;11&#125;</span></span><br><span class="line"><span class="string">                         | \d&#123;11&#125; </span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener">6.2. re — Regular expression operations — Python 3.6.2 documentation</a></li>
+<li>Python Module of the Week上的讲 Python 的 re 包 <a href="https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb" target="_blank" rel="noopener">https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb</a>)</li>
+<li>Ubuntu Wiki上的 <a href="http://wiki.ubuntu.com.cn/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97" target="_blank" rel="noopener">Python正则表达式操作指南 - Ubuntu中文</a>，可参考<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-How-to-Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
+<li>关于 Regex 的<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
+</ul>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><ul>
+<li><p>Regex 工具</p>
+<ul>
+<li>regexper 可视化：<a href="https://regexper.com/" target="_blank" rel="noopener">https://regexper.com/</a></li>
+<li>pythex 在线测试正则表达式 <a href="http://pythex.org/" target="_blank" rel="noopener">http://pythex.org/</a></li>
+<li>regex101 另一个很漂亮的在线正则表达式测试器 <a href="https://regex101.com/" target="_blank" rel="noopener">https://regex101.com/</a></li>
+</ul>
+</li>
+<li><p>进阶阅读</p>
+<ul>
+<li>re2 一个更快的Cython实现 <a href="https://pypi.python.org/pypi/re2/" target="_blank" rel="noopener">https://pypi.python.org/pypi/re2/</a></li>
+<li>pyahocorasick 用字典树和Aho-Corasick自动机实现的超快的正则引擎 <a href="https://pypi.python.org/pypi/pyahocorasick/" target="_blank" rel="noopener">https://pypi.python.org/pypi/pyahocorasick/</a></li>
+<li>PythonVerbalExpressions 类自然语言构造正则表达式 <a href="https://github.com/VerbalExpressions/PythonVerbalExpressions" target="_blank" rel="noopener">https://github.com/VerbalExpressions/PythonVerbalExpressions</a></li>
+<li>Exrex 从正则表达式生成随机字符串  <a href="https://github.com/asciimoo/exrex" target="_blank" rel="noopener">https://github.com/asciimoo/exrex</a></li>
+<li>PyParsing 构造正则语法（和更多规则）和提取的引擎 <a href="http://pyparsing.wikispaces.com/" target="_blank" rel="noopener">http://pyparsing.wikispaces.com/</a></li>
+<li>Parsley 更人性化的正则表达语法 <a href="http://parsley.readthedocs.io/en/latest/tutorial.html" target="_blank" rel="noopener">http://parsley.readthedocs.io/en/latest/tutorial.html</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/04/2017-09-04-Regular-Expression/">
+    <time datetime="2017-09-04T14:00:00.000Z" class="entry-date">
+        2017-09-04
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2017/09/07/2017-09-07-Language-AI-Emotion/" rel="prev"><span class="meta-nav">←</span> 语言、AI、情感</a></span>
+    
+    
+        <span class="nav-next"><a href="/2017/08/31/2017-08-31-diary/" rel="next">随笔：人生，当有所为有所不为 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">29</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">9</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/">Regular Expressions, Text Normalization, and Edit Distance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/21/2019-04-21-DB-FDW/">DataBase Foreign Data Wrapper</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/NLPFA/2019-04-13-NLP-Formal-Analysis/">自然语言计算机形式分析的理论与方法笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/09/SLP/2019-04-09-Information-Extraction/">Information Extraction Note</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Analysis/">Formal Analysis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 14px;">Computer Science</a> <a href="/tags/DB/" style="font-size: 10px;">DB</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 14px;">Data Structure</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Analysis/" style="font-size: 10px;">Formal Analysis</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/LM/" style="font-size: 10px;">LM</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 12px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+</body>
+</html>

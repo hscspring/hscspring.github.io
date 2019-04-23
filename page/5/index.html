@@ -69,6 +69,606 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-SLP/2019-04-09-Language-Model" class="post-SLP/2019-04-09-Language-Model post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/10/14/SLP/2019-04-09-Language-Model/">Language Model</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/" data-id="cjuthphe5000p53cci9xecj7v" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>[TOC]</p>
+<h2 id="Ngram"><a href="#Ngram" class="headerlink" title="Ngram"></a>Ngram</h2><ul>
+<li><p>Count up the frequency and divide (use maximum likelihood estimation or MLE):</p>
+<ul>
+<li><script type="math/tex; mode=display">P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})}</script></li>
+<li>Example: <script type="math/tex">P(you | i\ love) := \frac {c(i\ love\ you)}{c(i\ love)}</script>  </li>
+<li>More Generally: <script type="math/tex">P(w_1^n) = P(w_1)P(w_2 | w_1)P(w_3|w_1^2)...P(w_n|w_1^{n-1}) = \prod_{i=1}^{n} P(w_i|w_1^{i-1})</script></li>
+</ul>
+</li>
+<li><p>For N-gram </p>
+<ul>
+<li>Next Word: <script type="math/tex">P(w_n|w_1^{n-1}) \approx P(w_n|w_{n-N+1}^{n-1}) = \frac {C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}</script> </li>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1}...w_{i-N+1})</script> </li>
+</ul>
+</li>
+<li>For Bigram <ul>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1})</script> </li>
+<li>Next Word: <script type="math/tex">P(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1} w)} = \frac {C(w_{n-1}w_n)}{C(w_{n-1})}</script></li>
+</ul>
+</li>
+</ul>
+<h2 id="Why-Bi-gram-or-Tri-gram"><a href="#Why-Bi-gram-or-Tri-gram" class="headerlink" title="Why Bi-gram or Tri-gram"></a>Why Bi-gram or Tri-gram</h2><blockquote>
+<p>While this method of estimating probabilities directly from counts works ﬁne in many cases, it turns out that even the web isn’t big enough to give us good estimates in most cases. This is because language is creative; new sentences are created all the time, and we won’t always be able to count entire sentences. Even simple extensions of the example sentence may have counts of zero on the web (such as “Walden Pond’s water is so transparent that the”).  </p>
+<p>Similarly, if we wanted to know the joint probability of an entire sequence of words like its water is so transparent, we could do it by asking “out of all possible sequences of ﬁve words, how many of them are its water is so transparent?” We would have to get the count of its water is so transparent and divide by the sum of the counts of all possible ﬁve word sequences. That seems rather a lot to estimate! </p>
+</blockquote>
+<ul>
+<li><p>语言具有极强的创造性（尤其是中文！！），它是无穷的，我们无法数完所有的句子；而且，也正是如此，会导致很多并不复杂的句子出现次数为 0，比如：“我喜欢张馨予”，这句话可能在语料中压根就不存在，那模型就会认为这句话的概率为 0，但这句话其实是很普通的一句话。 </p>
+</li>
+<li><p>另一方面，要数出 “我喜欢张馨予” 的次数，我们需要把语料全部变成六元短语。比如我们假设语料是这么一句话：“我喜欢吃面，我不喜欢张雨绮，我喜欢张馨予。”因为我们事先并不知道 “我喜欢张馨予” 不存在，所以只好把语料变成：“我喜欢吃面，|喜欢吃面，我|欢吃面，我不|……“，然后去数。但是这个规模就太大了（因为 N 越大，不重复的越多） </p>
+</li>
+</ul>
+<p>正是因为语言的创造性（任何特殊的内容都有可能从来没有出现过）以及长短语的不好评估性，我们可以用近似的方法求解，也就是说我们判断某句话出现的概率，在计算每个词的概率时不选择该词之前的所有词，而是选择最近的<strong>几个</strong>词。还是拿刚刚的例子说明，比如我们要计算 ”我喜欢张馨予“ 的概率（注意，我们这里用字模型，也就是每个字是一个 word，换成词也是一样的道理）。  </p>
+<p>注意，我们使用 MLE 的思想，从语料中统计出现频率，并将频率标准化为概率。</p>
+<p>完整的计算过程是： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">P（我喜欢张馨予）  </span><br><span class="line">= P（第一个词是我）* P（第二个词是喜）*...* P（倒数第二个词是馨）* P（最后一个词是予）    </span><br><span class="line">= P（我|B）* P（喜|B我）*...* P（予|B我喜欢张馨）* P（E|B我喜欢张馨予）  </span><br><span class="line">= C（B我）/ΣC（BX）*  C（B我喜）/ΣC（B我X）* C（B我喜欢）/ΣC（B我喜X）*...* C（B我喜欢张馨予）/ΣC（B我喜欢张馨X）* C（B我喜欢张馨予E）/ ΣC（B我喜欢张馨予X）  </span><br><span class="line">= C（B我）/C（B）* C（B我喜）/C（B我）*...* C（我喜欢张馨予）/ΣC（B我喜欢张馨）* C（B我喜欢张馨予E）/ΣC（B我喜欢张馨予）  </span><br><span class="line">= C（B我喜欢张馨予E）/C（B），其中 X 是词表中的任意一个可能的字，B 是 Begining，E 是 End。</span><br></pre></td></tr></table></figure>
+<p>你没看错，就是这样，都约掉了，乍一看有点怪，仔细想想的确如此：因为我们现在依赖的是前面的所有词，那这句话出现的概率其实就是所有句子中这句话的次数。Bingo！计算没问题，但是想想刚刚提到的 ”语言的创造性“，这样的 LanguageModel 其实并没有什么卵用。从机器学习的角度看，这模型 ”过拟合“ 了。 </p>
+<p>那我们自然而然想到的就是减少依赖的词数，那 N 选多少呢？不能太多，计算是个问题（其实存储也有问题）；不能太少，比如 Unigram，也就是每个单词相互独立，这种模型解释力不强，随便举个例子 ”的的的的的的“ 这句话的概率会非常高，但是……或者每个字都换成高频词，随便组合一下……实际中，我们一般取 Bigram 或 Trigram，我自己的经验是 Trigram 比 Bigram 更好一些。Trigram 只要不是<strong>介词、助词、连词</strong>这样的词开头或结尾，基本具备一定的独立性；Bigram 就不是了，大概比单个词好了一些。不过具体怎么选择还要看实际应用场景，我们信奉实用：）</p>
+<p>Trigram 的计算过程： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">P（我喜欢张馨予）  </span><br><span class="line">= P（第一个词是我）* P（第二个词是喜）*...* P（倒数第二个词是馨）* P（最后一个词是予）  </span><br><span class="line">= P（喜|B我）*...\* P（予|张馨）* P（E|馨予）  </span><br><span class="line">= C（B我喜）/C（B我）*...*C（张馨予）/C（张馨）*C（馨予E）/C（馨予）</span><br></pre></td></tr></table></figure>
+<p>最后，补充一下如何统计 Ngram 的词频。  </p>
+<ul>
+<li>数据规模不大时：<code>collections.Counter()</code></li>
+<li>数据规模太大时：先把语料全部处理成 Ngram，用空格或其他分隔符分开存储好；逐行读入，逐词存入字典，如果字典中已有则 +1，否则为 1。提示：所有读取操作用 generator，这种操作方式基本不耗内存，而且可以处理任意大的语料。</li>
+</ul>
+<h2 id="Smoothing"><a href="#Smoothing" class="headerlink" title="Smoothing"></a>Smoothing</h2><p><a href="https://yam.gift/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" target="_blank" rel="noopener">第十三章：N 元语法和数据平滑</a> 这里也有一些关于数据平滑的资料。</p>
+<ul>
+<li>处理 OOV（未登录词）<ul>
+<li>选择固定词表，没有在词表中的词为 UNK</li>
+<li>选择固定数量的词或频次高于某个数的词，其余词为 UNK</li>
+</ul>
+</li>
+<li>Why Smoothing<ul>
+<li>words that are in our vocabulary (they are not unknown words) but appear in a test set in an unseen <strong>context</strong> (for example they appear after a word they never appeared after in training). </li>
+<li>即词在词表中，但测试/预测数据上部分词的组合训练数据中没出现过，这时候就需要 Smoothing。比如上面的例子，“张、馨、予” 三个字在词表中，如果训练数据上没有 “张馨予”，测试数据上出现了，我们不能说 “张馨予” 这个词出现的概率为 0。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Laplace-Smoothing"><a href="#Laplace-Smoothing" class="headerlink" title="Laplace Smoothing"></a>Laplace Smoothing</h3><ul>
+<li>Laplace smoothing merely adds one to each count (hence its alternate name addone smoothing). Since there are V words in the vocabulary and each one was incremented, we also need to adjust the denominator to take into account the extra V observations. </li>
+<li>What happens to our P values if we don’t increase the denominator? The P value will bigger than 1</li>
+<li><script type="math/tex; mode=display">P_{Laplace} (w_i) = \frac {c_i+1} {N+V}</script></li>
+<li>Instead of changing both the numerator and denominator, it is convenient to describe how a smoothing algorithm affects the numerator, by deﬁning an adjusted count c ∗ . </li>
+<li><script type="math/tex; mode=display">c_i^* = (c_i+1) \frac {N} {N+V}</script></li>
+<li>Bigram: <ul>
+<li><script type="math/tex; mode=display">P(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)} {C(w_{n-1})}</script></li>
+<li><script type="math/tex; mode=display">P^*_{Laplace}(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)+1} {C(w_{n-1})+V}</script></li>
+<li><script type="math/tex; mode=display">C^*_{(w_{n-1}\ w_n)} = \frac {[C(w_{n-1}w_n)+1] C(w_{n-1})} {C(w_{n-1})+V}</script></li>
+<li>这个很简单，也很直观，如果你要给 $C(w_{n-1}w_n)$ 加 1，意味着 $C(w_{n-1})$ 要加 1，那所有词就是要加 V（词表大小）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Add-k-Smoothing"><a href="#Add-k-Smoothing" class="headerlink" title="Add-k Smoothing"></a>Add-k Smoothing</h3><ul>
+<li><script type="math/tex; mode=display">P^*_{Add-k}(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)+k} {C(w_{n-1})+kV}</script></li>
+<li>Although add-k is useful for some tasks (including text classiﬁcation), it turns out that it still doesn’t work well for language modeling, generating counts with poor variances and often inappropriate discounts (Gale and Church, 1994).</li>
+</ul>
+<h3 id="Backoff-and-Interpolation"><a href="#Backoff-and-Interpolation" class="headerlink" title="Backoff and Interpolation"></a>Backoff and Interpolation</h3><ul>
+<li>Backoff: we only “back off” to a lower-order N-gram if we have zero evidence for a higher-order N-gram.</li>
+<li>Interpolation: we always mix the probability estimates from all the N-gram estimators, weighing and combining the trigram, bigram, and unigram counts. </li>
+<li><script type="math/tex; mode=display">P(w_n|w_{n−2}w_{n−1}) = λ_1(w^{n−1}_{n−2})P(w_n|w_{n−2}w_{n−1}) + λ_2(w^{n−1}_{n−2})P(w_n|w_{n−1}) + λ_3(w_{n−2}^{n−1})P(w_n), \sum_i {\lambda_i} = 1</script></li>
+<li>How are these λ values set?<ul>
+<li>learned from a <strong>held-out</strong> corpus</li>
+<li>A held-out corpus is an additional training corpus that we use to set hyperparameters like these λ values, by choosing the λ values that maximize the likelihood of the held-out corpus.</li>
+<li>One way: EM</li>
+</ul>
+</li>
+<li>discount<ul>
+<li>In order for a backoff model to give a correct probability distribution, we have to discount the higher-order N-grams to save some probability mass for the lower order N-grams.  </li>
+<li>如果高阶的 Ngram 不存在，用低阶替换时需要 discount，否则会导致低阶的系数暴增。</li>
+<li>Just as with add-one smoothing, if the higher-order N-grams aren’t discounted and we just used the undiscounted MLE probability, then as soon as we replaced an N-gram which has zero probability with a lower-order N-gram, we would be adding probability mass, and the total probability assigned to all possible strings by the language model would be greater than 1! In addition to this explicit discount factor, we’ll need a function α to distribute this probability mass to the lower order N-grams.</li>
+</ul>
+</li>
+<li>Katz backoff<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg" alt=""></li>
+</ul>
+</li>
+<li>Katz backoff is often combined with a smoothing method called <strong>Good-Turing</strong>.</li>
+</ul>
+<h3 id="Kneser-Ney-Smoothing"><a href="#Kneser-Ney-Smoothing" class="headerlink" title="Kneser-Ney Smoothing"></a>Kneser-Ney Smoothing</h3><ul>
+<li><p>One of the most commonly used and best performing N-gram smoothing methods is the interpolated Kneser-Ney algorithm (Kneser and Ney 1995, Chen and Goodman 1998). </p>
+</li>
+<li><p>Kneser-Ney has its roots in a method called <strong>absolute discounting</strong>. Discounting of the counts for frequent N-grams is necessary to save some probability mass for the smoothing algorithm to distribute to the unseen N-grams.</p>
+</li>
+<li><p>大规模语料上的统计 Bigram 结果，训练数据出现的次数与同等规模的 held-out 语料出现次数比为 4:3 </p>
+</li>
+<li><p>Absolute discounting formalizes this intuition by subtracting a ﬁxed (absolute) discount <strong>d(0.75)</strong> from each count.  </p>
+<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg" alt="PAbsoluteDiscounting"></li>
+<li>the second term the unigram with an interpolation weight λ.</li>
+</ul>
+</li>
+<li><p><strong>Kneser-Ney discounting</strong> (Kneser and Ney, 1995) augments absolute discounting with a more sophisticated way to handle the lower-order unigram distribution.  </p>
+<ul>
+<li>P_CONTINUATION: We hypothesize that words that have appeared in more contexts in the past are more likely to appear in some new context as well. 如果一个词以前更容易与别的词组成词组，那么在新的文本中也会更容易组成词组。比如：“蝶” 出现的次数远高于 “榨”（因为 “蝴蝶” 出现的次数高），但 “蝶” 组合成词的可能性（基本上只有 “蝴蝶”）低于 “榨”，所以在给定上文的情况下，下一个字更可能是 “榨” 而不是 “蝶”。注：<a href="http://lingua.mtsu.edu/chinese-computing/statistics/char/list.php?Which=TO" target="_blank" rel="noopener">词频参考</a> </li>
+<li>The Kneser-Ney intuition is to base our estimate of P CONTINUATION on the number of different contexts word w has appeared in, that is, the number of bigram types it completes. The number of times a word w appears as a novel continuation can be expressed as: <ul>
+<li><img src="http://qnimg.lovevivian.cn/books-kneser-ney-smoothing-pcontinuation.jpeg" alt=""></li>
+<li>其实就是给能组成更多 Bigram 的单个词更高的概率分布，A frequent word (“蝴”) occurring in only one context (“蝶”) will have a low continuation probability.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>The ﬁnal equation for <strong>Interpolated Kneser-Ney smoothing</strong> is</p>
+<ul>
+<li><img src="http://qnimg.lovevivian.cn/books-interpolated-kneser-ney-smoothing.jpeg" alt=""></li>
+<li>The λ is a normalizing constant that is used to distribute the probability mass we’ve discounted:  <img src="http://qnimg.lovevivian.cn/books-interpolated-lambda.jpeg" alt=""><ul>
+<li>The ﬁrst term $\frac {d} {C(w_{i-1\ })}$ is the normalized discount.  </li>
+<li>The second term $\lvert {w : C(w_{i−1}w) &gt; 0} \rvert$ is the number of word types that can follow $w_{i−1}$ or, equivalently, the number of word types that we discounted; in other words, the number of times we applied the normalized discount.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The <strong>general recursive formulation</strong> is as follows: <ul>
+<li><img src="http://qnimg.lovevivian.cn/books-general-recursive-formulation.jpeg" alt=""><ul>
+<li><img src="http://qnimg.lovevivian.cn/books-ckn.jpeg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><img src="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg" alt=""></li>
+</ul>
+<p>The best-performing version of Kneser-Ney smoothing is called <strong>modiﬁed KneserNey smoothing</strong>, and is due to Chen and Goodman (1998). Rather than use a single ﬁxed discount d, modiﬁed Kneser-Ney uses three different discounts d1 , d2 , and d3+ for N-grams with counts of 1, 2 and three or more, respectively.</p>
+<h3 id="The-Web-and-Stupid-Backoff"><a href="#The-Web-and-Stupid-Backoff" class="headerlink" title="The Web and Stupid Backoff"></a>The Web and Stupid Backoff</h3><p><img src="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg" alt=""></p>
+<p>S is score, not probability.<br>The backoff terminates in the unigram, which has probability S(w) = count(w)/N .<br>Brants et al. (2007) ﬁnd that a value of 0.4 worked well for λ. </p>
+<p>举个例子：<br>k = 3，<code>S（予|张馨）= C（张馨予）/C（张馨）or 0.4 * C（馨予）/C（馨）</code></p>
+<h2 id="Evaluating-Language-Models"><a href="#Evaluating-Language-Models" class="headerlink" title="Evaluating Language Models"></a>Evaluating Language Models</h2><ul>
+<li>The best way to evaluate the performance of a language model is to embed it in an application and measure how much the application improves. Such end-to-end evaluation is called <strong>extrinsic evaluation</strong>. </li>
+<li>An <strong>intrinsic evaluation</strong> metric is one that measures the quality of a model independent of any application. For an intrinsic evaluation of a language model we need a <strong>test set</strong>. </li>
+<li>Sometimes we use a particular test set so often that we implicitly tune to its characteristics. We call the initial test set the development test set or, <strong>devset</strong>.</li>
+<li>what does it mean to “model the test set”? The answer is simple: whichever model assigns a <strong>higher probability</strong> to the test set—meaning it more accurately predicts the test set—is a better model.</li>
+<li>In practice, we often just divide our data into 80% training, 10% development, and 10% test.</li>
+</ul>
+<h3 id="Perplexity"><a href="#Perplexity" class="headerlink" title="Perplexity"></a>Perplexity</h3><ul>
+<li>In practice we don’t use raw probability as our metric for evaluating language models, but a variant called perplexity.</li>
+<li>For a test set W = w1, w2 … wN:<ul>
+<li><script type="math/tex; mode=display">PP(W) = P(w_1w_2...w_N)^{-\frac{1}{N}}</script><script type="math/tex; mode=display">=\sqrt[N]{\frac {1}{P(w_1w_2...w_N)}}</script><script type="math/tex; mode=display">=\sqrt[N]{\prod_{i=1}^N \frac {1}{P(w_i|w_1w_2...w_{i-1})}}</script><script type="math/tex; mode=display">\approx \sqrt[N]{\prod_{i=1}^N \frac {1}{P(w_i|w_{i-1})}} \quad Bigram</script></li>
+</ul>
+</li>
+<li>The <strong>higher the conditional probability</strong> of the word sequence, the <strong>lower the perplexity</strong>.</li>
+<li>What we generally use for word sequence in Eq above is the <strong>entire sequence of words in some test set</strong>. <ul>
+<li>Since this sequence will cross many sentence boundaries, we need to include the begin- and end-sentence markers <code>&lt;s&gt;</code> and <code>&lt;/s&gt;</code> in the probability computation. </li>
+<li>We also need to include the end-of-sentence marker <code>&lt;/s&gt;</code> (<strong>but not the beginning-of-sentence marker <code>&lt;s&gt;</code></strong>) in the total count of word tokens N.</li>
+</ul>
+</li>
+<li>Any kind of knowledge of the test set can cause the perplexity to be artiﬁcially low. The perplexity of two language models is only comparable if they use the <strong>same vocabulary</strong>.</li>
+</ul>
+<h3 id="Advanced-Perplexity’s-Relation-to-Entropy"><a href="#Advanced-Perplexity’s-Relation-to-Entropy" class="headerlink" title="Advanced: Perplexity’s Relation to Entropy"></a>Advanced: Perplexity’s Relation to Entropy</h3><ul>
+<li>By making some incorrect but convenient simplifying assumptions, we can compute the entropy of some <strong>stochastic process</strong> by taking a very long sample of the output and computing its <strong>average log probability</strong>. <script type="math/tex; mode=display">H(W) \approx − \frac{1}{N} logP(w_1w_2...w_N)</script></li>
+<li><script type="math/tex; mode=display">Perplexity(W) = 2^{H(W)}</script></li>
+<li>PPT 上的 A Refresher on Evaluation:<br><img src="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg" alt=""></li>
+</ul>
+<h2 id="What-Can-we-Do-w-LMs"><a href="#What-Can-we-Do-w-LMs" class="headerlink" title="What Can we Do w/ LMs?"></a>What Can we Do w/ LMs?</h2><ul>
+<li>Score sentences</li>
+<li>Generate sentences<ul>
+<li>while didn’t choose end-of-sentence symbol</li>
+<li>calculate probability</li>
+<li>sample a new word from the probability distribution</li>
+</ul>
+</li>
+</ul>
+<h2 id="Problems-and-Solutions"><a href="#Problems-and-Solutions" class="headerlink" title="Problems and Solutions?"></a>Problems and Solutions?</h2><ul>
+<li>Cannot share strength among <strong>similar words</strong><ul>
+<li>example: she _bought_ a _car_, she _purchased_ a _car_ || she _bought_ a _bicycle_, she _purchased_ a _bicycle_</li>
+<li>solution: class based language models</li>
+</ul>
+</li>
+<li>Cannot condition on context with <strong>intervening words</strong><ul>
+<li>example: _Dr._ Jane _Smith_ || _Dr._ Gertrude _Smith_</li>
+<li>solution: skip-gram language models</li>
+</ul>
+</li>
+<li>Cannot handle <strong>long-distance dependencies</strong><ul>
+<li>example: for _tennis_ class he wanted to buy his own _racquet_ || for _programming_ class he wanted to buy his own _computer_</li>
+<li>solution: cache, trigger, topic, syntactic models, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2>
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/10/14/SLP/2019-04-09-Language-Model/">
+    <time datetime="2017-10-14T14:00:00.000Z" class="entry-date">
+        2017-10-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LM/">LM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Language-Model/">Language Model</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ngram/">Ngram</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-09-07-Language-AI-Emotion" class="post-2017-09-07-Language-AI-Emotion post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/07/2017-09-07-Language-AI-Emotion/">语言、AI、情感</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/" data-id="cjtx2yw790025vcccjhhupf57" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="语言的本质"><a href="#语言的本质" class="headerlink" title="语言的本质"></a>语言的本质</h2><p>抽象来看，语言大致可分为描述客观现象和表达主观感受两个方面。<br>客观的语言广泛存在于世间，从人类到动物，到植物、化学元素都有自己的『语言』，它们通过特定的语言向外传达一种『信息』，而这种信息被人类加工后成为『知识』。<br>而人类或其他高等动物之所以特殊是因为他们能表达自己的感受，他们有喜怒哀乐，有七情六欲，他们对万事万物有自己的认识。也许可以称之为『情感』，或许是『意识』。<br>由于语言有多种，个人主观方面又大不相同，所以当人与人沟通时经常会信息不对称，导致沟通障碍。而同样的东西、同一件事物，不同的人看到的也会不尽相同。<br>所以，有时候与其说是语言的魅力，不如说是人类主观的魅力、意识的魅力。譬如『如果你认识以前的我，也许你就会原谅现在的我』，大多数人可能会觉得这句话和有意境，觉得写的很好。为什么？也许从信息的角度来看，它高度抽象描述了大量的客观现象，但我想更多地是因为它勾起了你心中的一点点涟漪，或者引起了你一点点的共鸣。<br>再比如 “他死了，她也死了” 和 “他死了，她伤心而死”。从信息论（效率）角度而言第一句更容易记住，因为它短，但人们更能记住第二句，因为它有 “情感”。所以，我们其实关注的并不是信息本身，而是信息所附加的、能引起我们心灵触动的、能带给我们思考的东西。<br>所以，语言我更倾向于把它当做人类表达自身情感的一种方式。至于记录客观世界，其实完全可以通过其他方式，比如数学公式、物理公式…… 而语言的本质或者核心其实是『情感』，是『意识』的产物。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/">
+    <time datetime="2017-09-07T05:00:00.000Z" class="entry-date">
+        2017-09-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-09-04-Regular-Expression" class="post-2017-09-04-Regular-Expression post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/04/2017-09-04-Regular-Expression/">正则表达式笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/09/04/2017-09-04-Regular-Expression/" data-id="cjuthphd0000853ccm2ibc66o" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>[TOC]</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h3><ul>
+<li><p>compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作</p>
+</li>
+<li><p>在字符串前加个 <code>r</code> 反斜杠就不会被任何特殊方式处理</p>
+</li>
+<li><code>re.findall(rf&#39;{t}&#39;, s)</code>: <strong><code>f</code> 表示 <code>t</code> 可以使用变量</strong></li>
+<li><code>re.compile(pattern, re.IGNORECASE)</code>: IGNORECASE 忽略大小写</li>
+<li><code>re.compile(pattern, re.MULTILINE)</code>: 是否按行匹配，带参数按行，不带参数整个字符串为整体（不考虑换行符）</li>
+<li><code>re.compile(pattern, re.DOTALL)</code>: 默认不匹配换行符，带参数匹配换行符</li>
+<li><code>re.compile(pattern, re.Unicode | re.VERBOSE)</code>: 让 pattern 看起来更易读。多个标志可以通过按位 OR-ing 它们来指定。如 <code>re.I | re.M</code> 被设置成 I 和 M 标志</li>
+<li>嵌入标志（编译表达式无法添加标志时，可以在表达式字符串本身内嵌入标志）<ul>
+<li>打开不区分大小写匹配项: <code>(?i)</code> 添加到 pattern 的最前面就好</li>
+<li><code>i: IGNORECASE; m: MULTILINE; s: DOTALL; u: UNICODE; x: VERBOSE</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="无捕获组和命名组"><a href="#无捕获组和命名组" class="headerlink" title="无捕获组和命名组"></a>无捕获组和命名组</h3><ul>
+<li><p><code>(?:pattern)</code>: 无捕获组，对于修改已有组尤其有用，因为你可以不用改变所有其他组号的情况下添加一个新组。</p>
+</li>
+<li><p><code>(?P&lt;name&gt;...)</code> 定义一个命名组，<code>(?P=name)</code> 则是对命名组的逆向引用；逆向引用允许你指定先前捕获组的内容，该组也必须在字符串当前位置被找到。举个例子，如果组 1 的内容能够在当前位置找到的话，<code>\1</code> 就成功否则失败。除了用数字指定组，它可以用名字来指定，如：<code>(\b\w+)\s+\1</code> 也可以被写成 <code>(?P&lt;word&gt;\b\w+)\s+(?P=word)</code></p>
+<ul>
+<li><code>re.compile(r&#39;(\w+)\1\1\1&#39;)</code>: 匹配一个字重复四次的那个「字」</li>
+<li><code>re.compile(r&#39;((\w+)\2+)&#39;)</code>: 匹配重复两次或两次以上的，返回对应的值和那个重复的「字」，必须整个用括号括起来</li>
+</ul>
+</li>
+</ul>
+<h3 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h3><p><code>条件：(?(id)yes-expression|no-expression)</code>,  id 是 group name or number</p>
+<ul>
+<li><code>yes-expression</code> is the pattern to use if the group has a value，如果 group 有返回值时执行 </li>
+<li><code>no-expression</code> is the pattern to use otherwise. </li>
+<li><code>(?=(&lt;.*&gt;$)|([^&lt;].*[^&gt;]$))</code></li>
+<li><code>条件表达式例子1：(?(name)(?=(\w+))|(?=([^&lt;].*[^&gt;]$)))</code>，如果找到 <code>name</code>，执行前面的，否则执行后面的</li>
+<li><code>条件表达式例子2：(?(name)(?P&lt;brackets&gt;(?=(&lt;.*&gt;$)))|(?=([^&lt;].*[^&gt;]$)))</code></li>
+<li><code>调用（非条件表达式）：(?P&lt;email&gt;(?P=first_name)\.(?P=last_name)@([\w\d.]+\.)+(com|org|edu))</code></li>
+</ul>
+<h3 id="环视"><a href="#环视" class="headerlink" title="环视"></a>环视</h3><ul>
+<li><code>(?!pattern)</code>: 前向否定，不匹配 pattern，匹配不是 bat 或 exe 后缀的：<code>.*[.](?!bat$|exe$).*$</code>；<code>re.compile(r&#39;Isaac(?!Asimov)&#39;)</code>：Isaac 前面有 Asimov <strong>不</strong>能匹配 Isaac</li>
+<li><code>(?=pattern)</code>: 前向肯定，匹配，A positive look ahead assertion，条件不占匹配符；<code>re.compile(r&#39;Isaac(?=Asimov)&#39;)</code>：Isaac 前面有 Asimov 才能匹配 Isaac</li>
+<li><code>(?&lt;!noreply)</code> 后向否定，放在匹配到的 username 下和 <code>(?!noreply@.*$)</code> 放在最前面匹配是一样的；<code>re.compile(r&#39;(?&lt;!Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov <strong>不</strong>能匹配 Isaac</li>
+<li><code>(?&lt;=@)</code>: 后向肯定，A positive look behind assertion, must use a fixed length pattern；<code>re.compile(r&#39;(?&lt;=Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov 才能匹配 Isaac</li>
+</ul>
+<p>上面的只支持固定长度，如果要使用可变长度，需要 <code>regex</code> 包：<a href="https://bitbucket.org/mrabarnett/mrab-regex" target="_blank" rel="noopener">mrabarnett / mrab-regex — Bitbucket</a></p>
+<ul>
+<li><code>regex.compile(rf&#39;(?&lt;![{quantifier}]+\w*)(之一)([{punc}]?)&#39;)</code>: 非固定宽度否定逆序环视，用后面的符号即做隔断，在结尾又可不存在。不等于 “数量词” + XXX + 之一，且标点结尾的；注意：quantifier 是变量</li>
+<li><code>regex</code> 的环视<strong>可以跳跃查找，而普通的 <code>re</code> 只能连在一起</strong>。举个例子：找到 非量词 + 之一<ul>
+<li>普通正则：<code>(!量词)\w+之一</code>：这样因为 <code>\w</code> 包括了量词，所以并不能查找出来</li>
+<li>环视方法：<code>(?&lt;!量词)\w+之一</code>：可以分成三部分：非量词+其他词+之一</li>
+</ul>
+</li>
+</ul>
+<h3 id="匹配查找"><a href="#匹配查找" class="headerlink" title="匹配查找"></a>匹配查找</h3><ul>
+<li><code>re.search()</code><ul>
+<li>使用 pattern 扫描文本</li>
+<li>如果找到则返回 Match 对象，否则返回 <code>None</code>，<code>match.start(), match.end()</code> 或 <code>match.span()</code> 返回匹配到对象的起止位置</li>
+<li><strong><code>pattern.search()</code></strong>：返回子串，而不是 <code>re.search()</code> 的整个字符串</li>
+</ul>
+</li>
+<li><code>re.match()</code><ul>
+<li>只有 pattern 在文本的最开始才返回结果，否则返回 <code>None</code></li>
+</ul>
+</li>
+<li><code>re.findall()</code><ul>
+<li><code>finditer</code> 返回一个迭代器，可以使用 <code>match.start(), match.end()</code> 返回起止位置</li>
+<li><code>re.findall(r&#39;a((a*)(b*))&#39;,t)</code>: 类似这种，第一个 a 是不返回到结果的，只返回括号里面的</li>
+</ul>
+</li>
+<li>如果没有匹配到的话，<code>match()</code> 和 <code>search()</code> 将返回 <code>None</code>。如果成功的话，就会返回一个 <code>MatchObject</code> 实例，其中有这次匹配的信息：它是从哪里开始和结束，它所匹配的子串等等。<code>findall()</code> 在它返回结果时不得不创建一个列表。</li>
+<li><code>groups()</code><ul>
+<li><strong>返回匹配到的字符序列</strong>，不需要再用起止位置确定返回的字符串</li>
+<li><code>group(index)</code>: 返回单独的一个 group（匹配到的结果）</li>
+<li><code>match.groupdict()</code> 返回 <code>{名字:值}</code> 的字典</li>
+<li>组可以被嵌套。计数的数值可以通过从左到右计算打开的括号数来确定。<code>The groups()</code> 方法返回一个包含所有小组字符串的元组，从 <strong>1</strong> 到 所含的小组号。</li>
+</ul>
+</li>
+<li>list 作为参数：<code>re.compile(&#39;二&#39; + str([&quot;位&quot;, &quot;十&quot;, &quot;百&quot;, &quot;千&quot;, &quot;万&quot;, &quot;亿&quot;]))</code> <ul>
+<li>和 list 的顺序有关，所以首字一样的，长的放前面，否则长的匹配不到（肯定模式）</li>
+<li>会匹配到空格（list 元素中间有空格）</li>
+<li>还会匹配到单个词里面的每个词中间字的组合（肯定模式）。</li>
+<li>不推荐这样的写法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="分割替换"><a href="#分割替换" class="headerlink" title="分割替换"></a>分割替换</h3><ul>
+<li><code>split(string [, maxsplit = 0])</code><ul>
+<li><code>p2 = re.compile(r&#39;(\W+)&#39;)</code>: 打印出定界符，如果不需要则为：<code>p = re.compile(r&#39;\W+&#39;)</code></li>
+<li><code>re.compile().split(text, num)</code>: num 非 0 时，最多分成 num 段</li>
+</ul>
+</li>
+<li><code>sub(replacement, string[, count = 0])</code> <ul>
+<li>可选参数 count 是模式匹配后替换的最大次数；count 必须是非负整数。缺省值是 0 表示替换所有的匹配。 </li>
+<li>空匹配只有在它们没有紧挨着前一个匹配时才会被替换掉。<code>re.compile(&#39;x*&#39;).sub(&#39;-&#39;, &#39;abxd&#39;)</code>: <code>&#39;-a-b-d-&#39;</code></li>
+<li>可以指定用 <code>(?P&lt;name&gt;...)</code> 语法定义的命名组。”<code>\g&lt;name&gt;</code>“ 将通过组名 “name” 用子串来匹配，并且 “<code>\g&lt;number&gt;</code>“ 使用相应的组号。使用它可以消除组号和周围文字数字之间的任何歧义。</li>
+<li>替换也可以是一个函数，该函数将会被模式中每一个不重复的匹配所调用。</li>
+<li><code>subn()</code> 返回修改后的字符串和替换的数量</li>
+</ul>
+</li>
+<li><code>replace</code>: 更快的替换</li>
+<li><code>translate()</code>: 从一个字符串中删除单个字符或用另一个字符来替代它<ul>
+<li>可以用 <code>re.sub(&#39;\n&#39;,&#39; &#39;, s)</code> 这样来实现，但 <code>translate()</code> 能够实现这两个任务，而且比任何正则表达式操作起来更快。</li>
+<li><code>translate</code> 需要配合<code>string.maketrans</code> 使用。例如：<code>import string</code> 后 <code>&#39;a1b3&#39;.translate(string.maketrans(&#39;ab&#39;, &#39;cd&#39;))</code> </li>
+</ul>
+</li>
+</ul>
+<h2 id="要义"><a href="#要义" class="headerlink" title="要义"></a>要义</h2><h3 id="数量"><a href="#数量" class="headerlink" title="数量"></a>数量</h3><ul>
+<li><code>{}</code> 多少次</li>
+<li><code>*</code> 等于 <code>{0,}</code>，0 次或任意正次数</li>
+<li><code>+</code>  等于 <code>{1,}</code>，1 次或任意正次数</li>
+<li><code>?</code>  等于 <code>{0,1}</code>，0 次或 1 次</li>
+<li>pattern 后面加「?」（英文的问号）就是非贪婪匹配，默认是贪婪匹配（匹配尽可能多的字符）。也就是匹配数量少的次数（也就是 {} 左边的数字次数）</li>
+</ul>
+<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><ul>
+<li>范围<ul>
+<li><code>[ab]</code>: a or b，<code>[\w\d.+-]</code> 里面的「.+-」就是代表自身</li>
+<li><code>a[ab]+</code>: aa… or ab…</li>
+<li><code>a[ab]+?</code>: aa or ab</li>
+<li><code>[^-. ]+</code>: 不含 <code>-, ., 空格</code> 的，用补集来匹配不在区间范围内的字符，其做法是把”^”作为<strong>类别</strong>的<strong>首个字符</strong>；其它地方的”^”只会简单匹配 “^”字符本身</li>
+<li><code>[A-Z][a-z]+</code>: 一个大写字母后面跟着小写字母</li>
+<li>元字符在类别里（<code>[]</code> 里）并不起作用</li>
+</ul>
+</li>
+<li>小数点<ul>
+<li><code>.</code> 表示任何单独的字符，除了换行符（\n）</li>
+<li><code>a.*b</code>: a 后面任意字符，b 结尾</li>
+<li><code>a.*?b</code>: a 后面任意字符，b 结尾，非贪婪</li>
+</ul>
+</li>
+<li>反斜杠<ul>
+<li><code>\d</code>: a digit</li>
+<li><code>\D</code>: a non-digit</li>
+<li><code>\s</code>: whitespace(tab, space, newline, etc.)</li>
+<li><code>\S</code>: non-whitespace</li>
+<li><code>\w</code>: alphanumeric 字母数字</li>
+<li><code>\W</code>: non-alphanumeric 非字母数字（标点，符号如#等）</li>
+<li><code>\</code>: 转义</li>
+</ul>
+</li>
+<li>大多数字母和字符一般都会和自身匹配</li>
+</ul>
+<h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><ul>
+<li><code>^</code>: string or line 开始</li>
+<li><code>$</code>: string or line 结尾</li>
+<li><code>\A</code>: string 开始</li>
+<li><code>\Z</code>: string 结尾</li>
+<li><code>\b</code>: empty string at the beginning or end of a word</li>
+<li><code>\B</code>: empty string not at the beginning or end of a word</li>
+<li>例子<ul>
+<li><code>r&#39;^\w+&#39;,     # word at start of string</code></li>
+<li><code>r&#39;\A\w+&#39;,    # word at start of string</code></li>
+<li><code>r&#39;\w+\S*$&#39;,  # word at end of string, with optional punctuation</code></li>
+<li><code>r&#39;\w+\S*\Z&#39;, # word at end of string, with optional punctuation</code></li>
+<li><code>r&#39;\w*t\w*&#39;,  # word containing &#39;t&#39;</code></li>
+<li><code>r&#39;\bt\w+&#39;,   # &#39;t&#39; at start of word</code></li>
+<li><code>r&#39;\w+t\b&#39;,   # &#39;t&#39; at end of word</code></li>
+<li><code>r&#39;\Bt\B&#39;,    # &#39;t&#39;, not start or end of word</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><ul>
+<li><code>()</code>: 分组，视为整体</li>
+<li><code>|</code>: 管道符，要么用左边的字符串匹配，要么用右边的匹配</li>
+</ul>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">p_email = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                     (?P&lt;email&gt;</span></span><br><span class="line"><span class="string">                     [\w+\d]+</span></span><br><span class="line"><span class="string">                     @</span></span><br><span class="line"><span class="string">                     .+</span></span><br><span class="line"><span class="string">                     )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_telephone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;telephone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;3&#125;\s.+</span></span><br><span class="line"><span class="string">                         | \d&#123;3,4&#125;-\d&#123;8&#125;.*</span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_cellphone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;cellphone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;11&#125;</span></span><br><span class="line"><span class="string">                         | \d&#123;11&#125; </span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener">6.2. re — Regular expression operations — Python 3.6.2 documentation</a></li>
+<li>Python Module of the Week上的讲 Python 的 re 包 <a href="https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb" target="_blank" rel="noopener">https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb</a>)</li>
+<li>Ubuntu Wiki上的 <a href="http://wiki.ubuntu.com.cn/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97" target="_blank" rel="noopener">Python正则表达式操作指南 - Ubuntu中文</a>，可参考<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-How-to-Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
+<li>关于 Regex 的<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
+</ul>
+<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><ul>
+<li><p>Regex 工具</p>
+<ul>
+<li>regexper 可视化：<a href="https://regexper.com/" target="_blank" rel="noopener">https://regexper.com/</a></li>
+<li>pythex 在线测试正则表达式 <a href="http://pythex.org/" target="_blank" rel="noopener">http://pythex.org/</a></li>
+<li>regex101 另一个很漂亮的在线正则表达式测试器 <a href="https://regex101.com/" target="_blank" rel="noopener">https://regex101.com/</a></li>
+</ul>
+</li>
+<li><p>进阶阅读</p>
+<ul>
+<li>re2 一个更快的Cython实现 <a href="https://pypi.python.org/pypi/re2/" target="_blank" rel="noopener">https://pypi.python.org/pypi/re2/</a></li>
+<li>pyahocorasick 用字典树和Aho-Corasick自动机实现的超快的正则引擎 <a href="https://pypi.python.org/pypi/pyahocorasick/" target="_blank" rel="noopener">https://pypi.python.org/pypi/pyahocorasick/</a></li>
+<li>PythonVerbalExpressions 类自然语言构造正则表达式 <a href="https://github.com/VerbalExpressions/PythonVerbalExpressions" target="_blank" rel="noopener">https://github.com/VerbalExpressions/PythonVerbalExpressions</a></li>
+<li>Exrex 从正则表达式生成随机字符串  <a href="https://github.com/asciimoo/exrex" target="_blank" rel="noopener">https://github.com/asciimoo/exrex</a></li>
+<li>PyParsing 构造正则语法（和更多规则）和提取的引擎 <a href="http://pyparsing.wikispaces.com/" target="_blank" rel="noopener">http://pyparsing.wikispaces.com/</a></li>
+<li>Parsley 更人性化的正则表达语法 <a href="http://parsley.readthedocs.io/en/latest/tutorial.html" target="_blank" rel="noopener">http://parsley.readthedocs.io/en/latest/tutorial.html</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/04/2017-09-04-Regular-Expression/">
+    <time datetime="2017-09-04T14:00:00.000Z" class="entry-date">
+        2017-09-04
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-08-31-diary" class="post-2017-08-31-diary post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/08/31/2017-08-31-diary/">随笔：人生，当有所为有所不为</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/08/31/2017-08-31-diary/" data-id="cjtx2yw6e0008vccc8k4o9nwr" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>是夜，阴沉天空，淅淅沥沥的小雨，落到了地上，没入了尘埃。<br>空旷的房间，通明的白织灯下，桌上一罐哈啤，一罐纯净水，耳边响着最爱的史诗乐。<br>回想近日之事，一时竟感慨万千，内心色彩斑斓。</p>
+<p>人的一生会遇到许许多多的事，会交到许许多多的朋友，你永远无法预测明天会发生什么，下一秒将会认识谁。但是，总有些事、总有些人，会让你的人生泛起涟漪、波澜。<br>有些事，能让你认清一个人；有些人，能让你知道一件事。</p>
+<p>我们生活在这个世界，物欲横流、欲壑难填。<br>每个人都想任性地活，想要想尽一切办法满足自己不断膨胀的私欲。<br>我们以为这是自由，这是活出自己，这是人生的精彩。<br>但却忘记了什么是责任，什么是担当，什么是本分。<br>忘记了克己修身，忘记了每日三省，忘记了拷问良心。也许从未有过。</p>
+<p>任性过后，还剩下什么？还能剩下什么？<br>人生在世，当有所为有所不为，大丈夫立于天地间更应如此。<br>忍让不是天生懦弱，关心不是精力过剩，<br>然而我们总是看不到这些或者习惯了如此，一次次用所谓的个性去刺向那呵护着自己的外壳。<br>人性本如此。</p>
+<p>感受周边人群，与日俱增的寂寞和空虚，让人不得不想方设法去寻找释放的窗口。<br>同样寂寞空虚的人遇到了一起，生产出更多的寂寞空虚，以及一些私欲，泛滥成灾。<br>然后，终日活在这样的世界，通过感官上的各种刺激才知道自己还，活着。</p>
+<p>谈使命，说使命太虚；谈梦想，说梦想太空。<br>浑浑噩噩度过一天一天，一年一年，接着是一生。</p>
+<p>做人，该当知轻重，明对错。<br>然后，去做一个有品性、有道德的人。<br>这样的你也会是一个三观正、人品赞的人。<br>扪心自问，你是吗？</p>
+<p>后记：发现自己慢慢喜欢上在这种环境下用键盘缓缓抒发自己内心的情感，就好像一篇娓娓道来的故事，好像一副徐徐展开的画卷，好像一首缓缓奏起的乐章。随着文章终了，内心的情感渐渐平复，由内而外不再充满戾气，不再焦躁不安，不再五味陈杂。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/08/31/2017-08-31-diary/">
+    <time datetime="2017-08-31T14:00:00.000Z" class="entry-date">
+        2017-08-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Diary/">Diary</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-2017-04-09-NLPKnowledgeTree" class="post-2017-04-09-NLPKnowledgeTree post type-post status-publish format-standard hentry">
     <!---->
 
@@ -247,6 +847,61 @@
 
 
   
+    <article id="post-2017-03-05-Python-encode-decode" class="post-2017-03-05-Python-encode-decode post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/03/05/2017-03-05-Python-encode-decode/">Python 编码笔记整理</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/2017-03-05-Python-encode-decode/" data-id="cjtx2yw780022vccccs3txevs" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p> </p><p><div class="lev1 toc-item"><a href="#Python-中文编码" data-toc-modified-id="Python-中文编码-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python 中文编码</a></div><div class="lev2 toc-item"><a href="#字符串和编码" data-toc-modified-id="字符串和编码-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>字符串和编码</a></div><div class="lev2 toc-item"><a href="#存储和执行时的状态" data-toc-modified-id="存储和执行时的状态-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>存储和执行时的状态</a></div><div class="lev2 toc-item"><a href="#Python-字符串" data-toc-modified-id="Python-字符串-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python 字符串</a></div><div class="lev3 toc-item"><a href="#encode" data-toc-modified-id="encode-131"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span><code>encode</code></a></div><div class="lev3 toc-item"><a href="#decode" data-toc-modified-id="decode-132"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span><code>decode</code></a></div><div class="lev3 toc-item"><a href="#str" data-toc-modified-id="str-133"><span class="toc-item-num">1.3.3&nbsp;&nbsp;</span><code>str</code></a></div><div class="lev3 toc-item"><a href="#type" data-toc-modified-id="type-134"><span class="toc-item-num">1.3.4&nbsp;&nbsp;</span><code>type</code></a></div><div class="lev1 toc-item"><a href="#实际程序中的编码" data-toc-modified-id="实际程序中的编码-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>实际程序中的编码</a></div><div class="lev2 toc-item"><a href="#Python-源代码中的说明" data-toc-modified-id="Python-源代码中的说明-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Python 源代码中的说明</a></div><div class="lev2 toc-item"><a href="#要循环处理字符串的时候需要解码" data-toc-modified-id="要循环处理字符串的时候需要解码-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>要循环处理字符串的时候需要解码</a></div><div class="lev2 toc-item"><a href="#字符匹配的时候需要解码" data-toc-modified-id="字符匹配的时候需要解码-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>字符匹配的时候需要解码</a></div><div class="lev2 toc-item"><a href="#结巴分词" data-toc-modified-id="结巴分词-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>结巴分词</a></div><div class="lev3 toc-item"><a href="#jieba-分词后词语变为-unicode-编码" data-toc-modified-id="jieba-分词后词语变为-unicode-编码-241"><span class="toc-item-num">2.4.1&nbsp;&nbsp;</span>jieba 分词后词语变为 unicode 编码</a></div><div class="lev3 toc-item"><a href="#去掉标点符号" data-toc-modified-id="去掉标点符号-242"><span class="toc-item-num">2.4.2&nbsp;&nbsp;</span>去掉标点符号</a></div><div class="lev1 toc-item"><a href="#读存文档时的编码" data-toc-modified-id="读存文档时的编码-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>读存文档时的编码</a></div><div class="lev2 toc-item"><a href="#读取文档注意事项" data-toc-modified-id="读取文档注意事项-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>读取文档注意事项</a></div><div class="lev2 toc-item"><a href="#txt-文档" data-toc-modified-id="txt-文档-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>txt 文档</a></div><div class="lev2 toc-item"><a href="#codecs" data-toc-modified-id="codecs-33"><span class="toc-item-num">3.3&nbsp;&nbsp;</span><code>codecs</code></a></div><div class="lev2 toc-item"><a href="#JSON" data-toc-modified-id="JSON-34"><span class="toc-item-num">3.4&nbsp;&nbsp;</span><code>JSON</code></a></div><div class="lev2 toc-item"><a href="#直接存储-Unicode" data-toc-modified-id="直接存储-Unicode-35"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>直接存储 Unicode</a></div><div class="lev2 toc-item"><a href="#直接存储-String" data-toc-modified-id="直接存储-String-36"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>直接存储 String</a></div><div class="lev1 toc-item"><a href="#参考资料" data-toc-modified-id="参考资料-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>参考资料</a></div></p>
+<h1 id="Python-中文编码"><a href="#Python-中文编码" class="headerlink" title="Python 中文编码"></a>Python 中文编码</h1><p>Python 中文编码是新人常见的一个问题，其实这是一个涉及到 Python 字符串、编码、IO 读写等方面的问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/03/05/2017-03-05-Python-encode-decode/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/03/05/2017-03-05-Python-encode-decode/">
+    <time datetime="2017-03-05T10:00:00.000Z" class="entry-date">
+        2017-03-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-2017-03-05-Pandas" class="post-2017-03-05-Pandas post type-post status-publish format-standard hentry">
     <!---->
 
@@ -296,61 +951,6 @@
     
   <span class="article-delim">&#8226;</span>
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-2017-03-05-Python-encode-decode" class="post-2017-03-05-Python-encode-decode post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2017/03/05/2017-03-05-Python-encode-decode/">Python 编码笔记整理</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/03/05/2017-03-05-Python-encode-decode/" data-id="cjtx2yw780022vccccs3txevs" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p> </p><p><div class="lev1 toc-item"><a href="#Python-中文编码" data-toc-modified-id="Python-中文编码-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Python 中文编码</a></div><div class="lev2 toc-item"><a href="#字符串和编码" data-toc-modified-id="字符串和编码-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>字符串和编码</a></div><div class="lev2 toc-item"><a href="#存储和执行时的状态" data-toc-modified-id="存储和执行时的状态-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>存储和执行时的状态</a></div><div class="lev2 toc-item"><a href="#Python-字符串" data-toc-modified-id="Python-字符串-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Python 字符串</a></div><div class="lev3 toc-item"><a href="#encode" data-toc-modified-id="encode-131"><span class="toc-item-num">1.3.1&nbsp;&nbsp;</span><code>encode</code></a></div><div class="lev3 toc-item"><a href="#decode" data-toc-modified-id="decode-132"><span class="toc-item-num">1.3.2&nbsp;&nbsp;</span><code>decode</code></a></div><div class="lev3 toc-item"><a href="#str" data-toc-modified-id="str-133"><span class="toc-item-num">1.3.3&nbsp;&nbsp;</span><code>str</code></a></div><div class="lev3 toc-item"><a href="#type" data-toc-modified-id="type-134"><span class="toc-item-num">1.3.4&nbsp;&nbsp;</span><code>type</code></a></div><div class="lev1 toc-item"><a href="#实际程序中的编码" data-toc-modified-id="实际程序中的编码-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>实际程序中的编码</a></div><div class="lev2 toc-item"><a href="#Python-源代码中的说明" data-toc-modified-id="Python-源代码中的说明-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>Python 源代码中的说明</a></div><div class="lev2 toc-item"><a href="#要循环处理字符串的时候需要解码" data-toc-modified-id="要循环处理字符串的时候需要解码-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>要循环处理字符串的时候需要解码</a></div><div class="lev2 toc-item"><a href="#字符匹配的时候需要解码" data-toc-modified-id="字符匹配的时候需要解码-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>字符匹配的时候需要解码</a></div><div class="lev2 toc-item"><a href="#结巴分词" data-toc-modified-id="结巴分词-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>结巴分词</a></div><div class="lev3 toc-item"><a href="#jieba-分词后词语变为-unicode-编码" data-toc-modified-id="jieba-分词后词语变为-unicode-编码-241"><span class="toc-item-num">2.4.1&nbsp;&nbsp;</span>jieba 分词后词语变为 unicode 编码</a></div><div class="lev3 toc-item"><a href="#去掉标点符号" data-toc-modified-id="去掉标点符号-242"><span class="toc-item-num">2.4.2&nbsp;&nbsp;</span>去掉标点符号</a></div><div class="lev1 toc-item"><a href="#读存文档时的编码" data-toc-modified-id="读存文档时的编码-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>读存文档时的编码</a></div><div class="lev2 toc-item"><a href="#读取文档注意事项" data-toc-modified-id="读取文档注意事项-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>读取文档注意事项</a></div><div class="lev2 toc-item"><a href="#txt-文档" data-toc-modified-id="txt-文档-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>txt 文档</a></div><div class="lev2 toc-item"><a href="#codecs" data-toc-modified-id="codecs-33"><span class="toc-item-num">3.3&nbsp;&nbsp;</span><code>codecs</code></a></div><div class="lev2 toc-item"><a href="#JSON" data-toc-modified-id="JSON-34"><span class="toc-item-num">3.4&nbsp;&nbsp;</span><code>JSON</code></a></div><div class="lev2 toc-item"><a href="#直接存储-Unicode" data-toc-modified-id="直接存储-Unicode-35"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>直接存储 Unicode</a></div><div class="lev2 toc-item"><a href="#直接存储-String" data-toc-modified-id="直接存储-String-36"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>直接存储 String</a></div><div class="lev1 toc-item"><a href="#参考资料" data-toc-modified-id="参考资料-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>参考资料</a></div></p>
-<h1 id="Python-中文编码"><a href="#Python-中文编码" class="headerlink" title="Python 中文编码"></a>Python 中文编码</h1><p>Python 中文编码是新人常见的一个问题，其实这是一个涉及到 Python 字符串、编码、IO 读写等方面的问题。</p>
-        
-          <p class="article-more-link">
-            <a href="/2017/03/05/2017-03-05-Python-encode-decode/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2017/03/05/2017-03-05-Python-encode-decode/">
-    <time datetime="2017-03-05T10:00:00.000Z" class="entry-date">
-        2017-03-05
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
 </article>
@@ -593,150 +1193,10 @@
 
 
   
-    <article id="post-2016-09-03-Simpson-Paradox" class="post-2016-09-03-Simpson-Paradox post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/09/03/2016-09-03-Simpson-Paradox/">辛普森悖论及其哲学思考</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/09/03/2016-09-03-Simpson-Paradox/" data-id="cjtx2yw640001vcccxzhmf4mv" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-            <!-- Table of Contents -->
-              
-        <h3 id="什么是辛普森悖论"><a href="#什么是辛普森悖论" class="headerlink" title="什么是辛普森悖论"></a>什么是辛普森悖论</h3><p>某个条件下的两组数据，分别讨论时满足某种性质，但合并起来可能导致相反的结论。这就是辛普森悖论。</p>
-<p>假设某公司考核员工有个指标叫迟到出错率=（迟到次数+出错次数）/（出勤次数+工作个数），包括出错率和迟到率2个指标。<br>A员工做了5件<strong>重要</strong>工作，出错1件；<br>B员工做了100件<strong>很简单</strong>的小事情，出错21件。<br>A员工出勤100次，迟到29次，每次<strong>1分钟</strong>；<br>B员工出勤10次，迟到9次，每次<strong>2小时</strong>。<br>则：A员工出错率20%，迟到率29%；B员工出错率21%，迟到率90%，如果分别看出错率和迟到率，A员工明显比B员工优秀。<br>那么实际情况呢：A员工迟到出错率30/105；B员工迟到出错率30/110，B员工评分高于A员工。<br>这就是辛普森悖论的典型案例。</p>
-<h3 id="为什么会出现辛普森悖论"><a href="#为什么会出现辛普森悖论" class="headerlink" title="为什么会出现辛普森悖论"></a>为什么会出现辛普森悖论</h3><p>1、用相对比例（百分比）衡量结果。换句话说，用相对坐标去描述绝对坐标的情况。<br>常见的例子就是百度Google经常能搜出来的录取比例，女生占比等，比如这篇<a href="http://www.guokr.com/article/6222/" target="_blank" rel="noopener">辛普森悖论：诡异的男女比例</a>以及维基百科的<a href="https://zh.wikipedia.org/zh-cn/%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA" target="_blank" rel="noopener">例子</a>。这种例子直接用绝对数值去看就可破解悖论。<br>2、数据本身是由不同部分构成，而这不同部分的权重可能不同。<br>第1点说的常见的例子，其实就是将不同结构的权重按 1:1 进行分配的结果（即A学院，B学院）。<br>我们的案例其实也是这样的，我们做个极端的推理，假设迟到率权重为0，则A员工迟到出错率20%，B员工21%，A员工评分高于B员工。<br>3、除了构成部分本身权重不同外，不同部分的质量也有区别。<br>其实，到了这里，我们已经慢慢在接近本质了。那就是：质与量的矛盾。我们身处一个“评价系统”中，自然选择和进化论就是评价的结果。<br>除了我们熟知的各种数据指标外，还包括我们每一个决策和行为。前者结果非常直观，后者则表现为“命运”。所有的结果都是“物竞天择，适者生存”。这个话题到此为止。  </p>
-<p>所以，其实这是通过量对质进行评价过程中的三个层次：<br>第一层：也是最外面的那层，是用相对比例（百分比）表示而造成的结果扭曲；这一层是“显示”出（导致）的错误。<br>第二层：数据不同构成部分“重要性”（权重）不同而造成的结果扭曲；这一层是未考虑“结构”导致的错误。<br>第三层：每个构成部分数据本身的“重要性”不同而造成的结果扭曲；这一层是未考虑“内容”导致的错误。  </p>
-<p>综上，我们可以重新定义一下辛普森悖论：<br>人们在对事物的评价过程中，未考虑每组数据本身的重要性以及不同部分数据的结构的“权重”，并采用相对指标对结果进行描述而造成的对真实结果的扭曲的一类现象。  </p>
-<p>再扩展一下，上述定义很重要的两个地方：“人们”和“现象”。<br>就是说，评价是以人的某种需求为中心的，需求不同，观察到的“现象”亦不同。<br>这是否让我们想起了薛定谔的那只猫？<br>另外，是什么让“人”进行“评价”？这个过程究竟是有意识的还是无意识的？  </p>
-<h3 id="结果应用"><a href="#结果应用" class="headerlink" title="结果应用"></a>结果应用</h3><p>简单来说，辛普森悖论告诉我们，任何时候不能简单地根据数据结果而轻易得出一些看似确定的结论。真正的结论需要我们对分析目的进行深入思考，对数据本身进行深入细致地探索研究后才有可能得出。</p>
-<blockquote>
-<p>永远对知识充满敬畏。弱小和无知不是生存的障碍，傲慢才是。</p>
-</blockquote>
-<h3 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h3><p><a href="http://vudlab.com/simpsons/" target="_blank" rel="noopener">Simpson’s Paradox</a></p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/09/03/2016-09-03-Simpson-Paradox/">
-    <time datetime="2016-09-03T06:26:49.000Z" class="entry-date">
-        2016-09-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Statistics/">Statistics</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-2016-03-31-Machines-of-Loving-Grace" class="post-2016-03-31-Machines-of-Loving-Grace post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/03/31/2016-03-31-Machines-of-Loving-Grace/">《与机器人共舞》读后感兼谈 AI 与 IA</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2016/03/31/2016-03-31-Machines-of-Loving-Grace/" data-id="cjtx2yw74001yvccchvujyvpv" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-            <!-- Table of Contents -->
-              
-        <p>一位高级科技记者：约翰·马尔科夫的大作，从作者的出身我们就可以猜想这本书的大致风格，绝非理工技术男的思维，写出来的也绝不是纯粹理论或实践方面的干货。看完后，基本正如所料。全书主线非常鲜明，但每一部分内部其实有一点凌乱，一会儿是这个人，一会儿又是另一个人，光是那许多英文名字就已经让人头大了。我给本书打 7 分，还有 0.5 送给亲笔签名。</p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-3.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-2.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-1.jpeg" alt=""></p>
-<p><strong>一条主线：AI 与 IA之争→由 AI 转向 IA</strong></p>
-<p>从书的标题《与机器人共舞》就可以看出坐着的观点是支持 IA，全书也始终秉持这一观点。曾经二十年左右的沉寂，人工智能被沦为笑柄，随着硬件运算能力提升，神经网络跑出了非常优秀的结果，人工智能在 2014 年重见曙光，一发不可收拾，看起来前景良好。但同时很多专家却非常警惕，将人工智能视为人类最大的威胁；除此之外，还有 “意识” 和 “伦理” 问题，也让人工智能蒙上了一层淡淡的阴影。</p>
-<p>我们都知道，机器在运算方面远超人类，绝大多数专家也都认同迟早有一天，机器能够超越人类，那么这时候，人类的位置在哪里？这个时点被人工智能界称为”奇点“，一旦奇点临近，计算机将获得质的飞跃，人类将无法理解其行为。就好像二维世界的蚂蚁无法理解三维世界的人类一样。关于这一天还需要多久学术界争论不停也没有定论，可能唯一能做的就是谨慎再谨慎。</p>
-<p>据一位做数据的朋友说，他已经无法理解大数据背后自动关联的规则，这也是他非常担心的地方。数据会 ”自动“ 关联起来，依据是什么？仔细想想的确有些毛骨悚然。其实，其他很多方面的外在表现已经让人类无法理解了，比如神经网络隐藏层的运作（虽说目前已经有公司能够通过技术手段”观察“到隐藏 layer 的运作方式，但还没到实践环节），吴恩达说不可思议，的确如此。再比如集群效应，当一大堆微型机器人凑在一起会发生什么？会不会从量变引发质变？</p>
-<p>去年上映的《机械姬》令人印象颇深，类似的还有《超体》以及前几年的《超验骇客》，人工智能最后掌控全世界……当然，现实情况是人工智能还比较”傻“，更加不会有意识，形象思维没法与人类相比，他”看见了“，但”看不懂“。</p>
-<p>正因为这种种原因，很多专家转向 IA 阵营。IA 以人类为核心，增强和扩展人类的能力，比如 Google 搜索、Google 眼镜、Siri 等等，他们提高了”人类“生存的效率和能力，同时对人类几乎没有威胁。另一方面，由于 IA 并不需要太”智能“，因此，实现起来也较容易。这也是 IA 阵营越来越庞大的原因。</p>
-<p>AI 与 IA 斗争了几十年，矛盾从未间断，我们很难预测未来会如何。也许，随着IA逐渐普及成熟，突然转向AI也不一定。用作者的话来说，这之间的矛盾以及未来如何发展，取决于人类科学家的决策。我们大胆预测，AI 和 IA 依然将在各自领域不断向前，我们不知道奇点几时来临，唯一能做的只有在它到来之前做好充分的准备。</p>
-<p><strong>IA</strong></p>
-<p>我觉得有必要单独聊一下 IA。IA 以人为核心，一切为人类服务，机器将作为人类的好朋友、好伙伴。这实际上是对人类能力的扩充。我们有 Google 搜索，也有 Siri，还可以想象剪刀手爱德华，又或者钢铁侠，甚至某一天，我们可以上传自己的思维，或者在大脑内植入芯片，瞬间学会某个领域的所有知识。我不知道还要多久，大家会变成半机械人，但从目前的趋势来看这一天也许会很快。我们绝大多数人离开网络已经无法存活，而网络的载体正在越来越方便人使用，从笨重的 PC 到笔记本到平板手机，再到手环、眼镜和植入芯片。人类已经逐渐在将自己”上传“到网络上，从键盘敲字，到智能硬件采集，再到芯片，每个人其实已经处于一张无形的大网中。终有一天，我们将解放双脚、双手这些肉体，直接用意念控制，如果到了这一天，那所有人类从肉体到精神都将连接在一起。我无权评判这一切的好坏，只是觉得这样的生活想想有些恐怖——我们会不会有一天宁愿呆在培养皿中，正如《黑客帝国》中一样。结果就是，人类被控制，或者灭绝。</p>
-<p><strong>AI</strong></p>
-<p>我非常认同一个观点：绝大多数人对人工智能本身是有误解的，因为我们会下意识地将其 “拟人化”，还有这个尴尬的名字。然而，在 AI 的角度来看，也许世界完全是另一副样子。举个例子，给一台机器的目标是”复制更多的笑脸“，它可能会将所能用到的一切资源都变成一个笑脸，包括人类以及其他能用到的一切，最后可能会奔向宇宙，依然不停地在复制笑脸。想象一下《超验骇客》里面的纳米技术（这个东西很有可能会被实现）。对于机器来说，我他妈才不管什么是意识，什么是形象思维，我也不会去管《泰坦尼克号》真好看，爱情最感人，亲情真伟大……他的目的就是不断完成自己的目标，而且越来越高效。我觉得这才是 AI 真正恐怖的地方，正如《机械姬》中的伊娃一样，人类在她看来就跟我们当初看到野兽一样啊，凭什么同情你？凭什么听你的？我比你聪明那么多，能力强那么多。这就跟让你去听从猪指挥一样。AI 根本不需要意识（当然也可能有，但这不重要），他只要比你强大，那你就只有被奴役的份。这个，可以叫 ”物竞天择，适者生存“。机器成为 ”新物种“ 取代人类。最后的结果，人类被奴役，或者被灭绝。</p>
-<p><strong>总结</strong></p>
-<p>其实，无论 IA 还是 AI，都有一种改造 ”人类“ 的因子在，只是 IA 是一步一步侵入，而 AI 可能比较迅速猛烈和直接。既然我们有理由对 AI 恐惧和谨慎，那么当然同样也需对 IA 如此。我也不知道我的观点是否正确，总觉得人类之所以为人类，除了会使用工具外，还因为人类有七情六欲，有生老病死、悲欢离合。如果有一天，每个人都长生不老，每个人都帅气美丽，每个人都一样聪明，有同样的超能力，那这个世界会变成什么？如果主机系统感染病毒，难道人类就此终结？这还只是机器在人类控制下的结果，并没有考虑机器逆袭的情况。也许，这就是人类的终极命运吧，下一个轮回。</p>
-<blockquote>
-<p>后记：谈到 AI 和 IA 突然想到了效率与情感。 举个例子，“他死了，她也死了”和“他死了，她伤心而死”。 信息论（效率）角度而言第一句更容易记住，因为它短，但人们更能记住第二句，因为它有“情感”，而人正是情感动物。 回到 AI 和 IA，其实就对人类而言 IA 更加合适，因为它更加侧重与人交互，借助机器的效率和人类的情感实现人类整体效用最大。 一直觉得真正的人工智能是另一种物种的存在，人之所以是人，就因为他是一个“综合系统”，人类会犯错，很多时候不理智，也会生病，会死亡。可是人工智能不会，所以无论他再怎么智能，那也不是人，也许，将来会成为超越人类的另一个物种。所以也不难理解为什么那么多牛人抵触人工智能，但抵触有什么用。物竞天择，适者生存。若干年后，未必会有人类… </p>
-</blockquote>
-<p>参考：</p>
-<ul>
-<li><p><a href="https://waitbutwhy.com/2015/01/artificial-intelligence-revolution-1.html" target="_blank" rel="noopener">The Artificial Intelligence Revolution: Part 1 - The Road to Superintelligence</a></p>
-</li>
-<li><p><a href="https://waitbutwhy.com/2015/01/artificial-intelligence-revolution-2.html" target="_blank" rel="noopener">The Artificial Intelligence Revolution: Part 2 - Our Immortality or Extinction</a></p>
-</li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/03/31/2016-03-31-Machines-of-Loving-Grace/">
-    <time datetime="2016-03-31T14:00:00.000Z" class="entry-date">
-        2016-03-31
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine/">Machine</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -766,7 +1226,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">27</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">9</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">29</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">9</span></li></ul>
     </div>
   </aside>
 
@@ -778,23 +1238,23 @@
       <ul>
         
           <li>
+            <a href="/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/">Regular Expressions, Text Normalization, and Edit Distance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/21/2019-04-21-DB-FDW/">DataBase Foreign Data Wrapper</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/13/NLPFA/2019-04-13-NLP-Formal-Analysis/">自然语言计算机形式分析的理论与方法笔记</a>
           </li>
         
           <li>
-            <a href="/2019/04/09/2019-04-09-Information-Extraction-Note/">Information Extraction Note</a>
+            <a href="/2019/04/09/SLP/2019-04-09-Information-Extraction/">Information Extraction Note</a>
           </li>
         
           <li>
             <a href="/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/">自然语言计算机形式分析的理论与方法笔记(Ch18)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/31/2019-03-31-Nabokov-Favorite-Word/">《纳博科夫最喜欢的词》读书笔记与思考</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/">自然语言计算机形式分析的理论与方法笔记(Ch15)</a>
           </li>
         
       </ul>
@@ -806,7 +1266,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">30</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Analysis/">Formal Analysis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Analysis/">Formal Analysis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">27</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgresql/">Postgresql</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
@@ -815,7 +1275,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 14px;">Computer Science</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 14px;">Data Structure</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Analysis/" style="font-size: 10px;">Formal Analysis</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
+      <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 12px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 14px;">Computer Science</a> <a href="/tags/DB/" style="font-size: 10px;">DB</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 14px;">Data Structure</a> <a href="/tags/DeepLearning/" style="font-size: 14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10px;">Diary</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Entropy/" style="font-size: 10px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Formal-Analysis/" style="font-size: 10px;">Formal Analysis</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/LM/" style="font-size: 10px;">LM</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Math/" style="font-size: 12px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLP/" style="font-size: 18px;">NLP</a> <a href="/tags/Ngram/" style="font-size: 12px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Philosophy/" style="font-size: 12px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Postgresql/" style="font-size: 10px;">Postgresql</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Python/" style="font-size: 16px;">Python</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/System/" style="font-size: 12px;">System</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a>
     </div>
   </aside>
 
@@ -846,22 +1306,7 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
