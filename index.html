@@ -84,98 +84,23 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/" data-id="cjuthphdt000f53ccnwu9q5qq" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/" data-id="cjuti5gru0058i4ccl5fcxl9e" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
-        <p>[TOC]</p>
-<p><strong>Normalizing text</strong> means converting it to a more convenient, standard form. </p>
+        <p><strong>Normalizing text</strong> means converting it to a more convenient, standard form. </p>
 <ul>
 <li><strong>tokenization</strong>: separating out or tokenizing words from running text</li>
 <li><strong>lemmatization</strong>: words have the same root but different surface. <strong>Stemming</strong> refers to a simpler version of lemmatization in which just strip suffixes from the end of the word.</li>
 <li><strong>sentence segmentation</strong></li>
 </ul>
-<h2 id="Regular-Expressions"><a href="#Regular-Expressions" class="headerlink" title="Regular Expressions"></a>Regular Expressions</h2><p>For Re, Please read this <a href="">note</a>, and exercises in the book can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/SLP-Ch2.ipynb" target="_blank" rel="noopener">here</a>. An important use of regular expressions is in substitutions.</p>
-<h2 id="Words"><a href="#Words" class="headerlink" title="Words"></a>Words</h2><p>Wheather we consider a token as a word depends on the application.</p>
-<ul>
-<li>Punctuations in pos, parsing, or speech synthesis. </li>
-<li>Disfluencies in speech recognition.</li>
-<li>Capitalized and upcapitalized tokens are different in pos or ner, but same in speech recognition.</li>
-<li>In English, wordforms are sufficient, but in Arabic, is lemmatization.</li>
-</ul>
-<p><strong>Types</strong> are the number of distinct words, <strong>Tokens</strong> are the total number of words.</p>
-<ul>
-<li>Herdan’s Law (Heaps’ Law): |V| = kN^β, k and β are positive constants, 0&lt;β&lt;1, β depends on the corpus size and the genre, for large corpora, β ranges from .67 to .75</li>
-</ul>
-<p>The number of lemmas can instead of wordform types, dictionaries can help in giving lemma counts.</p>
-<h2 id="Corpora"><a href="#Corpora" class="headerlink" title="Corpora"></a>Corpora</h2><p>It’s important to consider who produced the language, in what context , for what purpose, and make sure that the models are fit to the data.</p>
-<ul>
-<li>language</li>
-<li>genre</li>
-<li>demographic characteristics of the writer</li>
-<li>time matter</li>
-</ul>
-<h2 id="Text-Normalization"><a href="#Text-Normalization" class="headerlink" title="Text Normalization"></a>Text Normalization</h2><h3 id="Unix-tools-for-crude-tokenization-and-normalization"><a href="#Unix-tools-for-crude-tokenization-and-normalization" class="headerlink" title="Unix tools for crude tokenization and normalization"></a>Unix tools for crude tokenization and normalization</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tokenize words by changing every sequence of nonalphabetic characters to a newline</span></span><br><span class="line"><span class="comment"># ’A-Za-z’ means alphabetic</span></span><br><span class="line"><span class="comment"># -c option complements to non-alphabet</span></span><br><span class="line"><span class="comment"># -s option squeezes all sequences into a single character</span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># n sort the lines, and pass them to uniq -c </span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt | sort | uniq -c</span><br><span class="line"></span><br><span class="line"><span class="comment"># -n to sort numerically, -r to sort in reverse order</span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt | sort | uniq -c | sort -n -r</span><br></pre></td></tr></table></figure>
-<h3 id="Word-Tokenization-and-Normalization"><a href="#Word-Tokenization-and-Normalization" class="headerlink" title="Word Tokenization and Normalization"></a>Word Tokenization and Normalization</h3><p><strong>Normalization</strong>: putting words/tokens in a standard format.</p>
-<p>Some examples that keep the punctuation internally:</p>
-<ul>
-<li>abbreviation: <code>m.p.h Ph.D. AT&amp;T cap&#39;n</code></li>
-<li>special characters and numbers: <code>$45.55 01/02/06 555,550.50</code></li>
-<li>urls: <code>http://www.google.com</code></li>
-<li>tags: <code>#nlproc</code></li>
-<li>email: <code>someone@gmail.com</code></li>
-</ul>
-<p>A <strong>clitic</strong> is a part of word that can’t stand on its own, and can only occur when it is attached to another word.</p>
-<p>A <strong>named entity</strong> need to be treated as a single token.</p>
-<p>Tokens can also be normalized in which a single normalized form is chosen for words with multiple forms like USA and US.</p>
-<p><strong>Penn Treebank tokenization</strong> standard can be found here: <a href="https://www.nltk.org/_modules/nltk/tokenize/treebank.html" target="_blank" rel="noopener">nltk.tokenize.treebank — NLTK 3.4.1 documentation</a>.</p>
-<p><strong>Case folding</strong> is another kind of normalization.</p>
-<ul>
-<li>For speech recognition and information retrieval, everything is mapped to lower case</li>
-<li>For sentiment analysis and text classification, IE, MT, case is helpful</li>
-</ul>
-<h3 id="Word-Segmentation-in-Chinese-the-MaxMatch-algorithm"><a href="#Word-Segmentation-in-Chinese-the-MaxMatch-algorithm" class="headerlink" title="Word Segmentation in Chinese: the MaxMatch algorithm"></a>Word Segmentation in Chinese: the MaxMatch algorithm</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function MaxMatch(sentence, dictionary) returns word sequence W</span><br><span class="line">	<span class="keyword">if</span> sentence <span class="keyword">is</span> empty</span><br><span class="line">    	<span class="keyword">return</span> empty list</span><br><span class="line">    <span class="keyword">for</span> i←length(sentence) downto <span class="number">1</span></span><br><span class="line">    	firstword = first i chars of sentence</span><br><span class="line">        remainder = rest of sentence</span><br><span class="line">        <span class="keyword">if</span> InDictionary(firstword, dictionary)</span><br><span class="line">        	<span class="keyword">return</span> list(firstword, MaxMatch(remainder, dictionary))</span><br><span class="line">    <span class="comment"># no word was found, so make a one-character word</span></span><br><span class="line">    firstword = first char of sentence</span><br><span class="line">    remainder = rest of sentence</span><br><span class="line">    <span class="keyword">return</span> list(firstword, MaxMatch(remainder, dictionary))</span><br></pre></td></tr></table></figure>
-<ul>
-<li>cannot dealing with <strong>unknown words</strong></li>
-<li>genres that differ a lot from the assumptions made by the dictionary builder</li>
-<li>most accurate algorithms generally use statistical <strong>sequence models</strong></li>
-</ul>
-<p>The code is here: <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Normalization/Segmentation.ipynb" target="_blank" rel="noopener">Segmentation</a></p>
-<h3 id="Collapsing-words-Lemmatization-and-Stemming"><a href="#Collapsing-words-Lemmatization-and-Stemming" class="headerlink" title="Collapsing words: Lemmatization and Stemming"></a>Collapsing words: Lemmatization and Stemming</h3><p>The most sophisticated methods for <strong>lemmatization</strong> involve complete <strong>morphological parsing</strong> of the word.</p>
-<p><strong>Morphology</strong> is the study of the way words are built up from smaller meaning-bearing units called <strong>morphemes</strong>. Two broad classes of morphemes can be distinguished: </p>
-<ul>
-<li><strong>stems</strong>—the central morpheme of the word, supplying the main meaning</li>
-<li><strong>affixes</strong>—adding “additional” meanings of various kinds</li>
-</ul>
-<p>This naive version of morphological analysis is called <strong>stemming</strong>. One of the most widely used stemming algorithms is the <strong>Porter</strong>. The algorithm is based on series of rewrite rules run in series, as a <strong>cascade</strong>, in<br>which the output of each pass is fed as input to the next pass. Detailed rule lists and code can be found on <a href="https://tartarus.org/martin/PorterStemmer/index.html" target="_blank" rel="noopener">Porter Stemming Algorithm</a>.</p>
-<h3 id="Byte-Pair-Encoding"><a href="#Byte-Pair-Encoding" class="headerlink" title="Byte-Pair Encoding"></a>Byte-Pair Encoding</h3><p>Stemming or lemmatizing can help deal with <strong>unknown words</strong>.</p>
-<p>It uses a different kind of tokenization in which most tokens are words, but some tokens are frequent word parts like -er, so that an unseen word can be represented by combining the parts. The simplest such algorithm is <strong>byte-pair encoding</strong>, or <strong>BPE</strong>, which is based on a method for text compression.</p>
-<p>Code can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Normalization/BPE.ipynb" target="_blank" rel="noopener">here</a>.</p>
-<h3 id="Sentence-Segmentation"><a href="#Sentence-Segmentation" class="headerlink" title="Sentence Segmentation"></a>Sentence Segmentation</h3><p>Question marks and exclamation points are relatively unambiguous markers of sentence boundaries. Periods, on the other hand, are more ambiguous. The period character “.” is ambiguous between a sentence boundary marker and a marker of abbreviations like Mr. or Inc.</p>
-<p>In general, sentence tokenization methods work by building a binary classifier (based on a sequence of rules or on machine learning) that decides if a period is part of the word or is a sentence-boundary marker. </p>
-<h2 id="Minimum-Edit-Distance"><a href="#Minimum-Edit-Distance" class="headerlink" title="Minimum Edit Distance"></a>Minimum Edit Distance</h2><p><strong>Edit distance</strong>  is a way to quantify string similarity. <strong>Minimum edit distance</strong> is the minimum number of editing operations needed to transform one string to another. <strong>Operation list</strong> includes deletion, substitution and insertion.</p>
-<p><strong>Levenshtein distance</strong> is the simplest weighting factor which has two versions:</p>
-<ul>
-<li>three operations has a cost of 1</li>
-<li>insertion or deletion has a cost of 1, substitution has a cost of 2</li>
-</ul>
-<h3 id="The-Minimum-Edit-Distance-Algorithm"><a href="#The-Minimum-Edit-Distance-Algorithm" class="headerlink" title="The Minimum Edit Distance Algorithm"></a>The Minimum Edit Distance Algorithm</h3><p>Given source string X of length n, and target string Y of length m, <code>D(i, j)</code> is the edit distance between <code>X[1…i]</code> and <code>Y[1…j]</code>, the edit distance between X and Y is D(n, m).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit distance</span></span><br><span class="line">D[i,j] = min(</span><br><span class="line">	D[i<span class="number">-1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">    D[i, j<span class="number">-1</span>] + ins-cost(target[i]),</span><br><span class="line">    D[i<span class="number">-1</span>, j<span class="number">-1</span>] + sub-cost(source[i], target[j])</span><br><span class="line">)</span><br><span class="line"><span class="comment"># Levenshtein distance</span></span><br><span class="line">D[i,j] = min(</span><br><span class="line">	D[i<span class="number">-1</span>, j] + <span class="number">1</span>,</span><br><span class="line">    D[i, j<span class="number">-1</span>] + <span class="number">1</span>,</span><br><span class="line">    D[i<span class="number">-1</span>, j<span class="number">-1</span>] + (<span class="number">2</span> <span class="keyword">if</span> source[i] ≠ target[j] <span class="keyword">or</span> <span class="number">0</span> <span class="keyword">if</span> source[i] = target[j])</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>With a small change, minimum edit distance can also provide the minimum cost <strong>alignment</strong> between two strings. It’s useful in speech recognition (used to compute the word error rate) and machine translation (plays a role in which sentences in a parallel corpus need to be matched to each other).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function MIN-EDIT-DISTANCE(source, target) returns min-distance</span><br><span class="line">	n ← LENGTH(source)</span><br><span class="line">    m ← LENGTH(target)</span><br><span class="line">    Create a distance matrix distance [n+<span class="number">1</span>, m+<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    D[<span class="number">0</span>, <span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	D[i, <span class="number">0</span>] ← D[i<span class="number">-1</span>, <span class="number">0</span>] + <span class="keyword">del</span>-cost(source[i])</span><br><span class="line">    <span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">    	D[<span class="number">0</span>, j] ← D[<span class="number">0</span>, j<span class="number">-1</span>] + ins-cost(target[j])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	<span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">        	D[i, j] ← MIN(</span><br><span class="line">                D[i<span class="number">-1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">                D[i, j<span class="number">-1</span>] + ins-cost(target[i]),</span><br><span class="line">                D[i<span class="number">-1</span>, j<span class="number">-1</span>] + sub-cost(source[i], target[j]))</span><br><span class="line">    <span class="keyword">return</span> D[n, m]</span><br></pre></td></tr></table></figure>
-<p>The code is here: <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Similarity/Min-Edit-Distance.ipynb" target="_blank" rel="noopener">Edit-Distance</a>.</p>
-<p>The <strong>Viterbi</strong> algorithm is a probabilistic extension of minimum edit distance. Instead of computing the “minimum edit distance” between two strings, Viterbi computes the “maximum probability alignment” of one string with another.</p>
-<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
-<li><strong>Regular expression</strong> is powerful for pattern-matching.</li>
-<li><strong>Word tokenization and normalization</strong> are generally done by cascades of simple regular expressions substitutions or finite automata.</li>
-<li><strong>Porter algorithm</strong> is simple and efficient to do stemming, stripping off affixes. It does not have high accuracy but may be useful for some tasks.</li>
-<li><strong>Minimum edit distance</strong> between two strings is the minimum number of operations it takes to edit one to another. It can be computed by <strong>dynamic programming</strong>, which also results in an <strong>alignment</strong> of the two strings.</li>
-</ul>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/04/22/SLP/2019-04-22-RegularExpressions-TextNormalization-EditDistance/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
@@ -218,16 +143,18 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/21/2019-04-21-DB-FDW/" data-id="cjuthphc5000053cc5aak8a00" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/21/2019-04-21-DB-FDW/" data-id="cjuti5gou000li4cc43cg0yta" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
         <p>有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：<a href="https://wiki.postgresql.org/wiki/Foreign_data_wrappers" target="_blank" rel="noopener">Foreign data wrappers - PostgreSQL wiki</a>，FDW 非常简单且效果不错，下面逐步介绍基本操作和注意事项。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/04/21/2019-04-21-DB-FDW/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
@@ -270,7 +197,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/13/NLPFA/2019-04-13-NLP-Formal-Analysis/" data-id="cjuf3rnjh0000y6ccvffmx3hz" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/13/NLPFA/2019-04-13-NLP-Formal-Analysis/" data-id="cjuti5gqp003ni4ccjs6f1mq9" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -401,14 +328,13 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/" data-id="cjuthphe6000q53cc77md57v6" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/" data-id="cjuti5gsg0073i4cc1t0ce504" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>[TOC]</p>
-<p>Recently, I wanted to build an information extraction system, so I searched for Google. However there were little Chinese articles, the quality was not so good as well. Fortunately, I found several English ones seemed well, and then the summary is here. The whole structure is based on my favorite NLP book <a href="https://web.stanford.edu/~jurafsky/slp3/" target="_blank" rel="noopener">Speech and Language Processing</a> (use SLP instead below), also with some other materials in the reference.</p>
+        <p>Recently, I wanted to build an information extraction system, so I searched for Google. However there were little Chinese articles, the quality was not so good as well. Fortunately, I found several English ones seemed well, and then the summary is here. The whole structure is based on my favorite NLP book <a href="https://web.stanford.edu/~jurafsky/slp3/" target="_blank" rel="noopener">Speech and Language Processing</a> (use SLP instead below), also with some other materials in the reference.</p>
 <p>Information extraction (IE), turns the unstructured information extraction information embedded in texts into structured data, for example for populating a relational database to enable further processing. Here is a figure of: Simple Pipeline Architecture for an Information Extraction System.</p>
 <blockquote>
 <p>From: <a href="https://www.nltk.org/book/ch07.html" target="_blank" rel="noopener">https://www.nltk.org/book/ch07.html</a></p>
@@ -462,7 +388,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" data-id="cju9u9zay000x5occ9pitz900" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" data-id="cjuti5grs0052i4cc2mjj1r5e" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -519,7 +445,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/" data-id="cjtx2yw7o0032vccc6svu1zb8" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/" data-id="cjuti5gqf003hi4cclhshicrb" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -573,7 +499,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/" data-id="cju9u9zbu002k5occ7h5h5xlz" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/29/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/" data-id="cjuti5gsz0083i4ccyjt2jvzt" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -627,7 +553,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/" data-id="cju9u9z9z00015occ90tdju3f" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/" data-id="cjuti5grq004yi4cc3vfya00c" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -701,7 +627,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cju9u9za700035occ7pzjn2ga" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/15/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cjuti5gro004vi4cc721zdybe" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -764,7 +690,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="cju9u9zas000r5occ9m4ula4v" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/03/11/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="cjuti5grn004ri4ccnhvjwnk1" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -957,6 +883,38 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>

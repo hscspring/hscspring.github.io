@@ -14,13 +14,13 @@
   
   <title>Language Model | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+  <meta name="description" content="Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(you | i\">
 <meta name="keywords" content="NLP,AI,Ngram,Language Model,LM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Language Model">
 <meta property="og:url" content="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+<meta property="og:description" content="Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(you | i\">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg">
@@ -32,10 +32,10 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg">
-<meta property="og:updated_time" content="2019-04-23T07:49:58.336Z">
+<meta property="og:updated_time" content="2019-04-23T08:00:55.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Language Model">
-<meta name="twitter:description" content="[TOC] Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(yo">
+<meta name="twitter:description" content="Ngram Count up the frequency and divide (use maximum likelihood estimation or MLE):  P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})} Example: P(you | i\">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/books-lm-smoothing-PAbsoluteDiscounting.jpeg">
   
   
@@ -95,7 +95,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/" data-id="cjuthphe5000p53cci9xecj7v" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2017/10/14/SLP/2019-04-09-Language-Model/" data-id="cjuti5gsf0070i4cch3q3bne8" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -103,8 +103,7 @@
       
             <!-- Table of Contents -->
               
-        <p>[TOC]</p>
-<h2 id="Ngram"><a href="#Ngram" class="headerlink" title="Ngram"></a>Ngram</h2><ul>
+        <h2 id="Ngram"><a href="#Ngram" class="headerlink" title="Ngram"></a>Ngram</h2><ul>
 <li><p>Count up the frequency and divide (use maximum likelihood estimation or MLE):</p>
 <ul>
 <li><script type="math/tex; mode=display">P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})}</script></li>
@@ -124,6 +123,7 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <h2 id="Why-Bi-gram-or-Tri-gram"><a href="#Why-Bi-gram-or-Tri-gram" class="headerlink" title="Why Bi-gram or Tri-gram"></a>Why Bi-gram or Tri-gram</h2><blockquote>
 <p>While this method of estimating probabilities directly from counts works ﬁne in many cases, it turns out that even the web isn’t big enough to give us good estimates in most cases. This is because language is creative; new sentences are created all the time, and we won’t always be able to count entire sentences. Even simple extensions of the example sentence may have counts of zero on the web (such as “Walden Pond’s water is so transparent that the”).  </p>
 <p>Similarly, if we wanted to know the joint probability of an entire sequence of words like its water is so transparent, we could do it by asking “out of all possible sequences of ﬁve words, how many of them are its water is so transparent?” We would have to get the count of its water is so transparent and divide by the sum of the counts of all possible ﬁve word sequences. That seems rather a lot to estimate! </p>
@@ -471,7 +471,22 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
