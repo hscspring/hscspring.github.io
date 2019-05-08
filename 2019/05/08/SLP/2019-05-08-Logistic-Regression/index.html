@@ -23,7 +23,7 @@
 <meta property="og:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch5-1.jpeg">
-<meta property="og:updated_time" content="2019-05-08T02:58:43.926Z">
+<meta property="og:updated_time" content="2019-05-08T03:04:57.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic Regression">
 <meta name="twitter:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
@@ -117,30 +117,24 @@
 <a id="more"></a>
 <h2 id="Classification-the-sigmoid"><a href="#Classification-the-sigmoid" class="headerlink" title="Classification: the sigmoid"></a>Classification: the sigmoid</h2><p>Logistic regression solves task by learning from a training set, a vector of <strong>weights</strong> and a <strong>bias term</strong> (also called <strong>intercept</strong>).</p>
 <script type="math/tex; mode=display">z = w · b</script><script type="math/tex; mode=display">y = \sigma(z) = \frac {1}{1 + e^{-z}}</script><script type="math/tex; mode=display">P(y=1) = \sigma(w·x+b) = \frac{1}{1+e^{-(w·x+b)}}</script><script type="math/tex; mode=display">P(y=0) = 1- \sigma(w·x+b) = 1 - \frac{1}{1+e^{-(w·x+b)}} = \frac{e^{-(w·x+b)}}{1+e^{-(w·x+b)}}</script><p><strong>decision boundary:</strong></p>
-<script type="math/tex; mode=display">\hat y = 1$$ if P(y=1|x) > 0.5, otherwise = 0
-
-**Designing features**: Features are generally designed by examining the training set with an eye to linguistic intuitions and the linguistic literature on the domain. For logistic regression and naive Bayes **combination features** or **feature interactions** have to be designed by hand.
-
-For many tasks we'll need large numbers of features, they are created automatically via **feature templates**, abstract specifications of features. 
-
-In order to avoid the extensive human effort of feature design, recent research in NLP has focused on **representation learning**: ways to learn features automatically in an unsupervised way from the input. 
-
-**Choosing a classifier**: Naive Bayes has overly strong conditional independence assumptions. If two features are strongly correlated, naive Bayes will overestimate the evidence.
-
-- Logistic regression generally works better on larger documents or datasets and is a common default.
-
-- Naive Bayes works extremely well on very small datasets or short documents, also easy to implement and very fast to train.
-
-## Learning in Logistic Regression
-
-- The distance between system output and gold output is called **loss function** or **cost function**.
-- Need an optimization algorithm for iteratively updating the weights so as to minimize the loss function.
-
-## The cross-entropy loss function
-
-$L(\hat y, y)$ = How much $\hat y$ differs from the true y
-
-MSE loss: $$L_{MSE}(\hat y, y) = \frac{1}{2} (\hat y -y)^2</script><p>It’s useful for some algorithms like linear regression, but becomes harder to optimize (non-convex) when it’s applied to probabilistic classification.</p>
+<p>y^ = 1 if P(y=1|x) &gt; 0.5, otherwise = 0</p>
+<p><strong>Designing features</strong>: Features are generally designed by examining the training set with an eye to linguistic intuitions and the linguistic literature on the domain. For logistic regression and naive Bayes <strong>combination features</strong> or <strong>feature interactions</strong> have to be designed by hand.</p>
+<p>For many tasks we’ll need large numbers of features, they are created automatically via <strong>feature templates</strong>, abstract specifications of features. </p>
+<p>In order to avoid the extensive human effort of feature design, recent research in NLP has focused on <strong>representation learning</strong>: ways to learn features automatically in an unsupervised way from the input. </p>
+<p><strong>Choosing a classifier</strong>: Naive Bayes has overly strong conditional independence assumptions. If two features are strongly correlated, naive Bayes will overestimate the evidence.</p>
+<ul>
+<li><p>Logistic regression generally works better on larger documents or datasets and is a common default.</p>
+</li>
+<li><p>Naive Bayes works extremely well on very small datasets or short documents, also easy to implement and very fast to train.</p>
+</li>
+</ul>
+<h2 id="Learning-in-Logistic-Regression"><a href="#Learning-in-Logistic-Regression" class="headerlink" title="Learning in Logistic Regression"></a>Learning in Logistic Regression</h2><ul>
+<li>The distance between system output and gold output is called <strong>loss function</strong> or <strong>cost function</strong>.</li>
+<li>Need an optimization algorithm for iteratively updating the weights so as to minimize the loss function.</li>
+</ul>
+<h2 id="The-cross-entropy-loss-function"><a href="#The-cross-entropy-loss-function" class="headerlink" title="The cross-entropy loss function"></a>The cross-entropy loss function</h2><p>$L(\hat y, y)$ = How much $\hat y$ differs from the true y</p>
+<p>MSE loss: <script type="math/tex">L_{MSE}(\hat y, y) = \frac{1}{2} (\hat y -y)^2</script></p>
+<p>It’s useful for some algorithms like linear regression, but becomes harder to optimize (non-convex) when it’s applied to probabilistic classification.</p>
 <p>Instead, we use a loss function that prefers the correct class labels of the training example to be more likely. This is called <strong>conditional maximum likelihood estimation</strong>: we choose the parameters w,b that <strong>maximize the log probability of the true y labels in the training data</strong> given the observations x. The resulting loss function is the negative log likelihood loss, generally called the <strong>cross entropy loss</strong>.</p>
 <p>We’d like to learn weights that maximize the probability of the correct label p(y|x). Since there are only two discrete outcomes (1 or 0): </p>
 <script type="math/tex; mode=display">p(y|x) = \hat y^y (1-\hat y)^{1-y}</script><script type="math/tex; mode=display">\log p(y|x) = y \log \hat y + (1-y) \log (1-\hat y)</script><script type="math/tex; mode=display">L_{CE}(\hat y, y) = -\log p(y|x) = -[y \log \hat y + (1-y) \log (1-\hat y)]</script><script type="math/tex; mode=display">L_{CE}(w, b) = -[y \log \sigma(w·x+b) + (1-y) \log (1-\sigma(w·x+b))]</script><p>A perfect classifier would assign probability 1 to the correct outcome (y=1 or y=0) and probability 0 to the incorrect outcome. That means the higher ˆy (the closer it is to 1), the better the classifier; the lower ˆy is (the closer it is to 0), the worse the classifier. The negative log of this probability is a convenient loss metric since it goes from 0 (negative log of 1, no loss) to infinity (negative log of 0, infinite loss). </p>
