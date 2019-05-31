@@ -12,18 +12,22 @@
   
   
   
-  <title>Tag: Entropy | Yam</title>
+  <title>Neural Networks and Neural Language Models Note (SLP Ch07) | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Yam">
-<meta property="og:url" content="http://www.yam.gift/tags/Entropy/index.html">
+  <meta name="description" content="Unitsz = w · x + by = \sigma(z) = \frac{1}{1+e^{-z}}In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: $y = \frac{e^z - e^{-z}}">
+<meta name="keywords" content="NLP,AI,LM,Embeddings,DNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Neural Networks and Neural Language Models Note (SLP Ch07)">
+<meta property="og:url" content="http://www.yam.gift/2019/05/31/SLP/2019-05-31-Neural-Networks-and-Neural-Language-Models/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:description" content="Unitsz = w · x + by = \sigma(z) = \frac{1}{1+e^{-z}}In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: $y = \frac{e^z - e^{-z}}">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg">
+<meta property="og:updated_time" content="2019-05-31T02:46:43.055Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yam">
-<meta name="twitter:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta name="twitter:title" content="Neural Networks and Neural Language Models Note (SLP Ch07)">
+<meta name="twitter:description" content="Unitsz = w · x + by = \sigma(z) = \frac{1}{1+e^{-z}}In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: $y = \frac{e^z - e^{-z}}">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -67,33 +71,101 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-SLP/2019-05-31-Neural-Networks-and-Neural-Language-Models" class="post-SLP/2019-05-31-Neural-Networks-and-Neural-Language-Models post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2018/10/11/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/">自然语言计算机形式分析的理论与方法笔记(Ch02)</a>
+    <h1 class="entry-title article-title">
+      Neural Networks and Neural Language Models Note (SLP Ch07)
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2018/10/11/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/">
-    <time datetime="2018-10-11T03:32:00.000Z" class="entry-date">
-        2018-10-11
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/05/31/SLP/2019-05-31-Neural-Networks-and-Neural-Language-Models/" data-id="cjwbhodup0000klcc58xtrgxg" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h2 id="Units"><a href="#Units" class="headerlink" title="Units"></a>Units</h2><script type="math/tex; mode=display">z = w · x + b</script><script type="math/tex; mode=display">y = \sigma(z) = \frac{1}{1+e^{-z}}</script><p>In practice, the sigmoid is not commonly used as an activation function. A better one is <strong>tanh</strong> function ranges from -1 to 1: $y = \frac{e^z - e^{-z}}{e^z + e^{-z}}$</p>
+<p>The most commonly used is the rectified linear unit, also called <strong>ReLU</strong>: $y = max(x, 0)$</p>
+<p>In the sigmoid or tanh functions, very high values of z result in values of y that are <strong>saturated</strong>, extremely close to 1, which causes problems for learning. </p>
+<ul>
+<li>Rectifiers don’t have this problem, since the output of values close to 1 also approaches 1 in a nice gentle linear way. </li>
+<li>By contrast, the tanh function has the nice properties of being smoothly differentiable and mapping outlier values toward the mean.</li>
+</ul>
+<a id="more"></a>
+<h2 id="The-XOR-problem"><a href="#The-XOR-problem" class="headerlink" title="The XOR problem"></a>The XOR problem</h2><p>It’s not possible to build a <strong>perceptron</strong> to compute logical XOR. The intuition behind this important result relies on understanding that a perceptron is a linear classifier. XOR is not a <strong>linearly separable</strong> function.</p>
+<h3 id="The-solution-neural-networks"><a href="#The-solution-neural-networks" class="headerlink" title="The solution: neural networks"></a>The solution: neural networks</h3><p>The hidden layer is forming a representation for the input. The solution need a network with non-linear activation functions. </p>
+<p>A network with simple linear (perceptron) units cannot solve the XOR problem, because a network formed by many layers of purely linear units can always be reduced (shown to be computationally identical to) a single layer of linear units with appropriate weights.</p>
+<h2 id="Feed-Forward-Neural-Networks"><a href="#Feed-Forward-Neural-Networks" class="headerlink" title="Feed-Forward Neural Networks"></a>Feed-Forward Neural Networks</h2><p>A <strong>feed-forward network</strong> is a multilayer network in which the units are connected with no cycles.</p>
+<script type="math/tex; mode=display">h = \sigma (W x + b)</script><script type="math/tex; mode=display">h_{ij} = \sum_{i=1}^{n_x} w_{ij} x_i + b_j</script><p>h forms a representation of the input, out layer is to take this new representation to compute a final output.</p>
+<p><strong>Softmax</strong> was exactly what is used to create a probability distribution from a vector of real-valued numbers. It is called <strong>normalizing</strong>.</p>
+<p>A neural network is like logistic regression, but</p>
+<ul>
+<li>with many layers, a DNN is like layer after layer of LR classifiers</li>
+<li>DNN forming features automatically</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.n</span><br><span class="line">	z[i] = W[i] a[i<span class="number">-1</span>] + b[i]</span><br><span class="line">    a[i] = g[i] (z[i])</span><br><span class="line">y<span class="string">' =  a[n]</span></span><br></pre></td></tr></table></figure>
+<p>The activation functions g(·) are generally different at the final layer.</p>
+<ul>
+<li>softmax for multinomial classification or sigmoid for binary classification</li>
+<li>RELU or tanh might be the activation function at the internal layers</li>
+</ul>
+<h2 id="Training-Neural-Nets"><a href="#Training-Neural-Nets" class="headerlink" title="Training Neural Nets"></a>Training Neural Nets</h2><p>In LR, for each observation we could directly compute the derivative of the loss function with respect to an individual w or b. But for NN, with millions of parameters in many layers, it’s much harder to compute the partial derivative of some weight in layer 1 when the loss is attached to some much later layer.</p>
+<p>The algorithm we use is called <strong>error back-propagation</strong> or <strong>reverse differentiation</strong>.</p>
+<h3 id="Loss-function"><a href="#Loss-function" class="headerlink" title="Loss function"></a>Loss function</h3><p>Loss function <a href="https://yam.gift/2019/05/08/SLP/2019-05-08-Logistic-Regression/" target="_blank" rel="noopener">here</a> is being used as a binary classifier, with the sigmoid at the final layer.</p>
+<p>The cross-entropy loss is simply the log probability of the correct class, called <strong>negative log likelihood loss</strong>:</p>
+<script type="math/tex; mode=display">L_{CE}(\hat y, y) = - \log \hat y_i</script><p>With softmax formula and K classes:</p>
+<script type="math/tex; mode=display">L_{CE}(\hat y, y) = -\log \frac{e^{z_i}}{\sum_{j-1}^K e^z_j{}}</script><h3 id="Backward-differentiation-on-computation-graphs"><a href="#Backward-differentiation-on-computation-graphs" class="headerlink" title="Backward differentiation on computation graphs"></a>Backward differentiation on computation graphs</h3><p>We need to know the derivatives of all the functions in the graph:</p>
+<ul>
+<li>sigmoid: <script type="math/tex">\frac {d\sigma(z)}{dz} = \sigma(z) (1-z)</script></li>
+<li>tanh: <script type="math/tex">\frac{d \tanh(z)}{dz} = 1 - \tanh^2(z)</script></li>
+<li>ReLU: <script type="math/tex">\frac{d ReLU(z)}{dz} = 0\ for\ x<0;\ 1\ for\ x≥0</script></li>
+</ul>
+<p><a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/BackPropagation/Back-Propagation.ipynb" target="_blank" rel="noopener">Here</a> is a simple example from CS231n.</p>
+<h3 id="More-details-on-learning"><a href="#More-details-on-learning" class="headerlink" title="More details on learning"></a>More details on learning</h3><ul>
+<li><p>For LR, we can initialize gradient descent with all the weights and biases having the value 0. In DNN, we need to initialize the weights with small random numbers, also helpful to normalize the input values to have 0 mean and unit variance.</p>
+</li>
+<li><p><strong>Dropout</strong> is used to prevent overfitting: randomly dropping some units and their connections from the network during training.</p>
+</li>
+<li><strong>Hyperparameter</strong> tuning includes the learning rate, the minibatch size, the model architecture, how to regularize and so on. Gradient descent itself also has many architectural variants such as Adam.</li>
+</ul>
+<h2 id="Neural-Language-Models"><a href="#Neural-Language-Models" class="headerlink" title="Neural Language Models"></a>Neural Language Models</h2><p>Compared with N-gram models:</p>
+<ul>
+<li>do not need smoothing</li>
+<li>higher predictive accuracy</li>
+<li>underlie many other task models (MT, Dialog, LG)</li>
+</ul>
+<h3 id="Embeddings"><a href="#Embeddings" class="headerlink" title="Embeddings"></a>Embeddings</h3><p><img src="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg" alt=""></p>
+<h3 id="Training-the-neural-language-model"><a href="#Training-the-neural-language-model" class="headerlink" title="Training the neural language model"></a>Training the neural language model</h3><p>At each word wt, the cross-entropy (negative log likelihood) loss is:</p>
+<script type="math/tex; mode=display">L = -\log p(w_t|w_{t-1}, …, w_{t-n+1})</script><p>The gradient is:</p>
+<script type="math/tex; mode=display">\theta_{t+1} = \theta_t -\eta \frac{\partial L}{\partial \theta}</script><h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>Neural networks are built out of <strong>neural units</strong>, originally inspired by human neurons but now simple an abstract computational device.</li>
+<li><p>In a <strong>fully-connected, feedforward</strong> network, each unit in layer i is connected to each unit in layer i+1.</p>
+</li>
+<li><p>The power of neural networks comes from the ability of early layers to learn representations that can be utilized by later layers in the network.</p>
+</li>
+<li>DNN are trained by optimization algorithms like <strong>gradient descent</strong>.</li>
+<li><strong>Error back propagation</strong>, backward differentiation on a <strong>computation graph</strong>, is used to compute the gradients of the loss function for a network.</li>
+<li><strong>NLM</strong> use a NN as a probabilistic classifier, to compute the probability of the next word given the previous n words.</li>
+<li>NLLM can use pretrained <strong>embeddings</strong>, or can learn from scratch in the process of LM.</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/05/31/SLP/2019-05-31-Neural-Networks-and-Neural-Language-Models/">
+    <time datetime="2019-05-31T03:11:00.000Z" class="entry-date">
+        2019-05-31
     </time>
 </a>
     
@@ -104,14 +176,51 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entropy/">Entropy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zipf/">Zipf</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DNN/">DNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embeddings/">Embeddings</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LM/">LM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
 
     </footer>
 </article>
-  
-  
-    </div></section>
-  
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/05/16/SLP/2019-05-16-Vector-Semantics/" rel="next">Vector Semantics Note (SLP Ch06) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
   
@@ -218,6 +327,23 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
