@@ -90,8 +90,8 @@
 
     <div class="entry-content">
       
-        <h2 id="Units"><a href="#Units" class="headerlink" title="Units"></a>Units</h2><script type="math/tex; mode=display">z = w · x + b</script><script type="math/tex; mode=display">y = \sigma(z) = \frac{1}{1+e^{-z}}</script><p>In practice, the sigmoid is not commonly used as an activation function. A better one is <strong>tanh</strong> function ranges from -1 to 1: $y = \frac{e^z - e^{-z}}{e^z + e^{-z}}$</p>
-<p>The most commonly used is the rectified linear unit, also called <strong>ReLU</strong>: $y = max(x, 0)$</p>
+        <h2 id="Units"><a href="#Units" class="headerlink" title="Units"></a>Units</h2><script type="math/tex; mode=display">z = w · x + b</script><script type="math/tex; mode=display">y = \sigma(z) = \frac{1}{1+e^{-z}}</script><p>In practice, the sigmoid is not commonly used as an activation function. A better one is <strong>tanh</strong> function ranges from -1 to 1: <script type="math/tex">y = \frac{e^z - e^{-z}}{e^z + e^{-z}}</script></p>
+<p>The most commonly used is the rectified linear unit, also called <strong>ReLU</strong>: y = max(x, 0)​</p>
 <p>In the sigmoid or tanh functions, very high values of z result in values of y that are <strong>saturated</strong>, extremely close to 1, which causes problems for learning. </p>
 <ul>
 <li>Rectifiers don’t have this problem, since the output of values close to 1 also approaches 1 in a nice gentle linear way. </li>
@@ -793,7 +793,22 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
