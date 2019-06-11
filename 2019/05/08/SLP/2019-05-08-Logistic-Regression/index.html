@@ -23,7 +23,7 @@
 <meta property="og:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch5-1.jpeg">
-<meta property="og:updated_time" content="2019-05-08T03:09:18.183Z">
+<meta property="og:updated_time" content="2019-06-11T01:36:52.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic Regression Note (SLP Ch05)">
 <meta name="twitter:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
@@ -98,19 +98,19 @@
 <ul>
 <li><strong>discriminative</strong> classifier: like logistic regression<ul>
 <li>only trying to learn to distinguish the classes.</li>
-<li>directly compute $P(c|d)$</li>
+<li>directly compute <script type="math/tex">P(c|d)</script></li>
 </ul>
 </li>
 <li><strong>generative</strong> classifier: like naive Bayes<ul>
 <li>have the goal of understanding what each class looks like.</li>
-<li>makes use of likelihood term $P(d|c)P(c)$</li>
+<li>makes use of likelihood term <script type="math/tex">P(d|c)P(c)</script></li>
 </ul>
 </li>
 </ul>
 <p>A machine learning system for classification has four components:</p>
 <ul>
 <li>A <strong>feature representation</strong> of the input</li>
-<li>A classification function that computes $\hat y$, the estimated class, via $p(y|x)$. Like <strong>sigmoid</strong> and <strong>softmax</strong>.</li>
+<li>A classification function that computes <script type="math/tex">\hat y</script>, the estimated class, via <script type="math/tex">p(y|x)</script>. Like <strong>sigmoid</strong> and <strong>softmax</strong>.</li>
 <li>An objective function for learning, usually involving minimizing error on training examples. Like <strong>cross-entropy loss function</strong>.</li>
 <li>An algorithm for optimizing the objective function. Like <strong>stochastic gradient descent</strong>.</li>
 </ul>
@@ -350,7 +350,22 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
