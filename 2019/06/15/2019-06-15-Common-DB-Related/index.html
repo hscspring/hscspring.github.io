@@ -12,18 +12,20 @@
   
   
   
-  <title>Tag: HMM | Yam</title>
+  <title>常用 DataBase 相关操作和资源 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Yam">
-<meta property="og:url" content="http://www.yam.gift/tags/HMM/index.html">
+  <meta name="description" content="记录一些常用的 DataBase 相关的东西。  查询 权限 备份 读写">
+<meta name="keywords" content="DB,Postgres,SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用 DataBase 相关操作和资源">
+<meta property="og:url" content="http://www.yam.gift/2019/06/15/2019-06-15-Common-DB-Related/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:description" content="记录一些常用的 DataBase 相关的东西。  查询 权限 备份 读写">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-15T09:46:48.495Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Yam">
-<meta name="twitter:description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta name="twitter:title" content="常用 DataBase 相关操作和资源">
+<meta name="twitter:description" content="记录一些常用的 DataBase 相关的东西。  查询 权限 备份 读写">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -67,82 +69,144 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-2019-06-15-Common-DB-Related" class="post-2019-06-15-Common-DB-Related post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2019/06/11/SLP/2019-06-11-Part-of-Speech-Tagging/">Part-of-Speech Tagging (SLP Ch08)</a>
+    <h1 class="entry-title article-title">
+      常用 DataBase 相关操作和资源
     </h1>
   
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2019/06/11/SLP/2019-06-11-Part-of-Speech-Tagging/">
-    <time datetime="2019-06-11T04:11:00.000Z" class="entry-date">
-        2019-06-11
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="http://www.yam.gift/2019/06/15/2019-06-15-Common-DB-Related/" data-id="cjwxc8mri0000blccfsodtpvp" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>记录一些常用的 DataBase 相关的东西。</p>
+<ul>
+<li>查询</li>
+<li>权限</li>
+<li>备份</li>
+<li>读写</li>
+</ul>
+<a id="more"></a>
+<h2 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 查询所有的 schema</span></span><br><span class="line"><span class="keyword">select</span> schema_name <span class="keyword">from</span> information_schema.schemata;</span><br><span class="line"><span class="keyword">select</span> nspname <span class="keyword">from</span> pg_catalog.pg_namespace;</span><br></pre></td></tr></table></figure>
+<h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--- 创建 Read-Only 用户</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">CONNECT</span> <span class="keyword">ON</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">TO</span> user_name;</span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> user_name;</span><br><span class="line"><span class="comment">-- special table</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> table_name <span class="keyword">TO</span> user_name;</span><br><span class="line"><span class="comment">-- all tables</span></span><br><span class="line"><span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> ALL <span class="keyword">TABLES</span> <span class="keyword">IN</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> user_name;</span><br><span class="line"><span class="comment">-- grant access to the new tables automatically</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">DEFAULT</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">IN</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="keyword">TABLES</span> <span class="keyword">TO</span> user_name;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 创建正常用户</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> user_name <span class="keyword">WITH</span> <span class="keyword">PASSWORD</span> <span class="string">'xxxxxxx'</span>;</span><br><span class="line"><span class="comment">-- only public schema</span></span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> <span class="keyword">DATABASE</span> db_name <span class="keyword">TO</span> user_name;</span><br><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> ALL <span class="keyword">TABLES</span> <span class="keyword">IN</span> <span class="keyword">SCHEMA</span> <span class="keyword">public</span> <span class="keyword">TO</span> use_rname;</span><br></pre></td></tr></table></figure>
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### dump ###</span></span><br><span class="line">pg_dump -h host -Fc -o -U user_name db_name &gt; dump_file</span><br><span class="line">sudo -u postgres pg_restore -C mydb_backup.dump</span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">pg_dump -h 67.8.78.10 -Fc -o -U myuser mydb &gt; mydb_backup.dump</span><br><span class="line">pg_restore -h 67.8.78.10 -p 5432 <span class="_">-d</span> mydb -U myuser mydb_backup.dump</span><br><span class="line"></span><br><span class="line"><span class="comment">### sql ###</span></span><br><span class="line">pg_dump -h 67.8.78.10 -U myuser mydb &gt; mydb_backup.sql</span><br><span class="line">psql -h host <span class="_">-d</span> mydb -U myuser -p 5432 <span class="_">-a</span> -q <span class="_">-f</span> mydb_backup.sql</span><br><span class="line">-h PostgreSQL server IP address</span><br><span class="line"><span class="_">-d</span> database name</span><br><span class="line">-U user name</span><br><span class="line">-p port <span class="built_in">which</span> PostgreSQL server is listening on</span><br><span class="line"><span class="_">-f</span> path to SQL script</span><br><span class="line"><span class="_">-a</span> all <span class="built_in">echo</span></span><br><span class="line">-q quiet </span><br><span class="line"><span class="_">-f</span> file</span><br><span class="line"></span><br><span class="line">// complete (all db and objects)</span><br><span class="line">pg_dumpall -U myuser -h 67.8.78.10 --clean --file=mydb_backup.dump</span><br><span class="line">// restore from pg_dumpall --clean</span><br><span class="line">psql <span class="_">-f</span> mydb_backup.dump postgres <span class="comment">#it doesn't matter which db you select here</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">### mysql ###</span></span><br><span class="line">mysqldump --host host -P port -u user_name -ppassword db_name &gt; backup.sql</span><br><span class="line"><span class="comment"># Example</span></span><br><span class="line">mysqldump --host 192.168.1.15 -P 3306 -u dev -pmjQ9Y mydb &gt; mydb.sql</span><br></pre></td></tr></table></figure>
+<h2 id="读写"><a href="#读写" class="headerlink" title="读写"></a>读写</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从文件中写入 DB</span></span><br><span class="line">psql -h host <span class="_">-d</span> db_name -U bi -p port -c <span class="string">"\copy table (col1,col2,...coln) FROM '/path/to/data.txt' with delimiter as '|'"</span></span><br></pre></td></tr></table></figure>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p><a href="https://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci" target="_blank" rel="noopener">mysql - What’s the difference between utf8_general_ci and utf8_unicode_ci - Stack Overflow</a></p>
+<p><a href="https://dba.stackexchange.com/questions/94887/what-is-the-impact-of-lc-ctype-on-a-postgresql-database" target="_blank" rel="noopener">collation - What is the impact of LC_CTYPE on a PostgreSQL database? - Database Administrators Stack Exchange</a></p>
+<p><a href="https://support.helpspot.com/index.php?pg=kb.page&amp;id=467" target="_blank" rel="noopener">Creating a UTF-8 Database</a></p>
+<p><a href="https://stackoverflow.com/questions/9961795/utf8-postgresql-create-database-like-mysql-including-character-set-encoding-a" target="_blank" rel="noopener">UTF8 Postgresql Create Database Like MySQL (including character set, encoding, and lc_type) - Stack Overflow</a></p>
+<p><a href="https://stackoverflow.com/questions/2499794/how-to-fix-a-locale-setting-warning-from-perl" target="_blank" rel="noopener">How to fix a locale setting warning from Perl? - Stack Overflow</a></p>
+<h2 id="资源"><a href="#资源" class="headerlink" title="资源"></a>资源</h2><ul>
+<li><p>非常好的学习和查询资料</p>
+<ul>
+<li><a href="http://www.postgresqltutorial.com/" target="_blank" rel="noopener">PostgreSQL Tutorial - Learn PostgreSQL from Scratch</a></li>
+</ul>
+</li>
+<li><p>不错的 ORM 工具</p>
+<ul>
+<li><a href="http://docs.peewee-orm.com/en/latest/index.html" target="_blank" rel="noopener">peewee — peewee 3.9.6 documentation</a></li>
+</ul>
+</li>
+<li><p>SQL</p>
+<ul>
+<li><a href="http://sqlusa.com/bestpractices/select-into/" target="_blank" rel="noopener">SQL Server SELECT INTO Table Create - SQLUSA</a></li>
+</ul>
+</li>
+<li><p>其他一些资料</p>
+<ul>
+<li><a href="http://initd.org/psycopg/docs/index.html" target="_blank" rel="noopener">Psycopg – PostgreSQL database adapter for Python — Psycopg 2.8.3.dev0 documentation</a></li>
+<li><a href="https://pynative.com/python-postgresql-tutorial/" target="_blank" rel="noopener">Python PostgreSQL Tutorial Using Psycopg2 [Complete Guide]</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>权限<ul>
+<li><a href="https://tableplus.io/blog/2018/04/postgresql-how-to-create-read-only-user.html" target="_blank" rel="noopener">PostgreSQL - How to create a read-only user? | TablePlus</a></li>
+<li><a href="https://www.techonthenet.com/postgresql/grant_revoke.php" target="_blank" rel="noopener">PostgreSQL: Grant/Revoke Privileges</a></li>
+</ul>
+</li>
+<li>备份<ul>
+<li><a href="https://stackoverflow.com/questions/29648309/pg-dump-postgres-database-from-remote-server" target="_blank" rel="noopener">postgresql - pg_dump postgres database from remote server - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/19552150/how-to-backup-mysql-database-on-a-remote-server" target="_blank" rel="noopener">How to backup MySQL database on a remote server? - Stack Overflow</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/06/15/2019-06-15-Common-DB-Related/">
+    <time datetime="2019-06-15T10:00:00.000Z" class="entry-date">
+        2019-06-15
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
   </div>
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Beam-Search/">Beam Search</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Decoding/">Decoding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HMM/">HMM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MEMM/">MEMM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PoS/">PoS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tagging/">Tagging</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Viterbi/">Viterbi</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DB/">DB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Postgres/">Postgres</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SQL/">SQL</a></li></ul>
 
     </footer>
 </article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
-      <a class="archive-article-title" href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">自然语言计算机形式分析的理论与方法笔记(Ch14)</a>
-    </h1>
-  
 
-  </header>
-  <footer class="entry-meta">
-    <a href="/2019/03/22/NLPFA/2019-03-22-Ch14-HMM/">
-    <time datetime="2019-03-22T03:32:00.000Z" class="entry-date">
-        2019-03-22
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
 
     
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HMM/">HMM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markov/">Markov</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/06/11/SLP/2019-06-11-Part-of-Speech-Tagging/" rel="next">Part-of-Speech Tagging (SLP Ch08) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
 
-    </footer>
-</article>
-  
-  
-    </div></section>
-  
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
   
