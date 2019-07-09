@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-3.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-4.jpeg">
-<meta property="og:updated_time" content="2019-07-09T02:30:48.108Z">
+<meta property="og:updated_time" content="2019-07-09T03:42:22.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Syntactic Parsing Note (SLP Ch11)">
 <meta name="twitter:description" content="This chapter focuses on the structures assigned by context-free grammars. Context-free grammars don’t specify how the parse tree for a given sentence should be computed. We therefore need to specify a">
@@ -126,7 +126,7 @@
 <p><img src="http://qnimg.lovevivian.cn/slp-ch11-3.jpeg" alt=""></p>
 <h3 id="CKY-Recognition"><a href="#CKY-Recognition" class="headerlink" title="CKY Recognition"></a>CKY Recognition</h3><p>In CNF, each non-terminal node above the part-of-speech level in a parse tree will have exactly two daughters. An Example:</p>
 <p><img src="http://qnimg.lovevivian.cn/slp-ch11-1.jpeg" alt=""></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function CKY-PARSE(words, grammar) returns table</span><br><span class="line">	<span class="keyword">for</span> j←<span class="keyword">from</span> <span class="number">1</span> to LENGTH(words) do</span><br><span class="line">    	<span class="keyword">for</span> all &#123;A | A→ words[j]∈grammar &#125;</span><br><span class="line">        	table[j<span class="number">-1</span>, j]←table[j<span class="number">-1</span>, j] ∪ A</span><br><span class="line">        <span class="keyword">for</span> i←<span class="keyword">from</span> j<span class="number">-2</span> downto <span class="number">0</span> do</span><br><span class="line">        	<span class="keyword">for</span> k←i+<span class="number">1</span> to j<span class="number">-1</span> do</span><br><span class="line">            	<span class="keyword">for</span> all &#123;A | A→ BC∈grammar <span class="keyword">and</span> B∈table[i,k] <span class="keyword">and</span> C∈table[k,j]&#125;</span><br><span class="line">                    table[i,j] ← table[i,j] ∪ A</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function CKY-PARSE(words, grammar) returns table</span><br><span class="line">    <span class="keyword">for</span> j←<span class="keyword">from</span> <span class="number">1</span> to LENGTH(words) do</span><br><span class="line">        <span class="keyword">for</span> all &#123;A | A→ words[j]∈grammar &#125;</span><br><span class="line">            table[j<span class="number">-1</span>, j]←table[j<span class="number">-1</span>, j] ∪ A</span><br><span class="line">        <span class="keyword">for</span> i←<span class="keyword">from</span> j<span class="number">-2</span> downto <span class="number">0</span> do</span><br><span class="line">            <span class="keyword">for</span> k←i+<span class="number">1</span> to j<span class="number">-1</span> do</span><br><span class="line">                <span class="keyword">for</span> all &#123;A | A→ BC∈grammar <span class="keyword">and</span> B∈table[i,k] <span class="keyword">and</span> C∈table[k,j]&#125;</span><br><span class="line">                    table[i,j] ← table[i,j] ∪ A</span><br></pre></td></tr></table></figure>
 <p>The code can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Syntax/CKY.ipynb" target="_blank" rel="noopener">here</a>. Honestly, I am not quite sure it’s right :)</p>
 <h3 id="CKY-Parsing"><a href="#CKY-Parsing" class="headerlink" title="CKY Parsing"></a>CKY Parsing</h3><p>Turn the above recognized algorithm into a parser algorithm which could return all possible parses:</p>
 <ul>
@@ -326,38 +326,6 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
