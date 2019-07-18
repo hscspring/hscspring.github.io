@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-13T14:01:43.325Z">
+<meta property="og:updated_time" content="2019-07-18T02:32:34.657Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch13)">
 <meta name="twitter:description" content="第十三章：N 元语法和数据平滑N 元语法N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。 一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。 N 元语法模型可以使用训练语料库 “归一化” 得到。 p(w_n|w_{n-1}) = \frac {C(w_{n">
@@ -97,7 +97,7 @@
         <h1 id="第十三章：N-元语法和数据平滑"><a href="#第十三章：N-元语法和数据平滑" class="headerlink" title="第十三章：N 元语法和数据平滑"></a>第十三章：N 元语法和数据平滑</h1><h2 id="N-元语法"><a href="#N-元语法" class="headerlink" title="N 元语法"></a>N 元语法</h2><p>N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。</p>
 <p>一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。</p>
 <p>N 元语法模型可以使用训练语料库 “归一化” 得到。</p>
-<script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1}w)}​</script><p>以 <script type="math/tex">w_{n-1}</script> 开头的二元语法计数必定等于 <script type="math/tex">w_{n-1}</script> 这个单词的计数，于是：</p>
+<script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1}w)}</script><p>以 <script type="math/tex">w_{n-1}</script> 开头的二元语法计数必定等于 <script type="math/tex">w_{n-1}</script> 这个单词的计数，于是：</p>
 <script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{C(w_{n-1})}</script><p>一般化 N 元语法的参数估计：</p>
 <script type="math/tex; mode=display">p(w_n|w_{n-N+1}^{n-1}) = \frac {C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}</script><p>两个重要事实：</p>
 <ul>
@@ -109,10 +109,10 @@
 <ul>
 <li><p>Additive</p>
 <ul>
-<li>给取出来的二元语法的计数全部加一，即：(ci + 1)/(N+V)，V 是词表大小，因为每个都加一，所以分母加 V，<script type="math/tex">p*(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n) + 1}{C(w_{n-1}) + V}​</script>。</li>
+<li>给取出来的二元语法的计数全部加一，即：(ci + 1)/(N+V)，V 是词表大小，因为每个都加一，所以分母加 V，<script type="math/tex">p*(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n) + 1}{C(w_{n-1}) + V}</script>。</li>
 <li>一个很大的问题是，每个二元语法计数加一，对应的一元语法加 V，如果某个一元语法本来出现的次数很少的话，会使其概率发生急剧变化。比如：“蝴蝶 吃饭”，我们假设它在语料中出现了 1 次，“蝴蝶” 出现了 2 次，本来的概率是 1/2=0.5，如果词表大小是 1000，概率就会变成 2/(1000+2)。当然，如果 “蝴蝶 吃饭” 没有出现在语料中，那这样的概率是可以接受的。问题就在于那些出现概率本身不高的词。</li>
 <li>同样的问题也表现在未登录词上，会给较高的概率，尤其词表非常大的时候。这相当于人为稀释了所有在训练数据中词的概率（意味着提高了未登录词的概率）。根本原因还是数据太稀疏。</li>
-<li>除了上面介绍的加一，还可以加 α（一个比较小的数），大同小异，可以参考：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/LM.ipynb" target="_blank" rel="noopener">LM</a></li>
+<li>除了上面介绍的加一，还可以加 α（一个比较小的数），大同小异，可以参考：<a href="https://yam.gift/2017/10/14/SLP/2017-10-14-Language-Model/" target="_blank" rel="noopener">LM</a></li>
 </ul>
 </li>
 <li><p>Witten-Bell</p>
@@ -137,7 +137,7 @@
 <li><p>Katz Smoothing (Backoff)</p>
 <ul>
 <li>1987 年提出</li>
-<li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {P(w_i|w_{i-2}w_{i-1}), c(w_{i-2}w_{i-1}w_i) > 0}​</script></li>
+<li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {P(w_i|w_{i-2}w_{i-1}), c(w_{i-2}w_{i-1}w_i) > 0}</script></li>
 <li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {\alpha_1 P(w_i|w_{i-1}), c(w_{i-2}w_{i-1}w_i) = 0\ and\ c(w_{i-1}w_i) > 0}</script></li>
 <li><script type="math/tex; mode=display">\hat {P}(w_i|w_{i-2}w_{i-1}) = {\alpha_2 P(w_i), other}</script></li>
 <li>α 的目的是使等式的结果为真正的概率，保证：<script type="math/tex">\sum_{i,j} P(w_n|w_iw_j) = 1</script></li>

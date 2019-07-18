@@ -467,7 +467,7 @@
         <h1 id="第十三章：N-元语法和数据平滑"><a href="#第十三章：N-元语法和数据平滑" class="headerlink" title="第十三章：N 元语法和数据平滑"></a>第十三章：N 元语法和数据平滑</h1><h2 id="N-元语法"><a href="#N-元语法" class="headerlink" title="N 元语法"></a>N 元语法</h2><p>N 元语法模型利用前面 N-1 个单词来预测下一个词。一些特殊情况：标点、大小写、屈折变化等。</p>
 <p>一个单词的概率只依赖于它前面一个单词的这种假设叫作 Markov 假设，这样的模型叫 Bi-gram，即二元语法模型，也叫一阶 Markov 模型。</p>
 <p>N 元语法模型可以使用训练语料库 “归一化” 得到。</p>
-<script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1}w)}​</script><p>以 <script type="math/tex">w_{n-1}</script> 开头的二元语法计数必定等于 <script type="math/tex">w_{n-1}</script> 这个单词的计数，于是：</p>
+<script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1}w)}</script><p>以 <script type="math/tex">w_{n-1}</script> 开头的二元语法计数必定等于 <script type="math/tex">w_{n-1}</script> 这个单词的计数，于是：</p>
 <script type="math/tex; mode=display">p(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{C(w_{n-1})}</script><p>一般化 N 元语法的参数估计：</p>
 <script type="math/tex; mode=display">p(w_n|w_{n-N+1}^{n-1}) = \frac {C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}</script><p>两个重要事实：</p>
 <ul>
