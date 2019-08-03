@@ -22,10 +22,12 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000. Example 1: 123Input: &quot;babad&quot;Output: &quot;bab&quot;Note: &quot;aba&quot; is also a valid answer. Example">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-02T15:22:24.687Z">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/leetcode-longest-palindromic-substring-1.jpeg">
+<meta property="og:updated_time" content="2019-08-03T03:44:30.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Longest Palindromic Substring (LeetCode 5)">
 <meta name="twitter:description" content="Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000. Example 1: 123Input: &quot;babad&quot;Output: &quot;bab&quot;Note: &quot;aba&quot; is also a valid answer. Example">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/leetcode-longest-palindromic-substring-1.jpeg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -138,11 +140,25 @@ P(i, j)=\left(P(i+1, j-1) \text { and } S_{i}==S_{j}\right)</script><p>Base case
 <p>最后我们看下第五种算法，也是唯一一种 O(N) 时间复杂度的算法。这个算法名字叫 <a href="https://www.hackerrank.com/topics/manachers-algorithm" target="_blank" rel="noopener">Manacher’s Algorithm</a>，我一开始看了这个：<a href="https://www.hackerrank.com/topics/manachers-algorithm" target="_blank" rel="noopener">Programming Problems and Competitions :: HackerRank</a>，结果到后面没看懂，后来又发现了这个视频：<a href="https://www.youtube.com/watch?v=nbTSfrEfo6M" target="_blank" rel="noopener">Longest Palindromic Substring O(N) Manacher’s Algorithm - YouTube</a>，看了两遍才基本看懂，感觉很神奇，下面的代码也是仿照视频中的代码写的。其实写代码不难，难在对算法本身的理解。</p>
 <p>接下来我简单地说一下该算法的基本思想以及其中的一些小 trick。</p>
 <ul>
-<li>每隔一个字符添加一个标记，比如 “#”，防止连续出现的重复字符对算法造成干扰（因为两个连续重复的字符都是其中心）</li>
+<li><p>每隔一个字符添加一个标记，比如 “#”，防止连续出现的重复字符对算法造成干扰（因为两个连续重复的字符都是其中心）</p>
+</li>
+<li><p>每一个字符作为中心向两边延伸（Expanding for every center）</p>
+</li>
+<li><p>回文串是中心对称的，这意味着如果知道了中心左边字符对应的长度，右边的长度可以直接通过对称性得到。比如：ababa，前 3 个字符对应的回文串长度分别是 1 3 5，那后两个自然就是 3 和 1。</p>
+</li>
+<li><p>接下来有两种不同的越界情况，即回文串左边或右边还有字符（还是以上一条的例子说明）。</p>
+<ul>
+<li>当右边（也就是后两个字符）有字符时，它们 center 的回文串长度一定大于等于对称的左边。比如 ababab，后三个字符实际上是 5 3 1。所以，就从复制过来的对称左边的长度开始 expanding，比如倒数第 3 个，复制过来的 center 长度是 3，那么就从 3 开始往外 expanding，也就意味着 aba 是不需要执行的，只要向外 expanding 1 个字符即可。</li>
+<li>当左边（也就是最前面）有字符时，同样从原来的长度开始扩展。比如 bababa，第 3 个字符作为 center 时长度本来是 3，现在向外 expanding 1 个字符，变为 5。原来对称的右边此时不能直接复制新得到的长度，比如第 2 个字符作为 center 现在的长度是 3，不能直接复制到原来对称的右边（即最后一个字符），因为最后一个字符作为 center 的长度明显是 1。也就是说，越界时，对称性不一定成立。此时，对称的右边字符作为 center 时的长度变为：<code>右边界-字符的 index</code>，比如倒数第 2 个字符，长度并不是原来对称的 5，而是 <code>13-10</code>（<code>@b#a#b#a#b#a$</code>）。</li>
 </ul>
-<p>代码如下：</p>
+</li>
+<li><p>整理之后就是（截图来自那个视频）：</p>
+<p><img src="http://qnimg.lovevivian.cn/leetcode-longest-palindromic-substring-1.jpeg" alt=""></p>
+</li>
+</ul>
+<p>具体代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">longestPalindrome</span><span class="params">(s)</span>:</span></span><br><span class="line">    T = <span class="string">'#'</span>.join(<span class="string">'$&#123;&#125;@'</span>.format(s))</span><br><span class="line">    p = [<span class="number">0</span>] * len(T)</span><br><span class="line">    c = r = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(T)<span class="number">-1</span>):</span><br><span class="line">        mirr = <span class="number">2</span>*c - i <span class="comment"># c + (i - c)</span></span><br><span class="line">        <span class="keyword">if</span> i &lt; r:</span><br><span class="line">            p[i] = min(r-i, p[mirr])</span><br><span class="line">        <span class="keyword">while</span> T[i+(<span class="number">1</span>+p[i])] == T[i-(<span class="number">1</span>+p[i])]:</span><br><span class="line">            p[i] += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> i + p[i] &gt; r:</span><br><span class="line">            c = i</span><br><span class="line">            r = i + p[i]</span><br><span class="line">    max_len, center_id = max((n, i) <span class="keyword">for</span> i,n <span class="keyword">in</span> enumerate(p))</span><br><span class="line">    res = s[(center_id-max_len)//<span class="number">2</span>: (center_id+max_len)//<span class="number">2</span>]</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
-<p>这里也有一个类似的解法：<a href="https://leetcode.com/problems/longest-palindromic-substring/discuss/3337/Manacher-algorithm-in-Python-O(n" target="_blank" rel="noopener">Manacher algorithm in Python O(n) - LeetCode Discuss</a>)，其实基本是一样的，毕竟思路就是那样的。另外，这里：<a href="https://tarokuriyama.com/projects/palindrome2.php#linear_algo" target="_blank" rel="noopener">Taro Kuriyama | Visualization</a> 有也有一个解法，可以参考一下。</p>
+<p>可以看出该算法的核心就是利用回文串的对称性减少计算。这里也有一个类似的解法：<a href="https://leetcode.com/problems/longest-palindromic-substring/discuss/3337/Manacher-algorithm-in-Python-O(n" target="_blank" rel="noopener">Manacher algorithm in Python O(n) - LeetCode Discuss</a>)，其实基本是一样的，毕竟思路就是那样的。另外，这里：<a href="https://tarokuriyama.com/projects/palindrome2.php#linear_algo" target="_blank" rel="noopener">Taro Kuriyama | Visualization</a> 有也有一个解法，可以参考一下。</p>
 
       
     </div><!-- .entry-content -->
@@ -312,6 +328,38 @@ P(i, j)=\left(P(i+1, j-1) \text { and } S_{i}==S_{j}\right)</script><p>Base case
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
 </html>
