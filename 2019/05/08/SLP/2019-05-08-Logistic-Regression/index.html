@@ -23,7 +23,7 @@
 <meta property="og:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch5-1.jpeg">
-<meta property="og:updated_time" content="2019-06-11T01:36:52.408Z">
+<meta property="og:updated_time" content="2019-08-06T15:18:10.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Logistic Regression Note (SLP Ch05)">
 <meta name="twitter:description" content="In NLP, logistic regression is the baseline supervised machine learning algorithm for classification.  discriminative classifier: like logistic regression only trying to learn to distinguish the class">
@@ -134,7 +134,7 @@
 <li>The distance between system output and gold output is called <strong>loss function</strong> or <strong>cost function</strong>.</li>
 <li>Need an optimization algorithm for iteratively updating the weights so as to minimize the loss function.</li>
 </ul>
-<h2 id="The-cross-entropy-loss-function"><a href="#The-cross-entropy-loss-function" class="headerlink" title="The cross-entropy loss function"></a>The cross-entropy loss function</h2><p>$L(\hat y, y)$ = How much $\hat y$ differs from the true y</p>
+<h2 id="The-cross-entropy-loss-function"><a href="#The-cross-entropy-loss-function" class="headerlink" title="The cross-entropy loss function"></a>The cross-entropy loss function</h2><p>L(y^, y)​ = How much y^ differs from the true y</p>
 <p>MSE loss: <script type="math/tex">L_{MSE}(\hat y, y) = \frac{1}{2} (\hat y -y)^2</script></p>
 <p>It’s useful for some algorithms like linear regression, but becomes harder to optimize (non-convex) when it’s applied to probabilistic classification.</p>
 <p>Instead, we use a loss function that prefers the correct class labels of the training example to be more likely. This is called <strong>conditional maximum likelihood estimation</strong>: we choose the parameters w,b that <strong>maximize the log probability of the true y labels in the training data</strong> given the observations x. The resulting loss function is the negative log likelihood loss, generally called the <strong>cross entropy loss</strong>.</p>
@@ -352,7 +352,22 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config("");
 </script>
