@@ -14,21 +14,21 @@
   
   <title>Attention Is All You Need Note | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Abstract一个完全基于 Attention 的架构。更">
+  <meta name="description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Attention 核心思想：Multi-Head Atte">
 <meta name="keywords" content="NLP,Attention,Transformer,Self-Attention,Position-Encoding">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Attention Is All You Need Note">
 <meta property="og:url" content="http://www.yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Abstract一个完全基于 Attention 的架构。更">
+<meta property="og:description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Attention 核心思想：Multi-Head Atte">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-3.jpeg">
-<meta property="og:updated_time" content="2019-08-04T13:20:53.020Z">
+<meta property="og:updated_time" content="2019-08-22T03:33:09.089Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Attention Is All You Need Note">
-<meta name="twitter:description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Abstract一个完全基于 Attention 的架构。更">
+<meta name="twitter:description" content="Paper: https://arxiv.org/pdf/1706.03762.pdf Code: https://github.com/tensorflow/models/tree/master/official/transformer Tool: https://github.com/tensorflow/tensor2tensor Attention 核心思想：Multi-Head Atte">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-1.jpeg">
   
   
@@ -101,6 +101,7 @@
         <p>Paper: <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1706.03762.pdf</a></p>
 <p>Code: <a href="https://github.com/tensorflow/models/tree/master/official/transformer" target="_blank" rel="noopener">https://github.com/tensorflow/models/tree/master/official/transformer</a></p>
 <p>Tool: <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noopener">https://github.com/tensorflow/tensor2tensor</a></p>
+<p>Attention 核心思想：Multi-Head Attention 关注不同位置不同表示子空间的信息，且更容易训练。</p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>一个完全基于 Attention 的架构。更容易并行训练，提高训练速度。</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>RNN 的固有属性使其难以并行化（即使通过 factorization tricks 和 conditional computation 可以得到改善），Attention 对依赖关系建模，不考虑输入输出的距离。本文提出的 Transformer 采用了完全的 Attention 机制描述输入和输出的整体依赖关系，在训练速度和效果上都有明显提升。</p>
 <a id="more"></a>
@@ -363,38 +364,6 @@ W^{O} \in \mathbb{R}^{h d_{v} \times d_{\mathrm{model}}}</script><ul>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

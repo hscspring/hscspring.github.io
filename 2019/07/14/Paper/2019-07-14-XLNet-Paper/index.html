@@ -14,22 +14,22 @@
   
   <title>XLNet, Generalized Autoregressive Pretraining for Language Understanding Note | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的差异。 XLNet：  通过最大化因式分解顺序所有可能排列的对数似然，学习双向语境信息。 依靠自回归克服了 BERT 的">
+  <meta name="description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding XLNet 的核心思想：PermutationLM 使用双向上下文 + Transformer-XL 对架构进行改进。 AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的">
 <meta name="keywords" content="NLP,XLNet,Pretraining,Transformer-XL,AR,AE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XLNet, Generalized Autoregressive Pretraining for Language Understanding Note">
 <meta property="og:url" content="http://www.yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的差异。 XLNet：  通过最大化因式分解顺序所有可能排列的对数似然，学习双向语境信息。 依靠自回归克服了 BERT 的">
+<meta property="og:description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding XLNet 的核心思想：PermutationLM 使用双向上下文 + Transformer-XL 对架构进行改进。 AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-xlnet-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-xlnet-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-xlnet-3.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-xlnet-4.jpeg">
-<meta property="og:updated_time" content="2019-07-14T08:54:15.171Z">
+<meta property="og:updated_time" content="2019-08-22T03:25:43.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XLNet, Generalized Autoregressive Pretraining for Language Understanding Note">
-<meta name="twitter:description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的差异。 XLNet：  通过最大化因式分解顺序所有可能排列的对数似然，学习双向语境信息。 依靠自回归克服了 BERT 的">
+<meta name="twitter:description" content="zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding XLNet 的核心思想：PermutationLM 使用双向上下文 + Transformer-XL 对架构进行改进。 AbstractBERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-xlnet-2.jpeg">
   
   
@@ -100,6 +100,7 @@
             <!-- Table of Contents -->
               
         <p><a href="https://github.com/zihangdai/xlnet" target="_blank" rel="noopener">zihangdai/xlnet: XLNet: Generalized Autoregressive Pretraining for Language Understanding</a></p>
+<p>XLNet 的核心思想：PermutationLM 使用双向上下文 + Transformer-XL 对架构进行改进。</p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>BERT 忽略了屏蔽位置之间的依赖关系，会有预训练和 Fine-tuning 效果的差异。</p>
 <p>XLNet：</p>
 <ul>
@@ -380,38 +381,6 @@ h_{z_{t}}^{(m)} \leftarrow \text { Attention }\left(\mathbf{Q}=h_{z_{t}}^{(m-1)}
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

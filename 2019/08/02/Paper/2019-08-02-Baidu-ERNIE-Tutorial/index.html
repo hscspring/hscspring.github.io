@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-5.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-6.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-7.jpeg">
-<meta property="og:updated_time" content="2019-08-02T08:53:02.122Z">
+<meta property="og:updated_time" content="2019-08-22T03:33:50.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ERNIE Tutorial（论文笔记 + 实践指南）">
 <meta name="twitter:description" content="ERNIE 2.0 发布了，刷新了 SOTA，而且中文上做了不少优化，这种大杀器作为一个 NLP 工程师我觉得有必要深入了解了解，最好能想办法用到工作中。  ERNIE 2.0 是基于持续学习的语义理解预训练框架，使用多任务学习增量式构建预训练任务。ERNIE 2.0 中，新构建的预训练任务类型可以无缝的加入训练框架，持续的进行语义理解学习。通过新增的实体预测、句子因果关系判断、文章句子结构重建等">
@@ -111,7 +111,8 @@
 <p><img src="http://qnimg.lovevivian.cn/github-nlp-baidu-ernie-1.jpeg" alt=""></p>
 <p>老习惯还是先理论再实践，所以看 paper 先，我们只看关键信息。</p>
 <a id="more"></a>
-<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>ERNIE 2.0 通过多任务学习获取语料中的更多信息，包括：词、句共现，词法，句法，语义等。</p>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h2><p>ERNIE 核心思想：更多任务的 Bert。</p>
+<h3 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h3><p>ERNIE 2.0 通过多任务学习获取语料中的更多信息，包括：词、句共现，词法，句法，语义等。</p>
 <h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>出发点依然是摘要中提到的，举了几个例子挺不错：</p>
 <ul>
 <li>命名实体可能包含一些观念上的信息（不应拆分或作为普通词处理）</li>
@@ -434,38 +435,6 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

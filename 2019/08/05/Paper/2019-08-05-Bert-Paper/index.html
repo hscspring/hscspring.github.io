@@ -14,23 +14,23 @@
   
   <title>Bert, Pre-training of Deep Bidirectional Transformers for Language Understanding Note | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained model 到下有任务的方法：  feature-based：比如 ELMo，将">
+  <meta name="description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。 AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained mo">
 <meta name="keywords" content="NLP,Transformer,Bert,Fine-tuning,Pre-training,Feature-based">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bert, Pre-training of Deep Bidirectional Transformers for Language Understanding Note">
 <meta property="og:url" content="http://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained model 到下有任务的方法：  feature-based：比如 ELMo，将">
+<meta property="og:description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。 AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained mo">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-3.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-4.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-5.jpeg">
-<meta property="og:updated_time" content="2019-08-19T02:55:49.585Z">
+<meta property="og:updated_time" content="2019-08-22T03:26:13.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bert, Pre-training of Deep Bidirectional Transformers for Language Understanding Note">
-<meta name="twitter:description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained model 到下有任务的方法：  feature-based：比如 ELMo，将">
+<meta name="twitter:description" content="Paper: https://arxiv.org/pdf/1810.04805.pdf Code: https://github.com/google-research/bert Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。 AbstractBERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。 Introduction两种应用 pre-trained mo">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-bert-1.jpeg">
   
   
@@ -102,6 +102,7 @@
               
         <p>Paper: <a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1810.04805.pdf</a></p>
 <p>Code: <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a></p>
+<p>Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。</p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>BERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>两种应用 pre-trained model 到下有任务的方法：</p>
 <ul>
@@ -131,10 +132,8 @@
 <p>Melamud (2016) 通过一个从左右上下文预测一个单独的词的任务（使用 LSTMs）学习上下文表示。</p>
 <h3 id="Unsupervised-Fine-tuning-Approaches"><a href="#Unsupervised-Fine-tuning-Approaches" class="headerlink" title="Unsupervised Fine-tuning Approaches"></a>Unsupervised Fine-tuning Approaches</h3><ul>
 <li>直接从语料中训练 embedding（Collobert and Weston, 2018）</li>
-<li><p>从文本中训练上下文表示，在下游任务中 fine-tuning（Dai and Le, 2015; Howard and Ruder, 2018; Radford, 2018）</p>
-</li>
-<li><p>OpenAI GPT (Radford, 2018)</p>
-</li>
+<li>从文本中训练上下文表示，在下游任务中 fine-tuning（Dai and Le, 2015; Howard and Ruder, 2018; Radford, 2018）</li>
+<li>OpenAI GPT (Radford, 2018)</li>
 </ul>
 <h3 id="Transfer-Learning-from-Supervised-Data"><a href="#Transfer-Learning-from-Supervised-Data" class="headerlink" title="Transfer Learning from Supervised Data"></a>Transfer Learning from Supervised Data</h3><p>一些有效的迁移学习：</p>
 <ul>
@@ -364,38 +363,6 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

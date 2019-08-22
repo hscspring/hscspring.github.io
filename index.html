@@ -276,6 +276,7 @@
       
         <p>Paper: <a href="https://arxiv.org/pdf/1810.04805.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1810.04805.pdf</a></p>
 <p>Code: <a href="https://github.com/google-research/bert" target="_blank" rel="noopener">https://github.com/google-research/bert</a></p>
+<p>Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。</p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>BERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>两种应用 pre-trained model 到下有任务的方法：</p>
 <ul>
@@ -341,6 +342,7 @@
         <p>Paper: <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/1706.03762.pdf</a></p>
 <p>Code: <a href="https://github.com/tensorflow/models/tree/master/official/transformer" target="_blank" rel="noopener">https://github.com/tensorflow/models/tree/master/official/transformer</a></p>
 <p>Tool: <a href="https://github.com/tensorflow/tensor2tensor" target="_blank" rel="noopener">https://github.com/tensorflow/tensor2tensor</a></p>
+<p>Attention 核心思想：Multi-Head Attention 关注不同位置不同表示子空间的信息，且更容易训练。</p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>一个完全基于 Attention 的架构。更容易并行训练，提高训练速度。</p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>RNN 的固有属性使其难以并行化（即使通过 factorization tricks 和 conditional computation 可以得到改善），Attention 对依赖关系建模，不考虑输入输出的距离。本文提出的 Transformer 采用了完全的 Attention 机制描述输入和输出的整体依赖关系，在训练速度和效果上都有明显提升。</p>
         
@@ -785,38 +787,6 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config("");
-</script>
-
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-      all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-  });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<!-- End: Injected MathJax -->
-<!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
