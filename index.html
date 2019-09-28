@@ -86,7 +86,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="ck13ioeaj0000pfccbwo6tmw7" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="ck13ip47y0091qoccnrcdt5r6" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -128,6 +128,70 @@
 
 
   
+    <article id="post-GraphQL/2019-08-24-GraphQL-Elixir" class="post-GraphQL/2019-08-24-GraphQL-Elixir post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="ck13ip45n003oqocc4uuk1vvx" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>There are several problems with the origin docs, so I reproduced this quick glance. It’s much simple and only contains the brief information. Hope this is helpful to u.</p>
+</blockquote>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>Schema-Driven Development</p>
+<ul>
+<li>Define your types and the appropriate queries and mutations for them.</li>
+<li>Implement functions called <strong>resolvers</strong> to handle these types and their fields.</li>
+<li>As new requirements arrive, go back to step 1 to update the schema, and continue through the other steps.</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step1: create</span></span><br><span class="line">$ mix phx.new community --no-html</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step2: add dependencies to `mix.exs`</span></span><br><span class="line">&#123;:dataloader, <span class="string">"~&gt; 1.0.0"</span>&#125;, <span class="comment"># absinthe_ecto was DEPRECATED</span></span><br><span class="line">&#123;:absinthe_plug, <span class="string">"~&gt; 1.4.0"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step3: modify database info in `config/dev.exs`</span></span><br><span class="line"><span class="comment"># maybe you should modify username or password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step4: install deps</span></span><br><span class="line">$ mix deps.get</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step5: generate tables and seed data</span></span><br><span class="line">$ mix phx.gen.context News Link links url:string description:text</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step6: add seed data in `priv/repo/seeds.exs`</span></span><br><span class="line"><span class="built_in">alias</span> Community.News.Link</span><br><span class="line"><span class="built_in">alias</span> Community.Repo</span><br><span class="line">%Link&#123;url: <span class="string">"http://graphql.org/"</span>, description: <span class="string">"The Best Query Language"</span>&#125; |&gt; Repo.insert!</span><br><span class="line">%Link&#123;url: <span class="string">"http://dev.apollodata.com/"</span>, description: <span class="string">"Awesome GraphQL Client"</span>&#125; |&gt; Repo.insert!</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step7: setup ecto (create + migrate)</span></span><br><span class="line">$ mix ecto.setup</span><br></pre></td></tr></table></figure>
+<p>You should see two pieces of items in the <code>links</code> table.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">
+    <time datetime="2019-08-24T10:00:00.000Z" class="entry-date">
+        2019-08-24
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elixir/">Elixir</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-GraphQL/2019-08-24-GraphQL" class="post-GraphQL/2019-08-24-GraphQL post type-post status-publish format-standard hentry">
     <!---->
 
@@ -143,7 +207,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cjzpewxww00069gccb1qxvq4z" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="ck13ip479007tqoccm7cidpac" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -195,70 +259,6 @@
 
 
   
-    <article id="post-GraphQL/2019-08-24-GraphQL-Elixir" class="post-GraphQL/2019-08-24-GraphQL-Elixir post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cjzpewxw300009gcc8ln662l9" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <blockquote>
-<p>There are several problems with the origin docs, so I reproduced this quick glance. It’s much simple and only contains the brief information. Hope this is helpful to u.</p>
-</blockquote>
-<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>Schema-Driven Development</p>
-<ul>
-<li>Define your types and the appropriate queries and mutations for them.</li>
-<li>Implement functions called <strong>resolvers</strong> to handle these types and their fields.</li>
-<li>As new requirements arrive, go back to step 1 to update the schema, and continue through the other steps.</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step1: create</span></span><br><span class="line">$ mix phx.new community --no-html</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step2: add dependencies to `mix.exs`</span></span><br><span class="line">&#123;:dataloader, <span class="string">"~&gt; 1.0.0"</span>&#125;, <span class="comment"># absinthe_ecto was DEPRECATED</span></span><br><span class="line">&#123;:absinthe_plug, <span class="string">"~&gt; 1.4.0"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step3: modify database info in `config/dev.exs`</span></span><br><span class="line"><span class="comment"># maybe you should modify username or password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step4: install deps</span></span><br><span class="line">$ mix deps.get</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step5: generate tables and seed data</span></span><br><span class="line">$ mix phx.gen.context News Link links url:string description:text</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step6: add seed data in `priv/repo/seeds.exs`</span></span><br><span class="line"><span class="built_in">alias</span> Community.News.Link</span><br><span class="line"><span class="built_in">alias</span> Community.Repo</span><br><span class="line">%Link&#123;url: <span class="string">"http://graphql.org/"</span>, description: <span class="string">"The Best Query Language"</span>&#125; |&gt; Repo.insert!</span><br><span class="line">%Link&#123;url: <span class="string">"http://dev.apollodata.com/"</span>, description: <span class="string">"Awesome GraphQL Client"</span>&#125; |&gt; Repo.insert!</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step7: setup ecto (create + migrate)</span></span><br><span class="line">$ mix ecto.setup</span><br></pre></td></tr></table></figure>
-<p>You should see two pieces of items in the <code>links</code> table.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">
-    <time datetime="2019-08-24T10:00:00.000Z" class="entry-date">
-        2019-08-24
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elixir/">Elixir</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-LeetCode/2019-08-06-LeetCode" class="post-LeetCode/2019-08-06-LeetCode post type-post status-publish format-standard hentry">
     <!---->
 
@@ -274,7 +274,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/LeetCode/2019-08-06-LeetCode/" data-id="cjzmjrklo003prxccfqhitx4t" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/LeetCode/2019-08-06-LeetCode/" data-id="ck13ip4600044qoccsvam61kr" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -330,7 +330,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/SLP/2019-08-06-SLP/" data-id="cjzmjrkn6004frxccmzm3b3gz" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/SLP/2019-08-06-SLP/" data-id="ck13ip46c004wqocc6vxevmok" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -397,7 +397,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/Paper/2019-08-06-Paper/" data-id="cjzmjrkq2008drxcc3jgon5jn" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/06/Paper/2019-08-06-Paper/" data-id="ck13ip466004hqoccy5ncsclh" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -456,7 +456,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cjzmjrkq0008arxccl7wnqolm" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="ck13ip465004eqocc3x59vd4i" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -521,7 +521,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/" data-id="cjzmjrkpy0088rxccd1snw30n" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/" data-id="ck13ip468004kqocc4czkfuc3" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -580,7 +580,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="cjzmjrkp6006trxccdbl8aa3t" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="ck13ip47c0080qocc48b6az0g" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -638,7 +638,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="cjzmjrksg00farxccvkev02yv" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="ck13ip47w008xqocc7i6j5js5" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -732,11 +732,11 @@
           </li>
         
           <li>
-            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/">GraphQL Glance</a>
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
           </li>
         
           <li>
-            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/">GraphQL Glance</a>
           </li>
         
           <li>
