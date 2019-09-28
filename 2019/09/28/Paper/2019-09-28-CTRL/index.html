@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>CTRL 论文 + 实践  + 源码 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="paper: ctrl.pdf code: salesforce/ctrl: Conditional Transformer Language Model for Controllable Generation 核心思想：借鉴多任务，将文本标签作为输入的一部分（放在开头）控制文本生成。 Abstract文本生成最大的问题是难以对其进行控制，本文发布了一个 1.6 billion 参数的条件 tra">
+<meta name="keywords" content="NLP,Transformer,Ctrl,Text Generation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTRL 论文 + 实践  + 源码">
+<meta property="og:url" content="https://www.yam.gift/2019/09/28/Paper/2019-09-28-CTRL/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="paper: ctrl.pdf code: salesforce/ctrl: Conditional Transformer Language Model for Controllable Generation 核心思想：借鉴多任务，将文本标签作为输入的一部分（放在开头）控制文本生成。 Abstract文本生成最大的问题是难以对其进行控制，本文发布了一个 1.6 billion 参数的条件 tra">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-ctrl-1.jpeg">
+<meta property="og:updated_time" content="2019-09-28T12:11:14.748Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CTRL 论文 + 实践  + 源码">
+<meta name="twitter:description" content="paper: ctrl.pdf code: salesforce/ctrl: Conditional Transformer Language Model for Controllable Generation 核心思想：借鉴多任务，将文本标签作为输入的一部分（放在开头）控制文本生成。 Abstract文本生成最大的问题是难以对其进行控制，本文发布了一个 1.6 billion 参数的条件 tra">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-ctrl-1.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push --><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2019-09-28-CTRL" class="post-Paper/2019-09-28-CTRL post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      CTRL 论文 + 实践  + 源码
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="ck13ioeaj0000pfccbwo6tmw7" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>paper: <a href="https://einstein.ai/presentations/ctrl.pdf" target="_blank" rel="noopener">ctrl.pdf</a></p>
+<p>code: <a href="https://github.com/salesforce/ctrl" target="_blank" rel="noopener">salesforce/ctrl: Conditional Transformer Language Model for Controllable Generation</a></p>
+<p>核心思想：借鉴多任务，将文本标签作为输入的一部分（放在开头）控制文本生成。</p>
+<h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>文本生成最大的问题是难以对其进行控制，本文发布了一个 1.6 billion 参数的条件 transformer language model，训练能够 govern 风格、内容、特定任务行为等的控制代码。控制代码来自与原始文本共现的结构，保留了无监督学习的优点，同时提供对文本生成更明确的控制。这些控制代码还允许 CTRL 预测训练数据的哪些部分最有可能给出序列。</p>
+<a id="more"></a>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>在足够大的模型和足够多的数据下，生成模型能够学到足够强大的分布生成高质量的 sample。在图像领域，2014 年 Goodfellow 的 Gan 大放异彩。在自然语言领域，语言模型经常被训练成特定任务的条件模型；也被用来学习词向量、文档向量、上下文向量等进而在迁移学习中使用；语言模型本身也会迁移到新任务上精调。但生成并没有在这些任务中被限制，典型的文本生成过程也仅仅被粗糙地引导或者直接指定开头。这自然就有个问题：怎样才能对生成过程进行更明确的控制？</p>
+<p>本文受图像生成和近期的文本生成及多任务学习启发，训练了一个多控制代码的条件模型。该模型能够给在控制代码（指定 <strong>domain, style, topics, dates, entities, relationships between entities, plot points, task-related behavior</strong>）条件下生成文本。控制代码来自与原始文本共现的结构，比如 Wiki、评论这种可以指定一个 domain-related 控制代码，小语料还会有一个 subdomain 的信息。文本能够通过控制内容或改变 domain 进而以更加可预测的方式生成。</p>
+<p>因为所有控制代码都可以追溯到训练数据的特定子集，所以还可以用来预测最有可能给出序列的训练数据的子集。这些控制代码还允许直接包含特定任务的数据，进而在生成中使特定任务的行为控制代码能够与内容相关的控制代码结合。</p>
+<h2 id="Language-Model"><a href="#Language-Model" class="headerlink" title="Language Model"></a>Language Model</h2><script type="math/tex; mode=display">
+p(x)=\prod_{i=1}^{n} p\left(x_{i} | x_{<i}\right)</script><script type="math/tex; mode=display">
+\mathcal{L}(D)=-\sum_{k=1}^{|D|} \log p_{\theta}\left(x_{i}^{k} | x_{<i}^{k}\right)</script><p>x 是一个序列，训练后的模型自然可以生成特定长度的序列。</p>
+<h2 id="Language-Modeling-With-CTRL"><a href="#Language-Modeling-With-CTRL" class="headerlink" title="Language Modeling With CTRL"></a>Language Modeling With CTRL</h2><p>本文的模型在控制代码下学习分布。</p>
+<script type="math/tex; mode=display">
+p(x | c)=\prod_{i=1}^{n} p\left(x_{i} | x_{<i}, c\right) \quad \mathcal{L}(D)=-\sum_{k=1}^{|D|} \log p_{\theta}\left(x_{i}^{k} | x_{<i}^{k}, c^{k}\right)</script><p>其实就是在预先考虑控制代码的基础上进行训练。</p>
+<p>一个单独的序列包括 n 个 token（n 个 d 维向量），每个 token 的向量是 embedding 和 sinusoidal positional embedding 二者之和。序列的向量矩阵为 n×d，可以进一步连 attention。</p>
+<p>每一层包括两个 block，第一个 block 是一个 k heads 的 multi-head attention，使用 mask：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \text { Attention }(X, Y, Z) &=\operatorname{softmax}\left(\frac{\operatorname{mask}\left(X Y^{\top}\right)}{\sqrt{d}}\right) Z \\ \text { MultiHead }(X, k) &=\left[h_{1} ; \cdots ; h_{k}\right] W_{o} \\ \text { where } h_{j} &=\text { Attention }\left(X W_{j}^{1}, X W_{j}^{2}, X W_{j}^{3}\right) \end{aligned}</script><p>第二个 block 是一个 ReLU 激活的前馈网络：</p>
+<script type="math/tex; mode=display">
+F F(X)=\max (0, X U) V</script><p>每个 block 执行 normalization 然后是一个 residual 连接：</p>
+<p>Block1：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \overline{X}_{i} &=\text { LayerNorm }\left(X_{i}\right) \\ H_{i} &=\text { MultiHead }\left(\overline{X}_{i}\right)+\overline{X}_{i} \end{aligned}</script><p>Block2：</p>
+<script type="math/tex; mode=display">
+\begin{aligned} \overline{H}_{i} &=\text { LayerNorm }\left(H_{i}\right) \\ X_{i+1} &=\operatorname{FF}\left(\overline{H}_{i}\right)+\overline{H}_{i} \end{aligned}</script><p>每个 token 的 score：</p>
+<script type="math/tex; mode=display">
+\text { Scores }\left(X_{0}\right)=\text { LayerNorm }\left(X_{l}\right) W_{\text {vocab}}</script><p>训练时，scores 作为 cross-entropy loss function 的输入；生成时，scores 与最终的 token（softmax 后的）相关，然后产生用于采用新 token 的分布。</p>
+<h3 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h3><p>140G</p>
+<ul>
+<li>Wiki: En, De, Es, Fr</li>
+<li>Project Gutenberg: <a href="https://github.com/chiphuyen/lazynlp" target="_blank" rel="noopener">https://github.com/chiphuyen/lazynlp</a></li>
+<li>Submissions from 45 subreddits</li>
+<li>OpenWebText: <a href="https://github.com/jcpeterson/openwebtext" target="_blank" rel="noopener">https://github.com/jcpeterson/openwebtext</a></li>
+<li>News</li>
+<li>Amazon Reviews</li>
+<li>WMT (En-De, En-Es, En-Fr)</li>
+<li>question-answer pairs from ELI5 and MRQA task (<a href="https://github.com/mrqa/MRQA-Shared-Task-2019" target="_blank" rel="noopener">https://github.com/mrqa/MRQA-Shared-Task-2019</a>)</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/paper-ctrl-1.jpeg" alt=""></p>
+<h3 id="Experimental-Settings"><a href="#Experimental-Settings" class="headerlink" title="Experimental Settings"></a>Experimental Settings</h3><ul>
+<li>Use <a href="https://github.com/glample/fastBPE" target="_blank" rel="noopener">fastBPE</a> tokenize</li>
+<li>Vocabulary: 250K tokens, includes sub-word tokens</li>
+<li>the first token of each sequence is the domain</li>
+<li>model dimension d = 1280</li>
+<li>inner dimension f = 8192, 48 layers and 16 heads per layer</li>
+<li>dropout: 0.1</li>
+<li>token embeddings tied with the final output embedding layer</li>
+<li>batch size: 1024</li>
+<li>800k iterations</li>
+<li>Adagrad with a linear warmup from 0 to 0.05 over 25k steps</li>
+<li>norm of gradients clipped to 0.25</li>
+</ul>
+<h2 id="Controllable-Generation"><a href="#Controllable-Generation" class="headerlink" title="Controllable Generation"></a>Controllable Generation</h2><h3 id="Sampling"><a href="#Sampling" class="headerlink" title="Sampling"></a>Sampling</h3><p>从语言模型生成文本时一般会用到 temperature-controlled stochastic sampling 方法，同时，每次生成 token 时在 top-k（而不是所有词表）中取。</p>
+<script type="math/tex; mode=display">
+p_{i}=\frac{\exp \left(x_{i} / T\right)}{\sum_{j} \exp \left(x_{j} / T\right)}</script><ul>
+<li><p>T -&gt; 0 近似贪婪分布，放大了峰值</p>
+</li>
+<li><p>T -&gt; ∞ 使得分布更加平坦</p>
+</li>
+</ul>
+<p>k 是启发式的（自适应），xi 是每个 token 的 score；如果下个词的 confidence 比较高，k 就小一些。</p>
+<p>在有多个非零的高概率候选 token 时，不采用模型，而是 “贪婪” 地选择下一个 token。对可能会产生的重复 token，文章提出一种新的 sample 方法，既能够近似贪婪 sampling，又能够对重复进行惩罚。惩罚的方法是对已产生的 tokens 进行打折（不在训练中使用），给定一列生成的 tokens g:</p>
+<script type="math/tex; mode=display">
+p_{i}=\frac{\exp \left(x_{i} /(T \cdot I(i \in g))\right.}{\sum_{j} \exp \left(x_{j} /(T \cdot I(j \in g))\right.} \quad I(c)=\theta \text { if } c \text { is True else } 1</script><p>θ≈1.2 能够取得不错的平衡。</p>
+<h3 id="Control-Codes"><a href="#Control-Codes" class="headerlink" title="Control Codes"></a>Control Codes</h3><ul>
+<li>Style by domain: Wiki，Books，Reviews，Horror，Relationships，Legal</li>
+<li>More complex control codes:<ul>
+<li>Science Title, Politics Title, Running Text, Horror Text, Reviews Rating</li>
+<li>不同的 Link 代表不同的特征（domain, subdomain, entities, entity relations, and even dates）</li>
+</ul>
+</li>
+<li>Triggering specific tasks：问答、翻译</li>
+<li>Zero-shot code-mixing</li>
+</ul>
+<p>详细可参考文中的 sample。</p>
+<h2 id="Source-Attribution"><a href="#Source-Attribution" class="headerlink" title="Source Attribution"></a>Source Attribution</h2><p>根据之前的定义，给定 domain control code 的先验 p(c)，有：</p>
+<script type="math/tex; mode=display">
+p_{\theta}(c | x) \propto p_{\theta}(x | c) p(c)</script><p>为了避免带来的不良影响，文中采用统一的先验。</p>
+<p>模型固有地依赖于原始的关联进行预测， 它并不关心关联是否正确或好坏（事实表明，相互矛盾的主张经常出现在相同的上下文中）。CTRL 证明了特定的领域更可能包含与给定陈述相似的语言。</p>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ul>
+<li>Related Work<ul>
+<li>语言模型：词向量、上下文词向量、注意力机制</li>
+<li>多任务学习</li>
+<li>Sampling 方法和覆盖机制：聚焦在减少重复（替换为连贯的文本）</li>
+</ul>
+</li>
+<li>Future directions<ul>
+<li>更多和更细粒度的控制</li>
+<li>扩展到 NLP 的其他领域</li>
+<li>分析语言模型和语料的关系</li>
+<li>使人与语言模型的接口更加明确和直观</li>
+</ul>
+</li>
+</ul>
+<h2 id="Practice"><a href="#Practice" class="headerlink" title="Practice"></a>Practice</h2><h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><ul>
+<li>安装依赖：Tensorflow1.14 或 PyTorch，<a href="https://github.com/glample/fastBPE" target="_blank" rel="noopener">glample/fastBPE: Fast BPE</a></li>
+<li>使用 Tensorflow 需要修复 <code>keras.py</code>：<code>patch -b &lt;path_to_tensorflow_estimator_package&gt;/python/estimator/keras.py estimator.patch</code></li>
+<li><p>获取模型：<code>gs://sf-ctrl/seqlen256_v1.ckpt/</code> or <code>gs://sf-ctrl/seqlen512_v1.ckpt/</code> or <code>gs://sf-ctrl/seqlen256_36layers_v0.ckpt/</code>.</p>
+<ul>
+<li>有 <a href="https://cloud.google.com/storage/docs/gsutil_install" target="_blank" rel="noopener">gsutil</a>：<code>gsutil -m cp -r gs://sf-ctrl/seqlen256_v1.ckpt/ .</code></li>
+<li>没有：根据这个<a href="https://github.com/salesforce/ctrl/issues/7#issuecomment-531303214" target="_blank" rel="noopener">链接</a>，要翻墙，且记得创建一个文件夹，比如：<code>mkdir -p seqlen256_v1.ckpt</code>。用 <code>wget</code> 貌似不用翻墙也可以直接下载。注意：模型有十几个 G。</li>
+</ul>
+</li>
+<li><p>运行：<code>generation.py</code> 或 <code>source_attribution.py</code></p>
+<ul>
+<li><code>generation.py</code> 提示用户输入文本，然后生成接下来的部分</li>
+<li><code>source_attribution.py</code> 提示用户输入文本，然后列出排序的 domain 和文本基于 domain 的 ppl</li>
+</ul>
+</li>
+<li><p>精调：</p>
+<ul>
+<li>修复 <code>keras.py</code></li>
+<li>获取数据并转为 TFRecords：<code>python make_tf_records.py --text_file YOUR_FILE --control_code YOUR_CTRL_CODE --sequence_len 256</code>，<code>CTRL_CODE</code> 是一个词表中的 token，会被添加到每条数据中；<code>sequence_len</code> 需要和训练时的一样。</li>
+<li>训练：<code>python training.py --model_dir &lt;path_to_model&gt;.ckpt/ --iterations &lt;number_of_iterations&gt;</code>，如果数据很少，可以调低 <code>iterations</code>。</li>
+<li>生成：<code>python training.py --model_dir seqlen256_v1.ckpt/ --iterations 250</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><p><code>source_attribution.py</code> 比较简单，导进来模型后，根据输入的文本循环计算不同 domain 的 ppl，然后从大到小排序输出。代码是这样子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ppls = &#123;&#125;</span><br><span class="line">xent = <span class="number">0</span></span><br><span class="line"><span class="comment"># 计算其中一个 domain 的 ppl</span></span><br><span class="line"><span class="comment"># text[1:] 把 domain 去掉</span></span><br><span class="line"><span class="keyword">for</span> sequence_idx, token_idx <span class="keyword">in</span> enumerate(text[<span class="number">1</span>:]):</span><br><span class="line">    token = idx2word[token_idx]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># compute the probability of this token</span></span><br><span class="line">    Z = np.exp(token_scores[sequence_idx]).sum()</span><br><span class="line">    token_prob = np.exp(token_scores[sequence_idx, token_idx]) / Z </span><br><span class="line">    xent -= np.log(token_prob) / len(text[<span class="number">1</span>:])</span><br><span class="line"></span><br><span class="line">ppls[domain] = round(np.exp(xent), <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<p>ppl 用了下面这个公式（这里底数用了自然对数）：</p>
+<script type="math/tex; mode=display">
+P P(S)=2^{-\frac{1}{N} \sum \log \left(P\left(w_{i}\right)\right)}</script><p><code>generation.py</code> 是生成的代码，有几个需要注意的：</p>
+<ul>
+<li><p>如果输入的 token 超过了 <code>seq_length</code>（如上面的 256），则划过前面若干个 token 让剩下的在范围内：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># text 为输入的文本 ids</span></span><br><span class="line"><span class="keyword">for</span> token <span class="keyword">in</span> range(len(text)<span class="number">-1</span>, args.generate_num<span class="number">-1</span>):</span><br><span class="line">    <span class="comment"># get the logits from the prediction function</span></span><br><span class="line">    <span class="comment"># the logic here is a bit convoluted because we are allowing generation past 512 tokens</span></span><br><span class="line">    <span class="comment"># this is done by sliding the window over (past 512 tokens) and continuing prediction</span></span><br><span class="line">    <span class="keyword">if</span> token &lt;= seq_length:</span><br><span class="line">        prompt_logits = predict_fn(&#123;<span class="string">'input_1'</span>:tokens_generated[:, :seq_length]&#125;)[<span class="string">'tied_embedding_softmax'</span>].squeeze() / (temperature <span class="keyword">if</span> temperature&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="number">1.</span>)</span><br><span class="line">        _token = token <span class="keyword">if</span> token &lt; seq_length <span class="keyword">else</span> <span class="number">-1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        _token = <span class="number">-1</span></span><br><span class="line">        <span class="comment"># slide 在这里</span></span><br><span class="line">        end = token + <span class="number">1</span></span><br><span class="line">        start = token - seq_length + <span class="number">2</span></span><br><span class="line">        prompt_logits = predict_fn(&#123;<span class="string">'input_1'</span>:np.hstack((tokens_generated[:,<span class="number">0</span>:<span class="number">1</span>], tokens_generated[:,start:end]))&#125;)[<span class="string">'tied_embedding_softmax'</span>].squeeze() / (temperature <span class="keyword">if</span> temperature&gt;<span class="number">0</span> <span class="keyword">else</span> <span class="number">1.</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>计算 <code>logits</code> 使用了 temperature-controlled stochastic sampling 方法</p>
+</li>
+<li><p>使用了惩罚：</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if penalty (for repetition) is non-zero,</span></span><br><span class="line"><span class="comment"># discount the logits from already generated tokens</span></span><br><span class="line"><span class="keyword">if</span> penalty&gt;<span class="number">0</span>:</span><br><span class="line">    penalized_so_far = set()</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> range(token+<span class="number">1</span>):</span><br><span class="line">        generated_token = tokens_generated[<span class="number">0</span>][_]</span><br><span class="line">        <span class="comment"># don't penalize newlines</span></span><br><span class="line">        <span class="comment"># you could also choose not to penalize frequent words</span></span><br><span class="line">        <span class="comment"># (which incidentally are sorted in the vocab file)</span></span><br><span class="line">        <span class="comment"># but I don't do that</span></span><br><span class="line">        <span class="comment"># if it prints too many new lines instead of continuing generating text,</span></span><br><span class="line">        <span class="comment"># you might want to comment this out</span></span><br><span class="line">        <span class="keyword">if</span> idx2word[generated_token] == <span class="string">'\n'</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">if</span> generated_token <span class="keyword">in</span> penalized_so_far:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        penalized_so_far.add(generated_token)</span><br><span class="line">        prompt_logits[_token][generated_token] /= penalty</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择 next token 时有三种方法：top-k，启发式 k，所有的 token</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># compute probabilities from logits</span></span><br><span class="line">prompt_probs = np.exp(prompt_logits[_token])</span><br><span class="line">prompt_probs = prompt_probs / sum(prompt_probs)</span><br><span class="line"><span class="comment"># 从小到大排列再反转</span></span><br><span class="line">pruned_list = np.argsort(prompt_probs)[::<span class="number">-1</span>]</span><br><span class="line"><span class="comment"># if you are using nucleus prob, then compute the nucleus probability size</span></span><br><span class="line"><span class="keyword">if</span> nucleusprob &gt; <span class="number">0.</span>:</span><br><span class="line">    minimum_topk = <span class="number">1</span></span><br><span class="line">    nucleus = max(np.where(np.cumsum(np.sort(prompt_probs)[::<span class="number">-1</span>])&gt;nucleusprob)[<span class="number">0</span>][<span class="number">0</span>], minimum_topk)</span><br><span class="line"><span class="keyword">elif</span> topk &gt; <span class="number">0</span>:</span><br><span class="line">    <span class="comment"># we are over-loading notation here</span></span><br><span class="line">    <span class="comment"># if you choose to specify a topk instead of a nucleus,</span></span><br><span class="line">    <span class="comment"># we will hardcode the nucleus to be just that</span></span><br><span class="line">    nucleus = topk</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># if you specify neither nucleus or topk,</span></span><br><span class="line">    <span class="comment"># then we will use the whole list</span></span><br><span class="line">    nucleus = len(pruned_list)</span><br><span class="line">            </span><br><span class="line">pruned_list = pruned_list[:nucleus]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最后也是最重要的——模型： <code>transformer.py</code></p>
+<ul>
+<li><p>Encoder: lookup -&gt; sqrt -&gt; add position -&gt; Dropout -&gt; EncoderLayer -&gt; LayerNormalization</p>
+</li>
+<li><p>EncoderLayer: </p>
+<ul>
+<li>Block1: LayerNormalization -&gt; MultiHeadAttention -&gt; Dropout -&gt; +x = out1</li>
+<li>Block2:  out1 -&gt; LayerNormalization -&gt; FFN -&gt; Dropout -&gt; +out1 = out2</li>
+</ul>
+</li>
+<li><p>MultiHeadAttention: v,k,q = LayerNormalization(x) -&gt; scaled_dot_product_attention</p>
+</li>
+</ul>
+<p>精调的 <code>train.py</code> 是在已有的模型基础上 train 的，不是特别复杂，在 <code>training_utils</code> 下面，这里略过了。</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>相信通过以上内容能够对论文和代码有个基本的了解，论文其实还好，代码的细节还是不少的（比如上面提到的），相比而言 model 本身倒是没有什么特别的。如果要迁移到中文，Input 需要做一些调整，再就是需要从头到尾训模型。作者已经发布的 256 seqlen 的有十几个 G，有 GPU 或 TPU 的可以尝试跑一个。</p>
+<p>本文最大的特色体现在 “CTRL”，使用 control code 控制文本生成，控制代码可以是主题、实体、关系、特定任务等等。其实它的本质与之前的 Bert 类似：多任务 + 语言模型；这里的多任务可以看作是一个多分类任务。不过本文的切入角度是 “控制文本生成”，虽然是以类别标签的方式，但不得不说这是一个不错的创新点。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/09/28/Paper/2019-09-28-CTRL/">
+    <time datetime="2019-09-28T12:00:00.000Z" class="entry-date">
+        2019-09-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ctrl/">Ctrl</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Text-Generation/">Text Generation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/">Transformer</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/" rel="next">GraphQL Glance <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    <aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
+    <div>
+        <input type="text" value="" name="s" id="s" />
+        <input type="submit" id="searchsubmit" value="搜索" />
+    </div>
+</form></aside>
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">22</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">47</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">12</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2019/09/28/Paper/2019-09-28-CTRL/">CTRL 论文 + 实践  + 源码</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/">GraphQL Glance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/LeetCode/2019-08-06-LeetCode/">LeetCode</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/06/SLP/2019-08-06-SLP/">Speech and Language Processing (3rd) Note</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AE/">AE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">43</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AR/">AR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beam-Search/">Beam Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert/">Bert</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CCG/">CCG</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CFG/">CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CKY/">CKY</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CYK/">CYK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChatBot/">ChatBot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chunking/">Chunking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Code/">Code</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collins-Parser/">Collins Parser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context-Free-Grammars/">Context-Free Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine/">Cosine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Entropy/">Cross Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-brackets/">Cross-brackets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ctrl/">Ctrl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNN/">DNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoding/">Decoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ERNIE/">ERNIE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elixir/">Elixir</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embeddings/">Embeddings</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F1/">F1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-based/">Feature-based</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fine-tuning/">Fine-tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Analysis/">Formal Analysis</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Grammars/">Formal Grammars</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Full-Text-Search/">Full-Text-Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GRU/">GRU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garden-path/">Garden-path</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradient-Descent/">Gradient Descent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/">GraphQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Theory/">Information Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexical-Semantics/">Lexical Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-CFG/">Lexicalized CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-Grammars/">Lexicalized Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Sturcture/">Linear Sturcture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logistic-Regression/">Logistic Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucene/">Lucene</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MEMM/">MEMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher/">Manacher</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Materialized-Views/">Materialized Views</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Median/">Median</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLG/">NLG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">44</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLU/">NLU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naive-Bayes/">Naive Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Occupation/">Occupation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCCG/">PCCG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCFG/">PCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPMI/">PPMI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Palindromic/">Palindromic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Paper/">Paper</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-Parsing/">Partial Parsing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammars/">Phrase Structure Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PoS/">PoS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Position-Encoding/">Position-Encoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgres/">Postgres</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-training/">Pre-training</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretraining/">Pretraining</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Model/">Probabilistic Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Query/">Query</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/">Queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SCFG/">SCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGD/">SGD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SRN/">SRN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-Attention/">Self-Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentiment-Classification/">Sentiment Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slide/">Slide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/">Stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Substring/">Substring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supertagging/">Supertagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF/">TF-IDF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tagging/">Tagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Generation/">Text Generation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/">Transformer</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer-XL/">Transformer-XL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Treebank/">Treebank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vector-Semantics/">Vector Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word2vec/">Word2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XLNet/">XLNet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge-Graph/">knowledge Graph</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 18.33px;">AI</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Attention/" style="font-size: 10px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert/" style="font-size: 10px;">Bert</a> <a href="/tags/Binary-Search/" style="font-size: 10px;">Binary Search</a> <a href="/tags/Business/" style="font-size: 10px;">Business</a> <a href="/tags/C/" style="font-size: 11.67px;">C</a> <a href="/tags/CCG/" style="font-size: 11.67px;">CCG</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Code/" style="font-size: 10px;">Code</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer-Science/" style="font-size: 15px;">Computer Science</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Cosine/" style="font-size: 10px;">Cosine</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/DB/" style="font-size: 11.67px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Science/" style="font-size: 13.33px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/DeepLearning/" style="font-size: 15px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 11.67px;">Diary</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Elixir/" style="font-size: 10px;">Elixir</a> <a href="/tags/Embeddings/" style="font-size: 11.67px;">Embeddings</a> <a href="/tags/Entropy/" style="font-size: 11.67px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 11.67px;">Evaluation</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Analysis/" style="font-size: 10px;">Formal Analysis</a> <a href="/tags/Formal-Grammars/" style="font-size: 13.33px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/GraphQL/" style="font-size: 11.67px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 11.67px;">HMM</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/LM/" style="font-size: 11.67px;">LM</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 10px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 11.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Ngram/" style="font-size: 11.67px;">Ngram</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Paper/" style="font-size: 10px;">Paper</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Philosophy/" style="font-size: 11.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 11.67px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-training/" style="font-size: 10px;">Pre-training</a> <a href="/tags/Pretraining/" style="font-size: 11.67px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SQL/" style="font-size: 11.67px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10px;">Search</a> <a href="/tags/Self-Attention/" style="font-size: 10px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 11.67px;">Smoothing</a> <a href="/tags/Sort/" style="font-size: 10px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/System/" style="font-size: 11.67px;">System</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/Transformer/" style="font-size: 13.33px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 11.67px;">Viterbi</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2019 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
