@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/jupyter-notebook-screen-snapshot-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/htop-screen-snap-1.jpeg">
-<meta property="og:updated_time" content="2019-12-09T12:36:30.050Z">
+<meta property="og:updated_time" content="2019-12-09T12:49:20.106Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AINLP GPU 使用体验指南">
 <meta name="twitter:description" content="AINLP-DBC GPU 是一个 GPU 算力服务平台，采用 DBC TOKEN 进行结算。在这里可以租用 GPU，也可以将自己的 GPU 出租出去。 注册第一步：创建钱包 这里需要输入密码，之后会产生一个加密后的私钥文件，下载继续后会产生你真正的私钥。一定要记住你的密码并在物理介质上保存好加密后的私钥文件以及你的私钥。只有通过密码+加密的私钥文件，或者私钥才能打开你的钱包，如果都丢了，就等于你">
@@ -105,17 +105,19 @@
 <p>第三步：<a href="https://gpu.ainlp.cn/gpu/myMachineUnlock" target="_blank" rel="noopener">绑定邮箱</a></p>
 <p>点击 “绑定邮箱” 后，输入邮箱地址，会给你发送一个类似 <code>请输入如下数量dbc:0.7311,验证有效期为30分钟</code> 内容的邮件，将对应的额度（比如这里的 0.7311）输入 “验证的 DBC 数量” 框即可完成绑定。</p>
 <p>第四步：<a href="https://gpu.ainlp.cn/gpu/list" target="_blank" rel="noopener">选择机器</a></p>
-<p>在列表中选择一台符合自己要求的机器，即可开始使用。</p>
+<p>在列表中选择一台符合自己要求的机器，点击 “租用” 后，填写租用时长（最短 1 小时），等待大约 1 分钟左右（验证机器环境），确认支付后就可以正式使用了。</p>
 <a id="more"></a>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在使用之前有一点必须说明下，当你所用的机子过了租用时间后，你是【<strong>没办法再登陆的</strong>】。所以一定要及时做好相关文件的传输，别训练了半天最后啥都没了。</p>
-<p>当选择 “租用” 后，需要填写租用时长，最短 1 小时。等待大约 1 分钟左右（验证机器环境），确认支付后就可以正式使用了。在支付成功后，会有一封邮件发送到你的邮箱，这封邮件里包含了很多信息，主要包括：</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在使用之前有一点必须先特别强调下：当你所用的机子过了租用时间后，你是【<strong>没办法再登陆的</strong>】。所以一定要及时做好相关文件的保存、传输（后面会说到具体方法，邮件中也有这块内容），别训练了半天最后啥都没了。</p>
+<p>当支付成功后，会有一封邮件发送到你的邮箱，这封邮件里包含了很多信息，主要包括：</p>
 <ul>
 <li>机器的 SSH 登陆信息</li>
 <li>环境配置信息</li>
 <li>注意事项</li>
 <li>常见问题汇总</li>
 </ul>
-<p>在正式开始之前，需要说明一下，下面所有 <strong>“本地机器”</strong> 的操作都是在 Mac 下执行的，Linux 应该类似，Windows 可能会稍微不同，大家注意按需调整。</p>
+<blockquote>
+<p>需要说明下，下面所有 <strong>“本地机器”</strong> 的操作都是在 Mac 下执行的，Linux 应该类似，Windows 可能会稍微不同，大家注意按需调整。</p>
+</blockquote>
 <h3 id="登陆-ssh"><a href="#登陆-ssh" class="headerlink" title="登陆 ssh"></a>登陆 ssh</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -p 52909 root@110.80.33.140</span><br><span class="line">The authenticity of host <span class="string">'[110.80.33.140]:52909 ([110.80.33.140]:52909)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string">ECDSA key fingerprint is SHA256:Nsub+uKd2LK7XmjB/n91gRXNk2sJOAX7PnXF7vZkhWU.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)? yes</span></span><br><span class="line"><span class="string">Warning: Permanently added '</span>[110.80.33.140]:52909<span class="string">' (ECDSA) to the list of known hosts.</span></span><br><span class="line"><span class="string">root@110.80.33.140'</span>s password:</span><br></pre></td></tr></table></figure>
 <p>这里先输入 yes，然后输入邮件中的密码，就可以直接登陆到远程机器里面了。接下来，这台机子就是你的了。你可以把它当做自己的本地电脑一样使用。</p>
 <p>如果你租用的时间不长，那密码改不改问题不大，否则你需要修改一下登陆密码：</p>
