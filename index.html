@@ -319,6 +319,7 @@
     <div class="entry-content">
       
         <p>本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。</p>
+<p>项目地址：<a href="https://github.com/hscspring/NLM" target="_blank" rel="noopener">https://github.com/hscspring/NLM</a></p>
 <h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><p>图数据库的典型代表是 <a href="http://neo4j.com/" target="_blank" rel="noopener">Neo4j</a>，Neo4j 中有几个很重要的概念：标签、节点和关系。标签是一类节点，可以看作是节点的类别，节点一般是某一个实体；关系存在于两个实体间，可以有多种不同的关系。节点和关系可以有多个属性。实践来看，Python 语言可以使用社区的 <a href="https://github.com/technige/py2neo" target="_blank" rel="noopener">technige/py2neo</a>，当然还可以使用官方的 <a href="https://github.com/neo4j/neo4j-python-driver" target="_blank" rel="noopener">neo4j/neo4j-python-driver: Neo4j Bolt driver for Python</a>，两者的目的都是将数据 import 进 database 并进行相应的查询。</p>
 <p>Neo4j 的特点要求导入的数据尽量是结构化的，也就是我们要事先有实体和它的类别（实体的属性可有可无），实体与实体间的关系（关系的属性可有可无）。我们期待能从对话或无监督的语料中自动提取实体和关系，然后自动 import 进 Neo4j。为了避免导入数据的混乱，自然最好能有先验的 “类别”，比如节点类别 Person，Movie 等，关系类别 LOVES，ACTS 等。所以，对于文本输入，我们需要一个信息提取器，将文本中的符合先验类别的节点和关系提取出来。如果输入是 NLU 模块输出的 ”意图和实体“ ，则需要一个分类器，将意图分类到对应的 Relation 类别，将实体分类到 Node 类别。</p>
         
@@ -741,21 +742,6 @@
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
