@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 SLP 第 18 章的内容，最近在做一个 chatbot 的 NLMLayer 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。 属性一般的形式是（实体，属性，属性值），关系的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-12T02:37:17.441Z">
+<meta property="og:updated_time" content="2019-12-12T02:43:04.656Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关系提取简述">
 <meta name="twitter:description" content="之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 SLP 第 18 章的内容，最近在做一个 chatbot 的 NLMLayer 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。 属性一般的形式是（实体，属性，属性值），关系的">
@@ -317,28 +317,22 @@
 </ul>
 <h2 id="评价方法"><a href="#评价方法" class="headerlink" title="评价方法"></a>评价方法</h2><p>评价指标还是以 F1 为主：</p>
 <ul>
-<li><p>属性判别是二分类任务，直接用 F1 评估。</p>
-</li>
-<li><p>关系分类使用 Macro-averaged F1（9 个关系，不包括 OTHER，考虑关系方向）。</p>
-</li>
+<li>属性判别是二分类任务，直接用 F1 评估。</li>
+<li>关系分类使用 Macro-averaged F1（9 个关系，不包括 OTHER，考虑关系方向）。</li>
 <li>FewRel 主要是在 5-way-1-shot，5-way-5-shot，10-way-1-shot 和 10-way-5-shot 几个任务上的准确率。</li>
 <li>NYT 主要使用 N 个结果的精准率或 PR 图。</li>
 <li>TACRED 使用 Micro-averaged F1（不包括 no_relation type）。</li>
 </ul>
 <h2 id="更多资源"><a href="#更多资源" class="headerlink" title="更多资源"></a>更多资源</h2><p>CrowdTruth Corpus 相关：</p>
 <ul>
-<li><p><a href="https://github.com/CrowdTruth/CrowdTruth-core" target="_blank" rel="noopener">CrowdTruth/CrowdTruth-core: CrowdTruth framework for crowdsourcing ground truth for training &amp; evaluation of AI systems</a></p>
-</li>
-<li><p><a href="https://github.com/CrowdTruth/Open-Domain-Relation-Extraction" target="_blank" rel="noopener">CrowdTruth/Open-Domain-Relation-Extraction: Crowdsourced data for open domain relation classification from sentences</a></p>
-</li>
+<li><a href="https://github.com/CrowdTruth/CrowdTruth-core" target="_blank" rel="noopener">CrowdTruth/CrowdTruth-core: CrowdTruth framework for crowdsourcing ground truth for training &amp; evaluation of AI systems</a></li>
+<li><a href="https://github.com/CrowdTruth/Open-Domain-Relation-Extraction" target="_blank" rel="noopener">CrowdTruth/Open-Domain-Relation-Extraction: Crowdsourced data for open domain relation classification from sentences</a></li>
 <li><a href="https://github.com/CrowdTruth/Medical-Relation-Extraction" target="_blank" rel="noopener">CrowdTruth/Medical-Relation-Extraction: Crowdsourced ground truth for medical relation extraction.</a></li>
 </ul>
 <p>其他资源：</p>
 <ul>
-<li><p><a href="https://github.com/roomylee/awesome-relation-extraction" target="_blank" rel="noopener">roomylee/awesome-relation-extraction: 📖 A curated list of awesome resources dedicated to Relation Extraction, one of the most important tasks in Natural Language Processing (NLP).</a></p>
-</li>
-<li><p><a href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md" target="_blank" rel="noopener">NLP-progress/relationship_extraction.md at master · sebastianruder/NLP-progress</a></p>
-</li>
+<li><a href="https://github.com/roomylee/awesome-relation-extraction" target="_blank" rel="noopener">roomylee/awesome-relation-extraction: 📖 A curated list of awesome resources dedicated to Relation Extraction, one of the most important tasks in Natural Language Processing (NLP).</a></li>
+<li><a href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md" target="_blank" rel="noopener">NLP-progress/relationship_extraction.md at master · sebastianruder/NLP-progress</a></li>
 </ul>
 <p>参考资料：</p>
 <ul>
