@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-few-shot-charge-prediction-4.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-few-shot-charge-prediction-5.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-shot-charge-prediction-6.jpeg">
-<meta property="og:updated_time" content="2019-12-15T11:07:05.847Z">
+<meta property="og:updated_time" content="2019-12-15T11:13:44.214Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Few-Shot Charge Prediction with Discriminative Legal Attributes Note">
 <meta name="twitter:description" content="Paper: coling2018_attribute.pdf code: thunlp/attribute_charge 核心思想：基于类别属性的注意力机制共同学习属性感知和无属性的文本表示。 这是 COLING2018 上的一篇老论文了，最近因为一些事情正好遇上，当时大概看了一下就发现这篇文章正好解决了我之前在做多分类任务时没有解决的问题。所以拿来记录一下，顺便研究下代码。">
@@ -159,51 +159,30 @@
 <p>不过这些方法只能提取在大数据集上难以收集的浅层语义表征或手动标签，而且，常规模型无法捕捉相似犯罪之间的细微差别。</p>
 <p>随着深度学习的兴起，Luo et al. (2017) 提出了一个分层注意力网络同时预测罪名并提取相关文章。</p>
 <h2 id="Method"><a href="#Method" class="headerlink" title="Method"></a>Method</h2><h3 id="Discriminative-Charge-Attributes"><a href="#Discriminative-Charge-Attributes" class="headerlink" title="Discriminative Charge Attributes"></a>Discriminative Charge Attributes</h3><p>为所有罪名引入了 10 个判别属性，对每个（罪名，属性）对，可以标记为是，否或不可用）。比如，故意杀人罪的指控在故意犯罪上标记为 “否”，在死亡时标记为 “是”，在国家机关标记为 “不适用”。对特定属性，特定案件的标签和相应罪名的标签应相同或不冲突。在实践中，手动标记了 149 种不同罪名的属性，然后为每个案例分配与其相应罪名相同的属性。<img src="http://qnimg.lovevivian.cn/paper-few-shot-charge-prediction-1.jpeg" alt=""></p>
-<h3 id="Formalizations"><a href="#Formalizations" class="headerlink" title="Formalizations"></a>Formalizations</h3><ul>
-<li><p>Charge Prediction：给定犯罪事实文本，预测一个罪名</p>
-</li>
-<li><p>Attributes Prediction：二分类任务，给定犯罪事实文本，预测每个属性的分类</p>
-</li>
-<li><p>Fact Encoder: LSTM + Max-Pooling 获得无属性文本表征</p>
+<h3 id="Formalizations"><a href="#Formalizations" class="headerlink" title="Formalizations"></a>Formalizations</h3><h4 id="Charge-Prediction-1"><a href="#Charge-Prediction-1" class="headerlink" title="Charge Prediction"></a>Charge Prediction</h4><p>给定犯罪事实文本，预测一个罪名</p>
+<h4 id="Attributes-Prediction"><a href="#Attributes-Prediction" class="headerlink" title="Attributes Prediction"></a>Attributes Prediction</h4><p>二分类任务，给定犯罪事实文本，预测每个属性的分类</p>
+<h4 id="Fact-Encoder"><a href="#Fact-Encoder" class="headerlink" title="Fact Encoder"></a>Fact Encoder</h4><p>LSTM + Max-Pooling 获得无属性文本表征</p>
 <script type="math/tex; mode=display">
-  e_{i}=\max \left(\mathbf{h}_{1, i}, \cdots, \mathbf{h}_{n, i}\right), \forall i \in[1, s]</script><p>  s 是 hidden states 的维度。n 是 time step。也就是取了每个 hidden state 中的最大值提出来重新组成一个向量作为句子的表征。</p>
-</li>
-<li><p>Attentive Attribute Predictor: 采用注意力机制从犯罪事实文本中选择相关信息并生成属性感知的事实表示。</p>
-<ul>
-<li>输入为 hidden states 序列：<code>h = {h1, ..., hn}</code></li>
-</ul>
-</li>
-<li><p>然后计算所有属性的 attention weights <code>a = {a1, ..., ak}</code>，<code>ai = [ai1,...ain]</code>：</p>
-<pre><code>$$
-a_{i, j}=\frac{\exp \left(\tanh \left(\mathbf{W}^{a} \mathbf{h}_{j}\right)^{T} \mathbf{u}_{i}\right)}{\sum_{t} \exp \left(\tanh \left(\mathbf{W}^{a} \mathbf{h}_{t}\right)^{T} \mathbf{u}_{i}\right)}
-</code></pre><script type="math/tex; mode=display">
-
-ui 是第 i 个属性的上下文向量，用于计算元素对属性的信息程度。Wα 是所有属性共享的权重矩阵。
-
-  - 然后得到属性感知的表示：`g = {g1, ..., gk}`，`gi = Σt ait ht`
-
-  - 最后用 g + softmax 获得 p 的预测结果：</script><pre><code>  \begin{array}{l}{\mathbf{z}_{i}=\operatorname{softmax}\left(\mathbf{W}_{i}^{p} \mathbf{g}_{i}+\mathbf{b}_{i}^{p}\right)} \\ {p_{i}=\arg \max \left(\mathbf{z}_{i}\right)}\end{array}
-  $$
-</code></pre></li>
-<li><p>Output Layer: 属性无关 + 属性感知表示预测最终的罪名:</p>
+e_{i}=\max \left(\mathbf{h}_{1, i}, \cdots, \mathbf{h}_{n, i}\right), \forall i \in[1, s]</script><p>s 是 hidden states 的维度。n 是 time step。也就是取了每个 hidden state 中的最大值提出来重新组成一个向量作为句子的表征。</p>
+<h4 id="Attentive-Attribute-Predictor"><a href="#Attentive-Attribute-Predictor" class="headerlink" title="Attentive Attribute Predictor"></a>Attentive Attribute Predictor</h4><p>采用注意力机制从犯罪事实文本中选择相关信息并生成属性感知的事实表示。</p>
+<p>Step1: 输入为 hidden states 序列：<code>h = {h1, ..., hn}</code></p>
+<p>Step 2: 然后计算所有属性的 attention weights <code>a = {a1, ..., ak}</code>，<code>ai = [ai1,...ain]</code>：</p>
 <script type="math/tex; mode=display">
-  \begin{aligned} \mathbf{r} &=\frac{\sum_{i} \mathbf{g}_{\mathbf{i}}}{k} \\ \mathbf{v} &=\mathbf{e} \oplus \mathbf{r} \\ y &=\operatorname{softmax}\left(\mathbf{W}^{y} \mathbf{v}+\mathbf{b}^{y}\right) \end{aligned}</script></li>
-<li><p>Optimization: 包括两部分</p>
-<ul>
-<li><p>最小化预测罪名和真实罪名分布的交叉熵（C 是罪名总数）</p>
+a_{i, j}=\frac{\exp \left(\tanh \left(\mathbf{W}^{a} \mathbf{h}_{j}\right)^{T} \mathbf{u}_{i}\right)}{\sum_{t} \exp \left(\tanh \left(\mathbf{W}^{a} \mathbf{h}_{t}\right)^{T} \mathbf{u}_{i}\right)}</script><p>ui 是第 i 个属性的上下文向量，用于计算元素对属性的信息程度。Wα 是所有属性共享的权重矩阵。</p>
+<p>Step3: 然后得到属性感知的表示：<code>g = {g1, ..., gk}</code>，<code>gi = Σt ait ht</code></p>
+<p>Step4: 最后用 g + softmax 获得 p 的预测结果：</p>
 <script type="math/tex; mode=display">
-  \mathcal{L}_{\text {charge}}=-\sum_{i=1}^{C} y_{i} \cdot \log \left(\hat{y}_{i}\right)</script></li>
-<li><p>最小化每个属性预测分布和真实分布的交叉熵（求和是或否的 loss）</p>
+\begin{array}{l}{\mathbf{z}_{i}=\operatorname{softmax}\left(\mathbf{W}_{i}^{p} \mathbf{g}_{i}+\mathbf{b}_{i}^{p}\right)} \\ {p_{i}=\arg \max \left(\mathbf{z}_{i}\right)}\end{array}</script><h4 id="Output-Layer"><a href="#Output-Layer" class="headerlink" title="Output Layer"></a>Output Layer</h4><p>属性无关 + 属性感知表示预测最终的罪名:</p>
 <script type="math/tex; mode=display">
-  \mathcal{L}_{a t t r}=-\sum_{i=1}^{k} I_{i} \sum_{j=1}^{2} z_{i j} \cdot \log \left(\hat{z}_{i j}\right)</script><p>  <code>Ii</code> 指示 label 是 <code>yes/no (Ii=1)</code> 还是 NA（<code>Ii=0</code>)</p>
-</li>
-<li><p>最终的 loss function（α 是超参数）：</p>
+\begin{aligned} \mathbf{r} &=\frac{\sum_{i} \mathbf{g}_{\mathbf{i}}}{k} \\ \mathbf{v} &=\mathbf{e} \oplus \mathbf{r} \\ y &=\operatorname{softmax}\left(\mathbf{W}^{y} \mathbf{v}+\mathbf{b}^{y}\right) \end{aligned}</script><h4 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a>Optimization</h4><p>包括两部分</p>
+<p>Part1: 最小化预测罪名和真实罪名分布的交叉熵（C 是罪名总数）</p>
 <script type="math/tex; mode=display">
-  \mathcal{L}=\mathcal{L}_{c h a r g e}+\alpha \cdot \mathcal{L}_{a t t r}</script></li>
-</ul>
-</li>
-</ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-few-shot-charge-prediction-2.jpeg" alt=""></p>
+\mathcal{L}_{\text {charge}}=-\sum_{i=1}^{C} y_{i} \cdot \log \left(\hat{y}_{i}\right)</script><p>Part2: 最小化每个属性预测分布和真实分布的交叉熵（求和是或否的 loss）</p>
+<script type="math/tex; mode=display">
+\mathcal{L}_{a t t r}=-\sum_{i=1}^{k} I_{i} \sum_{j=1}^{2} z_{i j} \cdot \log \left(\hat{z}_{i j}\right)</script><p><code>Ii</code> 指示 label 是 <code>yes/no (Ii=1)</code> 还是 NA（<code>Ii=0</code>)</p>
+<p>最终的 loss function（α 是超参数）：</p>
+<script type="math/tex; mode=display">
+\mathcal{L}=\mathcal{L}_{c h a r g e}+\alpha \cdot \mathcal{L}_{a t t r}</script><p><img src="http://qnimg.lovevivian.cn/paper-few-shot-charge-prediction-2.jpeg" alt=""></p>
 <h2 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h2><h3 id="Dataset-Construction"><a href="#Dataset-Construction" class="headerlink" title="Dataset Construction"></a>Dataset Construction</h3><p>数据来源：<a href="http://wenshu.court.gov.cn/" target="_blank" rel="noopener">中国判决文书网</a></p>
 <p>简单起见，将多个罪名的调整为一个罪名；同时为了检查模型在 few-shot 任务中的表现，将罪名调成为 149 个完全不同的（每个罪名至少包含 10 个案例）。</p>
 <p>随机选择了 40 万案例构建了三个不同量级的数据集，它们包含的罪名相同，只是数量不同。</p>
@@ -421,6 +400,21 @@ ui 是第 i 个属性的上下文向量，用于计算元素对属性的信息�
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
