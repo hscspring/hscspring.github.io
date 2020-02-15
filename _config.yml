@@ -97,19 +97,28 @@ mathjax:
 
 
 # #RSS订阅
-# plugin:
-# - hexo-generator-feed
+plugin:
+    hexo-generator-feed
 
-# feed:
-#     type: atom
-#     path: atom.xml
-#     limit: 20
+feed:
+    type: atom
+    path: atom.xml
+    limit: 20
+    hub:
+    content:
+    content_limit: 140
+    content_limit_delim: ' '
+    order_by: -date
+    icon: icon.png
+    autodiscovery: true
+    template:
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
     type: git
-    repo: git@github.com:hscspring/hscspring.github.io.git
+    repo:
+        github: git@github.com:hscspring/hscspring.github.io.git
     branch: master
 
 toc:
