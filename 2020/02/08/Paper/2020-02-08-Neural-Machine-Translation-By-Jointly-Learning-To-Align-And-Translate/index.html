@@ -14,20 +14,20 @@
   
   <title>Neural Machine Tanslation By Jointly Learning To Align And Translate Note | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。 Introduction传统的 NMT 是 phrase-based，如今用 encoder-decoder 架构。一个潜在的问题是 encoder 要将">
+  <meta name="description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。">
 <meta name="keywords" content="NLP,Attention,Bahdanau Attention">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural Machine Tanslation By Jointly Learning To Align And Translate Note">
 <meta property="og:url" content="https://www.yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。 Introduction传统的 NMT 是 phrase-based，如今用 encoder-decoder 架构。一个潜在的问题是 encoder 要将">
+<meta property="og:description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-nmt-attention-bahdanau-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-nmtbjltaat-2.jpeg">
-<meta property="og:updated_time" content="2020-02-15T07:11:40.028Z">
+<meta property="og:updated_time" content="2020-02-15T07:28:36.984Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neural Machine Tanslation By Jointly Learning To Align And Translate Note">
-<meta name="twitter:description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。 Introduction传统的 NMT 是 phrase-based，如今用 encoder-decoder 架构。一个潜在的问题是 encoder 要将">
+<meta name="twitter:description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-nmt-attention-bahdanau-1.jpeg">
   
   
@@ -100,6 +100,7 @@
               
         <p>paper: <a href="https://arxiv.org/pdf/1409.0473.pdf" target="_blank" rel="noopener">1409.0473.pdf</a></p>
 <h2 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h2><p>作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。</p>
+<a id="more"></a>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>传统的 NMT 是 phrase-based，如今用 encoder-decoder 架构。一个潜在的问题是 encoder 要将所有的信息压缩到一个固定长度的 vector，在句子长度比较长时（尤其是比训练数据中的句子还长）performance 下降很快。</p>
 <p>本文提出一个扩展的 encoder-decoder 模型，每当生成一个翻译的词时，它将在源句子中搜索一系列包含最相关信息的位置，然后基于上下文向量、相关的位置和所有已生成的词预测目标词。</p>
 <p>与原来的方法相比最大的特点是，它没有尝试将整个输入的句子编码成一个固定长度的向量，而是编码成一系列向量并在 decoding 时自动选择其中的一部分。这就与句子长度没有关系了。</p>
@@ -334,6 +335,21 @@ e_{i j}=a\left(s_{i-1}, h_{j}\right)</script><p><code>e_ij</code> 是一个 alig
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
