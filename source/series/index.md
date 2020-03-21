@@ -15,9 +15,11 @@ date: 2019-07-13 20:00:00
     - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/2018-07-12-NLP-Business-and-System/)
     - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/)
     - [ChatBot 设计方案](https://yam.gift/2019/07/20/2019-07-20-ChatBot-Design/)
+
 - 知识图谱
     - [关系提取简述](https://yam.gift/2019/12/11/KG/2019-12-11-Relationship-Extraction/)
     - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/2019-12-02-NLM/)
+
 - 论文笔记（按论文发表时间）：
     - [2019 ELECTRA](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
     - [2019 CTRL（+ 实践 + 源码）](https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/)
@@ -62,7 +64,6 @@ date: 2019-07-13 20:00:00
     - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
     - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
 
-
 - Python 小白快速入门教程
     - [Ch00：在开始前](https://yam.gift/2019/04/10/Py4F/2019-04-10-Python-for-Freshman-Ch00/)
     - [Ch01：基础知识](https://yam.gift/2019/10/02/Py4F/2019-10-02-Python-for-Freshman-Ch01/)
@@ -71,10 +72,8 @@ date: 2019-07-13 20:00:00
     - [Ch04：阅读源码](https://yam.gift/2019/10/06/Py4F/2019-10-06-Python-for-Freshman-Ch04/)
     - [Ch05：在结束后](https://yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/)
 
-
 - 剑指 Offer2（Python 版）解析
     - [剑指 Offer2（Python 版）解析（上）](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Explanation-Vol1/)
-
 
 - 数据结构与算法
     - [数据结构与算法：前言](https://yam.gift/2018/12/01/DS/2018-12-01-Ch00-Preface/)
