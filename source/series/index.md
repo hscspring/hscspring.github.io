@@ -10,14 +10,11 @@ date: 2019-07-13 20:00:00
 [自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/2017-04-09-NLPKnowledgeTree/)
 
 - 胡思乱想
-
     - [语言、AI、情感](https://yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/)
     - [NLP 与人工智能](https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/)
-
     - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/2018-07-12-NLP-Business-and-System/)
     - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/)
     - [ChatBot 设计方案](https://yam.gift/2019/07/20/2019-07-20-ChatBot-Design/)
-
 - 知识图谱
     - [关系提取简述](https://yam.gift/2019/12/11/KG/2019-12-11-Relationship-Extraction/)
     - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/2019-12-02-NLM/)
