@@ -7,16 +7,30 @@ date: 2019-07-13 20:00:00
 
 ## NLP
 
-- 论文（按论文发表时间）：
-    - [2015 Bahdanau Attention](https://yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/)
+[自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/2017-04-09-NLPKnowledgeTree/)
+
+- 胡思乱想
+
+    - [语言、AI、情感](https://yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/)
+    - [NLP 与人工智能](https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/)
+
+    - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/2018-07-12-NLP-Business-and-System/)
+    - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/)
+    - [ChatBot 设计方案](https://yam.gift/2019/07/20/2019-07-20-ChatBot-Design/)
+
+- 知识图谱
+    - [关系提取简述](https://yam.gift/2019/12/11/KG/2019-12-11-Relationship-Extraction/)
+    - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/2019-12-02-NLM/)
+- 论文笔记（按论文发表时间）：
+    - [2019 ELECTRA](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
+    - [2019 CTRL（+ 实践 + 源码）](https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/)
+    - [2019 ERNIE（+ 实践）](https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/)
+    - [2019 XLNet](https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/)
+    - [2019 Bert](https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/)
+    - [2018 Attributes External Feature](https://yam.gift/2019/12/15/Paper/2019-12-15-Few-Shot-Charge-Prediction-with-Discriminative-Legal-Attributes/)
+    - [2017 Attention](https://yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/)
     - [2016 NER with Bi-LSTM and CRF](https://yam.gift/2019/12/28/Paper/2019-12-28-Neural-Architectures-for-Named-Entity-Recognition/)
-    - [2017 Attention（笔记）](https://yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/)
-    - [2018 AttributesAsExternalFeature（笔记）](https://yam.gift/2019/12/15/Paper/2019-12-15-Few-Shot-Charge-Prediction-with-Discriminative-Legal-Attributes/)
-    - [2019 Bert（笔记）](https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/)
-    - [2019 XLNet（笔记）](https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/)
-    - [2019 ERNIE（笔记 + 实践）](https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/)
-    - [2019 CTRL（笔记 + 实践 + 源码）](https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/)
-    - [2019 ELECTRA（笔记）](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
+    - [2015 Bahdanau Attention](https://yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/)
 
 
 - 读书笔记：冯志伟《自然语言计算机形式分析的理论与方法》
@@ -39,25 +53,52 @@ date: 2019-07-13 20:00:00
     - [第十七章：自然语言处理系统评测](https://yam.gift/2018/09/05/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/)
     - [第十八章：自然语言处理中的理性主义与经验主义](https://yam.gift/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/)
 
+## DeepLearning
+
+- [Gan 原理、证明与实现](https://yam.gift/2018/03/26/2018-03-26-Gan-Series/)
+- [“心有麟熙”《强化学习炼金术》系列笔记](https://yam.gift/2018/05/07/2018-05-07-RL-Series/)
+
 ## Coding
 
 - LeetCode
-    - [Longest Substring Without Repeating Characters (LeetCode 3) | Yam](https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
-    - [Median of Two Sorted Arrays (LeetCode 4) | Yam](https://yam.gift/2019/07/18/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
-    - [Longest Palindromic Substring (LeetCode 5) | Yam](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
+    - [Longest Substring Without Repeating Characters (LeetCode 3)](https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
+    - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
+    - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
+
+
 - Python 小白快速入门教程
-    - [Ch00：在开始前 | Yam](https://yam.gift/2019/04/10/Py4F/2019-04-10-Python-for-Freshman-Ch00/)
-    - [Ch01：基础知识 | Yam](https://yam.gift/2019/10/02/Py4F/2019-10-02-Python-for-Freshman-Ch01/)
-    - [Ch02：使用模块 | Yam](https://yam.gift/2019/10/03/Py4F/2019-10-03-Python-for-Freshman-Ch02/)
-    - [Ch03：使用框架 | Yam](https://yam.gift/2019/10/10/Py4F/2019-10-10-Python-for-Freshman-Ch03/)
-    - [Ch04：阅读源码 | Yam](https://yam.gift/2019/10/06/Py4F/2019-10-06-Python-for-Freshman-Ch04/)
-    - [Ch05：在结束后 | Yam](https://yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/)
+    - [Ch00：在开始前](https://yam.gift/2019/04/10/Py4F/2019-04-10-Python-for-Freshman-Ch00/)
+    - [Ch01：基础知识](https://yam.gift/2019/10/02/Py4F/2019-10-02-Python-for-Freshman-Ch01/)
+    - [Ch02：使用模块](https://yam.gift/2019/10/03/Py4F/2019-10-03-Python-for-Freshman-Ch02/)
+    - [Ch03：使用框架](https://yam.gift/2019/10/10/Py4F/2019-10-10-Python-for-Freshman-Ch03/)
+    - [Ch04：阅读源码](https://yam.gift/2019/10/06/Py4F/2019-10-06-Python-for-Freshman-Ch04/)
+    - [Ch05：在结束后](https://yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/)
+
+
 - 剑指 Offer2（Python 版）解析
-    - [剑指 Offer2（Python 版）解析（上） | Yam](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Explanation-Vol1/)
+    - [剑指 Offer2（Python 版）解析（上）](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Explanation-Vol1/)
+
 
 - 数据结构与算法
-    - [数据结构与算法：前言 | Yam](https://yam.gift/2018/12/01/DS/2018-12-01-Ch00-Preface/)
-    - [数据结构与算法：导论 | Yam](https://yam.gift/2018/12/21/DS/2018-12-21-Ch01-Introduction/)
-    - [数据结构与算法：思考排序 | Yam](https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/)
-    - [数据结构与算法：线性结构 | Yam](https://yam.gift/2019/07/13/DS/2019-07-13-Ch03-Linear-Structure/)
+    - [数据结构与算法：前言](https://yam.gift/2018/12/01/DS/2018-12-01-Ch00-Preface/)
+    - [数据结构与算法：导论](https://yam.gift/2018/12/21/DS/2018-12-21-Ch01-Introduction/)
+    - [数据结构与算法：思考排序](https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/)
+    - [数据结构与算法：线性结构](https://yam.gift/2019/07/13/DS/2019-07-13-Ch03-Linear-Structure/)
+
+- C 语言课程笔记
+    - [浙大翁恺老师《程序设计入门 ——C 语言》笔记](https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/)
+    - [浙大翁恺老师《C 语言程序设计进阶》笔记](https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/)
+
+- 数据处理入门
+    - [正则表达式笔记](https://yam.gift/2017/09/04/2017-09-04-Regular-Expression/)
+    - [List, Dict, Array, Series, DataFrame 相互转换](https://yam.gift/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/)
+    - [Numpy 入门](https://yam.gift/2016/09/19/2016-09-19-NumPy/)
+    - [Pandas 入门](https://yam.gift/2017/03/05/2017-03-05-Pandas/)
+    - [绘制文本分类数据](https://yam.gift/2018/12/15/2018-12-15-Text-Classification-Data-Plot/)
+
+- 服务基础
+    - [GraphQL Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/)
+    - [GraphQL Elixir Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/)
+    - [常用 DataBase 相关操作和资源](https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/)
+    - [DataBase Foreign Data Wrapper](https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/)
 
