@@ -9,6 +9,7 @@ date: 2019-07-13 20:00:00
 
 [自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/2017-04-09-NLPKnowledgeTree/)
 
+
 - 胡思乱想
     - [语言、AI、情感](https://yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/)
     - [NLP 与人工智能](https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/)
@@ -16,9 +17,11 @@ date: 2019-07-13 20:00:00
     - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/)
     - [ChatBot 设计方案](https://yam.gift/2019/07/20/2019-07-20-ChatBot-Design/)
 
+
 - 知识图谱
     - [关系提取简述](https://yam.gift/2019/12/11/KG/2019-12-11-Relationship-Extraction/)
     - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/2019-12-02-NLM/)
+
 
 - 论文笔记（按论文发表时间）：
     - [2019 ELECTRA](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
@@ -54,15 +57,19 @@ date: 2019-07-13 20:00:00
 
 ## DeepLearning
 
+
 - [Gan 原理、证明与实现](https://yam.gift/2018/03/26/2018-03-26-Gan-Series/)
 - [“心有麟熙”《强化学习炼金术》系列笔记](https://yam.gift/2018/05/07/2018-05-07-RL-Series/)
 
+
 ## Coding
+
 
 - LeetCode
     - [Longest Substring Without Repeating Characters (LeetCode 3)](https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
     - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
     - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
+
 
 - Python 小白快速入门教程
     - [Ch00：在开始前](https://yam.gift/2019/04/10/Py4F/2019-04-10-Python-for-Freshman-Ch00/)
@@ -72,8 +79,10 @@ date: 2019-07-13 20:00:00
     - [Ch04：阅读源码](https://yam.gift/2019/10/06/Py4F/2019-10-06-Python-for-Freshman-Ch04/)
     - [Ch05：在结束后](https://yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/)
 
+
 - 剑指 Offer2（Python 版）解析
     - [剑指 Offer2（Python 版）解析（上）](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Explanation-Vol1/)
+
 
 - 数据结构与算法
     - [数据结构与算法：前言](https://yam.gift/2018/12/01/DS/2018-12-01-Ch00-Preface/)
@@ -81,9 +90,11 @@ date: 2019-07-13 20:00:00
     - [数据结构与算法：思考排序](https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/)
     - [数据结构与算法：线性结构](https://yam.gift/2019/07/13/DS/2019-07-13-Ch03-Linear-Structure/)
 
+
 - C 语言课程笔记
     - [浙大翁恺老师《程序设计入门 ——C 语言》笔记](https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/)
     - [浙大翁恺老师《C 语言程序设计进阶》笔记](https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/)
+
 
 - 数据处理入门
     - [正则表达式笔记](https://yam.gift/2017/09/04/2017-09-04-Regular-Expression/)
@@ -91,6 +102,7 @@ date: 2019-07-13 20:00:00
     - [Numpy 入门](https://yam.gift/2016/09/19/2016-09-19-NumPy/)
     - [Pandas 入门](https://yam.gift/2017/03/05/2017-03-05-Pandas/)
     - [绘制文本分类数据](https://yam.gift/2018/12/15/2018-12-15-Text-Classification-Data-Plot/)
+
 
 - 服务基础
     - [GraphQL Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/)
