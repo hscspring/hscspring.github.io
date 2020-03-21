@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="论文：TextRank: Bringing Order into Texts 代码：networkx/pagerank_alg.py at master · networkx/networkx 核心思想：TextRank 是基于 Google PageRank 的一种关键词（句子）提取方法，它的本质是对文本 Token 按窗口构建节点和边（实际为节点在一定窗口范围内的共现关系），根据 PageRa">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-21T09:54:10.592Z">
+<meta property="og:updated_time" content="2020-03-21T10:17:03.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TextRank Keyword Extraction">
 <meta name="twitter:description" content="论文：TextRank: Bringing Order into Texts 代码：networkx/pagerank_alg.py at master · networkx/networkx 核心思想：TextRank 是基于 Google PageRank 的一种关键词（句子）提取方法，它的本质是对文本 Token 按窗口构建节点和边（实际为节点在一定窗口范围内的共现关系），根据 PageRa">
@@ -162,10 +162,8 @@ WS(V_i) = (1-d) + d * \sum_{V_j \in In(V_i)} \frac{\omega_{ji}}{\sum_{V_k \in Ou
 </ul>
 <h2 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h2><p>关于论文中讨论部分需要注意以下几点：</p>
 <ul>
-<li><p>窗口大并没有帮助，而且越大效果越差，说明远距离的词之间并不能构成关系。</p>
-</li>
-<li><p>词性限制为名词和形容词时效果最好。这点比较好理解，关键词一般都是名词或形容词。只使用词（利用停用词过滤而不是词性）效果不好。</p>
-</li>
+<li>窗口大并没有帮助，而且越大效果越差，说明远距离的词之间并不能构成关系。</li>
+<li>词性限制为名词和形容词时效果最好。这点比较好理解，关键词一般都是名词或形容词。只使用词（利用停用词过滤而不是词性）效果不好。</li>
 <li>有向图效果不如无向图。说明关键词之间并没有文本这样的 “方向性”。原因可能和只提取 “词” 有关。</li>
 <li>无监督算法，且语言无关。这也是我最钟爱 TextRank 的地方。</li>
 </ul>
