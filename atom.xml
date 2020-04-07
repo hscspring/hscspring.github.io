@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2020-03-30T15:59:45.259Z</updated>
+  <updated>2020-04-07T02:33:19.775Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GPT-2 Understanding Note</title>
+    <link href="https://www.yam.gift/2020/04/07/Paper/2020-04-07-GPT2/"/>
+    <id>https://www.yam.gift/2020/04/07/Paper/2020-04-07-GPT2/</id>
+    <published>2020-04-07T04:00:00.000Z</published>
+    <updated>2020-04-07T02:33:19.775Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper: &lt;a href=&quot;https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Language Models are Unsupervised Multitask Learners&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/openai/gpt-2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;openai/gpt-2: Code for the paper “Language Models are Unsupervised Multitask Learners”&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/minimaxir/gpt-2-simple&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;minimaxir/gpt-2-simple: Python package to easily retrain OpenAI’s GPT-2 text-generating model on new texts&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心思想：基于 Transformer 的更加 General 的语言模型。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
+    
+      <category term="Language Model" scheme="https://www.yam.gift/tags/Language-Model/"/>
+    
+      <category term="GPT-2" scheme="https://www.yam.gift/tags/GPT-2/"/>
+    
+  </entry>
   
   <entry>
     <title>node2vec, Scalable Feature Learning for Networks Note</title>
@@ -565,48 +598,6 @@
       <category term="GraphQL" scheme="https://www.yam.gift/tags/GraphQL/"/>
     
       <category term="Elixir" scheme="https://www.yam.gift/tags/Elixir/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bert, Pre-training of Deep Bidirectional Transformers for Language Understanding Note</title>
-    <link href="https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/"/>
-    <id>https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/</id>
-    <published>2019-08-05T04:00:00.000Z</published>
-    <updated>2019-08-22T10:46:39.062Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Paper: &lt;a href=&quot;https://arxiv.org/pdf/1810.04805.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://arxiv.org/pdf/1810.04805.pdf&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code: &lt;a href=&quot;https://github.com/google-research/bert&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/google-research/bert&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Bert 的核心思想：MaskLM 利用双向语境 + MultiTask。&lt;/p&gt;
-&lt;h2 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot; title=&quot;Abstract&quot;&gt;&lt;/a&gt;Abstract&lt;/h2&gt;&lt;p&gt;BERT 通过联合训练所有层中的上下文来获取文本的深度双向表示。&lt;/p&gt;
-&lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;两种应用 pre-trained model 到下有任务的方法：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;feature-based：比如 ELMo，将 pre-trained 表示作为额外的特征&lt;/li&gt;
-&lt;li&gt;fine-tuning：比如 OpenAI GPT，引入少量特定任务参数，在下游任务中 fine-tuning 所有的参数&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;现在的技术有个限制，就是只能采用从左到右的单向机制，这对有些任务是不适合的，比如问答。&lt;/p&gt;
-&lt;p&gt;Bert 通过 “masked language model” 缓和了这个限制，即随机 mask 输入中的一些 token，目标是只根据上下文（左边和右边）预测 mask 掉的原始 vocabulary id。&lt;/p&gt;
-&lt;p&gt;同时，还联合训练了一个 “next sentence prediction” 的任务用来表示文本对。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="Bert" scheme="https://www.yam.gift/tags/Bert/"/>
-    
-      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
-    
-      <category term="Fine-tuning" scheme="https://www.yam.gift/tags/Fine-tuning/"/>
-    
-      <category term="Pre-training" scheme="https://www.yam.gift/tags/Pre-training/"/>
-    
-      <category term="Feature-based" scheme="https://www.yam.gift/tags/Feature-based/"/>
     
   </entry>
   
