@@ -18,7 +18,7 @@
 <meta name="keywords" content="NLP,Attention,Luong Attention">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Luong Attention Understanding">
-<meta property="og:url" content="https://www.yam.gift/2020/04/11/Paper/2020-04-14-Luong-Attention/index.html">
+<meta property="og:url" content="https://www.yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/index.html">
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Paper：1508.04025v5.pdf Code：文章未提供，见 Appendix 核心思想：通过在 Decoder 的每一步使用 Encoder 信息，并对 Encoder 信息赋予不同权重来获得更好的 Decoder 结果。">
 <meta property="og:locale" content="default">
@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://i.stack.imgur.com/yqJpG.png">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-luong-attention-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-luong-attention-3.jpeg">
-<meta property="og:updated_time" content="2020-04-14T04:18:29.257Z">
+<meta property="og:updated_time" content="2020-04-14T04:27:54.568Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Luong Attention Understanding">
 <meta name="twitter:description" content="Paper：1508.04025v5.pdf Code：文章未提供，见 Appendix 核心思想：通过在 Decoder 的每一步使用 Encoder 信息，并对 Encoder 信息赋予不同权重来获得更好的 Decoder 结果。">
@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/04/11/Paper/2020-04-14-Luong-Attention/" data-id="ck8zeexaj0000necclgj8u0nc" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" data-id="ck8zeexaj0000necclgj8u0nc" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -177,14 +177,10 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
 </ul>
 <p>文中考虑了两个变种：</p>
 <ul>
-<li><p><em>Monotonic</em> alignment (<strong>local-m</strong>) : pt = t</p>
-</li>
-<li><p><em>Predictive</em> alignment (<strong>local-p</strong>): </p>
-<script type="math/tex; mode=display">
-  p_{t}=S \cdot \operatorname{sigmoid}\left(\boldsymbol{v}_{p}^{\top} \tanh \left(\boldsymbol{W}_{p} \boldsymbol{h}_{t}\right)\right)</script><p>  w 和 p 是模型参数，用来学习位置，S 是源句子的长度，pt ∈ [0, S]，以 pt 为中心的高斯分布处理对齐：</p>
-<script type="math/tex; mode=display">
-  \boldsymbol{a}_{t}(s)=\operatorname{align}\left(\boldsymbol{h}_{t}, \overline{\boldsymbol{h}}_{s}\right) \exp \left(-\frac{\left(s-p_{t}\right)^{2}}{2 \sigma^{2}}\right)</script><p>  align 函数和 global 的一样，根据经验设置 σ = D/2，pt 是实数，s 是窗口内以 pt 为中心的整数。</p>
-</li>
+<li><em>Monotonic</em> alignment (<strong>local-m</strong>) : pt = t</li>
+<li><em>Predictive</em> alignment (<strong>local-p</strong>): <script type="math/tex; mode=display">
+  p_{t}=S \cdot \operatorname{sigmoid}\left(\boldsymbol{v}_{p}^{\top} \tanh \left(\boldsymbol{W}_{p} \boldsymbol{h}_{t}\right)\right)</script>  w 和 p 是模型参数，用来学习位置，S 是源句子的长度，pt ∈ [0, S]，以 pt 为中心的高斯分布处理对齐：<script type="math/tex; mode=display">
+  \boldsymbol{a}_{t}(s)=\operatorname{align}\left(\boldsymbol{h}_{t}, \overline{\boldsymbol{h}}_{s}\right) \exp \left(-\frac{\left(s-p_{t}\right)^{2}}{2 \sigma^{2}}\right)</script>  align 函数和 global 的一样，根据经验设置 σ = D/2，pt 是实数，s 是窗口内以 pt 为中心的整数。</li>
 </ul>
 <p><strong>Input-feeding</strong></p>
 <p>注意力机制的决策不应该是相互独立的，应该对过去的对齐信息予以考虑。具体而言，就是将 h ̃t 和 decoder 每一步的 input 拼接后作为输入。这样就相当于携带了历史的对齐信息。</p>
@@ -248,10 +244,8 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
 </ul>
 <p><strong>注意力机制</strong>：</p>
 <ul>
-<li><p>soft and hard attention: [Xu et al.2015] Kelvin Xu, Jimmy Ba, Ryan Kiros, Kyunghyun Cho, Aaron C. Courville, Ruslan Salakhutdinov, Richard S. Zemel, and Yoshua Ben- gio. 2015. Show, attend and tell: Neural image cap- tion generation with visual attention. In <em>ICML</em>.</p>
-</li>
-<li><p>selective attention: [Gregor et al.2015] Karol Gregor, Ivo Danihelka, Alex Graves, Danilo Jimenez Rezende, and Daan Wier- stra. 2015. DRAW: A recurrent neural network for image generation. In <em>ICML</em>.</p>
-</li>
+<li>soft and hard attention: [Xu et al.2015] Kelvin Xu, Jimmy Ba, Ryan Kiros, Kyunghyun Cho, Aaron C. Courville, Ruslan Salakhutdinov, Richard S. Zemel, and Yoshua Ben- gio. 2015. Show, attend and tell: Neural image cap- tion generation with visual attention. In <em>ICML</em>.</li>
+<li>selective attention: [Gregor et al.2015] Karol Gregor, Ivo Danihelka, Alex Graves, Danilo Jimenez Rezende, and Daan Wier- stra. 2015. DRAW: A recurrent neural network for image generation. In <em>ICML</em>.</li>
 </ul>
 <h3 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h3><ul>
 <li>Input-feeding：见 模型和算法 部分。</li>
@@ -265,14 +259,10 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
 <p>这真的把人看的有点莫名所以。所以以后最好还是先看论文，毕竟是源头。</p>
 <h2 id="Appendix"><a href="#Appendix" class="headerlink" title="Appendix"></a>Appendix</h2><ul>
 <li><a href="https://www.tensorflow.org/tutorials/text/nmt_with_attention" target="_blank" rel="noopener">Neural machine translation with attention  |  TensorFlow Core</a></li>
-<li><p><a href="https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html" target="_blank" rel="noopener">NLP From Scratch: Translation with a Sequence to Sequence Network and Attention — PyTorch Tutorials 1.4.0 documentation</a></p>
-</li>
-<li><p><a href="https://github.com/tensorflow/nmt/blob/master/nmt/attention_model.py" target="_blank" rel="noopener">nmt/attention_model.py at master · tensorflow/nmt</a></p>
-</li>
-<li><p><a href="https://github.com/OpenNMT/OpenNMT-py/blob/master/onmt/modules/global_attention.py" target="_blank" rel="noopener">OpenNMT-py/global_attention.py at master · OpenNMT/OpenNMT-py</a></p>
-</li>
-<li><p><a href="https://github.com/kevinlu1211/pytorch-batch-luong-attention" target="_blank" rel="noopener">kevinlu1211/pytorch-batch-luong-attention</a></p>
-</li>
+<li><a href="https://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html" target="_blank" rel="noopener">NLP From Scratch: Translation with a Sequence to Sequence Network and Attention — PyTorch Tutorials 1.4.0 documentation</a></li>
+<li><a href="https://github.com/tensorflow/nmt/blob/master/nmt/attention_model.py" target="_blank" rel="noopener">nmt/attention_model.py at master · tensorflow/nmt</a></li>
+<li><a href="https://github.com/OpenNMT/OpenNMT-py/blob/master/onmt/modules/global_attention.py" target="_blank" rel="noopener">OpenNMT-py/global_attention.py at master · OpenNMT/OpenNMT-py</a></li>
+<li><a href="https://github.com/kevinlu1211/pytorch-batch-luong-attention" target="_blank" rel="noopener">kevinlu1211/pytorch-batch-luong-attention</a></li>
 <li><a href="https://distill.pub/2016/augmented-rnns/" target="_blank" rel="noopener">Attention and Augmented Recurrent Neural Networks</a></li>
 <li><a href="http://www.wildml.com/2016/01/attention-and-memory-in-deep-learning-and-nlp/" target="_blank" rel="noopener">Attention and Memory in Deep Learning and NLP – WildML</a></li>
 </ul>
@@ -281,9 +271,9 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2020/04/11/Paper/2020-04-14-Luong-Attention/">
-    <time datetime="2020-04-11T04:00:00.000Z" class="entry-date">
-        2020-04-11
+    <a href="/2020/04/14/Paper/2020-04-14-Luong-Attention/">
+    <time datetime="2020-04-14T04:00:00.000Z" class="entry-date">
+        2020-04-14
     </time>
 </a>
     
@@ -377,7 +367,7 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
       <ul>
         
           <li>
-            <a href="/2020/04/11/Paper/2020-04-14-Luong-Attention/">Luong Attention Understanding</a>
+            <a href="/2020/04/14/Paper/2020-04-14-Luong-Attention/">Luong Attention Understanding</a>
           </li>
         
           <li>
@@ -445,6 +435,21 @@ e_{ij} = a(s_{i-1}, h_j)</script><p>每个 target yi 有一个 ci 对应。e 是
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

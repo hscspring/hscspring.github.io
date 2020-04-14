@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-nmt-attention-bahdanau-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-nmtbjltaat-2.jpeg">
-<meta property="og:updated_time" content="2020-04-14T04:20:35.007Z">
+<meta property="og:updated_time" content="2020-04-14T04:28:56.798Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neural Machine Tanslation By Jointly Learning To Align And Translate Note">
 <meta name="twitter:description" content="paper: 1409.0473.pdf Abstract作者猜测 encoder 中使用固定长度的向量（即将句子编码成一个固定长度的向量）可能是 performance 的瓶颈。因此提出一种能够自动 search 源句子中与预测词相关的部分。">
@@ -137,7 +137,8 @@ e_{i j}=a\left(s_{i-1}, h_{j}\right)</script><p><code>e_ij</code> 是一个 alig
 <h3 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h3><p>使用 BIRNN，concatenating 双向 hidden states，让 hj 包含前面和后面的单词。</p>
 <p>比如：</p>
 <script type="math/tex; mode=display">
-h_{j}=\left[\vec{h}_{j}^{\top} ; \vec{h}_{j}^{\top}\right]^{\top}</script><p><img src="http://qnimg.lovevivian.cn/paper-nmt-attention-bahdanau-1.jpeg" alt=""></p>
+h_{j}=\left[\vec{h}_{j}^{\top} ; \vec{h}_{j}^{\top}\right]^{\top}</script><p>模型的结构如下：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-nmt-attention-bahdanau-1.jpeg" alt=""></p>
 <h2 id="Experiment"><a href="#Experiment" class="headerlink" title="Experiment"></a>Experiment</h2><p>Dataset: WMT ’14</p>
 <p>Models</p>
 <ul>
@@ -269,7 +270,7 @@ h_{j}=\left[\vec{h}_{j}^{\top} ; \vec{h}_{j}^{\top}\right]^{\top}</script><p><im
       <ul>
         
           <li>
-            <a href="/2020/04/11/Paper/2020-04-14-Luong-Attention/">Luong Attention Understanding</a>
+            <a href="/2020/04/14/Paper/2020-04-14-Luong-Attention/">Luong Attention Understanding</a>
           </li>
         
           <li>
@@ -337,6 +338,21 @@ h_{j}=\left[\vec{h}_{j}^{\top} ; \vec{h}_{j}^{\top}\right]^{\top}</script><p><im
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
