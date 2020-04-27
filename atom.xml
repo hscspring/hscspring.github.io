@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2020-04-23T15:18:05.796Z</updated>
+  <updated>2020-04-27T14:53:42.239Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -17,15 +17,42 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>DistilBERT Understanding</title>
+    <link href="https://www.yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/"/>
+    <id>https://www.yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/</id>
+    <published>2020-04-27T15:00:00.000Z</published>
+    <updated>2020-04-27T14:53:42.239Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/pdf/1910.01108.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;1910.01108.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/huggingface/transformers/tree/master/examples/distillation&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;transformers/examples/distillation at master · huggingface/transformers&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;核心思想：通过知识蒸馏（在 logits，hidden_states 上计算学生与教师的 loss）训练一个小（主要是层数）模型实现和大模型类似的效果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Bert" scheme="https://www.yam.gift/tags/Bert/"/>
+    
+      <category term="DistilBERT" scheme="https://www.yam.gift/tags/DistilBERT/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Transformer Understanding</title>
     <link href="https://www.yam.gift/2020/04/23/Paper/2020-04-23-Transformer/"/>
     <id>https://www.yam.gift/2020/04/23/Paper/2020-04-23-Transformer/</id>
     <published>2020-04-23T15:00:00.000Z</published>
-    <updated>2020-04-23T15:18:05.796Z</updated>
+    <updated>2020-04-26T10:25:08.540Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;之前写过一篇关于 &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Attention Is All You Need&lt;/a&gt; 的 &lt;a href=&quot;https://yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;论文笔记&lt;/a&gt;，不过那时候写的笔记都没有深入 Code 环节，再加上其实已经有了一篇 &lt;a href=&quot;http://nlp.seas.harvard.edu/2018/04/03/attention.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Annotated Transformer&lt;/a&gt;，也没必要做重复工作。不过现在 Transformer 已经大放异彩到几乎成为了标准配件，所以觉得有必要单独拿出来就组件角度再次学习一遍，于是就有了这篇文章。&lt;/p&gt;
+      &lt;p&gt;之前写过一篇关于 &lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Attention Is All You Need&lt;/a&gt; 的 &lt;a href=&quot;https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;论文笔记&lt;/a&gt;，不过那时候写的笔记都没有深入 Code 环节，再加上其实已经有了一篇 &lt;a href=&quot;http://nlp.seas.harvard.edu/2018/04/03/attention.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Annotated Transformer&lt;/a&gt;，也没必要做重复工作。不过现在 Transformer 已经大放异彩到几乎成为了标准配件，所以觉得有必要单独拿出来就组件角度再次学习一遍，于是就有了这篇文章。&lt;/p&gt;
 &lt;p&gt;本文代码主要基于 &lt;a href=&quot;https://github.com/OpenNMT/OpenNMT-py&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;OpenNMT&lt;/a&gt;，另外也参考了一点 &lt;a href=&quot;https://github.com/pytorch/fairseq&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;fairseq&lt;/a&gt;，这俩都是 PyTorch 实现的。Tensorflow 实现的版本相对更多一些，详见 Appendix 部分。&lt;/p&gt;
     
     </summary>
@@ -172,8 +199,8 @@
   
   <entry>
     <title>Neural Machine Tanslation By Jointly Learning To Align And Translate Note</title>
-    <link href="https://www.yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/"/>
-    <id>https://www.yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/</id>
+    <link href="https://www.yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/"/>
+    <id>https://www.yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/</id>
     <published>2020-02-08T09:00:00.000Z</published>
     <updated>2020-04-14T04:31:59.919Z</updated>
     
@@ -198,8 +225,8 @@
   
   <entry>
     <title>Neural Architectures for Named Entity Recognition Note</title>
-    <link href="https://www.yam.gift/2019/12/28/Paper/2019-12-28-Neural-Architectures-for-Named-Entity-Recognition/"/>
-    <id>https://www.yam.gift/2019/12/28/Paper/2019-12-28-Neural-Architectures-for-Named-Entity-Recognition/</id>
+    <link href="https://www.yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/"/>
+    <id>https://www.yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/</id>
     <published>2019-12-28T09:00:00.000Z</published>
     <updated>2019-12-28T08:56:49.711Z</updated>
     
@@ -235,135 +262,11 @@
   </entry>
   
   <entry>
-    <title>剑指 Offer2（Python 版）解析（Ch3）</title>
-    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch3/"/>
-    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch3/</id>
-    <published>2019-12-15T15:00:00.000Z</published>
-    <updated>2020-04-23T15:12:09.172Z</updated>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;toc&quot;&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#第三章：高质量的代码&quot; data-toc-modified-id=&quot;第三章：高质量的代码-1&quot;&gt;第三章：高质量的代码&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-16：数值的整数次方&quot; data-toc-modified-id=&quot;面试题-16：数值的整数次方-1.1&quot;&gt;面试题 16：数值的整数次方&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-17：打印-1-到最大的-n-位数&quot; data-toc-modified-id=&quot;面试题-17：打印-1-到最大的-n-位数-1.2&quot;&gt;面试题 17：打印 1 到最大的 n 位数&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-18（一）：在-O-(1)-时间删除链表节点&quot; data-toc-modified-id=&quot;面试题-18（一）：在-O-(1)-时间删除链表节点-1.3&quot;&gt;面试题 18（一）：在 O (1) 时间删除链表节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-18（二）：删除链表中重复的节点&quot; data-toc-modified-id=&quot;面试题-18（二）：删除链表中重复的节点-1.4&quot;&gt;面试题 18（二）：删除链表中重复的节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-19：正则表达式匹配&quot; data-toc-modified-id=&quot;面试题-19：正则表达式匹配-1.5&quot;&gt;面试题 19：正则表达式匹配&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-20：表示数值的字符串&quot; data-toc-modified-id=&quot;面试题-20：表示数值的字符串-1.6&quot;&gt;面试题 20：表示数值的字符串&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-21：调整数组顺序使奇数位于偶数前面&quot; data-toc-modified-id=&quot;面试题-21：调整数组顺序使奇数位于偶数前面-1.7&quot;&gt;面试题 21：调整数组顺序使奇数位于偶数前面&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-22：链表中倒数第-k-个节点&quot; data-toc-modified-id=&quot;面试题-22：链表中倒数第-k-个节点-1.8&quot;&gt;面试题 22：链表中倒数第 k 个节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-23：链表中环的入口节点&quot; data-toc-modified-id=&quot;面试题-23：链表中环的入口节点-1.9&quot;&gt;面试题 23：链表中环的入口节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-24：反转链表&quot; data-toc-modified-id=&quot;面试题-24：反转链表-1.10&quot;&gt;面试题 24：反转链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-25：合并两个排序的链表&quot; data-toc-modified-id=&quot;面试题-25：合并两个排序的链表-1.11&quot;&gt;面试题 25：合并两个排序的链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-26：树的子结构&quot; data-toc-modified-id=&quot;面试题-26：树的子结构-1.12&quot;&gt;面试题 26：树的子结构&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Python 单例模式&lt;/li&gt;
-&lt;li&gt;好玩儿的 DP&lt;/li&gt;
-&lt;li&gt;递归还是递归&lt;/li&gt;
-&lt;li&gt;双指针的威力&lt;/li&gt;
-&lt;li&gt;双列表的威力&lt;/li&gt;
-&lt;li&gt;有趣的排列组合&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
-    
-      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
-    
-      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指 Offer2（Python 版）解析（Ch4）</title>
-    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch4/"/>
-    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch4/</id>
-    <published>2019-12-15T15:00:00.000Z</published>
-    <updated>2020-04-23T15:12:17.759Z</updated>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;toc&quot;&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#第四章：解决面试题的思路&quot; data-toc-modified-id=&quot;第四章：解决面试题的思路-1&quot;&gt;第四章：解决面试题的思路&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-27：二叉树的镜像&quot; data-toc-modified-id=&quot;面试题-27：二叉树的镜像-1.1&quot;&gt;面试题 27：二叉树的镜像&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-28：对称的二叉树&quot; data-toc-modified-id=&quot;面试题-28：对称的二叉树-1.2&quot;&gt;面试题 28：对称的二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-29：顺时针打印矩阵&quot; data-toc-modified-id=&quot;面试题-29：顺时针打印矩阵-1.3&quot;&gt;面试题 29：顺时针打印矩阵&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-30：包含-min-函数的栈&quot; data-toc-modified-id=&quot;面试题-30：包含-min-函数的栈-1.4&quot;&gt;面试题 30：包含 min 函数的栈&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-31：栈的压入、弹出序列&quot; data-toc-modified-id=&quot;面试题-31：栈的压入、弹出序列-1.5&quot;&gt;面试题 31：栈的压入、弹出序列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（一）：不分行从上往下打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（一）：不分行从上往下打印二叉树-1.6&quot;&gt;面试题 32（一）：不分行从上往下打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（二）：分行从上到下打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（二）：分行从上到下打印二叉树-1.7&quot;&gt;面试题 32（二）：分行从上到下打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（三）：之字形打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（三）：之字形打印二叉树-1.8&quot;&gt;面试题 32（三）：之字形打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-33：二叉搜索树的后序遍历序列&quot; data-toc-modified-id=&quot;面试题-33：二叉搜索树的后序遍历序列-1.9&quot;&gt;面试题 33：二叉搜索树的后序遍历序列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-34：二叉树中和为某一值的路径&quot; data-toc-modified-id=&quot;面试题-34：二叉树中和为某一值的路径-1.10&quot;&gt;面试题 34：二叉树中和为某一值的路径&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-35：复杂链表的复制&quot; data-toc-modified-id=&quot;面试题-35：复杂链表的复制-1.11&quot;&gt;面试题 35：复杂链表的复制&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-36：二叉搜索树与双向链表&quot; data-toc-modified-id=&quot;面试题-36：二叉搜索树与双向链表-1.12&quot;&gt;面试题 36：二叉搜索树与双向链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-37：序列化二叉树&quot; data-toc-modified-id=&quot;面试题-37：序列化二叉树-1.13&quot;&gt;面试题 37：序列化二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-38：字符串的排列&quot; data-toc-modified-id=&quot;面试题-38：字符串的排列-1.14&quot;&gt;面试题 38：字符串的排列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Python 单例模式&lt;/li&gt;
-&lt;li&gt;好玩儿的 DP&lt;/li&gt;
-&lt;li&gt;递归还是递归&lt;/li&gt;
-&lt;li&gt;双指针的威力&lt;/li&gt;
-&lt;li&gt;双列表的威力&lt;/li&gt;
-&lt;li&gt;有趣的排列组合&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
-    
-      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
-    
-      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
     <title>剑指 Offer2（Python 版）解析（Ch6）</title>
     <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch6/"/>
     <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch6/</id>
     <published>2019-12-15T15:00:00.000Z</published>
     <updated>2020-04-26T01:17:12.037Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Python 单例模式&lt;/li&gt;
-&lt;li&gt;好玩儿的 DP&lt;/li&gt;
-&lt;li&gt;递归还是递归&lt;/li&gt;
-&lt;li&gt;双指针的威力&lt;/li&gt;
-&lt;li&gt;双列表的威力&lt;/li&gt;
-&lt;li&gt;有趣的排列组合&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
-    
-      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
-    
-      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>剑指 Offer2（Python 版）解析（Ch5）</title>
-    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch5/"/>
-    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch5/</id>
-    <published>2019-12-15T15:00:00.000Z</published>
-    <updated>2020-04-26T01:16:56.062Z</updated>
     
     <summary type="html">
     
@@ -441,9 +344,133 @@
   </entry>
   
   <entry>
+    <title>剑指 Offer2（Python 版）解析（Ch4）</title>
+    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch4/"/>
+    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch4/</id>
+    <published>2019-12-15T15:00:00.000Z</published>
+    <updated>2020-04-23T15:12:17.759Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;toc&quot;&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#第四章：解决面试题的思路&quot; data-toc-modified-id=&quot;第四章：解决面试题的思路-1&quot;&gt;第四章：解决面试题的思路&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-27：二叉树的镜像&quot; data-toc-modified-id=&quot;面试题-27：二叉树的镜像-1.1&quot;&gt;面试题 27：二叉树的镜像&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-28：对称的二叉树&quot; data-toc-modified-id=&quot;面试题-28：对称的二叉树-1.2&quot;&gt;面试题 28：对称的二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-29：顺时针打印矩阵&quot; data-toc-modified-id=&quot;面试题-29：顺时针打印矩阵-1.3&quot;&gt;面试题 29：顺时针打印矩阵&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-30：包含-min-函数的栈&quot; data-toc-modified-id=&quot;面试题-30：包含-min-函数的栈-1.4&quot;&gt;面试题 30：包含 min 函数的栈&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-31：栈的压入、弹出序列&quot; data-toc-modified-id=&quot;面试题-31：栈的压入、弹出序列-1.5&quot;&gt;面试题 31：栈的压入、弹出序列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（一）：不分行从上往下打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（一）：不分行从上往下打印二叉树-1.6&quot;&gt;面试题 32（一）：不分行从上往下打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（二）：分行从上到下打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（二）：分行从上到下打印二叉树-1.7&quot;&gt;面试题 32（二）：分行从上到下打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-32（三）：之字形打印二叉树&quot; data-toc-modified-id=&quot;面试题-32（三）：之字形打印二叉树-1.8&quot;&gt;面试题 32（三）：之字形打印二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-33：二叉搜索树的后序遍历序列&quot; data-toc-modified-id=&quot;面试题-33：二叉搜索树的后序遍历序列-1.9&quot;&gt;面试题 33：二叉搜索树的后序遍历序列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-34：二叉树中和为某一值的路径&quot; data-toc-modified-id=&quot;面试题-34：二叉树中和为某一值的路径-1.10&quot;&gt;面试题 34：二叉树中和为某一值的路径&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-35：复杂链表的复制&quot; data-toc-modified-id=&quot;面试题-35：复杂链表的复制-1.11&quot;&gt;面试题 35：复杂链表的复制&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-36：二叉搜索树与双向链表&quot; data-toc-modified-id=&quot;面试题-36：二叉搜索树与双向链表-1.12&quot;&gt;面试题 36：二叉搜索树与双向链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-37：序列化二叉树&quot; data-toc-modified-id=&quot;面试题-37：序列化二叉树-1.13&quot;&gt;面试题 37：序列化二叉树&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-38：字符串的排列&quot; data-toc-modified-id=&quot;面试题-38：字符串的排列-1.14&quot;&gt;面试题 38：字符串的排列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 单例模式&lt;/li&gt;
+&lt;li&gt;好玩儿的 DP&lt;/li&gt;
+&lt;li&gt;递归还是递归&lt;/li&gt;
+&lt;li&gt;双指针的威力&lt;/li&gt;
+&lt;li&gt;双列表的威力&lt;/li&gt;
+&lt;li&gt;有趣的排列组合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
+    
+      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
+    
+      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指 Offer2（Python 版）解析（Ch5）</title>
+    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch5/"/>
+    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch5/</id>
+    <published>2019-12-15T15:00:00.000Z</published>
+    <updated>2020-04-26T01:16:56.062Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 单例模式&lt;/li&gt;
+&lt;li&gt;好玩儿的 DP&lt;/li&gt;
+&lt;li&gt;递归还是递归&lt;/li&gt;
+&lt;li&gt;双指针的威力&lt;/li&gt;
+&lt;li&gt;双列表的威力&lt;/li&gt;
+&lt;li&gt;有趣的排列组合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
+    
+      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
+    
+      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>剑指 Offer2（Python 版）解析（Ch3）</title>
+    <link href="https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch3/"/>
+    <id>https://www.yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch3/</id>
+    <published>2019-12-15T15:00:00.000Z</published>
+    <updated>2020-04-23T15:12:09.172Z</updated>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;toc&quot;&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#第三章：高质量的代码&quot; data-toc-modified-id=&quot;第三章：高质量的代码-1&quot;&gt;第三章：高质量的代码&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-16：数值的整数次方&quot; data-toc-modified-id=&quot;面试题-16：数值的整数次方-1.1&quot;&gt;面试题 16：数值的整数次方&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-17：打印-1-到最大的-n-位数&quot; data-toc-modified-id=&quot;面试题-17：打印-1-到最大的-n-位数-1.2&quot;&gt;面试题 17：打印 1 到最大的 n 位数&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-18（一）：在-O-(1)-时间删除链表节点&quot; data-toc-modified-id=&quot;面试题-18（一）：在-O-(1)-时间删除链表节点-1.3&quot;&gt;面试题 18（一）：在 O (1) 时间删除链表节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-18（二）：删除链表中重复的节点&quot; data-toc-modified-id=&quot;面试题-18（二）：删除链表中重复的节点-1.4&quot;&gt;面试题 18（二）：删除链表中重复的节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-19：正则表达式匹配&quot; data-toc-modified-id=&quot;面试题-19：正则表达式匹配-1.5&quot;&gt;面试题 19：正则表达式匹配&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-20：表示数值的字符串&quot; data-toc-modified-id=&quot;面试题-20：表示数值的字符串-1.6&quot;&gt;面试题 20：表示数值的字符串&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-21：调整数组顺序使奇数位于偶数前面&quot; data-toc-modified-id=&quot;面试题-21：调整数组顺序使奇数位于偶数前面-1.7&quot;&gt;面试题 21：调整数组顺序使奇数位于偶数前面&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-22：链表中倒数第-k-个节点&quot; data-toc-modified-id=&quot;面试题-22：链表中倒数第-k-个节点-1.8&quot;&gt;面试题 22：链表中倒数第 k 个节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-23：链表中环的入口节点&quot; data-toc-modified-id=&quot;面试题-23：链表中环的入口节点-1.9&quot;&gt;面试题 23：链表中环的入口节点&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-24：反转链表&quot; data-toc-modified-id=&quot;面试题-24：反转链表-1.10&quot;&gt;面试题 24：反转链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-25：合并两个排序的链表&quot; data-toc-modified-id=&quot;面试题-25：合并两个排序的链表-1.11&quot;&gt;面试题 25：合并两个排序的链表&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#面试题-26：树的子结构&quot; data-toc-modified-id=&quot;面试题-26：树的子结构-1.12&quot;&gt;面试题 26：树的子结构&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;具体实现和测试代码&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The-DataStructure-and-Algorithms/CodingInterview2-Python&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;系列解析&lt;/strong&gt;（TBD）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Python 单例模式&lt;/li&gt;
+&lt;li&gt;好玩儿的 DP&lt;/li&gt;
+&lt;li&gt;递归还是递归&lt;/li&gt;
+&lt;li&gt;双指针的威力&lt;/li&gt;
+&lt;li&gt;双列表的威力&lt;/li&gt;
+&lt;li&gt;有趣的排列组合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;特别说明&lt;/strong&gt;：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
+    
+      <category term="Data Structure" scheme="https://www.yam.gift/tags/Data-Structure/"/>
+    
+      <category term="Algorithm" scheme="https://www.yam.gift/tags/Algorithm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Few-Shot Charge Prediction with Discriminative Legal Attributes Note</title>
-    <link href="https://www.yam.gift/2019/12/15/Paper/2019-12-15-Few-Shot-Charge-Prediction-with-Discriminative-Legal-Attributes/"/>
-    <id>https://www.yam.gift/2019/12/15/Paper/2019-12-15-Few-Shot-Charge-Prediction-with-Discriminative-Legal-Attributes/</id>
+    <link href="https://www.yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/"/>
+    <id>https://www.yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/</id>
     <published>2019-12-15T11:00:00.000Z</published>
     <updated>2019-12-15T11:16:03.324Z</updated>
     
@@ -637,27 +664,6 @@
       <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
     
       <category term="Django" scheme="https://www.yam.gift/tags/Django/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python 小白快速从入门到放弃：在结束后</title>
-    <link href="https://www.yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/"/>
-    <id>https://www.yam.gift/2019/10/07/Py4F/2019-10-07-Python-for-Freshman-Ch05/</id>
-    <published>2019-10-07T12:00:00.000Z</published>
-    <updated>2019-11-03T03:15:55.236Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;这个系列的课程的目标在《在开始前》已经说得很清楚了：解决重复劳动或自己做好玩儿的小项目；尝试新的思维方式。这短短的几节课要想把 Python 的相关知识面面俱到是不可能的，但我觉得已经给出了一个全图景，大家只要围绕这个做，达到目标应该是不成问题的。我想说的还是一直提倡的：Just do it，在实践中不断成长。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
     
   </entry>
   
