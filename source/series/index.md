@@ -24,18 +24,19 @@ date: 2019-07-13 20:00:00
 
 
 - 论文及模型理解：
+    - [2019 DistilBERT](https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/)
     - [2019 GPT2](https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/)
     - [2019 ELECTRA](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
     - [2019 CTRL](https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/)
     - [2019 ERNIE](https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/)
     - [2019 XLNet](https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/)
     - [2019 Bert](https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/)
-    - [2018 Attributes External Feature](https://yam.gift/2019/12/15/Paper/2019-12-15-Few-Shot-Charge-Prediction-with-Discriminative-Legal-Attributes/)
+    - [2018 Attributes External Feature](https://yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/)
     - [2017 Transformer](https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/)
-    - [2017 Multi-Head Attention](https://yam.gift/2019/08/04/Paper/2019-08-04-Attention-Is-All-You-Need/)
+    - [2017 Multi-Head Attention](https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/)
     - [2016 Node2Vec](https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/)
-    - [2016 NER with Bi-LSTM and CRF](https://yam.gift/2019/12/28/Paper/2019-12-28-Neural-Architectures-for-Named-Entity-Recognition/)
-    - [2015 Bahdanau Attention](https://yam.gift/2020/02/08/Paper/2020-02-08-Neural-Machine-Translation-By-Jointly-Learning-To-Align-And-Translate/)
+    - [2016 NER with Bi-LSTM and CRF](https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/)
+    - [2015 Bahdanau Attention](https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/)
     - [2015 Luong Attention](https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/)
     - [2004 TextRank Keyword Extraction](https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/)
 
