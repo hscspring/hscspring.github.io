@@ -5,6 +5,12 @@ date: 2019-07-13 20:00:00
 
 > 说明：读书笔记并非原创，内容和图均来自原作，仅用于学习交流。
 
+## Collection
+
+- [From Python to Engineer](https://yam.gift/2020/05/01/Collection/From-Python-to-Engineer/)
+- [AIToolBox: My AI Basic Tool Box](https://github.com/hscspring/AIToolBox)
+- [All4NLP: All For NLP, especially Chinese.](https://github.com/hscspring/All4NLP)
+
 ## NLP
 
 [自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/2017-04-09-NLPKnowledgeTree/)
@@ -20,20 +26,25 @@ date: 2019-07-13 20:00:00
 
 - 知识图谱
     - [关系提取简述](https://yam.gift/2019/12/11/KG/2019-12-11-Relationship-Extraction/)
-    - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/2019-12-02-NLM/)
+    - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/KG/2019-12-02-NLM/)
 
 
-- 论文及模型理解：
+- 论文和模型：
+    - [2020 DeBERTa](https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/)
+    - [2020 Reformer](https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/)
+    - [2019 Bart](https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/)
     - [2019 DistilBERT](https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/)
+    - [2019 ALBERT](https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/)
     - [2019 GPT2](https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/)
     - [2019 ELECTRA](https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/)
     - [2019 CTRL](https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/)
+    - [2019 RoBERTa](https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/)
     - [2019 ERNIE](https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/)
     - [2019 XLNet](https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/)
     - [2019 Bert](https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/)
     - [2018 Attributes External Feature](https://yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/)
-    - [2017 Transformer](https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/)
-    - [2017 Multi-Head Attention](https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/)
+    - [2017 Transformer Code](https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/)
+    - [2017 Transformer Paper](https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/)
     - [2016 Node2Vec](https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/)
     - [2016 NER with Bi-LSTM and CRF](https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/)
     - [2015 Bahdanau Attention](https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/)
@@ -67,6 +78,10 @@ date: 2019-07-13 20:00:00
 - [Gan 原理、证明与实现](https://yam.gift/2018/03/26/2018-03-26-Gan-Series/)
 - [“心有麟熙”《强化学习炼金术》系列笔记](https://yam.gift/2018/05/07/2018-05-07-RL-Series/)
 
+## MachineLearning
+
+- [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
+- [Hard-SVM, Soft-SVM 和 KKT](https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/)
 
 ## Coding
 
@@ -75,6 +90,8 @@ date: 2019-07-13 20:00:00
     - [Longest Substring Without Repeating Characters (LeetCode 3)](https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
     - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
     - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
+    - [Swap Nodes in Paris (LeetCode 24)](https://yam.gift/2020/08/20/LeetCode/2020-08-20-Swap-Nodes-in-Paris/)
+    - [Search in Rotated Sorted Array (LeetCode 33, 81, 153)](https://yam.gift/2020/08/22/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/)
 
 
 - Python 小白快速入门教程
@@ -87,18 +104,20 @@ date: 2019-07-13 20:00:00
 
 
 - 剑指 Offer2（Python 版）解析
-    - [剑指 Offer2（Python 版）解析（Ch2）](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch2/)
-    - [剑指 Offer2（Python 版）解析（Ch3）](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch3/)
-    - [剑指 Offer2（Python 版）解析（Ch4） ](https://yam.gift/2019/12/15/DS/2019-12-15-Coding-Review2-Ch4/)
-    - [剑指 Offer2（Python 版）解析（Ch5）](https://yam.gift/2020/04/23/DS/2020-04-23-Coding-Review2-Ch5/)
-    - [剑指 Offer2（Python 版）解析（Ch6）](https://yam.gift/2020/04/23/DS/2020-04-23-Coding-Review2-Ch6/)
+    - [剑指 Offer2（Python 版）解析（Ch2）](https://yam.gift/2019/12/15/DSA/2019-12-15-Coding-Review2-Ch2/)
+    - [剑指 Offer2（Python 版）解析（Ch3）](https://yam.gift/2019/12/15/DSA/2019-12-15-Coding-Review2-Ch3/)
+    - [剑指 Offer2（Python 版）解析（Ch4） ](https://yam.gift/2019/12/15/DSA/2019-12-15-Coding-Review2-Ch4/)
+    - [剑指 Offer2（Python 版）解析（Ch5）](https://yam.gift/2019/12/15/DSA/2019-12-15-Coding-Review2-Ch5/)
+    - [剑指 Offer2（Python 版）解析（Ch6）](https://yam.gift/2019/12/15/DSA/2019-12-15-Coding-Review2-Ch6/)
 
 
 - 数据结构与算法
-    - [数据结构与算法：前言](https://yam.gift/2018/12/01/DS/2018-12-01-Ch00-Preface/)
-    - [数据结构与算法：导论](https://yam.gift/2018/12/21/DS/2018-12-21-Ch01-Introduction/)
-    - [数据结构与算法：思考排序](https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/)
-    - [数据结构与算法：线性结构](https://yam.gift/2019/07/13/DS/2019-07-13-Ch03-Linear-Structure/)
+    - [数据结构与算法：前言](https://yam.gift/2018/12/01/DSA/2018-12-01-Ch00-Preface/)
+    - [数据结构与算法：导论](https://yam.gift/2018/12/21/DSA/2018-12-21-Ch01-Introduction/)
+    - [数据结构与算法：思考排序](https://yam.gift/2018/12/31/DSA/2018-12-31-Ch02-Thinking-Sort/)
+    - [数据结构与算法：线性结构](https://yam.gift/2019/07/13/DSA/2019-07-13-Ch03-Linear-Structure/)
+    - [Sort Based on Multiway Tree](https://yam.gift/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/)
+    - [信息熵与选择：由三门问题想到的](https://yam.gift/2019/06/19/DSA/2019-06-19-Think-From-Three-Gates/)
 
 
 - C 语言课程笔记
@@ -119,4 +138,16 @@ date: 2019-07-13 20:00:00
     - [GraphQL Elixir Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/)
     - [常用 DataBase 相关操作和资源](https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/)
     - [DataBase Foreign Data Wrapper](https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/)
+
+## EFMB
+
+- [由一场供应链讲座引发的思考](https://yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/)
+- [《基业长青》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-28-Built-to-Last/)
+- [《管人的真理》读书笔记](https://yam.gift/2015/12/01/Economy/2015-12-01-Management-Truth/)
+- [《海底捞你学不会》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-30-HaiDiLao/)
+
+## CogPsy
+
+- [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
+- [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
 
