@@ -23,7 +23,7 @@
 <meta property="og:description" content="SVM 是机器学习在神经网络兴起前最经典、有效的算法。它的思想主要是用一个超平面对数据集进行划分，但是能够分开数据集的超平面一般都有无数个，支持向量机的做法是 “间隔最大化”，也就是选择 “支持向量” 到分割平面距离之和最大的，进而将问题转换为一个凸优化问题。 支持向量机根据数据集可分程度的不同分为：  线性可分支持向量机：数据线性可分，硬间隔支持向量机 线性（不可分）支持向量机：数据近似线性可分">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-svm-1.jpeg">
-<meta property="og:updated_time" content="2020-08-21T04:16:47.822Z">
+<meta property="og:updated_time" content="2020-08-25T03:47:06.599Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hard-SVM, Soft-SVM 和 KKT">
 <meta name="twitter:description" content="SVM 是机器学习在神经网络兴起前最经典、有效的算法。它的思想主要是用一个超平面对数据集进行划分，但是能够分开数据集的超平面一般都有无数个，支持向量机的做法是 “间隔最大化”，也就是选择 “支持向量” 到分割平面距离之和最大的，进而将问题转换为一个凸优化问题。 支持向量机根据数据集可分程度的不同分为：  线性可分支持向量机：数据线性可分，硬间隔支持向量机 线性（不可分）支持向量机：数据近似线性可分">
@@ -159,13 +159,13 @@ L(w,b,\alpha) = \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i\alpha_j y_iy_j (x
 \max_\alpha \quad -\frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i\alpha_j y_iy_j (x_i · x_j) + \sum_{i=1}^N\alpha_i \Leftrightarrow \\
 \min_\alpha \quad \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i\alpha_j y_iy_j (x_i · x_j) - \sum_{i=1}^N\alpha_i \quad (3)\\
 s.t.\quad \sum_{i=1}^N \alpha_iy_i = 0 ,\quad \alpha_i \ge 0, \quad i = 1, 2, ..., N</script><p>该式即为对偶最优化问题的最终形式，与式（1）等价。</p>
-<h3 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><p><strong>原问题和对偶问题具有强对偶关系的充要条件是 KKT 条件</strong>（李航《统计学习方法》附录 C 定理 C.3）：</p>
+<h3 id="KKT-条件"><a href="#KKT-条件" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><p><strong>原问题和对偶问题具有强对偶关系的充要条件是 KKT 条件</strong>（李航《统计学习方法》附录 C 定理 C.3），可得：</p>
 <script type="math/tex; mode=display">
 \frac{\partial L}{\partial w} = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 \\
 \frac{\partial L}{\partial b} = -\sum_{i=1}^N \alpha_iy_i = 0 \\
 \alpha_i(1-y_i(w · x_i + b)) = 0 \\
 1-y_i(w · x_i + b) \le 0 \\
-\alpha_i \ge 0, \quad i=1,2,3,...,N</script><p>其中最重要的是第三个式子，叫<strong>松弛互补条件</strong>。当数据不在支持向量上时，α 一定为 0，真正起作用的就是在支持向量上的点，即第四个条件等于 0。</p>
+\alpha_i \ge 0, \quad i=1,2,3,...,N</script><p>其中最重要的是第三个式子，叫<strong>对偶互补条件</strong>。当数据不在支持向量上时，α 一定为 0，真正起作用的就是在支持向量上的点，即第四个条件等于 0。</p>
 <p>根据 KKT 条件可得：</p>
 <script type="math/tex; mode=display">
 w^* = \sum_{i=1}^N \alpha_i y_i x_i \\
@@ -238,7 +238,8 @@ C - \alpha_i - \mu_i = 0 \\
 \min_\alpha \quad \frac{1}{2} \sum_{i=1}^N \sum_{j=1}^N \alpha_i\alpha_j y_iy_j (x_i · x_j) - \sum_{i=1}^N\alpha_i \quad (5)\\
 s.t.\quad \sum_{i=1}^N \alpha_iy_i = 0 \\
 \quad \quad \quad \quad 0 \le \alpha_i \le C \quad i = 1, 2, ..., N</script><p>对比（3）可以发现两者的区别就是对 α 的上界约束。</p>
-<h3 id="KKT-条件-1"><a href="#KKT-条件-1" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><script type="math/tex; mode=display">
+<h3 id="KKT-条件-1"><a href="#KKT-条件-1" class="headerlink" title="KKT 条件"></a>KKT 条件</h3><p>根据 KKT 条件可得：</p>
+<script type="math/tex; mode=display">
 \nabla_w L = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 \\
 \nabla_b L = - \sum_{i=1}^N \alpha_i y_i = 0 \\
 \nabla_\xi L = C - \alpha_i - \mu_i = 0 \\
@@ -248,7 +249,13 @@ y_i(w \cdot x_i + b) \ge 1 - \xi_i \\
 \xi_i \ge 0 \\
 \alpha_i \ge 0 \\
 \mu_i \ge 0, \quad i=1,2,3,...,N</script><p>由此可得 w 和 b 的解以及分离超平面和分类决策函数，其形式与硬间隔支持向量机一致。</p>
-<h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><ul>
+<p>同时，KKT 的<strong>对偶互补条件</strong>可整理为：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\alpha_{i}=0 & \Rightarrow y_{i}\left(w \cdot x_{i}+b\right) \geq 1 \\
+\alpha_{i}=C & \Rightarrow y_{i}\left(w \cdot x_{i}+b\right) \leq 1 \\
+0<\alpha_{i}<C & \Rightarrow y_{i}\left(w \cdot x_{i}+b\right)=1
+\end{aligned}</script><h3 id="算法-1"><a href="#算法-1" class="headerlink" title="算法"></a>算法</h3><ul>
 <li>输入：数据集 <code>T = {(x1,y1), (x2, y2), ..., (xn, yn}</code>，其中 <code>xi ∈ R^n, yi ∈ {+1, -1} , i=1,2,...,N</code></li>
 <li>输出：分离超平面和分类决策函数</li>
 </ul>
