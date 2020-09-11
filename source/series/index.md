@@ -82,6 +82,8 @@ date: 2019-07-13 20:00:00
 
 - [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
 - [Hard-SVM, Soft-SVM 和 KKT](https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/)
+- [核方法 和 SMO](https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/)
+
 
 ## Coding
 
@@ -92,6 +94,7 @@ date: 2019-07-13 20:00:00
     - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
     - [Swap Nodes in Paris (LeetCode 24)](https://yam.gift/2020/08/20/LeetCode/2020-08-20-Swap-Nodes-in-Paris/)
     - [Search in Rotated Sorted Array (LeetCode 33, 81, 153)](https://yam.gift/2020/08/22/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/)
+    - [Find First and Last Position of Element in Sorted Array (LeetCode 34)](https://yam.gift/2020/08/31/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/)
 
 
 - Python 小白快速入门教程
