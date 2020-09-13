@@ -30,6 +30,7 @@ date: 2019-07-13 20:00:00
 
 
 - 论文和模型：
+    - [2020 PEGASUS](https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/)
     - [2020 DeBERTa](https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/)
     - [2020 Reformer](https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/)
     - [2019 Bart](https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/)
