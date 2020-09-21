@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-featureegineering-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-featureengineering-2.jpeg">
-<meta property="og:updated_time" content="2020-09-21T15:28:56.700Z">
+<meta property="og:updated_time" content="2020-09-21T15:36:25.877Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="特征工程">
 <meta name="twitter:description" content="常听一句话说 “你还能玩儿出花来”，我觉得特征工程就是这么个把那些看上去普普通通的 “数据” 玩儿出花的过程。如果用 DIKW 模型（Data Information Knowledge Wisdom）来理解，Data 显然就是原始的一个个数据值，Information 就是对数据进行分析、处理后得到的具有一定意义的东西。 严格的定义如下：特征工程是对原始数据进行一系列工程处理，将其提炼为特征根，">
@@ -105,7 +105,7 @@
 
 <p>在之前的 <a href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" target="_blank" rel="noopener">EDA</a> 过程中，我们已经对数据有了非常全面的了解，也粗略提到了一些 Naive 的处理方法，本文就正式进行实施处理。</p>
 <p>数据来自：<a href="https://tianchi.aliyun.com/competition/entrance/531830/introduction" target="_blank" rel="noopener">零基础入门金融风控-贷款违约预测-天池大赛-阿里云天池</a></p>
-<p>代码 Notebook 在这里：<a href="https://github.com/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/FeatureEngineering.ipynb" target="_blank" rel="noopener">EDA</a>，或用 <a href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/FeatureEngineering.ipynb" target="_blank" rel="noopener">nbviewer</a> 查看。</p>
+<p>代码 Notebook 在这里：<a href="https://github.com/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/FeatureEngineering.ipynb" target="_blank" rel="noopener">FeatureEngineering</a>，或用 <a href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/FeatureEngineering.ipynb" target="_blank" rel="noopener">nbviewer</a> 查看。</p>
 <h2 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h2><p>首先就是删除掉唯一值的特征，该特征没有任何意义：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uniq_value_feas = [col <span class="keyword">for</span> col <span class="keyword">in</span> data.columns <span class="keyword">if</span> data[col].nunique() &lt;= <span class="number">1</span>]</span><br><span class="line">data = data.drop(columns=uniq_value_feas)</span><br></pre></td></tr></table></figure>
 <p>然后是缺失值处理，缺失值一般是不直接删除的，一个是因为真实场景中缺失值是正常现象，删数据很容易导致数据都被删完了；第一个是因为被删除的数据可能正好是非常有用的数据；再就是预测数据也可能有缺失值（这时候总不能删数据了吧），此时最好能够先把数据填充后再预测。所以一般采取填充处理，常见的填充方法主要有：</p>
