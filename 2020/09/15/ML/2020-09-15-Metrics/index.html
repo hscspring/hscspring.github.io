@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-5.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-6.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-7.jpeg">
-<meta property="og:updated_time" content="2020-09-15T10:59:17.015Z">
+<meta property="og:updated_time" content="2020-10-20T05:35:29.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Metrics">
 <meta name="twitter:description" content="机器学习的数据集一般被划分为训练集和测试集，训练集用于训练模型，测试集则用于评估模型。针对不同的机器学习问题（分类、排序、回归、序列预测等），评估指标的选择也有所不同。本文主要介绍机器学习中常用的模型评估指标。">
@@ -104,7 +104,7 @@
               
         <p>机器学习的数据集一般被划分为训练集和测试集，训练集用于训练模型，测试集则用于评估模型。针对不同的机器学习问题（分类、排序、回归、序列预测等），评估指标的选择也有所不同。本文主要介绍机器学习中常用的模型评估指标。</p>
 <a id="more"></a>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Accuracy" data-toc-modified-id="Accuracy-1">Accuracy</a></span></li><li><span><a href="#Precision-Recall-和-F1" data-toc-modified-id="Precision-Recall-和-F1-2">Precision Recall 和 F1</a></span></li><li><span><a href="#RMSE" data-toc-modified-id="RMSE-3">RMSE</a></span></li><li><span><a href="#ROC-和--AUC" data-toc-modified-id="ROC-和--AUC-4">ROC 和  AUC</a></span></li><li><span><a href="#KS" data-toc-modified-id="KS-5">KS</a></span></li><li><span><a href="#评分卡" data-toc-modified-id="评分卡-6">评分卡</a></span></li><li><span><a href="#参考资料" data-toc-modified-id="参考资料-7">参考资料</a></span></li></ul></div>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Accuracy" data-toc-modified-id="Accuracy-1">Accuracy</a></span></li><li><span><a href="#Precision-Recall-和-F1" data-toc-modified-id="Precision-Recall-和-F1-2">Precision Recall 和 F1</a></span></li><li><span><a href="#RMSE" data-toc-modified-id="RMSE-3">RMSE</a></span></li><li><span><a href="#ROC-和-AUC" data-toc-modified-id="ROC-和--AUC-4">ROC 和  AUC</a></span></li><li><span><a href="#KS" data-toc-modified-id="KS-5">KS</a></span></li><li><span><a href="#评分卡" data-toc-modified-id="评分卡-6">评分卡</a></span></li><li><span><a href="#参考资料" data-toc-modified-id="参考资料-7">参考资料</a></span></li></ul></div>
 
 <h2 id="Accuracy"><a href="#Accuracy" class="headerlink" title="Accuracy"></a>Accuracy</h2><p><strong>准确率</strong>是最简单的评价指标，公式如下：</p>
 <script type="math/tex; mode=display">
@@ -192,7 +192,7 @@ RMSE = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat y_i)^2} {n}}</script><p>但是如�
   MAPE = \sum_{i=1}^{n} \left| \frac{y_i - \hat y_i}{y_i} \right| \times \frac{100}{n}</script><p>  MAPE 对每个误差进行了归一化，一定程度上降低了离群点的影响。</p>
 </li>
 </ul>
-<h2 id="ROC-和-AUC"><a href="#ROC-和-AUC" class="headerlink" title="ROC 和  AUC"></a>ROC 和  AUC</h2><p>受试者工作特征 <strong>ROC</strong>（Receiver Operating Characteristic）曲线是另一个重要的二分类指标。它的横坐标是 “假正例率” <strong>FPR</strong>（False Positive Rate），纵坐标是 “真正例率” <strong>TPR</strong>（True Positive Rate），计算公式如下：</p>
+<h2 id="ROC-和-AUC"><a href="#ROC-和-AUC" class="headerlink" title="ROC 和 AUC"></a>ROC 和 AUC</h2><p>受试者工作特征 <strong>ROC</strong>（Receiver Operating Characteristic）曲线是另一个重要的二分类指标。它的横坐标是 “假正例率” <strong>FPR</strong>（False Positive Rate），纵坐标是 “真正例率” <strong>TPR</strong>（True Positive Rate），计算公式如下：</p>
 <script type="math/tex; mode=display">
 FPR = \frac{FP}{FP + TN} \\
 TPR = \frac{TP}{TP + FN}</script><p>绘制方法和上面的 P-R 曲线类似，不再赘述。</p>
@@ -218,9 +218,10 @@ AUC = \frac{1}{2} \sum_{i=1}^{m-1} (x_{i+1} - x_i) \cdot (y_i + y_{i+1})</script
 <script type="math/tex; mode=display">
 AUC = 1 - \ell_{rank}</script><p>与 P-R 曲线相比，ROC 曲线有一个特点：<strong>当正负样本的分布发生变化时，ROC 曲线形状能基本保持不变，而 P-R 曲线的形状一般会发生比较剧烈的变化</strong>。因此，当数据不均匀时，ROC 曲线更能够反映模型好坏。而这背后的原因是：</p>
 <ul>
-<li>P-R 曲线关注的是真实的正例和预测的正例中（分别对应 Recall 和 Precision），实际是正例的比例</li>
-<li>ROC 曲线关注的是真实的正例和负例中（分别对应 TPR 和 FPR），被预测为正例的比例</li>
+<li>P-R 曲线关注的是【真实的正例中预测为正例的比例】和【预测的正例中实际为正例的比例】（分别对应 Recall 和 Precision）</li>
+<li>ROC 曲线关注的是【真实的正例中预测为正例的比例】和【真实的负例中预测为正例的比例】（分别对应 TPR 和 FPR）</li>
 </ul>
+<p>可以发现，P-R 并没有关注负例的情况。另外，还可以发现，Recall 其实就是 TPR（真正例率）；P-R 曲线中，R 为横坐标；ROC 曲线中，TPR 为纵坐标。</p>
 <h2 id="KS"><a href="#KS" class="headerlink" title="KS"></a>KS</h2><p>作为一个工程师，看到 KS 我们的第一反应应该是：既然已经有了 PR、ROC 等评价指标，为什么还需要 KS？它解决了前面指标解决不了的什么问题？它究竟有什么特点？</p>
 <p>KS Test（Kolmogorov-Smirnov）是由两位苏联数学家 A.N. Kolmogorov 和 N.V. Smirnov 提出的，用于比较样本与参考概率分布或比较两个样本的非参数检验。</p>
 <p>我们以两样本为例，假设 m 个 sample 来自分布 F(x)，n 个来自 G(x)，定义 KS 统计量（KS 距离）为：</p>
