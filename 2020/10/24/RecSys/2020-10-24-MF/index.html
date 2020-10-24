@@ -23,7 +23,7 @@
 <meta property="og:description" content="本文主要介绍推荐系统中的矩阵分解技术。之前在协同过滤 | Yam中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/recsys-mf-1.jpeg">
-<meta property="og:updated_time" content="2020-10-24T09:41:45.168Z">
+<meta property="og:updated_time" content="2020-10-24T11:43:49.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="矩阵分解">
 <meta name="twitter:description" content="本文主要介绍推荐系统中的矩阵分解技术。之前在协同过滤 | Yam中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实">
@@ -98,6 +98,7 @@
             <!-- Table of Contents -->
               
         <p>本文主要介绍推荐系统中的矩阵分解技术。之前在<a href="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" target="_blank" rel="noopener">协同过滤 | Yam</a>中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实正是 2-8 定律和马太效应，再往深了想，从客观角度看是因为信息不对称，主观角度看则是因为羊群效应。所以，很自然的想法就是将稀疏表征稠密化。稠密化表示也就意味着特征的多元化，直观来看自然是表征能力和泛化能力更强。矩阵分解正是这样的技术。</p>
+<a id="more"></a>
 <h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p>给定 User-Item 的矩阵，假设大小为 m×n，那么如果将矩阵分解为 User 矩阵 U（m×d）和 Item 矩阵 V（d×n），自然就可以得到用户和商品的表征，用户 Ui 对商品 Vj 的评分则为 Ui 和 Vj 对应向量的点乘。而得到的两个矩阵则称为隐向量矩阵。其中维度 d 每一维表示一个特征，但是我们并不明确知道该特征代表什么意思，这也是 “隐” 的由来。这一工作最初是由 Simon Funk 在 2006 年 <a href="https://www.wikiwand.com/en/Netflix_Prize" target="_blank" rel="noopener">Netflix Prize</a> 挑战时首次提出并使用。</p>
 <p>下图是一个直观的演示，需要说明的是，一般情况下，维度 d 是比较小的。简单来说，矩阵分解就是将稀疏矩阵映射到低维的稠密矩阵。</p>
 <p><img src="http://qnimg.lovevivian.cn/recsys-mf-1.jpeg" alt=""></p>
