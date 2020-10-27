@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-wide-deep-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-wide-deep-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-wide-deep-3.jpeg">
-<meta property="og:updated_time" content="2020-10-27T14:21:51.651Z">
+<meta property="og:updated_time" content="2020-10-27T14:24:11.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Wide and Deep Learning for Recommender System 论文笔记">
 <meta name="twitter:description" content="推荐系统可以看作是一个搜索排序系统，其中 input 是一组用户和上下文信息，output 是排好序的商品列表。推荐系统的一个挑战就是同时达到 memorization（记忆化）和 generalization（泛化）。  memorization： 大致可定义为学习特征或商品的频繁共现关系并探索相关性 与用户已经执行操作的商品直接相关 可以通过使用稀疏特征上的交叉乘积变换（cross-produ">
@@ -114,6 +114,7 @@
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <p>Cross-product transformation 的一个局限是不能泛化到训练数据中没有的特征对，而基于 Embedding 的模型（如 FM，DNN）可以通过学习每个 query 和 item 特征的低维稠密 Embedding  向量来泛化到之前没见过的 query-item （特征）对，并且不需要人工处理。但是在数据稀疏时难以有效学习，此时大多数 query-item 对之前应该没有交互，但稠密的 Embedding 却得到非零的预测值，这显然是过度泛化，导致推荐内容不相关。另一方面来看，带有特征交叉乘积变换的线性模型可以用更少的参数来记住这些 “例外规则”（并不需要 Embedding）。</p>
 <h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p>本文提出的模型通过联合训练一个线性模型组件和一个神经网络组件，实现在一个模型下，既保证了记忆性又兼顾了泛化性。</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-wide-deep-1.jpeg" alt=""></p>
