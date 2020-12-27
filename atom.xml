@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2020-12-13T15:49:06.279Z</updated>
+  <updated>2020-12-27T03:36:48.291Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从 Sentence-BERT 谈句子表征</title>
+    <link href="https://www.yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/"/>
+    <id>https://www.yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/</id>
+    <published>2020-12-27T04:00:00.000Z</published>
+    <updated>2020-12-27T03:36:48.291Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在之前那篇 &lt;a href=&quot;https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NLP 表征的历史与未来 | Yam&lt;/a&gt; 里，我们几乎从头到尾都在提及句子表征，也提出过一个很重要的概念：“句子” 才是语义理解的最小单位。不过当时并没有太过深入细节，直到做到文本相似度任务时才发现早已经有人将其 BERT 化了。这就是本文要提到的一篇很重要但又很顺其自然的一篇论文——Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks。其实说到相似度，大家多少都会想到大名鼎鼎的 Siamese Recurrent Networks，他们当时（2016 年）用的是 LSTM 对句子表征，那是因为那时候 LSTM 效果是最好的。Sentence-BERT 其实就是将 LSTM 替换为 BERT。 &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="BERT" scheme="https://www.yam.gift/tags/BERT/"/>
+    
+      <category term="Sentence-BERT" scheme="https://www.yam.gift/tags/Sentence-BERT/"/>
+    
+      <category term="Siamese" scheme="https://www.yam.gift/tags/Siamese/"/>
+    
+      <category term="Sentence Similarity" scheme="https://www.yam.gift/tags/Sentence-Similarity/"/>
+    
+      <category term="Semantic Similarity" scheme="https://www.yam.gift/tags/Semantic-Similarity/"/>
+    
+      <category term="Cosine Similarity" scheme="https://www.yam.gift/tags/Cosine-Similarity/"/>
+    
+  </entry>
   
   <entry>
     <title>Bert-Flow 论文笔记</title>
@@ -636,45 +669,6 @@
       <category term="LinkedList" scheme="https://www.yam.gift/tags/LinkedList/"/>
     
       <category term="Swap" scheme="https://www.yam.gift/tags/Swap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hard-SVM, Soft-SVM 和 KKT</title>
-    <link href="https://www.yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/"/>
-    <id>https://www.yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/</id>
-    <published>2020-08-13T04:00:00.000Z</published>
-    <updated>2020-09-02T00:37:30.115Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;SVM 是机器学习在神经网络兴起前最经典、有效的算法。它的思想主要是用一个超平面对数据集进行划分，但是能够分开数据集的超平面一般都有无数个，支持向量机的做法是 “间隔最大化”，也就是选择 “支持向量” 到分割平面距离之和最大的，进而将问题转换为一个凸优化问题。&lt;/p&gt;
-&lt;p&gt;支持向量机根据数据集可分程度的不同分为：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;线性可分支持向量机：数据线性可分，硬间隔支持向量机&lt;/li&gt;
-&lt;li&gt;线性（不可分）支持向量机：数据近似线性可分，软间隔支持向量机&lt;/li&gt;
-&lt;li&gt;非线性支持向量机：数据线性不可分，核技巧 + 软间隔最大化&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;SVM 是一套完整的数据处理算法，核方法的引入使得它具有了对非线性数据的处理能力。具体的方式是将低维数据映射到高维，这样原来不可分的数据自然就可分了。比如假设两类数据点完全是均匀随机分布的，此时如果在平面内无论使用直线还是曲线都无法将它们分开，但假设我们有能力让某一类数据点全部脱离二维进入三维（此处可以想象桌子上散乱着小米和钢珠，你猛地用双手拍桌子，小米会跳起来进入第三维），那它们之间任意的平面都可以轻易将它们隔开。事实上，神经网络使用了类似的方法，感知机的中间隐层做的也是类似的事情。&lt;/p&gt;
-&lt;p&gt;本部分只介绍线性可分支持向量机和线性支持向量机。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Machine Learning" scheme="https://www.yam.gift/tags/Machine-Learning/"/>
-    
-      <category term="SVM" scheme="https://www.yam.gift/tags/SVM/"/>
-    
-      <category term="Hard-SVM" scheme="https://www.yam.gift/tags/Hard-SVM/"/>
-    
-      <category term="Soft-SVM" scheme="https://www.yam.gift/tags/Soft-SVM/"/>
-    
-      <category term="KKT" scheme="https://www.yam.gift/tags/KKT/"/>
-    
-      <category term="Hinge Loss" scheme="https://www.yam.gift/tags/Hinge-Loss/"/>
     
   </entry>
   
