@@ -7,9 +7,15 @@ date: 2019-07-13 20:00:00
 
 ## Collection
 
-- [From Python to Engineer](https://yam.gift/2020/05/01/Collection/From-Python-to-Engineer/)
 - [AIToolBox: My AI Basic Tool Box](https://github.com/hscspring/AIToolBox)
 - [All4NLP: All For NLP, especially Chinese.](https://github.com/hscspring/All4NLP)
+
+
+## AI
+
+- [西蒙《人工科学》读书笔记](https://yam.gift/2018/09/30/2018-09-30-The-Science-of-Artificial/)
+- [人工智能哲学笔记](https://yam.gift/2018/04/07/2018-04-07-AI-Philosophy-Note/)
+
 
 ## NLP
 
@@ -17,8 +23,10 @@ date: 2019-07-13 20:00:00
 
 
 - 胡思乱想
-    - [语言、AI、情感](https://yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/)
+    - [NLP 表征的历史与未来](https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/)
+    - [分类与 AI](https://yam.gift/2020/11/28/2020-11-28-Classification-and-AI/)
     - [NLP 与人工智能](https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/)
+    - [语言、AI、情感](https://yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/)
     - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/2018-07-12-NLP-Business-and-System/)
     - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/2019-03-31-Nabokov-Favorite-Word/)
     - [ChatBot 设计方案](https://yam.gift/2019/07/20/2019-07-20-ChatBot-Design/)
@@ -30,9 +38,12 @@ date: 2019-07-13 20:00:00
 
 
 - 论文和模型：
+    - [2020 Bert-Flow](https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/)
+    - [2020 Funnel Transformer](https://yam.gift/2020/10/13/Paper/2020-10-13-FunnelTransformer/)
     - [2020 PEGASUS](https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/)
     - [2020 DeBERTa](https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/)
     - [2020 Reformer](https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/)
+    - [2019 Sentence-Bert](https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/)
     - [2019 Bart](https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/)
     - [2019 DistilBERT](https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/)
     - [2019 ALBERT](https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/)
@@ -73,8 +84,16 @@ date: 2019-07-13 20:00:00
     - [第十七章：自然语言处理系统评测](https://yam.gift/2018/09/05/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/)
     - [第十八章：自然语言处理中的理性主义与经验主义](https://yam.gift/2019/04/08/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/)
 
-## DeepLearning
 
+## RecSearchCTR
+
+- [推荐系统概述](https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/)
+- [协同过滤](https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/)
+- [矩阵分解](https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/)
+- [Wide & Deep](https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/)
+- [GBTD + LR](https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/)
+
+## DeepLearning
 
 - [Gan 原理、证明与实现](https://yam.gift/2018/03/26/2018-03-26-Gan-Series/)
 - [“心有麟熙”《强化学习炼金术》系列笔记](https://yam.gift/2018/05/07/2018-05-07-RL-Series/)
@@ -82,6 +101,11 @@ date: 2019-07-13 20:00:00
 ## MachineLearning
 
 - [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
+- [Metrics](https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/)
+- [EDA](https://yam.gift/2020/09/18/ML/2020-09-18-EDA/)
+- [特征工程](https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/)
+- [建模调参](https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/)
+- [模型融合](https://yam.gift/2020/09/26/ML/2020-09-26-ModelFusing/)
 - [Hard-SVM, Soft-SVM 和 KKT](https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/)
 - [核方法 和 SMO](https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/)
 
