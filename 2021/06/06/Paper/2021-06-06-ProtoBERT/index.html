@@ -12,12 +12,12 @@
   
   
   
-  <title>ProtoBERT 论文笔记 | Yam</title>
+  <title>Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Paper：2105.00828 BERT memorisation and pitfalls in low-resource scenarios Code：无 核心思想：结合原型网络，将少样本的标签表征为稠密向量。">
 <meta name="keywords" content="NLP,NER,BERT,ProtoBERT,few-shot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ProtoBERT 论文笔记">
+<meta property="og:title" content="Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note">
 <meta property="og:url" content="https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/index.html">
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Paper：2105.00828 BERT memorisation and pitfalls in low-resource scenarios Code：无 核心思想：结合原型网络，将少样本的标签表征为稠密向量。">
@@ -29,9 +29,9 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg">
-<meta property="og:updated_time" content="2021-06-06T13:56:45.424Z">
+<meta property="og:updated_time" content="2021-06-06T14:02:17.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ProtoBERT 论文笔记">
+<meta name="twitter:title" content="Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note">
 <meta name="twitter:description" content="Paper：2105.00828 BERT memorisation and pitfalls in low-resource scenarios Code：无 核心思想：结合原型网络，将少样本的标签表征为稠密向量。">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-5.jpg">
   
@@ -88,7 +88,7 @@
         
   
     <h1 class="entry-title article-title">
-      ProtoBERT 论文笔记
+      Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note
     </h1>
   
 
@@ -113,7 +113,7 @@
 <li>在少资源任务（如 few-shot 学习或稀有实体识别）上完全失败</li>
 </ul>
 <p>为了缓解这种限制，本文基于 BERT 和 prototypical 网络提出新的架构，提升在少资源情况下命名实体识别任务的表现。</p>
-<h3 id="背景动机"><a href="#背景动机" class="headerlink" title="背景动机"></a>背景动机</h3><p>之前的<a href="">研究</a>更多关注学到了什么，但是怎么从下游任务数据中学习的过程，以及学习动力的定性性质仍不清楚。本文主要研究基于 transformer 的预训练模型在标签不足或噪声条件下的学习行为。结果发现一个预训练的 BERT 几乎不会忘记已经学到的样例，而且大部分的样例在前几个 epoch 就学到了，后面的训练过程更多记忆噪声。</p>
+<h3 id="背景动机"><a href="#背景动机" class="headerlink" title="背景动机"></a>背景动机</h3><p>之前的<a href="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" target="_blank" rel="noopener">研究</a>更多关注学到了什么，但是怎么从下游任务数据中学习的过程，以及学习动力的定性性质仍不清楚。本文主要研究基于 transformer 的预训练模型在标签不足或噪声条件下的学习行为。结果发现一个预训练的 BERT 几乎不会忘记已经学到的样例，而且大部分的样例在前几个 epoch 就学到了，后面的训练过程更多记忆噪声。</p>
 <p>记忆机制在少样本不均衡类型场景下尤其重要，如果一个类型少于 25 次，BERT 会完全失败，只有达到 100 次才会有合理的表现。为了解决这个限制，文章提出了一种方法，该方法使用受原型网络启发的层来增强 BERT（Snell 等人，2017）。该层在特征空间中以每个类为基础显式聚类示例，并通过找到它们最近的类质心对测试示例进行分类。</p>
 <p>主要贡献如下：</p>
 <ul>
@@ -364,7 +364,7 @@ v = (d_O, dist_0, dist_1, ..., dist_k)</script><p>dO 表示【足够接近】的
       <ul>
         
           <li>
-            <a href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">ProtoBERT 论文笔记</a>
+            <a href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</a>
           </li>
         
           <li>
