@@ -72,7 +72,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-2017-02-15-list-dict-series-dataframe-ndarray-transform" class="post-2017-02-15-list-dict-series-dataframe-ndarray-transform post type-post status-publish format-standard hentry">
+    <article id="post-Math/2018-05-12-Essence-of-Calculus" class="post-Math/2018-05-12-Essence-of-Calculus post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -80,42 +80,101 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/">List, Dict, Array, Series, DataFrame 相互转换</a>
+      <a class="article-title" href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/">微积分的本质笔记</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/" data-id="ckggncioi0006mtbzusec76cm" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/" data-id="ckggncith0082mtbzybfqsq7r" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <h2 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h2><ul>
-<li>dict to series</li>
-<li>dict to dataframe</li>
-<li>list to series</li>
-<li>list to dataframe</li>
-<li>list to array</li>
-<li>array to dataframe</li>
-<li>series to array</li>
-<li>dataframe to array</li>
-<li>dataframe to dict</li>
-</ul>
+        <blockquote>
+<p>说明：来自：<a href="https://space.bilibili.com/88461692/#/channel/detail?cid=13407" target="_blank" rel="noopener">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅的。多图（69张）。<br>感谢作者的付出，真心很赞。</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#导论" data-toc-modified-id="导论-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>导论 </a></div><div class="lev1 toc-item"><a href="#导数的悖论" data-toc-modified-id="导数的悖论-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>导数的悖论 </a></div><div class="lev1 toc-item"><a href="#用几何来求导" data-toc-modified-id="用几何来求导-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>用几何来求导 </a></div><div class="lev1 toc-item"><a href="#链式法则和乘积法则" data-toc-modified-id="链式法则和乘积法则-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>链式法则和乘积法则 </a></div><div class="lev1 toc-item"><a href="#指数函数求导" data-toc-modified-id="指数函数求导-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>指数函数求导 </a></div><div class="lev1 toc-item"><a href="#隐函数求导" data-toc-modified-id="隐函数求导-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>隐函数求导 </a></div><div class="lev1 toc-item"><a href="#极限" data-toc-modified-id="极限-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>极限 </a></div><div class="lev1 toc-item"><a href="#积分与微积分基本定理" data-toc-modified-id="积分与微积分基本定理-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>积分与微积分基本定理 </a></div><div class="lev1 toc-item"><a href="#面积和斜率有什么联系？" data-toc-modified-id="面积和斜率有什么联系？-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>面积和斜率有什么联系？</a></div><div class="lev2 toc-item"><a href="#脚注：高阶导数" data-toc-modified-id="脚注：高阶导数-91"><span class="toc-item-num">9.1&nbsp;&nbsp;</span>脚注：高阶导数 </a></div><div class="lev1 toc-item"><a href="#泰勒级数" data-toc-modified-id="泰勒级数-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>泰勒级数 </a></div></p>
+<h1 id="导论"><a href="#导论" class="headerlink" title="导论"></a>导论</h1><p>微积分的三个中心思想：积分、微分、两者互逆。  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi1.jpeg" alt="">  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi2.jpeg" alt="">  </p>
+<p>（难怪正态分布这么多见……）  </p>
+<p><img src="http://qnimg.lovevivian.cn/video-weijifenbenzhi3.jpeg" alt="">  </p>
+<p>f(x) 可以是任意函数  </p>
+<p>微积分基本定理：积分与导数之间的来回转化关系，也就是某个图像下方面积函数的导数能够还原出定义这个图像的函数。它将积分和导数两大概念联系起来。  </p>
         
           <p class="article-more-link">
-            <a href="/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2017/02/15/2017-02-15-list-dict-series-dataframe-ndarray-transform/">
-    <time datetime="2017-02-15T10:00:00.000Z" class="entry-date">
-        2017-02-15
+    <a href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/">
+    <time datetime="2018-05-12T04:23:27.000Z" class="entry-date">
+        2018-05-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Calculus/">Calculus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-05-07-RL-Series" class="post-2018-05-07-RL-Series post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/07/2018-05-07-RL-Series/">“心有麟熙”《强化学习炼金术》系列笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/07/2018-05-07-RL-Series/" data-id="ckggncip0000pmtbze7uvu2mh" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：本系列主要为李飞飞教授博士范麟熙个人公众号（DrJimFan）： “心有麟熙” 《强化学习炼金术》系列笔记。范博士的讲解简单易懂，由浅入深，每一期都有视频和文字内容，非常贴心，大家可以关注公众号学习。另外，本系列还在持续更新中……</p>
+</blockquote>
+<ul>
+<li><a href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap1-Bandit.ipynb" target="_blank" rel="noopener">Chap1-Bandit</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap1-Exercise.ipynb" target="_blank" rel="noopener">Chap1-Exercise</a></li>
+<li><a href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap2-MDP.ipynb" target="_blank" rel="noopener">Chap2-MDP</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/07/2018-05-07-RL-Series/">
+    <time datetime="2018-05-07T09:07:19.000Z" class="entry-date">
+        2018-05-07
     </time>
 </a>
     
@@ -126,7 +185,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a></li></ul>
 
     </footer>
 </article>
@@ -136,7 +195,7 @@
 
 
   
-    <article id="post-2016-09-19-NumPy" class="post-2016-09-19-NumPy post type-post status-publish format-standard hentry">
+    <article id="post-ML/2018-04-22-ML-Concept" class="post-ML/2018-04-22-ML-Concept post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -144,96 +203,14 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2016/09/19/2016-09-19-NumPy/">Numpy 入门</a>
+      <a class="article-title" href="/2018/04/22/ML/2018-04-22-ML-Concept/">机器学习概念</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/09/19/2016-09-19-NumPy/" data-id="ckggncio90002mtbzlmyf7e7w" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><strong>NumPy 笔记目录</strong></p>
-<ul>
-<li><a href="#Array Creation">Array Creation</a><ul>
-<li><a href="#np.arange">np.arange</a></li>
-<li><a href="#np.array">np.array</a></li>
-</ul>
-</li>
-<li><a href="#Basic Operations">Basic Operations</a><ul>
-<li><a href="#dot">dot</a></li>
-<li><a href="#axis">axis</a></li>
-</ul>
-</li>
-<li><a href="#Indexing, Slicing and Iterating">Indexing, Slicing and Iterating</a><ul>
-<li><a href="#One-dimensional">One-dimensional</a></li>
-<li><a href="#Multidimensional">Multidimensional</a></li>
-<li><a href="#Iterating">Iterating</a></li>
-<li><a href="#Indexing with Arrays">Indexing with Arrays</a></li>
-<li><a href="#Search max &amp; min">Search max &amp; min</a></li>
-<li><a href="#np.ix">np.ix_()</a></li>
-</ul>
-</li>
-<li><a href="#Shape Manipulation">Shape Manipulation</a><ul>
-<li><a href="#Changing the shape">Changing the shape</a></li>
-<li><a href="#Stacking together">Stacking together</a></li>
-<li><a href="#Splitting">Splitting</a></li>
-<li><a href="#Copy and Views">Copy and Views</a></li>
-</ul>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2016/09/19/2016-09-19-NumPy/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/09/19/2016-09-19-NumPy/">
-    <time datetime="2016-09-19T13:32:55.000Z" class="entry-date">
-        2016-09-19
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Science/">Data Science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NumPy/">NumPy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-2016-09-04-Ubuntu-VirtualBox-Vagrant-questions" class="post-2016-09-04-Ubuntu-VirtualBox-Vagrant-questions post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/09/04/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/09/04/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/" data-id="ckggncioj0007mtbzmxwtqbvh" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/" data-id="ckggncisw007fmtbzfnylvecd" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -241,365 +218,30 @@
       
             <!-- Table of Contents -->
               
-        <h2 id="Ubuntu-下安装-VirtualBox"><a href="#Ubuntu-下安装-VirtualBox" class="headerlink" title="Ubuntu 下安装 VirtualBox"></a>Ubuntu 下安装 VirtualBox</h2><ul>
-<li><a href="http://blog.csdn.net/flm2003/article/details/8168628" target="_blank" rel="noopener">Ubuntu下轻松安装virtualbox</a></li>
-</ul>
-<p>注意：  </p>
+        <p>有幸与 <a href="https://github.com/ahangchen" target="_blank" rel="noopener">ahangchen (梦里茶) </a>和 <a href="https://github.com/luopengting" target="_blank" rel="noopener">luopengting (lpt)</a> 一起参与了《机器学习》（周志华）概念整理<a href="https://github.com/ahangchen/windy-afternoon/blob/master/ml/melon/README.md" target="_blank" rel="noopener">项目</a>，今天正式完稿。我负责整理了以下章节：</p>
 <ul>
-<li>务必要仔细查看用户手册上对系统和必要环境的依赖。</li>
-<li>如果 kernel header 不一致，需要更新 kernel：  <ul>
-<li><code>sudo apt-get install linux-headers-generic</code> 或者  </li>
-<li><code>sudo apt-get install linux-headers-$(uname -r)</code><br><code>uname -r</code> 等于你的版本内核，比如我的：<code>4.4.0-21-generic</code></li>
+<li>第 11 章：<a href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch11.md" target="_blank" rel="noopener">特征选择与稀疏学习</a></li>
+<li>第 14 章：<a href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch14.md" target="_blank" rel="noopener">概率图模型</a></li>
+<li>第 15 章：<a href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch15.md" target="_blank" rel="noopener">规则学习</a></li>
+<li>第 16 章：<a href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch16.md" target="_blank" rel="noopener">强化学习</a></li>
+<li>附录：<a href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch17.md" target="_blank" rel="noopener">相关数学知识</a></li>
 </ul>
-</li>
-<li>如果不能<a href="http://askubuntu.com/questions/762136/cannot-reinstall-virtualbox-on-ubuntu-16-04" target="_blank" rel="noopener">重装VBox</a>，需要修改BIOS设置：  <ul>
-<li>Security 中的 Secure Boot 设置为“Disabled” （一般设置这个就可以了吧）</li>
-<li>Startup中的 UEFI/Legacy Boot 选 Both</li>
-<li>Priority 选 Legacy First，CSM Support 选 Yes<br>包括类似 Surface Pro，都可以这样操作。<br>另外，由于现在的主板很多都带有 UEFI Secure Boot 功能，可能导致使用USB设备启动不了系统。用此方法也可以搞定。<br>参考至： <a href="http://blog.csdn.net/tanaya/article/details/8846779" target="_blank" rel="noopener">电脑无法从USB启动可能是 UEFI Secure Boot 在捣鬼！</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="使用-Vagrant-管理-VirtualBox"><a href="#使用-Vagrant-管理-VirtualBox" class="headerlink" title="使用 Vagrant 管理 VirtualBox"></a>使用 Vagrant 管理 VirtualBox</h2><ul>
-<li><a href="http://wp.fungo.me/linux/vagrant-for-programmer-ch1.html" target="_blank" rel="noopener">Vagrant：程序员的VirtualBox</a>  </li>
-</ul>
-<p>注意：  </p>
-<ul>
-<li>如果在 <code>vagrant up</code> 时碰到<a href="https://github.com/lynnaloo/xtuple-vagrant/issues/13" target="_blank" rel="noopener">VirtualBox is complaining that the kernel module is not loaded</a>，可能需要这个命令：  <ul>
-<li><code>sudo /usr/lib/virtualbox/vboxdrv.sh setup</code><br>注意此命令支持Ubuntu15.0，16.0，其他版本不一定支持。  </li>
-<li>或者 <code>sudo /etc/init.d/vboxdrv setup</code><br>参见：<a href="https://gist.github.com/geraldvillorente/977d16624e079ba12741" target="_blank" rel="noopener">vagrant-virtualbox-failed</a>  </li>
-</ul>
-</li>
-<li>如果输入在 <code>vagrant up</code> 时出现以下错误，可能需要重新安装  vagrant，地址在这里：<a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">vagrantup</a>   </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant package</span><br><span class="line">No usable default provider could be found for your system.  </span><br><span class="line"></span><br><span class="line">$ vagrant package --base vagrant-ubuntu64</span><br><span class="line">Vagrant has detected that you have a version of VirtualBox installed that is not supported by this version of Vagrant.   </span><br><span class="line">Please install one of the supported versions listed below to use Vagrant: 4.0, 4.1, 4.2, 4.3, 5.0</span><br></pre></td></tr></table></figure>
-<p>   可参考这两个地方：  </p>
-<ul>
-<li><a href="http://stackoverflow.com/questions/29450437/unable-to-vagrant-up-how-to-set-providers" target="_blank" rel="noopener">Unable to vagrant up - how to set “providers”</a></li>
-<li><a href="https://github.com/mitchellh/vagrant/issues/7578" target="_blank" rel="noopener">Make Virtualbox 5.1 final version compatible</a>  </li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/09/04/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/">
-    <time datetime="2016-09-04T12:59:08.000Z" class="entry-date">
-        2016-09-04
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Math/2016-09-03-Simpson-Paradox" class="post-Math/2016-09-03-Simpson-Paradox post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/09/03/Math/2016-09-03-Simpson-Paradox/">辛普森悖论及其哲学思考</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/" data-id="ckggncite007wmtbzkg3gdcit" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-            <!-- Table of Contents -->
-              
-        <h3 id="什么是辛普森悖论"><a href="#什么是辛普森悖论" class="headerlink" title="什么是辛普森悖论"></a>什么是辛普森悖论</h3><p>某个条件下的两组数据，分别讨论时满足某种性质，但合并起来可能导致相反的结论。这就是辛普森悖论。</p>
-<p>假设某公司考核员工有个指标叫迟到出错率=（迟到次数+出错次数）/（出勤次数+工作个数），包括出错率和迟到率2个指标。<br>A员工做了5件<strong>重要</strong>工作，出错1件；<br>B员工做了100件<strong>很简单</strong>的小事情，出错21件。<br>A员工出勤100次，迟到29次，每次<strong>1分钟</strong>；<br>B员工出勤10次，迟到9次，每次<strong>2小时</strong>。<br>则：A员工出错率20%，迟到率29%；B员工出错率21%，迟到率90%，如果分别看出错率和迟到率，A员工明显比B员工优秀。<br>那么实际情况呢：A员工迟到出错率30/105；B员工迟到出错率30/110，B员工评分高于A员工。<br>这就是辛普森悖论的典型案例。</p>
-<h3 id="为什么会出现辛普森悖论"><a href="#为什么会出现辛普森悖论" class="headerlink" title="为什么会出现辛普森悖论"></a>为什么会出现辛普森悖论</h3><p>1、用相对比例（百分比）衡量结果。换句话说，用相对坐标去描述绝对坐标的情况。<br>常见的例子就是百度Google经常能搜出来的录取比例，女生占比等，比如这篇<a href="http://www.guokr.com/article/6222/" target="_blank" rel="noopener">辛普森悖论：诡异的男女比例</a>以及维基百科的<a href="https://zh.wikipedia.org/zh-cn/%E8%BE%9B%E6%99%AE%E6%A3%AE%E6%82%96%E8%AE%BA" target="_blank" rel="noopener">例子</a>。这种例子直接用绝对数值去看就可破解悖论。<br>2、数据本身是由不同部分构成，而这不同部分的权重可能不同。<br>第1点说的常见的例子，其实就是将不同结构的权重按 1:1 进行分配的结果（即A学院，B学院）。<br>我们的案例其实也是这样的，我们做个极端的推理，假设迟到率权重为0，则A员工迟到出错率20%，B员工21%，A员工评分高于B员工。<br>3、除了构成部分本身权重不同外，不同部分的质量也有区别。<br>其实，到了这里，我们已经慢慢在接近本质了。那就是：质与量的矛盾。我们身处一个“评价系统”中，自然选择和进化论就是评价的结果。<br>除了我们熟知的各种数据指标外，还包括我们每一个决策和行为。前者结果非常直观，后者则表现为“命运”。所有的结果都是“物竞天择，适者生存”。这个话题到此为止。  </p>
-<p>所以，其实这是通过量对质进行评价过程中的三个层次：<br>第一层：也是最外面的那层，是用相对比例（百分比）表示而造成的结果扭曲；这一层是“显示”出（导致）的错误。<br>第二层：数据不同构成部分“重要性”（权重）不同而造成的结果扭曲；这一层是未考虑“结构”导致的错误。<br>第三层：每个构成部分数据本身的“重要性”不同而造成的结果扭曲；这一层是未考虑“内容”导致的错误。  </p>
-<p>综上，我们可以重新定义一下辛普森悖论：<br>人们在对事物的评价过程中，未考虑每组数据本身的重要性以及不同部分数据的结构的“权重”，并采用相对指标对结果进行描述而造成的对真实结果的扭曲的一类现象。  </p>
-<p>再扩展一下，上述定义很重要的两个地方：“人们”和“现象”。<br>就是说，评价是以人的某种需求为中心的，需求不同，观察到的“现象”亦不同。<br>这是否让我们想起了薛定谔的那只猫？<br>另外，是什么让“人”进行“评价”？这个过程究竟是有意识的还是无意识的？  </p>
-<h3 id="结果应用"><a href="#结果应用" class="headerlink" title="结果应用"></a>结果应用</h3><p>简单来说，辛普森悖论告诉我们，任何时候不能简单地根据数据结果而轻易得出一些看似确定的结论。真正的结论需要我们对分析目的进行深入思考，对数据本身进行深入细致地探索研究后才有可能得出。</p>
+<p>最终的电子书：<a href="https://ahangchen.gitbooks.io/windy-afternoon/content/ml/melon/" target="_blank" rel="noopener">西瓜书概念整理</a>。欢迎大家阅读。如任何疑问或建议，随时欢迎提出。</p>
 <blockquote>
-<p>永远对知识充满敬畏。弱小和无知不是生存的障碍，傲慢才是。</p>
-</blockquote>
-<h3 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h3><p><a href="http://vudlab.com/simpsons/" target="_blank" rel="noopener">Simpson’s Paradox</a></p>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/09/03/Math/2016-09-03-Simpson-Paradox/">
-    <time datetime="2016-09-03T06:26:49.000Z" class="entry-date">
-        2016-09-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Statistics/">Statistics</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-2016-03-31-Machines-of-Loving-Grace" class="post-2016-03-31-Machines-of-Loving-Grace post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/03/31/2016-03-31-Machines-of-Loving-Grace/">《与机器人共舞》读后感兼谈 AI 与 IA</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/03/31/2016-03-31-Machines-of-Loving-Grace/" data-id="ckggncio50000mtbz5b3mvxkz" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-            <!-- Table of Contents -->
-              
-        <p>一位高级科技记者：约翰·马尔科夫的大作，从作者的出身我们就可以猜想这本书的大致风格，绝非理工技术男的思维，写出来的也绝不是纯粹理论或实践方面的干货。看完后，基本正如所料。全书主线非常鲜明，但每一部分内部其实有一点凌乱，一会儿是这个人，一会儿又是另一个人，光是那许多英文名字就已经让人头大了。我给本书打 7 分，还有 0.5 送给亲笔签名。</p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-3.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-2.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/machine-of-loving-grace-1.jpeg" alt=""></p>
-<p><strong>一条主线：AI 与 IA之争→由 AI 转向 IA</strong></p>
-<p>从书的标题《与机器人共舞》就可以看出坐着的观点是支持 IA，全书也始终秉持这一观点。曾经二十年左右的沉寂，人工智能被沦为笑柄，随着硬件运算能力提升，神经网络跑出了非常优秀的结果，人工智能在 2014 年重见曙光，一发不可收拾，看起来前景良好。但同时很多专家却非常警惕，将人工智能视为人类最大的威胁；除此之外，还有 “意识” 和 “伦理” 问题，也让人工智能蒙上了一层淡淡的阴影。</p>
-<p>我们都知道，机器在运算方面远超人类，绝大多数专家也都认同迟早有一天，机器能够超越人类，那么这时候，人类的位置在哪里？这个时点被人工智能界称为”奇点“，一旦奇点临近，计算机将获得质的飞跃，人类将无法理解其行为。就好像二维世界的蚂蚁无法理解三维世界的人类一样。关于这一天还需要多久学术界争论不停也没有定论，可能唯一能做的就是谨慎再谨慎。</p>
-<p>据一位做数据的朋友说，他已经无法理解大数据背后自动关联的规则，这也是他非常担心的地方。数据会 ”自动“ 关联起来，依据是什么？仔细想想的确有些毛骨悚然。其实，其他很多方面的外在表现已经让人类无法理解了，比如神经网络隐藏层的运作（虽说目前已经有公司能够通过技术手段”观察“到隐藏 layer 的运作方式，但还没到实践环节），吴恩达说不可思议，的确如此。再比如集群效应，当一大堆微型机器人凑在一起会发生什么？会不会从量变引发质变？</p>
-<p>去年上映的《机械姬》令人印象颇深，类似的还有《超体》以及前几年的《超验骇客》，人工智能最后掌控全世界……当然，现实情况是人工智能还比较”傻“，更加不会有意识，形象思维没法与人类相比，他”看见了“，但”看不懂“。</p>
-<p>正因为这种种原因，很多专家转向 IA 阵营。IA 以人类为核心，增强和扩展人类的能力，比如 Google 搜索、Google 眼镜、Siri 等等，他们提高了”人类“生存的效率和能力，同时对人类几乎没有威胁。另一方面，由于 IA 并不需要太”智能“，因此，实现起来也较容易。这也是 IA 阵营越来越庞大的原因。</p>
-<p>AI 与 IA 斗争了几十年，矛盾从未间断，我们很难预测未来会如何。也许，随着IA逐渐普及成熟，突然转向AI也不一定。用作者的话来说，这之间的矛盾以及未来如何发展，取决于人类科学家的决策。我们大胆预测，AI 和 IA 依然将在各自领域不断向前，我们不知道奇点几时来临，唯一能做的只有在它到来之前做好充分的准备。</p>
-<p><strong>IA</strong></p>
-<p>我觉得有必要单独聊一下 IA。IA 以人为核心，一切为人类服务，机器将作为人类的好朋友、好伙伴。这实际上是对人类能力的扩充。我们有 Google 搜索，也有 Siri，还可以想象剪刀手爱德华，又或者钢铁侠，甚至某一天，我们可以上传自己的思维，或者在大脑内植入芯片，瞬间学会某个领域的所有知识。我不知道还要多久，大家会变成半机械人，但从目前的趋势来看这一天也许会很快。我们绝大多数人离开网络已经无法存活，而网络的载体正在越来越方便人使用，从笨重的 PC 到笔记本到平板手机，再到手环、眼镜和植入芯片。人类已经逐渐在将自己”上传“到网络上，从键盘敲字，到智能硬件采集，再到芯片，每个人其实已经处于一张无形的大网中。终有一天，我们将解放双脚、双手这些肉体，直接用意念控制，如果到了这一天，那所有人类从肉体到精神都将连接在一起。我无权评判这一切的好坏，只是觉得这样的生活想想有些恐怖——我们会不会有一天宁愿呆在培养皿中，正如《黑客帝国》中一样。结果就是，人类被控制，或者灭绝。</p>
-<p><strong>AI</strong></p>
-<p>我非常认同一个观点：绝大多数人对人工智能本身是有误解的，因为我们会下意识地将其 “拟人化”，还有这个尴尬的名字。然而，在 AI 的角度来看，也许世界完全是另一副样子。举个例子，给一台机器的目标是”复制更多的笑脸“，它可能会将所能用到的一切资源都变成一个笑脸，包括人类以及其他能用到的一切，最后可能会奔向宇宙，依然不停地在复制笑脸。想象一下《超验骇客》里面的纳米技术（这个东西很有可能会被实现）。对于机器来说，我他妈才不管什么是意识，什么是形象思维，我也不会去管《泰坦尼克号》真好看，爱情最感人，亲情真伟大……他的目的就是不断完成自己的目标，而且越来越高效。我觉得这才是 AI 真正恐怖的地方，正如《机械姬》中的伊娃一样，人类在她看来就跟我们当初看到野兽一样啊，凭什么同情你？凭什么听你的？我比你聪明那么多，能力强那么多。这就跟让你去听从猪指挥一样。AI 根本不需要意识（当然也可能有，但这不重要），他只要比你强大，那你就只有被奴役的份。这个，可以叫 ”物竞天择，适者生存“。机器成为 ”新物种“ 取代人类。最后的结果，人类被奴役，或者被灭绝。</p>
-<p><strong>总结</strong></p>
-<p>其实，无论 IA 还是 AI，都有一种改造 ”人类“ 的因子在，只是 IA 是一步一步侵入，而 AI 可能比较迅速猛烈和直接。既然我们有理由对 AI 恐惧和谨慎，那么当然同样也需对 IA 如此。我也不知道我的观点是否正确，总觉得人类之所以为人类，除了会使用工具外，还因为人类有七情六欲，有生老病死、悲欢离合。如果有一天，每个人都长生不老，每个人都帅气美丽，每个人都一样聪明，有同样的超能力，那这个世界会变成什么？如果主机系统感染病毒，难道人类就此终结？这还只是机器在人类控制下的结果，并没有考虑机器逆袭的情况。也许，这就是人类的终极命运吧，下一个轮回。</p>
-<blockquote>
-<p>后记：谈到 AI 和 IA 突然想到了效率与情感。 举个例子，“他死了，她也死了”和“他死了，她伤心而死”。 信息论（效率）角度而言第一句更容易记住，因为它短，但人们更能记住第二句，因为它有“情感”，而人正是情感动物。 回到 AI 和 IA，其实就对人类而言 IA 更加合适，因为它更加侧重与人交互，借助机器的效率和人类的情感实现人类整体效用最大。 一直觉得真正的人工智能是另一种物种的存在，人之所以是人，就因为他是一个“综合系统”，人类会犯错，很多时候不理智，也会生病，会死亡。可是人工智能不会，所以无论他再怎么智能，那也不是人，也许，将来会成为超越人类的另一个物种。所以也不难理解为什么那么多牛人抵触人工智能，但抵触有什么用。物竞天择，适者生存。若干年后，未必会有人类… </p>
-</blockquote>
-<p>参考：</p>
-<ul>
-<li><p><a href="https://waitbutwhy.com/2015/01/artificial-intelligence-revolution-1.html" target="_blank" rel="noopener">The Artificial Intelligence Revolution: Part 1 - The Road to Superintelligence</a></p>
-</li>
-<li><p><a href="https://waitbutwhy.com/2015/01/artificial-intelligence-revolution-2.html" target="_blank" rel="noopener">The Artificial Intelligence Revolution: Part 2 - Our Immortality or Extinction</a></p>
-</li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/03/31/2016-03-31-Machines-of-Loving-Grace/">
-    <time datetime="2016-03-31T14:00:00.000Z" class="entry-date">
-        2016-03-31
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine/">Machine</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-CogPsy/2016-02-17-Selfish-Gene" class="post-CogPsy/2016-02-17-Selfish-Gene post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/">《自私的基因》读书笔记</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/" data-id="ckggncirq004umtbznm9o8rro" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><a href="https://book.douban.com/subject/1292405/" target="_blank" rel="noopener">自私的基因 (豆瓣)</a>  这本书初看可能会颠覆三观，它站在一个更高的视角去看待进化、生命和物种——即一切都是自私的基因操纵的结果。而基因也不是我们通常以为的以 “物种” 为中心，它是在此之上的存在，物种只不过是它们的载体。当然，书中观点并不一定正确，但能为我们提供一种看待问题不同的视角。</p>
-        
-          <p class="article-more-link">
-            <a href="/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/">
-    <time datetime="2016-02-27T09:00:00.000Z" class="entry-date">
-        2016-02-27
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cognition/">Cognition</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Psychology/">Psychology</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Economy/2015-12-01-Management-Truth" class="post-Economy/2015-12-01-Management-Truth post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2015/12/01/Economy/2015-12-01-Management-Truth/">《管人的真理》读书笔记</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2015/12/01/Economy/2015-12-01-Management-Truth/" data-id="ckggncism006lmtbz2elccpmh" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>斯蒂芬·罗宾斯 <a href="https://book.douban.com/subject/1018540/" target="_blank" rel="noopener">管人的真理 (豆瓣)</a> 一书通过 63 个相互独立、短小精悍、通俗易懂的小段子来说明管理学的大道理，虽然看似简单，但却非常有实用价值，确实如作者所说，可以常备案头，不时翻阅。</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/12/01/Economy/2015-12-01-Management-Truth/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2015/12/01/Economy/2015-12-01-Management-Truth/">
-    <time datetime="2015-12-01T09:00:00.000Z" class="entry-date">
-        2015-12-01
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Managemnt/">Managemnt</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Economy/2015-11-28-Built-to-Last" class="post-Economy/2015-11-28-Built-to-Last post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2015/11/30/Economy/2015-11-28-Built-to-Last/">《基业长青》读书笔记</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2015/11/30/Economy/2015-11-28-Built-to-Last/" data-id="ckggncish0068mtbz05wugtnx" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><a href="https://book.douban.com/subject/4050758/" target="_blank" rel="noopener">基业长青 (豆瓣)</a> 是一本在企业里很著名的书籍，很多公司高管的书架上都会看到这本书。作者期望通过研究大量成功企业来找出使得这些企业保持长盛不衰的密码，他做到了；但很显然，我们还想放在历史中进一步验证，所以时隔多年再读可能会有更多新的体会。</p>
-<blockquote>
-<p>认识 “你是谁” 比知道 “你要去哪里” 更加重要，因为后者几乎肯定是要改变的。无论是对人还是那些胸怀远大抱负的公司。——再版导言</p>
-</blockquote>
-<p><strong>译者序</strong></p>
-<p>一、两位作者的目的：</p>
+<p>注意：</p>
 <ol>
-<li><p>找出几位高瞻远瞩公司共同拥有的使他们有别于其他公司的基本特质和动力，并把这些发现化为有用的观念架构。</p>
-</li>
-<li><p>有效地把这些发现和观念向大家介绍，以便影响管理方法，造福想创立、构建和维持高瞻远瞩公司的人士。</p>
-</li>
+<li>由于作了一些简化，可能会与上面链接中的内容不太一致。</li>
+<li>GitHub 中公式无法渲染，下载到本地即可，推荐用 <a href="https://typora.io/" target="_blank" rel="noopener">Typora — a markdown editor, markdown reader.</a>。</li>
 </ol>
-<p>二、企业为市场所驱动 VS 企业去驱动市场。</p>
-<p>三、远见就是见人所未见的艺术。高瞻远瞩公司的驱动力在内部，内心驱动带动，最重要的问题是“我们明天怎样做得比今天更好？”</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/11/30/Economy/2015-11-28-Built-to-Last/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
+</blockquote>
+
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2015/11/30/Economy/2015-11-28-Built-to-Last/">
-    <time datetime="2015-11-30T09:00:00.000Z" class="entry-date">
-        2015-11-30
+    <a href="/2018/04/22/ML/2018-04-22-ML-Concept/">
+    <time datetime="2018-04-22T08:41:19.000Z" class="entry-date">
+        2018-04-22
     </time>
 </a>
     
@@ -610,7 +252,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Business/">Business</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Managemnt/">Managemnt</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a></li></ul>
 
     </footer>
 </article>
@@ -620,7 +262,7 @@
 
 
   
-    <article id="post-Economy/2015-11-30-HaiDiLao" class="post-Economy/2015-11-30-HaiDiLao post type-post status-publish format-standard hentry">
+    <article id="post-2018-04-07-AI-Philosophy-Note" class="post-2018-04-07-AI-Philosophy-Note post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -628,43 +270,37 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2015/11/30/Economy/2015-11-30-HaiDiLao/">《海底捞你学不会》读书笔记</a>
+      <a class="article-title" href="/2018/04/07/2018-04-07-AI-Philosophy-Note/">人工智能哲学笔记</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2015/11/30/Economy/2015-11-30-HaiDiLao/" data-id="ckggncish006bmtbzudeidfzo" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/04/07/2018-04-07-AI-Philosophy-Note/" data-id="ckggncip2000tmtbzxglbvfxj" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
-        <p>一口气看完 <a href="https://book.douban.com/subject/6052860/" target="_blank" rel="noopener">海底捞你学不会 (豆瓣)</a>，感觉真是一家 “另类” 的公司。</p>
-<p>前三章有太多的感动和赞叹，由于我自己也是农村出身，所以对其中很多的观念感同身受，看着他们的成长故事，忍不住呐喊喝彩和流泪。这部分给我的感觉就是：一帮淳朴可爱的人，一家极致有爱的公司。</p>
-<p>海底捞的成功可能有以下几个原因：</p>
-<p>1、对人性本质的运用。但绝非有意为之，张勇觉得应该将员工当做一家人看，真正尊重他们，他真的一直这么坚持在做，而员工很多都是农村的孩子，生性纯朴，又能吃苦，在得到这么好的工作和有爱的集体后，自然充满感激，以主人翁的心态工作。</p>
-<p>2、愿意去服务他人。张勇就是这样的，书中说他的屈辱神经比较麻木，的确如此。他自己的几个事情不谈，后面海底捞开业后发生的一些事情他同样如此，比如欠账的事情。而他带领出来的人也都是如此。再加上很多都是从农村走出来的，本来就不懂，比较自卑，对于那种极致的服务并没有障碍。</p>
-<p>3、信任下属，真正放权。无论内部多么重要的岗位还是某个区的开店计划他基本不管，袁华强刚去北京开店亏了300 万，他还是放心让他继续做。</p>
-<p>4、勤劳和艰苦奋斗。这个不多说，真的太拼了。12 点下班是常态，能有几人做到。</p>
-<p>我们想象一下，一群从农村出来的单纯、勤劳的孩子们，在一个陌生的城市，别人都很看不起你，但却拥有一个真正把你当人小圈子，在这里能感受到爱、能挣到钱，所有人都把你当家人看。他们怎么可能不拼命干活，拼命维护公司的利益？说学不会海底捞的是服务，但有没有想过其实这些人才是你永远弄不到的。他们想法少，单纯勤劳，他们和其他农村孩子一样，优点非常明显。</p>
-<p>书的后半部分比较沉重，说到了一系列问题，比如师徒制、流程制度等等。当然最突出的问题就是服务，也主要体现在考核导向上。很多人都发现海底捞好像慢慢开始变味了。</p>
-<p><strong>挑战</strong>：</p>
-<p>1、摊子大了，怎么管控才能让海底捞不变味？</p>
-<p>2、如何不断地去寻找和培养符合海底捞理念的人？</p>
-<p>其实说白了就是人的问题。但仔细想想，人的需求总是自下而上的，底层的满足后自然就会上升到高的一层，还用老的那一套有效吗？时代在变化，还按刚开始创业时的那种要求去要求所有员工，尤其是新加入的高素质员工，能起到作用吗，合适吗？</p>
-<p>海底捞这种特殊的文化是和这一帮特殊的人群有关，如何面对新加入的高素质员工和现有员工需求的增加来修正自己的文化到目前依然还是很大的挑战。运用 “真情” 去管理企业固然没问题，但绝不应该忽视 “理性经济人”。</p>
-
+        <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#背景" data-toc-modified-id="背景-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>背景 </a></div><div class="lev1 toc-item"><a href="#为何人工智能科学需要哲学的参与" data-toc-modified-id="为何人工智能科学需要哲学的参与-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>为何人工智能科学需要哲学的参与 </a></div><div class="lev1 toc-item"><a href="#近代欧洲哲学与人工智能" data-toc-modified-id="近代欧洲哲学与人工智能-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>近代欧洲哲学与人工智能</a></div><div class="lev2 toc-item"><a href="#希腊文明对-AI-的滋养" data-toc-modified-id="希腊文明对-AI-的滋养-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>希腊文明对 AI 的滋养</a></div><div class="lev2 toc-item"><a href="#近代哲学" data-toc-modified-id="近代哲学-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>近代哲学</a></div><div class="lev1 toc-item"><a href="#康德、类比推理和-“照猫画虎”" data-toc-modified-id="康德、类比推理和-“照猫画虎”-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>康德、类比推理和 “照猫画虎”</a></div><div class="lev2 toc-item"><a href="#康德" data-toc-modified-id="康德-41"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>康德</a></div><div class="lev2 toc-item"><a href="#类比推理" data-toc-modified-id="类比推理-42"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>类比推理</a></div><div class="lev2 toc-item"><a href="#照猫画虎" data-toc-modified-id="照猫画虎-43"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>照猫画虎</a></div><div class="lev1 toc-item"><a href="#汉字屋论证" data-toc-modified-id="汉字屋论证-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>汉字屋论证</a></div><div class="lev2 toc-item"><a href="#塞尔" data-toc-modified-id="塞尔-51"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>塞尔</a></div><div class="lev2 toc-item"><a href="#汉字屋实验" data-toc-modified-id="汉字屋实验-52"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>汉字屋实验</a></div><div class="lev2 toc-item"><a href="#反驳" data-toc-modified-id="反驳-53"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>反驳</a></div><div class="lev2 toc-item"><a href="#衍生性问题讨论" data-toc-modified-id="衍生性问题讨论-54"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>衍生性问题讨论</a></div><div class="lev2 toc-item"><a href="#其他讨论" data-toc-modified-id="其他讨论-55"><span class="toc-item-num">5.5&nbsp;&nbsp;</span>其他讨论</a></div><div class="lev1 toc-item"><a href="#维特根斯坦、“颜色不相容”、框架问题和拆弹机器人" data-toc-modified-id="维特根斯坦、“颜色不相容”、框架问题和拆弹机器人-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>维特根斯坦、“颜色不相容”、框架问题和拆弹机器人</a></div><div class="lev2 toc-item"><a href="#早期《逻辑哲学论》" data-toc-modified-id="早期《逻辑哲学论》-61"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>早期《逻辑哲学论》</a></div><div class="lev2 toc-item"><a href="#晚期《哲学研究》" data-toc-modified-id="晚期《哲学研究》-62"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>晚期《哲学研究》</a></div><div class="lev2 toc-item"><a href="#维特根斯坦和框架问题" data-toc-modified-id="维特根斯坦和框架问题-63"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>维特根斯坦和框架问题</a></div><div class="lev3 toc-item"><a href="#心灵模块论" data-toc-modified-id="心灵模块论-631"><span class="toc-item-num">6.3.1&nbsp;&nbsp;</span>心灵模块论</a></div><div class="lev3 toc-item"><a href="#拆弹机器人" data-toc-modified-id="拆弹机器人-632"><span class="toc-item-num">6.3.2&nbsp;&nbsp;</span>拆弹机器人</a></div><div class="lev3 toc-item"><a href="#颜色不相容" data-toc-modified-id="颜色不相容-633"><span class="toc-item-num">6.3.3&nbsp;&nbsp;</span>颜色不相容</a></div><div class="lev2 toc-item"><a href="#结论" data-toc-modified-id="结论-64"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>结论</a></div></p>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><ul>
+<li>来源：<a href="http://open.163.com/special/cuvocw/rengongzhinengzhexue.html" target="_blank" rel="noopener">复旦大学公开课：人工智能哲学_全 7 集_网易公开课</a></li>
+<li>讲师：徐英瑾教授</li>
+<li>课程介绍：本课程从人工智能科学发展的科学史概要出发，讨论了哲学思辨和人工智能研究之间的密切关系，并从人工智能的角度，重新审视了近代欧洲哲学对于 “机器是否能够思维” 这个问题的思辨结论。尔后，讨论了如何从当代计算机科学的角度来解读康德哲学，并从中得到一个关于类比推理的计算模型。本课程也讨论了当代美国哲学家塞尔对于 “计算模型如何获得关于符号的语义知识” 的忧虑，并进一步探讨了这一忧虑在计算机科学内部的表达形式：框架问题。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/07/2018-04-07-AI-Philosophy-Note/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2015/11/30/Economy/2015-11-30-HaiDiLao/">
-    <time datetime="2015-11-30T09:00:00.000Z" class="entry-date">
-        2015-11-30
+    <a href="/2018/04/07/2018-04-07-AI-Philosophy-Note/">
+    <time datetime="2018-04-07T12:00:00.000Z" class="entry-date">
+        2018-04-07
     </time>
 </a>
     
@@ -675,7 +311,383 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Business/">Business</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Managemnt/">Managemnt</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Philosophy/">Philosophy</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2018-03-26-Gan-Series" class="post-2018-03-26-Gan-Series post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/03/26/2018-03-26-Gan-Series/">Gan 原理、证明与实现</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/03/26/2018-03-26-Gan-Series/" data-id="ckggncioz000nmtbzz6417kzv" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：<a href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/Gan-Tutorial/Gan.ipynb" target="_blank" rel="noopener">Gan</a></p>
+</blockquote>
+<ul>
+<li>文章目录<br>1  简介<br>2  证明<br>2.1  概念与过程形式化<br>2.2  理论推导<br>2.3  证明<br>2.3.1  最优判别器<br>2.3.2  最优生成器<br>2.4  重述训练过程<br>2.4.1  参数优化过程<br>2.4.2  实际训练过程<br>2.4.3  最终过程<br>3  代码<br>4  代码学习<br>5  应用<br>6  数据集<br>7  其他资料<br>8  参考文献</li>
+</ul>
+<ul>
+<li><a href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo1" target="_blank" rel="noopener">Demo1: 手写数字生成</a></li>
+<li><a href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo2" target="_blank" rel="noopener">Demo2: 二次元头像生成</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/03/26/2018-03-26-Gan-Series/">
+    <time datetime="2018-03-26T08:11:19.000Z" class="entry-date">
+        2018-03-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gan/">Gan</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture" class="post-Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/">由一场供应链讲座引发的思考</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" data-id="ckggncisi006fmtbz5ut25jnp" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>今天恰逢时机听了一场刘大成老师关于物流和供应链的讲座，略有所感，记录如下。</p>
+<p>一直在思考所做项目的问题，中间基本处于一心二用的状态，只是抽几个有所感触的点记录。第一，顶层设计；第二，源头和本质。</p>
+<h2 id="顶层设计"><a href="#顶层设计" class="headerlink" title="顶层设计"></a>顶层设计</h2><p>有三个例子我觉得特别有意思。</p>
+<p>第一个是秦始皇的长城，怎么理解这个顶层设计呢？我们知道，长城第一次完整的修建是在秦始皇统一六国后，当时修建长城的战略意义是防止北方游牧民族入侵。游牧民族那时候被称为半兽人（掠夺和存储财产），他们从来没有补给线，不存在后勤保障的问题，基本是以战养战；相反，秦国则需要从长安运送粮食过去，基本的比例是三担粮食，两担消耗在运输中，一担供给前线，因为道路不好，运输工具是牛（农村的朋友应该知道牛是有多慢，不过它力气大），太慢了（这其实是个物流问题😅）。而长城解决了两个问题：第一，游牧民族的马上不来，进攻速度受到影响，同时后勤供给反过来成了影响他们的一个问题；第二，在长城内驻守军民可以开荒，需要多少粮草种多少，解决了后勤保障问题，其实之后的防守也一直都是这么做的。</p>
+<p>讲到这里的时候还有个题外话：为什么四大文明古国除了中国都消失了？一个很重要的原因是天然屏障，我们东、南有大海，西有喜马拉雅和青藏高原，北有长城，很好地阻隔了外强入侵。另外，恶劣的环境下才能最早孕育出文化，比如是黄河、尼罗河、印度河、幼发拉底等流域，而不是长江、爱琴海、亚马逊等。举了个非洲人很懒的例子，说他们每个人坐在一棵水果树下，饿了就上去摘一个水果吃，吃完了就换一棵树。有一些道理，权当调味品就行。</p>
+<p>第二个是隋炀帝的京杭大运河。我们且不说真实历史中的隋炀帝如何，不过单就他的这项工程确实很了不起。京杭大运河（隋朝）北起长江南岸之京口（今镇江），南通余杭（今浙江杭州），全场两千七百余公里。当时的目的是为了加强中央对东方和南方的统治，同时也是为了从南方漕运粮食，便于对北方用兵，对南北经济、文化交流起到巨大作用，只是想想牛车和船只的巨大区别就知道意义所在了。当然，我觉得杨广当时可能没有想到这一层：）</p>
+<p>第三个是 Jobs 的 ITunes 和 AppStore，真正让其他手机厂商感到无解的可能既不是 IPhone，当然更加不可能是 IPad，Mac 之类，我当然不否认这些东西非常 Nice。他的这一套与创作者捆绑的机制简直把音乐人、开发者都拉进了自己的阵营，而他们一旦习惯了这种模式，路径依赖就会发生作用。我自己觉得这点蛮有启发的。</p>
+<p>这就是顶层设计的三个小例子，挺有感触，因为这个东西适用于很多方面，它更多的是一种思想。比如我们熟知的 git，比如我们常说的 “结构效率高于运营效率”，比如我们感触深刻的 “三观和志同道合”……顶层设计一旦做好，剩下的就是不停进化、完善。也许，“物竞天择，适者生存” 是生命和社会发展的顶层设计，前者是导向，后者是结果。我甚至觉得这就是最本质的顶层设计，试想一下我们所能想到的所有东西，无一不符合这条设计，生命自不必说，从我们每天用的手机、打开的 APP、浏览的网页、吃的美食、买的衣服……有哪项不是这样呢？再把 “物竞天择” 四个字拆开来解读，又会发现新的不一样的意味。有关这部分内容不再赘述，我正在写一篇《关于世界、宇宙与评价、选择》的文章，感兴趣的可以关注。</p>
+<p>谈个题外话，无论男女，在找对象时，首先应该考虑的也是 “顶层设计”，也就是你俩在这方面是否一致。一致最好，如果不一致趁早分开的好，省得到时候更加痛苦。也许有人会说，人都是可以改变的嘛，没错，我非常认同 “人是会改变的” 这个观点，但是恕我很难相信有人能真正改变自己的 “顶层设计”，“江山易改本性难移” 我想说的就是这个意思。另外，对组织、商业、政策来说，“顶层设计” 更加重要，因为它几乎无法改变。经济学中有一个分支叫 “制度经济学”，里面有个非常基本的概念 “路径依赖”（大牛诺斯提出），就像物理中的 “惯性”，在受到外力之前保持之前的运动状态。想想键盘的例子可能会更加有感觉。最后，其实代码工程也一样，刚开始的不合理设计可能会导致后面无穷无尽的麻烦，程序猿肯定听过 “百度 GCC 被三体人锁定在 3.4.5 版本” 的段子，不知道的搜一下百度：）当然，运用到具体场景得看实际情况，这个是常识。好了，题外话到此为止。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/">
+    <time datetime="2017-12-23T15:00:00.000Z" class="entry-date">
+        2017-12-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Business/">Business</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Industry/">Industry</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System/">System</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-SLP/2017-10-14-Ch03-Language-Model" class="post-SLP/2017-10-14-Ch03-Language-Model post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/10/14/SLP/2017-10-14-Ch03-Language-Model/">Language Model Note (SLP Ch03)</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/10/14/SLP/2017-10-14-Ch03-Language-Model/" data-id="ckpla2czx002pxybzbifz6n6h" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="Ngram"><a href="#Ngram" class="headerlink" title="Ngram"></a>Ngram</h2><ul>
+<li><p>Count up the frequency and divide (use maximum likelihood estimation or MLE):</p>
+<ul>
+<li><script type="math/tex; mode=display">P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) := \frac {c(x_{i-n+1,...,x_i})}{c(x_{i-n+1},...,x_{i-1})}</script></li>
+<li>Example: <script type="math/tex">P(you | i\ love) := \frac {c(i\ love\ you)}{c(i\ love)}</script>  </li>
+<li>More Generally: <script type="math/tex">P(w_1^n) = P(w_1)P(w_2 | w_1)P(w_3|w_1^2)...P(w_n|w_1^{n-1}) = \prod_{i=1}^{n} P(w_i|w_1^{i-1})</script></li>
+</ul>
+</li>
+<li><p>For N-gram </p>
+<ul>
+<li>Next Word: <script type="math/tex">P(w_n|w_1^{n-1}) \approx P(w_n|w_{n-N+1}^{n-1}) = \frac {C(w_{n-N+1}^{n-1}w_n)}{C(w_{n-N+1}^{n-1})}</script> </li>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1}...w_{i-N+1})</script> </li>
+</ul>
+</li>
+<li>For Bigram <ul>
+<li>prob of sentence: <script type="math/tex">P(w_1^n) \approx \prod_{i=1}^{n} P(w_i|w_{i-1})</script> </li>
+<li>Next Word: <script type="math/tex">P(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n)}{\sum_w C(w_{n-1} w)} = \frac {C(w_{n-1}w_n)}{C(w_{n-1})}</script></li>
+</ul>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2017/10/14/SLP/2017-10-14-Ch03-Language-Model/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/10/14/SLP/2017-10-14-Ch03-Language-Model/">
+    <time datetime="2017-10-14T14:00:00.000Z" class="entry-date">
+        2017-10-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LM/">LM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Language-Model/">Language Model</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ngram/">Ngram</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Smoothing/">Smoothing</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-09-07-Language-AI-Emotion" class="post-2017-09-07-Language-AI-Emotion post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/07/2017-09-07-Language-AI-Emotion/">语言、AI、情感</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/09/07/2017-09-07-Language-AI-Emotion/" data-id="ckggnciou000hmtbzchloze3a" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="语言的本质"><a href="#语言的本质" class="headerlink" title="语言的本质"></a>语言的本质</h2><p>抽象来看，语言大致可分为描述客观现象和表达主观感受两个方面。<br>客观的语言广泛存在于世间，从人类到动物，到植物、化学元素都有自己的『语言』，它们通过特定的语言向外传达一种『信息』，而这种信息被人类加工后成为『知识』。<br>而人类或其他高等动物之所以特殊是因为他们能表达自己的感受，他们有喜怒哀乐，有七情六欲，他们对万事万物有自己的认识。也许可以称之为『情感』，或许是『意识』。<br>由于语言有多种，个人主观方面又大不相同，所以当人与人沟通时经常会信息不对称，导致沟通障碍。而同样的东西、同一件事物，不同的人看到的也会不尽相同。<br>所以，有时候与其说是语言的魅力，不如说是人类主观的魅力、意识的魅力。譬如『如果你认识以前的我，也许你就会原谅现在的我』，大多数人可能会觉得这句话和有意境，觉得写的很好。为什么？也许从信息的角度来看，它高度抽象描述了大量的客观现象，但我想更多地是因为它勾起了你心中的一点点涟漪，或者引起了你一点点的共鸣。<br>再比如 “他死了，她也死了” 和 “他死了，她伤心而死”。从信息论（效率）角度而言第一句更容易记住，因为它短，但人们更能记住第二句，因为它有 “情感”。所以，我们其实关注的并不是信息本身，而是信息所附加的、能引起我们心灵触动的、能带给我们思考的东西。<br>所以，语言我更倾向于把它当做人类表达自身情感的一种方式。至于记录客观世界，其实完全可以通过其他方式，比如数学公式、物理公式…… 而语言的本质或者核心其实是『情感』，是『意识』的产物。</p>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/07/2017-09-07-Language-AI-Emotion/">
+    <time datetime="2017-09-07T05:00:00.000Z" class="entry-date">
+        2017-09-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-2017-09-04-Regular-Expression" class="post-2017-09-04-Regular-Expression post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/09/04/2017-09-04-Regular-Expression/">正则表达式笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/09/04/2017-09-04-Regular-Expression/" data-id="ckggnciox000jmtbz1s1viwp8" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h3><ul>
+<li>compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作</li>
+<li>在字符串前加个 <code>r</code> 反斜杠就不会被任何特殊方式处理</li>
+<li><code>re.findall(rf&#39;{t}&#39;, s)</code>: <strong><code>f</code> 表示 <code>t</code> 可以使用变量</strong></li>
+<li><code>re.compile(pattern, re.IGNORECASE)</code>: IGNORECASE 忽略大小写</li>
+<li><code>re.compile(pattern, re.MULTILINE)</code>: 是否按行匹配，带参数按行，不带参数整个字符串为整体（不考虑换行符）</li>
+<li><code>re.compile(pattern, re.DOTALL)</code>: 默认不匹配换行符，带参数匹配换行符</li>
+<li><code>re.compile(pattern, re.Unicode | re.VERBOSE)</code>: 让 pattern 看起来更易读。多个标志可以通过按位 OR-ing 它们来指定。如 <code>re.I | re.M</code> 被设置成 I 和 M 标志</li>
+<li>嵌入标志（编译表达式无法添加标志时，可以在表达式字符串本身内嵌入标志）<ul>
+<li>打开不区分大小写匹配项: <code>(?i)</code> 添加到 pattern 的最前面就好</li>
+<li><code>i: IGNORECASE; m: MULTILINE; s: DOTALL; u: UNICODE; x: VERBOSE</code></li>
+</ul>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2017/09/04/2017-09-04-Regular-Expression/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/09/04/2017-09-04-Regular-Expression/">
+    <time datetime="2017-09-04T14:00:00.000Z" class="entry-date">
+        2017-09-04
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Diary/2017-08-31-diary" class="post-Diary/2017-08-31-diary post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2017/08/31/Diary/2017-08-31-diary/">随笔：人生，当有所为有所不为</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/08/31/Diary/2017-08-31-diary/" data-id="ckggncise0061mtbzvtysj3bz" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>是夜，阴沉天空，淅淅沥沥的小雨，落到了地上，没入了尘埃。<br>空旷的房间，通明的白织灯下，桌上一罐哈啤，一罐纯净水，耳边响着最爱的史诗乐。<br>回想近日之事，一时竟感慨万千，内心色彩斑斓。</p>
+<p>人的一生会遇到许许多多的事，会交到许许多多的朋友，你永远无法预测明天会发生什么，下一秒将会认识谁。但是，总有些事、总有些人，会让你的人生泛起涟漪、波澜。<br>有些事，能让你认清一个人；有些人，能让你知道一件事。</p>
+<p>我们生活在这个世界，物欲横流、欲壑难填。<br>每个人都想任性地活，想要想尽一切办法满足自己不断膨胀的私欲。<br>我们以为这是自由，这是活出自己，这是人生的精彩。<br>但却忘记了什么是责任，什么是担当，什么是本分。<br>忘记了克己修身，忘记了每日三省，忘记了拷问良心。也许从未有过。</p>
+<p>任性过后，还剩下什么？还能剩下什么？<br>人生在世，当有所为有所不为，大丈夫立于天地间更应如此。<br>忍让不是天生懦弱，关心不是精力过剩，<br>然而我们总是看不到这些或者习惯了如此，一次次用所谓的个性去刺向那呵护着自己的外壳。<br>人性本如此。</p>
+<p>感受周边人群，与日俱增的寂寞和空虚，让人不得不想方设法去寻找释放的窗口。<br>同样寂寞空虚的人遇到了一起，生产出更多的寂寞空虚，以及一些私欲，泛滥成灾。<br>然后，终日活在这样的世界，通过感官上的各种刺激才知道自己还，活着。</p>
+<p>谈使命，说使命太虚；谈梦想，说梦想太空。<br>浑浑噩噩度过一天一天，一年一年，接着是一生。</p>
+<p>做人，该当知轻重，明对错。<br>然后，去做一个有品性、有道德的人。<br>这样的你也会是一个三观正、人品赞的人。<br>扪心自问，你是吗？</p>
+<p>后记：发现自己慢慢喜欢上在这种环境下用键盘缓缓抒发自己内心的情感，就好像一篇娓娓道来的故事，好像一副徐徐展开的画卷，好像一首缓缓奏起的乐章。随着文章终了，内心的情感渐渐平复，由内而外不再充满戾气，不再焦躁不安，不再五味陈杂。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2017/08/31/Diary/2017-08-31-diary/">
+    <time datetime="2017-08-31T14:00:00.000Z" class="entry-date">
+        2017-08-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Diary/">Diary</a></li></ul>
 
     </footer>
 </article>
@@ -688,7 +700,7 @@
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span>
+        <a class="extend prev" rel="prev" href="/page/12/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><span class="page-number current">13</span><a class="page-number" href="/page/14/">14</a><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/14/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -699,7 +711,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">48</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">64</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">17</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">48</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">77</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">17</span></li></ul>
     </div>
   </aside>
 
@@ -722,7 +734,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/BERT/" style="font-size: 12.73px;">BERT</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Bert/" style="font-size: 14.55px;">Bert</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Classification/" style="font-size: 10px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 15.45px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 11.82px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10.91px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Embedding/" style="font-size: 10.91px;">Embedding</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10px;">Evaluation</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/Language-Model/" style="font-size: 10px;">Language Model</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 15.45px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NER/" style="font-size: 10.91px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ngram/" style="font-size: 10px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10px;">Representation</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10px;">Summarization</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10px;">Viterbi</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a>
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/BERT/" style="font-size: 12.73px;">BERT</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert/" style="font-size: 14.55px;">Bert</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 15.45px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 11.82px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10.91px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Embedding/" style="font-size: 10.91px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 15.45px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NER/" style="font-size: 10.91px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a>
     </div>
   </aside>
 
@@ -762,7 +774,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tags</h3>
     <div class="widget-content">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AE/">AE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">36</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALBERT/">ALBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AR/">AR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AUC/">AUC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Accuracy/">Accuracy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activation/">Activation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BERT/">BERT</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backtracking/">Backtracking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bahdanau-Attention/">Bahdanau Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bart/">Bart</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert/">Bert</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert-Flow/">Bert-Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bi-LSTM/">Bi-LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blending/">Blending</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRF/">CRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Catalan/">Catalan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChatBot/">ChatBot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chi2/">Chi2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cognition/">Cognition</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collaborative-Filtering/">Collaborative Filtering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer/">Computer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confusing-Labels/">Confusing Labels</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coordinate-Ascent/">Coordinate Ascent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine/">Cosine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine-Similarity/">Cosine Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ctrl/">Ctrl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Preprocess/">Data Preprocess</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeBERTa/">DeBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoder/">Decoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep/">Deep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepGraph/">DeepGraph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Disentangled-Attention/">Disentangled Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DistilBERT/">DistilBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Mask/">Dynamic-Mask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EDA/">EDA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EMD/">EMD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ERNIE/">ERNIE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electra/">Electra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elixir/">Elixir</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embedding/">Embedding</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoder/">Encoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Engineering/">Feature Engineering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-based/">Feature-based</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Few-Shot/">Few-Shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fine-tuning/">Fine-tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Full-Text-Search/">Full-Text-Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funk-MF/">Funk MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funnel-Transformer/">Funnel Transformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GBTD/">GBTD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GELU/">GELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-2/">GPT-2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPU/">GPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSG/">GSG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glow/">Glow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph/">Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/">GraphQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hard-SVM/">Hard-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hinge-Loss/">Hinge Loss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IQR/">IQR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Imbalance-Data/">Imbalance Data</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Theory/">Information Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Isolation-Forest/">Isolation Forest</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ItemCF/">ItemCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jaccard/">Jaccard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KKT/">KKT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KS/">KS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel/">Kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Function/">Kernel Function</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Method/">Kernel Method</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Keyword/">Keyword</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LOF/">LOF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR/">LR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Sturcture/">Linear Sturcture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/">LinkedList</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucene/">Lucene</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Luong-Attention/">Luong Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MF/">MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher/">Manacher</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Managemnt/">Managemnt</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Materialized-Views/">Materialized Views</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Factorization/">Matrix Factorization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Median/">Median</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metric/">Metric</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minkowski/">Minkowski</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Model-Evaluation/">Model Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Module/">Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multi-Head-Attention/">Multi-Head Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multiway-Tree/">Multiway Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NER/">NER</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLG/">NLG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/">NLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">55</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLU/">NLU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neo4j/">Neo4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Normalizing-Flow/">Normalizing Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Occupation/">Occupation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-R/">P-R</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PEGASUS/">PEGASUS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageRank/">PageRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Palindromic/">Palindromic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pearson/">Pearson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pooling/">Pooling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Position-Encoding/">Position-Encoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgres/">Postgres</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-training/">Pre-training</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Precision/">Precision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretraining/">Pretraining</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Model/">Probabilistic Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProtoBERT/">ProtoBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Psychology/">Psychology</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyPI/">PyPI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quant/">Quant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Query/">Query</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/">Queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RELU/">RELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RFE/">RFE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMSE/">RMSE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROC/">ROC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recall/">Recall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recommendation/">Recommendation</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reformer/">Reformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Relationship-Extraction/">Relationship Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Representation/">Representation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RoBERTa/">RoBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotated-Sorted-Array/">Rotated Sorted Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMO/">SMO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVD/">SVD++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVM/">SVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Segmentation/">Segmentation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-Attention/">Self-Attention</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Similarity/">Semantic Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-Similarity/">Sentence Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-BERT/">Sentence-BERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Siamese/">Siamese</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sigmoid/">Sigmoid</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Similarity/">Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Skill/">Skill</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slide/">Slide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Soft-SVM/">Soft-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Softmax/">Softmax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SqueezeBERT/">SqueezeBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/">Stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stacking/">Stacking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stirling/">Stirling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StratifiedKFold/">StratifiedKFold</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Substring/">Substring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Summarization/">Summarization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swap/">Swap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TanH/">TanH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Generation/">Text Generation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TextRank/">TextRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thought/">Thought</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/">Transformer</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer-XL/">Transformer-XL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tuning/">Tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UserCF/">UserCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Voting/">Voting</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WOE/">WOE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wide/">Wide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XLNet/">XLNet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Z-Score/">Z-Score</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binning/">binning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/few-shot/">few-shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge-Graph/">knowledge Graph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node2vec/">node2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AE/">AE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALBERT/">ALBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AR/">AR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AUC/">AUC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Accuracy/">Accuracy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activation/">Activation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BERT/">BERT</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backtracking/">Backtracking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bahdanau-Attention/">Bahdanau Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bart/">Bart</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beam-Search/">Beam Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert/">Bert</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert-Flow/">Bert-Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bi-LSTM/">Bi-LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blending/">Blending</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CCG/">CCG</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CFG/">CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CKY/">CKY</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRF/">CRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CYK/">CYK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Catalan/">Catalan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChatBot/">ChatBot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chi2/">Chi2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chunking/">Chunking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cognition/">Cognition</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collaborative-Filtering/">Collaborative Filtering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collins-Parser/">Collins Parser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer/">Computer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confusing-Labels/">Confusing Labels</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context-Free-Grammars/">Context-Free Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coordinate-Ascent/">Coordinate Ascent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine/">Cosine</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine-Similarity/">Cosine Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Entropy/">Cross Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-brackets/">Cross-brackets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ctrl/">Ctrl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNN/">DNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Preprocess/">Data Preprocess</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeBERTa/">DeBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoder/">Decoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoding/">Decoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep/">Deep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepGraph/">DeepGraph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Disentangled-Attention/">Disentangled Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DistilBERT/">DistilBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Mask/">Dynamic-Mask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EDA/">EDA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EMD/">EMD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ERNIE/">ERNIE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electra/">Electra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elixir/">Elixir</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embedding/">Embedding</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embeddings/">Embeddings</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoder/">Encoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F1/">F1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Engineering/">Feature Engineering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-based/">Feature-based</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Few-Shot/">Few-Shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fine-tuning/">Fine-tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Grammars/">Formal Grammars</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Full-Text-Search/">Full-Text-Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funk-MF/">Funk MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funnel-Transformer/">Funnel Transformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GBTD/">GBTD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GELU/">GELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-2/">GPT-2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPU/">GPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GRU/">GRU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSG/">GSG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garden-path/">Garden-path</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glow/">Glow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradient-Descent/">Gradient Descent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph/">Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/">GraphQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hard-SVM/">Hard-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hinge-Loss/">Hinge Loss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IQR/">IQR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Imbalance-Data/">Imbalance Data</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Theory/">Information Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Isolation-Forest/">Isolation Forest</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ItemCF/">ItemCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jaccard/">Jaccard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KKT/">KKT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KS/">KS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel/">Kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Function/">Kernel Function</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Method/">Kernel Method</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Keyword/">Keyword</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LOF/">LOF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR/">LR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexical-Semantics/">Lexical Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-CFG/">Lexicalized CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-Grammars/">Lexicalized Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Sturcture/">Linear Sturcture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/">LinkedList</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logistic-Regression/">Logistic Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucene/">Lucene</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Luong-Attention/">Luong Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MEMM/">MEMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MF/">MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher/">Manacher</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Managemnt/">Managemnt</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Materialized-Views/">Materialized Views</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Factorization/">Matrix Factorization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Median/">Median</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metric/">Metric</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minkowski/">Minkowski</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Model-Evaluation/">Model Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Module/">Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multi-Head-Attention/">Multi-Head Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multiway-Tree/">Multiway Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NER/">NER</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLG/">NLG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/">NLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">68</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLU/">NLU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naive-Bayes/">Naive Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neo4j/">Neo4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Normalizing-Flow/">Normalizing Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Occupation/">Occupation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-R/">P-R</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCCG/">PCCG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCFG/">PCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PEGASUS/">PEGASUS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPMI/">PPMI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageRank/">PageRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Palindromic/">Palindromic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-Parsing/">Partial Parsing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pearson/">Pearson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammars/">Phrase Structure Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PoS/">PoS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pooling/">Pooling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Position-Encoding/">Position-Encoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgres/">Postgres</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-training/">Pre-training</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Precision/">Precision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretraining/">Pretraining</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Model/">Probabilistic Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProtoBERT/">ProtoBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Psychology/">Psychology</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyPI/">PyPI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quant/">Quant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Query/">Query</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/">Queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RELU/">RELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RFE/">RFE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMSE/">RMSE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROC/">ROC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recall/">Recall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recommendation/">Recommendation</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reformer/">Reformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Relationship-Extraction/">Relationship Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Representation/">Representation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RoBERTa/">RoBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotated-Sorted-Array/">Rotated Sorted Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SCFG/">SCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGD/">SGD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMO/">SMO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SRN/">SRN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVD/">SVD++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVM/">SVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Segmentation/">Segmentation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-Attention/">Self-Attention</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Similarity/">Semantic Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-Similarity/">Sentence Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-BERT/">Sentence-BERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentiment-Classification/">Sentiment Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Siamese/">Siamese</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sigmoid/">Sigmoid</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Similarity/">Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Skill/">Skill</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slide/">Slide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Soft-SVM/">Soft-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Softmax/">Softmax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SqueezeBERT/">SqueezeBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/">Stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stacking/">Stacking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stirling/">Stirling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StratifiedKFold/">StratifiedKFold</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Substring/">Substring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Summarization/">Summarization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supertagging/">Supertagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swap/">Swap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF/">TF-IDF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tagging/">Tagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TanH/">TanH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Generation/">Text Generation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TextRank/">TextRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thought/">Thought</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/">Transformer</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer-XL/">Transformer-XL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Treebank/">Treebank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tuning/">Tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UserCF/">UserCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vector-Semantics/">Vector Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Voting/">Voting</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WOE/">WOE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wide/">Wide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word2vec/">Word2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XLNet/">XLNet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Z-Score/">Z-Score</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binning/">binning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/few-shot/">few-shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge-Graph/">knowledge Graph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node2vec/">node2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </aside>
 
