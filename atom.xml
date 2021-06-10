@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2021-06-07T16:09:20.832Z</updated>
+  <updated>2021-06-10T16:32:40.884Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>对NLP预训练模型的思考</title>
+    <link href="https://www.yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/"/>
+    <id>https://www.yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/</id>
+    <published>2021-06-10T15:30:00.000Z</published>
+    <updated>2021-06-10T16:32:40.884Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近连续读了两篇关于 BERT 学习机理的文章，略有所感，记录如下。&lt;/p&gt;
+&lt;p&gt;预训练模型本质是利用输入数据本身内在的结构进行学习，从自然语言处理的角度看，就是充分利用自然语言文本的上下文去学习到文本的表征。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Representation" scheme="https://www.yam.gift/tags/Representation/"/>
+    
+      <category term="Pretrain" scheme="https://www.yam.gift/tags/Pretrain/"/>
+    
+  </entry>
   
   <entry>
     <title>Jupyter Notebook Cheat Sheet</title>
@@ -36,6 +64,32 @@
       <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
     
       <category term="Jupyter" scheme="https://www.yam.gift/tags/Jupyter/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Rust str 转 String</title>
+    <link href="https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/"/>
+    <id>https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/</id>
+    <published>2021-06-06T15:00:00.000Z</published>
+    <updated>2021-06-07T16:18:44.560Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Rust 中，&lt;code&gt;str&lt;/code&gt; 是引用，&lt;code&gt;String&lt;/code&gt; 是字符串对象，如下所示，&lt;a href=&quot;https://play.rust-lang.org/?version=stable&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=4fd8146578daef00aa903218053c6cf7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击执行&lt;/a&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 代码来自 https://github.com/rust-lang/rustlings&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string_slice&lt;/span&gt;&lt;/span&gt;(arg: &amp;amp;&lt;span class=&quot;keyword&quot;&gt;str&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string&lt;/span&gt;&lt;/span&gt;(arg: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;red&quot;&lt;/span&gt;.to_string());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;rust is fun!&quot;&lt;/span&gt;.to_owned());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;nice weather&quot;&lt;/span&gt;.into());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;hi&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Interpolation &amp;#123;&amp;#125;&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Station&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;Happy Monday!&quot;&lt;/span&gt;.to_string().replace(&lt;span class=&quot;string&quot;&gt;&quot;Mon&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Tues&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;mY sHiFt KeY iS sTiCkY&quot;&lt;/span&gt;.to_lowercase());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;blue&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;.to_string()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;  hello there &quot;&lt;/span&gt;.trim());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Rust" scheme="https://www.yam.gift/tags/Rust/"/>
+    
+      <category term="String" scheme="https://www.yam.gift/tags/String/"/>
+    
+      <category term="str" scheme="https://www.yam.gift/tags/str/"/>
     
   </entry>
   
@@ -67,32 +121,6 @@
       <category term="ProtoBERT" scheme="https://www.yam.gift/tags/ProtoBERT/"/>
     
       <category term="few-shot" scheme="https://www.yam.gift/tags/few-shot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust str 转 String</title>
-    <link href="https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/"/>
-    <id>https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/</id>
-    <published>2021-06-06T15:00:00.000Z</published>
-    <updated>2021-06-07T16:18:44.560Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 Rust 中，&lt;code&gt;str&lt;/code&gt; 是引用，&lt;code&gt;String&lt;/code&gt; 是字符串对象，如下所示，&lt;a href=&quot;https://play.rust-lang.org/?version=stable&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=4fd8146578daef00aa903218053c6cf7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击执行&lt;/a&gt;：&lt;/p&gt;
-&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 代码来自 https://github.com/rust-lang/rustlings&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string_slice&lt;/span&gt;&lt;/span&gt;(arg: &amp;amp;&lt;span class=&quot;keyword&quot;&gt;str&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string&lt;/span&gt;&lt;/span&gt;(arg: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;red&quot;&lt;/span&gt;.to_string());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;rust is fun!&quot;&lt;/span&gt;.to_owned());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;nice weather&quot;&lt;/span&gt;.into());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;hi&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Interpolation &amp;#123;&amp;#125;&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Station&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;Happy Monday!&quot;&lt;/span&gt;.to_string().replace(&lt;span class=&quot;string&quot;&gt;&quot;Mon&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Tues&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;mY sHiFt KeY iS sTiCkY&quot;&lt;/span&gt;.to_lowercase());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;blue&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;.to_string()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;  hello there &quot;&lt;/span&gt;.trim());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Rust" scheme="https://www.yam.gift/tags/Rust/"/>
-    
-      <category term="String" scheme="https://www.yam.gift/tags/String/"/>
-    
-      <category term="str" scheme="https://www.yam.gift/tags/str/"/>
     
   </entry>
   
@@ -618,36 +646,6 @@
       <category term="Chi2" scheme="https://www.yam.gift/tags/Chi2/"/>
     
       <category term="Z-Score" scheme="https://www.yam.gift/tags/Z-Score/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>EDA</title>
-    <link href="https://www.yam.gift/2020/09/18/ML/2020-09-18-EDA/"/>
-    <id>https://www.yam.gift/2020/09/18/ML/2020-09-18-EDA/</id>
-    <published>2020-09-18T15:00:00.000Z</published>
-    <updated>2020-09-19T23:31:48.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;探索性数据分析 EDA（Exploratory Data Analysis）是数据分析和挖掘的第一步，主要是对数据集进行了解，包括基本情况、特征情况、特征间关系等等，为进一步的分析和挖掘提供信息。&lt;/p&gt;
-&lt;p&gt;一个完整的 EDA 过程一般大致包括四步：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;问题定义：问题定义涉及的主要任务是定义分析的主要目标，定义主要的可交付成果，概述主要角色和职责，获取数据的当前状态，定义时间表以及执行成本/收益分析。&lt;/li&gt;
-&lt;li&gt;数据准备：包括数据源定义、数据 schema 定义、数据特征了解、数据清理、数据转换、数据分割等。&lt;/li&gt;
-&lt;li&gt;数据分析：这是处理描述性统计信息和数据分析的最关键步骤之一。 主要任务包括汇总数据，发现数据之间隐藏的关联和关系，开发预测模型，评估模型以及计算精度。&lt;/li&gt;
-&lt;li&gt;结果展示：以图表、摘要、地图和图表的形式将数据集呈现给目标受众。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Data Science" scheme="https://www.yam.gift/tags/Data-Science/"/>
-    
-      <category term="EDA" scheme="https://www.yam.gift/tags/EDA/"/>
     
   </entry>
   
