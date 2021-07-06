@@ -12,20 +12,20 @@
   
   
   
-  <title>正则表达式笔记 | Yam</title>
+  <title>信息熵与选择：由三门问题想到的 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作 在字符串前加个 r 反斜杠就不会被任何特殊方式处理 re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECASE 忽略大小写">
-<meta name="keywords" content="Python,Regular Expression,Regex">
+  <meta name="description" content="今天看公众号文章正好看到一篇《三门问题》，虽然看似简单，但细想感觉很有意思，特意把自己的思考记录一下。三门问题出自上世纪 70 年代美国的一个综艺节目，基本描述是这样的：你是游戏的参与者，面前有三扇门，其中一扇门后面是一辆跑车，其他两扇后面什么都没有。在你选择一扇门后先不打开，主持人打开了另一扇门（后面必然是空的），此时你有两个选择，坚持选择刚才选的那扇，或者换另外一扇还没打开的。怎么选择才能让你">
+<meta name="keywords" content="Entropy,Information Theory">
 <meta property="og:type" content="article">
-<meta property="og:title" content="正则表达式笔记">
-<meta property="og:url" content="https://www.yam.gift/2017/09/04/DataSci/2017-09-04-Regular-Expression/index.html">
+<meta property="og:title" content="信息熵与选择：由三门问题想到的">
+<meta property="og:url" content="https://www.yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作 在字符串前加个 r 反斜杠就不会被任何特殊方式处理 re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECASE 忽略大小写">
+<meta property="og:description" content="今天看公众号文章正好看到一篇《三门问题》，虽然看似简单，但细想感觉很有意思，特意把自己的思考记录一下。三门问题出自上世纪 70 年代美国的一个综艺节目，基本描述是这样的：你是游戏的参与者，面前有三扇门，其中一扇门后面是一辆跑车，其他两扇后面什么都没有。在你选择一扇门后先不打开，主持人打开了另一扇门（后面必然是空的），此时你有两个选择，坚持选择刚才选的那扇，或者换另外一扇还没打开的。怎么选择才能让你">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-06-28T08:23:47.000Z">
+<meta property="og:updated_time" content="2019-06-19T15:32:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="正则表达式笔记">
-<meta name="twitter:description" content="操作compile compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作 在字符串前加个 r 反斜杠就不会被任何特殊方式处理 re.findall(rf&amp;#39;{t}&amp;#39;, s): f 表示 t 可以使用变量 re.compile(pattern, re.IGNORECASE): IGNORECASE 忽略大小写">
+<meta name="twitter:title" content="信息熵与选择：由三门问题想到的">
+<meta name="twitter:description" content="今天看公众号文章正好看到一篇《三门问题》，虽然看似简单，但细想感觉很有意思，特意把自己的思考记录一下。三门问题出自上世纪 70 年代美国的一个综艺节目，基本描述是这样的：你是游戏的参与者，面前有三扇门，其中一扇门后面是一辆跑车，其他两扇后面什么都没有。在你选择一扇门后先不打开，主持人打开了另一扇门（后面必然是空的），此时你有两个选择，坚持选择刚才选的那扇，或者换另外一扇还没打开的。怎么选择才能让你">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -72,7 +72,7 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-DataSci/2017-09-04-Regular-Expression" class="post-DataSci/2017-09-04-Regular-Expression post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Math/2019-06-19-Think-From-Three-Gates" class="post-Math/2019-06-19-Think-From-Three-Gates post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -80,14 +80,14 @@
         
   
     <h1 class="entry-title article-title">
-      正则表达式笔记
+      信息熵与选择：由三门问题想到的
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/09/04/DataSci/2017-09-04-Regular-Expression/" data-id="ckqs11eyx001f6wbzcjwdztgg" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" data-id="ckqs31vu80001o7bzc14h5tw2" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,221 +95,74 @@
       
             <!-- Table of Contents -->
               
-        <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="compile"><a href="#compile" class="headerlink" title="compile"></a>compile</h3><ul>
-<li>compile 常用的表达式更高效：使用编译的表达式能避免高速缓存查找开销，将编译工作转移到应用程序启动时，而不是程序响应用户操作</li>
-<li>在字符串前加个 <code>r</code> 反斜杠就不会被任何特殊方式处理</li>
-<li><code>re.findall(rf&#39;{t}&#39;, s)</code>: <strong><code>f</code> 表示 <code>t</code> 可以使用变量</strong></li>
-<li><code>re.compile(pattern, re.IGNORECASE)</code>: IGNORECASE 忽略大小写</li>
-<li><code>re.compile(pattern, re.MULTILINE)</code>: 是否按行匹配，带参数按行，不带参数整个字符串为整体（不考虑换行符）</li>
-<li><code>re.compile(pattern, re.DOTALL)</code>: 默认不匹配换行符，带参数匹配换行符</li>
-<li><code>re.compile(pattern, re.Unicode | re.VERBOSE)</code>: 让 pattern 看起来更易读。多个标志可以通过按位 OR-ing 它们来指定。如 <code>re.I | re.M</code> 被设置成 I 和 M 标志</li>
-<li>嵌入标志（编译表达式无法添加标志时，可以在表达式字符串本身内嵌入标志）<ul>
-<li>打开不区分大小写匹配项: <code>(?i)</code> 添加到 pattern 的最前面就好</li>
-<li><code>i: IGNORECASE; m: MULTILINE; s: DOTALL; u: UNICODE; x: VERBOSE</code></li>
-</ul>
-</li>
-</ul>
+        <p>今天看公众号文章正好看到一篇<a href="https://mp.weixin.qq.com/s/AvSBzyS2Xbbso8SGT172qQ" target="_blank" rel="noopener">《三门问题》</a>，虽然看似简单，但细想感觉很有意思，特意把自己的思考记录一下。三门问题出自上世纪 70 年代美国的一个综艺节目，基本描述是这样的：你是游戏的参与者，面前有三扇门，其中一扇门后面是一辆跑车，其他两扇后面什么都没有。在你选择一扇门后先不打开，主持人打开了另一扇门（后面必然是空的），此时你有两个选择，坚持选择刚才选的那扇，或者换另外一扇还没打开的。怎么选择才能让你得到跑车的概率最大？</p>
 <a id="more"></a>
-<h3 id="无捕获组和命名组"><a href="#无捕获组和命名组" class="headerlink" title="无捕获组和命名组"></a>无捕获组和命名组</h3><ul>
-<li><code>(?:pattern)</code>: 无捕获组，对于修改已有组尤其有用，因为你可以不用改变所有其他组号的情况下添加一个新组。</li>
-<li><code>(?P&lt;name&gt;...)</code> 定义一个命名组，<code>(?P=name)</code> 则是对命名组的逆向引用；逆向引用允许你指定先前捕获组的内容，该组也必须在字符串当前位置被找到。举个例子，如果组 1 的内容能够在当前位置找到的话，<code>\1</code> 就成功否则失败。除了用数字指定组，它可以用名字来指定，如：<code>(\b\w+)\s+\1</code> 也可以被写成 <code>(?P&lt;word&gt;\b\w+)\s+(?P=word)</code><ul>
-<li><code>re.compile(r&#39;(\w+)\1\1\1&#39;)</code>: 匹配一个字重复四次的那个「字」</li>
-<li><code>re.compile(r&#39;((\w+)\2+)&#39;)</code>: 匹配重复两次或两次以上的，返回对应的值和那个重复的「字」，必须整个用括号括起来</li>
-</ul>
-</li>
-</ul>
-<h3 id="条件表达式"><a href="#条件表达式" class="headerlink" title="条件表达式"></a>条件表达式</h3><p><code>条件：(?(id)yes-expression|no-expression)</code>,  id 是 group name or number</p>
+<p>乍一看这个问题好像很简单，无论换不换好像概率一样的呀，事实当然不是如此啦，否则也不会有那篇公众号的文章和这篇文章了。公众号的文章中用基本的概率计算来解释说明，过程如下：</p>
+<p>主持人开门之前：</p>
 <ul>
-<li><code>yes-expression</code> is the pattern to use if the group has a value，如果 group 有返回值时执行 </li>
-<li><code>no-expression</code> is the pattern to use otherwise. </li>
-<li><code>(?=(&lt;.*&gt;$)|([^&lt;].*[^&gt;]$))</code></li>
-<li><code>条件表达式例子1：(?(name)(?=(\w+))|(?=([^&lt;].*[^&gt;]$)))</code>，如果找到 <code>name</code>，执行前面的，否则执行后面的</li>
-<li><code>条件表达式例子2：(?(name)(?P&lt;brackets&gt;(?=(&lt;.*&gt;$)))|(?=([^&lt;].*[^&gt;]$)))</code></li>
-<li><code>调用（非条件表达式）：(?P&lt;email&gt;(?P=first_name)\.(?P=last_name)@([\w\d.]+\.)+(com|org|edu))</code></li>
+<li>选择有跑车的门：1/3</li>
+<li>选择空门 A：1/3</li>
+<li>选择空门 B：1/3</li>
 </ul>
-<h3 id="环视"><a href="#环视" class="headerlink" title="环视"></a>环视</h3><ul>
-<li><code>(?!pattern)</code>: 前向否定，不匹配 pattern，匹配不是 bat 或 exe 后缀的：<code>.*[.](?!bat$|exe$).*$</code>；<code>re.compile(r&#39;Isaac(?!Asimov)&#39;)</code>：Isaac 前面有 Asimov <strong>不</strong>能匹配 Isaac</li>
-<li><code>(?=pattern)</code>: 前向肯定，匹配，A positive look ahead assertion，条件不占匹配符；<code>re.compile(r&#39;Isaac(?=Asimov)&#39;)</code>：Isaac 前面有 Asimov 才能匹配 Isaac</li>
-<li><code>(?&lt;!noreply)</code> 后向否定，放在匹配到的 username 下和 <code>(?!noreply@.*$)</code> 放在最前面匹配是一样的；<code>re.compile(r&#39;(?&lt;!Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov <strong>不</strong>能匹配 Isaac</li>
-<li><code>(?&lt;=@)</code>: 后向肯定，A positive look behind assertion, must use a fixed length pattern；<code>re.compile(r&#39;(?&lt;=Asimov)Isaac&#39;)</code>：Isaac 后面有 Asimov 才能匹配 Isaac</li>
-</ul>
-<p>上面的只支持固定长度，如果要使用可变长度，需要 <code>regex</code> 包：<a href="https://bitbucket.org/mrabarnett/mrab-regex" target="_blank" rel="noopener">mrabarnett / mrab-regex — Bitbucket</a></p>
+<p>主持人开门之后：</p>
 <ul>
-<li><code>regex.compile(rf&#39;(?&lt;![{quantifier}]+\w*)(之一)([{punc}]?)&#39;)</code>: 非固定宽度否定逆序环视，用后面的符号即做隔断，在结尾又可不存在。不等于 “数量词” + XXX + 之一，且标点结尾的；注意：quantifier 是变量</li>
-<li><code>regex</code> 的环视<strong>可以跳跃查找，而普通的 <code>re</code> 只能连在一起</strong>。举个例子：找到 非量词 + 之一<ul>
-<li>普通正则：<code>(!量词)\w+之一</code>：这样因为 <code>\w</code> 包括了量词，所以并不能查找出来</li>
-<li>环视方法：<code>(?&lt;!量词)\w+之一</code>：可以分成三部分：非量词+其他词+之一</li>
+<li>选择有跑车的门：<ul>
+<li>换门：0</li>
+<li>不换门：1</li>
 </ul>
 </li>
-<li>再几个例子：<ul>
-<li><code>regex.match(r&#39;(?(?=\d)\d+|\w+)&#39;, &#39;123abc&#39;)</code> 匹配到 123</li>
-<li><code>regex.match(r&#39;(?(?=\d)\d+|\w+)&#39;, &#39;abc123&#39;)</code> 匹配到 abc123，只能匹配第二个</li>
-<li><code>regex.match(r&#39;(?:(?=\d)\d+\b|\w+)&#39;, &#39;123a&#39;)</code> 匹配到 123a，匹配第二个</li>
-<li><code>regex.match(r&#39;(?(?=\d)\d+\b|\w+)&#39;, &#39;123a&#39;)</code> 结果为 None，第一个如果匹配到就不会再到第二个</li>
-<li><code>regex.match(r&#39;(?(?=\d)\d+\b|\w+)&#39;, &#39;abc&#39;)</code> 匹配到 abc，匹配第二个</li>
-<li><code>regex.match(r&#39;(?(?=\d)\d+\b|\w+)&#39;, &#39;123&#39;)</code> 匹配到 123，匹配第一个</li>
+<li>选择空门 A（此时 B 已经打开并确认是空门）：<ul>
+<li>换门：1</li>
+<li>不换门：0</li>
 </ul>
 </li>
-</ul>
-<h3 id="匹配查找"><a href="#匹配查找" class="headerlink" title="匹配查找"></a>匹配查找</h3><ul>
-<li><code>re.search()</code><ul>
-<li>使用 pattern 扫描文本</li>
-<li>如果找到则返回 Match 对象，否则返回 <code>None</code>，<code>match.start(), match.end()</code> 或 <code>match.span()</code> 返回匹配到对象的起止位置</li>
-<li><strong><code>pattern.search()</code></strong>：返回子串，而不是 <code>re.search()</code> 的整个字符串</li>
-</ul>
-</li>
-<li><code>re.match()</code><ul>
-<li>只有 pattern 在文本的最开始才返回结果，否则返回 <code>None</code></li>
-</ul>
-</li>
-<li><code>re.findall()</code><ul>
-<li><code>finditer</code> 返回一个迭代器，可以使用 <code>match.start(), match.end()</code> 返回起止位置</li>
-<li><code>re.findall(r&#39;a((a*)(b*))&#39;,t)</code>: 类似这种，第一个 a 是不返回到结果的，只返回括号里面的</li>
-</ul>
-</li>
-<li>如果没有匹配到的话，<code>match()</code> 和 <code>search()</code> 将返回 <code>None</code>。如果成功的话，就会返回一个 <code>MatchObject</code> 实例，其中有这次匹配的信息：它是从哪里开始和结束，它所匹配的子串等等。<code>findall()</code> 在它返回结果时不得不创建一个列表。</li>
-<li><code>groups()</code><ul>
-<li><strong>返回匹配到的字符序列</strong>，不需要再用起止位置确定返回的字符串</li>
-<li><code>group(index)</code>: 返回单独的一个 group（匹配到的结果）</li>
-<li><code>match.groupdict()</code> 返回 <code>{名字:值}</code> 的字典</li>
-<li>组可以被嵌套。计数的数值可以通过从左到右计算打开的括号数来确定。<code>The groups()</code> 方法返回一个包含所有小组字符串的元组，从 <strong>1</strong> 到 所含的小组号。</li>
-</ul>
-</li>
-<li>list 作为参数：<code>re.compile(&#39;二&#39; + str([&quot;位&quot;, &quot;十&quot;, &quot;百&quot;, &quot;千&quot;, &quot;万&quot;, &quot;亿&quot;]))</code> <ul>
-<li>和 list 的顺序有关，所以首字一样的，长的放前面，否则长的匹配不到（肯定模式）</li>
-<li>会匹配到空格（list 元素中间有空格）</li>
-<li>还会匹配到单个词里面的每个词中间字的组合（肯定模式）。</li>
-<li>不推荐这样的写法。</li>
+<li>选择空门 B（此时 A 已经打开并确认是空门）：<ul>
+<li>换门：1</li>
+<li>不换门：0</li>
 </ul>
 </li>
 </ul>
-<h3 id="分割替换"><a href="#分割替换" class="headerlink" title="分割替换"></a>分割替换</h3><ul>
-<li><code>split(string [, maxsplit = 0])</code><ul>
-<li><code>p2 = re.compile(r&#39;(\W+)&#39;)</code>: 打印出定界符，如果不需要则为：<code>p = re.compile(r&#39;\W+&#39;)</code></li>
-<li><code>re.compile().split(text, num)</code>: num 非 0 时，最多分成 num 段</li>
-</ul>
-</li>
-<li><code>sub(replacement, string[, count = 0])</code> <ul>
-<li>可选参数 count 是模式匹配后替换的最大次数；count 必须是非负整数。缺省值是 0 表示替换所有的匹配。 </li>
-<li>空匹配只有在它们没有紧挨着前一个匹配时才会被替换掉。<code>re.compile(&#39;x*&#39;).sub(&#39;-&#39;, &#39;abxd&#39;)</code>: <code>&#39;-a-b-d-&#39;</code></li>
-<li>可以指定用 <code>(?P&lt;name&gt;...)</code> 语法定义的命名组。”<code>\g&lt;name&gt;</code>“ 将通过组名 “name” 用子串来匹配，并且 “<code>\g&lt;number&gt;</code>“ 使用相应的组号。使用它可以消除组号和周围文字数字之间的任何歧义。</li>
-<li>替换也可以是一个函数，该函数将会被模式中每一个不重复的匹配所调用。</li>
-<li><code>subn()</code> 返回修改后的字符串和替换的数量</li>
-</ul>
-</li>
-<li><code>replace</code>: 更快的替换</li>
-<li><code>translate()</code>: 从一个字符串中删除单个字符或用另一个字符来替代它<ul>
-<li>可以用 <code>re.sub(&#39;\n&#39;,&#39; &#39;, s)</code> 这样来实现，但 <code>translate()</code> 能够实现这两个任务，而且比任何正则表达式操作起来更快。</li>
-<li><code>translate</code> 需要配合<code>string.maketrans</code> 使用。例如：<code>import string</code> 后 <code>&#39;a1b3&#39;.translate(string.maketrans(&#39;ab&#39;, &#39;cd&#39;))</code> </li>
-</ul>
-</li>
-</ul>
-<h2 id="要义"><a href="#要义" class="headerlink" title="要义"></a>要义</h2><h3 id="数量"><a href="#数量" class="headerlink" title="数量"></a>数量</h3><ul>
-<li><code>{}</code> 多少次</li>
-<li><code>*</code> 等于 <code>{0,}</code>，0 次或任意正次数</li>
-<li><code>+</code>  等于 <code>{1,}</code>，1 次或任意正次数</li>
-<li><code>?</code>  等于 <code>{0,1}</code>，0 次或 1 次</li>
-<li>pattern 后面加「?」（英文的问号）就是非贪婪匹配，默认是贪婪匹配（匹配尽可能多的字符）。也就是匹配数量少的次数（也就是 {} 左边的数字次数）</li>
-</ul>
-<h3 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h3><ul>
-<li>范围<ul>
-<li><code>[ab]</code>: a or b，<code>[\w\d.+-]</code> 里面的「.+-」就是代表自身</li>
-<li><code>a[ab]+</code>: aa… or ab…</li>
-<li><code>a[ab]+?</code>: aa or ab</li>
-<li><code>[^-. ]+</code>: 不含 <code>-, ., 空格</code> 的，用补集来匹配不在区间范围内的字符，其做法是把 <code>^</code> 作为<strong>类别</strong>的<strong>首个字符</strong>；其它地方的 <code>^</code> 只会简单匹配 <code>^</code> 字符本身</li>
-<li><code>[A-Z][a-z]+</code>: 一个大写字母后面跟着小写字母</li>
-<li>元字符在类别里（<code>[]</code> 里）并不起作用</li>
-<li><code>\p{L}+</code> 匹配任意的 letter，比如 abc</li>
-<li><code>\p{N}+</code> 匹配任意的 number，比如 123</li>
-</ul>
-</li>
-<li>小数点<ul>
-<li><code>.</code> 表示任何单独的字符，除了换行符（\n）</li>
-<li><code>a.*b</code>: a 后面任意字符，b 结尾</li>
-<li><code>a.*?b</code>: a 后面任意字符，b 结尾，非贪婪</li>
-</ul>
-</li>
-<li>反斜杠<ul>
-<li><code>\d</code>: a digit</li>
-<li><code>\D</code>: a non-digit</li>
-<li><code>\s</code>: whitespace(tab, space, newline, etc.)</li>
-<li><code>\S</code>: non-whitespace</li>
-<li><code>\w</code>: alphanumeric 字母数字</li>
-<li><code>\W</code>: non-alphanumeric 非字母数字（标点，符号如#等）</li>
-<li><code>\</code>: 转义</li>
-</ul>
-</li>
-<li>大多数字母和字符一般都会和自身匹配</li>
-</ul>
-<h3 id="位置"><a href="#位置" class="headerlink" title="位置"></a>位置</h3><ul>
-<li><code>^</code>: string or line 开始</li>
-<li><code>$</code>: string or line 结尾</li>
-<li><code>\A</code>: string 开始</li>
-<li><code>\Z</code>: string 结尾</li>
-<li><code>\b</code>: empty string at the beginning or end of a word</li>
-<li><code>\B</code>: empty string not at the beginning or end of a word</li>
-<li>例子<ul>
-<li><code>r&#39;^\w+&#39;,     # word at start of string</code></li>
-<li><code>r&#39;\A\w+&#39;,    # word at start of string</code></li>
-<li><code>r&#39;\w+\S*$&#39;,  # word at end of string, with optional punctuation</code></li>
-<li><code>r&#39;\w+\S*\Z&#39;, # word at end of string, with optional punctuation</code></li>
-<li><code>r&#39;\w*t\w*&#39;,  # word containing &#39;t&#39;</code></li>
-<li><code>r&#39;\bt\w+&#39;,   # &#39;t&#39; at start of word</code></li>
-<li><code>r&#39;\w+t\b&#39;,   # &#39;t&#39; at end of word</code></li>
-<li><code>r&#39;\Bt\B&#39;,    # &#39;t&#39;, not start or end of word</code></li>
-</ul>
-</li>
-</ul>
-<h3 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h3><ul>
-<li><code>()</code>: 分组，视为整体</li>
-<li><code>|</code>: 管道符，要么用左边的字符串匹配，要么用右边的匹配</li>
-</ul>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">p_email = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                     (?P&lt;email&gt;</span></span><br><span class="line"><span class="string">                     [\w+\d]+</span></span><br><span class="line"><span class="string">                     @</span></span><br><span class="line"><span class="string">                     .+</span></span><br><span class="line"><span class="string">                     )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_telephone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;telephone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;3&#125;\s.+</span></span><br><span class="line"><span class="string">                         | \d&#123;3,4&#125;-\d&#123;8&#125;.*</span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br><span class="line">p_cellphone = re.compile(<span class="string">'''</span></span><br><span class="line"><span class="string">                         (?P&lt;cellphone&gt;</span></span><br><span class="line"><span class="string">                         \+\d&#123;1,4&#125;\s\d&#123;11&#125;</span></span><br><span class="line"><span class="string">                         | \d&#123;11&#125; </span></span><br><span class="line"><span class="string">                         )'''</span>, re.UNICODE | re.VERBOSE)</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://docs.python.org/3/library/re.html" target="_blank" rel="noopener">6.2. re — Regular expression operations — Python 3.6.2 documentation</a></li>
-<li>Python Module of the Week上的讲 Python 的 re 包 <a href="https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb" target="_blank" rel="noopener">https://pymotw.com/2/re/，可参考[笔记](https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-Pymotw.ipynb</a>)</li>
-<li>Ubuntu Wiki上的 <a href="http://wiki.ubuntu.com.cn/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97" target="_blank" rel="noopener">Python正则表达式操作指南 - Ubuntu中文</a>，可参考<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Python-Re-How-to-Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
-<li>关于 Regex 的<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/Regex.ipynb" target="_blank" rel="noopener">笔记</a></li>
-<li><a href="https://www.regular-expressions.info/" target="_blank" rel="noopener">Regular-Expressions.info - Regex Tutorial, Examples and Reference - Regexp Patterns</a></li>
-</ul>
-<h2 id="高阶"><a href="#高阶" class="headerlink" title="高阶"></a>高阶</h2><ul>
-<li><p>Regex 工具</p>
+<p>整理一下可得：</p>
 <ul>
-<li>regexper 可视化：<a href="https://regexper.com/" target="_blank" rel="noopener">https://regexper.com/</a></li>
-<li>pythex 在线测试正则表达式 <a href="http://pythex.org/" target="_blank" rel="noopener">http://pythex.org/</a></li>
-<li>regex101 另一个很漂亮的在线正则表达式测试器 <a href="https://regex101.com/" target="_blank" rel="noopener">https://regex101.com/</a></li>
+<li>换门的得奖概率：1/3 × 0 + 1/3 × 1 + 1/3 × 1 = 2/3</li>
+<li>不换门的得奖概率：1/3 × 1 + 1/3 × 0 + 1/3 × 0 = 1/3</li>
 </ul>
-</li>
-<li><p>进阶阅读</p>
+<p>结果看起来是没什么问题，但我们的思维可能还是觉得有点奇怪，感觉不直观、难以理解，我觉得这是因为上面这种分析过程只是到了表层，并没有深入背后的本质，所以让我们感到有些困惑。本文接下来就尝试从理解本质的角度去分析这个问题。为了分析方便，我假设有四个门（道理是一样的，因为三门剩下的那个就是有奖品的，可能会引起一些理解上的误会和偏差），其他条件不变，也就是在主持人打开门后，你要坚持选择第一次的还是在剩余的两扇门中选择一扇。</p>
+<p>在分析具体问题之前，我们需要先了解 “信息熵” 的概念，它来源于<a href="[https://zh.wikipedia.org/wiki/%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%AC%AC%E4%BA%8C%E5%AE%9A%E5%BE%8B](https://zh.wikipedia.org/wiki/热力学第二定律">热力学第二定律</a>)：孤立系统自发地朝着热力学平衡方向──最大熵状态──演化，它描述的是一个系统的混乱（稳定）程度，一个系统处于稳定时就是其熵值最大的时候。香农将此概念引入信息论，用它来度量信息量的大小。熵值越大，不确定性越大，此时可能获得的信息量最大。提到熵就不得不提另一个重要的概念：自信息，这里不列公式了。总之自信息满足三个条件（非常符合我们的直觉）：条件一，非常可能发生的事件信息量要少；条件二，较不可能发生的事件具有更高的信息量；条件三，独立事件应具有增量的信息。而熵也就是自信息的期望：当事件等概率时，熵就等于自信息（因为概率相等，所以整个的不确定性也就等于单个的不确定性），当事件概率不相等时，熵降低（不确定性降低了，因为有的结果概率高了，可能性大了）。这里就是反直觉和令人迷惑的地方。举个例子容易理解些，比如有个地方天气变化非常反复无常，简单起见假设有 “晴天、雨天” 两种，每天两种天气出现的概率分别是 50%，这时候天气预报的作用就非常大，也就是带给你的信息量非常大；相反如果一个地方几乎天天是晴天，我们假设晴天、雨天的概率分别是 99% 和 1%，那这时候天气预报带给你的信息量非常小（简直无关紧要啊）。对于前一种情况，不确定性大，熵值大（事实上由于是均匀分布，不确定性和熵值均为最大），此时可预测性很小，额外获得的信息（在这里是天气预报）的信息量就很大；后一种情况正好相反。也就是说，在面临不确定性时，我们应该利用已知的信息（有些东西已经是确定的）让选择等可能性（不确定性最大）。这就是熵的思维。</p>
+<blockquote>
+<p>关于其在排序算法中的应用可以阅读刘未鹏大神的精彩文章：<a href="http://mindhacks.cn/2008/06/13/why-is-quicksort-so-quick/" target="_blank" rel="noopener">数学之美番外篇：快排为什么那样快 – 刘未鹏 | Mind Hacks</a> 和拙作：<a href="https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/" target="_blank" rel="noopener">数据结构与算法浅思：思考排序 | Yam</a>。</p>
+</blockquote>
+<p>我觉得反直觉的地方就在这里，我们总是有一种直觉，就是确定的东西信息量比较大，不确定的好像没啥信息。出现这个问题的原因我理解是把 “信息” 和  “知识” 这两个概念（自然而然地）混淆了，我们一般说一个东西信息量很大，总感觉这个东西内容很多、很有用；但其实却正好相反，我们真正有用的（知识或模型）都是信息量小、稳定的、可预测性大的，事实上智能的本质就是减熵，也就是降低不确定性。如果举一些具体的例子，机器学习的目的也是减少熵，希望自己的预测比较确定，熵正好可以用来衡量这个置信度；贝叶斯学习中，我们经常假设一个先验分布具有较宽广的概率密度函数，这反映了随机变量在观测之前的不确定性，当数据来了以后，熵会减小，并且让后验分布在最可能的参数值周围形成峰值。所以，也许应该把信息量叫作 “混乱度” 比较好。这里还有个好玩儿的是 “小概率事件”，因为发生的概率小，所以该事件本身（不是整个系统）具有很高的信息量，熵值很大（熵是自信息的期望，事件本身来说发生的概率为 1）。也就是这类事件因为发生概率比较低所以熵也比较低，虽然它本身的熵比较高，但是一旦这类事件正好（发生概率达到 100%）发生了，它具有的高熵和高信息量对整个系统带来的影响往往非常严重。这也就是所谓的 “黑天鹅” 事件。</p>
+<p>现在让我们用上面的思维来重新思考三门问题（我以四门为例）。当主持人打开一扇空门后，我们的第二次选择应该怎么选，是继续坚持第一次的选择，还是换一扇门？回想一下熵的思维：让选择等可能性。如果我们继续坚持第一次的选择，那意味着我们给第一次的那个选择更高的概率；而等可能性意味着我们第二次应该在剩下的两扇门中等可能性地选择一扇。注意，这里其实我们有两次 “等可能性”。所以，三门问题之所以在第二次应该换门，其背后的本质思想就在这里。而这个问题之所以具有迷惑性和反直觉，我觉得原因可能有以下两点：</p>
 <ul>
-<li>re2 一个更快的Cython实现 <a href="https://pypi.python.org/pypi/re2/" target="_blank" rel="noopener">https://pypi.python.org/pypi/re2/</a></li>
-<li>pyahocorasick 用字典树和Aho-Corasick自动机实现的超快的正则引擎 <a href="https://pypi.python.org/pypi/pyahocorasick/" target="_blank" rel="noopener">https://pypi.python.org/pypi/pyahocorasick/</a></li>
-<li>PythonVerbalExpressions 类自然语言构造正则表达式 <a href="https://github.com/VerbalExpressions/PythonVerbalExpressions" target="_blank" rel="noopener">https://github.com/VerbalExpressions/PythonVerbalExpressions</a></li>
-<li>Exrex 从正则表达式生成随机字符串  <a href="https://github.com/asciimoo/exrex" target="_blank" rel="noopener">https://github.com/asciimoo/exrex</a></li>
-<li>PyParsing 构造正则语法（和更多规则）和提取的引擎 <a href="http://pyparsing.wikispaces.com/" target="_blank" rel="noopener">http://pyparsing.wikispaces.com/</a></li>
-<li>Parsley 更人性化的正则表达语法 <a href="http://parsley.readthedocs.io/en/latest/tutorial.html" target="_blank" rel="noopener">http://parsley.readthedocs.io/en/latest/tutorial.html</a></li>
+<li>第一，两次的选择是一个整体事件，不应该被孤立看待，极端点我们甚至可以假设没有主持人打开那道门，那你想要自己在两次选择中选中的概率最大，第二次肯定不会选择和第一次一样的那扇门，所以这里主持人打开那扇门并不是本质，它只是提高了你的概率。所以，这其实是一个 “两次选择” 的概率问题。</li>
+<li>第二，我们在分析问题的时候不由自主地站在了上帝视角。这个稍微有点难理解，直观地说就是我们在选择时总是把概率当作了真实，而事实上只有在确定的那一刻才是真实。换个意思就是，整个系统本来应该是不确定的，但我们总是不自觉地把某种情况（可能性）当作成了真实。这和薛定谔的猫是一个意思，系统总是处于量子态，只有当观测的时候才会坍缩到你观测到的样子。我这里所说的上帝视角的意思就是我们总是人为地、自主地、想当然地、处在上帝的角度 “看到了” 观测结果。</li>
 </ul>
-</li>
+<p>以上就是由三门问题想到的，关于我们决策时的思维过程的一点思考。这里没有涉及贝叶斯，实际上三门问题中当然也有贝叶斯，第二次选择的所有概率都应该是贝叶斯概率（关于三门问题与贝叶斯可以看<a href="https://blog.csdn.net/zjuPeco/article/details/76850866" target="_blank" rel="noopener">这篇文章</a>）；而且贝叶斯在决策过程中也扮演着非常有趣的角色，它的哲学虽然看似简单实则异常迷人，我们择文再议。</p>
+<p><strong>参考</strong>：</p>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/AvSBzyS2Xbbso8SGT172qQ" target="_blank" rel="noopener">漫画：反直觉的 “三门问题”</a></li>
+<li><a href="http://mindhacks.cn/2008/06/13/why-is-quicksort-so-quick/" target="_blank" rel="noopener">数学之美番外篇：快排为什么那样快 – 刘未鹏 | Mind Hacks</a></li>
 </ul>
 
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2017/09/04/DataSci/2017-09-04-Regular-Expression/">
-    <time datetime="2017-09-04T14:00:00.000Z" class="entry-date">
-        2017-09-04
+    <a href="/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/">
+    <time datetime="2019-06-19T14:20:00.000Z" class="entry-date">
+        2019-06-19
     </time>
 </a>
     
   <span class="article-delim">&#8226;</span>
   <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
   </div>
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regex/">Regex</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Entropy/">Entropy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Information-Theory/">Information Theory</a></li></ul>
 
     </footer>
 </article>
@@ -319,10 +172,10 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/" rel="prev"><span class="meta-nav">←</span> 语言、AI、情感</a></span>
+        <span class="nav-previous"><a href="/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" rel="prev"><span class="meta-nav">←</span> Formal Grammars of English Note (SLP Ch12)</a></span>
     
     
-        <span class="nav-next"><a href="/2017/08/31/Diary/2017-08-31-diary/" rel="next">随笔：人生，当有所为有所不为 <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/06/17/NLP/SLP/2019-06-17-Ch09-Senquence-Processing-with-Recurrent-Networks/" rel="next">Sequence Processing with Recurrent Networks Note (SLP Ch09) <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
