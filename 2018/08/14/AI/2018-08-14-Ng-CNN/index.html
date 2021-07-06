@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="Yam | AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>NG CNN 笔记 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说明：来自卷积神经网络 - 网易云课堂的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）  目录 1&amp;nbsp;&amp;nbsp;Week1 卷积神经网络 1.1&amp;nbsp;&amp;nbsp;计算机视觉 1.2&amp;nbsp;&amp;nbsp;边缘检测示例 1.3&amp;nbsp;&amp;nbsp;更多边缘检测内容 1.4&amp;nbsp;&amp;nbsp;Padding1.5&amp;nbsp;&amp;nbsp;卷积步长 1.6&amp;nbsp;&amp;">
+<meta name="keywords" content="AI,DeepLearning,CNN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NG CNN 笔记">
+<meta property="og:url" content="https://www.yam.gift/2018/08/14/AI/2018-08-14-Ng-CNN/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="说明：来自卷积神经网络 - 网易云课堂的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）  目录 1&amp;nbsp;&amp;nbsp;Week1 卷积神经网络 1.1&amp;nbsp;&amp;nbsp;计算机视觉 1.2&amp;nbsp;&amp;nbsp;边缘检测示例 1.3&amp;nbsp;&amp;nbsp;更多边缘检测内容 1.4&amp;nbsp;&amp;nbsp;Padding1.5&amp;nbsp;&amp;nbsp;卷积步长 1.6&amp;nbsp;&amp;">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn1.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ng-cnn-2.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-3.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn4.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-5.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-6.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-7.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-8.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-9.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-10.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-11.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-12.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-13.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-14.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-15.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-17.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-18.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-19.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-20.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-21.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-22.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ne-cnn-23.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-24.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-25.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-26.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-27.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-28.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-29.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-30.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-31.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-32.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-33.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-34.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-35.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-36.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-37.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-38.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-39.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-41.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-40.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-42.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-43.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-44.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-45.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-87.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-89.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-46.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-47.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-48.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-49.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-50.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-51.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-52.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-53.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-55.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-56.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ng-video-cnn-57.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-58.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-59.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-60.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-61.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-62.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-63.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-64.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-65.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-66.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-67.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-68.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-69.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-70.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-71.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-72.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-73.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-74.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-75.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-76.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-77.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-78.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-79.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-80.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-81.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-82.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-83.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-84.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-85.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-86.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-87.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpg">
+<meta property="og:updated_time" content="2020-02-09T04:12:06.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NG CNN 笔记">
+<meta name="twitter:description" content="说明：来自卷积神经网络 - 网易云课堂的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）  目录 1&amp;nbsp;&amp;nbsp;Week1 卷积神经网络 1.1&amp;nbsp;&amp;nbsp;计算机视觉 1.2&amp;nbsp;&amp;nbsp;边缘检测示例 1.3&amp;nbsp;&amp;nbsp;更多边缘检测内容 1.4&amp;nbsp;&amp;nbsp;Padding1.5&amp;nbsp;&amp;nbsp;卷积步长 1.6&amp;nbsp;&amp;">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/video-ng-cnn1.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-AI/2018-08-14-Ng-CNN" class="post-AI/2018-08-14-Ng-CNN post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      NG CNN 笔记
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/08/14/AI/2018-08-14-Ng-CNN/" data-id="ckqs11f6o005q6wbzx77wpnwj" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：来自<a href="http://mooc.study.163.com/course/2001281004" target="_blank" rel="noopener">卷积神经网络 - 网易云课堂</a>的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）</p>
+</blockquote>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><p> </p><p><div class="lev1 toc-item"><a href="#Week1-卷积神经网络" data-toc-modified-id="Week1-卷积神经网络-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Week1 卷积神经网络 </a></div><div class="lev2 toc-item"><a href="#计算机视觉" data-toc-modified-id="计算机视觉-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>计算机视觉 </a></div><div class="lev2 toc-item"><a href="#边缘检测示例" data-toc-modified-id="边缘检测示例-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>边缘检测示例 </a></div><div class="lev2 toc-item"><a href="#更多边缘检测内容" data-toc-modified-id="更多边缘检测内容-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>更多边缘检测内容 </a></div><div class="lev2 toc-item"><a href="#Padding" data-toc-modified-id="Padding-14"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Padding</a></div><div class="lev2 toc-item"><a href="#卷积步长" data-toc-modified-id="卷积步长-15"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>卷积步长 </a></div><div class="lev2 toc-item"><a href="#卷积为何有效" data-toc-modified-id="卷积为何有效-16"><span class="toc-item-num">1.6&nbsp;&nbsp;</span>卷积为何有效 </a></div><div class="lev2 toc-item"><a href="#单层卷积网络" data-toc-modified-id="单层卷积网络-17"><span class="toc-item-num">1.7&nbsp;&nbsp;</span>单层卷积网络 </a></div><div class="lev2 toc-item"><a href="#简单卷积网络示例" data-toc-modified-id="简单卷积网络示例-18"><span class="toc-item-num">1.8&nbsp;&nbsp;</span>简单卷积网络示例 </a></div><div class="lev2 toc-item"><a href="#池化层" data-toc-modified-id="池化层-19"><span class="toc-item-num">1.9&nbsp;&nbsp;</span>池化层 </a></div><div class="lev2 toc-item"><a href="#卷积神经网络示例" data-toc-modified-id="卷积神经网络示例-110"><span class="toc-item-num">1.10&nbsp;&nbsp;</span>卷积神经网络示例 </a></div><div class="lev2 toc-item"><a href="#为什么使用卷积？" data-toc-modified-id="为什么使用卷积？-111"><span class="toc-item-num">1.11&nbsp;&nbsp;</span>为什么使用卷积？</a></div><div class="lev2 toc-item"><a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-112"><span class="toc-item-num">1.12&nbsp;&nbsp;</span>注意点 &amp; Tips</a></div><div class="lev1 toc-item"><a href="#Week2-深度卷积网络：实例探究" data-toc-modified-id="Week2-深度卷积网络：实例探究-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Week2 深度卷积网络：实例探究 </a></div><div class="lev2 toc-item"><a href="#为什么要进行实例探究？" data-toc-modified-id="为什么要进行实例探究？-21"><span class="toc-item-num">2.1&nbsp;&nbsp;</span>为什么要进行实例探究？</a></div><div class="lev2 toc-item"><a href="#经典网络" data-toc-modified-id="经典网络-22"><span class="toc-item-num">2.2&nbsp;&nbsp;</span>经典网络 </a></div><div class="lev2 toc-item"><a href="#残差网络" data-toc-modified-id="残差网络-23"><span class="toc-item-num">2.3&nbsp;&nbsp;</span>残差网络 </a></div><div class="lev2 toc-item"><a href="#残差网络为什么有用？" data-toc-modified-id="残差网络为什么有用？-24"><span class="toc-item-num">2.4&nbsp;&nbsp;</span>残差网络为什么有用？</a></div><div class="lev2 toc-item"><a href="#网络中的网络以及-1×1-卷积" data-toc-modified-id="网络中的网络以及-1×1-卷积-25"><span class="toc-item-num">2.5&nbsp;&nbsp;</span>网络中的网络以及 1×1 卷积 </a></div><div class="lev2 toc-item"><a href="#Google-Inception-网络简介" data-toc-modified-id="Google-Inception-网络简介-26"><span class="toc-item-num">2.6&nbsp;&nbsp;</span>Google Inception 网络简介 </a></div><div class="lev2 toc-item"><a href="#Inception-网络" data-toc-modified-id="Inception-网络-27"><span class="toc-item-num">2.7&nbsp;&nbsp;</span>Inception 网络 </a></div><div class="lev2 toc-item"><a href="#使用开源的实现方案" data-toc-modified-id="使用开源的实现方案-28"><span class="toc-item-num">2.8&nbsp;&nbsp;</span>使用开源的实现方案 </a></div><div class="lev2 toc-item"><a href="#迁移学习" data-toc-modified-id="迁移学习-29"><span class="toc-item-num">2.9&nbsp;&nbsp;</span>迁移学习 </a></div><div class="lev2 toc-item"><a href="#数据扩充" data-toc-modified-id="数据扩充-210"><span class="toc-item-num">2.10&nbsp;&nbsp;</span>数据扩充 </a></div><div class="lev2 toc-item"><a href="#计算机视觉现状" data-toc-modified-id="计算机视觉现状-211"><span class="toc-item-num">2.11&nbsp;&nbsp;</span>计算机视觉现状 </a></div><div class="lev2 toc-item"><a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-212"><span class="toc-item-num">2.12&nbsp;&nbsp;</span>注意点 &amp; Tips</a></div><div class="lev1 toc-item"><a href="#Week3-目标检测" data-toc-modified-id="Week3-目标检测-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Week3 目标检测 </a></div><div class="lev2 toc-item"><a href="#目标定位" data-toc-modified-id="目标定位-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>目标定位 </a></div><div class="lev2 toc-item"><a href="#特征点监测" data-toc-modified-id="特征点监测-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>特征点监测 </a></div><div class="lev2 toc-item"><a href="#目标监测" data-toc-modified-id="目标监测-33"><span class="toc-item-num">3.3&nbsp;&nbsp;</span>目标监测 </a></div><div class="lev2 toc-item"><a href="#卷积的滑动窗口实现" data-toc-modified-id="卷积的滑动窗口实现-34"><span class="toc-item-num">3.4&nbsp;&nbsp;</span>卷积的滑动窗口实现 </a></div><div class="lev2 toc-item"><a href="#Bounding-Box-预测" data-toc-modified-id="Bounding-Box-预测-35"><span class="toc-item-num">3.5&nbsp;&nbsp;</span>Bounding Box 预测 </a></div><div class="lev2 toc-item"><a href="#交并比" data-toc-modified-id="交并比-36"><span class="toc-item-num">3.6&nbsp;&nbsp;</span>交并比 </a></div><div class="lev2 toc-item"><a href="#非最大值抑制" data-toc-modified-id="非最大值抑制-37"><span class="toc-item-num">3.7&nbsp;&nbsp;</span>非最大值抑制 </a></div><div class="lev2 toc-item"><a href="#Anchor-Boxes" data-toc-modified-id="Anchor-Boxes-38"><span class="toc-item-num">3.8&nbsp;&nbsp;</span>Anchor Boxes</a></div><div class="lev2 toc-item"><a href="#YOLO-算法" data-toc-modified-id="YOLO-算法-39"><span class="toc-item-num">3.9&nbsp;&nbsp;</span>YOLO 算法 </a></div><div class="lev2 toc-item"><a href="#RPN-网络" data-toc-modified-id="RPN-网络-310"><span class="toc-item-num">3.10&nbsp;&nbsp;</span>RPN 网络 </a></div><div class="lev2 toc-item"><a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-311"><span class="toc-item-num">3.11&nbsp;&nbsp;</span>注意点 &amp; Tips</a></div><div class="lev1 toc-item"><a href="#Week4-特殊应用：人脸识别和神经风格转换" data-toc-modified-id="Week4-特殊应用：人脸识别和神经风格转换-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Week4 特殊应用：人脸识别和神经风格转换 </a></div><div class="lev2 toc-item"><a href="#什么是人脸识别？" data-toc-modified-id="什么是人脸识别？-41"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>什么是人脸识别？</a></div><div class="lev2 toc-item"><a href="#One-Short-学习" data-toc-modified-id="One-Short-学习-42"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>One-Short 学习 </a></div><div class="lev2 toc-item"><a href="#Siamese-网络" data-toc-modified-id="Siamese-网络-43"><span class="toc-item-num">4.3&nbsp;&nbsp;</span>Siamese 网络 </a></div><div class="lev2 toc-item"><a href="#Triplet-损失" data-toc-modified-id="Triplet-损失-44"><span class="toc-item-num">4.4&nbsp;&nbsp;</span>Triplet 损失 </a></div><div class="lev2 toc-item"><a href="#面部验证与二分类" data-toc-modified-id="面部验证与二分类-45"><span class="toc-item-num">4.5&nbsp;&nbsp;</span>面部验证与二分类 </a></div><div class="lev2 toc-item"><a href="#什么是神经风格转移" data-toc-modified-id="什么是神经风格转移-46"><span class="toc-item-num">4.6&nbsp;&nbsp;</span>什么是神经风格转移 </a></div><div class="lev2 toc-item"><a href="#深度卷积网络在学什么？" data-toc-modified-id="深度卷积网络在学什么？-47"><span class="toc-item-num">4.7&nbsp;&nbsp;</span>深度卷积网络在学什么？</a></div><div class="lev2 toc-item"><a href="#代价函数" data-toc-modified-id="代价函数-48"><span class="toc-item-num">4.8&nbsp;&nbsp;</span>代价函数 </a></div><div class="lev2 toc-item"><a href="#内容代价函数" data-toc-modified-id="内容代价函数-49"><span class="toc-item-num">4.9&nbsp;&nbsp;</span>内容代价函数 </a></div><div class="lev2 toc-item"><a href="#风格代价函数" data-toc-modified-id="风格代价函数-410"><span class="toc-item-num">4.10&nbsp;&nbsp;</span>风格代价函数 </a></div><div class="lev2 toc-item"><a href="#一维到三维推广" data-toc-modified-id="一维到三维推广-411"><span class="toc-item-num">4.11&nbsp;&nbsp;</span>一维到三维推广 </a></div><div class="lev2 toc-item"><a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-412"><span class="toc-item-num">4.12&nbsp;&nbsp;</span>注意点 &amp; Tips</a></div></p>
+<a id="more"></a>
+<h1 id="Week1-卷积神经网络"><a href="#Week1-卷积神经网络" class="headerlink" title="Week1 卷积神经网络"></a>Week1 卷积神经网络</h1><h2 id="计算机视觉"><a href="#计算机视觉" class="headerlink" title="计算机视觉"></a>计算机视觉</h2><p>Why CNN?  </p>
+<p>因为普通网络参数太多，比如 1000×1000 的图片，输入的维度为 1000×1000×3 = 3 million，假设全连接层的下一层为 1000 个节点，那么第一层的 W 矩阵将大小为：(1000, 3m)，也就是有 3 billion 个参数。</p>
+<h2 id="边缘检测示例"><a href="#边缘检测示例" class="headerlink" title="边缘检测示例"></a>边缘检测示例</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn1.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/ng-cnn-2.jpeg" alt=""></p>
+<p>Question: 滤波器（kernel）的选择标准是什么？（下一节会涉及）</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-3.jpeg" alt=""></p>
+<p>检测到的垂直边缘看起来很粗，是因为图片本身很小。</p>
+<p>例子中 kernel 表示：左边是明亮的像素，右边是深色的像素。</p>
+<h2 id="更多边缘检测内容"><a href="#更多边缘检测内容" class="headerlink" title="更多边缘检测内容"></a>更多边缘检测内容</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-6.jpeg" alt=""></p>
+<h2 id="Padding"><a href="#Padding" class="headerlink" title="Padding"></a>Padding</h2><p>刚刚的做法有两个缺点：</p>
+<ul>
+<li>每次图片会缩小，如 6×6 → 4×4</li>
+<li>边上的像素点只被一个输出所触碰或者说使用，意味着丢掉了边缘的部分信息</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-7.jpeg" alt=""></p>
+<p>那么到底要填充多少像素：</p>
+<ul>
+<li>Valid: No Padding</li>
+<li>Same: InputSize == OutputSize, 与过滤器有关，过滤器的大小一般都是奇数<ul>
+<li>如果是偶数，因为 pading = (filter-1)/2，所以只能使用一些不对称填充</li>
+<li>奇数过滤器有一个中心点，便于指出过滤器的位置（计算机视觉的惯例）</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-8.jpeg" alt=""></p>
+<h2 id="卷积步长"><a href="#卷积步长" class="headerlink" title="卷积步长"></a>卷积步长</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-9.jpeg" alt=""></p>
+<p>惯例：采用地板除，即只要过滤器超出矩阵，就不再计算。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-10.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-11.jpeg" alt=""></p>
+<p>按照机器学习的惯例，通常不进行翻转操作，从技术上说，这个操作可能叫做互相关更好。但在大部分深度学习文献中都把它叫做卷积运算。信号处理或某些数学运算中，卷积的定义包含翻转。</p>
+<h2 id="卷积为何有效"><a href="#卷积为何有效" class="headerlink" title="卷积为何有效"></a>卷积为何有效</h2><p>输入的 channel 必须与 filter 的 channel 相等。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-12.jpeg" alt=""></p>
+<p>多个过滤器，输出通道等于要检测的特征数（过滤器就可看作特征）。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-13.jpeg" alt=""></p>
+<h2 id="单层卷积网络"><a href="#单层卷积网络" class="headerlink" title="单层卷积网络"></a>单层卷积网络</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-14.jpeg" alt=""></p>
+<p>无论输入大小如何，参数和过滤器有关（保持不变），这是卷积神经网络的一个特征：“避免过拟合”。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-15.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-17.jpeg" alt=""></p>
+<h2 id="简单卷积网络示例"><a href="#简单卷积网络示例" class="headerlink" title="简单卷积网络示例"></a>简单卷积网络示例</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-18.jpeg" alt=""></p>
+<p>卷积网络随着深度增加：宽度和高度在一段时间内不变，然后减小；信道数量在增加。</p>
+<p>Types of layer in a convolutional network:</p>
+<ul>
+<li>Convolution</li>
+<li>Pooling</li>
+<li>Fully connected</li>
+</ul>
+<h2 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h2><p>有一组超参数，并没有参数需要学习。</p>
+<p>最大池化算法：取过滤器选中的矩阵中的最大值；平均池化：取平均值，不太常用（深度很深时会用到）。</p>
+<p>f=2, s=2 其效果相当于表示层的高度和宽度缩减一半。</p>
+<p>大部分情况下，最大池化很少用到 padding。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-19.jpeg" alt=""></p>
+<h2 id="卷积神经网络示例"><a href="#卷积神经网络示例" class="headerlink" title="卷积神经网络示例"></a>卷积神经网络示例</h2><p>随着神经网络深度的加深，高度 nH 和宽度 nW 通常都会减少，信道数量会增加。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-20.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-21.jpeg" alt=""></p>
+<ul>
+<li><code>208 = 5*5*8 + 8</code></li>
+<li><code>416 = 5*5*16 + 16</code></li>
+<li><code>48001 = 400*120 + 1</code></li>
+<li><code>10081 = 120*84 + 1</code></li>
+<li><code>841 = 84*10 + 1</code></li>
+<li>后面加的是偏置参数</li>
+</ul>
+<h2 id="为什么使用卷积？"><a href="#为什么使用卷积？" class="headerlink" title="为什么使用卷积？"></a>为什么使用卷积？</h2><p>与只用全连接层相比，卷积层的两个优势在于：</p>
+<ul>
+<li>参数共享</li>
+<li>稀疏连接</li>
+</ul>
+<p>善于捕捉平移不变：图像平移几个像素，不会发生太大改变，卷积结构使得即使移动几个像素，图片依然具有非常相似的特征，应该属于同样的输出标记。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-22.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ne-cnn-23.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-24.jpeg" alt=""></p>
+<h2 id="注意点-amp-Tips"><a href="#注意点-amp-Tips" class="headerlink" title="注意点&amp;Tips"></a>注意点&amp;Tips</h2><ul>
+<li>上一层的每个过滤器结果<strong>叠加</strong>后才是这一层一个过滤器的结果。</li>
+<li>对叠加后的结果 Pooling，这一层有多少个过滤器，就 Pooling 多少次。</li>
+</ul>
+<h1 id="Week2-深度卷积网络：实例探究"><a href="#Week2-深度卷积网络：实例探究" class="headerlink" title="Week2 深度卷积网络：实例探究"></a>Week2 深度卷积网络：实例探究</h1><h2 id="为什么要进行实例探究？"><a href="#为什么要进行实例探究？" class="headerlink" title="为什么要进行实例探究？"></a>为什么要进行实例探究？</h2><p>架构往往是通用的。</p>
+<h2 id="经典网络"><a href="#经典网络" class="headerlink" title="经典网络"></a>经典网络</h2><p>LeNet-5 Sigmoid 和 Tanh 激活函数；每个过滤器和输入模块信道数量相同；池化后非线性处理。</p>
+<p>AlexNet 比 LeNet 大很多（60 million 参数）；使用了 ReLU 激活函数；多 GPU；LRN（局部响应归一化）。</p>
+<p>VGG-16 简化了神经网络<strong>结构</strong>；特征数量巨大（138 million 参数）。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-25.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-26.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-27.jpeg" alt=""></p>
+<h2 id="残差网络"><a href="#残差网络" class="headerlink" title="残差网络"></a>残差网络</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-28.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-29.jpeg" alt=""></p>
+<h2 id="残差网络为什么有用？"><a href="#残差网络为什么有用？" class="headerlink" title="残差网络为什么有用？"></a>残差网络为什么有用？</h2><p>残差块学习恒等函数非常容易，不会降低网络性能。</p>
+<p>ResNets 使用了许多相同卷积，所以 a[l] 的维度等于输出层的维度，从而实现了跳远连接。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-30.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-31.jpeg" alt=""></p>
+<h2 id="网络中的网络以及-1×1-卷积"><a href="#网络中的网络以及-1×1-卷积" class="headerlink" title="网络中的网络以及 1×1 卷积"></a>网络中的网络以及 1×1 卷积</h2><p>可以理解为所有单元都应用了一个全连接神经网络。</p>
+<p>可以通过 1×1 卷积的简单操作来压缩、保持甚至增加输入层中的信道数量。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-32.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-33.jpeg" alt=""></p>
+<h2 id="Google-Inception-网络简介"><a href="#Google-Inception-网络简介" class="headerlink" title="Google Inception 网络简介"></a>Google Inception 网络简介</h2><p>Inception 网络不需要人为决定使用哪个过滤器。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-34.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-35.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-36.jpeg" alt=""></p>
+<h2 id="Inception-网络"><a href="#Inception-网络" class="headerlink" title="Inception 网络"></a>Inception 网络</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-37.jpeg" alt=""></p>
+<p>分支，通过隐层做出预测，起到调整效果，并防止过拟合。GoogLeNet。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-38.jpeg" alt=""></p>
+<h2 id="使用开源的实现方案"><a href="#使用开源的实现方案" class="headerlink" title="使用开源的实现方案"></a>使用开源的实现方案</h2><p>先选择一个喜欢的框架，找一个开源实现，在此基础上进行开发。</p>
+<h2 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h2><ul>
+<li>如果数据集比较小<ul>
+<li>通过深度学习框架的参数固定已经训练的层，让其不参与训练</li>
+<li>最后一个隐层的特征结果存到硬盘，直接用此结果连接 softmax 进行训练</li>
+</ul>
+</li>
+<li>如果数据集比较大<ul>
+<li>冻结更少的层</li>
+</ul>
+</li>
+<li>如果有大量数据<ul>
+<li>训练整个网络（用作者的参数初始化，代替随机初始化）</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-39.jpeg" alt=""></p>
+<h2 id="数据扩充"><a href="#数据扩充" class="headerlink" title="数据扩充"></a>数据扩充</h2><p>计算机视觉一个主要问题是没有办法得到充足的数据，所以数据增强很有必要。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-41.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-40.jpeg" alt=""></p>
+<p>在实践中，RGB 的值是根据某种概率分布来决定的。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-42.jpeg" alt=""></p>
+<h2 id="计算机视觉现状"><a href="#计算机视觉现状" class="headerlink" title="计算机视觉现状"></a>计算机视觉现状</h2><p>当有很多数据时，人们倾向于使用更简单的算法和更少的手工工程。相反则有更多的手工工程。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-43.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-44.jpeg" alt=""></p>
+<p>集成，即已有的模型。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-45.jpeg" alt=""></p>
+<h2 id="注意点-amp-Tips-1"><a href="#注意点-amp-Tips-1" class="headerlink" title="注意点&amp;Tips"></a>注意点&amp;Tips</h2><ul>
+<li><p>If you have not yet achieved a very good accuracy (let’s say more than 80%), here’re some things you can play around with to try to achieve it:</p>
+<ul>
+<li>Try using blocks of CONV-&gt;BATCHNORM-&gt;RELU such as:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">X_input = Input(input_shape)</span><br><span class="line">X = ZeroPadding2D((<span class="number">3</span>, <span class="number">3</span>))(X_input)</span><br><span class="line">X = Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), strides = (<span class="number">1</span>, <span class="number">1</span>), name = <span class="string">'conv0'</span>)(X)</span><br><span class="line">X = BatchNormalization(axis = <span class="number">3</span>, name = <span class="string">'bn0'</span>)(X)</span><br><span class="line">X = Activation(<span class="string">'relu'</span>)(X)</span><br><span class="line">X = MaxPooling2D((<span class="number">2</span>,<span class="number">2</span>), name=<span class="string">'max_pool'</span>)(X)</span><br><span class="line">X = Flatten()(X)</span><br><span class="line">X = Dense(<span class="number">1</span>, activation=<span class="string">'sigmoid'</span>, name=<span class="string">'fc'</span>)(X)</span><br><span class="line">model = Model(inputs=X_input, outputs=X, name=<span class="string">'HappyModel'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>until your height and width dimensions are quite <strong>low</strong> and your number of channels quite <strong>large</strong> (<strong>≈32</strong> for example). You are encoding useful information in a volume with a lot of channels. You can then flatten the volume and use a fully-connected layer.</p>
+<ul>
+<li>You can use <strong>MAXPOOL</strong> after such blocks. It will help you lower the dimension in height and width.</li>
+<li>Change your optimizer. We find <strong>Adam</strong> works well. </li>
+<li>If the model is struggling to run and you get memory issues, lower your batch_size (<strong>12</strong> is usually a good compromise)</li>
+<li>Run on more epochs, until you see the train accuracy plateauing. </li>
+</ul>
+</li>
+<li><p>Create-&gt;Compile-&gt;Fit/Train-&gt;Evaluate/Test.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">happyModel = HappyModel(X_train[<span class="number">0</span>].shape)</span><br><span class="line">happyModel.compile(optimizer=<span class="string">'Adam'</span>, loss=<span class="string">'binary_crossentropy'</span>, metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line">happyModel.fit(x=X_train, y=Y_train, epochs=<span class="number">50</span>, batch_size=<span class="number">12</span>)</span><br><span class="line">preds = happyModel.evaluate(x=X_test, y=Y_test)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>other basic features of Keras</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">happyModel.summary()</span><br><span class="line">plot_model(happyModel, to_file=<span class="string">'HappyModel.png'</span>)</span><br><span class="line">SVG(model_to_dot(happyModel).create(prog=<span class="string">'dot'</span>, format=<span class="string">'svg'</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Identify block</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-87.jpeg" alt=""></p>
+</li>
+<li><p>Convolutional block</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpeg" alt=""></p>
+</li>
+<li><p>ResNet model</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-89.jpeg" alt=""></p>
+</li>
+</ul>
+<h1 id="Week3-目标检测"><a href="#Week3-目标检测" class="headerlink" title="Week3 目标检测"></a>Week3 目标检测</h1><h2 id="目标定位"><a href="#目标定位" class="headerlink" title="目标定位"></a>目标定位</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-46.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-47.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-48.jpeg" alt=""></p>
+<p>一般情况下的损失函数：</p>
+<ul>
+<li>分类：对数损失函数</li>
+<li>坐标：平方误差</li>
+<li>对象：逻辑回归</li>
+</ul>
+<h2 id="特征点监测"><a href="#特征点监测" class="headerlink" title="特征点监测"></a>特征点监测</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-49.jpeg" alt=""></p>
+<h2 id="目标监测"><a href="#目标监测" class="headerlink" title="目标监测"></a>目标监测</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-50.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-51.jpeg" alt=""></p>
+<h2 id="卷积的滑动窗口实现"><a href="#卷积的滑动窗口实现" class="headerlink" title="卷积的滑动窗口实现"></a>卷积的滑动窗口实现</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-52.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-53.jpeg" alt=""></p>
+<p>对整张图片进行卷积操作，一次得到所有的预测值。不需要通过连续的卷积操作。</p>
+<h2 id="Bounding-Box-预测"><a href="#Bounding-Box-预测" class="headerlink" title="Bounding Box 预测"></a>Bounding Box 预测</h2><p>卷积滑动窗口不能输出最精确的边界框。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-55.jpeg" alt=""></p>
+<p>实际中，网格会更精细，多个对象被分配到同一个格子的概率就小很多。</p>
+<p>把对象分配到一个格子的过程是，你观察对象的中点，然后将这个对象分配到其中点所在的格子。所以即使对象占多个格子，也只会被分配到其中一个格子。</p>
+<p>注意：</p>
+<ul>
+<li>和分类、定位算法非常类似，能够输出边界框坐标。</li>
+<li>卷积实现，不需要在每个网格上跑一次算法；单次卷积，有很多共享计算。（YOLO 算法）</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-56.jpeg" alt=""></p>
+<p>bh, bw 的单位是相对格子尺度的比例</p>
+<h2 id="交并比"><a href="#交并比" class="headerlink" title="交并比"></a>交并比</h2><p><img src="http://qnimg.lovevivian.cn/ng-video-cnn-57.jpeg" alt=""></p>
+<h2 id="非最大值抑制"><a href="#非最大值抑制" class="headerlink" title="非最大值抑制"></a>非最大值抑制</h2><p>确保对每个对象只检测一次，该对象可能有多个。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-58.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-59.jpeg" alt=""></p>
+<h2 id="Anchor-Boxes"><a href="#Anchor-Boxes" class="headerlink" title="Anchor Boxes"></a>Anchor Boxes</h2><p>一个格子检测（有）多个对象（多个物体，对象可能是人、汽车等等），即多个对象中心点在一个格子里。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-60.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-61.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-62.jpeg" alt=""></p>
+<p>两种情况算法处理不好：</p>
+<ul>
+<li>同一个格子里有超过 anchor boxes 数量的对象</li>
+<li>两个对象都分配到一个格子里，并且 anchor box 的形状也一样</li>
+</ul>
+<p>Anchor Boxes  能让算法更有针对性，特别是数据集中有一些很高很瘦的对象如行人，或者很矮很胖的对象如汽车。</p>
+<p>如何选择 Anchor Box 的形状：</p>
+<ul>
+<li>一般手工指定 Anchor Box 的形状，选择 5-10 个涵盖要检测对象的各种形状。</li>
+<li>k-means，对两类对象形状聚类，选择最具代表性的一组 Anchor Box，可以代表试图检测 十多个 对象。</li>
+</ul>
+<blockquote>
+<p>这里倒是可以借鉴到 NLP 中的歧义问题里。歧义其实也就是有多个 Anchor Box。</p>
+</blockquote>
+<h2 id="YOLO-算法"><a href="#YOLO-算法" class="headerlink" title="YOLO 算法"></a>YOLO 算法</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-63.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-64.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-65.jpeg" alt=""></p>
+<h2 id="RPN-网络"><a href="#RPN-网络" class="headerlink" title="RPN 网络"></a>RPN 网络</h2><p>不再针对每个滑动窗跑检测算法，而是只选择一些窗口，在少数窗口上运行卷积网络分类器。</p>
+<p>选出候选区域的方法是：图像分割算法，在每个色块（各种尺寸）上跑分类器。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-66.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-67.jpeg" alt=""></p>
+<h2 id="注意点-amp-Tips-2"><a href="#注意点-amp-Tips-2" class="headerlink" title="注意点&amp;Tips"></a>注意点&amp;Tips</h2><ul>
+<li><strong>Summary for YOLO</strong>:<ul>
+<li>Input image (608, 608, 3)</li>
+<li>The input image goes through a CNN, resulting in a (19,19,5,85) dimensional output. </li>
+<li>After flattening the last two dimensions, the output is a volume of shape (19, 19, 425):<ul>
+<li>Each cell in a 19x19 grid over the input image gives 425 numbers. </li>
+<li>425 = 5 x 85 because each cell contains predictions for 5 boxes, corresponding to 5 anchor boxes, as seen in lecture. </li>
+<li>85 = 5 + 80 where 5 is because $(p_c, b_x, b_y, b_h, b_w)$ has 5 numbers, and and 80 is the number of classes we’d like to detect</li>
+</ul>
+</li>
+<li>You then select only few boxes based on:<ul>
+<li>Score-thresholding: throw away boxes that have detected a class with a score less than the threshold</li>
+<li>Non-max suppression: Compute the Intersection over Union and avoid selecting overlapping boxes</li>
+</ul>
+</li>
+<li>This gives you YOLO’s final output. </li>
+</ul>
+</li>
+</ul>
+<h1 id="Week4-特殊应用：人脸识别和神经风格转换"><a href="#Week4-特殊应用：人脸识别和神经风格转换" class="headerlink" title="Week4 特殊应用：人脸识别和神经风格转换"></a>Week4 特殊应用：人脸识别和神经风格转换</h1><h2 id="什么是人脸识别？"><a href="#什么是人脸识别？" class="headerlink" title="什么是人脸识别？"></a>什么是人脸识别？</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-68.jpeg" alt=""></p>
+<h2 id="One-Short-学习"><a href="#One-Short-学习" class="headerlink" title="One-Short 学习"></a>One-Short 学习</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-69.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-70.jpeg" alt=""></p>
+<h2 id="Siamese-网络"><a href="#Siamese-网络" class="headerlink" title="Siamese 网络"></a>Siamese 网络</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-71.jpeg" alt=""></p>
+<p><code>[Taigman et. al., 2014. DeepFace closing the gap to human level performance]</code></p>
+<h2 id="Triplet-损失"><a href="#Triplet-损失" class="headerlink" title="Triplet 损失"></a>Triplet 损失</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-72.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-73.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-74.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-75.jpeg" alt=""></p>
+<h2 id="面部验证与二分类"><a href="#面部验证与二分类" class="headerlink" title="面部验证与二分类"></a>面部验证与二分类</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-76.jpeg" alt=""></p>
+<h2 id="什么是神经风格转移"><a href="#什么是神经风格转移" class="headerlink" title="什么是神经风格转移"></a>什么是神经风格转移</h2><p>Content + Style = Generated</p>
+<h2 id="深度卷积网络在学什么？"><a href="#深度卷积网络在学什么？" class="headerlink" title="深度卷积网络在学什么？"></a>深度卷积网络在学什么？</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-77.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-78.jpeg" alt=""></p>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p><code>J(G) = αJcontent(C,G) + βJstyle(S, G)</code></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-79.jpeg" alt=""></p>
+<h2 id="内容代价函数"><a href="#内容代价函数" class="headerlink" title="内容代价函数"></a>内容代价函数</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-80.jpeg" alt=""></p>
+<h2 id="风格代价函数"><a href="#风格代价函数" class="headerlink" title="风格代价函数"></a>风格代价函数</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-81.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-82.jpeg" alt=""></p>
+<p>相关系数描述的是在该通道颜色下，出现垂直纹理的概率，即同时出现该通道颜色和垂直纹理或同时不出现的概率。推广而言，就是<strong>不同特征在图片不同位置同时出现或不同时出现的概率</strong>。</p>
+<p>在通道之间，使用相关系数描述通道的风格，就能够测量出生成图片和原始图片风格的相似程度。</p>
+<p>如果放在 NLP 中，风格特征是不是就是不同特征词相类似的分布？但是图片本来就是由多通道叠加起来构成的，通道之间关系自然就是其 “风格”，但 NLP 却不具备这样的特征。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-83.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-84.jpeg" alt=""></p>
+<h2 id="一维到三维推广"><a href="#一维到三维推广" class="headerlink" title="一维到三维推广"></a>一维到三维推广</h2><p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-85.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-86.jpeg" alt=""></p>
+<h2 id="注意点-amp-Tips-3"><a href="#注意点-amp-Tips-3" class="headerlink" title="注意点&amp;Tips"></a>注意点&amp;Tips</h2><ul>
+<li>Face Recognition<ul>
+<li>Face verification solves an easier 1:1 matching problem; face recognition addresses a harder 1:K matching problem.</li>
+<li>The triplet loss is an effective loss function for training a neural network to learn an encoding of a face image.</li>
+<li>The same encoding can be used for verification and recognition. Measuring distances (<code>np.linalg.norm</code>) between two images’ encodings allows you to determine whether they are pictures of the same person.</li>
+</ul>
+</li>
+<li><p>Neural Style Transfer</p>
+<ul>
+<li><p>Content Cost</p>
+<ul>
+<li><p>lower-level features such as edges and simple textures, and the later (deeper) layers tend to detect higher-level features such as more complex textures as well as object classes.</p>
+</li>
+<li><p>The content cost takes a hidden layer activation of the neural network, and measures how different $a^{(C)}$ and $a^{(G)}$ are. </p>
+</li>
+<li><p>When we minimize the content cost later, this will help make sure $G$ has similar content as $C$.</p>
+</li>
+<li><p>In order to compute the cost $J_{content}(C,G)$, it might also be convenient to unroll these 3D volumes into a 2D matrix: </p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-87.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>Style Cost</p>
+<ul>
+<li><p><strong>Style matrix</strong> is also called a “Gram matrix.” In linear algebra, the Gram matrix G of a set of vectors $(v_{1},\dots ,v_{n})$ is the matrix of dot products, whose entries are ${\displaystyle G_{ij} = v_{i}^T v_{j} = np.dot(v_{i}, v_{j})  }$. In other words, $G_{ij}$ compares how similar $v_i$ is to $v_j$: If they are highly similar, you would expect them to have a large dot product, and thus for $G_{ij}$ to be large. </p>
+<p><img src="http://qnimg.lovevivian.cn/video-ng-cnn-88.jpg" alt=""></p>
+<p>The result is a matrix of dimension $(n_C,n_C)$ where $n_C$ is the number of filters. The value $G_{ij}$ measures how similar the activations of filter $i$ are to the activations of filter $j$. </p>
+<p>One important part of the gram matrix is that the diagonal elements such as $G_{ii}$ also measures how active filter $i$ is. For example, suppose filter $i$ is detecting vertical textures in the image. Then $G_{ii}$ measures how common  vertical textures are in the image as a whole: If $G_{ii}$ is large, this means that the image has a lot of vertical texture. </p>
+</li>
+<li><p><strong>Style cost</strong>: After generating the Style matrix (Gram matrix), the goal will be to minimize the distance between the Gram matrix of the “style” image S and that of the “generated” image G. </p>
+</li>
+<li><p><strong>Style weights</strong>: We’ll get better results if we <strong>“merge” style costs from several different layers</strong>. </p>
+</li>
+<li><p>The style of an image can be represented using the Gram matrix of <strong>a hidden layer’s activations</strong>. However, we get even better results combining this representation <strong>from multiple different layers</strong>. This is in contrast to the content representation, where usually using just a single hidden layer is sufficient. Minimizing the style cost will cause the image $G$ to follow the style of the image $S$.</p>
+</li>
+<li><p>DONOT NEED to generate image completely random. We initialize the “generated” image as a noisy image created <strong>from the content_image</strong>. By initializing the pixels of the generated image to be mostly noise but still slightly correlated with the content image, this will help the content of the “generated” image more rapidly match the content of the “content” image.</p>
+</li>
+</ul>
+</li>
+<li><p>Summary</p>
+<p>It uses representations (hidden layer activations) based on a pretrained ConvNet. The content cost function is computed using one hidden layer’s activations. The style cost function for one layer is computed using the Gram matrix of that layer’s activations. The overall style cost function is obtained using several hidden layers.</p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/14/AI/2018-08-14-Ng-CNN/">
+    <time datetime="2018-08-14T01:00:00.000Z" class="entry-date">
+        2018-08-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/">DeepLearning</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/09/05/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/" rel="prev"><span class="meta-nav">←</span> 自然语言计算机形式分析的理论与方法笔记(Ch16)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/" rel="next">浙大翁恺老师《C 语言程序设计进阶》笔记 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">59</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">80</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">18</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 13.64px;">BERT</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert/" style="font-size: 14.55px;">Bert</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 15.45px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 11.82px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 10.91px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Embedding/" style="font-size: 10.91px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 15.45px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NER/" style="font-size: 10.91px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandas/" style="font-size: 10px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RaspberryPi/" style="font-size: 10.91px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.91px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.45px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.91px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/">高效深度学习：让模型更小、更快、更好</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/">机器之眼：树莓派摄像头</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/">Unix Cheat Sheet</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/">机器之脑：树莓派初使用</a>
+          </li>
+        
+          <li>
+            <a href="/2021/06/20/Paper/2021-06-20-PretrainedModels/">预训练模型的过去、现在和未来</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget-content">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AE/">AE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AI/">AI</a><span class="tag-list-count">50</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ALBERT/">ALBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AR/">AR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/AUC/">AUC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Accuracy/">Accuracy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Activation/">Activation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algorithm/">Algorithm</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Array/">Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Attention/">Attention</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automatic-Speech-Processing/">Automatic Speech Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Automation/">Automation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BERT/">BERT</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backtracking/">Backtracking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Backward/">Backward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bahdanau-Attention/">Bahdanau Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bart/">Bart</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bayes/">Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Beam-Search/">Beam Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert/">Bert</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bert-Flow/">Bert-Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bi-LSTM/">Bi-LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Binary-Search/">Binary Search</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Blending/">Blending</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Business/">Business</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CCG/">CCG</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CFG/">CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CKY/">CKY</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CNN/">CNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRF/">CRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CYK/">CYK</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Calculus/">Calculus</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Camera/">Camera</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Catalan/">Catalan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ChatBot/">ChatBot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chi2/">Chi2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Chunking/">Chunking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Classification/">Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cognition/">Cognition</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collaborative-Filtering/">Collaborative Filtering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Collins-Parser/">Collins Parser</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computational-Linguistics/">Computational Linguistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer/">Computer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Computer-Science/">Computer Science</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Confusing-Labels/">Confusing Labels</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Context-Free-Grammars/">Context-Free Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Coordinate-Ascent/">Coordinate Ascent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine/">Cosine</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cosine-Similarity/">Cosine Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-Entropy/">Cross Entropy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cross-brackets/">Cross-brackets</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ctrl/">Ctrl</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DB/">DB</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DNN/">DNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Clearing/">Data Clearing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Preprocess/">Data Preprocess</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Science/">Data Science</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Data-Structure/">Data Structure</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/">Database</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeBERTa/">DeBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoder/">Decoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Decoding/">Decoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Deep/">Deep</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepGraph/">DeepGraph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DeepLearning/">DeepLearning</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dependence/">Dependence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Diary/">Diary</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Disentangled-Attention/">Disentangled Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DistilBERT/">DistilBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distillation/">Distillation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/">Django</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dynamic-Mask/">Dynamic-Mask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EDA/">EDA</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/EMD/">EMD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ERNIE/">ERNIE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Economics/">Economics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Edit-Distance/">Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Efficient-DeepLearning/">Efficient-DeepLearning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elasticsearch/">Elasticsearch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Electra/">Electra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elixir/">Elixir</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embedding/">Embedding</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Embeddings/">Embeddings</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Encoder/">Encoder</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Entropy/">Entropy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Evaluation/">Evaluation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F1/">F1</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FDW/">FDW</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FSM/">FSM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-Engineering/">Feature Engineering</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Feature-based/">Feature-based</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Few-Shot/">Few-Shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fine-tuning/">Fine-tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Formal-Grammars/">Formal Grammars</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Forward/">Forward</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Full-Text-Search/">Full-Text-Search</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Function-Syntax/">Function Syntax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funk-MF/">Funk MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Funnel-Transformer/">Funnel Transformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GBTD/">GBTD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GELU/">GELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPT-2/">GPT-2</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GPU/">GPU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GRU/">GRU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GSG/">GSG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gan/">Gan</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Garden-path/">Garden-path</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Glow/">Glow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graceful-Shutdown/">Graceful Shutdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradient-Descent/">Gradient Descent</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Graph/">Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GraphQL/">GraphQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Grid-Grammar/">Grid Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HMM/">HMM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hard-SVM/">Hard-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Hinge-Loss/">Hinge Loss</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IE/">IE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IQR/">IQR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Imbalance-Data/">Imbalance Data</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Industry/">Industry</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Extraction/">Information Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Information-Theory/">Information Theory</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Isolation-Forest/">Isolation Forest</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ItemCF/">ItemCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jaccard/">Jaccard</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Job/">Job</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Jupyter/">Jupyter</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KKT/">KKT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KS/">KS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel/">Kernel</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Function/">Kernel Function</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kernel-Method/">Kernel Method</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Keyword/">Keyword</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LM/">LM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LOF/">LOF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LR/">LR</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LSTM/">LSTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Language-Model/">Language Model</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexical-Semantics/">Lexical Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalism/">Lexicalism</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-CFG/">Lexicalized CFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lexicalized-Grammars/">Lexicalized Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Sturcture/">Linear Sturcture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linked-List/">Linked List</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LinkedList/">LinkedList</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logistic-Regression/">Logistic Regression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lucene/">Lucene</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Luong-Attention/">Luong Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MEMM/">MEMM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MF/">MF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine/">Machine</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Machine-Translation/">Machine Translation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher/">Manacher</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Managemnt/">Managemnt</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Markov/">Markov</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Materialized-Views/">Materialized Views</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Math/">Math</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matplotlib/">Matplotlib</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Matrix-Factorization/">Matrix Factorization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Median/">Median</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Metric/">Metric</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minimum-Edit-Distance/">Minimum Edit Distance</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Minkowski/">Minkowski</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Model-Evaluation/">Model Evaluation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Module/">Module</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multi-Head-Attention/">Multi-Head Attention</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Multiway-Tree/">Multiway Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NER/">NER</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLG/">NLG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLM/">NLM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLP/">NLP</a><span class="tag-list-count">70</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NLU/">NLU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Naive-Bayes/">Naive Bayes</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Neo4j/">Neo4j</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ngram/">Ngram</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Normalizing-Flow/">Normalizing Flow</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NumPy/">NumPy</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Occupation/">Occupation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Orientation/">Orientation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/P-R/">P-R</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCCG/">PCCG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PCFG/">PCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PEGASUS/">PEGASUS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PPMI/">PPMI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PTM/">PTM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PageRank/">PageRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Palindromic/">Palindromic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/">Pandas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Partial-Parsing/">Partial Parsing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pearson/">Pearson</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Philosophy/">Philosophy</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammar/">Phrase Structure Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Phrase-Structure-Grammars/">Phrase Structure Grammars</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PoS/">PoS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pooling/">Pooling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Position-Encoding/">Position-Encoding</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Postgres/">Postgres</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pragmatic-Automatic-Processing/">Pragmatic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-Trained/">Pre-Trained</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-Training/">Pre-Training</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pre-training/">Pre-training</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Precision/">Precision</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretrain/">Pretrain</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretrained/">Pretrained</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pretraining/">Pretraining</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Grammar/">Probabilistic Grammar</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Probabilistic-Model/">Probabilistic Model</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ProtoBERT/">ProtoBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pruning/">Pruning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Psychology/">Psychology</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyPI/">PyPI</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quant/">Quant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quantization/">Quantization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Query/">Query</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Queue/">Queue</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RELU/">RELU</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RFE/">RFE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMSE/">RMSE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RNN/">RNN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ROC/">ROC</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RaspberryPi/">RaspberryPi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Raspberrypi/">Raspberrypi</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recall/">Recall</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recommendation/">Recommendation</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Recursion/">Recursion</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reformer/">Reformer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regex/">Regex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Regular-Expression/">Regular Expression</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reinforcement-Learning/">Reinforcement Learning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Relationship-Extraction/">Relationship Extraction</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Representation/">Representation</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Reqular-Expressions/">Reqular Expressions</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RoBERTa/">RoBERTa</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rotated-Sorted-Array/">Rotated Sorted Array</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/">Rust</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SCFG/">SCFG</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SGD/">SGD</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SMO/">SMO</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SRN/">SRN</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVD/">SVD++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVM/">SVM</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Seaborn/">Seaborn</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Search/">Search</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Segmentation/">Segmentation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Self-Attention/">Self-Attention</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Automatic-Processing/">Semantic Automatic Processing</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Semantic-Similarity/">Semantic Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-Similarity/">Sentence Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentence-BERT/">Sentence-BERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sentiment-Classification/">Sentiment Classification</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Siamese/">Siamese</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sigmoid/">Sigmoid</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Similarity/">Similarity</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simon/">Simon</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Simpson-Paradox/">Simpson Paradox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Skill/">Skill</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Slide/">Slide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Smoothing/">Smoothing</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Soft-SVM/">Soft-SVM</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Softmax/">Softmax</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sort/">Sort</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spell-Check/">Spell Check</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SqueezeBERT/">SqueezeBERT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stack/">Stack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stacking/">Stacking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Statistics/">Statistics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Stirling/">Stirling</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/StratifiedKFold/">StratifiedKFold</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Style/">Style</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Substring/">Substring</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Summarization/">Summarization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Supertagging/">Supertagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swap/">Swap</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/System/">System</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TF-IDF/">TF-IDF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tagging/">Tagging</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TanH/">TanH</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Test/">Test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Generation/">Text Generation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Text-Normalization/">Text Normalization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/TextRank/">TextRank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Thought/">Thought</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer/">Transformer</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transformer-XL/">Transformer-XL</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tree/">Tree</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Treebank/">Treebank</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tuning/">Tuning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tutorial/">Tutorial</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/">Ubuntu</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity-Operation/">Unity Operation</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unix/">Unix</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UserCF/">UserCF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vagrant/">Vagrant</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Valence/">Valence</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vector-Semantics/">Vector Semantics</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VirtualBox/">VirtualBox</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Visualization/">Visualization</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Viterbi/">Viterbi</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Voting/">Voting</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WOE/">WOE</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web-Server-Multithreaded-Server/">Web Server Multithreaded Server</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Wide/">Wide</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Word2vec/">Word2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Work/">Work</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XLNet/">XLNet</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Z-Score/">Z-Score</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ZhouZhihua/">ZhouZhihua</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zipf/">Zipf</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/binning/">binning</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/few-shot/">few-shot</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/">ffmpeg</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpype/">jpype</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/knowledge-Graph/">knowledge Graph</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/motion/">motion</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node2vec/">node2vec</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssh/">ssh</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/str/">str</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vlc/">vlc</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2021 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
