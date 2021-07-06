@@ -3,7 +3,7 @@ title: 各主题系列
 date: 2019-07-13 20:00:00
 ---
 
-> 说明：读书笔记并非原创，内容和图均来自原作，仅用于学习交流。
+> 说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。
 
 
 ## Growth
@@ -177,7 +177,7 @@ date: 2019-07-13 20:00:00
 
 
 
-## 树莓派
+## Raspberrypi
 
 - [机器之脑：树莓派初使用 | Yam](https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/)
 - [机器之眼：树莓派摄像头 | Yam](https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/)
