@@ -31,7 +31,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-8.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-9.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-10.jpg">
-<meta property="og:updated_time" content="2021-07-10T14:11:08.420Z">
+<meta property="og:updated_time" content="2021-07-11T14:41:01.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单的对比学习框架：SimCSE">
 <meta name="twitter:description" content="论文：[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings Code：princeton-nlp/SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings 一句话概述：Dropout 增益句子 Embedding。 摘要：本文提出一个">
@@ -193,7 +193,7 @@ s.t. \quad h_i^z = f_\theta(x_i, z)</script><p>其中 z  就是 Transformer 的�
 <li>迁移任务并不是句子 Embedding 的主要目标，因此把 STS 的结果用于主要比较。</li>
 </ul>
 <h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><ul>
-<li>BatchSize：N 增加效果编号，但 512 后不再变好，可能和训练数据量太小有关。</li>
+<li>BatchSize：N 增加效果变好，但 512 后不再变好，可能和训练数据量太小有关。</li>
 <li>Pooling 方法：First-Last 平均和 CLS 效果差别不大</li>
 <li>MLM 任务：Token 级 MLM 目标适度提高了转移任务的平均性能，但它带来了语义文本相似任务的一致下降（各种配置下）。</li>
 </ul>
@@ -213,7 +213,7 @@ s.t. \quad h_i^z = f_\theta(x_i, z)</script><p>其中 z  就是 Transformer 的�
 </ul>
 <p><img src="http://qnimg.lovevivian.cn/paper-simcse-9.jpg" alt=""></p>
 <p><strong>定性比较</strong></p>
-<p>使用 SBERTbase 和 SimCSE-BERTbase 在一个小规模的召回检索实验上进行比较，使用来自 Flickr30k 数据集的 150k 字幕，并以任何随机句子作为查询来检索相似的句子（基于余弦相似度）。结果表明 SImCSE 召回的实例质量更高：</p>
+<p>使用 SBERTbase 和 SimCSE-BERTbase 在一个小规模的召回检索实验上进行比较，使用来自 Flickr30k 数据集的 150k 字幕，并以任何随机句子作为查询来检索相似的句子（基于余弦相似度）。结果表明 SimCSE 召回的实例质量更高：</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-simcse-10.jpg" alt=""></p>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
 <li>提出简单的对比学习框架极大地提升了句子 Embedding 在语义文本相似任务上的表现。</li>
