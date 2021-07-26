@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-volt-6.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-volt-7.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-volt-8.jpg">
-<meta property="og:updated_time" content="2021-07-25T08:49:25.597Z">
+<meta property="og:updated_time" content="2021-07-26T11:43:17.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过最优转移进行词表学习：VOLT">
 <meta name="twitter:description" content="论文：[2012.15671] Vocabulary Learning via Optimal Transport for Machine Translation Code：Jingjing-NLP/VOLT: Code for paper “Vocabulary Learning via Optimal Transport for Neural Machine Translation” 一句话概">
@@ -122,7 +122,7 @@
 <li>最后从最佳转移矩阵中生成词表。</li>
 </ul>
 <blockquote>
-<p>直觉上，词表化的过程可以认为是找到从发字符分布到词表分布的最佳转移矩阵。</p>
+<p>直觉上，词表化的过程可以认为是找到从字符分布到词表分布的最佳转移矩阵。</p>
 </blockquote>
 <p><strong>相关工作</strong></p>
 <ul>
@@ -209,7 +209,7 @@
 <p><strong>实现</strong></p>
 <ul>
 <li>对所有 Token 按频率从大到小排序，简单起见，采用 BPE 生成的 Token 作为候选 Token。实际上任何分割算法都可以初始化 Token 候选，不同的初始化方法结果接近。</li>
-<li>所有的 Token 候选以及它们的概率用来初始化 算法中的L。</li>
+<li>所有的 Token 候选以及它们的概率用来初始化算法中的 L。</li>
 <li>递增整数序列 S 的大小是超参数，双语翻译设置为（1K,…,10K），多语翻译设置为（40K,…,160K）</li>
 <li>每一个时间步 t，可以基于转移矩阵使用最大熵得到词表。由于限制放宽，处理非法转移情况在所难免。因此，删除了那些频率低于 0.001 的 Token。</li>
 <li>最后，枚举出所有时间步，选择出满足 Eq3 的词表作为最终词表。</li>
