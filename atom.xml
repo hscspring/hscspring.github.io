@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2021-07-26T11:43:17.782Z</updated>
+  <updated>2021-07-31T11:36:20.005Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>UniLM</title>
+    <link href="https://www.yam.gift/2021/07/31/Paper/2021-07-31-UniLM/"/>
+    <id>https://www.yam.gift/2021/07/31/Paper/2021-07-31-UniLM/</id>
+    <published>2021-07-31T15:00:00.000Z</published>
+    <updated>2021-07-31T11:36:20.005Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/1905.03197&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[1905.03197] Unified Language Model Pre-training for Natural Language Understanding and Generation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/microsoft/unilm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;microsoft/unilm: UniLM AI - Unified “Language” Model Pre-training across Tasks, Languages, and Modalities&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：一个通过参数共享训练多种语言模型以同时适应下游 NLU 和 NLG 微调的统一框架。&lt;/p&gt;
+&lt;p&gt;摘要：UniLM，统一的预训练语言模型，可以同时微调 NLU 和 NLG 任务。做法是使用三个不同类型的语言模型任务：单向、双向、Seq2Seq 预测。具体是使用一个共享的 Transformer 网络，并利用不同的 Self-Attention Mask 来控制预测基于哪些上下文。结果自然是很好（不，极好）的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
+    
+      <category term="Bert" scheme="https://www.yam.gift/tags/Bert/"/>
+    
+      <category term="UniLM" scheme="https://www.yam.gift/tags/UniLM/"/>
+    
+  </entry>
   
   <entry>
     <title>通过最优转移进行词表学习：VOLT</title>
@@ -291,6 +319,32 @@
   </entry>
   
   <entry>
+    <title>Rust str 转 String</title>
+    <link href="https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/"/>
+    <id>https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/</id>
+    <published>2021-06-06T15:00:00.000Z</published>
+    <updated>2021-06-07T16:18:44.560Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 Rust 中，&lt;code&gt;str&lt;/code&gt; 是引用，&lt;code&gt;String&lt;/code&gt; 是字符串对象，如下所示，&lt;a href=&quot;https://play.rust-lang.org/?version=stable&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=4fd8146578daef00aa903218053c6cf7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击执行&lt;/a&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 代码来自 https://github.com/rust-lang/rustlings&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string_slice&lt;/span&gt;&lt;/span&gt;(arg: &amp;amp;&lt;span class=&quot;keyword&quot;&gt;str&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string&lt;/span&gt;&lt;/span&gt;(arg: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;red&quot;&lt;/span&gt;.to_string());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;rust is fun!&quot;&lt;/span&gt;.to_owned());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;nice weather&quot;&lt;/span&gt;.into());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;hi&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Interpolation &amp;#123;&amp;#125;&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Station&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;Happy Monday!&quot;&lt;/span&gt;.to_string().replace(&lt;span class=&quot;string&quot;&gt;&quot;Mon&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Tues&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;mY sHiFt KeY iS sTiCkY&quot;&lt;/span&gt;.to_lowercase());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;blue&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;.to_string()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;  hello there &quot;&lt;/span&gt;.trim());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Rust" scheme="https://www.yam.gift/tags/Rust/"/>
+    
+      <category term="String" scheme="https://www.yam.gift/tags/String/"/>
+    
+      <category term="str" scheme="https://www.yam.gift/tags/str/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</title>
     <link href="https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/"/>
     <id>https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/</id>
@@ -318,32 +372,6 @@
       <category term="ProtoBERT" scheme="https://www.yam.gift/tags/ProtoBERT/"/>
     
       <category term="few-shot" scheme="https://www.yam.gift/tags/few-shot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust str 转 String</title>
-    <link href="https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/"/>
-    <id>https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/</id>
-    <published>2021-06-06T15:00:00.000Z</published>
-    <updated>2021-06-07T16:18:44.560Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 Rust 中，&lt;code&gt;str&lt;/code&gt; 是引用，&lt;code&gt;String&lt;/code&gt; 是字符串对象，如下所示，&lt;a href=&quot;https://play.rust-lang.org/?version=stable&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=4fd8146578daef00aa903218053c6cf7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击执行&lt;/a&gt;：&lt;/p&gt;
-&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 代码来自 https://github.com/rust-lang/rustlings&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string_slice&lt;/span&gt;&lt;/span&gt;(arg: &amp;amp;&lt;span class=&quot;keyword&quot;&gt;str&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string&lt;/span&gt;&lt;/span&gt;(arg: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;red&quot;&lt;/span&gt;.to_string());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;rust is fun!&quot;&lt;/span&gt;.to_owned());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;nice weather&quot;&lt;/span&gt;.into());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;hi&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Interpolation &amp;#123;&amp;#125;&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Station&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;Happy Monday!&quot;&lt;/span&gt;.to_string().replace(&lt;span class=&quot;string&quot;&gt;&quot;Mon&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Tues&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;mY sHiFt KeY iS sTiCkY&quot;&lt;/span&gt;.to_lowercase());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;blue&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;.to_string()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;  hello there &quot;&lt;/span&gt;.trim());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Rust" scheme="https://www.yam.gift/tags/Rust/"/>
-    
-      <category term="String" scheme="https://www.yam.gift/tags/String/"/>
-    
-      <category term="str" scheme="https://www.yam.gift/tags/str/"/>
     
   </entry>
   
@@ -566,31 +594,6 @@
       <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
     
       <category term="Classification" scheme="https://www.yam.gift/tags/Classification/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GBTD + LR 论文笔记</title>
-    <link href="https://www.yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/"/>
-    <id>https://www.yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/</id>
-    <published>2020-10-30T15:00:00.000Z</published>
-    <updated>2020-10-30T16:45:15.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;2014 年，Facebook 在论文 &lt;a href=&quot;https://research.fb.com/wp-content/uploads/2016/11/practical-lessons-from-predicting-clicks-on-ads-at-facebook.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;practical-lessons-from-predicting-clicks-on-ads-at-facebook&lt;/a&gt; 中提出了一个将决策树算法和逻辑回归整合起来的模型，大致做法就是将输入的实数特征通过决策树转换为一个二进制的向量，该模型比其他方法在整体性能上提高超过 3 个百分点。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Recommendation" scheme="https://www.yam.gift/tags/Recommendation/"/>
-    
-      <category term="GBTD" scheme="https://www.yam.gift/tags/GBTD/"/>
-    
-      <category term="LR" scheme="https://www.yam.gift/tags/LR/"/>
     
   </entry>
   
