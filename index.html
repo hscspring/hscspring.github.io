@@ -208,31 +208,12 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
-        <h4 id="entrypoint-VS-cmd"><a href="#entrypoint-VS-cmd" class="headerlink" title="entrypoint VS. cmd"></a>entrypoint VS. cmd</h4><ul>
-<li>至少指定一个</li>
-<li>容器作为可执行文件时应该定义 <code>ENTRYPOINT</code></li>
-<li><code>CMD</code> 应该用作定义 <code>ENTRYPOINT</code> 命令，或在容器中执行 <code>ad-hoc</code> 命令的默认参数的一种方式</li>
-<li>使用替代参数运行容器时，<code>CMD</code> 将被覆盖</li>
-</ul>
-<h4 id="expose-VS-publish"><a href="#expose-VS-publish" class="headerlink" title="expose VS. publish"></a>expose VS. publish</h4><ul>
-<li><code>EXPOSE</code>  是暴露端口，主要用在 Dockerfile 中，<code>-publish</code> 是映射端口，主要用在 run 时</li>
-<li>都没有时，容器里的服务只能在里面访问</li>
-<li>只有 <code>EXPOSE</code> 时，容器外部无法访问，但其他容器内部可以访问，有利于容器间通信</li>
-<li>只有 <code>-p</code> 时，容器外部可以访问，同时会自动 <code>EXPOSE</code></li>
-</ul>
-<h4 id="timezone"><a href="#timezone" class="headerlink" title="timezone"></a>timezone</h4><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line">RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
-<h4 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi $(docker images --filter <span class="string">"dangling=true"</span> -q --no-trunc)</span><br><span class="line">$ docker images | grep none | awk <span class="string">'&#123; print $3; &#125;'</span> | xargs docker rmi</span><br><span class="line">$ docker image prune --filter=<span class="string">"dangling=true"</span></span><br></pre></td></tr></table></figure>
-<h4 id="host"><a href="#host" class="headerlink" title="host"></a>host</h4><p>在 <code>docker run</code> 时使用 <code>--net=&quot;host&quot;</code> 后，容器内的 <code>localhost</code> 就是 Docker 的 host。Mac 下可以使用 <code>host.docker.internal</code>，</p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images" target="_blank" rel="noopener">Docker remove <none> TAG images - Stack Overflow</none></a></li>
-<li><a href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes" target="_blank" rel="noopener">date - Docker Container time &amp; timezone (will not reflect changes) - Server Fault</a></li>
-<li><a href="https://stackoverflow.com/questions/22111060/what-is-the-difference-between-expose-and-publish-in-docker" target="_blank" rel="noopener">What is the difference between “expose” and “publish” in Docker? - Stack Overflow</a></li>
-<li><a href="https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container" target="_blank" rel="noopener">How to access host port from docker container - Stack Overflow</a></li>
-<li><a href="https://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile" target="_blank" rel="noopener">docker - What is the difference between CMD and ENTRYPOINT in a Dockerfile? - Stack Overflow</a></li>
-</ul>
-
+        <p>Docker 备忘。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/08/05/Unix/2021-08-05-Docker/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
