@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2021-07-31T11:36:20.005Z</updated>
+  <updated>2021-08-12T16:16:32.297Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,98 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>高性能数据处理</title>
+    <link href="https://www.yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/"/>
+    <id>https://www.yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/</id>
+    <published>2021-08-12T15:00:00.000Z</published>
+    <updated>2021-08-12T16:16:32.297Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近在写深度学习开源库时，遇到了读取语料并预处理的 API，于是趁此机会整理一下之前积累的关于高性能的内容。全文包括两个部分：第一部分主要聚焦在常用工具 Pandas 处理数据时不同操作方法的性能；第二部分主要介绍一些加速数值计算的工具；第三部分主要介绍一些能够辅助增加性能的工具。&lt;/p&gt;
+&lt;p&gt;如果懒得看过程，可以直接看结论：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数值计算任务：&lt;code&gt;numba&lt;/code&gt; 或 &lt;code&gt;Cython&lt;/code&gt; 加速；使用 &lt;code&gt;.values&lt;/code&gt; 计算&lt;/li&gt;
+&lt;li&gt;遍历的非数值计算任务：&lt;code&gt;df.itertuples&lt;/code&gt; 或 &lt;code&gt;df.apply&lt;/code&gt; 方法&lt;/li&gt;
+&lt;li&gt;数据太大 Pandas 处理不了的可以使用 Arrow 和 Polars，再不行了使用 Spark&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所有测试代码在：&lt;a href=&quot;https://github.com/hscspring/Note_DS/blob/master/Performance.ipynb&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Note_DS/Performance.ipynb&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Pandas" scheme="https://www.yam.gift/tags/Pandas/"/>
+    
+      <category term="Arrow" scheme="https://www.yam.gift/tags/Arrow/"/>
+    
+      <category term="Polars" scheme="https://www.yam.gift/tags/Polars/"/>
+    
+      <category term="Numpy" scheme="https://www.yam.gift/tags/Numpy/"/>
+    
+      <category term="Jax" scheme="https://www.yam.gift/tags/Jax/"/>
+    
+      <category term="Numba" scheme="https://www.yam.gift/tags/Numba/"/>
+    
+      <category term="Pandarallel" scheme="https://www.yam.gift/tags/Pandarallel/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Git Memo</title>
+    <link href="https://www.yam.gift/2021/08/12/Unix/2021-08-15-Git/"/>
+    <id>https://www.yam.gift/2021/08/12/Unix/2021-08-15-Git/</id>
+    <published>2021-08-12T15:00:00.000Z</published>
+    <updated>2021-08-12T16:13:34.621Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Git 相关备忘。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Git" scheme="https://www.yam.gift/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Docker Memo</title>
+    <link href="https://www.yam.gift/2021/08/05/Unix/2021-08-05-Docker/"/>
+    <id>https://www.yam.gift/2021/08/05/Unix/2021-08-05-Docker/</id>
+    <published>2021-08-05T15:00:00.000Z</published>
+    <updated>2021-08-12T13:32:58.726Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;entrypoint-VS-cmd&quot;&gt;&lt;a href=&quot;#entrypoint-VS-cmd&quot; class=&quot;headerlink&quot; title=&quot;entrypoint VS. cmd&quot;&gt;&lt;/a&gt;entrypoint VS.
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Docker" scheme="https://www.yam.gift/tags/Docker/"/>
+    
+      <category term="Dockerfile" scheme="https://www.yam.gift/tags/Dockerfile/"/>
+    
+      <category term="Docker-Compose" scheme="https://www.yam.gift/tags/Docker-Compose/"/>
+    
+  </entry>
   
   <entry>
     <title>UniLM</title>
@@ -513,87 +605,6 @@
       <category term="Semantic Similarity" scheme="https://www.yam.gift/tags/Semantic-Similarity/"/>
     
       <category term="Cosine Similarity" scheme="https://www.yam.gift/tags/Cosine-Similarity/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Bert-Flow 论文笔记</title>
-    <link href="https://www.yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/"/>
-    <id>https://www.yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/</id>
-    <published>2020-12-13T15:00:00.000Z</published>
-    <updated>2020-12-13T15:49:06.279Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2011.05864&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2011.05864] On the Sentence Embeddings from Pre-trained Language Models&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code：&lt;a href=&quot;https://github.com/bohanli/BERT-flow&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;bohanli/BERT-flow: TensorFlow implementation of On the Sentence Embeddings from Pre-trained Language Models (EMNLP 2020)&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;核心思想：无监督方法将 Bert 产生的非平滑各向异性的句子语义空间分布转换为各向同性的高斯分布。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="Bert" scheme="https://www.yam.gift/tags/Bert/"/>
-    
-      <category term="Bert-Flow" scheme="https://www.yam.gift/tags/Bert-Flow/"/>
-    
-      <category term="Glow" scheme="https://www.yam.gift/tags/Glow/"/>
-    
-      <category term="Normalizing Flow" scheme="https://www.yam.gift/tags/Normalizing-Flow/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NLP 表征的历史与未来</title>
-    <link href="https://www.yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/"/>
-    <id>https://www.yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/</id>
-    <published>2020-12-12T15:00:00.000Z</published>
-    <updated>2020-12-12T15:46:05.259Z</updated>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;toc&quot;&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#历史&quot; data-toc-modified-id=&quot;历史-1&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;1&amp;nbsp;&amp;nbsp;&lt;/span&gt;历史&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#词向量&quot; data-toc-modified-id=&quot;词向量-1.1&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;1.1&amp;nbsp;&amp;nbsp;&lt;/span&gt;词向量&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#CNN&quot; data-toc-modified-id=&quot;CNN-1.2&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;1.2&amp;nbsp;&amp;nbsp;&lt;/span&gt;CNN&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#RNN&quot; data-toc-modified-id=&quot;RNN-1.3&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;1.3&amp;nbsp;&amp;nbsp;&lt;/span&gt;RNN&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#BERT-系列&quot; data-toc-modified-id=&quot;BERT-系列-1.4&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;1.4&amp;nbsp;&amp;nbsp;&lt;/span&gt;BERT 系列&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#未来&quot; data-toc-modified-id=&quot;未来-2&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;2&amp;nbsp;&amp;nbsp;&lt;/span&gt;未来&lt;/a&gt;&lt;/span&gt;&lt;ul class=&quot;toc-item&quot;&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#认知角度&quot; data-toc-modified-id=&quot;认知角度-2.1&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;2.1&amp;nbsp;&amp;nbsp;&lt;/span&gt;认知角度&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#哲学角度&quot; data-toc-modified-id=&quot;哲学角度-2.2&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;2.2&amp;nbsp;&amp;nbsp;&lt;/span&gt;哲学角度&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#模式角度&quot; data-toc-modified-id=&quot;模式角度-2.3&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;2.3&amp;nbsp;&amp;nbsp;&lt;/span&gt;模式角度&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#方法角度&quot; data-toc-modified-id=&quot;方法角度-2.4&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;2.4&amp;nbsp;&amp;nbsp;&lt;/span&gt;方法角度&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;&lt;a href=&quot;#Reference&quot; data-toc-modified-id=&quot;Reference-3&quot;&gt;&lt;span class=&quot;toc-item-num&quot;&gt;3&amp;nbsp;&amp;nbsp;&lt;/span&gt;Reference&lt;/a&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;
-
-&lt;p&gt;从 Ngram 这样最简单的 SLM（Statistical Language Model）和 OneHot、LSA 以及其他 Co-Occurrence 的 VSM 模型，到 Word2Vec Glove 等考虑简单上下文的词向量模型，再到 CNN RNN BI-LSTM 等更多上下文和更复杂结构的模型，再到基于 Self-Attention 的 Bert 等考虑注意力的模型。我们能够感觉到每一次的变革一定是某种 ”模式“ 层面发生了变化。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="Representation" scheme="https://www.yam.gift/tags/Representation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>分类与 AI</title>
-    <link href="https://www.yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/"/>
-    <id>https://www.yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/</id>
-    <published>2020-11-28T15:00:00.000Z</published>
-    <updated>2020-11-28T12:11:06.079Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;分类作为机器学习或深度学习的基础任务之一，相信任何一位算法工程师都能说得头头是道。不过，能深入思考其背后涉及到的认知过程和机理的就凤毛麟角了。本文涉及到的思考部分从我 2017 年一开始接触人工智能与 NLP 就开始萌芽了，这源于我的切入点与正常人不同。由于个人经历关系，我一开始是从认知科学这个角度开始自己的工程师生涯的，刚开始看的论文也更加偏向于思考如何构建真正的人工智能。比如，Few-Shot 或 One-Shot Learning、因果推理、快速思考、学习如何学习，甚至开始思考语言学以及究竟什么是智能。很自然地也熟知了图灵、冯诺依曼、维特根斯坦。直至现在依然对这些理论相当沉迷，这也是我当初下定决心从事 AI 领域的原因。虽然目前从事 NLP 研发工作，但我对自己的定位一直都是 AI 工程师，AI 不应该被割裂，他从来都是个整体，作为成年人，我们自然是都要。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
-    
-      <category term="Classification" scheme="https://www.yam.gift/tags/Classification/"/>
     
   </entry>
   
