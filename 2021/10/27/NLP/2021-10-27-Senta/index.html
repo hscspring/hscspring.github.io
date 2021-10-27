@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-textcnn-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ernie-1.jpg">
-<meta property="og:updated_time" content="2021-10-27T17:56:17.197Z">
+<meta property="og:updated_time" content="2021-10-27T18:01:49.625Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析文本分类——情感分析与自然语言处理">
 <meta name="twitter:description" content="文本分类是自然语言处理（以下使用 NLP 简称）最基础核心的任务，或者换句话说，几乎所有的任务都是「分类」任务，或者涉及到「分类」这个概念。比如分词、词性标注、命名实体识别等序列标注任务其实就是 Token 粒度的分类；再比如文本生成其实也可以理解为 Token 粒度在整个词表上的分类任务。为何会如此？这篇分类与AI可能会给您带来一点启示。 本文篇幅较长，主要分为以下几个部分：  背景介绍：主要简">
@@ -111,6 +111,34 @@
 <p>本文同样适合对机器学习和深度学习稍微有一些了解的非算法岗位的工程师，或其他无技术背景但对 NLP 感兴趣的非工程师。</p>
 </blockquote>
 <a id="more"></a>
+<ul>
+<li><a href="#%E8%83%8C%E6%99%AF%E4%BB%8B%E7%BB%8D">背景介绍</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B">基本流程</a><ul>
+<li><a href="#%E6%96%87%E6%9C%AC%E9%A2%84%E5%A4%84%E7%90%86">文本预处理</a></li>
+<li><a href="#tokenizing">Tokenizing</a></li>
+<li><a href="#%E6%9E%84%E9%80%A0%E6%95%B0%E6%8D%AE">构造数据</a></li>
+<li><a href="#%E6%96%87%E6%9C%AC%E7%89%B9%E5%BE%81">文本特征</a><ul>
+<li><a href="#onehot">OneHot</a></li>
+<li><a href="#tf-idf">TF-IDF</a></li>
+<li><a href="#embedding">Embedding</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E6%9E%9C%E8%BE%93%E5%87%BA">结果输出</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E5%9E%8B%E7%AE%80%E5%8F%B2">模型简史</a><ul>
+<li><a href="#%E8%AF%8D%E5%85%B8%E8%A7%84%E5%88%99">词典/规则</a></li>
+<li><a href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></li>
+<li><a href="#%E9%A2%84%E8%AE%AD%E7%BB%83%E5%BE%AE%E8%B0%83">预训练+微调</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%A2%E8%AE%A8%E5%B1%95%E6%9C%9B">探讨展望</a><ul>
+<li><a href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8">实际应用</a></li>
+<li><a href="#%E6%83%85%E6%84%9F%E6%9C%AA%E6%9D%A5">情感未来</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E7%8C%AE%E8%B5%84%E6%96%99">文献资料</a></li>
+</ul>
 <h3 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h3><p>情感分析是根据输入的文本、语音或视频，自动识别其中的观点倾向、态度、情绪、评价等，广泛应用于消费决策、舆情分析、个性化推荐等商业领域。</p>
 <p>情感分析也是 NLP 任务中最基础的任务之一，它可以比较简单——单纯的二分类或多分类，也可以比较复杂——抽取其中某些对象或属性再判断在该对象或属性上的情感。一般而言，依照文本粒度不同，情感分析可以分为三个级别：篇章级、句子级和对象或属性级。</p>
 <ul>
@@ -477,6 +505,21 @@ P(\text{给定 Token 序列}|\text{情感倾向}) \\
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
