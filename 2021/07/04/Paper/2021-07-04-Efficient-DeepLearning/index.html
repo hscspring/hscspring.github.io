@@ -43,7 +43,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-efficient-dl-20.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-efficient-dl-22.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-efficient-dl-21.jpg">
-<meta property="og:updated_time" content="2021-07-04T15:27:50.488Z">
+<meta property="og:updated_time" content="2021-10-31T14:54:34.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高效深度学习：让模型更小、更快、更好">
 <meta name="twitter:description" content="论文：[2106.08962] Efficient Deep Learning: A Survey on Making Deep Learning Models Smaller, Faster, and Better Code：reddragon/efficient-dl-survey-paper: Efficient Deep Learning Survey Paper 一句话概述：一份实用的模">
@@ -154,7 +154,7 @@
 <h2 id="高效深度学习"><a href="#高效深度学习" class="headerlink" title="高效深度学习"></a>高效深度学习</h2><h3 id="压缩技术"><a href="#压缩技术" class="headerlink" title="压缩技术"></a>压缩技术</h3><h4 id="剪枝"><a href="#剪枝" class="headerlink" title="剪枝"></a>剪枝</h4><p>剪枝是将部分参数裁剪或变成0，并保证质量在预期的水平。剪枝后的网络也可以说变稀疏。</p>
 <p>经典工作 OBD （Optimal Brain Damage，LeCun，Hassibi）：先把网络预训练到适度的质量然后迭代地修剪掉「显著性」分数最低的参数。通用算法流程如下：</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-efficient-dl-2.jpg" alt=""></p>
-<p>OBD 使用损失函数对候选移除参数的二阶导来近似显著性分数，其直觉是，给定参数的这个值越高，如果剪掉它后损失函数的梯度变化越大。为加速二阶导计算，OBD 忽略了偏导，直接计算 Hessian 矩阵的对角线元素。LeCun 的亚努牛表明，剪枝可以将参数减少 8x 而不降低分类准确率。</p>
+<p>OBD 使用损失函数对候选移除参数的二阶导来近似显著性分数，其直觉是，给定参数的这个值越高，如果剪掉它后损失函数的梯度变化越大。为加速二阶导计算，OBD 忽略了偏导，直接计算 Hessian 矩阵的对角线元素。LeCun 的研究表明，剪枝可以将参数减少 8x 而不降低分类准确率。</p>
 <p>无论哪种剪枝策略，核心算法都是相似的，包括：</p>
 <ul>
 <li>显著性：二阶导或更简单量级的剪枝，或基于动量的剪枝来决定显著性分数</li>
