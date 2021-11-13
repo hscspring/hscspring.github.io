@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2021-10-27T18:01:49.625Z</updated>
+  <updated>2021-11-13T04:43:48.099Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python Ellipsis</title>
+    <link href="https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/"/>
+    <id>https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/</id>
+    <published>2021-11-13T04:00:00.000Z</published>
+    <updated>2021-11-13T04:43:48.099Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这几天在阅读一段源代码时，突然看到了这样的写法：&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;A&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    host: Text = ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当时一愣——这三个点是个什么玩意儿，好像只在 &lt;code&gt;numpy&lt;/code&gt; 中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Numpy Slice：表示「其他维度的所有值」&lt;/li&gt;
+&lt;li&gt;类型提示：表示「不指定、可变的、任意的」参数类型&lt;/li&gt;
+&lt;li&gt;占位符：表示类或方法还没写的 Body&lt;/li&gt;
+&lt;li&gt;循环引用：表示一个循环引用，而不是满屏幕打印&lt;/li&gt;
+&lt;li&gt;特殊标记：表示一个特殊的位置，比如结束、开始等&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
+    
+      <category term="Ellipsis" scheme="https://www.yam.gift/tags/Ellipsis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MetaICL：Learning to Learn In Context</title>
+    <link href="https://www.yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/"/>
+    <id>https://www.yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/</id>
+    <published>2021-11-01T15:00:00.000Z</published>
+    <updated>2021-11-07T16:42:26.844Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.15943&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.15943] MetaICL: Learning to Learn In Context&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/facebookresearch/MetaICL&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;facebookresearch/MetaICL: An original implementation of “MetaICL Learning to Learn In Context” by Sewon Min, Mike Lewis, Luke Zettlemoyer and Hannaneh Hajishirzi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：&lt;/p&gt;
+&lt;p&gt;摘要：MetaICL 是一种新的元训练框架，用于小样本学习，其中预训练模型被微调以在大量训练任务上进行上下文学习。这种元训练使模型在测试时能够更有效地学习上下文中的新任务，方法是在不更新参数或不需要任务特定模板的情况下简单地调整几个训练示例。本文对 142 个 NLP 数据集组成的任务集合进行实验，包括 CLS、QA、NLI、释义检测等，跨越 7 个不同的元训练/目标拆分。结果比已有的 Baseline（如没有 Meta 训练的 In-Context 学习，多任务学习，零样本转移）要好。而且，对于具有从元训练任务进行域转移的目标任务，收益尤其显着，并且使用不同的元训练任务集是改进的关键。另外，MetaICL 接近（有时甚至超过）在目标任务训练数据上完全微调的模型的性能，并且优于具有近 8 倍参数的更大模型。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Meta Learning" scheme="https://www.yam.gift/tags/Meta-Learning/"/>
+    
+  </entry>
   
   <entry>
     <title>浅析文本分类——情感分析与自然语言处理</title>
@@ -529,63 +585,6 @@
       <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
     
       <category term="Jupyter" scheme="https://www.yam.gift/tags/Jupyter/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</title>
-    <link href="https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/"/>
-    <id>https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/</id>
-    <published>2021-06-06T15:00:00.000Z</published>
-    <updated>2021-06-06T14:02:17.473Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2105.00828&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;2105.00828 BERT memorisation and pitfalls in low-resource scenarios&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code：无&lt;/p&gt;
-&lt;p&gt;核心思想：结合原型网络，将少样本的标签表征为稠密向量。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="BERT" scheme="https://www.yam.gift/tags/BERT/"/>
-    
-      <category term="NER" scheme="https://www.yam.gift/tags/NER/"/>
-    
-      <category term="ProtoBERT" scheme="https://www.yam.gift/tags/ProtoBERT/"/>
-    
-      <category term="few-shot" scheme="https://www.yam.gift/tags/few-shot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Rust str 转 String</title>
-    <link href="https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/"/>
-    <id>https://www.yam.gift/2021/06/06/Rust/2021-06-06-str2String/</id>
-    <published>2021-06-06T15:00:00.000Z</published>
-    <updated>2021-06-07T16:18:44.560Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 Rust 中，&lt;code&gt;str&lt;/code&gt; 是引用，&lt;code&gt;String&lt;/code&gt; 是字符串对象，如下所示，&lt;a href=&quot;https://play.rust-lang.org/?version=stable&amp;amp;mode=debug&amp;amp;edition=2018&amp;amp;gist=4fd8146578daef00aa903218053c6cf7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击执行&lt;/a&gt;：&lt;/p&gt;
-&lt;figure class=&quot;highlight rust&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// 代码来自 https://github.com/rust-lang/rustlings&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string_slice&lt;/span&gt;&lt;/span&gt;(arg: &amp;amp;&lt;span class=&quot;keyword&quot;&gt;str&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;string&lt;/span&gt;&lt;/span&gt;(arg: &lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;) &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;println!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;&amp;#123;&amp;#125;&quot;&lt;/span&gt;, arg);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;/span&gt;() &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;red&quot;&lt;/span&gt;.to_string());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;rust is fun!&quot;&lt;/span&gt;.to_owned());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;nice weather&quot;&lt;/span&gt;.into());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;hi&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;built_in&quot;&gt;format!&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&quot;Interpolation &amp;#123;&amp;#125;&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Station&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;Happy Monday!&quot;&lt;/span&gt;.to_string().replace(&lt;span class=&quot;string&quot;&gt;&quot;Mon&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;Tues&quot;&lt;/span&gt;));&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string(&lt;span class=&quot;string&quot;&gt;&quot;mY sHiFt KeY iS sTiCkY&quot;&lt;/span&gt;.to_lowercase());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;blue&quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;built_in&quot;&gt;String&lt;/span&gt;::from(&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;)[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&amp;amp;&lt;span class=&quot;string&quot;&gt;&quot;abc&quot;&lt;/span&gt;.to_string()[&lt;span class=&quot;number&quot;&gt;0&lt;/span&gt;..&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;]);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    string_slice(&lt;span class=&quot;string&quot;&gt;&quot;  hello there &quot;&lt;/span&gt;.trim());&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Rust" scheme="https://www.yam.gift/tags/Rust/"/>
-    
-      <category term="String" scheme="https://www.yam.gift/tags/String/"/>
-    
-      <category term="str" scheme="https://www.yam.gift/tags/str/"/>
     
   </entry>
   
