@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/aitc-activation-5.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/aitc-activation-6.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/aitc-activation-7.jpeg">
-<meta property="og:updated_time" content="2020-07-06T03:37:31.000Z">
+<meta property="og:updated_time" content="2021-11-16T15:24:35.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AI 小课堂：Activation Function">
 <meta name="twitter:description" content="基本思想激活函数在深度学习中的作用就跟神经元中 “细胞体” 的功能类似：确定输出中哪些要被激活。我们都知道 SVM 通过核方法对非线性可分的数据进行分类，这其实是一种提升的方法（机器学习中很多问题都是类似的降个维度或升个维度）。为啥提升维度就能够让原本线性不可分的数据可分呢？我们以下图为例：  两组不同标签的数据构成一个近似的同心圆。要想将两种不同的点分开，靠二维的一条直线肯定是没办法了，此时我们">
@@ -112,10 +112,13 @@
 f(x) = \left\{ \begin{array}{cl}
           0 & \text{if}\ x \leq 0, \\
           x & \text{otherwise}.
-      \end{array} \right.</script><p>它有两个变种：</p>
+      \end{array} \right.</script><p>它有几个变种：</p>
 <ul>
-<li>ParametricReLU：它在 ReLU 的基础上乘了一个参数。</li>
-<li>LeakLU：对 ReLU 的负值乘一个参数让其不为零。</li>
+<li>LeakyReLU：对 ReLU 的负值乘一个参数（比如 TF 中 alpha=0.2）让其不为零。</li>
+<li>ParametricReLU：算是 LeakLU 的变种，当 x&lt;0 时，在 ReLU 的基础上乘了一个参数，这个参数是神经网络自动学习到的，而不是 LeakLU 那样事先指定的。</li>
+<li>ELU：x&lt;0 时，与 LeakyReLU 的斜线不同，ELU 使用 log 曲线：<code>alpha * (exp(x) - 1)</code>，alpha 是超参数（TF 中 alpha=1.0）， ELU 减少了梯度消失的影响。</li>
+<li>SELU：在 ELU 的基础上增加了一个缩放值，<code>SELU = scale * ELU</code>，scale &gt; 1，和 alpha 一样是超参数，它确保正输入的斜率大于 1。</li>
+<li></li>
 </ul>
 <p><strong>GeLU</strong>（Gaussian Error Linear Unit）比较复杂：</p>
 <script type="math/tex; mode=display">
@@ -125,14 +128,26 @@ f(x) = \frac{x}{2} \cdot (1 + \hbox{erf}(\frac{x}{\sqrt{2}})) \\
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from transformers</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gelu</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0.5</span> * x * (<span class="number">1</span> + np.tanh(x * <span class="number">0.7978845608</span> * (<span class="number">1</span> + <span class="number">0.044715</span> * x * x)))</span><br></pre></td></tr></table></figure>
 <p><strong>TanH</strong> 在 ReLU 没出来之前比较普遍：</p>
 <script type="math/tex; mode=display">
-f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}</script><p><strong>Sigmoid</strong>：</p>
+f(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}</script><p><strong>Sigmoid</strong>：相当于 2元素的 Softmax，其中第二个元素假设为 0。</p>
 <script type="math/tex; mode=display">
-f(x) = \frac{1}{1 + e^{-x}}</script><p><strong>Softmax</strong>：</p>
+f(x) = \frac{1}{1 + e^{-x}}</script><p>Hard-Sigmoid 是 其分段线性逼近：</p>
+<ul>
+<li><code>x &lt; -2.5 ==&gt; 0</code></li>
+<li><code>x &gt;  2.5 ==&gt; 1</code></li>
+<li><code>-2.5 &lt;= x &lt;= 2.5 ==&gt; 0.2 * x + 0.5</code></li>
+</ul>
+<p><strong>Softmax</strong>：0-1 和为 1 的概率分布，一般用在分类模型的最后一层。</p>
 <script type="math/tex; mode=display">
-f_{i}(\vec{x})=\frac{e^{x_{i}}}{\sum_{j=1}^{J} e^{x_{j}}} \quad \text { for } i=1, \ldots, J</script><p>除此之外，还有很多其他的激活函数，可以参考维基百科：<a href="https://en.wikipedia.org/wiki/Activation_function" target="_blank" rel="noopener">Activation function - Wikipedia</a></p>
-<p>上面几个函数的的计算举例如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">x = np.array([<span class="number">-2.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>], dtype=np.float16)</span><br><span class="line">ReLU(x) = np.array([<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">5.</span>])</span><br><span class="line">LeakLU(a=<span class="number">0.2</span>)(x) = np.array([<span class="number">-0.4</span>, <span class="number">-0.2</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>])</span><br><span class="line">ParametricReLU(a=<span class="number">0.1</span>)(x) = np.array([<span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.0</span>, <span class="number">0.2</span>, <span class="number">0.3</span>, <span class="number">0.5</span>])</span><br><span class="line">GeLU(x) = np.array([<span class="number">-0.0454</span>, <span class="number">-0.1589</span>,  <span class="number">0.0</span>, <span class="number">1.955</span> , <span class="number">2.996</span> , <span class="number">5.0</span>])</span><br><span class="line">TanH(x)= np.array([<span class="number">-0.964</span>, <span class="number">-0.7617</span>, <span class="number">0.</span>, <span class="number">0.964</span>, <span class="number">0.995</span>, <span class="number">1.0</span> ])</span><br><span class="line">Sigmoid(x) = np.array([<span class="number">0.1192</span>, <span class="number">0.2688</span>, <span class="number">0.5</span>, <span class="number">0.8804</span>, <span class="number">0.9526</span>, <span class="number">0.993</span>])</span><br><span class="line">Softmax(x) = np.array([<span class="number">7.625e-04</span>, <span class="number">2.073e-03</span>, <span class="number">5.634e-03</span>, <span class="number">4.163e-02</span>, <span class="number">1.132e-01</span>, <span class="number">8.364e-01</span>])</span><br></pre></td></tr></table></figure>
-<p>函数的图像如下：</p>
+f_{i}(\vec{x})=\frac{e^{x_{i}}}{\sum_{j=1}^{J} e^{x_{j}}} \quad \text { for } i=1, \ldots, J</script><p><strong>Softplus</strong>：</p>
+<script type="math/tex; mode=display">
+f(x) = \log \frac{1}{1 + e^x}</script><p><strong>Softsign</strong>：</p>
+<script type="math/tex; mode=display">
+f(x) = \frac{x}{|x| + 1}</script><p><strong>Swish</strong>：一个平滑的、非单调的函数，在深度网络上始终相当或优于 ReLU，无上界，有下界。</p>
+<script type="math/tex; mode=display">
+f(x) = x * \text{sigmoid}(x)</script><p>除此之外，还有很多其他的激活函数，可以参考维基百科：<a href="https://en.wikipedia.org/wiki/Activation_function" target="_blank" rel="noopener">Activation function - Wikipedia</a></p>
+<p>上面部分函数的的计算举例如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = np.array([<span class="number">-2.0</span>, <span class="number">-1.0</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>], dtype=np.float16)</span><br><span class="line">ReLU(x) = np.array([<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">5.</span>])</span><br><span class="line">LeakLU(a=<span class="number">0.2</span>)(x) = np.array([<span class="number">-0.4</span>, <span class="number">-0.2</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>])</span><br><span class="line">GeLU(x) = np.array([<span class="number">-0.0454</span>, <span class="number">-0.1589</span>,  <span class="number">0.0</span>, <span class="number">1.955</span> , <span class="number">2.996</span> , <span class="number">5.0</span>])</span><br><span class="line">TanH(x)= np.array([<span class="number">-0.964</span>, <span class="number">-0.7617</span>, <span class="number">0.</span>, <span class="number">0.964</span>, <span class="number">0.995</span>, <span class="number">1.0</span> ])</span><br><span class="line">Sigmoid(x) = np.array([<span class="number">0.1192</span>, <span class="number">0.2688</span>, <span class="number">0.5</span>, <span class="number">0.8804</span>, <span class="number">0.9526</span>, <span class="number">0.993</span>])</span><br><span class="line">Softmax(x) = np.array([<span class="number">7.625e-04</span>, <span class="number">2.073e-03</span>, <span class="number">5.634e-03</span>, <span class="number">4.163e-02</span>, <span class="number">1.132e-01</span>, <span class="number">8.364e-01</span>])</span><br></pre></td></tr></table></figure>
+<p>对应的图像如下：</p>
 <p><img src="http://qnimg.lovevivian.cn/aitc-activation-3.jpeg" alt=""></p>
 <h3 id="具体应用"><a href="#具体应用" class="headerlink" title="具体应用"></a>具体应用</h3><p>以上面的数据分类为例，构建一个单隐层的 DNN 模型：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    layers.Dense(<span class="number">32</span>, activation=<span class="string">"relu"</span>),</span><br><span class="line">    layers.Dense(<span class="number">1</span>, activation=<span class="string">'sigmoid'</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">model.compile(optimizer=<span class="string">'adam'</span>,</span><br><span class="line">              loss=<span class="string">'binary_crossentropy'</span>,</span><br><span class="line">              metrics=[<span class="string">'accuracy'</span>],</span><br><span class="line">              run_eagerly=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">model.fit(X_train, y_train, epochs=<span class="number">50</span>, verbose=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
@@ -152,10 +167,9 @@ f_{i}(\vec{x})=\frac{e^{x_{i}}}{\sum_{j=1}^{J} e^{x_{j}}} \quad \text { for } i=
 <p>在测试集上的准确率分别为：65%、88%、100% 和 100%。当然，如果我们这里同时也调整了节点数，如果节点数最高为 8 ，无论怎么调整架构准确率也不会太高。</p>
 <p>文中涉及所有代码可参见 JupyterNotebook：<a href="https://github.com/hscspring/All4NLP/blob/master/Activation/activations.ipynb" target="_blank" rel="noopener">All4NLP/activations.ipynb at master · hscspring/All4NLP</a></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><p><a href="https://github.com/google/trax" target="_blank" rel="noopener">google/trax: Trax — Deep Learning with Clear Code and Speed</a></p>
-</li>
-<li><p><a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">huggingface/transformers: 🤗Transformers: State-of-the-art Natural Language Processing for Pytorch and TensorFlow 2.0.</a></p>
-</li>
+<li><a href="https://github.com/google/trax" target="_blank" rel="noopener">google/trax: Trax — Deep Learning with Clear Code and Speed</a></li>
+<li><a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener">huggingface/transformers: 🤗Transformers: State-of-the-art Natural Language Processing for Pytorch and TensorFlow 2.0.</a></li>
+<li><a href="https://www.tensorflow.org/api_docs/python/tf/keras/activations" target="_blank" rel="noopener">Module: tf.keras.activations  |  TensorFlow Core v2.7.0</a></li>
 </ul>
 
       
