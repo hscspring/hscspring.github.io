@@ -12,19 +12,30 @@
   
   
   
-  <title>各主题系列 | Yam</title>
+  <title>简单的对比学习框架：SimCSE | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。  Growth AI 工程师养成记（上） 一些关于工作的观点（From《华为工作法》）  Collection AIToolBox: My AI Basic Tool Box All4NLP: All For NLP, especially Chinese.  AI 思考 分类与 AI 语言、AI、情感 NL">
-<meta property="og:type" content="website">
-<meta property="og:title" content="各主题系列">
-<meta property="og:url" content="https://www.yam.gift/series/index.html">
+  <meta name="description" content="论文：[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings Code：princeton-nlp/SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings 一句话概述：Dropout 增益句子 Embedding。 摘要：本文提出一个">
+<meta name="keywords" content="NLP,Embedding,Contrastive-Learning,SimCSE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单的对比学习框架：SimCSE">
+<meta property="og:url" content="https://www.yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。  Growth AI 工程师养成记（上） 一些关于工作的观点（From《华为工作法》）  Collection AIToolBox: My AI Basic Tool Box All4NLP: All For NLP, especially Chinese.  AI 思考 分类与 AI 语言、AI、情感 NL">
+<meta property="og:description" content="论文：[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings Code：princeton-nlp/SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings 一句话概述：Dropout 增益句子 Embedding。 摘要：本文提出一个">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-11-28T14:53:30.879Z">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-1.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simces-2.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-3.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-5.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-6.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-7.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-8.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-9.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-simcse-10.jpg">
+<meta property="og:updated_time" content="2021-11-18T14:06:27.124Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="各主题系列">
-<meta name="twitter:description" content="说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。  Growth AI 工程师养成记（上） 一些关于工作的观点（From《华为工作法》）  Collection AIToolBox: My AI Basic Tool Box All4NLP: All For NLP, especially Chinese.  AI 思考 分类与 AI 语言、AI、情感 NL">
+<meta name="twitter:title" content="简单的对比学习框架：SimCSE">
+<meta name="twitter:description" content="论文：[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings Code：princeton-nlp/SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings 一句话概述：Dropout 增益句子 Embedding。 摘要：本文提出一个">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-simcse-1.jpg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -71,7 +82,7 @@
     </nav>
 </header>
       <div id="main" class="wrapper">
-        <div id="primary" class="site-content"><div id="content" role="main"><article id="page-undefined" class="page-undefined post type-post status-publish format-standard hentry">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2021-07-10-SimCSE" class="post-Paper/2021-07-10-SimCSE post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -79,14 +90,14 @@
         
   
     <h1 class="entry-title article-title">
-      各主题系列
+      简单的对比学习框架：SimCSE
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/series/index.html" data-id="ckplb0c65001b0abz6343hcya" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/" data-id="ckwjcyxlf0000drbz1qpgqpqg" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -94,297 +105,158 @@
       
             <!-- Table of Contents -->
               
-        <blockquote>
-<p>说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。</p>
-</blockquote>
-<h2 id="Growth"><a href="#Growth" class="headerlink" title="Growth"></a>Growth</h2><ul>
-<li><a href="https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" target="_blank" rel="noopener">AI 工程师养成记（上）</a></li>
-<li><a href="https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/" target="_blank" rel="noopener">一些关于工作的观点（From《华为工作法》）</a></li>
-</ul>
-<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><ul>
-<li><a href="https://github.com/hscspring/AIToolBox" target="_blank" rel="noopener">AIToolBox: My AI Basic Tool Box</a></li>
-<li><a href="https://github.com/hscspring/All4NLP" target="_blank" rel="noopener">All4NLP: All For NLP, especially Chinese.</a></li>
-</ul>
-<h2 id="AI"><a href="#AI" class="headerlink" title="AI"></a>AI</h2><ul>
-<li>思考<ul>
-<li><a href="https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/" target="_blank" rel="noopener">分类与 AI</a></li>
-<li><a href="https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/" target="_blank" rel="noopener">语言、AI、情感</a></li>
-<li><a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">NLP 与 AI</a></li>
-</ul>
-</li>
-</ul>
+        <p>论文：<a href="https://arxiv.org/abs/2104.08821" target="_blank" rel="noopener">[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings</a></p>
+<p>Code：<a href="https://github.com/princeton-nlp/SimCSE" target="_blank" rel="noopener">princeton-nlp/SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings</a></p>
+<p>一句话概述：Dropout 增益句子 Embedding。</p>
+<p>摘要：本文提出一个简单的对比学习框架，极大地提高了句子的表征能力。首先是无监督的方法，使用一个输入句子，在对比目标中预测自己，这里仅使用标准的 dropout 作为噪声。接下来将 NLI 数据集中的标注对合并到对比学习中，“蕴涵”对作为正例，“矛盾”对作为负例。最后，论文还发现对比学习在理论上能够将预训练 Embedding 的各向异性空间正则化，使其更加均匀，而且有监督信号可用时，可以更好地对齐正例对。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-1.jpg" alt=""></p>
+<a id="more"></a>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>对比学习旨在通过将语义上接近的邻居拉到一起并推开非邻居来学习有效的表示。假设一组样例对，每队样例在语义上相关，使用 in-batch 负采样的交叉熵目标：</p>
+<script type="math/tex; mode=display">
+\ell_i = \log \frac{e^{sim(h_i, h_i^+)/ \tau}}{\sum_{j=1}^N e^{sim(h_i, h_i^+)/ \tau}} \quad(1)</script><p>τ 是超参数，值越大分布的概率越平滑，sim 是余弦距离，h 是预训练模型输出的句子表征。</p>
+<p><strong>如何构建正例对</strong></p>
 <ul>
-<li>阅读<ul>
-<li><a href="https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/" target="_blank" rel="noopener">西蒙《人工科学》读书笔记</a></li>
-<li><a href="https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/" target="_blank" rel="noopener">人工智能哲学笔记</a></li>
-<li><a href="https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/" target="_blank" rel="noopener">《与机器人共舞》读后感兼谈 AI 与 IA</a></li>
+<li>图像领域的随机变换，NLP 领域的词删除、重排序和替换。不过由于自然语言的离散特性导致数据增强比较困难。</li>
+<li>不同的上下文。正例对来自标注数据集，比如 mention-entity，question-passage 对等。因为根据定义的不同性质，这些方法总是使用双编码器框架。</li>
 </ul>
-</li>
-</ul>
-<h2 id="NLP"><a href="#NLP" class="headerlink" title="NLP"></a>NLP</h2><ul>
-<li>基础<ul>
-<li><a href="https://yam.gift/2017/04/09/NLP/2017-04-09-NLPKnowledgeTree/" target="_blank" rel="noopener">自然语言处理（NLP）知识地图</a></li>
-<li><a href="https://yam.gift/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" target="_blank" rel="noopener">中文分词系列一：思考分词</a></li>
-<li><a href="https://yam.gift/2017/09/04/NLP/2017-09-04-Regular-Expression/" target="_blank" rel="noopener">正则表达式笔记</a></li>
-<li><a href="https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/" target="_blank" rel="noopener">《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）</a></li>
-<li><a href="https://yam.gift/2021/10/27/NLP/2021-10-27-Senta/" target="_blank" rel="noopener">浅析文本分类 —— 情感分析与自然语言处理</a></li>
-<li><a href="https://yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/" target="_blank" rel="noopener">TensorBay 指南</a></li>
-</ul>
-</li>
-</ul>
+<p><strong>对齐和均匀</strong></p>
+<p>与对比学习的两个关键属性，给定正例对的一个分布，「对齐」计算正例对 Embedding（归一化）的期望距离：</p>
+<script type="math/tex; mode=display">
+\ell_{\text {align }} \triangleq \underset{\left(x, x^{+}\right) \sim p_{\text {pos }}}{\mathbb{E}}\left\|f(x)-f\left(x^{+}\right)\right\|^{2} \quad(2)</script><p>「均匀」计算两个 Embedding 分布的均匀性：</p>
+<script type="math/tex; mode=display">
+\ell_{\text {uniform }} \triangleq \log \quad \underset{\text { i.i.d. } \atop x, y \sim Pdata}{\mathbb{E}} e^{-2\|f(x)-f(y)\|^{2}} \quad(3)</script><p>Pdata 是数据分布。</p>
+<p>这两个指标与对比学习的目标非常一致：正实例应该保持紧密，随机实例的 Embedding 应该分散在超球面上。</p>
+<p><strong>相关工作</strong></p>
 <ul>
-<li>胡思乱想<ul>
-<li><a href="https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/" target="_blank" rel="noopener">对NLP预训练模型的思考</a></li>
-<li><a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">NLP 表征的历史与未来</a></li>
-<li><a href="https://yam.gift/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/" target="_blank" rel="noopener">2018CCF-GAIR：自然语言如何商业落地摘录及思考</a></li>
-<li><a href="https://yam.gift/2019/03/31/NLP/2019-03-31-Nabokov-Favorite-Word/" target="_blank" rel="noopener">《纳博科夫最喜欢的词》读书笔记与思考</a></li>
-<li><a href="https://yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/" target="_blank" rel="noopener">ChatBot 设计方案</a></li>
+<li>无监督<ul>
+<li>句子 Embedding 的早期工作建立在分布假设的基础上，通过预测给定句子的周围句子</li>
+<li>通过对同样的句子输出不同的视角在无监督数据上使用对比目标</li>
+</ul>
+</li>
+<li>有监督<ul>
+<li>在 NLI 上微调一个孪生网络</li>
+<li>双语和回译语料提供相似语义的标签</li>
+<li>对 Embedding 进行正则化以缓解表征衰退问题</li>
 </ul>
 </li>
 </ul>
+<h2 id="无监督-SimCSE"><a href="#无监督-SimCSE" class="headerlink" title="无监督 SimCSE"></a>无监督 SimCSE</h2><p>对任一句子，让 x+=x，这其中的关键就是对同一个句子使用独立的 dropout mask 采样。目标函数：</p>
+<script type="math/tex; mode=display">
+\ell_{i}=-\log \frac{e^{\operatorname{sim}\left(\mathbf{h}_{i}^{z_{i}}, \mathbf{h}_{i}^{z_{i}^{\prime}}\right) / \tau}}{\sum_{j=1}^{N} e^{\operatorname{sim}\left(\mathbf{h}_{i}^{z_{i}}, \mathbf{h}_{j}^{z_j\prime}\right) / \tau}}  \quad(4)\\
+s.t. \quad h_i^z = f_\theta(x_i, z)</script><p>其中 z  就是 Transformer 的标准 mask，就很简单地将同样的输入进 Encoder 两次。</p>
+<p>这样的话，正例对几乎是同样的句子，它们的 Embedding 只有 dropout 不一样，结果表明：</p>
 <ul>
-<li>知识图谱<ul>
-<li><a href="https://yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/" target="_blank" rel="noopener">关系提取简述</a></li>
-<li><a href="https://yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/" target="_blank" rel="noopener">自然语言记忆模块（NLM）</a></li>
+<li>常规的数据增强技术（词删除、替换啥的）都不如基本的 dropout 噪声</li>
+<li>STS-B 验证集（句子相似度）的皮尔逊相关系数要好于 next-sentence 目标</li>
 </ul>
-</li>
-</ul>
+<p><strong>为什么有效</strong>？说实话我也很好奇……先看一张表：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simces-2.jpg" alt=""></p>
+<p>有个神奇的地方：当不使用 dropout（p=0）或固定 dropout（dropout mask 也一致）时，Embedding 几乎一致，此时表现会急剧下降。换句话说，p=0.1 的随机 dropout 就是全部的魔法。Surprise，Unbelievable。</p>
+<p>再来看另一个图：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-3.jpg" alt=""></p>
+<p>uniform 上比较接近，但是 align 上 No dropout 和 Fixed 0.1 就不太行了。对于 Delete one word，虽然在 align 上略有胜出，但是在 uniform 上差距有点大，整体还是不如 SimCSE。牛逼——完事了。</p>
+<h2 id="有监督-SimCSE"><a href="#有监督-SimCSE" class="headerlink" title="有监督 SimCSE"></a>有监督 SimCSE</h2><p><strong>探索数据集</strong></p>
+<p>大多数使用了有监督数据的模型效果要好于无监督：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-5.jpg" alt=""></p>
+<p>sample 是为了对比公平，采样了同样数量的正例对。</p>
+<p><strong>矛盾作为负例</strong></p>
+<p>x 为前提，x+ 是蕴涵，x- 是矛盾，Loss 函数：</p>
+<script type="math/tex; mode=display">
+-\log \frac{e^{\operatorname{sim}\left(\mathbf{h}_{i}, \mathbf{h}_{i}^{+}\right) / \tau}}{\sum_{j=1}^{N}\left(e^{\operatorname{sim}\left(\mathbf{h}_{i}, \mathbf{h}_{j}^{+}\right) / \tau}+e^{\operatorname{sim}\left(\mathbf{h}_{i}, \mathbf{h}_{j}^{-}\right) / \tau}\right)}  \quad(5)</script><p>可以进一步提升性能，见上图（84.9→86.2）。不过添加 ANLI 数据集并没有带来太多提升（85.0）。</p>
+<h2 id="与各向异性的关联"><a href="#与各向异性的关联" class="headerlink" title="与各向异性的关联"></a>与各向异性的关联</h2><p>语言表示的各向异性问题：即学习到的 Embedding 在向量空间中占据了一个狭窄的锥体，这在很大程度上限制了它们的表达能力。使用绑定的输入/输出 Embedding 训练的语言模型会导致各向异性。</p>
+<p>缓解该问题的一个简单方法是后处理，要么消除主要的主成，要么将 Embedding 映射到各向同性分布。或者，可以在训练期间添加正则化。本文的研究表明，对比目标可以内在地 “扁平化” 句子 Embedding 矩阵的奇异值分布。</p>
+<p>当负实例的数量接近无穷大时（f(x) 已经归一化），对比学习目标的渐近性可以用以下等式表示：</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+-\frac{1}{\tau} \underset{\left(x, x^{+}\right) \sim p_{\text {pos }}}{\mathbb{E}}\left[f(x)^{\top} f\left(x^{+}\right)\right] \\
++\underset{x \sim p_{\text {data }}}{\mathbb{E}}\left[\log \underset{x^{-} \sim p_{\text {data }}}{\mathbb{E}}\left[e^{f(x)^{\top} f\left(x^{-}\right) / \tau}\right]\right]
+\end{array}  \quad(6)</script><p>第一项保持正例相似，第二项将负例对分开。当 Pdata 在有限样例上均匀分布时，根据 hi = f(xi)，我们可以用 Jensen 不等式从第二项推导出以下公式：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \underset{x \sim p_{\text {data }}}{\mathbb{E}}\left[\log \underset{x^{-} \sim p_{\text {data }}}{\mathbb{E}}\left[e^{f(x)^{\top} f\left(x^{-}\right) / \tau}\right]\right] \\
+=& \frac{1}{m} \sum_{i=1}^{m} \log \left(\frac{1}{m} \sum_{j=1}^{m} e^{\mathbf{h}_{i}^{\top} \mathbf{h}_{j} / \tau}\right) \\
+\geq & \frac{1}{\tau m^{2}} \sum_{i=1}^{m} \sum_{j=1}^{m} \mathbf{h}_{i}^{\top} \mathbf{h}_{j} .   \quad(7)
+\end{aligned}</script><p>令 W 为句子 Embedding 矩阵，第 i 行为 hi，忽略常数项，优化第二项本质上最小化了 WW^T 所有元素和的上界。由于已经是归一化的 hi，所有对角线元素为 1，然后是 tr(WW^T)，即特征值的和是一个常数。根据 Merikoski（1984），如果 WW^T 的所有元素是正数（大多数情况如此），Sum(WW^T) 是 WW^T 最大特征值的一个上界。因此，当最小化第二项时，其实在减小 WW^T 最大的特征值，固有地 ”扁平“ 了 Embedding 空间的奇异普。因此，对比学习能够潜在地解决表示退化问题并提高均匀性。</p>
+<h2 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h2><h3 id="实验设置"><a href="#实验设置" class="headerlink" title="实验设置"></a>实验设置</h3><p>7 个标准的 STS 任务和 7 个迁移学习任务，使用 SentEval 工具包评估。</p>
+<p>从预训练 BERT/RoBERTa checkpoint 开始，在 CLS 之上增加一个 MLP 层作为句子 Embedding。</p>
+<p>引入一个可选增加一个 MLM 目标作为（1）的一个补充 Loss：</p>
+<script type="math/tex; mode=display">
+\ell + \lambda \cdot \ell^{mlm}</script><p>这有助于 SimCSE 避免灾难性地忘记 Token 级知识。</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p><strong>语义文本相似度</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-6.jpg" alt=""></p>
+<p><strong>迁移任务</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-7.jpg" alt=""></p>
 <ul>
-<li><p>论文和模型：</p>
+<li>有监督的 SimCSE 表现与之前的方法相当或更好，无监督模型趋势不清晰</li>
+<li>MLM 能提升表现，确认了之前的直觉——句子级别目标可能不会直接有益于转移任务</li>
+<li>研究了后处理方法（BERT-flow/whitening），发现均性能有损；表明良好的表征均匀性不能导致更好的迁移学习 Embedding。</li>
+<li>迁移任务并不是句子 Embedding 的主要目标，因此把 STS 的结果用于主要比较。</li>
+</ul>
+<h3 id="消融实验"><a href="#消融实验" class="headerlink" title="消融实验"></a>消融实验</h3><ul>
+<li>BatchSize：N 增加效果变好，但 512 后不再变好，可能和训练数据量太小有关。</li>
+<li>Pooling 方法：First-Last 平均和 CLS 效果差别不大</li>
+<li>MLM 任务：Token 级 MLM 目标适度提高了转移任务的平均性能，但它带来了语义文本相似任务的一致下降（各种配置下）。</li>
+</ul>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><strong>对齐和均匀</strong></p>
 <ul>
-<li><a href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/" target="_blank" rel="noopener">2021 在上下文中学习如何学习：MetaICL</a></li>
-<li><a href="https://yam.gift/2021/07/18/Paper/2021-07-18-VOLT/" target="_blank" rel="noopener">2021 通过最优转移进行词表学习：VOLT</a></li>
-<li><a href="https://yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" target="_blank" rel="noopener">2021 SimCSE 和 R-Drop 在 TextCNN 上的实验</a></li>
-<li><a href="https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/" target="_blank" rel="noopener">2021 R-Drop</a></li>
-<li><a href="https://yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/" target="_blank" rel="noopener">2021 简单的对比学习框架：SimCSE</a></li>
-<li><a href="https://yam.gift/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" target="_blank" rel="noopener">2021 高效深度学习：让模型更小、更快、更好</a></li>
-<li><a href="https://yam.gift/2021/06/20/Paper/2021-06-20-PretrainedModels/" target="_blank" rel="noopener">2021 预训练模型的过去、现在和未来</a></li>
-<li><a href="https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/" target="_blank" rel="noopener">2021 Few-Shot NER and BERT Noisy Learning：ProtoBERT</a></li>
-<li><a href="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/" target="_blank" rel="noopener">2020 SqueezeBERT</a></li>
-<li><a href="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" target="_blank" rel="noopener">2020 深度探索 Bert：BERTology</a></li>
-<li><a href="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" target="_blank" rel="noopener">2020 Bert-Flow</a></li>
-<li><a href="https://yam.gift/2020/10/13/Paper/2020-10-13-FunnelTransformer/" target="_blank" rel="noopener">2020 Funnel Transformer</a></li>
-<li><a href="https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" target="_blank" rel="noopener">2020 PEGASUS</a></li>
-<li><a href="https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/" target="_blank" rel="noopener">2020 DeBERTa</a></li>
-<li><a href="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/" target="_blank" rel="noopener">2020 Reformer</a></li>
-<li><a href="https://yam.gift/2021/07/31/Paper/2021-07-31-UniLM/" target="_blank" rel="noopener">2019 UniLM</a></li>
-<li><a href="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" target="_blank" rel="noopener">2019 Sentence-Bert</a></li>
-<li><a href="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/" target="_blank" rel="noopener">2019 Bart</a></li>
-<li><a href="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/" target="_blank" rel="noopener">2019 DistilBERT</a></li>
-<li><a href="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" target="_blank" rel="noopener">2019 ALBERT</a></li>
-<li><a href="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" target="_blank" rel="noopener">2019 GPT2</a></li>
-<li><a href="https://yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/" target="_blank" rel="noopener">2019 ELECTRA</a></li>
-<li><a href="https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" target="_blank" rel="noopener">2019 CTRL</a></li>
-<li><a href="https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" target="_blank" rel="noopener">2019 RoBERTa</a></li>
-<li><a href="https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" target="_blank" rel="noopener">2019 ERNIE</a></li>
-<li><a href="https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/" target="_blank" rel="noopener">2019 XLNet</a></li>
-<li><a href="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" target="_blank" rel="noopener">2019 Bert</a></li>
-<li><a href="https://yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/" target="_blank" rel="noopener">2018 Attributes External Feature</a></li>
-<li><a href="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/" target="_blank" rel="noopener">2017 Transformer Code</a></li>
-<li><a href="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" target="_blank" rel="noopener">2017 Transformer Paper</a></li>
-<li><a href="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/" target="_blank" rel="noopener">2016 Node2Vec</a></li>
-<li><a href="https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/" target="_blank" rel="noopener">2016 NER with Bi-LSTM and CRF</a></li>
-<li><a href="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" target="_blank" rel="noopener">2015 Bahdanau Attention</a></li>
-<li><a href="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" target="_blank" rel="noopener">2015 Luong Attention</a></li>
-<li><a href="https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/" target="_blank" rel="noopener">2004 TextRank Keyword Extraction</a></li>
+<li>预训练 Embedding 有好的对齐差的均匀</li>
+<li>后处理方法改善了均匀但降低了对齐</li>
+<li>无监督 SimCSE 改善了无监督的均匀同时保持良好的对齐</li>
+<li>在 SimCSE 中加入监督数据进一步修正了对齐</li>
+<li>SimCSE 可以有效地「扁平化」预训练嵌入的奇异值分布</li>
 </ul>
-</li>
-<li><p>读书笔记：SLP</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-8.jpg" alt=""></p>
+<p><strong>相似度分布</strong></p>
 <ul>
-<li><a href="https://yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" target="_blank" rel="noopener">Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02)</a></li>
-<li><a href="https://yam.gift/2017/10/14/NLP/SLP/2017-10-14-Ch03-Language-Model/" target="_blank" rel="noopener">Language Model Note (SLP Ch03)</a></li>
-<li><a href="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/" target="_blank" rel="noopener">Naive Bayes and Sentiment Classification Note (SLP Ch04)</a></li>
-<li><a href="https://yam.gift/2019/05/08/NLP/SLP/2019-05-08-Ch05-Logistic-Regression/" target="_blank" rel="noopener">Logistic Regression Note (SLP Ch05)</a></li>
-<li><a href="https://yam.gift/2019/05/16/NLP/SLP/2019-05-16-Ch06-Vector-Semantics/" target="_blank" rel="noopener">Vector Semantics Note (SLP Ch06)</a></li>
-<li><a href="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" target="_blank" rel="noopener">Neural Networks and Neural Language Models Note (SLP Ch07)</a></li>
-<li><a href="https://yam.gift/2019/06/11/NLP/SLP/2019-06-11-Ch08-Part-of-Speech-Tagging/" target="_blank" rel="noopener">Part-of-Speech Tagging Note (SLP Ch08)</a></li>
-<li><a href="https://yam.gift/2019/06/17/NLP/SLP/2019-06-17-Ch09-Senquence-Processing-with-Recurrent-Networks/" target="_blank" rel="noopener">Sequence Processing with Recurrent Networks Note (SLP Ch09)</a></li>
-<li><a href="https://yam.gift/2020/01/23/NLP/SLP/2020-01-23-Ch10-Encoder-Decoder-Models-Attention-and-Contextual-Embeddings/" target="_blank" rel="noopener">Encoder-Decoder Models Attention and Contextual Embedding Note (SLP Ch10)</a></li>
-<li><a href="https://yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" target="_blank" rel="noopener">Formal Grammars of English Note (SLP Ch12)</a></li>
-<li><a href="https://yam.gift/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" target="_blank" rel="noopener">Syntactic Parsing Note (SLP Ch13)</a></li>
-<li><a href="https://yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/" target="_blank" rel="noopener">Statistical Parsing Note (SLP Ch14)</a></li>
-<li><a href="https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/" target="_blank" rel="noopener">Information Extraction Note (SLP Ch18)</a></li>
+<li>所有基线模型相比，无监督和有监督的 SimCSE 都能更好地区分具有不同相似度的句子对，从而在 STS 任务上获得更好的性能。</li>
+<li>SimCSE 通常显示出比 BERT 或 SBERT 更分散的分布，但与白化分布相比，在语义相似的句子对上也保持较低的方差。进一步验证了 SimCSE 可以实现更好的对齐-均匀性平衡。</li>
 </ul>
-</li>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-9.jpg" alt=""></p>
+<p><strong>定性比较</strong></p>
+<p>使用 SBERTbase 和 SimCSE-BERTbase 在一个小规模的召回检索实验上进行比较，使用来自 Flickr30k 数据集的 150k 字幕，并以任何随机句子作为查询来检索相似的句子（基于余弦相似度）。结果表明 SimCSE 召回的实例质量更高：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-10.jpg" alt=""></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ul>
+<li>提出简单的对比学习框架极大地提升了句子 Embedding 在语义文本相似任务上的表现。</li>
+<li>使用无监督方法，使用 dropout 噪声预测输入句子本身，以及一种利用 NLI 数据集的监督方法。</li>
+<li>通过分析 Sim-CSE 与其他基线模型的对齐和均匀性来证明内部运作是合理的。</li>
 </ul>
-<ul>
-<li>读书笔记：冯志伟《自然语言计算机形式分析的理论与方法》<ul>
-<li><a href="https://yam.gift/2018/09/19/NLP/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/" target="_blank" rel="noopener">第一章：自然语言处理的学科定位</a></li>
-<li><a href="https://yam.gift/2018/10/11/NLP/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/" target="_blank" rel="noopener">第二章：自然语言研究的先驱</a></li>
-<li><a href="https://yam.gift/2018/12/22/NLP/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/" target="_blank" rel="noopener">第三章：基于短语结构语法的形式模型</a></li>
-<li><a href="https://yam.gift/2019/01/09/NLP/NLPFA/2019-01-09-Ch04-Formal-Model-Based-on-Unity-Operation/" target="_blank" rel="noopener">第四章：基于合一运算的形式模型</a></li>
-<li><a href="https://yam.gift/2019/01/15/NLP/NLPFA/2019-01-15-Ch05-Formal-Model-Based-on-Dependence-and-Valence/" target="_blank" rel="noopener">第五章：基于依存和配价的形式模型</a></li>
-<li><a href="https://yam.gift/2019/01/18/NLP/NLPFA/2019-01-18-Ch06-Formal-Model-Based-on-Grid-Grammar/" target="_blank" rel="noopener">第六章：基于格语法的形式模型</a></li>
-<li><a href="https://yam.gift/2019/01/31/NLP/NLPFA/2019-01-31-Ch07-Formal-Model-Based-on-Lexicalism/" target="_blank" rel="noopener">第七章：基于词汇主义的形式模型</a></li>
-<li><a href="https://yam.gift/2019/02/15/NLP/NLPFA/2019-02-15-Ch08-Formal-Model-of-Semantic-Automatic-Processing/" target="_blank" rel="noopener">第八章：语义自动处理的形式模型</a></li>
-<li><a href="https://yam.gift/2019/02/21/NLP/NLPFA/2019-02-21-Ch09-System-Function-Syntax/" target="_blank" rel="noopener">第九章：系统功能语法</a></li>
-<li><a href="https://yam.gift/2019/02/27/NLP/NLPFA/2019-02-27-Ch10-Formal-Model-of-Pragmatic-Automatic-Processing/" target="_blank" rel="noopener">第十章：语用自动处理的形式模型</a></li>
-<li><a href="https://yam.gift/2019/03/01/NLP/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" target="_blank" rel="noopener">第十一章：概率语法</a></li>
-<li><a href="https://yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" target="_blank" rel="noopener">第十二章：Bayes 公式与动态规划算法</a></li>
-<li><a href="https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" target="_blank" rel="noopener">第十三章：N 元语法和数据平滑</a></li>
-<li><a href="https://yam.gift/2019/03/22/NLP/NLPFA/2019-03-22-Ch14-HMM/" target="_blank" rel="noopener">第十四章：隐 Markov 模型</a></li>
-<li><a href="https://yam.gift/2019/03/29/NLP/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/" target="_blank" rel="noopener">第十五章：语音自动处理的形式模型</a></li>
-<li><a href="https://yam.gift/2018/09/05/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/" target="_blank" rel="noopener">第十六章：统计机器翻译中的形式模型</a></li>
-<li><a href="https://yam.gift/2018/09/05/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/" target="_blank" rel="noopener">第十七章：自然语言处理系统评测</a></li>
-<li><a href="https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" target="_blank" rel="noopener">第十八章：自然语言处理中的理性主义与经验主义</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="RecSearchCTR"><a href="#RecSearchCTR" class="headerlink" title="RecSearchCTR"></a>RecSearchCTR</h2><ul>
-<li><a href="https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/" target="_blank" rel="noopener">推荐系统概述</a></li>
-<li><a href="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" target="_blank" rel="noopener">协同过滤</a></li>
-<li><a href="https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/" target="_blank" rel="noopener">矩阵分解</a></li>
-<li><a href="https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" target="_blank" rel="noopener">Wide &amp; Deep</a></li>
-<li><a href="https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/" target="_blank" rel="noopener">GBTD + LR</a></li>
-</ul>
-<h2 id="DeepLearning"><a href="#DeepLearning" class="headerlink" title="DeepLearning"></a>DeepLearning</h2><ul>
-<li><a href="https://yam.gift/2018/05/07/AI/2018-05-07-RL-Series/" target="_blank" rel="noopener">“心有麟熙”《强化学习炼金术》系列笔记 | Yam</a></li>
-<li><a href="https://yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/" target="_blank" rel="noopener">Gan 原理、证明与实现 | Yam</a></li>
-<li><a href="https://yam.gift/2018/08/14/AI/2018-08-14-Ng-CNN/" target="_blank" rel="noopener">NG CNN 笔记 | Yam</a></li>
-<li><a href="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/" target="_blank" rel="noopener">AI 小课堂：Activation Function | Yam</a></li>
-</ul>
-<h2 id="MachineLearning"><a href="#MachineLearning" class="headerlink" title="MachineLearning"></a>MachineLearning</h2><ul>
-<li><a href="https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/" target="_blank" rel="noopener">机器学习概念</a></li>
-<li><a href="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/" target="_blank" rel="noopener">Metrics</a></li>
-<li><a href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" target="_blank" rel="noopener">EDA</a></li>
-<li><a href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/" target="_blank" rel="noopener">特征工程</a></li>
-<li><a href="https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" target="_blank" rel="noopener">建模调参</a></li>
-<li><a href="https://yam.gift/2020/09/26/ML/2020-09-26-ModelFusing/" target="_blank" rel="noopener">模型融合</a></li>
-<li><a href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/" target="_blank" rel="noopener">Hard-SVM, Soft-SVM 和 KKT</a></li>
-<li><a href="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" target="_blank" rel="noopener">核方法 和 SMO</a></li>
-</ul>
-<h2 id="DataScience"><a href="#DataScience" class="headerlink" title="DataScience"></a>DataScience</h2><ul>
-<li><a href="https://yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/" target="_blank" rel="noopener">高性能数据处理 | Yam</a></li>
-<li><a href="https://yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/" target="_blank" rel="noopener">List, Dict, Array, Series, DataFrame 相互转换</a></li>
-<li><a href="https://yam.gift/2016/09/19/DataSci/2016-09-19-NumPy/" target="_blank" rel="noopener">Numpy 入门</a></li>
-<li><a href="https://yam.gift/2017/03/05/DataSci/2017-03-05-Pandas/" target="_blank" rel="noopener">Pandas 入门</a></li>
-<li><a href="https://yam.gift/2018/12/15/DataSci/2018-12-15-Text-Classification-Data-Plot/" target="_blank" rel="noopener">绘制文本分类数据</a></li>
-<li><a href="https://yam.gift/2020/07/05/AIQA/2020-07-05-Introduction/" target="_blank" rel="noopener">QA 小课堂：Introduction | Yam</a></li>
-</ul>
-<h2 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h2><ul>
-<li><a href="https://yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/" target="_blank" rel="noopener">辛普森悖论及其哲学思考 | Yam</a></li>
-<li><a href="https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" target="_blank" rel="noopener">信息熵与选择：由三门问题想到的 | Yam</a></li>
-<li><a href="https://yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/" target="_blank" rel="noopener">线性代数的本质笔记 | Yam</a></li>
-<li><a href="https://yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/" target="_blank" rel="noopener">微积分的本质笔记 | Yam</a></li>
-</ul>
-<h2 id="Unix"><a href="#Unix" class="headerlink" title="Unix"></a>Unix</h2><ul>
-<li><a href="https://yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/" target="_blank" rel="noopener">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结 | Yam</a></li>
-<li><a href="https://yam.gift/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/" target="_blank" rel="noopener">AINLP GPU 使用体验指南 | Yam</a></li>
-<li><a href="https://yam.gift/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/" target="_blank" rel="noopener">Unix Cheat Sheet | Yam</a></li>
-<li><a href="https://yam.gift/2021/08/05/Unix/2021-08-05-Docker/" target="_blank" rel="noopener">Docker Memo | Yam</a></li>
-<li><a href="https://yam.gift/2021/08/12/Unix/2021-08-15-Git/" target="_blank" rel="noopener">Git Memo | Yam</a></li>
-</ul>
-<h2 id="Raspberrypi"><a href="#Raspberrypi" class="headerlink" title="Raspberrypi"></a>Raspberrypi</h2><ul>
-<li><a href="https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/" target="_blank" rel="noopener">机器之脑：树莓派初使用 | Yam</a></li>
-<li><a href="https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/" target="_blank" rel="noopener">机器之眼：树莓派摄像头 | Yam</a></li>
-</ul>
-<h2 id="Coding"><a href="#Coding" class="headerlink" title="Coding"></a>Coding</h2><ul>
-<li>Rust<ul>
-<li><a href="https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/" target="_blank" rel="noopener">Rust str 转 String</a></li>
-<li><a href="https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" target="_blank" rel="noopener">Rust Tutorial</a></li>
-<li><a href="https://yam.gift/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/" target="_blank" rel="noopener">Rust by Example Brief Note | Yam</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>LeetCode<ul>
-<li><a href="https://yam.gift/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" target="_blank" rel="noopener">Longest Substring Without Repeating Characters (LeetCode 3)</a></li>
-<li><a href="https://yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" target="_blank" rel="noopener">Median of Two Sorted Arrays (LeetCode 4)</a></li>
-<li><a href="https://yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" target="_blank" rel="noopener">Longest Palindromic Substring (LeetCode 5)</a></li>
-<li><a href="https://yam.gift/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/" target="_blank" rel="noopener">Generate Parentheses (LeetCode 22) | Yam</a></li>
-<li><a href="https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/" target="_blank" rel="noopener">Swap Nodes in Paris (LeetCode 24)</a></li>
-<li><a href="https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/" target="_blank" rel="noopener">Search in Rotated Sorted Array (LeetCode 33, 81, 153)</a></li>
-<li><a href="https://yam.gift/2020/08/31/DSA/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/" target="_blank" rel="noopener">Find First and Last Position of Element in Sorted Array (LeetCode 34)</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Python<ul>
-<li><a href="https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/" target="_blank" rel="noopener">Python 编码笔记整理 | Yam</a></li>
-<li><a href="https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/" target="_blank" rel="noopener">Jupyter Notebook Cheat Sheet | Yam</a></li>
-<li><a href="https://yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/" target="_blank" rel="noopener">Python 调用 Java</a></li>
-<li><a href="https://yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/" target="_blank" rel="noopener">Python Ellipsis | Yam</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>Python 小白快速入门教程<ul>
-<li><a href="https://yam.gift/2019/04/10/Python/Py4F/2019-04-10-Python-for-Freshman-Ch00/" target="_blank" rel="noopener">Ch00：在开始前</a></li>
-<li><a href="https://yam.gift/2019/10/02/Python/Py4F/2019-10-02-Python-for-Freshman-Ch01/" target="_blank" rel="noopener">Ch01：基础知识</a></li>
-<li><a href="https://yam.gift/2019/10/03/Python/Py4F/2019-10-03-Python-for-Freshman-Ch02/" target="_blank" rel="noopener">Ch02：使用模块</a></li>
-<li><a href="https://yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" target="_blank" rel="noopener">Ch03：使用框架</a></li>
-<li><a href="https://yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" target="_blank" rel="noopener">Ch04：阅读源码</a></li>
-<li><a href="https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" target="_blank" rel="noopener">Ch05：在结束后</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>剑指 Offer2（Python 版）解析<ul>
-<li><a href="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/" target="_blank" rel="noopener">剑指 Offer2（Python 版）解析（Ch2）</a></li>
-<li><a href="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/" target="_blank" rel="noopener">剑指 Offer2（Python 版）解析（Ch3）</a></li>
-<li><a href="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/" target="_blank" rel="noopener">剑指 Offer2（Python 版）解析（Ch4） </a></li>
-<li><a href="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/" target="_blank" rel="noopener">剑指 Offer2（Python 版）解析（Ch5）</a></li>
-<li><a href="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/" target="_blank" rel="noopener">剑指 Offer2（Python 版）解析（Ch6）</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>数据结构与算法<ul>
-<li><a href="https://yam.gift/2018/12/01/DSA/Think-Ds-Algo/2018-12-01-Ch00-Preface/" target="_blank" rel="noopener">数据结构与算法：前言</a></li>
-<li><a href="https://yam.gift/2018/12/21/DSA/Think-Ds-Algo/2018-12-21-Ch01-Introduction/" target="_blank" rel="noopener">数据结构与算法：导论</a></li>
-<li><a href="https://yam.gift/2018/12/31/DSA/Think-Ds-Algo/2018-12-31-Ch02-Thinking-Sort/" target="_blank" rel="noopener">数据结构与算法：思考排序</a></li>
-<li><a href="https://yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" target="_blank" rel="noopener">数据结构与算法：线性结构</a></li>
-<li><a href="https://yam.gift/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/" target="_blank" rel="noopener">Sort Based on Multiway Tree</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>C 语言课程笔记<ul>
-<li><a href="https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/" target="_blank" rel="noopener">浙大翁恺老师《程序设计入门 ——C 语言》笔记</a></li>
-<li><a href="https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/" target="_blank" rel="noopener">浙大翁恺老师《C 语言程序设计进阶》笔记</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>服务基础<ul>
-<li><a href="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" target="_blank" rel="noopener">GraphQL Glance</a></li>
-<li><a href="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" target="_blank" rel="noopener">GraphQL Elixir Glance</a></li>
-<li><a href="https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/" target="_blank" rel="noopener">常用 DataBase 相关操作和资源</a></li>
-<li><a href="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" target="_blank" rel="noopener">DataBase Foreign Data Wrapper</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="EFMB"><a href="#EFMB" class="headerlink" title="EFMB"></a>EFMB</h2><ul>
-<li><a href="https://yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" target="_blank" rel="noopener">由一场供应链讲座引发的思考</a></li>
-<li><a href="https://yam.gift/2015/11/30/Economy/2015-11-28-Built-to-Last/" target="_blank" rel="noopener">《基业长青》读书笔记</a></li>
-<li><a href="https://yam.gift/2015/12/01/Economy/2015-12-01-Management-Truth/" target="_blank" rel="noopener">《管人的真理》读书笔记</a></li>
-<li><a href="https://yam.gift/2015/11/30/Economy/2015-11-30-HaiDiLao/" target="_blank" rel="noopener">《海底捞你学不会》读书笔记</a></li>
-</ul>
-<h2 id="CogPsy"><a href="#CogPsy" class="headerlink" title="CogPsy"></a>CogPsy</h2><ul>
-<li><a href="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" target="_blank" rel="noopener">多贝里《清醒思考的艺术》读书笔记</a></li>
-<li><a href="https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/" target="_blank" rel="noopener">《自私的基因》读书笔记</a></li>
-</ul>
-<h2 id="Essay"><a href="#Essay" class="headerlink" title="Essay"></a>Essay</h2><ul>
-<li><a href="https://yam.gift/2017/08/31/Diary/2017-08-31-diary/" target="_blank" rel="noopener">随笔：人生，当有所为有所不为 | Yam</a></li>
-<li><a href="https://yam.gift/2019/07/15/Diary/2019-07-15-diary/" target="_blank" rel="noopener">随笔：命运 | Yam</a></li>
-</ul>
+<p><strong>感想</strong></p>
+<p>论文虽说方法简单，但实验还是比较严谨细致的，是篇蛮不错的 Paper；）</p>
 
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/series/index.html">
-    <time datetime="2019-07-13T12:00:00.000Z" class="entry-date">
-        2019-07-13
+    <a href="/2021/07/10/Paper/2021-07-10-SimCSE/">
+    <time datetime="2021-07-10T15:00:00.000Z" class="entry-date">
+        2021-07-10
     </time>
 </a>
     
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
     
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Contrastive-Learning/">Contrastive-Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embedding/">Embedding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SimCSE/">SimCSE</a></li></ul>
+
     </footer>
 </article>
 
 
     
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/07/18/Paper/2021-07-18-VOLT/" rel="prev"><span class="meta-nav">←</span> 通过最优转移进行词表学习：VOLT</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" rel="next">高效深度学习：让模型更小、更快、更好 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
 
 
 
