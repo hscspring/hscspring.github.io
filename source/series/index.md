@@ -5,11 +5,34 @@ date: 2019-07-13 20:00:00
 
 > 说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Growth](#growth)
+- [Collection](#collection)
+- [AI](#ai)
+- [NLP](#nlp)
+- [RecSearchCTR](#recsearchctr)
+- [DeepLearning](#deeplearning)
+- [MachineLearning](#machinelearning)
+- [DataScience](#datascience)
+- [Math](#math)
+- [Unix](#unix)
+- [Raspberrypi](#raspberrypi)
+- [Coding](#coding)
+- [EFMB](#efmb)
+- [CogPsy](#cogpsy)
+- [Essay](#essay)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 
 ## Growth
 
 - [AI 工程师养成记（上）](https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/)
-- [一些关于工作的观点（From《华为工作法》） | Yam](https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/)
+- [一些关于工作的观点（From《华为工作法》）](https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/)
 
 
 ## Collection
@@ -20,39 +43,58 @@ date: 2019-07-13 20:00:00
 
 ## AI
 
-- [西蒙《人工科学》读书笔记](https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/)
-- [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
-- [《与机器人共舞》读后感兼谈 AI 与 IA | Yam](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
+- 思考
+    - [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
+    - [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
+    - [NLP 与 AI](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
+
+
+- 哲学
+    - [西蒙《人工科学》读书笔记](https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/)
+    - [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
+    - [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
 
 
 ## NLP
 
-[自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/NLP/2017-04-09-NLPKnowledgeTree/)
-
 
 - 基础
-  - [中文分词系列一：思考分词](https://yam.gift/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/)
-  - [正则表达式笔记 | Yam](https://yam.gift/2017/09/04/NLP/2017-09-04-Regular-Expression/)
-  - [《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）](https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/)
+    - [自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/NLP/2017-04-09-NLPKnowledgeTree/)
+    - [中文分词系列一：思考分词](https://yam.gift/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/)
+    - [正则表达式笔记](https://yam.gift/2017/09/04/NLP/2017-09-04-Regular-Expression/)
+    - [《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）](https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/)
+    - [浅析文本分类 —— 情感分析与自然语言处理](https://yam.gift/2021/10/27/NLP/2021-10-27-Senta/)
+    - [TensorBay 指南](https://yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/)
 
 
-- 胡思乱想
+- 思考
     - [对NLP预训练模型的思考](https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/)
     - [NLP 表征的历史与未来](https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/)
-    - [分类与 AI](https://yam.gift/2020/11/28/NLP/2020-11-28-Classification-and-AI/)
-    - [NLP 与人工智能](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
-    - [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
-    - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/)
+
+
+- 语言
     - [《纳博科夫最喜欢的词》读书笔记与思考](https://yam.gift/2019/03/31/NLP/2019-03-31-Nabokov-Favorite-Word/)
+
+
+- 设计
+    - [2018CCF-GAIR：自然语言如何商业落地摘录及思考](https://yam.gift/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/)
     - [ChatBot 设计方案](https://yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/)
 
 
-- 知识图谱
+- 图谱
     - [关系提取简述](https://yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/)
     - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/)
 
 
-- 论文和模型：
+- 论文
+    - [2021 Prompt综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/)
+    - [2021 数据增强综述](https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/)
+    - [2021 去偏技术综述](https://yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/)
+    - [2021 在上下文中学习如何学习：MetaICL](https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/)
+    - [2021 通过最优转移进行词表学习：VOLT](https://yam.gift/2021/07/18/Paper/2021-07-18-VOLT/)
+    - [2021 SimCSE 和 R-Drop 在 TextCNN 上的实验](https://yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/)
+    - [2021 R-Drop](https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/)
+    - [2021 简单的对比学习框架：SimCSE](https://yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/)
     - [2021 高效深度学习：让模型更小、更快、更好](https://yam.gift/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/)
     - [2021 预训练模型的过去、现在和未来](https://yam.gift/2021/06/20/Paper/2021-06-20-PretrainedModels/)
     - [2021 Few-Shot NER and BERT Noisy Learning：ProtoBERT](https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/)
@@ -63,6 +105,7 @@ date: 2019-07-13 20:00:00
     - [2020 PEGASUS](https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/)
     - [2020 DeBERTa](https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/)
     - [2020 Reformer](https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/)
+    - [2019 UniLM](https://yam.gift/2021/07/31/Paper/2021-07-31-UniLM/)
     - [2019 Sentence-Bert](https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/)
     - [2019 Bart](https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/)
     - [2019 DistilBERT](https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/)
@@ -84,8 +127,7 @@ date: 2019-07-13 20:00:00
     - [2004 TextRank Keyword Extraction](https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/)
 
 
-
-- 读书笔记：SLP
+- 笔记：SLP
     - [Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02)](https://yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/)
     - [Language Model Note (SLP Ch03)](https://yam.gift/2017/10/14/NLP/SLP/2017-10-14-Ch03-Language-Model/)
     - [Naive Bayes and Sentiment Classification Note (SLP Ch04)](https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/)
@@ -101,7 +143,7 @@ date: 2019-07-13 20:00:00
     - [Information Extraction Note (SLP Ch18)](https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/)
 
 
-- 读书笔记：冯志伟《自然语言计算机形式分析的理论与方法》
+- 笔记：冯志伟《自然语言计算机形式分析的理论与方法》
     - [第一章：自然语言处理的学科定位](https://yam.gift/2018/09/19/NLP/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/)
     - [第二章：自然语言研究的先驱](https://yam.gift/2018/10/11/NLP/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/)
     - [第三章：基于短语结构语法的形式模型](https://yam.gift/2018/12/22/NLP/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/)
@@ -124,6 +166,7 @@ date: 2019-07-13 20:00:00
 
 ## RecSearchCTR
 
+
 - [推荐系统概述](https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/)
 - [协同过滤](https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/)
 - [矩阵分解](https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/)
@@ -133,6 +176,7 @@ date: 2019-07-13 20:00:00
 
 ## DeepLearning
 
+
 - [“心有麟熙”《强化学习炼金术》系列笔记 | Yam](https://yam.gift/2018/05/07/AI/2018-05-07-RL-Series/)
 - [Gan 原理、证明与实现 | Yam](https://yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/)
 - [NG CNN 笔记 | Yam](https://yam.gift/2018/08/14/AI/2018-08-14-Ng-CNN/)
@@ -140,6 +184,7 @@ date: 2019-07-13 20:00:00
 
 
 ## MachineLearning
+
 
 - [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
 - [Metrics](https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/)
@@ -154,6 +199,7 @@ date: 2019-07-13 20:00:00
 ## DataScience
 
 
+- [高性能数据处理 | Yam](https://yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/)
 - [List, Dict, Array, Series, DataFrame 相互转换](https://yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/)
 - [Numpy 入门](https://yam.gift/2016/09/19/DataSci/2016-09-19-NumPy/)
 - [Pandas 入门](https://yam.gift/2017/03/05/DataSci/2017-03-05-Pandas/)
@@ -163,6 +209,7 @@ date: 2019-07-13 20:00:00
 
 ## Math
 
+
 - [辛普森悖论及其哲学思考 | Yam](https://yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/)
 - [信息熵与选择：由三门问题想到的 | Yam](https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/)
 - [线性代数的本质笔记 | Yam](https://yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/)
@@ -171,13 +218,16 @@ date: 2019-07-13 20:00:00
 
 ## Unix
 
+
 - [Ubuntu16.04 安装 VirtualBox & Vagrant 管理 VirtualBox 各种问题总结 | Yam](https://yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/)
 - [AINLP GPU 使用体验指南 | Yam](https://yam.gift/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/)
 - [Unix Cheat Sheet | Yam](https://yam.gift/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/)
-
+- [Docker Memo | Yam](https://yam.gift/2021/08/05/Unix/2021-08-05-Docker/)
+- [Git Memo | Yam](https://yam.gift/2021/08/12/Unix/2021-08-15-Git/)
 
 
 ## Raspberrypi
+
 
 - [机器之脑：树莓派初使用 | Yam](https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/)
 - [机器之眼：树莓派摄像头 | Yam](https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/)
@@ -206,6 +256,7 @@ date: 2019-07-13 20:00:00
   - [Python 编码笔记整理 | Yam](https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/)
   - [Jupyter Notebook Cheat Sheet | Yam](https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/)
   - [Python 调用 Java](https://yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/)
+  - [Python Ellipsis | Yam](https://yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/)
 
 
 - Python 小白快速入门教程
@@ -247,6 +298,7 @@ date: 2019-07-13 20:00:00
 
 ## EFMB
 
+
 - [由一场供应链讲座引发的思考](https://yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/)
 - [《基业长青》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-28-Built-to-Last/)
 - [《管人的真理》读书笔记](https://yam.gift/2015/12/01/Economy/2015-12-01-Management-Truth/)
@@ -255,11 +307,13 @@ date: 2019-07-13 20:00:00
 
 ## CogPsy
 
+
 - [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
 - [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
 
 
 ## Essay
+
 
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
