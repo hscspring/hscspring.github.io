@@ -87,6 +87,7 @@ date: 2019-07-13 20:00:00
 
 
 - 论文
+    - [2021 多任务Prompt元学习](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/)
     - [2021 Prompt综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/)
     - [2021 数据增强综述](https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/)
     - [2021 去偏技术综述](https://yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/)
@@ -226,6 +227,11 @@ date: 2019-07-13 20:00:00
 - [Git Memo | Yam](https://yam.gift/2021/08/12/Unix/2021-08-15-Git/)
 
 
+## Net
+
+- [虚拟网络指南 | Yam](https://yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/)
+
+
 ## Raspberrypi
 
 
@@ -317,4 +323,4 @@ date: 2019-07-13 20:00:00
 
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
-
+- [《舞狮少年》观后 —— 信念、文化与希望 | Yam](https://yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/)
