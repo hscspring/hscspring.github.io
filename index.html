@@ -93,134 +93,15 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
         <p>论文：<a href="https://arxiv.org/abs/2111.10952" target="_blank" rel="noopener">[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning</a></p>
 <p>Code：T5</p>
 <p>一句话概述：任务数量很多时，不妨试试 MTL 预训练。</p>
 <p>摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督任务的跨领域大规模任务集合。并借此研究了迄今为止最大规模的多任务预训练效果，分析常见任务族之间的协同训练迁移。结果显示，为多任务预训练手动策划一组理想的任务并不简单，而且多任务扩展本身可以极大地改进模型。最后，提出 ExT5：使用自监督跨度去噪和监督 ExMIX 的多任务目标预训练模型，在多个数据集上超过了 T5。</p>
-<h3 id="ExMIX-任务集"><a href="#ExMIX-任务集" class="headerlink" title="ExMIX 任务集"></a>ExMIX 任务集</h3><p>多任务学习有个问题，就是需要设计挑选任务，以便彼此能形成正想增益效果。ExT5 通过在 107 个监督任务的实验表明了挑选这样的任务自己付是很困难的，不过效果相比 T5 却有极大的提升。我们来看看它是怎么做的。</p>
-<p>首先，要将 107 个不同的任务 18M 个样本（即 ExMIX），全部格式化成 T5 的格式，这有个好处就是不用关心特定任务头、损失等；其次，采样时，根据每个数据集样本大小等机会采样，同时设置 30 万的上限以平衡不同大小数据集。</p>
-<p>数据集被分成以下 8 组：</p>
-<ul>
-<li>摘要（Summarization）</li>
-<li>对话（Dialogue）</li>
-<li>推理（NLI）</li>
-<li>分类（Classification）</li>
-<li>语义解析（Semantic Parsing）</li>
-<li>常识（Commonsense）</li>
-<li>封闭式QA（Closed-Book QA）</li>
-<li>阅读理解（Reading Comprehension）</li>
-</ul>
-<blockquote>
-<p>注：封闭式QA是没有知识库直接问问题；相反的是 Open-Book QA。</p>
-</blockquote>
-<h3 id="基本问题"><a href="#基本问题" class="headerlink" title="基本问题"></a>基本问题</h3><p><strong>第一个问题：哪些任务对下游表现有负面影响？</strong></p>
-<p>本来应该尝试所有的任务组合，不过显然那太麻烦，这里使用了上面「组」的组合。采样时，组内按比例，组间相等。让我们看看效果：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ext5-1.jpeg" alt=""></p>
-<p>上图中：每一行表示该组和其他组共同训练后在其他组上的表现；红色的是表现差的，绿色的是表现好的。</p>
-<p>结果是赤裸裸的：在预训练上简单的进行多任务学习挑战很大！</p>
-<blockquote>
-<p>不过在这里我们有理由怀疑，T5 的这种形式对结果有没有影响？</p>
-</blockquote>
-<p><strong>第二个问题：能不能定制预训练任务组合达到最好效果？</strong></p>
-<p>这次做了三组实验，一组是选择了之前提升最多的组，一组是随机选择，还有一组是所有的组。让我们看看效果：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Mixture</th>
-<th>#Tasks</th>
-<th>SuperGLUE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vanilla</td>
-<td>0</td>
-<td>76.1</td>
-</tr>
-<tr>
-<td>Best-effort</td>
-<td>48</td>
-<td>76.4</td>
-</tr>
-<tr>
-<td>Random-55</td>
-<td>55</td>
-<td>77.0</td>
-</tr>
-<tr>
-<td>ExMIX</td>
-<td>107</td>
-<td>79.9</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>结果很明显：负向迁移并不一定会抑制预训练。</p>
-<p><strong>第三个问题：多任务预训练 VS 预微调哪个效果好？</strong></p>
-<p>预微调过程：T5 checkpoint + ExMIX 上预微调。</p>
-<blockquote>
-<p>预微调：FaceBook 2021 年的论文，预微调是在具体任务上微调之前再额外增加的一个步骤，利用了大规模多任务学习。设计初衷是为了更好地学习（泛化）到不同任务上的表示。</p>
-</blockquote>
-<p>实验效果如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Compute</th>
-<th>SuperGLUE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vanilla</td>
-<td>1.2M</td>
-<td>76.1</td>
-</tr>
-<tr>
-<td>Pre-finetuning(200k)</td>
-<td>1.4M</td>
-<td>78.1</td>
-</tr>
-<tr>
-<td>Multi-task Pre-training</td>
-<td>1.2M</td>
-<td>79.9</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>结论很明显：多任务预训练更好。但我们需要解释，猜测是：</p>
-<ul>
-<li>多任务预训练缩小了预训练和微调数据分布之间的差距。</li>
-<li>将预训练和预微调分成两个不同的阶段可能会导致灾难性地忘记预训练任务。</li>
-</ul>
-<p><strong>第四个问题：需要加入多少标注数据？</strong></p>
-<p>使用了一个超参数 R，表示每个批次中样例的数量是正常（ExMIX）的 R 倍。</p>
-<p>效果如下图 4 所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ext5-2.jpeg" alt=""></p>
-<p>结论：虽然 ExMIX 改进了预训练过程，但对大型非结构化语料库的自监督训练仍然至关重要。</p>
-<p><strong>第五个问题：更多任务有没有用？</strong></p>
-<p>通过随机选择 30 55 和 80 个任务，使用不同的 BatchSize（128 和 512）进行实验（先预训练再微调）。</p>
-<p>结果如上图 5 所示，表明大批次更多的任务有效，小批次不明显。给出的解释是：</p>
-<ul>
-<li>多任务会导致梯度噪声（所以需要更多数据）。</li>
-<li>大批次即使对单任务也有效。</li>
-</ul>
-<p><strong>第六：提升样本效率</strong></p>
-<p>ExMIX 预训练比原始的自监督训练更有效，20k 步就超出 BERT large 4%。</p>
-<h3 id="ExT5"><a href="#ExT5" class="headerlink" title="ExT5"></a>ExT5</h3><p>主要是和 T5 做对比，采用预训练+微调的范式，数据集是 C4+ExMIX。实验分两组：</p>
-<ul>
-<li>混合内任务：衡量从多任务预训练和任务扩展中的收益。</li>
-<li>混合外任务：衡量泛化到没见过的任务的效果。</li>
-</ul>
-<p>对第一组，在 SuperGLUE 等 5 个数据集上，ExT5 在大多数任务上都取得了比 T5 更好的表现。第二组考察了 MT，Reasoning，NER 三个任务，结果是全面优于 T5。</p>
-<p>因此，当任务数量增加到一定数量时（上面第五个问题），是值得进行多任务预训练的。</p>
-<h3 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h3><p>本文探索了大规模多任务学习如何影响自监督预训练策略，并引入了 ExMIX 和 ExT5，结果表明，虽然在多任务上负迁移很常见，但增加任务的多任务预训练却能表现出不错的效果和更好的样本效率。也就是说，如果任务足够，钱也足够，多任务预训练还是可以一试的。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2022/02/19/Paper/2022-02-19-ExT5/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 

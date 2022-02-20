@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ext5-1.jpeg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ext5-2.jpeg">
-<meta property="og:updated_time" content="2022-02-20T12:45:53.044Z">
+<meta property="og:updated_time" content="2022-02-20T12:54:17.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning">
 <meta name="twitter:description" content="论文：[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning Code：T5 一句话概述：任务数量很多时，不妨试试 MTL 预训练。 摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督">
@@ -102,6 +102,7 @@
 <p>Code：T5</p>
 <p>一句话概述：任务数量很多时，不妨试试 MTL 预训练。</p>
 <p>摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督任务的跨领域大规模任务集合。并借此研究了迄今为止最大规模的多任务预训练效果，分析常见任务族之间的协同训练迁移。结果显示，为多任务预训练手动策划一组理想的任务并不简单，而且多任务扩展本身可以极大地改进模型。最后，提出 ExT5：使用自监督跨度去噪和监督 ExMIX 的多任务目标预训练模型，在多个数据集上超过了 T5。</p>
+<a id="more"></a>
 <h3 id="ExMIX-任务集"><a href="#ExMIX-任务集" class="headerlink" title="ExMIX 任务集"></a>ExMIX 任务集</h3><p>多任务学习有个问题，就是需要设计挑选任务，以便彼此能形成正想增益效果。ExT5 通过在 107 个监督任务的实验表明了挑选这样的任务自己付是很困难的，不过效果相比 T5 却有极大的提升。我们来看看它是怎么做的。</p>
 <p>首先，要将 107 个不同的任务 18M 个样本（即 ExMIX），全部格式化成 T5 的格式，这有个好处就是不用关心特定任务头、损失等；其次，采样时，根据每个数据集样本大小等机会采样，同时设置 30 万的上限以平衡不同大小数据集。</p>
 <p>数据集被分成以下 8 组：</p>
