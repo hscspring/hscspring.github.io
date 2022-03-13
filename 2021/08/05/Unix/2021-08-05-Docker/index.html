@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Docker 备忘。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2022-01-25T02:28:43.950Z">
+<meta property="og:updated_time" content="2022-03-10T06:47:48.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker Memo">
 <meta name="twitter:description" content="Docker 备忘。">
@@ -110,7 +110,7 @@
 <li>只有 <code>-p</code> 时，容器外部可以访问，同时会自动 <code>EXPOSE</code></li>
 </ul>
 <h3 id="timezone"><a href="#timezone" class="headerlink" title="timezone"></a>timezone</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line">RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime &amp;&amp; echo $TZ &gt; /etc/timezone</span><br></pre></td></tr></table></figure>
-<h3 id="base-command"><a href="#base-command" class="headerlink" title="base command"></a>base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop $(docker ps <span class="_">-a</span> -q);</span><br></pre></td></tr></table></figure>
+<h3 id="base-command"><a href="#base-command" class="headerlink" title="base command"></a>base command</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop $(docker ps <span class="_">-a</span> -q);</span><br><span class="line">$ docker logs <span class="_">-f</span> &lt;contaner name&gt; &amp;&gt; yourlog.log &amp;</span><br></pre></td></tr></table></figure>
 <h3 id="remove"><a href="#remove" class="headerlink" title="remove"></a>remove</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi $(docker images --filter <span class="string">"dangling=true"</span> -q --no-trunc)</span><br><span class="line">$ docker images | grep none | awk <span class="string">'&#123; print $3; &#125;'</span> | xargs docker rmi</span><br><span class="line">$ docker image prune --filter=<span class="string">"dangling=true"</span></span><br></pre></td></tr></table></figure>
 <h3 id="host"><a href="#host" class="headerlink" title="host"></a>host</h3><p>在 <code>docker run</code> 时使用 <code>--net=&quot;host&quot;</code> 后，容器内的 <code>localhost</code> 就是 Docker 的 host。Mac 下可以使用 <code>host.docker.internal</code>。</p>
 <h3 id="enviroment"><a href="#enviroment" class="headerlink" title="enviroment"></a>enviroment</h3><p>Dockerfile：</p>
