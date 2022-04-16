@@ -40,7 +40,6 @@ date: 2019-07-13 20:00:00
 - [AIToolBox: My AI Basic Tool Box](https://github.com/hscspring/AIToolBox)
 - [All4NLP: All For NLP, especially Chinese.](https://github.com/hscspring/All4NLP)
 
-
 ## AI
 
 - 思考
@@ -70,6 +69,7 @@ date: 2019-07-13 20:00:00
 - 思考
     - [对NLP预训练模型的思考](https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/)
     - [NLP 表征的历史与未来](https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/)
+    - [句子表征综述](https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/)
 
 
 - 语言
@@ -87,6 +87,10 @@ date: 2019-07-13 20:00:00
 
 
 - 论文
+    - [2022 Impossible Triangle](https://yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/)
+    - [2022 NLM Memorization](https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/)
+    - [2022 REINA](https://yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/)
+    - [2021 ExT5](https://yam.gift/2022/02/19/Paper/2022-02-19-ExT5/)
     - [2021 多任务Prompt元学习](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/)
     - [2021 Prompt综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/)
     - [2021 数据增强综述](https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/)
@@ -99,6 +103,7 @@ date: 2019-07-13 20:00:00
     - [2021 高效深度学习：让模型更小、更快、更好](https://yam.gift/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/)
     - [2021 预训练模型的过去、现在和未来](https://yam.gift/2021/06/20/Paper/2021-06-20-PretrainedModels/)
     - [2021 Few-Shot NER and BERT Noisy Learning：ProtoBERT](https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/)
+    - [2020 T5](https://yam.gift/2022/03/05/Paper/2022-03-05-T5/)
     - [2020 SqueezeBERT](https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/)
     - [2020 深度探索 Bert：BERTology](https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/)
     - [2020 Bert-Flow](https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/)
@@ -106,6 +111,7 @@ date: 2019-07-13 20:00:00
     - [2020 PEGASUS](https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/)
     - [2020 DeBERTa](https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/)
     - [2020 Reformer](https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/)
+    - [2019 T5](https://yam.gift/2022/03/05/Paper/2022-03-05-T5/)
     - [2019 UniLM](https://yam.gift/2021/07/31/Paper/2021-07-31-UniLM/)
     - [2019 Sentence-Bert](https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/)
     - [2019 Bart](https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/)
