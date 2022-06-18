@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>线性代数的本质笔记 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说明：来自：3Blue1Brown，关键点的记录，用来当笔记随时查阅和再学习的。多图。感谢作者的付出，真心很赞。 吐槽一下：B 站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。 后面六个视频要多看几遍。  目录 1&amp;nbsp;&amp;nbsp;序言 2&amp;nbsp;&amp;nbsp;向量究竟是什么？3&amp;nbsp;&amp;nbsp;线性组合、张成的空间与基 4&amp;nbsp;&amp;nb">
+<meta name="keywords" content="Math,Linear Algebra">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线性代数的本质笔记">
+<meta property="og:url" content="https://www.yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="说明：来自：3Blue1Brown，关键点的记录，用来当笔记随时查阅和再学习的。多图。感谢作者的付出，真心很赞。 吐槽一下：B 站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。 后面六个视频要多看几遍。  目录 1&amp;nbsp;&amp;nbsp;序言 2&amp;nbsp;&amp;nbsp;向量究竟是什么？3&amp;nbsp;&amp;nbsp;线性组合、张成的空间与基 4&amp;nbsp;&amp;nb">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi1.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi2.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi4.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi5.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi6.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi7.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi8.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi9.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi10.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi11.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi12.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi13.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi14.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi15.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi16.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi17.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi18.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi19.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi20.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi22.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi21.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi23.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi24.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi25.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi26.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi27.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi28.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi29.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi30.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi32.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi33.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi34.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi37.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi35.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi36.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi38.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi39.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi40.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi41.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi42.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi43.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi44.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi45.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi46.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi47.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi48.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi49.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi50.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi51.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi52.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi53.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi54.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi55.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi56.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi58.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi59.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi57.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi60.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi61.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi62.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi63.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi64.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi65.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi66.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi67.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi68.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi69.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi70.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi71.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi72.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi73.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi74.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi75.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi76.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi77.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi78.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi79.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi80.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi81.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi82.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi83.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi85.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi86.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi87.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi88.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi89.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi90.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi91.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi92.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi93.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi94.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi95.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi96.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi98.jpeg">
+<meta property="og:updated_time" content="2019-04-13T06:30:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线性代数的本质笔记">
+<meta name="twitter:description" content="说明：来自：3Blue1Brown，关键点的记录，用来当笔记随时查阅和再学习的。多图。感谢作者的付出，真心很赞。 吐槽一下：B 站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。 后面六个视频要多看几遍。  目录 1&amp;nbsp;&amp;nbsp;序言 2&amp;nbsp;&amp;nbsp;向量究竟是什么？3&amp;nbsp;&amp;nbsp;线性组合、张成的空间与基 4&amp;nbsp;&amp;nb">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/video-xiandaibenzhi1.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Math/2018-05-13-Essence-of-Linear-Algebra" class="post-Math/2018-05-13-Essence-of-Linear-Algebra post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      线性代数的本质笔记
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/" data-id="ckx1vldiz00kip8bzqj7yxfd5" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：来自：<a href="https://space.bilibili.com/88461692/#/channel/detail?cid=9450" target="_blank" rel="noopener">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅和再学习的。多图。<br>感谢作者的付出，真心很赞。</p>
+<p>吐槽一下：B 站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。</p>
+<p>后面六个视频要多看几遍。</p>
+</blockquote>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p> </p><p><div class="lev1 toc-item"><a href="#序言" data-toc-modified-id="序言-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>序言 </a></div><div class="lev1 toc-item"><a href="#向量究竟是什么？" data-toc-modified-id="向量究竟是什么？-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>向量究竟是什么？</a></div><div class="lev1 toc-item"><a href="#线性组合、张成的空间与基" data-toc-modified-id="线性组合、张成的空间与基-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>线性组合、张成的空间与基 </a></div><div class="lev1 toc-item"><a href="#矩阵与线性变换" data-toc-modified-id="矩阵与线性变换-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>矩阵与线性变换 </a></div><div class="lev1 toc-item"><a href="#矩阵乘法与线性变换复合" data-toc-modified-id="矩阵乘法与线性变换复合-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>矩阵乘法与线性变换复合 </a></div><div class="lev2 toc-item"><a href="#三维空间中的线性变换" data-toc-modified-id="三维空间中的线性变换-51"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>三维空间中的线性变换 </a></div><div class="lev1 toc-item"><a href="#行列式" data-toc-modified-id="行列式-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>行列式 </a></div><div class="lev1 toc-item"><a href="#逆矩阵、列空间与零空间" data-toc-modified-id="逆矩阵、列空间与零空间-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>逆矩阵、列空间与零空间 </a></div><div class="lev2 toc-item"><a href="#非方阵" data-toc-modified-id="非方阵-71"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>非方阵 </a></div><div class="lev1 toc-item"><a href="#点积与对偶性" data-toc-modified-id="点积与对偶性-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>点积与对偶性 </a></div><div class="lev1 toc-item"><a href="#叉积的标准介绍" data-toc-modified-id="叉积的标准介绍-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>叉积的标准介绍 </a></div><div class="lev1 toc-item"><a href="#以线性变换的思想看叉积" data-toc-modified-id="以线性变换的思想看叉积-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>以线性变换的思想看叉积 </a></div><div class="lev1 toc-item"><a href="#基变换" data-toc-modified-id="基变换-11"><span class="toc-item-num">11&nbsp;&nbsp;</span>基变换 </a></div><div class="lev1 toc-item"><a href="#特征向量与特征值" data-toc-modified-id="特征向量与特征值-12"><span class="toc-item-num">12&nbsp;&nbsp;</span>特征向量与特征值 </a></div><div class="lev1 toc-item"><a href="#抽象向量空间" data-toc-modified-id="抽象向量空间-13"><span class="toc-item-num">13&nbsp;&nbsp;</span>抽象向量空间 </a></div></p>
+<h1 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h1><p>几何水平上的理解能让你判断出解决特定问题需要用什么样的工具，感受到他们为什么有用，以及如何解读最终结果。数值水平上的理解则能让你顺利应用这些工具。</p>
+<h1 id="向量究竟是什么？"><a href="#向量究竟是什么？" class="headerlink" title="向量究竟是什么？"></a>向量究竟是什么？</h1><p>将向量看作运动（就像在数轴上一样）。</p>
+<p>看作空间中的箭头，看作数字列表。</p>
+<h1 id="线性组合、张成的空间与基"><a href="#线性组合、张成的空间与基" class="headerlink" title="线性组合、张成的空间与基"></a>线性组合、张成的空间与基</h1><p>将向量看作单位向量的缩放（缩放向量并相加）：选择标量，对向量分别进行缩放，然后把结果相加。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi1.jpeg" alt=""></p>
+<p>如果选择不同的基向量会怎样？</p>
+<p>它同样允许我们在<strong>一对数和二维向量之间自由转化</strong>。但这种变换关系与之前用 i 帽和 j 帽的变换关系完全不同。</p>
+<p>每当我们用数字描述向量时，它都依赖于我们正在使用的基。<br><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi2.jpeg" alt=""></p>
+<p>但当共线时，它们张成的空间就是终点落在一条直线上的向量的集合。</p>
+<p>两个向量张成的空间实际上是问仅通过向量加法与向量数乘这两种基础运算，能获得的所有可能向量的集合是什么？</p>
+<p>Trick：单个向量看作箭头；多个向量看作点（否则会太拥挤）。所以对大部分二维向量对来说，它们张成的空间是整个无限大的二维平面；但如果共线，它们张成的空间就是一条直线。</p>
+<p>三维与二维类似：当你缩放第三个向量时，它将前两个向量张成的平面沿它的方向来回异动，从而扫过整个空间。另一种思考方式是：利用自由变化的三个标量，从而得到空间中所有的三维向量。</p>
+<p>一组向量中如果有至少一个是多余的（没有对张成空间做出任何贡献，如二维的共线、三维的共面等），也就是移除那个向量而不减小张成的空间，此时它们是 “线性相关” 的。另一种表述是，其中一个向量可以表示为其他向量的线性组合，因为这个向量已经落在其他向量张成的空间之中。</p>
+<p>另一方面，如果所有向量都给张成的空间增加了新的维度，它们就被称为 “线性无关” 的。</p>
+<p>空间的一组基的严格定义：张成该空间的一个线性无关向量的集合。</p>
+<a id="more"></a>
+<h1 id="矩阵与线性变换"><a href="#矩阵与线性变换" class="headerlink" title="矩阵与线性变换"></a>矩阵与线性变换</h1><p>变换=函数，变换暗示要用 “运动” 思考。</p>
+<p>线性代数的线性变换，两条性质：</p>
+<ul>
+<li>直线在变换后仍然保持为直线</li>
+<li>原点必须保持固定</li>
+</ul>
+<p>应该把线性变换看作是 “保持网格线平行且等距分布” 的变换。</p>
+<p>如何用数值描述线性变换（你给它一个向量的坐标，它能给你变换后向量的坐标）？</p>
+<p>实际结果是：只需要记录两个基向量变换后的位置，其他向量会随之而动。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi5.jpeg" alt=""></p>
+<p>一个二维线性变换仅由四个数字完全确定：变换后的基向量各自的坐标。通常将这些坐标放在一个格子中，称为矩阵。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi6.jpeg" alt=""></p>
+<p>所以，矩阵就是变换后的基向量组合（张成的空间，列就是其中的一个基向量），矩阵乘以向量就是将向量变换（映射）到矩阵张成的空间中。</p>
+<p>反过来，给定一个矩阵就代表一种对空间的特定变换。</p>
+<p>如果两个向量列相关，那么这个变换将整个二维空间挤压到它们所在的一条直线上，也就是这两个线性相关向量所张成的一维空间。</p>
+<p>总结：线性变换是操纵空间的一种手段，它保持网格线平行且等距分布，并且保持原点不动。可以用变换后基向量描述，以这些基向量坐标为列所构成的矩阵就是对线性变换的描述。矩阵向量乘法就是计算线性变换作用于给定向量的一种途径。</p>
+<h1 id="矩阵乘法与线性变换复合"><a href="#矩阵乘法与线性变换复合" class="headerlink" title="矩阵乘法与线性变换复合"></a>矩阵乘法与线性变换复合</h1><p>复合变换（两种变换），实际根据跟踪基向量，可以看作一个变换。</p>
+<p>如：对一个给定向量进行旋转然后剪切，结果应该与复合变换作用的结果完全相同。因为新矩阵应当捕捉到了旋转然后剪切的相同总体效应。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi8.jpeg" alt=""></p>
+<p>所以每次将两个函数复合时，总是要从右向左读。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi9.jpeg" alt=""></p>
+<h2 id="三维空间中的线性变换"><a href="#三维空间中的线性变换" class="headerlink" title="三维空间中的线性变换"></a>三维空间中的线性变换</h2><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi10.jpeg" alt=""></p>
+<p>与二维完全类似。</p>
+<h1 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h1><p>线性变换改变面积的比例，被称为这个变换的行列式。</p>
+<p>只需要检验一个矩阵的行列式是否为 0，就能了解这个矩阵所代表的变换是否将空间压缩到更小的维度。</p>
+<p>行列式为负数表示空间翻转，但绝对值依然表示区域面积的缩放比例。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi11.jpeg" alt=""></p>
+<p>三维的行列式是体积缩放的比例。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi12.jpeg" alt=""></p>
+<p>如果 bc 均不为 0，那么 bc 项表示平行四边形在对角线方向上拉伸或压缩了多少。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi13.jpeg" alt=""></p>
+<p>试用一句话解释：det(M1M2) = det(M1)det(M2)</p>
+<h1 id="逆矩阵、列空间与零空间"><a href="#逆矩阵、列空间与零空间" class="headerlink" title="逆矩阵、列空间与零空间"></a>逆矩阵、列空间与零空间</h1><p>求解 Ax=v 意味着我们去寻找一个向量 x，使得它在变换后与 v 重合。</p>
+<ul>
+<li><p>行列式不为零时，存在逆变换（A 的逆矩阵）</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi14.jpeg" alt=""></p>
+</li>
+</ul>
+<ul>
+<li>行列式为零时，A 将空间压缩到更低的维度，此时没有逆变换（不能将一条线 “解压缩” 为一个平面）<ul>
+<li>即使不存在逆变换，解依然可能存在。比如该变换将空间压缩为一条直线，向量 v 正好处于这条直线上。</li>
+<li>三维压缩为一条直线时，与平面相比，解存在的难度更高了，即使两种情况行列式都为零。</li>
+</ul>
+</li>
+</ul>
+<p>秩：代表变换后空间的维数。列空间的维数。</p>
+<p>列空间：无论是直线、平面还是空间，所有可能的变换结果的集合被称为矩阵的 “列空间”。</p>
+<p>矩阵的列告诉我们基向量变换后的位置，这些变换后的基向量张成的空间就是所有可能的变换结果。</p>
+<p>零向量一定会被包含在列空间中，因为线性变换必须保持原点位置不变。</p>
+<p>对于一个满秩变换来说，唯一能在变换后落在原点的就是零向量自身；但是对于一个非满秩的矩阵来说，它将空间压缩到一个更低的维度上，也就是说会有一系列列向量在变换后成为零向量。比如：一个三维线性变换将空间压缩到一条直线上，就有一整个平面上的向量在变换后落在原点。</p>
+<p>零空间：变换后落在原点的向量的集合，被称为矩阵的 “零空间” 或 “核”。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi15.jpeg" alt=""></p>
+<h2 id="非方阵"><a href="#非方阵" class="headerlink" title="非方阵"></a>非方阵</h2><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi16.jpeg" alt=""></p>
+<p>该矩阵所张成的空间是三维空间中一个过原点的二维平面。但这个矩阵是满秩的，因为列空间的维数与输入空间的维数相等。</p>
+<p>表示将二维空间映射到三维空间上。矩阵有两列表明输入空间有两个基向量，有三行表示每一个基向量在变换后都用三个独立的坐标来描述。</p>
+<p>将该矩阵转置后类似，将三维空间映射到二维空间。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi17.jpeg" alt=""></p>
+<p>接收二维向量，产生一个数：如果在一条直线上有一系列等距分布的点，在映射到数轴之后，它们将保持等距分布。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi18.jpeg" alt=""></p>
+<h1 id="点积与对偶性"><a href="#点积与对偶性" class="headerlink" title="点积与对偶性"></a>点积与对偶性</h1><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi19.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi20.jpeg" alt=""></p>
+<ul>
+<li>两个向量指向大致相同时，点积为正</li>
+<li>垂直时，一个向量在另一个向量的投影为零向量，点积为零</li>
+<li>指向基本相反时，点积为负</li>
+</ul>
+<p>点积计算与顺序无关。对称性：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi22.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi21.jpeg" alt=""></p>
+<p>但是被投影向量的长度变为原来的两倍。反过来也类似。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi23.jpeg" alt=""></p>
+<p>但是被投影向量的长度保持不变。</p>
+<p>所以，即便对称性被破坏，在这两种理解方式下，缩放向量对点积结果的影响是相同的。</p>
+<p>为什么点积和投影有联系？对偶性。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi24.jpeg" alt=""></p>
+<p>感觉就像 “点积”。将向量转化为数的线性变换和这个向量本身有着某种关系。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi25.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi26.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi27.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi28.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi29.jpeg" alt=""></p>
+<p>即便数轴在二维空间，上述函数的输出结果还是数，而不是二维向量。应该把它看作一个接收两个坐标并输出一个坐标的函数。根据这个投影，定义一个从二维向量到数的线性变换，找到能够描述这个变换的 1×2 矩阵：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi30.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi32.jpeg" alt=""></p>
+<p>可以通过对称性进行推理：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi33.jpeg" alt=""></p>
+<p>所以说，如果要问 i 帽在投影之后落在哪个数上，答案就应该是 u 帽向 x 轴投影所得到的数。而 u 帽向 x 轴投影得到的数就是 u 帽的横坐标。因此根据对称性，i 帽向斜着的数轴上的投影所得到的数就是 u 帽的横坐标。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi34.jpeg" alt=""></p>
+<p>所以，描述投影变换的 1×2 矩阵的两列，就分别是 u 帽的两个坐标。而空间中任意向量经过投影变换的结果，也就是投影矩阵与这个向量相乘，和这个向量与 u 帽的点积在计算上完全相同。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi37.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi35.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi36.jpeg" alt=""></p>
+<p>这就是为什么与单位向量的点积可以解读为将向量投影到单位向量所在的直线上所得到的投影长度。</p>
+<p>对于向量与给定非单位向量的点积可以解读为，首先朝给定向量上投影，然后将投影的值与给定向量长度相乘。</p>
+<p><strong>总结一下过程：</strong></p>
+<p>我们有一个从二维空间到数轴的线性变换，它并不是由向量数值或点积运算定义得到的，而只是通过将空间投影到给定数轴上来定义。但是因为这个变换是线性的，所以它必然是可以用某个 1×2 矩阵描述，又因为 1×2 矩阵与二维向量相乘的计算过程和转置矩阵并求点积的计算过程相同，所以这个投影变换必然会与某个二维向量相关。这里的启发是：任何时候看到一个线性变换，它的输出空间是一维数轴，无论它是如何定义的，空间中会存在唯一的向量 v 与之相关，应用变换与向量 v 做点积是一样的。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi38.jpeg" alt=""></p>
+<p>对偶：</p>
+<ul>
+<li>一个向量的对偶是由它定义的线性变换。</li>
+<li>一个多维空间到一维空间的线性变换的对偶是多维空间中的某个特定向量。</li>
+</ul>
+<p>再总结一下，表面上看，点积是理解投影的有利几何工具，并且方便检验两个向量的指向是否相同。不过更进一步，<strong>两个向量点乘，就是将其中一个向量转化为线性变换。不把向量看作空间中的箭头，而把它看作线性变换的物质载体，会更容易理解向量。向量仿佛是一个特定变换的概念性记号，因为对我们来说，想象空间中的向量比想象整个空间移动到数轴上更加容易</strong>。</p>
+<h1 id="叉积的标准介绍"><a href="#叉积的标准介绍" class="headerlink" title="叉积的标准介绍"></a>叉积的标准介绍</h1><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi39.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi40.jpeg" alt=""></p>
+<p>当两个向量垂直时，和它们指向接近时相比，叉积更大。因为当两条边接近垂直时，平行四边形的面积会更大。</p>
+<p>如果放大其中一个向量，叉积放大同样倍。</p>
+<p>真正的叉积是通过两个三维向量生成的一个新的三维向量。叉积的结果是一个向量，不是一个数。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi41.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi42.jpeg" alt=""></p>
+<h1 id="以线性变换的思想看叉积"><a href="#以线性变换的思想看叉积" class="headerlink" title="以线性变换的思想看叉积"></a>以线性变换的思想看叉积</h1><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi43.jpeg" alt=""></p>
+<p>对偶：每当看到一个从空间到数轴的线性变换，你都能够找到一个向量，被称为这个变换的对偶向量，使得应用线性变换与对偶向量点乘等价。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi44.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi45.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi46.jpeg" alt=""></p>
+<p>函数是线性的，因此可以用对偶性。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi47.jpeg" alt=""></p>
+<p>对偶性的整体思路是：从多维空间到一维空间的变换的特别之处在于你可以将这个矩阵立起来，并且将整个变换看作与这个特定向量的点积。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi48.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi49.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi50.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi51.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi52.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi53.jpeg" alt=""></p>
+<p>换句话说，我们找到的线性函数对于给定向量的作用，是将这个向量投影到垂直于 v 和 w 的直线上，然后将投影长度与 v 和 w 张成的平行四边形的面积相乘。</p>
+<p>但是，这和垂直于 v 和 w 且长度为平行四边形面积的向量与 (x,y,z) 点乘是同一回事。更重要的是，如果你选择了合适的向量方向，点积为正的情况就会与 (x,y,z)、v 和 w 满足右手定则的情况相吻合。</p>
+<p>这意味着我们找到了一个向量 p 使得 p 与和某个向量 (x,y,z) 点乘时，所得结果等于一个 3×3 矩阵的行列式，这个矩阵的三列分别为 (x,y,z)、v 的坐标和 w 的坐标。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi54.jpeg" alt=""></p>
+<p><strong>总结：</strong></p>
+<p>首先定义了一个三维空间到数轴的线性变换，并且它是根据向量 v 和 w 来定义的；然后通过两种不同的方式来考虑这个变换的对偶向量，即应用这个变换和与对偶向量点乘等价。一方面，计算方法引导你使用下面这种技巧：在矩阵第一列中插入 i 帽、j 帽和 k 帽，然后计算行列式；但从几何角度思考，可以推断出这个对偶向量必然与 v 和 w 垂直，并且其长度与这两个向量张成的平行四边形的面积相同。这两种方法给出了同一个变换的对偶向量，因此这两个向量必然相同。</p>
+<h1 id="基变换"><a href="#基变换" class="headerlink" title="基变换"></a>基变换</h1><p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi55.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi56.jpeg" alt=""></p>
+<p>把矩阵看作我们对詹妮弗的向量的误解，也就是在我们的坐标系中具有相同坐标的向量变换为她真正想表示的向量。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi58.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi59.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi57.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi60.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi61.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi62.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi63.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi64.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi65.jpeg" alt=""></p>
+<p>首先，我们不用她的语言描述这一过程。而是用基变换矩阵转化为用我们的语言描述，这个矩阵的列代表的是用我们的语言描述的她的基向量。此时给出的是同样一个向量，不过是用我们的语言来描述的。</p>
+<p>然后，将所得结果左乘线性变换（逆时针旋转90°）矩阵，此时给出的是变换后的向量，但仍然是用我们的语言来描述的。</p>
+<p>最后，将所得结果左乘基变换矩阵的逆，从而得到变换后的向量，然而使用詹妮弗的语言来描述的。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi66.jpeg" alt=""></p>
+<p>可以对任意矩阵 v 进行这样的变换：基变换、线性变换、基变换的逆，这三个矩阵的复合给出的就是用詹妮弗语言描述的线性变换矩阵。它接收詹妮弗语言描述的向量，并输出用詹妮弗语言描述的变换后的向量。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi67.jpeg" alt=""></p>
+<p><strong>矩阵乘积仍然代表着同一个变换，只不过是从其他人的角度来看的</strong>。</p>
+<h1 id="特征向量与特征值"><a href="#特征向量与特征值" class="headerlink" title="特征向量与特征值"></a>特征向量与特征值</h1><p>特征值：衡量特征向量在变换中拉伸或压缩比例的因子。</p>
+<p>特征向量：在变换中停留在它张成的空间里。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi68.jpeg" alt=""></p>
+<p>但是有些向量留在它们张成的空间里：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi69.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi70.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi71.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi72.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi73.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi74.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi75.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi76.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi77.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi78.jpeg" alt=""></p>
+<p>二维线性变换可能不存在特征向量：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi79.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi80.jpeg" alt=""></p>
+<p>另一个有意思且值得思考的例子是剪切：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi81.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi82.jpeg" alt=""></p>
+<p><strong>属于单个特征值的特征向量不一定在一条直线上</strong>，一个简单的例子是将所有向量变为两倍的矩阵：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi83.jpeg" alt=""></p>
+<p><strong>特征基</strong>：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi85.jpeg" alt=""></p>
+<p>对角矩阵：</p>
+<ul>
+<li>所有基向量都是特征向量。</li>
+<li>矩阵的对角元是它们所属的特征值。</li>
+<li>对角矩阵与自己多次相乘很容易计算。</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi86.jpeg" alt=""></p>
+<p>对于基向量同时也是特征向量的情况可能并不常见，但是<strong>如果变换有许多特征向量，多到能选出一个张成全空间的集合，那么就能变换坐标系，使得这些特征向量就是基向量（用特征向量作为基）</strong>。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi87.jpeg" alt=""></p>
+<p>取出你想用作新基的向量的坐标，在这里指的是两个特征向量，然后将坐标作为一个矩阵的列，这个矩阵就是基变换矩阵。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi88.jpeg" alt=""></p>
+<p>所得的矩阵是同一个变换，不过是从新基向量所构成的坐标系的角度来看的。用特征向量来完成这件事的意义在于，这个新矩阵必然是对角的，并且对角元为对应的特征值。这是因为，它所处的坐标系的基向量在变换中只进行了缩放。</p>
+<p>如果计算矩阵的 100 次幂，一种更容易的做法是先变换到特征基，在那个坐标系中计算，然后转换回标准坐标系。并非所有矩阵都能对角化，比如剪切变换，它的特征向量不够多，并不能张成全空间。</p>
+<h1 id="抽象向量空间"><a href="#抽象向量空间" class="headerlink" title="抽象向量空间"></a>抽象向量空间</h1><p>坐标描述实际上依赖于你所选的基向量。</p>
+<p>行列式和特征向量与所选坐标系无关。行列式是一个变换对面积的缩放比例，特征变换则是在变换中留在它所张成的空间中的向量。</p>
+<p>函数是实际上是另一种向量。</p>
+<p>抽象性带来的好处是能够得到一般性的结论：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi89.jpeg" alt=""></p>
+<p>这两条性质的一个重要推论是：</p>
+<p>一个线性变换可以通过它对基向量的作用来完全描述，这使得矩阵向量乘法成为可能。</p>
+<p>因为任一向量都能表达为基向量以某种方式进行线性组合，所以求一个向量变换后的结果，实际上就是求出变换后的基向量以相同方式进行线性组合的结果。这点对函数来说同样正确。</p>
+<p>求导也是线性运算：</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi90.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi91.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi92.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi93.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi94.jpeg" alt=""></p>
+<p>求导满足线性性质使这一过程成为可能。</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi95.jpeg" alt=""></p>
+<p>什么是向量？</p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi96.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-xiandaibenzhi98.jpeg" alt=""></p>
+<p>公理是媒介，而不是自然法则。</p>
+<p>把所有的结论抽象地表达出来，也就是说仅仅根据这些公理表达，而不是集中于某一种特定的向量上，像是空间中的箭头或者函数等。</p>
+<p>这就是为什么每本教科书都会根据可加性和成比例来定义线性变换，而不是用网格线保持平行且等距分布来定义，即便后者更加直观。</p>
+<p>在现代理论中，向量的形式并不重要，箭头、一组数、函数、π生物等等都无所谓，它可以是任何东西，只要向量相加和数乘的概念遵守上面的公理即可。就好像问 “3” 是什么一样，遇到具体情况时它代表三个东西的集合，但在数学里它被看作所有三个东西的集合的抽象概念，从而让你能用一个概念就能推出所有三个东西的集合。向量也是如此，它有多种体现，但是数学把它抽象成 “向量空间” 这样一个无形的概念。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/">
+    <time datetime="2018-05-13T01:23:27.000Z" class="entry-date">
+        2018-05-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linear-Algebra/">Linear Algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/" rel="prev"><span class="meta-nav">←</span> 浙大翁恺老师《程序设计入门——C语言》笔记</a></span>
+    
+    
+        <span class="nav-next"><a href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/" rel="next">微积分的本质笔记 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">96</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/11/Paper/2022-06-11-W2NER/">统一NER为词词关系分类</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">预训练模型与传统方法在排序上有啥不同？</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">量化NLM模型的记忆力</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">NLP预训练模型的不可能三角</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.27px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10.91px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.55px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.73px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 11.82px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.91px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.82px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 10.91px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.55px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 11.82px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.91px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 10px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ner/" style="font-size: 10px;">Ner</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.91px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.91px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.91px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 10px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.91px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.91px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.91px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.45px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.91px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Span/" style="font-size: 10px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.91px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.91px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/T5/" style="font-size: 10.91px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 10px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.91px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 10px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

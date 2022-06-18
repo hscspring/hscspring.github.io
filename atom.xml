@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yam</title>
+  <icon>https://www.yam.gift/icon.png</icon>
+  <subtitle>Feeling, Coding, Thinking</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://www.yam.gift/"/>
+  <updated>2022-06-18T02:55:41.759Z</updated>
+  <id>https://www.yam.gift/</id>
+  
+  <author>
+    <name>Yam</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>统一NER为词词关系分类</title>
+    <link href="https://www.yam.gift/2022/06/11/Paper/2022-06-11-W2NER/"/>
+    <id>https://www.yam.gift/2022/06/11/Paper/2022-06-11-W2NER/</id>
+    <published>2022-06-11T15:00:00.000Z</published>
+    <updated>2022-06-18T02:55:41.759Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2112.10070&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2112.10070] Unified Named Entity Recognition as Word-Word Relation Classification&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：基于词-词关系分类、可同时解决平铺、重叠和不连续 NER 的统一框架。&lt;/p&gt;
+&lt;p&gt;摘要：NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：&lt;code&gt;NNW&lt;/code&gt;（&lt;code&gt;Next-Neighboring-Word&lt;/code&gt;）和 &lt;code&gt;THW-*&lt;/code&gt;（&lt;code&gt;Tail-Head-Word-*&lt;/code&gt;）。具体而言，构造一个 2D 的词词关系网格，然后使用多粒度 2D 卷积，以更好地细化网格表示。最后，使用一个共同预测器来推理词-词关系。效果自然是最新的 STOA。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Ner" scheme="https://www.yam.gift/tags/Ner/"/>
+    
+      <category term="W2NER" scheme="https://www.yam.gift/tags/W2NER/"/>
+    
+      <category term="NNW" scheme="https://www.yam.gift/tags/NNW/"/>
+    
+      <category term="THW" scheme="https://www.yam.gift/tags/THW/"/>
+    
+      <category term="Span" scheme="https://www.yam.gift/tags/Span/"/>
+    
+      <category term="BIO" scheme="https://www.yam.gift/tags/BIO/"/>
+    
+      <category term="BIOHD" scheme="https://www.yam.gift/tags/BIOHD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>预训练模型与传统方法在排序上有啥不同？</title>
+    <link href="https://www.yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/"/>
+    <id>https://www.yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/</id>
+    <published>2022-04-23T15:00:00.000Z</published>
+    <updated>2022-04-23T08:52:09.951Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2204.07233&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2204.07233] How Different are Pre-trained Transformers for Text Ranking?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：BM25 粗排+CE 精排，你值得拥有。&lt;/p&gt;
+&lt;p&gt;摘要：近年来与传统的检索模型和反馈方法相比，大规模预训练的效果有了显著提高。不过这些结果主要是基于 &lt;a href=&quot;https://github.com/microsoft/MSMARCO-Passage-Ranking&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MS Macro/ TREC&lt;/a&gt; 设置，非常特殊，我们对模型为什么好的理解是分散的。本文在文档检索任务上分析了 BERT 的交叉编码器与传统的 BM25 ，研究两个问题：第一，它们的相似之处在哪里？深度学习方法在多大程度上包含了 BM25 的能力，性能的提升是否由于相同文档的排名更高。第二，它们的不同之处是什么？深度学习方法能否检索 BM25 漏掉的文档。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Pretrain" scheme="https://www.yam.gift/tags/Pretrain/"/>
+    
+      <category term="CE BERT" scheme="https://www.yam.gift/tags/CE-BERT/"/>
+    
+      <category term="BM25" scheme="https://www.yam.gift/tags/BM25/"/>
+    
+      <category term="Rank" scheme="https://www.yam.gift/tags/Rank/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MarkBERT</title>
+    <link href="https://www.yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/"/>
+    <id>https://www.yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/</id>
+    <published>2022-04-23T15:00:00.000Z</published>
+    <updated>2022-04-23T10:30:17.535Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2203.06378&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：在 Token 中加入你感兴趣的词的边界标记。&lt;/p&gt;
+&lt;p&gt;摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用 POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER 任务上取得了 2 个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="BERT" scheme="https://www.yam.gift/tags/BERT/"/>
+    
+      <category term="NER" scheme="https://www.yam.gift/tags/NER/"/>
+    
+      <category term="MarkBERT" scheme="https://www.yam.gift/tags/MarkBERT/"/>
+    
+      <category term="RWD" scheme="https://www.yam.gift/tags/RWD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>量化NLM模型的记忆力</title>
+    <link href="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/"/>
+    <id>https://www.yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/</id>
+    <published>2022-04-15T15:00:00.000Z</published>
+    <updated>2022-04-16T12:05:51.682Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2202.07646&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2202.07646] Quantifying Memorization Across Neural Language Models&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：更大的模型更可能学到重复数据的特性，去重是缓解模型记忆危害的不错策略。&lt;/p&gt;
+&lt;p&gt;摘要：语言模型能够记住一些训练数据，如果经过合适地提示引导，可能会生成记住的数据。这肯定不太合适，因为可能会侵犯隐私、降低效用（重复的容易记住的词往往质量比较低），并且有失公平（有些文本被记住而有些没有）。本文描述了三个对数线性关系，量化了 LM 生成记忆数据的程度。记忆会显著增加，如果增大：（1）模型的容量，（2）样本的重复次数，（3）提示文的 Token 数量。总的来说，LM 的记忆比之前认识到的更普遍，并随着模型不断增大可能变得更糟。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="NLM" scheme="https://www.yam.gift/tags/NLM/"/>
+    
+      <category term="PLM" scheme="https://www.yam.gift/tags/PLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NLP预训练模型的不可能三角</title>
+    <link href="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/"/>
+    <id>https://www.yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/</id>
+    <published>2022-04-15T03:00:00.000Z</published>
+    <updated>2022-04-16T03:09:16.665Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2204.06130&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。&lt;/p&gt;
+&lt;p&gt;摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或多个。很多注入知识蒸馏、数据增强、Prompt 的方法用以缓解这些缺失，但却在实际中带来了新的工作量。本文提供了一个未来的研究方向，将任务分解成几个关键阶段来实现不可能三角。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Impossible-Triangle" scheme="https://www.yam.gift/tags/Impossible-Triangle/"/>
+    
+      <category term="PLM" scheme="https://www.yam.gift/tags/PLM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Training Data is More Valuable than You Think</title>
+    <link href="https://www.yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/"/>
+    <id>https://www.yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/</id>
+    <published>2022-04-05T15:00:00.000Z</published>
+    <updated>2022-04-09T02:48:52.178Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2203.08773&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2203.08773] Training Data is More Valuable than You Think: A Simple and Effective Method by Retrieving from Training Data&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/microsoft/REINA&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;microsoft/REINA&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：在检索任务中训练数据在推理时也大有用处。&lt;/p&gt;
+&lt;p&gt;摘要：从大规模数据中检索通常比较耗时，仅从训练数据中也能有巨大收益。具体做法是检索与输入文本最相似的训练样例，拼接后作为输入喂入模型，然后生成结果。结果在摘要、翻译、语言模型和QA上都取得了不错的效果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Summarization" scheme="https://www.yam.gift/tags/Summarization/"/>
+    
+      <category term="Retrieving" scheme="https://www.yam.gift/tags/Retrieving/"/>
+    
+      <category term="QA" scheme="https://www.yam.gift/tags/QA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>句子表征综述</title>
+    <link href="https://www.yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/"/>
+    <id>https://www.yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/</id>
+    <published>2022-03-27T15:30:00.000Z</published>
+    <updated>2022-04-05T02:09:10.490Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;早上收到从 Google Scholar 推送的宗成庆老师团队 2019 年的一篇 Paper：《Towards Sentence-Level Brain Decoding with Distributed Representations》，看这个题目觉得挺有趣就翻开读了读。这篇 Paper 研究的核心是：从大脑激活的模式解码整个句子，即构建解码器，通过分布式表示将大脑活动与句子刺激联系起来。并比较了句子表示与高级认知功能相关的不同大脑区域的对应关系，发现&lt;strong&gt;有监督的结构化表示模型最准确地探索了人类大脑的语言图谱&lt;/strong&gt;。句子的表征 NLPer 们应该都很熟悉，那大脑的激活又是怎么弄呢？作者使用了 Nature 的一篇论文《Toward a universal decoder of linguistic meaning from brain activation》【1】中的研究成果，这篇论文主要研究从图像数据中解码语言（单词和句子）意义，结果表明，解码表示甚至可以区分语义相似的句子，并捕捉到句子之间意义关系的相似结构。这就是说，我们在看到不同的单词和句子时，大脑内部显示出不同的状态，这种状态甚至在很相似的句子之间也表现的不同。关于项目的详细情况可以查阅【2】（我没细看 :D）。&lt;/p&gt;
+&lt;p&gt;宗老师这篇 Paper 正好涉及到两个我个人比较感兴趣的点：认知科学和句子表征，关于这两个方面，我之前的几篇小文都涉及过，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NLP 与 AI | Yam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;语言、AI、情感 | Yam&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NLP 表征的历史与未来 | Yam&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;抛开认知部分不谈，句子表征也是一个很有意思的方向，因为相比「词」，「句子」才是基本的『语义单位』。恰巧这篇 Paper 中也提到了不少句子表征的方法，正好一起来个梳理，顺便表达一点自己的脑洞。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Sentence Representation" scheme="https://www.yam.gift/tags/Sentence-Representation/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer</title>
+    <link href="https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/"/>
+    <id>https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/</id>
+    <published>2022-03-05T15:00:00.000Z</published>
+    <updated>2022-03-05T12:43:59.765Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/1910.10683&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/google-research/text-to-text-transfer-transformer&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer”&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：把所有 NLP 任务统一成 Text-to-Text 格式使用 Transformer 统一处理。&lt;/p&gt;
+&lt;p&gt;摘要：迁移学习在 NLP 领域已经是最有效的方法，本文引入了统一的文本处理框架——将所有文本问题统一成 Text-to-Text 的格式。为了验证效果，构建了 C4 数据集（Colossal Clean Crawled Cropus），结果发现取得了很好的效果。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
+    
+      <category term="T5" scheme="https://www.yam.gift/tags/T5/"/>
+    
+      <category term="MTL" scheme="https://www.yam.gift/tags/MTL/"/>
+    
+      <category term="C4" scheme="https://www.yam.gift/tags/C4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning</title>
+    <link href="https://www.yam.gift/2022/02/19/Paper/2022-02-19-ExT5/"/>
+    <id>https://www.yam.gift/2022/02/19/Paper/2022-02-19-ExT5/</id>
+    <published>2022-02-19T15:00:00.000Z</published>
+    <updated>2022-02-20T12:54:17.777Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2111.10952&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：T5&lt;/p&gt;
+&lt;p&gt;一句话概述：任务数量很多时，不妨试试 MTL 预训练。&lt;/p&gt;
+&lt;p&gt;摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督任务的跨领域大规模任务集合。并借此研究了迄今为止最大规模的多任务预训练效果，分析常见任务族之间的协同训练迁移。结果显示，为多任务预训练手动策划一组理想的任务并不简单，而且多任务扩展本身可以极大地改进模型。最后，提出 ExT5：使用自监督跨度去噪和监督 ExMIX 的多任务目标预训练模型，在多个数据集上超过了 T5。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="ExT5" scheme="https://www.yam.gift/tags/ExT5/"/>
+    
+      <category term="T5" scheme="https://www.yam.gift/tags/T5/"/>
+    
+      <category term="MTL" scheme="https://www.yam.gift/tags/MTL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《舞狮少年》观后——信念、文化与希望</title>
+    <link href="https://www.yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/"/>
+    <id>https://www.yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/</id>
+    <published>2021-12-26T15:00:00.000Z</published>
+    <updated>2021-12-26T17:05:07.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;疫情一波又一波，感觉已经很久没有出去过了，周六晚上舒璇说明天一起出去看个电影吧，好久没有活动了，最近正好上映了一部口碑很不错的片子。我好奇一问：“啥电影啊？”答：“舞狮少年”。我一想，哎，这不是昨晚看某个 UP 主提到过的影片么，说看起来像是鸡汤片。对鸡汤我一向是不喜欢的，可能是以前喝太多了，有点腻上头了。不过最后，当然是毫无异议地来到了电影院，我其实有点担心自己会睡着。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="Diary" scheme="https://www.yam.gift/tags/Diary/"/>
+    
+      <category term="Culture" scheme="https://www.yam.gift/tags/Culture/"/>
+    
+      <category term="Faith" scheme="https://www.yam.gift/tags/Faith/"/>
+    
+      <category term="Hope" scheme="https://www.yam.gift/tags/Hope/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Multitask Prompted Training Enables Zero-shot Task Generalization</title>
+    <link href="https://www.yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/"/>
+    <id>https://www.yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/</id>
+    <published>2021-12-25T15:00:00.000Z</published>
+    <updated>2021-12-26T12:58:56.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一句话描述：多任务 Prompt 可以明确影响 Zero-shot 学习。&lt;/p&gt;
+&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.08207&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.08207] Multitask Prompted Training Enables Zero-Shot Task Generalization&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/bigscience-workshop/promptsource/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;bigscience-workshop/promptsource: Toolkit for collecting and applying prompts&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;摘要：大语言模型显示出可观的 Zero-shot 泛化能力，被假设成是语言模型中多任务训练暗含的结果，所以这个能力能不能体现的直接点？本文使用一大堆有监督数据集，每个又有多个不同自然语言的 prompt，通过微调一个预训练的 Encoder-Decoder 模型，取得不错的 Zero-shot 性能。真可谓是大数据集、大 prompt 出奇迹。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Multitask" scheme="https://www.yam.gift/tags/Multitask/"/>
+    
+      <category term="Promote" scheme="https://www.yam.gift/tags/Promote/"/>
+    
+      <category term="Zero-shot" scheme="https://www.yam.gift/tags/Zero-shot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>虚拟网络指南</title>
+    <link href="https://www.yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/"/>
+    <id>https://www.yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/</id>
+    <published>2021-12-19T15:00:00.000Z</published>
+    <updated>2021-12-26T15:28:19.404Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;问题的研究总是源于现实，这不，一直对虚拟机的几种网络懵懵懂懂，直到有个需求冒出来，这才想办法（有机会）一把撸掉。&lt;/p&gt;
+&lt;p&gt;业务背景描述：一台 Win10 的主机，跟了我很多年的 ThinkPad，只有 4 核 4G；由于工作、生活各种需要，里面用 VirtualBox 装了个 Ubuntu18 的虚拟机。平时写代码，跑个实验啥的就都在虚拟机上。突然需要在局域网多台终端上能够访问到虚拟机中的某个服务，自然少不了要一番配置，研究一天后终于把几个主流模式差不多搞清楚了，特记录如下。当然，尚有诸多细节留待日后继续研究。&lt;/p&gt;
+&lt;p&gt;先把官方文档的一张表放这里：&lt;/p&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Mode&lt;/th&gt;
+&lt;th&gt;VM→Host&lt;/th&gt;
+&lt;th&gt;VM←Host&lt;/th&gt;
+&lt;th&gt;VM1←→VM2&lt;/th&gt;
+&lt;th&gt;VM→Net/LAN&lt;/th&gt;
+&lt;th&gt;VM←Net/LAN&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Host-only&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;—（共享网卡后+）&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Internal&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;td&gt;—&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Bridged&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;NAT&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;端口转发&lt;/td&gt;
+&lt;td&gt;-&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;端口转发&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;NATservice&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;端口转发&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;+&lt;/td&gt;
+&lt;td&gt;端口转发&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;表格来自：&lt;a href=&quot;https://www.virtualbox.org/manual/ch06.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.virtualbox.org/manual/ch06.html&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="CS" scheme="https://www.yam.gift/tags/CS/"/>
+    
+      <category term="Network" scheme="https://www.yam.gift/tags/Network/"/>
+    
+      <category term="Virtual Network" scheme="https://www.yam.gift/tags/Virtual-Network/"/>
+    
+      <category term="NAT" scheme="https://www.yam.gift/tags/NAT/"/>
+    
+      <category term="Host-only" scheme="https://www.yam.gift/tags/Host-only/"/>
+    
+      <category term="Bridge" scheme="https://www.yam.gift/tags/Bridge/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP</title>
+    <link href="https://www.yam.gift/2021/12/04/Paper/2021-12-04-Prompt/"/>
+    <id>https://www.yam.gift/2021/12/04/Paper/2021-12-04-Prompt/</id>
+    <published>2021-12-04T15:00:00.000Z</published>
+    <updated>2021-12-11T12:18:06.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2107.13586&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2107.13586] Pre-train, Prompt, and Predict: A Systematic Survey of Prompting Methods in Natural Language Processing&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：无&lt;/p&gt;
+&lt;p&gt;一句话概述：想办法在输入和标签之间搭一座桥。&lt;/p&gt;
+&lt;p&gt;摘要：与传统有监督学习不同的是，基于 Prompt 的学习基于语言模型直接对文本的概率进行建模。具体来说，为了使用这些模型执行预测任务，使用模板将原始输入 x 修改为具有一些未填充槽的文本字符串提示 x’，然后使用语言模型对未填充信息进行概率填充以获得最终字符串 x^，从中可以导出最终输出 y。这个框架强大且有吸引力的原因有很多：它允许语言模型在大量原始文本上进行预训练，并且通过定义一个新的 Prompt 函数，模型能够执行少样本甚至零样本学习，适应很少或没有标注数据的新场景。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Prompt" scheme="https://www.yam.gift/tags/Prompt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Data Augmentation Approaches in Natural Language Processing：A Survey</title>
+    <link href="https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/"/>
+    <id>https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/</id>
+    <published>2021-11-28T15:00:00.000Z</published>
+    <updated>2021-11-28T14:49:44.387Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.01852&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：无&lt;/p&gt;
+&lt;p&gt;一句话概述：全面和结构化的数据增强文献综述。&lt;/p&gt;
+&lt;p&gt;摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高模型泛化能力。本文将 DA 方法基于增强数据的多样性分成三类：释义、噪声和采样，分别进行详细分析，另外也介绍了它们在 NLP 任务中的应用和挑战。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Data Augmentation" scheme="https://www.yam.gift/tags/Data-Augmentation/"/>
+    
+      <category term="DA" scheme="https://www.yam.gift/tags/DA/"/>
+    
+      <category term="Data Enhancement" scheme="https://www.yam.gift/tags/Data-Enhancement/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Debiasing Techniques for Pre-Trained Language Models</title>
+    <link href="https://www.yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/"/>
+    <id>https://www.yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/</id>
+    <published>2021-11-18T15:00:00.000Z</published>
+    <updated>2021-11-28T06:48:39.653Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.08527&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.08527] An Empirical Survey of the Effectiveness of Debiasing Techniques for Pre-Trained Language Models&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/mcgill-nlp/debias-eval&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;McGill-NLP/debias-eval&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：去偏技术尚不明朗。&lt;/p&gt;
+&lt;p&gt;摘要：研究表明预训练模型有一定的社会偏见（这个真得怪社会），所以我们不得不从技术角度去缓解它。本文主要从经验角度分析了五种最近的纠偏技术：Counterfactual Data Argumentation（CDA）、Dropout、Iterative Nullspace Projection，Self-Debias，SentenceDebias。在三个不同的 bias benchmark 上分别对其效果进行量化评估，同时评估了这些技术对模型的语言建模能力和下游任务表现的影响。结果如下：（1）CDA 和 Self-Debias 是最好的纠偏技术；（2）当前的纠偏技术不能很好地泛化到性别偏见之外；（3）纠偏通常伴随着语言建模能力的下降，从而难以确定偏差缓解是否有效。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Debiasing" scheme="https://www.yam.gift/tags/Debiasing/"/>
+    
+      <category term="Biasing" scheme="https://www.yam.gift/tags/Biasing/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python Ellipsis</title>
+    <link href="https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/"/>
+    <id>https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/</id>
+    <published>2021-11-13T04:00:00.000Z</published>
+    <updated>2021-11-13T04:46:57.750Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这几天在阅读一段源代码时，突然看到了这样的写法：&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;A&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    host: Text = ...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;当时一愣——这三个点是个什么玩意儿，好像只在 &lt;code&gt;numpy&lt;/code&gt; 中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Numpy Slice：表示「其他维度的所有值」&lt;/li&gt;
+&lt;li&gt;类型提示：表示「不指定、可变的、任意的」参数类型&lt;/li&gt;
+&lt;li&gt;占位符：表示类或方法还没写的 Body&lt;/li&gt;
+&lt;li&gt;循环引用：表示一个循环引用，而不是满屏幕打印&lt;/li&gt;
+&lt;li&gt;特殊标记：表示一个特殊的位置，比如结束、开始等&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://www.yam.gift/tags/Python/"/>
+    
+      <category term="Ellipsis" scheme="https://www.yam.gift/tags/Ellipsis/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MetaICL：Learning to Learn In Context</title>
+    <link href="https://www.yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/"/>
+    <id>https://www.yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/</id>
+    <published>2021-11-01T15:00:00.000Z</published>
+    <updated>2021-11-15T12:12:02.504Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.15943&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.15943] MetaICL: Learning to Learn In Context&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Code：&lt;a href=&quot;https://github.com/facebookresearch/MetaICL&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;facebookresearch/MetaICL: An original implementation of “MetaICL Learning to Learn In Context” by Sewon Min, Mike Lewis, Luke Zettlemoyer and Hannaneh Hajishirzi&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一句话概述：任务的数量和多样性+Instruction是元学习的最佳实践。&lt;/p&gt;
+&lt;p&gt;摘要：MetaICL 是一种新的元训练框架，用于小样本学习，其中预训练模型被微调以在大量训练任务上进行上下文学习。这种元训练使模型在测试时能够更有效地学习上下文中的新任务，方法是在不更新参数或不需要任务特定模板的情况下简单地调整几个训练示例。本文对 142 个 NLP 数据集组成的任务集合进行实验，包括 CLS、QA、NLI、释义检测等，跨越 7 个不同的元训练/目标拆分。结果比已有的 Baseline（如没有 Meta 训练的 In-Context 学习，多任务学习，零样本转移）要好。而且，对于具有从元训练任务进行域转移的目标任务，收益尤其显着，并且使用不同的元训练任务集是改进的关键。另外，MetaICL 接近（有时甚至超过）在目标任务训练数据上完全微调的模型的性能，并且优于具有近 8 倍参数的更大模型。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Meta Learning" scheme="https://www.yam.gift/tags/Meta-Learning/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>浅析文本分类——情感分析与自然语言处理</title>
+    <link href="https://www.yam.gift/2021/10/27/NLP/2021-10-27-Senta/"/>
+    <id>https://www.yam.gift/2021/10/27/NLP/2021-10-27-Senta/</id>
+    <published>2021-10-27T15:00:00.000Z</published>
+    <updated>2021-10-27T18:01:49.625Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;文本分类是自然语言处理（以下使用 NLP 简称）最基础核心的任务，或者换句话说，几乎所有的任务都是「分类」任务，或者涉及到「分类」这个概念。比如分词、词性标注、命名实体识别等序列标注任务其实就是 Token 粒度的分类；再比如文本生成其实也可以理解为 Token 粒度在整个词表上的分类任务。为何会如此？这篇&lt;a href=&quot;https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;分类与AI&lt;/a&gt;可能会给您带来一点启示。&lt;/p&gt;
+&lt;p&gt;本文篇幅较长，主要分为以下几个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;背景介绍：主要简单介绍情感分析相关的概念、类型，并和文本分类任务对应。&lt;/li&gt;
+&lt;li&gt;基本流程：主要介绍文本分类（或常见的 NLP 任务）基本处理流程。&lt;/li&gt;
+&lt;li&gt;模型简史：主要介绍 NLP 处理任务中模型变迁的简单历史。&lt;/li&gt;
+&lt;li&gt;情感未来：主要探讨未来情感分析可能的发展方向。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;本文侧重于从宏观角度（历史演变和基本流程）对文本情感分类任务进行介绍，目的是给读者提供一个整体视角，从高远处审视情感分析、文本分类、甚至 NLP，期望能抛砖引玉，引发读者更多的思考。如果您想了解工业界的具体方案和进展，最后的《文献资料》部分有两篇来自淘系和美团的文章值得仔细研究。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本文同样适合对机器学习和深度学习稍微有一些了解的非算法岗位的工程师，或其他无技术背景但对 NLP 感兴趣的非工程师。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Classification" scheme="https://www.yam.gift/tags/Classification/"/>
+    
+      <category term="SentimentAnalysis" scheme="https://www.yam.gift/tags/SentimentAnalysis/"/>
+    
+      <category term="Text Classification" scheme="https://www.yam.gift/tags/Text-Classification/"/>
+    
+      <category term="Senta" scheme="https://www.yam.gift/tags/Senta/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TensorBay 指南</title>
+    <link href="https://www.yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/"/>
+    <id>https://www.yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/</id>
+    <published>2021-09-21T15:30:00.000Z</published>
+    <updated>2021-10-16T14:52:48.839Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍如何使用 Tensorbay 和 Tensorflow 进行简单的文本分类。&lt;/p&gt;
+&lt;p&gt;我们首先介绍 Tensorbay 相关使用，然后简单介绍 NLP 领域常用的分类模型：TextCNN，最后将所有的串起来完成一个简单的文本分类任务。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="TextCNN" scheme="https://www.yam.gift/tags/TextCNN/"/>
+    
+      <category term="TensorBay" scheme="https://www.yam.gift/tags/TensorBay/"/>
+    
+      <category term="Tensorflow" scheme="https://www.yam.gift/tags/Tensorflow/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>在 TextCNN 上实验 Dropout 和对比学习</title>
+    <link href="https://www.yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/"/>
+    <id>https://www.yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/</id>
+    <published>2021-08-31T15:00:00.000Z</published>
+    <updated>2021-09-09T23:56:02.059Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop 也能够起到一定效果，但太简单的模型（类似 TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout 最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC 等层的后面。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如果只想看结论，到这里就可以结束啦。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="R-Drop" scheme="https://www.yam.gift/tags/R-Drop/"/>
+    
+      <category term="Dropout" scheme="https://www.yam.gift/tags/Dropout/"/>
+    
+      <category term="SimCSE" scheme="https://www.yam.gift/tags/SimCSE/"/>
+    
+      <category term="TextCNN" scheme="https://www.yam.gift/tags/TextCNN/"/>
+    
+  </entry>
+  
+</feed>

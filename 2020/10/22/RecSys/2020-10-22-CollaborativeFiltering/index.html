@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>协同过滤 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="协同过滤是推荐领域的经典算法，它的思想非常朴素：和我们兴趣相似的人喜好也类似。所以，自然而然，只要找到和我们兴趣相似的人，将他们喜好的商品（又不在我们喜好商品的列表中）推送给我们就完成了推荐任务。本文主要介绍该算法">
+<meta name="keywords" content="Recommendation,Collaborative Filtering,UserCF,ItemCF,Similarity,Jaccard,Cosine,Pearson,Minkowski">
+<meta property="og:type" content="article">
+<meta property="og:title" content="协同过滤">
+<meta property="og:url" content="https://www.yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="协同过滤是推荐领域的经典算法，它的思想非常朴素：和我们兴趣相似的人喜好也类似。所以，自然而然，只要找到和我们兴趣相似的人，将他们喜好的商品（又不在我们喜好商品的列表中）推送给我们就完成了推荐任务。本文主要介绍该算法">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-10-22T15:26:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="协同过滤">
+<meta name="twitter:description" content="协同过滤是推荐领域的经典算法，它的思想非常朴素：和我们兴趣相似的人喜好也类似。所以，自然而然，只要找到和我们兴趣相似的人，将他们喜好的商品（又不在我们喜好商品的列表中）推送给我们就完成了推荐任务。本文主要介绍该算法">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-RecSys/2020-10-22-CollaborativeFiltering" class="post-RecSys/2020-10-22-CollaborativeFiltering post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      协同过滤
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" data-id="ckx1vldjl00l7p8bzdg65jke7" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>协同过滤是推荐领域的经典算法，它的思想非常朴素：和我们兴趣相似的人喜好也类似。所以，自然而然，只要找到和我们兴趣相似的人，将他们喜好的商品（又不在我们喜好商品的列表中）推送给我们就完成了推荐任务。本文主要介绍该算法</p>
+<a id="more"></a>
+<div class="toc"><ul class="toc-item"><li><span><a href="#相似度计算" data-toc-modified-id="相似度计算-1">相似度计算</a></span><ul class="toc-item"><li><span><a href="#明科夫斯基距离" data-toc-modified-id="明科夫斯基距离-1.1">明科夫斯基距离</a></span></li><li><span><a href="#余弦相似度" data-toc-modified-id="余弦相似度-1.2">余弦相似度</a></span></li><li><span><a href="#杰卡德相似度" data-toc-modified-id="杰卡德相似度-1.3">杰卡德相似度</a></span></li><li><span><a href="#皮尔逊相关系数" data-toc-modified-id="皮尔逊相关系数-1.4">皮尔逊相关系数</a></span></li></ul></li><li><span><a href="#基于用户的协同过滤" data-toc-modified-id="基于用户的协同过滤-2">基于用户的协同过滤</a></span></li><li><span><a href="#基于物品的协同过滤" data-toc-modified-id="基于物品的协同过滤-3">基于物品的协同过滤</a></span></li><li><span><a href="#算法评估" data-toc-modified-id="算法评估-4">算法评估</a></span></li><li><span><a href="#算法评价" data-toc-modified-id="算法评价-5">算法评价</a></span></li><li><span><a href="#参考资料" data-toc-modified-id="参考资料-6">参考资料</a></span></li></ul></div>
+
+<p>协同过滤是 David Goldberg 1992 年在施乐帕克研究中心的一篇题为《Using collaborative filtering to weave an information tapestry》的论文中首次使用。他设计了一个名叫 Tapestry 的系统，允许人们根据自己对文档的感兴趣程度添加标注，并利用这一信息为他人进行文档过滤。</p>
+<p>协同过滤的基本描述如下：给定用户列表 User、商品列表 Item 和用户对商品的评级 R，Rui 表示用户 u 对商品 i 的评级。评级可以是离散的（如 “高、中、低”，“喜欢、中立、厌恶” 等）或数值的（如 12345，123）。因此 R 其实是一个 Len(Users) × Len(Item) 的矩阵，其中自然有很多空缺值，这些值就是算法需要去预测的值。</p>
+<p>算法的基本步骤如下：</p>
+<ul>
+<li>构造 User 对 Item 的评分数据</li>
+<li>计算 User-User 或 Item-Item 相似度</li>
+<li>根据给定用户 Ui 的前 n 个相似用户，或给定商品 Ii 的前 n 个商品计算并得到推荐结果</li>
+</ul>
+<h2 id="相似度计算"><a href="#相似度计算" class="headerlink" title="相似度计算"></a>相似度计算</h2><p>相似度有多种评价方式，这里简单介绍几种经典的相似度计算方法。需要说明的是，一般情况下，我们这里计算的是两个给定向量的相似度，向量的元素为商品的评级。比如对商品 1、2、3，用户 A 的评级为 [5,4,5]，用户 B 的评级为 [4,3,4]，对应两个向量的相似度可以衡量用户 A 和 B 的相似度；同样，对同一商品，不同用户的评级也可以用来表示该商品，进而计算两个商品的相似度。</p>
+<h3 id="明科夫斯基距离"><a href="#明科夫斯基距离" class="headerlink" title="明科夫斯基距离"></a>明科夫斯基距离</h3><p>计算相似度最简单的方法就是用两者的距离，在空间中两个向量距离越近，则越相似。给定向量 x 和 y 的 Minkowski 距离描述如下（其中 q&gt;0）：</p>
+<script type="math/tex; mode=display">
+d(x, y) = \left( \sum_{i=1}^p |x_i - y_i|^q \right)^{1/q}</script><p>对于 q ≥ 1，有三种特殊形式：</p>
+<ul>
+<li><p>当 q=1 时，称为绝对值（曼哈顿）距离，也被称为 “城市街区距离”：</p>
+<script type="math/tex; mode=display">
+  d(x, y) = \sum_{i=1}^p |x_i - y_i|</script></li>
+<li><p>当 q=2 时，就是欧几里得（欧式）距离：</p>
+<script type="math/tex; mode=display">
+  d(x, y) = \left( \sum_{i=1}^p |x_i - y_i|^2 \right)^{1/2}</script></li>
+<li><p>当 q=∞ 时，称为切比雪夫距离：</p>
+<script type="math/tex; mode=display">
+  d(x, y) = \max_{1 \le i \le p} \sum_{i=1}^p |x_i - y_i|</script></li>
+</ul>
+<p>知道距离，只要取倒数，就可以表示相似度，即距离越小相似度越大。</p>
+<h3 id="余弦相似度"><a href="#余弦相似度" class="headerlink" title="余弦相似度"></a>余弦相似度</h3><p>余弦相似度衡量的是两个向量的夹角，两向量夹角越小，相似度越高。</p>
+<script type="math/tex; mode=display">
+\mathrm{similarity}(x,y) = \frac{x y^T}{||x||\ ||y||} \\
+= \frac{\sum_{i=1}^{n} x_{i} y_{i}}{\sqrt{\sum_{i=1}^{n} x_{i}^{2}} \sqrt{\sum_{i=1}^{n} y_{i}^{2}}}</script><h3 id="杰卡德相似度"><a href="#杰卡德相似度" class="headerlink" title="杰卡德相似度"></a>杰卡德相似度</h3><p>Jaccard 相似度适合衡量两个集合的相似度。</p>
+<script type="math/tex; mode=display">
+J(x, y) = \frac{|x \cap y|}{|x \cup y|}</script><p>Jaccard 相似度有个需要注意的点：当两个集合分布不均匀时，会受较大集合的影响。举个极端的例子，假设 x 元素数量很少且全部包含在 y 中，当 y 元素数量很多时，结果会非常小，这显然是有问题的。这种情况一般会将分母替换为元素数量较小的集合。</p>
+<script type="math/tex; mode=display">
+\frac{|x \cap y|}{|x|}</script><p>不过这样依然有问题，假设 y 是很热门的物品，则会导致几乎所有物品与 y 的相似度都很高，这显然不合理（因为其实并不是 y 和其他物品相似，只是 y 热门）。因此，需要对热门物品 y 进行惩罚。</p>
+<script type="math/tex; mode=display">
+\frac{|x \cap y|}{\sqrt{|x|\   |y|}}</script><p>即便如此，对于极度热门的物品，上面的惩罚依然不够。即著名 Harry Potter Problem：当某个商品非常热门时，基于物品的协同过滤算法（购买 X 的也购买了 Y）会将该商品推荐给所有人，仅仅因为大多数人买了它（和 X 根本没关系）。这个和 TF-IDF 算法神似——高频词不一定是关键词，有可能每个文档都出现了这些词，只有词频高且出现的文档数也少的词才有可能是关键词。因此要对 y 进一步惩罚：</p>
+<script type="math/tex; mode=display">
+\frac{|x \cap y|}{|x|^{1-\alpha}\   |y|^{\alpha}}</script><p>α 为调节参数，值越大惩罚力度越大。</p>
+<p>另外，也需要对活跃用户（比如专门购买了很多物品刷单的）进行惩罚，活跃用户对物品相似度的贡献应该小于不活跃用户。</p>
+<script type="math/tex; mode=display">
+\frac{\sum_{u \in x \cap y} \frac{1}{ \log(1+ |N(u)|)} }{|x|^{1-\alpha}\   |y|^{\alpha}}</script><p>其中 N(u) 表示用户 u 购买的物品数量。</p>
+<h3 id="皮尔逊相关系数"><a href="#皮尔逊相关系数" class="headerlink" title="皮尔逊相关系数"></a>皮尔逊相关系数</h3><p>Pearson correlation coefficient 衡量的是两个向量的线性相关性，当数据不规范（偏离均值过大）时，倾向于给出更好的结果。因为它在计算过程中使用了平均值，一定程度上减小了评分偏置的影响。在实际应用中，这其实有助于避免不同用户打分偏好不同带来的影响，比如有的用户喜欢打高分，有的喜欢打低分，有的乱打分。</p>
+<script type="math/tex; mode=display">
+\rho_{X,Y} = \frac{ \mathrm{cov}(X,Y)}{\sigma_X \sigma_Y} \\
+\frac{\mathbb{E}[X Y]-\mathbb{E}[X] \mathbb{E}[Y]}{\sqrt{\mathbb{E}\left[X^{2}\right]-(\mathbb{E}[X])^{2}} \sqrt{\mathbb{E}\left[Y^{2}\right]-(\mathbb{E}[Y])^{2}}}</script><p>cov 是协方差，σ 是标准差。</p>
+<p>当 X 和 Y 为样本观测值时，一般用 r 表示（sample correlation coefficient）：</p>
+<script type="math/tex; mode=display">
+r_{x y}= \frac{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)\left(y_{i}-\bar{y}\right)}{\sqrt{\sum_{i=1}^{n}\left(x_{i}-\bar{x}\right)^{2}} \sqrt{\sum_{i=1}^{n}\left(y_{i}-\bar{y}\right)^{2}}} \\
+= \frac{n \sum x_{i} y_{i}-\sum x_{i} \sum y_{i}}{\sqrt{n \sum x_{i}^{2}-\left(\sum x_{i}\right)^{2}} \sqrt{n \sum y_{i}^{2}-\left(\sum y_{i}\right)^{2}}}</script><p>代码实现起来都比较简单，就不再赘述。直接用现成的开源包：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> cosine_similarity</span><br><span class="line"><span class="keyword">from</span> sklearn.metrics.pairwise <span class="keyword">import</span> euclidean_distances</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calc_similarity</span><span class="params">(lst1: list, lst2: list, sim_type=<span class="string">"pearson"</span>)</span> -&gt; float:</span></span><br><span class="line">    <span class="keyword">if</span> len(lst1) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">if</span> sim_type == <span class="string">"pearson"</span>:</span><br><span class="line">        sim = np.corrcoef((lst1, lst2))[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">elif</span> sim_type == <span class="string">"cosine"</span>:</span><br><span class="line">        sim = cosine_similarity((lst1, lst2))[<span class="number">0</span>][<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        sim = <span class="number">1</span>/(<span class="number">1</span> + euclidean_distances((lst1, lst2)))</span><br><span class="line">    <span class="keyword">if</span> np.isnan(sim):</span><br><span class="line">        sim = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">return</span> sim</span><br></pre></td></tr></table></figure>
+<p>值得注意的是，我们这里并没有 Jaccard 的实现，因为它计算的是集合相似度，和计算距离不太一样。但它的应用却非常广泛，因为很多时候我们并没有 “评分”，比如以购买商品为例，能得到的数据就是哪些用户购买或未购买商品，购买了商品 A 和 B 的用户就构成了两个集合。</p>
+<h2 id="基于用户的协同过滤"><a href="#基于用户的协同过滤" class="headerlink" title="基于用户的协同过滤"></a>基于用户的协同过滤</h2><p>它的思想非常简单：当需要为用户 A 推荐商品时，可以先找到和他兴趣相似的其他用户，然后把那些用户喜欢但 A 没听过的商品推荐给 A。<strong>这里面假定相似用户偏好也相似</strong>。所以，第一步是要找到与给定用户兴趣相似的其他用户；然后将这些用户喜欢但目标用户没听说过的商品推荐给目标用户，进而完成推荐任务。</p>
+<p>正式开始之前，我们首先弄清楚数据。一般情况下，我们可以拿到类似这样的数据（以电影数据集 <a href="https://grouplens.org/datasets/movielens/" target="_blank" rel="noopener">MovieLens | GroupLens</a> 为例），它的评分数据如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">userId,movieId,rating,timestamp</span><br><span class="line"><span class="number">1</span>,<span class="number">1</span>,<span class="number">4.0</span>,<span class="number">964982703</span></span><br><span class="line"><span class="number">1</span>,<span class="number">3</span>,<span class="number">4.0</span>,<span class="number">964981247</span></span><br><span class="line"><span class="number">1</span>,<span class="number">6</span>,<span class="number">4.0</span>,<span class="number">964982224</span></span><br></pre></td></tr></table></figure>
+<p>我们需要将这些数据转换为二维，用一个嵌套字典比较容易，结果类似这样：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">'1'</span>: &#123;</span><br><span class="line">        <span class="string">'1'</span>: <span class="number">4.0</span>,</span><br><span class="line">        <span class="string">'3'</span>: <span class="number">2.5</span>,</span><br><span class="line">        <span class="string">'47'</span>: <span class="number">5.0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">'2'</span>: &#123;</span><br><span class="line">        <span class="string">'3'</span>: <span class="number">5.0</span>,</span><br><span class="line">        <span class="string">'50'</span>: <span class="number">3.0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，外层的 key 是用户，内层的 key 是商品（这里是电影），value 是评分。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> Dict, List, Tuple</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"><span class="keyword">import</span> pnlp</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">load_and_build_data</span><span class="params">(file_path: Path)</span> -&gt; Tuple[Dict, Dict]:</span></span><br><span class="line">    uir = pnlp.MagicDict()</span><br><span class="line">    iur = pnlp.MagicDict()</span><br><span class="line">    lines = pnlp.read_csv(file_path)</span><br><span class="line">    <span class="keyword">for</span> uid, iid, rating, _ <span class="keyword">in</span> lines[<span class="number">1</span>:]:</span><br><span class="line">        rating = float(rating)</span><br><span class="line">        uir[uid][iid] = rating</span><br><span class="line">        iur[iid][uid] = rating</span><br><span class="line">    <span class="keyword">return</span> (uir, iur)</span><br></pre></td></tr></table></figure>
+<p><strong>寻找兴趣相似用户</strong></p>
+<p>为了避免每次都要完整遍历一遍所有用户，可以先把相似矩阵求出来，以用户相似矩阵 M 为例，Mij 就表示用户 i 和用户 j 的相似度。这里要注意的是，我们计算两个用户相似度时，如果使用的相似度计算方法不是 Jaccard 时，应该用他们共同的评分商品来计算，也就是保证两个向量长度一致。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_similarity_matrix</span><span class="params">(data: Dict[str or int, Dict])</span>:</span></span><br><span class="line">    similarity_matrix = np.zeros((len(data), len(data)))</span><br><span class="line">    has_calced = set()</span><br><span class="line">    <span class="keyword">for</span> i, key <span class="keyword">in</span> enumerate(data):</span><br><span class="line">        <span class="keyword">for</span> j, other_key <span class="keyword">in</span> enumerate(data):</span><br><span class="line">            <span class="keyword">if</span> i == j:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> (i, j) <span class="keyword">in</span> has_calced:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            key_items = data[key]</span><br><span class="line">            other_key_items = data[other_key]</span><br><span class="line">            both_items = set(key_items) &amp; set(other_key_items)</span><br><span class="line">            key_item_ratings = [key_items[i] <span class="keyword">for</span> i <span class="keyword">in</span> both_items]</span><br><span class="line">            other_key_item_ratings = [other_key_items[i] <span class="keyword">for</span> i <span class="keyword">in</span> both_items]</span><br><span class="line">            key_other_similarity = calc_similarity(key_item_ratings, other_key_item_ratings)</span><br><span class="line">            similarity_matrix[i][j] = key_other_similarity</span><br><span class="line">            similarity_matrix[j][i] = key_other_similarity</span><br><span class="line">            has_calced.add((j, i))</span><br><span class="line">    <span class="keyword">return</span> similarity_matrix</span><br></pre></td></tr></table></figure>
+<p>该函数既可以用来计算用户相似度矩阵，也可以用来计算商品相似度矩阵。需要说明的是，我们只需计算一个三角矩阵即可，另一半可以跳过提高速度。代码非常简单，不再赘述。</p>
+<p><strong>利用相似用户进行推荐</strong></p>
+<p>根据上一步我们很容易就得到给定用户对其他用户的相似度向量，排序后去前面若干（假设为 n）个作为推荐源。这 n 个用户评过级的商品肯定是不一致的，假设我们从其中某个用户那里获得一个商品，该商品目标用户不知道，那接下来自然而然是要给出目标用户对该商品可能的评分。这样我们就能获得一个列表，该列表中的商品均是用户不知道的，并且有对应的评分。然后我们把评分高的推送给目标用户就完成了推荐任务。</p>
+<p>要计算目标用户对其不知道商品可能的评分，很容易就想到用选中的其他相似用户对商品的评分，然后根据用户相似度进行加权平均。</p>
+<script type="math/tex; mode=display">
+R_{u,p} = \frac{\sum_{s \in S} (\mathrm{sim}_{u, s} \cdot R_{s,p})}{\sum_{s \in S} \mathrm{sim}_{u,s} }</script><p>s 就是和给定用户 u 相似的用户，S 自然就是 s 的集合，Rsp 就是用户 s 对商品 p 的评分。需要说明的是，如果用户 s 对某个 p 没有评级，那此时 Rsp=0，分母也不需要加该用户 s 和 u 的相似度。</p>
+<p>上面这种评分方式有个问题：有些用户倾向于打高分，而有些用户倾向于打低分，假设他们相似度接近时，倾向于打高分的用户对最后的结果影响较大；同时，目标用户也可能有这种倾向，这会导致最终的结果可能不够准确。因此一般更推荐下面这种评分方式。</p>
+<script type="math/tex; mode=display">
+R_{u,p} = \bar{R_u} + \frac{\sum_{s \in S} \left( \mathrm{sim}_{u,s} \cdot (R_{s,p} - \bar{R_s}) \right)}{\sum_{s \in S} \mathrm{sim}_{u,s}}</script><p>这里在加权计算其他用户的评分时，减掉了该用户的平均评分，这样就将其他用户的 “个人因素” 剔除了；同时，额外增加一项目标用户的平均评分，则是将目标用户的 “个人因素” 放大了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_usercf_recommendations</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    user_data: Dict[str or int, Dict], </span></span></span><br><span class="line"><span class="function"><span class="params">    item_data: Dict[str or int, Dict],</span></span></span><br><span class="line"><span class="function"><span class="params">    user: str or int, </span></span></span><br><span class="line"><span class="function"><span class="params">    sim_k: int, </span></span></span><br><span class="line"><span class="function"><span class="params">    topn: int</span></span></span><br><span class="line"><span class="function"><span class="params">)</span> -&gt; List[Tuple[int or str, float]]:</span></span><br><span class="line">    recommend_dict = &#123;&#125;</span><br><span class="line">    <span class="comment"># 目标用户的平均评分（个人因素）</span></span><br><span class="line">    base_score = np.mean(list(user_data[user].values()))</span><br><span class="line">    users = list(user_data)</span><br><span class="line">    user_idx = users.index(user)</span><br><span class="line">    <span class="comment"># 目标用户不知道的商品</span></span><br><span class="line">    can_recommend = [(idx, v) <span class="keyword">for</span> (idx, v) <span class="keyword">in</span> enumerate(item_data) <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> user_data[user]]</span><br><span class="line">    <span class="keyword">for</span> item_idx, item <span class="keyword">in</span> can_recommend:</span><br><span class="line">        weighted_score = <span class="number">0.0</span></span><br><span class="line">        corr_sum = <span class="number">0.0</span></span><br><span class="line">        <span class="comment"># 前 sim_k 个与目标用户相似的用户 index</span></span><br><span class="line">        <span class="keyword">for</span> sim_user_idx <span class="keyword">in</span> similarity_matrix[user_idx].argsort()[-sim_k: ]:</span><br><span class="line">            corr = similarity_matrix[user_idx][sim_user_idx]</span><br><span class="line">            <span class="comment"># 相关性小于等于 0 的就不要了</span></span><br><span class="line">            <span class="keyword">if</span> corr &lt;= <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            sim_user = users[sim_user_idx]</span><br><span class="line">            <span class="comment"># 用户 sim_user s 没有对 item p 评分的不计算</span></span><br><span class="line">            <span class="keyword">if</span> item <span class="keyword">not</span> <span class="keyword">in</span> user_data[sim_user]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            sim_user_base = np.mean(list(user_data[sim_user].values()))</span><br><span class="line">            weighted_score += corr * (user_data[sim_user][item] - sim_user_base)</span><br><span class="line">            corr_sum += corr</span><br><span class="line">        <span class="comment"># 如果相似用户那里计算失败，那这个商品就跳过了</span></span><br><span class="line">        <span class="keyword">if</span> corr_sum == <span class="number">0.0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        recommend_dict[item] = base_score + weighted_score / corr_sum</span><br><span class="line">    sort = sorted(recommend_dict.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse=<span class="keyword">True</span>)[:topn]</span><br><span class="line">    <span class="keyword">return</span> sort</span><br></pre></td></tr></table></figure>
+<p>上面代码的计算效率并不高，主要是因为 “目标用户不知道的商品” 里面可能有很多对相似用户来说也是 “不知道的商品”，这就导致了很多无效操作。事实上，我们可以直接对相似用户的评分商品进行处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_usercf_recommendations</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    user_data: Dict[str or int, Dict], </span></span></span><br><span class="line"><span class="function"><span class="params">    user: str or int, </span></span></span><br><span class="line"><span class="function"><span class="params">    sim_k: int, </span></span></span><br><span class="line"><span class="function"><span class="params">    topn: int</span></span></span><br><span class="line"><span class="function"><span class="params">)</span>-&gt; List[Tuple[int or str, float]]:</span></span><br><span class="line">    recommend_dict = &#123;&#125;</span><br><span class="line">    weighted_score_dict = &#123;&#125;</span><br><span class="line">    corr_sum_dict = &#123;&#125;</span><br><span class="line">    base_score = np.mean(list(user_data[user].values()))</span><br><span class="line">    users = list(user_data)</span><br><span class="line">    user_idx = users.index(user)</span><br><span class="line">    <span class="keyword">for</span> sim_user_idx <span class="keyword">in</span> similarity_matrix[user_idx].argsort()[-sim_k: ]:</span><br><span class="line">        corr = similarity_matrix[user_idx][sim_user_idx]</span><br><span class="line">        <span class="keyword">if</span> corr &lt;= <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        sim_user = users[sim_user_idx]</span><br><span class="line">        sim_user_base = np.mean(list(user_data[sim_user].values()))</span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> user_data[sim_user]:</span><br><span class="line">            <span class="comment"># 如果相似用户的评分商品目标用户已经知道了，则跳过</span></span><br><span class="line">            <span class="keyword">if</span> item <span class="keyword">in</span> user_data[user]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            weighted_score = weighted_score_dict.get(item, <span class="number">0.0</span>)</span><br><span class="line">            weighted_score_dict[item] = weighted_score + corr * (user_data[sim_user][item] - sim_user_base)</span><br><span class="line">            corr_sum = corr_sum_dict.get(item, <span class="number">0.0</span>)</span><br><span class="line">            corr_sum_dict[item] = corr_sum + corr</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> weighted_score_dict:</span><br><span class="line">        recommend_dict[item] = base_score + weighted_score_dict[item] / corr_sum_dict[item]</span><br><span class="line">    sort = sorted(recommend_dict.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse=<span class="keyword">True</span>)[:topn]</span><br><span class="line">    <span class="keyword">return</span> sort</span><br></pre></td></tr></table></figure>
+<p>经测试，优化后的运行速度是之前的 1/30，也就是效率提高了近 30 倍。当然，我们也可以先获得相似用户的评分商品，剔除目标用户知道的商品后，作为候选列表。</p>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>数据稀疏性。很多实际项目中，用户真正购买的商品可能只占所有商品很少的比例，这就导致大多数用户对大多数商品都是不知道的，算法很难找到目标用户的相似用户，这就导致该算法不适合正反馈获取较困难的应用场景（没有正反馈就没法推荐）。代表性的例子就是低频商品购买，如酒店预订。</li>
+<li>不适合用户量大的情况。用户量大时，相似度矩阵的计算和存储开销都非常大。我们估算一下，假设用户为 100 万，那么相当于维护一个 100 万 × 100 万的浮点数矩阵，一个 float64 占 8 个字节，总共占用空间 7 个多 T，太太太不现实了。</li>
+<li>对于用户少、物品多、时效性强的场合比较适合。比如新闻推荐，因为相比用户对新闻的兴趣偏好，新闻的及时性、热点往往更加重要，所以正好用于发现热点（比如将大家都关注的某个新闻推荐给其他用户）和跟踪热点。同时还具有推荐新信息的能力，这是因为算法按人进行推荐很有可能发现用户的潜在兴趣。</li>
+</ul>
+<p>因此，虽然基于用户的协同过滤技术实现很简单，也适用于很多场景，但缺点太明显，很多实际项目一般会使用基于商品的协同过滤作为最初的推荐系统实现。</p>
+<h2 id="基于物品的协同过滤"><a href="#基于物品的协同过滤" class="headerlink" title="基于物品的协同过滤"></a>基于物品的协同过滤</h2><p>它的基本思想是根据不同用户对物品的评分来计算物品之间的相似性，然后把目标用户喜欢物品类似的物品推荐给用户。所以，第一步是计算物品之间的相似性，确定给定物品的前 n 个相似物品，然后根据相似物品的评分计算给定物品评分，最终得到可推荐列表，排序后将前面的物品推荐给目标用户。<strong>这里的假设是商品 A 和 B 相似是因为喜欢商品 A 的用户也喜欢商品 B</strong>（因为衡量商品相似的标准是用户对它的评分）。</p>
+<p>算法基本流程和上部分基于用户的协同过滤基本一致，最终的评分公式也很相似：</p>
+<script type="math/tex; mode=display">
+R_{u,p} = \bar{R_p} + \frac{\sum_{k \in K} \left( \mathrm{sim}_{p,k} \cdot (R_{u,k} - \bar{R_k}) \right)}{\sum_{k \in K} \mathrm{sim}_{p,k}}</script><p>Ruk 表示用户 u 对商品 k 的评分，商品 k 则属于商品 p 的相似商品 K 的元素。也就是说，给定目标用户不知道的商品 p，通过用户评过分的若干相似物品 K，可以根据上式计算 p 的评分。只要得到用户不知道商品的列表和对应的评分，自然可以完成推荐。</p>
+<p>计算相似度矩阵可以用之前的代码，不再赘述。推荐相关代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_itemcf_recommendations</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    user_data: Dict[str or int, Dict], </span></span></span><br><span class="line"><span class="function"><span class="params">    item_data: Dict[str or int, Dict],</span></span></span><br><span class="line"><span class="function"><span class="params">    user: str or int, </span></span></span><br><span class="line"><span class="function"><span class="params">    sim_k: int, </span></span></span><br><span class="line"><span class="function"><span class="params">    topn: int</span></span></span><br><span class="line"><span class="function"><span class="params">)</span>-&gt; List[Tuple[int or str, float]]:</span></span><br><span class="line">    recommend_dict = &#123;&#125;</span><br><span class="line">    items = list(item_data)</span><br><span class="line">    can_recommend = [(idx, v) <span class="keyword">for</span> (idx, v) <span class="keyword">in</span> enumerate(item_data) <span class="keyword">if</span> v <span class="keyword">not</span> <span class="keyword">in</span> user_data[user]]</span><br><span class="line">    <span class="keyword">for</span> item_idx, item <span class="keyword">in</span> can_recommend:</span><br><span class="line">        base_score = np.mean(list(item_data[item].values()))</span><br><span class="line">        weighted_score = <span class="number">0.0</span></span><br><span class="line">        corr_sum = <span class="number">0.0</span></span><br><span class="line">        <span class="comment"># 通过该用户评过分且与给定 Item 最相似的 Item 计算分数</span></span><br><span class="line">        <span class="keyword">for</span> sim_item_idx <span class="keyword">in</span> similarity_matrix[item_idx].argsort()[-sim_k: ]:</span><br><span class="line">            corr = similarity_matrix[item_idx][sim_item_idx]</span><br><span class="line">            <span class="keyword">if</span> corr &lt;= <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            sim_item = items[sim_item_idx]  </span><br><span class="line">            <span class="comment"># 如果用户对相似物品没有打过分，跳过该物品</span></span><br><span class="line">            <span class="keyword">if</span> user <span class="keyword">not</span> <span class="keyword">in</span> item_data[sim_item]:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            sim_item_base = np.mean(list(item_data[sim_item].values()))</span><br><span class="line">            weighted_score += corr * (item_data[sim_item][user] - sim_item_base)</span><br><span class="line">            corr_sum += corr</span><br><span class="line">        <span class="comment"># 如果相似度计算失败，跳过该商品</span></span><br><span class="line">        <span class="keyword">if</span> corr_sum == <span class="number">0.0</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        recommend_dict[item] = base_score + weighted_score / corr_sum</span><br><span class="line">    sort = sorted(recommend_dict.items(), key=<span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse=<span class="keyword">True</span>)[:topn]</span><br><span class="line">    <span class="keyword">return</span> sort</span><br></pre></td></tr></table></figure>
+<p><strong>优缺点</strong></p>
+<ul>
+<li>数据稀疏性。与前面分析类似，因为数据稀疏缺乏计算相似性的数据，导致热门商品具有很强的头部效应，容易跟大量商品相似，但尾部商品却很少被推荐。</li>
+<li>不适合大量商品的情况。理由与前面类似，相似度矩阵计算与存储的消耗太大。</li>
+<li>适用于物品少、用户多、用户兴趣比较稳定、物品更新速度不是太快的场合。比如电影、书籍推荐。</li>
+</ul>
+<h2 id="算法评估"><a href="#算法评估" class="headerlink" title="算法评估"></a>算法评估</h2><p><strong>召回率</strong></p>
+<p>这里的召回率与机器学习的类似，就是在测试集上，用户标记喜欢的物品集合中有多少是系统推荐给用户的。假设对用户 u 推荐了 N 个物品 Rn，用户喜欢的集合为 Tu：</p>
+<script type="math/tex; mode=display">
+\mathrm{Recall} = \sum_{u} \frac{|R(u) \cap T(u)|} {|T(u)|}</script><p><strong>精准率</strong></p>
+<p>相应地，准确率衡量的是推荐的物品中，用户喜欢的占推荐物品的比例：</p>
+<script type="math/tex; mode=display">
+\mathrm{Precision} = \sum_{u} \frac{|R(u) \cap T(u)|} {|R(u)|}</script><p><strong>覆盖率</strong></p>
+<p>反应算法挖掘长尾的能力，表示最终推荐列表中包含多大比例的物品。</p>
+<script type="math/tex; mode=display">
+\mathrm{Coverage} = \frac{ \cup_{u \in U} R(u) }{|I|}</script><p><strong>新颖度</strong></p>
+<p>根据推荐列表中物品的平均流行度衡量，如果有很多热门物品则说明推荐的新颖度低。</p>
+<h2 id="算法评价"><a href="#算法评价" class="headerlink" title="算法评价"></a>算法评价</h2><p><strong>数据稀疏问题</strong></p>
+<p>之前提到处理数据稀疏向量弱的导致的头部效应问题其实是协同过滤算法的天然缺陷，体现在模型上其实就是泛化能力太弱。矩阵分解技术通过使用 更稠密的隐向量表示用户和物品，挖掘用户和物品的隐含兴趣和隐含特征，在一定程度上弥补了这个问题。</p>
+<p><strong>只利用了交互信息</strong></p>
+<p>这个问题更加直观，因为协同过滤只利用了用户和物品的交互信息，并没有利用用户和物品自身的属性，这就造成了信息的遗漏。用户画像、商品画像等方法正是因此而出现。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://github.com/datawhalechina/team-learning-rs/tree/master/RecommendationSystemFundamentals" target="_blank" rel="noopener">team-learning-rs/RecommendationSystemFundamentals at master · datawhalechina/team-learning-rs</a></li>
+<li><a href="https://www.wikiwand.com/en/Pearson_correlation_coefficient" target="_blank" rel="noopener">Pearson correlation coefficient - Wikiwand</a></li>
+<li><a href="https://book.douban.com/subject/30771192/" target="_blank" rel="noopener">大数据数学基础（R语言描述） (豆瓣)</a></li>
+<li><a href="http://ekzhu.com/datasketch/lshensemble.html" target="_blank" rel="noopener">MinHash LSH Ensemble — datasketch 1.0.0 documentation</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/">
+    <time datetime="2020-10-22T15:00:00.000Z" class="entry-date">
+        2020-10-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collaborative-Filtering/">Collaborative Filtering</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cosine/">Cosine</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ItemCF/">ItemCF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jaccard/">Jaccard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Minkowski/">Minkowski</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pearson/">Pearson</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recommendation/">Recommendation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Similarity/">Similarity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UserCF/">UserCF</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/10/24/RecSys/2020-10-24-MF/" rel="prev"><span class="meta-nav">←</span> 矩阵分解</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/10/19/RecSys/2020-10-19-RecIntroduction/" rel="next">推荐系统概述 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">96</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/11/Paper/2022-06-11-W2NER/">统一NER为词词关系分类</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">预训练模型与传统方法在排序上有啥不同？</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">量化NLM模型的记忆力</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">NLP预训练模型的不可能三角</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.27px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10.91px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.55px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.73px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 11.82px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.91px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.82px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 10.91px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.55px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 11.82px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.91px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 10px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ner/" style="font-size: 10px;">Ner</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.91px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.91px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.91px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 10px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.91px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.91px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.91px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.45px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.91px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Span/" style="font-size: 10px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.91px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.91px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/T5/" style="font-size: 10.91px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 10px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.91px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 10px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

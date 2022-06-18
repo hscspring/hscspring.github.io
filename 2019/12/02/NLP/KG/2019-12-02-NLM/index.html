@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>自然语言记忆模块（NLM） | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。 项目地址：https://g">
+<meta name="keywords" content="NLP,Knowledge Graph,NLM,Neo4j">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自然语言记忆模块（NLM）">
+<meta property="og:url" content="https://www.yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。 项目地址：https://g">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-12-10T07:34:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自然语言记忆模块（NLM）">
+<meta name="twitter:description" content="本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。 项目地址：https://g">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLP/KG/2019-12-02-NLM" class="post-NLP/KG/2019-12-02-NLM post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      自然语言记忆模块（NLM）
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/" data-id="ckx1vldmr00qxp8bzntwyzlvi" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。</p>
+<p>项目地址：<a href="https://github.com/hscspring/NLM" target="_blank" rel="noopener">https://github.com/hscspring/NLM</a></p>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><p>图数据库的典型代表是 <a href="http://neo4j.com/" target="_blank" rel="noopener">Neo4j</a>，Neo4j 中有几个很重要的概念：标签、节点和关系。标签是一类节点，可以看作是节点的类别，节点一般是某一个实体；关系存在于两个实体间，可以有多种不同的关系。节点和关系可以有多个属性。实践来看，Python 语言可以使用社区的 <a href="https://github.com/technige/py2neo" target="_blank" rel="noopener">technige/py2neo</a>，当然还可以使用官方的 <a href="https://github.com/neo4j/neo4j-python-driver" target="_blank" rel="noopener">neo4j/neo4j-python-driver: Neo4j Bolt driver for Python</a>，两者的目的都是将数据 import 进 database 并进行相应的查询。</p>
+<p>Neo4j 的特点要求导入的数据尽量是结构化的，也就是我们要事先有实体和它的类别（实体的属性可有可无），实体与实体间的关系（关系的属性可有可无）。我们期待能从对话或无监督的语料中自动提取实体和关系，然后自动 import 进 Neo4j。为了避免导入数据的混乱，自然最好能有先验的 “类别”，比如节点类别 Person，Movie 等，关系类别 LOVES，ACTS 等。所以，对于文本输入，我们需要一个信息提取器，将文本中的符合先验类别的节点和关系提取出来。如果输入是 NLU 模块输出的 ”意图和实体“ ，则需要一个分类器，将意图分类到对应的 Relation 类别，将实体分类到 Node 类别。</p>
+<a id="more"></a>
+<p>接下来的问题是：“我们如何确定先验的类别？”设想当然是能包括所有可能的类别，比如我们可以在大规模语料上使用 LDA 之类的模型自动获取 topic，每个 topic 作为一个类别标签。对话中的句子使用该模型预测 topic 并在 query 无结果时加入 Database。但这样可能导致知识图谱比较泛，无法 “专注” 在特定领域。因此实际可能还是需要针对垂直领域手动设计好 Node 和 Relation 的类别。</p>
+<p>综上所述，我们的 NLM 模块需要具备以下基本功能：</p>
+<ul>
+<li>批量导入结构化数据，根据设计好的 Node 和 Relation（统一在 scheme 中设计）自动创建实体和关系</li>
+<li>自动根据文本或 NLU 的输出存储或查询实体和关系（无论是否有事先设计的实体和关系类别）<ul>
+<li>对于商业应用，建议事先设计好，实际就变成：<ul>
+<li>将 NLU 的结果（实体和意图）自动分类到知识图谱已有的 Node 和 Relation</li>
+<li>从文本中自动提取事先设计好类别的 Node 和 Relation</li>
+</ul>
+</li>
+<li>对于闲聊机器人，不妨让它自由进化，看看最后能成什么样子</li>
+</ul>
+</li>
+<li>自动根据文本或 NLU 的输出 Query</li>
+<li>对 Query 结果进行解析，输出为 NLG 或 NLI 模块需要的结构</li>
+<li>模块高内聚，可以作为独立的 Layer 对外提供服务；低耦合，分类器、提取器、解析器均可以自由更换</li>
+</ul>
+<p>基本流程如下：</p>
+<p>NLU Output/TEXT =&gt; Classifier/Extractor =&gt; Graph Input =&gt; Query/Add/Update =&gt; Parser =&gt; NLG (NLI) Input</p>
+<h2 id="批量导入"><a href="#批量导入" class="headerlink" title="批量导入"></a>批量导入</h2><p>主要是明确一下规范，这个规范是看过几个项目后的感悟，暂时没有想到更好的，等有了更好的再来调整吧。最好 Input 不依赖某个具体的数据库（如 Neo4j）。核心思想是这样的：</p>
+<ul>
+<li>首先假设每次导入的数据是某一个类别，而这些数据每条对应一个不重复的 item name。比如类别 “电影” 每条 item 的 name 是电影名；再比如类别 “疾病” 每条 item 的 name 是疾病名。</li>
+<li>item name 相关的其他信息均作为该 item 的属性。比如某个电影的属性可能包括：上映时间、导演、演员、类别，甚至豆瓣评分都可以。</li>
+<li>每个 item name 就是一个 Node，label 自然就是类别，item 的属性是 Node 的属性，这个可以动态调整。Relation 除了两个 Node 和它的 name 外还可以有自己的属性。比如演员 Y 是一个 Person，“演员 Y act A 电影” 这是一个关系，它同时可以有一个 “角色” 的属性（即在电影里演了谁）。</li>
+<li>Node 和 Relation 均通过 scheme 创建。</li>
+</ul>
+<p>举个栗子，首先是数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 结构化的 data</span><br><span class="line">[</span><br><span class="line">    &#123;<span class="attr">"id"</span>: <span class="string">"1"</span>, <span class="attr">"title"</span>: <span class="string">"Wall Streat"</span>, <span class="attr">"year"</span>: <span class="string">"1987"</span>, <span class="attr">"actors"</span>: [<span class="string">"Charlie-&gt;Bud"</span>, <span class="string">"Martin-&gt;Gordon"</span>], <span class="attr">"director"</span>: <span class="string">"Robot"</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">"id"</span>: <span class="string">"2"</span>, <span class="attr">"title"</span>: <span class="string">"The Matrix"</span>, <span class="attr">"year"</span>: <span class="string">"1997"</span>, <span class="attr">"actors"</span>: [<span class="string">"Keanu-&gt;Neo"</span>, <span class="string">"Tom-&gt;Forrest"</span>], <span class="attr">"director"</span>: <span class="string">"Robot"</span>&#125;,</span><br><span class="line">    ...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>接着是 scheme ，可以使用 <code>GraphObject</code> 来直接创建 Graph scheme 对象，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># batch scheme</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Movie</span><span class="params">(GraphObject)</span>:</span></span><br><span class="line">    __primarykey__ = <span class="string">"title"</span></span><br><span class="line"></span><br><span class="line">    title = Property()</span><br><span class="line">    released = Property(<span class="string">"year"</span>)</span><br><span class="line"></span><br><span class="line">    actors = RelatedFrom(Person, <span class="string">"ACTED_IN"</span>)</span><br><span class="line">    directors = RelatedFrom(Person, <span class="string">"DIRECTED"</span>)</span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(GraphObject)</span>:</span></span><br><span class="line">    __primarykey__ = <span class="string">"name"</span></span><br><span class="line"></span><br><span class="line">    name = Property()</span><br></pre></td></tr></table></figure>
+<p>然后将结构化的数据处理后批量导入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># execute</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">batch</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> data:</span><br><span class="line">        movie = Movie()</span><br><span class="line">        movie.title=item[<span class="string">"title"</span>]</span><br><span class="line">        movie.released=item[<span class="string">"year"</span>]</span><br><span class="line">        director = Person()</span><br><span class="line">        director.name = item[<span class="string">"director"</span>]</span><br><span class="line">        movie.directors.add(director, &#123;<span class="string">"name"</span>: <span class="string">"执导了"</span>&#125;)</span><br><span class="line">        <span class="keyword">for</span> iitem <span class="keyword">in</span> item[<span class="string">"actors"</span>]:</span><br><span class="line">            actor = Person()</span><br><span class="line">            actor.name, role = iitem.split(<span class="string">"-&gt;"</span>)</span><br><span class="line">            movie.actors.add(actor, &#123;<span class="string">"role"</span>: role, <span class="string">"name"</span>: <span class="string">"扮演了"</span>&#125;)</span><br><span class="line">        graph.push(movie)</span><br></pre></td></tr></table></figure>
+<p>具体可参考<a href="https://github.com/hscspring/NLM/tree/master/batch_example" target="_blank" rel="noopener">这里</a>的例子。</p>
+<h2 id="实时处理"><a href="#实时处理" class="headerlink" title="实时处理"></a>实时处理</h2><p>从 NLU Output 或文本到 Graph Input 这步一般就是深度学习模型 + 传统的信息提取方法 + Naive 的兜底（比如类别字符串匹配）。如果看过《思考，快与慢》的话，这个 NLM 记忆层相当于系统 2，进到这里后出去是需要做一系列推理和判断的。至于系统 1，则直接从历史对话中得到，这方面可以借鉴这个<a href="https://github.com/gunthercox/ChatterBot" target="_blank" rel="noopener">项目</a>，这时候就不需要图数据库了。</p>
+<p>目前从 Graph Input 到存储、Query 这步已经完成了，并且两步自动合并为一步，即 NLM 会根据输入的 Node 或 Relation 的部分信息找到存储的对应的完整信息，同时它会自动判断（可以全局配置或在 Query 时配置）是不是要添加或更新。项目主页在<a href="https://github.com/hscspring/NLM" target="_blank" rel="noopener">这里</a>，<strong>需要说明的是</strong>：属性不作为 Query 信息，仅作为对 Query 结果排序的依据。NLM 可以作为Python 模块使用，也可以作为 RPC 服务使用。在使用前需要做一些配置和操作，具体如下：</p>
+<p><strong>第一步：安装依赖</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 pipenv</span></span><br><span class="line">$ pipenv install --dev</span><br><span class="line"><span class="comment"># 没有 pipenv</span></span><br><span class="line">$ python3 -m venv env</span><br><span class="line">$ <span class="built_in">source</span> env/bin/activate</span><br><span class="line">$ pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p><strong>第二步：启动一个 Neo4j 实例</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm -it -p 7475:7474 -p 7688:7687 neo4j</span><br></pre></td></tr></table></figure>
+<p>这里我们使用 7475 和 7688 两个端口，和正式环境区分开，并且也不持久化存储数据。启动 docker 后，在浏览器中打开 <code>http://localhost:7475/browser/</code>，端口改成 7688，密码输入 <code>neo4j</code>，然后将密码改为 <code>password</code>。</p>
+<p>如果你是在正式的环境下使用，可以这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --rm -it \</span><br><span class="line">    --p=7474:7474 --p=7687:7687 \</span><br><span class="line">    --v=/your/persist/path/to/neo4j/data:/data \</span><br><span class="line">    neo4j</span><br></pre></td></tr></table></figure>
+<p>同时你需要创建环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NEO_SCHE:scheme</span><br><span class="line">NEO_HOST:host</span><br><span class="line">NEO_PORT:port</span><br><span class="line">NEO_USER:username</span><br><span class="line">NEO_PASS:password</span><br></pre></td></tr></table></figure>
+<p>举个例子：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NEO_SCHE:bolt</span><br><span class="line">NEO_HOST:localhost</span><br><span class="line">NEO_PORT:7687</span><br><span class="line">NEO_USER:neo4j</span><br><span class="line">NEO_PASS:complex_password_<span class="keyword">for</span>_neo4j</span><br></pre></td></tr></table></figure>
+<p>如果你不是通过配置文件，那建议使用 <a href="https://github.com/inishchith/autoenv" target="_blank" rel="noopener">inishchith/autoenv: Directory-based environments.</a>，将配置写到 <code>.env</code> 文件下，切换目录会自动加载目录下 <code>.env</code> 中的环境变量。<strong>注意</strong>，不要把 <code>.env</code> 文件提交到代码仓库。</p>
+<p>测试环境下不需要配置环境变量，用的都是上面的默认值，比如端口用 7688，密码用 <code>password</code> 等。</p>
+<p><strong>第三步：运行测试</strong></p>
+<p>这步的主要目的是生产一点数据：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pytest</span><br></pre></td></tr></table></figure>
+<p>运行完后打开 <code>http://localhost:7475/browser/</code>，在 Query 框中输入查询语句就能看到节点和关系信息了，一共 8 个节点和 8 个关系：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (_) RETURN _</span><br></pre></td></tr></table></figure>
+<h3 id="作为模块使用"><a href="#作为模块使用" class="headerlink" title="作为模块使用"></a>作为模块使用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> py2neo.database <span class="keyword">import</span> Graph</span><br><span class="line"><span class="keyword">from</span> nlm <span class="keyword">import</span> NLMLayer, GraphNode, GraphRelation</span><br><span class="line"><span class="comment"># 这里的配置可以在具体运行时覆盖</span></span><br><span class="line">mem = NLMLayer(graph=Graph(port=<span class="number">7688</span>), </span><br><span class="line">               fuzzy_node=<span class="keyword">False</span>,</span><br><span class="line">               add_inexistence=<span class="keyword">False</span>,</span><br><span class="line">               update_props=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">########## 节点 ##########</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本查询</span></span><br><span class="line">node = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">mem(node)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一个新节点，如果不是新节点，就会返回查到的那个节点</span></span><br><span class="line">new = GraphNode(<span class="string">"Person"</span>, <span class="string">"Bob"</span>)</span><br><span class="line">mem(new, add_inexistence=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模糊查询，只支持 name 上的模糊</span></span><br><span class="line">node = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceT"</span>)</span><br><span class="line">mem(node, fuzzy_node=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新属性，Node 的属性会同步返回更改后的</span></span><br><span class="line">node = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>, props=&#123;<span class="string">"age"</span>: <span class="number">24</span>&#125;)</span><br><span class="line">mem(node, update_props=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个节点，辅助功能</span></span><br><span class="line">node = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceT"</span>)</span><br><span class="line">mem(node, fuzzy_node=<span class="keyword">True</span>, topn=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">########## 关系 ##########</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 基本查询</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceOne"</span>)</span><br><span class="line">relation = GraphRelation(start, end, <span class="string">"LOVES"</span>)</span><br><span class="line">mem(relation)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加新关系</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"Bob"</span>)</span><br><span class="line">relation = GraphRelation(start, end, <span class="string">"KNOWS"</span>)</span><br><span class="line">mem(relation, add_inexistence=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 模糊查询</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceTh"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceO"</span>)</span><br><span class="line">relation = GraphRelation(start, end, <span class="string">"LOVES"</span>)</span><br><span class="line">mem(relation, fuzzy_node=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多个关系</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceOne"</span>)</span><br><span class="line">relation = GraphRelation(start, end)</span><br><span class="line">mem(relation, topn=<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 更新属性，Relation 属性不会同步返回，需再次调用后返回</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"Bob"</span>)</span><br><span class="line">relation = GraphRelation(start, end, <span class="string">"KNOWS"</span>, &#123;<span class="string">"roles"</span>: <span class="string">"classmate"</span>&#125;)</span><br><span class="line">mem(relation, update_props=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 同时更新 Node 和 Relation 的属性</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"Bob"</span>, &#123;<span class="string">"sex"</span>: <span class="string">"male"</span>&#125;)</span><br><span class="line">relation = GraphRelation(start, end, <span class="string">"KNOWS"</span>, &#123;<span class="string">"roles"</span>: <span class="string">"friend"</span>&#125;)</span><br><span class="line">mem(relation, update_props=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 没有关系类别的查询</span></span><br><span class="line">start = GraphNode(<span class="string">"Person"</span>, <span class="string">"AliceThree"</span>)</span><br><span class="line">end = GraphNode(<span class="string">"Person"</span>, <span class="string">"Bob"</span>)</span><br><span class="line">mem(GraphRelation(start, end), topn=<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">############ 数据库 ############</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有的 label，即实体类别</span></span><br><span class="line">mem.labels</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有的关系类别</span></span><br><span class="line">mem.relationship_types</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实体数量</span></span><br><span class="line">mem.nodes_num</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关系数量</span></span><br><span class="line">mem.relationships_num</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有的实体，是一个 generator</span></span><br><span class="line">mem.nodes</span><br><span class="line"></span><br><span class="line"><span class="comment"># 所有的关系，是一个 generator</span></span><br><span class="line">mem.relationships</span><br><span class="line"></span><br><span class="line"><span class="comment"># CQL 查询</span></span><br><span class="line">mem.query(<span class="string">"MATCH (a:Person) RETURN a.age, a.name LIMIT 5"</span>)</span><br><span class="line">[&#123;<span class="string">'a.age'</span>: <span class="number">21</span>, <span class="string">'a.name'</span>: <span class="string">'AliceTwo'</span>&#125;,</span><br><span class="line"> &#123;<span class="string">'a.age'</span>: <span class="number">23</span>, <span class="string">'a.name'</span>: <span class="string">'AliceFour'</span>&#125;,</span><br><span class="line"> &#123;<span class="string">'a.age'</span>: <span class="number">22</span>, <span class="string">'a.name'</span>: <span class="string">'AliceOne'</span>&#125;,</span><br><span class="line"> &#123;<span class="string">'a.age'</span>: <span class="number">24</span>, <span class="string">'a.name'</span>: <span class="string">'AliceFive'</span>&#125;,</span><br><span class="line"> &#123;<span class="string">'a.age'</span>: <span class="keyword">None</span>, <span class="string">'a.name'</span>: <span class="string">'Bob'</span>&#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># CQL 执行</span></span><br><span class="line">mem.excute(<span class="string">"MATCH (a:Person) RETURN a.age, a.name LIMIT 5"</span>)</span><br></pre></td></tr></table></figure>
+<p>NLMLayer 本质上是继承了 <code>py2neo.Graph</code>，所有 <code>py2neo.Graph</code> 的函数和方法，mem 都可以使用，比如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个 Node Matcher</span></span><br><span class="line">mem.nmatcher</span><br></pre></td></tr></table></figure>
+<p>详细可参考：<a href="https://py2neo.org/v4/matching.html" target="_blank" rel="noopener">3. py2neo.matching – Entity matching — The Py2neo v4 Handbook</a>。</p>
+<p>另外，如果模糊查询开启，则不会自动更新属性（即便配置了也不会），因为不确定模糊查到的节点是不是具备这些属性。但会自动添加节点，因为模糊查询都找不到的话，自动添加肯定是没问题的。</p>
+<h3 id="作为服务使用"><a href="#作为服务使用" class="headerlink" title="作为服务使用"></a>作为服务使用</h3><p>作为 RPC 服务，必须在启动时将 NLMLayer 的参数给配置好（当然不配置的话默认都是 False），因为你不能像模块那样在实际调用时覆盖。这样设计的目的是让接口简单、清晰，客户端不用（也不需要）考虑这些东西。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ python server.py [OPTIONS]</span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line">	-fn fuzzy_node</span><br><span class="line">	-ai add_inexistence</span><br><span class="line">	-up update_props</span><br></pre></td></tr></table></figure>
+<p>客户端可以使用任何编程语言，详细情况可以阅读 <a href="https://grpc.io/" target="_blank" rel="noopener">gRPC</a> 相关知识。</p>
+<p>目前只有四个接口，但其实后两个并不能提供真正的服务：</p>
+<ul>
+<li>NodeRecall</li>
+<li>RelationRecall</li>
+<li>StrRecall</li>
+<li>NLURecall</li>
+</ul>
+<p>仓库里有一个 Python 版本的客户端使用代码：<code>client.py</code>。</p>
+<h2 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h2><p>如果考虑到初衷，项目其实是个半成品，之所以发布出来是想听听更多人的建议，看看实际中到底有哪些应用场景，然后再做针对性地开发。这个毕竟是比较新的领域，我自己也没有很多实践经验。</p>
+<p>对返回的结果数量，最开始的想法是只返回一个，后来给留了个 topn 的参数。这个功能在 RPC 中给取消了，主要还是因为后续没有完成，还有是考虑到最终其实只要一个结果，并不需要返回多个，以及 proto 写起来稍微清晰一些。设计的出发点是尽量让使用傻瓜式，比如模块主要功能的入口只有一个。</p>
+<p>由于考虑到 Query 中可能有 props，而 props 实际上是 key value 都不确定的字典，这在 proto 中定义起来比较麻烦，一直没找到很合适的方法。所以干脆统一将 props 给序列化了，这样的做法导致 RPC Server 处理起来有一点点复杂。</p>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><ul>
+<li><a href="https://py2neo.org/v4/index.html" target="_blank" rel="noopener">The Py2neo v4 Handbook — The Py2neo v4 Handbook</a></li>
+<li><a href="https://github.com/liuhuanyong/CrimeKgAssitant" target="_blank" rel="noopener">liuhuanyong/CrimeKgAssitant</a></li>
+<li><a href="https://github.com/gunthercox/ChatterBot" target="_blank" rel="noopener">gunthercox/ChatterBot</a></li>
+<li><a href="https://github.com/liuhuanyong/QASystemOnMedicalKG" target="_blank" rel="noopener">liuhuanyong/QASystemOnMedicalKG</a></li>
+<li><a href="https://github.com/machinalis/iepy" target="_blank" rel="noopener">machinalis/iepy: Information Extraction in Python</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/02/NLP/KG/2019-12-02-NLM/">
+    <time datetime="2019-12-02T14:00:00.000Z" class="entry-date">
+        2019-12-02
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLM/">NLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neo4j/">Neo4j</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/" rel="prev"><span class="meta-nav">←</span> The Rust Programming Language Brief Note (Vol4-Advance)</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/" rel="next">Sort Based on Multiway Tree <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">96</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/11/Paper/2022-06-11-W2NER/">统一NER为词词关系分类</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">预训练模型与传统方法在排序上有啥不同？</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">量化NLM模型的记忆力</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">NLP预训练模型的不可能三角</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.27px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10.91px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.55px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.73px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 11.82px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.91px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.82px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 10.91px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.55px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 11.82px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.91px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 10px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ner/" style="font-size: 10px;">Ner</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.91px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.91px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.91px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 10px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.91px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.91px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.91px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.45px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.91px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Span/" style="font-size: 10px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.91px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.91px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/T5/" style="font-size: 10.91px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 10px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.91px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 10px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

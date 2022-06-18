@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>Data Augmentation Approaches in Natural Language Processing：A Survey | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="论文：[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey Code：无 一句话概述：全面和结构化的数据增强文献综述。 摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高">
+<meta name="keywords" content="NLP,Data Augmentation,DA,Data Enhancement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data Augmentation Approaches in Natural Language Processing：A Survey">
+<meta property="og:url" content="https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="论文：[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey Code：无 一句话概述：全面和结构化的数据增强文献综述。 摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-1.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-2.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-4.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-3.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-5.jpg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-6.jpg">
+<meta property="og:updated_time" content="2021-11-28T14:49:44.387Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Data Augmentation Approaches in Natural Language Processing：A Survey">
+<meta name="twitter:description" content="论文：[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey Code：无 一句话概述：全面和结构化的数据增强文献综述。 摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-da-1.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2021-11-28-DataAugmentation" class="post-Paper/2021-11-28-DataAugmentation post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Data Augmentation Approaches in Natural Language Processing：A Survey
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/" data-id="ckx1vldjh00l2p8bz0r5u7xz4" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>论文：<a href="https://arxiv.org/abs/2110.01852" target="_blank" rel="noopener">[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey</a></p>
+<p>Code：无</p>
+<p>一句话概述：全面和结构化的数据增强文献综述。</p>
+<p>摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高模型泛化能力。本文将 DA 方法基于增强数据的多样性分成三类：释义、噪声和采样，分别进行详细分析，另外也介绍了它们在 NLP 任务中的应用和挑战。</p>
+<a id="more"></a>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>数据增强指通过对已有数据添加微小改动或从已有数据新创建合成数据，以增加数据量的方法。因为 NLP 的离散型，所以应用起来相对较难。</p>
+<ul>
+<li>paraphrasing-based 方法：生成原始数据的释义作为增强数据。有限的语义不同，与原始数据很相近。</li>
+<li>noise-based 方法：保证结果有效的前提下对原始数据增加噪声。提升模型鲁棒性。</li>
+<li>sample-based 方法：掌握原始数据的分布，采样新数据作为增强数据。基于人工启发式和训练模型输出更多样化的数据并满足下游任务的更多需求。</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-1.jpg" alt=""></p>
+<h2 id="NLP中的数据增强方法"><a href="#NLP中的数据增强方法" class="headerlink" title="NLP中的数据增强方法"></a>NLP中的数据增强方法</h2><h3 id="基于释义的方法"><a href="#基于释义的方法" class="headerlink" title="基于释义的方法"></a>基于释义的方法</h3><p>释义的重点是使增强数据的语义尽可能与原始数据相似。可能出现在多个层次：词汇、短语和句子。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-2.jpg" alt=""></p>
+<ul>
+<li>同义词：<ul>
+<li>做法一：对每个句子获取所有可替换的词，并随机选择 r 个进行替换，与原始词越像越有可能被选择。</li>
+<li>做法二：EDA，随机选择 n 个非停用词，随机选择每个词的同义词进行替换。</li>
+<li>做法三：使用上位词替换原始词，按照难度从高到低的顺序推荐了可用作词替换的候选词类型：副词、形容词、名词和动词。</li>
+</ul>
+</li>
+<li>语义嵌入<ul>
+<li>做法一：使用预训练的词向量找近义词：Glove、Word2Vec、FastText 等。</li>
+<li>做法二：同时使用词向量和语义帧向量。</li>
+</ul>
+</li>
+<li>语言模型<ul>
+<li>做法一：将词 Token 化成词片段，如果片段不是完整的词，使用词向量构建候选集，否则使用MLM，然后按 0.4 的概率决定每个片段是否被候选集中一个随机词替换。</li>
+<li>做法二：Mask 多个词然后用模型预测生成，有时候也会用 RNN 生成。</li>
+</ul>
+</li>
+<li>语法规则<ul>
+<li>做法一：使用现有的词典或固定的启发式方法来生成词级和短语级的释义，如缩写、动词、情态动词和否定词的原型等。</li>
+<li>做法二：用一些规则为原始句子生成句子级的释义，如依存关系树。也就是句子结构变了但语义不变（类似把字句改成被字句）。</li>
+</ul>
+</li>
+<li>机器翻译<ul>
+<li>做法一：回译。<ul>
+<li>回译+系列 softmax 温度设置，以确保多样性，同时保留语义。</li>
+<li>回译+对抗训练，通过有机地集成多个转换来合成多样化和信息丰富的增强数据。</li>
+<li>回译+鉴别器过滤反向翻译结果中的句子，提升了增强数据的质量。</li>
+</ul>
+</li>
+<li>做法二：单向翻译，常用在多语场景。</li>
+</ul>
+</li>
+<li>模型生成<ul>
+<li>做法一：将去词法化的输入话语和指定的不同等级 k 作为输入提供给 Seq2Seq 模型以生成新的话语。</li>
+<li>做法二：通过 L 层转换器对连接的多个输入话语进行编码，使用重复感知注意力和面向多样化的正则化来生成更多样的句子。</li>
+<li>做法三：掩码原始句子及其标签序列用于训练模型 M，该模型将掩码片段重建为增强数据。</li>
+<li>做法四：使用 GAN 生成增强数据。</li>
+<li>做法五：采用预训练模型来共享问题嵌入和所提出的基于 Transformer 的模型的指导。然后，所提出的模型可以生成与上下文相关的可回答问题和不可回答的问题。</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于噪声的方法"><a href="#基于噪声的方法" class="headerlink" title="基于噪声的方法"></a>基于噪声的方法</h3><p>基于噪声的方法添加了不严重影响语义的微弱噪声，使其适当偏离原始数据。人类可以通过对语言现象和先验知识的掌握，大大降低弱噪声对语义理解的影响，但这种噪声可能会给模型带来挑战。因此，该方法不仅扩大了训练数据量，而且提高了模型的鲁棒性。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-4.jpg" alt=""></p>
+<ul>
+<li>交换<ul>
+<li>做法一：随机选择两个词交换位置，重复 n 次，n 与句子长度成比例。</li>
+<li>做法二：将 token 根据 label 切成段，随机选择一些段，对其中的 token 进行 shuffle。</li>
+<li>做法三：实例和句子级别交换。<ul>
+<li>将句子分成两部分，对同一个 label 的句子集，随机组合第一部分和第二部分。</li>
+<li>随机 shuffle doc 中的句子。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>删除</p>
+<ul>
+<li>词级别：根据概率 p 随机删除句子中的词。对话理解中删除槽值来增加输入对话行为以获得更多组合。</li>
+<li>句级别：同词级别，删除的是句子。</li>
+<li>二者结合：将注意力机制用于词级和句子级随机删除。</li>
+</ul>
+</li>
+<li><p>插入</p>
+<ul>
+<li>词级别：选择一个句子中非停用词的随机词的一个随机近义词，插入句子的随机位置。重复 n 次。对话理解中，通过插入槽值来增加输入对话行为以获得更多组合。</li>
+<li>句级别：从其他文件（防止句子过于相似）中随机选择具有相同标签的句子来获得增强数据。</li>
+<li>避免噪声改变标签的技巧：<ul>
+<li>在词级使用标签独立的外部资源。</li>
+</ul>
+<ol>
+<li>在句子层面使用与原始数据具有相同标签的其他样本。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>替换：通常避免使用语义上与原始数据相似的字符串。</p>
+<ul>
+<li><p>做法一：使用已有的外部资源</p>
+<ul>
+<li>拼写错误的词生成包含拼写错误的增强数据。</li>
+<li>使用占位符<code>_</code> 随机替换词表示该位置为空。</li>
+<li>使用伪 IND 并行语料库嵌入来创建字典并生成增强数据。</li>
+</ul>
+</li>
+<li><p>做法二：使用任务相关资源或生成随机字符</p>
+<ul>
+<li>用词表中的其他词替换原始词。分别使用 TF-IDF 值和 unigram 频率从词表中选择词。</li>
+<li>将输入和目标句子中的单词随机替换为词汇表中的其他单词。</li>
+<li>NER 中，用训练集中具有相同标签的随机 Token 替换原始 Token。</li>
+<li>用其他语言的词替换源语言中的原始词。</li>
+</ul>
+</li>
+<li><p>做法三：面向任务的对话中，随机替换是生成增强数据的有用方法。</p>
+<ul>
+<li>通过替换槽值来增强输入对话行为，以获得更多的口语理解组合。</li>
+<li>根据插槽标签进行插槽替换。</li>
+<li>通过复制用户话语并用生成的随机字符串替换相应的真实槽值，来增加对话状态跟踪的训练数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>混合</p>
+<ul>
+<li>第一个称为 word Mixup：在词嵌入空间中进行样本插值。第二个称为 sen Mixup：对句子编码器的隐藏状态进行插值。详见下式。</li>
+<li>首先构建对抗样本，然后应用两种名为 Padv 和 Paut 的 Mixup 策略：前者在对抗样本之间进行插值，后者在两个对应的原始样本之间进行插值。</li>
+<li>将 Mixup 与机遇 transformer 的预训练架构相结合。</li>
+<li>将 Mixup 引入 NER的 Intra-LADA 和 Inter-LADA</li>
+<li>Mixup 引入了连续噪声而不是离散噪声，它可以在不同标签之间生成增强数据。与上述基于噪声的方法相比，该方法的可解释性较差且难度更大。</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\widetilde{B}_{t}^{i j}=\lambda B_{t}^{i}+(1-\lambda) B_{t}^{j} \\
+\widetilde{B}_{\{k\}}^{i j}=\lambda f\left(B^{i}\right)_{\{k\}}+(1-\lambda) f\left(B^{j}\right)_{\{k\}} \\
+\widetilde{y}^{i j}=\lambda y^{i}+(1-\lambda) y^{j} \\
+\end{array}</script><p>Bti Btj 表示两个原始句子的第 t 个词，f(Bi) f(Bj) 表示隐层句子表示，yi yj 表示相应的原始标签。</p>
+<h3 id="基于采样的方法"><a href="#基于采样的方法" class="headerlink" title="基于采样的方法"></a>基于采样的方法</h3><p>与基于释义的模型类似，它们也涉及规则和已训练的模型来生成增强数据。不同之处在于基于采样的方法是特定于任务的，需要任务信息，如标签和数据格式。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-3.jpg" alt=""></p>
+<ul>
+<li>规则：与释义方法不同，不保证结果与原始数据相似（甚至不同标签）<ul>
+<li>做法一：交换主宾，将谓语动词转为被动形式，新样本的标签取决于规则。</li>
+<li>做法二：公式变换（数学问题）。</li>
+<li>做法三：前 n 个对话对作为对话历史进行洗牌，并将第 n + 1 个问题作为需要回答的问题。</li>
+<li>做法四：NLI 中，应用外部资源构造新句子，然后根据规则将新句子与原始句子组合为增广对。</li>
+<li>做法五：定义一些规则来使用形容词 - 名词和名词 - 名词 复合词来构建正负对。</li>
+<li>做法六：通过三个属性（包括自反性、对称性和传递性）构建释义注释和非释义注释。</li>
+<li>做法七：使用对称一致性和传递一致性两种规则，以及逻辑引导的 DA 方法来生成 DA 样本。</li>
+</ul>
+</li>
+<li>Seq2Seq 模型<ul>
+<li>做法一：先训练一个翻译模型，然后用它翻译目标语料生成对应的译文。</li>
+<li>做法二：每个标签训练一个模型，对给定句子生成对应的新数据。</li>
+<li>做法三：采用 Transformer 架构，将 “重写话语→请求话语” 映射视为机器翻译过程。</li>
+<li>做法四：使用 Transformer 作为编码器，将知识从语法错误纠正转移到形式风格转移。</li>
+<li>做法五：Edit-transformer，一个基于 Transformer 的跨域模型。</li>
+<li>做法六：使用 VAE 模型来输出语义槽序列和给定话语的意图标签。</li>
+</ul>
+</li>
+<li>语言模型<ul>
+<li>做法一：LAMBDA，使用在训练集上预先进行了微调的 GPT-2 生成标注的增强句子，然后通过分类器过滤增强的句子以确保数据质量。</li>
+<li>做法二：使用 MLM 构建毁坏的模型和重建模型。给定输入数据点，最初使用损坏模型生成远离原始数据流形的数据。然后重建模型用于将数据点拉回原始数据流形作为最终的增强数据。</li>
+<li>做法三：采用自回归模型获得增强数据。<ul>
+<li>使用预训练的 SC-GPT 和 SC-GPT-NLP 分别生成话语和对话行为。</li>
+<li>在原始句子上微调 DistilBERT 以生成合成句子。</li>
+<li>使用条件标签 GPT-2 生成增强数据。</li>
+<li>使用 GPT-2 生成增强数据并将它们重新 Token 化为统计派生的子词，以避免在形态丰富的语言中词汇爆炸。</li>
+<li>使用 GPT-2 在极端多标签分类中生成大量多样化的增强数据。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自训练：自标注。<ul>
+<li>做法一：在 gold 数据集上训练模型来预测未标注数据的标签。<ul>
+<li>在 gold 数据上微调 BERT，然后使用微调的 BERT 标注未标注的句子对。</li>
+<li>将数据蒸馏引入自训练过程，通过迭代更新的教师模型输出未标注数据的标签。</li>
+<li>基于交叉注意力的教师模型用于确定每个 QA 对的标签。</li>
+<li>从标注数据中计算特定于任务的查询嵌入，以从网络爬取的数十亿个未标注的句子中检索句子。</li>
+</ul>
+</li>
+<li>做法二：直接从其他任务中转移现有模型来生成伪并行语料库。<ul>
+<li>使用斯坦福 OpenIE 包来提取给定维基百科句子的三元组。</li>
+<li>直接使用微调的 BERT 来预测 OP 和 OA 样本的标签。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>优缺点对比</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>不足</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>释义：同义词</td>
+<td>1. 易于使用。</td>
+<td>1. 替换词的范围和词性是有限的。<br>2. 不能解决二义性问题。<br>3. 替换过多可能会影响句子语义。</td>
+</tr>
+<tr>
+<td>释义：语义嵌入</td>
+<td>1. 易于使用。<br>2. 更换命中率更高，更换范围更广。</td>
+<td>1. 不能解决二义性问题。<br>2. 替换过多可能会影响句子语义。</td>
+</tr>
+<tr>
+<td>释义：语言模型</td>
+<td>1. 缓解了歧义的问题。<br>2. 考虑了上下文语义。</td>
+<td>1. 还是限于词语级别。<br>2. 替换过多可能会影响句子语义。</td>
+</tr>
+<tr>
+<td>释义：语法规则</td>
+<td>1. 使用方便。<br>2. 保留了原始句子语义。</td>
+<td>1. 需要人工启发式。<br>2. 覆盖率低，变化有限。</td>
+</tr>
+<tr>
+<td>释义：机器翻译</td>
+<td>1. 使用方便。<br>2. 适用性强。<br>3. 保证了正确的语法和不变的语义。</td>
+<td>1. 机器翻译模型固定，可控性差，多样性有限。</td>
+</tr>
+<tr>
+<td>释义：模型生成</td>
+<td>1. 多样性强。<br>2. 应用性强。</td>
+<td>1. 需要训练数据。<br>2. 训练难度大。</td>
+</tr>
+<tr>
+<td>噪声：所有</td>
+<td>1. 提高了模型的鲁棒性。<br>2. 易于使用（在大多数情况下）。</td>
+<td>1. 扭曲的语法和语义。<br>2. 每种方法的多样性有限。</td>
+</tr>
+<tr>
+<td>采样：规则</td>
+<td>1. 易于使用。</td>
+<td>1. 这种方法需要人工启发式。<br>2. 覆盖率低，变化有限。</td>
+</tr>
+<tr>
+<td>采样：Seq2Seq</td>
+<td>1. 多样性强。<br>2. 应用性强。</td>
+<td>1. 需要训练数据。<br>2. 训练难度大。</td>
+</tr>
+<tr>
+<td>采样：语言模型</td>
+<td>1. 应用性强。</td>
+<td>1. 需要训练数据。</td>
+</tr>
+<tr>
+<td>采样：自训练</td>
+<td>1. 比生成模型更容易。<br>2. 适用于数据稀疏的场景。</td>
+<td>1. 需要未标注的数据。<br>2. 应用不佳。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><img src="http://qnimg.lovevivian.cn/paper-da-5.jpg" alt=""></p>
+<ul>
+<li>可学习的方法常常更加复杂，因此基于采样的方法可以生成更加多样和流畅的数据。</li>
+<li>Mixup 是唯一的在线学习方法，就是说增强数据的生成不依赖下游任务训练。因此，Mixup 是唯一一种从增强数据中输出交叉标签和离散嵌入的方法。</li>
+<li>大多数不可学习的方法需要超出原始数据集和任务定义的外部知识资源。</li>
+<li>除了外部资源之外，预训练或非预训练模型被广泛用作 DA 方法。</li>
+<li>在释义和噪声两大类中，几乎所有方法都与任务无关。它们可以仅在没有标签或任务定义的情况下生成原始数据的增强数据。但是，所有采样方法都是与任务相关的，因为它们采用启发式和模型训练来满足特定任务的需求。</li>
+<li>基于释义的方法处于文本级别。基于噪声的方法（除了 Mixup，因为它改变了嵌入和标签）也是如此。 所有基于采样的方法都在文本和标签级别，因为在增强过程中也会考虑和构建标签。</li>
+<li>几乎所有不可学习的方法都可以用于词级和短语级的 DA，但所有可学习的方法都只能用于句子级的 DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是，它们不适用于文档增强，因为它们对文档的处理能力较弱。因此，文档增强仍然依赖于简单的不可学习的方法，这也是观察到的现状。</li>
+</ul>
+<h2 id="策略和技巧"><a href="#策略和技巧" class="headerlink" title="策略和技巧"></a>策略和技巧</h2><h3 id="方法融合"><a href="#方法融合" class="headerlink" title="方法融合"></a>方法融合</h3><ul>
+<li>同类型方法：<ul>
+<li>组合不同的基于释义的方法获取不同的释义。</li>
+<li>组合使用多种基于噪声的方法。</li>
+<li>还有使用不同的资源。</li>
+</ul>
+</li>
+<li>无监督方法：<ul>
+<li>EDA：同义词替换+随机插入+随机交换+随机删除。</li>
+<li>UDA：回译+基于噪声的无监督方法。</li>
+</ul>
+</li>
+<li>多粒度：<ul>
+<li>词向量+语义帧向量。</li>
+<li>词+句级别的 Mixup。</li>
+<li>一系列词+句级别基于噪声的方法。</li>
+</ul>
+</li>
+</ul>
+<h3 id="最优化"><a href="#最优化" class="headerlink" title="最优化"></a>最优化</h3><ul>
+<li>增强数据的使用<ul>
+<li>质量角度：如果质量不高，可以使用增强数据对模型进行预训练；否则可直接用于模型训练。</li>
+<li>数量角度：如果增广数据量远高于原始数据，通常不会直接将它们一起用于模型训练。相反，一些常见的做法包括（1）在训练模型之前对原始数据过采样；（2）使用增强数据预训练模型并在原始数据上微调。</li>
+</ul>
+</li>
+<li>超参数：见下图（图12）。</li>
+<li>训练策略<ul>
+<li>回译+对抗学习。</li>
+<li>预训练转为优化问题最大化生成输出的有用性。</li>
+<li>使用预训练模型生成增强数据，并将这些进展转化为强化学习。</li>
+<li>采用生成对抗网络的想法来生成具有挑战性的增强数据。</li>
+</ul>
+</li>
+<li>训练目标<ul>
+<li>一系列 softmax 温度设置，以确保多样性，同时保留语义。</li>
+<li>使用重复感知注意力和面向多样化的正则化来生成更多样化的句子。</li>
+<li>采用课程学习来鼓励模型专注于困难的训练示例。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-6.jpg" alt=""></p>
+<h3 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h3><ul>
+<li>在初始阶段过滤一些输入数据，以避免不适当的输入影响增强效果。典型的例子是句子长度——过滤掉太短的句子。</li>
+<li>在最后阶段过滤合成的增强数据，一般是通过模型来实现的。</li>
+</ul>
+<h2 id="在NLP任务上的应用"><a href="#在NLP任务上的应用" class="headerlink" title="在NLP任务上的应用"></a>在NLP任务上的应用</h2><ul>
+<li>DA 方法在文本分类中的应用更广泛。每个单独的 DA 方法都可以应用于文本分类。</li>
+<li>文本生成更喜欢基于采样的方法，可以带来更多的语义多样性。</li>
+<li>结构化预测更喜欢基于释义的方法，因为它对数据格式很敏感。因此对数据的有效性提出了更高的要求。</li>
+</ul>
+<p>简单有效的无监督方法，包括机器翻译、基于词库（同义词）的释义和随机替换，都非常流行。此外，诸如 Seq2Seq 释义模型、预训练模型和自训练等可学习方法也因其多样性和有效性而受到广泛关注。</p>
+<h2 id="相关主题"><a href="#相关主题" class="headerlink" title="相关主题"></a>相关主题</h2><ul>
+<li>预训练模型：虽然预训练模型能够为下游任务带去训练数据，但对主题外的特定任务可能仍需要任务相关的数据增强方法。</li>
+<li>对比学习：侧重于学习相似样本之间的共同特征并区分不同样本之间的差异，是数据增强的一种应用。</li>
+<li>其他数据操作方法：过采样+数据清洗+数据加权（不同的样本根据重要性不同赋予不同权重）+数据合成。</li>
+<li>GAN：生成模型直接用作 DA 方法。</li>
+<li>对抗攻击：使用 DA 方法来生成对抗性示例。</li>
+</ul>
+<h2 id="挑战和机会"><a href="#挑战和机会" class="headerlink" title="挑战和机会"></a>挑战和机会</h2><ul>
+<li>理论分析：大部分工作都提出了新的方法或证明了 DA 方法在下游任务上的有效性，但没有探索其背后的原因和规律，例如从数学的角度。</li>
+<li>在 PLM 上更多的探索：现有使用 PLM 做 DA，大部分仅限于<code>[MASK]</code> 补全、微调后直接生成或自训练。DA 在预训练语言模型时代还有帮助吗？如何进一步利用预训练模型中的信息，以更低的成本生成更多样、高质量的数据？</li>
+<li>更通用的 NLP 方法：与图像不同，目前没有一种 DA 方法可以对所有 NLP 任务都有效。这意味着不同 NLP 任务之间的 DA 方法仍然存在差距。随着预训练模型的发展，这似乎有一些可能性，特别是 T5 和 GPT3 的提出，以及 promote 学习的出现，进一步验证了自然语言中任务的形式化可以独立于传统的类别，通过统一任务定义可以得到更通用的模型。</li>
+<li>长文本和低资源语言。</li>
+</ul>
+<p>对于第三点，可以参考 FaceBook 最新的 Meta Learning：<a href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/" target="_blank" rel="noopener">MetaICL：Learning to Learn In Context | Yam</a></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>本文对 NLP 数据增强进行了全面和结构化的综述，根据增强数据的多样性将 DA 方法分成三类：释义、噪声和采样。还介绍了 DA 方法在 NLP 任务中的应用，并通过时间线对其进行了分析。此外还介绍了一些技巧和策略，以便研究人员和从业人员可以参考以获得更好的模型性能。最后，将 DA 与一些相关主题区分开来，并概述了当前的挑战以及未来研究的机会。</p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/11/28/Paper/2021-11-28-DataAugmentation/">
+    <time datetime="2021-11-28T15:00:00.000Z" class="entry-date">
+        2021-11-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DA/">DA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Augmentation/">Data Augmentation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Enhancement/">Data Enhancement</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2021/12/04/Paper/2021-12-04-Prompt/" rel="prev"><span class="meta-nav">←</span> Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP</a></span>
+    
+    
+        <span class="nav-next"><a href="/2021/11/18/Paper/2021-11-18-Debiasing/" rel="next">Debiasing Techniques for Pre-Trained Language Models <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">69</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">96</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">20</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2022/06/11/Paper/2022-06-11-W2NER/">统一NER为词词关系分类</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">预训练模型与传统方法在排序上有啥不同？</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">量化NLM模型的记忆力</a>
+          </li>
+        
+          <li>
+            <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">NLP预训练模型的不可能三角</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.09px;">AI</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.64px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.73px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.27px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.82px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 11.82px;">Business</a> <a href="/tags/C/" style="font-size: 10.91px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.91px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Classification/" style="font-size: 10.91px;">Classification</a> <a href="/tags/Cognition/" style="font-size: 10.91px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.73px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.91px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.91px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.55px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 16.36px;">Data Structure</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.73px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 11.82px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.91px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.91px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.82px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.91px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.91px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.91px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 10px;">Few-Shot</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.82px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GPT-2/" style="font-size: 10px;">GPT-2</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.91px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.91px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/HMM/" style="font-size: 10.91px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.91px;">Knowledge Graph</a> <a href="/tags/LM/" style="font-size: 10.91px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Language-Model/" style="font-size: 10.91px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.91px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 10.91px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.55px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.82px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.91px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 11.82px;">NER</a> <a href="/tags/NLG/" style="font-size: 10px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.91px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 10px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Ner/" style="font-size: 10px;">Ner</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.91px;">Ngram</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.91px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.91px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.91px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.91px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 10.91px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.91px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.91px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 10px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.91px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.91px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.91px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.64px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.91px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.91px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.45px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.91px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.91px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.91px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Self-Attention/" style="font-size: 11.82px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.91px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.91px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.91px;">Sort</a> <a href="/tags/Span/" style="font-size: 10px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.91px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.91px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.91px;">System</a> <a href="/tags/T5/" style="font-size: 10.91px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 10px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.91px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.27px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.91px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 10px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2022 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
