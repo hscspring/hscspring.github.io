@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="本文主要讲述 W2NER 的代码，关于论文相关部分可阅读：统一NER为词词关系分类 | Yam。代码主要包括：输入、训练输出和解码部分，对于模型部分可参考前面的链接。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2022-07-17T04:31:07.606Z">
+<meta property="og:updated_time" content="2022-07-17T14:23:23.236Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="W2NER 代码">
 <meta name="twitter:description" content="本文主要讲述 W2NER 的代码，关于论文相关部分可阅读：统一NER为词词关系分类 | Yam。代码主要包括：输入、训练输出和解码部分，对于模型部分可参考前面的链接。">
@@ -139,7 +139,6 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pred_labels = torch.argmax(outputs, <span class="number">-1</span>)</span><br><span class="line">decode(pred_labels, sent_length)</span><br><span class="line"><span class="comment"># [[], [([0, 1, 2], 2)]]</span></span><br></pre></td></tr></table></figure>
 <p>由于模型没有使用英文数据集，所以第一个句子无结果。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>整个模型在输入构造方面可谓设计颇多，但每一个又有其独特的意义，而且最后整体效果确实不错。值得一提的是，词信息其实并没有使用到训练过程中，与作者沟通后主要出于两个方面考虑。第一，本文主要为了证明模型在三种不同类型 NER 任务及中英文数据上的普遍性，所以提供的其实是一个兼容的方案，并没有针对这块单独设计和处理；第二，实验结果证明即使在没有分词和词典知识的情况下效果依然不错。因此，如果在中文任务上，可以结合词信息和位置编码进行更多的尝试。</p>
-<p>此外，对于模型训练这块，本文只采用了简单的交叉熵损失，接下来会尝试使用苏神的 <a href="https://spaces.ac.cn/archives/8877" target="_blank" rel="noopener">Efficient GlobalPointer：少点参数，多点效果 - 科学空间 | Scientific Spaces</a> 进行训练，看看能否在性能和效果方面进一步提升。</p>
 
       
     </div><!-- .entry-content -->
