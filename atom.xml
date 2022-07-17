@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2022-07-03T03:51:53.580Z</updated>
+  <updated>2022-07-17T04:31:07.606Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>W2NER 代码</title>
+    <link href="https://www.yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/"/>
+    <id>https://www.yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/</id>
+    <published>2022-07-17T15:00:00.000Z</published>
+    <updated>2022-07-17T04:31:07.606Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文主要讲述 W2NER 的代码，关于论文相关部分可阅读：&lt;a href=&quot;https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;统一NER为词词关系分类 | Yam&lt;/a&gt;。代码主要包括：输入、训练输出和解码部分，对于模型部分可参考前面的链接。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="NER" scheme="https://www.yam.gift/tags/NER/"/>
+    
+      <category term="W2NER" scheme="https://www.yam.gift/tags/W2NER/"/>
+    
+      <category term="NNW" scheme="https://www.yam.gift/tags/NNW/"/>
+    
+      <category term="THW" scheme="https://www.yam.gift/tags/THW/"/>
+    
+  </entry>
   
   <entry>
     <title>跨视角大脑解码</title>
@@ -55,13 +86,14 @@
     <link href="https://www.yam.gift/2022/06/11/Paper/2022-06-11-W2NER/"/>
     <id>https://www.yam.gift/2022/06/11/Paper/2022-06-11-W2NER/</id>
     <published>2022-06-11T15:00:00.000Z</published>
-    <updated>2022-06-18T04:02:48.328Z</updated>
+    <updated>2022-07-17T04:20:26.797Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2112.10070&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2112.10070] Unified Named Entity Recognition as Word-Word Relation Classification&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;一句话概述：基于词-词关系分类、可同时解决平铺、重叠和不连续 NER 的统一框架。&lt;/p&gt;
 &lt;p&gt;摘要：NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：&lt;code&gt;NNW&lt;/code&gt;（&lt;code&gt;Next-Neighboring-Word&lt;/code&gt;）和 &lt;code&gt;THW-*&lt;/code&gt;（&lt;code&gt;Tail-Head-Word-*&lt;/code&gt;）。具体而言，构造一个 2D 的词词关系网格，然后使用多粒度 2D 卷积，以更好地细化网格表示。最后，使用一个共同预测器来推理词-词关系。效果自然是最新的 STOA。&lt;/p&gt;
+&lt;p&gt;关于本文代码部分，可参考：&lt;a href=&quot;https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;W2NER 代码&lt;/a&gt;。&lt;/p&gt;
     
     </summary>
     
@@ -661,36 +693,6 @@
       <category term="Text Classification" scheme="https://www.yam.gift/tags/Text-Classification/"/>
     
       <category term="Senta" scheme="https://www.yam.gift/tags/Senta/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>TensorBay 指南</title>
-    <link href="https://www.yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/"/>
-    <id>https://www.yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/</id>
-    <published>2021-09-21T15:30:00.000Z</published>
-    <updated>2021-10-16T14:52:48.839Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Introduction&quot;&gt;&lt;a href=&quot;#Introduction&quot; class=&quot;headerlink&quot; title=&quot;Introduction&quot;&gt;&lt;/a&gt;Introduction&lt;/h2&gt;&lt;p&gt;本篇文章主要介绍如何使用 Tensorbay 和 Tensorflow 进行简单的文本分类。&lt;/p&gt;
-&lt;p&gt;我们首先介绍 Tensorbay 相关使用，然后简单介绍 NLP 领域常用的分类模型：TextCNN，最后将所有的串起来完成一个简单的文本分类任务。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
-    
-      <category term="TextCNN" scheme="https://www.yam.gift/tags/TextCNN/"/>
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="TensorBay" scheme="https://www.yam.gift/tags/TensorBay/"/>
-    
-      <category term="Tensorflow" scheme="https://www.yam.gift/tags/Tensorflow/"/>
     
   </entry>
   
