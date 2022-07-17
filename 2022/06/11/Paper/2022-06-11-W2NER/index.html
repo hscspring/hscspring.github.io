@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-w2ner-9.jpeg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-w2ner-10.jpeg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-w2ner-11.jpeg">
-<meta property="og:updated_time" content="2022-07-17T04:20:26.797Z">
+<meta property="og:updated_time" content="2022-07-17T10:04:59.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="统一NER为词词关系分类">
 <meta name="twitter:description" content="Paper：[2112.10070] Unified Named Entity Recognition as Word-Word Relation Classification 一句话概述：基于词-词关系分类、可同时解决平铺、重叠和不连续 NER 的统一框架。 摘要：NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研">
@@ -169,7 +169,7 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-2.jpeg" alt=""></p>
 <p>总的来看，首先 BERT 和 LSTM 提供上下文特征，然后一个词-词关系的 2D 网格被构建，接下来是一个多粒度 2D 卷积用来精调词对表示，有效捕获相邻或不相邻词对的交互。最后一个联合预测器对词-词关系进行推理并产生所有可能的实体 Mention，其中 Biaffine 和 MLP 被联合使用以获得互补好处。</p>
 <p><strong>Encoder Layer</strong></p>
-<p>将 Token 或词转为子词后喂入模型，子词表征通过 MaxPooling 得到词表征，同时额外的 Bi-LSTM 也被用来生成最终的词表征。也就是说输入的字符粒度 Token 需要转为词再送入后续模型，而词的信息在输入的时候已经传入了，这个在英文中是没有的。</p>
+<p>将 Token 或词转为子词后喂入模型，子词表征通过 MaxPooling 得到词表征，同时额外的 Bi-LSTM 也被用来生成最终的词表征。也就是说输入的字符粒度 Token 需要转为词再送入后续模型（主要针对英文的子词）。</p>
 <p><strong>Convolution Layer</strong></p>
 <p>然后是卷积层，因为它能很好地处理二维关系，具体又包括三个模块：</p>
 <ul>
@@ -188,8 +188,8 @@
 <p>来自 Paper《Modulating Language Models with Emotions》</p>
 </blockquote>
 <p>代码（均来自官方代码，做了一定简化，后续不再重复说明）如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LayerNorm</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_dim, cond_dim=<span class="number">0</span>)</span>:</span></span><br><span class="line">        super(LayerNorm, self).__init__()</span><br><span class="line">        self.input_dim = input_dim</span><br><span class="line">        self.cond_dim = cond_dim</span><br><span class="line"></span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(input_dim))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(input_dim))</span><br><span class="line"></span><br><span class="line">        self.beta_dense = nn.Linear(in_features=self.cond_dim, out_features=input_dim, bias=<span class="keyword">False</span>)</span><br><span class="line">        self.gamma_dense = nn.Linear(in_features=self.cond_dim, out_features=input_dim, bias=<span class="keyword">False</span>)</span><br><span class="line">        torch.nn.init.constant_(self.beta_dense.weight, <span class="number">0</span>)</span><br><span class="line">        torch.nn.init.constant_(self.gamma_dense.weight, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs, cond=None)</span>:</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(inputs.shape) - len(cond.shape)):</span><br><span class="line">            cond = cond.unsqueeze(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        beta = self.beta_dense(cond) + self.beta</span><br><span class="line">        gamma = self.gamma_dense(cond) + self.gamma</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 括号里的部分</span></span><br><span class="line">        outputs = inputs</span><br><span class="line">        mean = torch.mean(outputs, dim=<span class="number">-1</span>).unsqueeze(<span class="number">-1</span>)</span><br><span class="line">        outputs = outputs - mean</span><br><span class="line">        variance = torch.mean(outputs ** <span class="number">2</span>, dim=<span class="number">-1</span>).unsqueeze(<span class="number">-1</span>)</span><br><span class="line">        std = (variance + self.epsilon) ** <span class="number">0.5</span></span><br><span class="line">        outputs = outputs / std</span><br><span class="line">		<span class="comment"># 剩余部分</span></span><br><span class="line">        outputs = outputs * gamma</span><br><span class="line">        outputs = outputs + beta</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> outputs</span><br></pre></td></tr></table></figure>
-<p>网格表示主要引入三个张量分别表示：词信息、每对词的相对位置信息和用于区分网格上下三角的区域信息。三个张量拼接后丢给后面的层进行降维和混合信息，以此得到网格「位置-区域敏感的表示」。然后是接一个多粒度卷积（粒度=1,2,3），用以捕获不同距离词的交互。最后将三组结果拼起来就是最终的词对网格表示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LayerNorm</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_dim, cond_dim=<span class="number">0</span>)</span>:</span></span><br><span class="line">        super(LayerNorm, self).__init__()</span><br><span class="line">        self.input_dim = input_dim</span><br><span class="line">        self.cond_dim = cond_dim</span><br><span class="line"></span><br><span class="line">        self.beta = nn.Parameter(torch.zeros(input_dim))</span><br><span class="line">        self.gamma = nn.Parameter(torch.ones(input_dim))</span><br><span class="line"></span><br><span class="line">        self.beta_dense = nn.Linear(in_features=self.cond_dim, out_features=input_dim, bias=<span class="keyword">False</span>)</span><br><span class="line">        self.gamma_dense = nn.Linear(in_features=self.cond_dim, out_features=input_dim, bias=<span class="keyword">False</span>)</span><br><span class="line">        torch.nn.init.constant_(self.beta_dense.weight, <span class="number">0</span>)</span><br><span class="line">        torch.nn.init.constant_(self.gamma_dense.weight, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, inputs, cond=None)</span>:</span></span><br><span class="line">        <span class="comment"># inputs B x seq_len x 1 x hidden_size (b x seq_len x 1 x 512)</span></span><br><span class="line">        <span class="comment"># cond   B x 1 x seq_len x hidden_size</span></span><br><span class="line">        <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(inputs.shape) - len(cond.shape)):</span><br><span class="line">            cond = cond.unsqueeze(<span class="number">1</span>)</span><br><span class="line">		</span><br><span class="line">        beta = self.beta_dense(cond) + self.beta</span><br><span class="line">        gamma = self.gamma_dense(cond) + self.gamma</span><br><span class="line"></span><br><span class="line">		<span class="comment"># 括号里的部分</span></span><br><span class="line">        outputs = inputs</span><br><span class="line">        mean = torch.mean(outputs, dim=<span class="number">-1</span>).unsqueeze(<span class="number">-1</span>)</span><br><span class="line">        outputs = outputs - mean</span><br><span class="line">        variance = torch.mean(outputs ** <span class="number">2</span>, dim=<span class="number">-1</span>).unsqueeze(<span class="number">-1</span>)</span><br><span class="line">        std = (variance + self.epsilon) ** <span class="number">0.5</span></span><br><span class="line">        outputs = outputs / std</span><br><span class="line">		<span class="comment"># 剩余部分</span></span><br><span class="line">        outputs = outputs * gamma</span><br><span class="line">        outputs = outputs + beta</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> outputs</span><br></pre></td></tr></table></figure>
+<p>网格表示主要引入三个张量分别表示：词信息（CLN）、每对词的相对位置信息和用于区分网格上下三角的区域信息。三个张量拼接后丢给后面的层进行降维和混合信息，以此得到网格「位置-区域敏感的表示」。然后是接一个多粒度卷积（粒度=1,2,3），用以捕获不同距离词的交互。最后将三组结果拼起来就是最终的词对网格表示。</p>
 <p><strong>Co-Predictor Layer</strong></p>
 <p>这一步除了 MLP 外，还有一个 Biaffine Predictor，所以会分别得到两个结果，然后合并后作为最后输出。</p>
 <blockquote>
@@ -210,7 +210,7 @@
 <li>a：两个路径对应平铺的实体，THW 关系表示边界和类型。</li>
 <li>b：如果没有 THW 关系，则只能找到一条路径（ABC），借助 THW 可以找到嵌套的 BC。</li>
 <li>c：包含两条路径：ABC 和 ABD，NNW 关系有助于连接不连续的跨度 AB 和 D。</li>
-<li>d：如果只使用 THW 关系，将会识别到 ABCD，如果只使用 NNW 则会找到四条路径，结合起来才能识别到正确的实体：ACD 和 BCE。</li>
+<li>d：如果只使用 THW 关系，将会识别到 ABCD 和 BCDE，如果只使用 NNW 则会找到四条路径，结合起来才能识别到正确的实体：ACD 和 BCE。</li>
 </ul>
 <p><strong>目标函数</strong></p>
 <p>如下式所示：</p>
@@ -219,7 +219,7 @@
 <h2 id="实验报告"><a href="#实验报告" class="headerlink" title="实验报告"></a>实验报告</h2><p>共 14 个数据集，包括平铺的、重叠的和不连续的。Baseline 包括常用的几种方法（前文介绍过）。</p>
 <p><strong>平铺NER</strong></p>
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-6.jpeg" alt=""></p>
-<p>在中文数据集上效果要明显不少，这可能得益于预先引入的词信息。</p>
+<p>在中英文数据集均取得不错的效果。</p>
 <p><strong>重叠NER</strong></p>
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-7.jpeg" alt=""></p>
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-8.jpeg" alt=""></p>
@@ -234,12 +234,12 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-11.jpeg" alt=""></p>
 <p>列出比较重要的因素：</p>
 <ul>
-<li>NNW：尤其对不连续 NER 效果明显（CADEC 数据集）。</li>
-<li>MLP：主导作用。</li>
+<li>NNW：尤其对不连续 NER 效果明显（CADEC 数据集）</li>
+<li>MLP：主导作用</li>
 <li>DConv（L=2）</li>
 <li>Region Emb</li>
 </ul>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文基于词-词关系分类，提出一个统一的实体框架 W2NER，关系包括 NNW 和 THW。框架在面对各种不同的 NER 时非常有效。另外，通过消融实验，发现以卷积为中心的模型表现良好，其他几个模块（网格表示和共同预测器）也是有效的。总的来说，本文更加关注边界词和内部词之间的关系，另外 2D 网格标记方法也可以大大避免 Span 和序列标注模型中的缺点。唯一可能的麻烦是，需要输入「词」信息，而分词本身可能会引入误差。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>本文基于词-词关系分类，提出一个统一的实体框架 W2NER，关系包括 NNW 和 THW。框架在面对各种不同的 NER 时非常有效。另外，通过消融实验，发现以卷积为中心的模型表现良好，其他几个模块（网格表示和共同预测器）也是有效的。总的来说，本文更加关注边界词和内部词之间的关系，另外 2D 网格标记方法也可以大大避免 Span 和序列标注模型中的缺点。</p>
 
       
     </div><!-- .entry-content -->
@@ -397,6 +397,21 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
