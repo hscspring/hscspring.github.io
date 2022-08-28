@@ -87,12 +87,15 @@ date: 2019-07-13 20:00:00
 
 
 - 论文
+    - [2022 大脑解码与NLP](https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/)
     - [2022 MarkBERT](https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/)
     - [2022 深度vsBM25排序](https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/)
     - [2022 Impossible Triangle](https://yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/)
     - [2022 NLM Memorization](https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/)
     - [2022 REINA](https://yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/)
+    - [2022 FLAN](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/)
     - [2021 W2NER](https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/)
+    - [2021 W2NER 代码](https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/)
     - [2021 ExT5](https://yam.gift/2022/02/19/Paper/2022-02-19-ExT5/)
     - [2021 多任务Prompt元学习](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/)
     - [2021 Prompt综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/)
