@@ -5,42 +5,19 @@ date: 2019-07-13 20:00:00
 
 > 说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [Growth](#growth)
-- [Collection](#collection)
-- [AI](#ai)
-- [NLP](#nlp)
-- [RecSearchCTR](#recsearchctr)
-- [DeepLearning](#deeplearning)
-- [MachineLearning](#machinelearning)
-- [DataScience](#datascience)
-- [Math](#math)
-- [Unix](#unix)
-- [Raspberrypi](#raspberrypi)
-- [Coding](#coding)
-- [EFMB](#efmb)
-- [CogPsy](#cogpsy)
-- [Essay](#essay)
+## 目录
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<div class="toc"><ul class="toc-item"><li><span><a href="#个人成长Growth" data-toc-modified-id="个人成长Growth-1">个人成长 Growth</a></span></li><li><span><a href="#人工智能AI" data-toc-modified-id="人工智能AI-2">人工智能 AI</a></span></li><li><span><a href="#自然语言处理NLP" data-toc-modified-id="自然语言处理NLP-3">自然语言处理 NLP</a></span></li><li><span><a href="#推荐广告Recommendation" data-toc-modified-id="推荐广告Recommendation-4">推荐广告 Recommendation</a></span></li><li><span><a href="#深度学习DeepLearning" data-toc-modified-id="深度学习DeepLearning-5">深度学习 DeepLearning</a></span></li><li><span><a href="#机器学习MachineLearning" data-toc-modified-id="机器学习MachineLearning-6">机器学习 MachineLearning</a></span></li><li><span><a href="#数据科学DataScience" data-toc-modified-id="数据科学DataScience-7">数据科学 DataScience</a></span></li><li><span><a href="#数学Math" data-toc-modified-id="数学Math-8">数学 Math</a></span></li><li><span><a href="#系统Unix" data-toc-modified-id="系统Unix-9">系统 Unix</a></span></li><li><span><a href="#网络Net" data-toc-modified-id="网络Net-10">网络 Net</a></span></li><li><span><a href="#树莓派Raspberrypi" data-toc-modified-id="树莓派Raspberrypi-11">树莓派 Raspberrypi</a></span></li><li><span><a href="#编程Coding" data-toc-modified-id="编程Coding-12">编程 Coding</a></span></li><li><span><a href="#算法Algorithm" data-toc-modified-id="算法Algorithm-13">算法 Algorithm</a></span></li><li><span><a href="#经金商管EFBM" data-toc-modified-id="经金商管EFBM-14">经金商管 EFBM</a></span></li><li><span><a href="#认知心理CogPsy" data-toc-modified-id="认知心理CogPsy-15">认知心理 CogPsy</a></span></li><li><span><a href="#杂文随笔Essay" data-toc-modified-id="杂文随笔Essay-16">杂文随笔 Essay</a></span></li></ul></div>
 
 
 
-## Growth
+## 个人成长Growth
 
 - [AI 工程师养成记（上）](https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/)
 - [一些关于工作的观点（From《华为工作法》）](https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/)
 
-
-## Collection
-
-- [AIToolBox: My AI Basic Tool Box](https://github.com/hscspring/AIToolBox)
-- [All4NLP: All For NLP, especially Chinese.](https://github.com/hscspring/All4NLP)
-
-## AI
+## 人工智能AI
 
 - 思考
     - [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
@@ -54,7 +31,7 @@ date: 2019-07-13 20:00:00
     - [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
 
 
-## NLP
+## 自然语言处理NLP
 
 
 - 基础
@@ -87,6 +64,8 @@ date: 2019-07-13 20:00:00
 
 
 - 论文
+    - [2022 DeepGen](https://yam.gift/2022/10/15/Paper/2022-10-15-DeepGen/)
+    - [2022 Global Pointer](https://yam.gift/2022/10/16/Paper/2022-10-16-GlobalPointer/)
     - [2022 大脑解码与NLP](https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/)
     - [2022 MarkBERT](https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/)
     - [2022 深度vsBM25排序](https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/)
@@ -177,7 +156,7 @@ date: 2019-07-13 20:00:00
     - [第十八章：自然语言处理中的理性主义与经验主义](https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/)
 
 
-## RecSearchCTR
+## 推荐广告Recommendation
 
 
 - [推荐系统概述](https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/)
@@ -187,7 +166,7 @@ date: 2019-07-13 20:00:00
 - [GBTD + LR](https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/)
 
 
-## DeepLearning
+## 深度学习DeepLearning
 
 
 - [“心有麟熙”《强化学习炼金术》系列笔记 | Yam](https://yam.gift/2018/05/07/AI/2018-05-07-RL-Series/)
@@ -196,7 +175,7 @@ date: 2019-07-13 20:00:00
 - [AI 小课堂：Activation Function | Yam](https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/)
 
 
-## MachineLearning
+## 机器学习MachineLearning
 
 
 - [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
@@ -209,7 +188,7 @@ date: 2019-07-13 20:00:00
 - [核方法 和 SMO](https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/)
 
 
-## DataScience
+## 数据科学DataScience
 
 
 - [高性能数据处理 | Yam](https://yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/)
@@ -220,7 +199,7 @@ date: 2019-07-13 20:00:00
 - [QA 小课堂：Introduction | Yam](https://yam.gift/2020/07/05/AIQA/2020-07-05-Introduction/)
 
 
-## Math
+## 数学Math
 
 
 - [辛普森悖论及其哲学思考 | Yam](https://yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/)
@@ -229,7 +208,7 @@ date: 2019-07-13 20:00:00
 - [微积分的本质笔记 | Yam](https://yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/)
 
 
-## Unix
+## 系统Unix
 
 
 - [Ubuntu16.04 安装 VirtualBox & Vagrant 管理 VirtualBox 各种问题总结 | Yam](https://yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/)
@@ -239,35 +218,25 @@ date: 2019-07-13 20:00:00
 - [Git Memo | Yam](https://yam.gift/2021/08/12/Unix/2021-08-15-Git/)
 
 
-## Net
+## 网络Net
 
 - [虚拟网络指南 | Yam](https://yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/)
 
 
-## Raspberrypi
+## 树莓派Raspberrypi
 
 
 - [机器之脑：树莓派初使用 | Yam](https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/)
 - [机器之眼：树莓派摄像头 | Yam](https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/)
 
 
-## Coding
+## 编程Coding
 
 
 - Rust
   - [Rust str 转 String](https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/)
   - [Rust Tutorial](https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/)
   - [Rust by Example Brief Note | Yam](https://yam.gift/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/)
-
-
-- LeetCode
-    - [Longest Substring Without Repeating Characters (LeetCode 3)](https://yam.gift/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
-    - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
-    - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
-    - [Generate Parentheses (LeetCode 22) | Yam](https://yam.gift/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/)
-    - [Swap Nodes in Paris (LeetCode 24)](https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/)
-    - [Search in Rotated Sorted Array (LeetCode 33, 81, 153)](https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/)
-    - [Find First and Last Position of Element in Sorted Array (LeetCode 34)](https://yam.gift/2020/08/31/DSA/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/)
 
 
 - Python
@@ -286,6 +255,30 @@ date: 2019-07-13 20:00:00
     - [Ch05：在结束后](https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/)
 
 
+- C 语言课程笔记
+    - [浙大翁恺老师《程序设计入门 ——C 语言》笔记](https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/)
+    - [浙大翁恺老师《C 语言程序设计进阶》笔记](https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/)
+
+
+- 服务基础
+    - [GraphQL Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/)
+    - [GraphQL Elixir Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/)
+    - [常用 DataBase 相关操作和资源](https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/)
+    - [DataBase Foreign Data Wrapper](https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/)
+
+
+## 算法Algorithm
+
+- LeetCode
+    - [Longest Substring Without Repeating Characters (LeetCode 3)](https://yam.gift/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/)
+    - [Median of Two Sorted Arrays (LeetCode 4)](https://yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/)
+    - [Longest Palindromic Substring (LeetCode 5)](https://yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/)
+    - [Generate Parentheses (LeetCode 22) | Yam](https://yam.gift/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/)
+    - [Swap Nodes in Paris (LeetCode 24)](https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/)
+    - [Search in Rotated Sorted Array (LeetCode 33, 81, 153)](https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/)
+    - [Find First and Last Position of Element in Sorted Array (LeetCode 34)](https://yam.gift/2020/08/31/DSA/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/)
+
+
 - 剑指 Offer2（Python 版）解析
     - [剑指 Offer2（Python 版）解析（Ch2）](https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/)
     - [剑指 Offer2（Python 版）解析（Ch3）](https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/)
@@ -302,19 +295,7 @@ date: 2019-07-13 20:00:00
     - [Sort Based on Multiway Tree](https://yam.gift/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/)
 
 
-- C 语言课程笔记
-    - [浙大翁恺老师《程序设计入门 ——C 语言》笔记](https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/)
-    - [浙大翁恺老师《C 语言程序设计进阶》笔记](https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/)
-
-
-- 服务基础
-    - [GraphQL Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/)
-    - [GraphQL Elixir Glance](https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/)
-    - [常用 DataBase 相关操作和资源](https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/)
-    - [DataBase Foreign Data Wrapper](https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/)
-
-
-## EFMB
+## 经金商管EFBM
 
 
 - [由一场供应链讲座引发的思考](https://yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/)
@@ -323,16 +304,17 @@ date: 2019-07-13 20:00:00
 - [《海底捞你学不会》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-30-HaiDiLao/)
 
 
-## CogPsy
+## 认知心理CogPsy
 
 
 - [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
 - [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
 
 
-## Essay
+## 杂文随笔Essay
 
 
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
 - [《舞狮少年》观后 —— 信念、文化与希望 | Yam](https://yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/)
+- [只如初见的不只爱情 | Yam](https://yam.gift/2022/09/11/Diary/2022-09-11-Passion/)
