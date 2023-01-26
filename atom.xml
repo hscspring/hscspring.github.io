@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2022-10-30T02:34:57.505Z</updated>
+  <updated>2023-01-25T12:44:15.685Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,160 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ChatGPT Prompt工程：设计、实践与思考</title>
+    <link href="https://www.yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/"/>
+    <id>https://www.yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/</id>
+    <published>2023-01-25T15:30:00.000Z</published>
+    <updated>2023-01-25T12:44:15.685Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ChatGPT 火爆出圈了，有些人惊叹于它的能力，当然也有部分人觉得也就那样。这就不得不提 Prompt 了，据说【相关文献1】，ChatGPT 效果好不好完全取决于你的 Prompt，“看来 Propmt 也成一个技术活儿了”。当我这么想的时候，没想到国外居然已经有了成熟的售卖 Prompt 的&lt;a href=&quot;https://promptbase.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;网站&lt;/a&gt;，这玩意儿居然成了 NFT（Non-Fungible Token），真是世界变化太快，本人过于迟钝。&lt;/p&gt;
+&lt;p&gt;其实，对于 ChatGPT 的能力，作为 NLPer 第一时间就领教过了，作为行业内人士，而且多年来一直关注文本生成领域，ChatGPT 带给我的冲击和震撼是非常大的，甚至那几天晚上连觉都睡不着，真是焦虑感爆棚。记得在 &lt;a href=&quot;https://www.datawhale.club/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;DataWhale&lt;/a&gt; 团队群里一次讨论 ChatGPT 时，我发过这样的消息，原话如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;NLP真的考虑要转行了&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ChatGPT已经抹平了任务、行业、语言&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;以后也不用分那么多task榜单了，不用管行业&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;强大的一批，LM as SAAS 将统治一切&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;LM as SAAS，其实应该是 LMAS——Language Model as Service。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;过了几天看到这篇文章：&lt;a href=&quot;https://mp.weixin.qq.com/s/1HZoNBovqn1FNlxghDXMFg&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ChatGPT 会对未来 5 年的 NLP 算法从业者带来怎样的冲击？&lt;/a&gt;发现业内大家也是差不多的想法（虽然我发消息在这篇文章之后，但之前的确没看过），尤其是张俊林博士的观点个人比较认同，NLP 工程师的确不容乐观。这里不是说这个职业的职责不容乐观，而是说整个行业可能会受到冲击。&lt;/p&gt;
+&lt;p&gt;有点跑偏了，说回 Prompt，春节时就想用 ChatGPT 生成一些祝福语，突然发现自己掌握的 Prompt 出来的效果不太好了。Google 了一下结果就发现了 &lt;a href=&quot;https://fka.gumroad.com/l/art-of-chatgpt-prompting&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;The Art of ChatGPT Prompting: A Guide to Crafting Clear and Effective Prompts&lt;/a&gt; 这本电子书，再一搜，发现这个领域居然已经发展到如斯境地。本着学习的心态，阅读整理了一些 Prompt 工程的资料（见《文献和参考——核心文献》），是有此文。本文主要介绍关于 ChatGPT Prompt 的方法，我会结合这些资料加上自己的理解写出来，同时会在中文环境下做相关试验。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Few-Shot" scheme="https://www.yam.gift/tags/Few-Shot/"/>
+    
+      <category term="Prompt" scheme="https://www.yam.gift/tags/Prompt/"/>
+    
+      <category term="Zero-Shot" scheme="https://www.yam.gift/tags/Zero-Shot/"/>
+    
+      <category term="In-Context Learning" scheme="https://www.yam.gift/tags/In-Context-Learning/"/>
+    
+      <category term="One-Shot" scheme="https://www.yam.gift/tags/One-Shot/"/>
+    
+      <category term="ChatGPT" scheme="https://www.yam.gift/tags/ChatGPT/"/>
+    
+      <category term="Instruct" scheme="https://www.yam.gift/tags/Instruct/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Put Human in NLP Loop</title>
+    <link href="https://www.yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/"/>
+    <id>https://www.yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/</id>
+    <published>2023-01-21T15:00:00.000Z</published>
+    <updated>2023-01-23T04:49:57.303Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这篇文章基于一篇 Survey（见核心文献），就是如何将人类的反馈放在 NLP 过程中，这个过程可以是训练，也可以是部署后，也可以是数据标注阶段。总之，它泛指把人类的反馈与 NLP 过程结合。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Human-in-Loop" scheme="https://www.yam.gift/tags/Human-in-Loop/"/>
+    
+      <category term="Human-in-the-Loop" scheme="https://www.yam.gift/tags/Human-in-the-Loop/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>人生随笔</title>
+    <link href="https://www.yam.gift/2023/01/21/Diary/2023-01-21-Life/"/>
+    <id>https://www.yam.gift/2023/01/21/Diary/2023-01-21-Life/</id>
+    <published>2023-01-21T00:00:00.000Z</published>
+    <updated>2023-01-25T05:13:51.480Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;今天是除夕，一大早因为一个梦醒来了，不是噩梦，当然也不是美梦。要搁平时，肯定继续睡了，但上完厕所发现居然毫无睡意，而且很想写点什么。至于原因，好像也没什么原因，可能是近期一直想写点东西，也可能是马上又过完了一年，还有可能是年纪见长容易感慨。总之，好似有方向，但又无目的。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="Diary" scheme="https://www.yam.gift/tags/Diary/"/>
+    
+      <category term="Life" scheme="https://www.yam.gift/tags/Life/"/>
+    
+      <category term="Growth" scheme="https://www.yam.gift/tags/Growth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GPT3 和它的 In-Context Learning</title>
+    <link href="https://www.yam.gift/2023/01/20/NLP/2023-01-20-GPT3/"/>
+    <id>https://www.yam.gift/2023/01/20/NLP/2023-01-20-GPT3/</id>
+    <published>2023-01-20T15:30:00.000Z</published>
+    <updated>2023-01-21T02:06:39.501Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ChatGPT 的爆火让很多 NLPer 大吃一惊，焦虑感爆棚，它的思路和方法都不复杂，但效果却出奇的好。我想任何研究成果的爆发都不可能是一蹴而就的，期间必然包含这一系列小的创新和优化。于是，重新把 GPT3 的 Paper 拉出来读了一遍，重点关注了实验结果之外的东西，果然发现不少细节。因此，本文还是以 GPT3 为主。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Few-Shot" scheme="https://www.yam.gift/tags/Few-Shot/"/>
+    
+      <category term="Zero-Shot" scheme="https://www.yam.gift/tags/Zero-Shot/"/>
+    
+      <category term="GPT3" scheme="https://www.yam.gift/tags/GPT3/"/>
+    
+      <category term="In-Context Learning" scheme="https://www.yam.gift/tags/In-Context-Learning/"/>
+    
+      <category term="One-Shot" scheme="https://www.yam.gift/tags/One-Shot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IDE Memo</title>
+    <link href="https://www.yam.gift/2022/11/15/Unix/2022-11-15-IDE/"/>
+    <id>https://www.yam.gift/2022/11/15/Unix/2022-11-15-IDE/</id>
+    <published>2022-11-15T15:00:00.000Z</published>
+    <updated>2022-11-15T15:55:54.751Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;IDE 相关备忘。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
+    
+    
+      <category term="IDE" scheme="https://www.yam.gift/tags/IDE/"/>
+    
+      <category term="vim" scheme="https://www.yam.gift/tags/vim/"/>
+    
+      <category term="emacs" scheme="https://www.yam.gift/tags/emacs/"/>
+    
+  </entry>
   
   <entry>
     <title>W2NER解读</title>
@@ -521,213 +675,6 @@
       <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
     
       <category term="Sentence Representation" scheme="https://www.yam.gift/tags/Sentence-Representation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer</title>
-    <link href="https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/"/>
-    <id>https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/</id>
-    <published>2022-03-05T15:00:00.000Z</published>
-    <updated>2022-03-05T12:43:59.765Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/1910.10683&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code：&lt;a href=&quot;https://github.com/google-research/text-to-text-transfer-transformer&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer”&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;一句话概述：把所有 NLP 任务统一成 Text-to-Text 格式使用 Transformer 统一处理。&lt;/p&gt;
-&lt;p&gt;摘要：迁移学习在 NLP 领域已经是最有效的方法，本文引入了统一的文本处理框架——将所有文本问题统一成 Text-to-Text 的格式。为了验证效果，构建了 C4 数据集（Colossal Clean Crawled Cropus），结果发现取得了很好的效果。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
-    
-      <category term="T5" scheme="https://www.yam.gift/tags/T5/"/>
-    
-      <category term="MTL" scheme="https://www.yam.gift/tags/MTL/"/>
-    
-      <category term="C4" scheme="https://www.yam.gift/tags/C4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning</title>
-    <link href="https://www.yam.gift/2022/02/19/Paper/2022-02-19-ExT5/"/>
-    <id>https://www.yam.gift/2022/02/19/Paper/2022-02-19-ExT5/</id>
-    <published>2022-02-19T15:00:00.000Z</published>
-    <updated>2022-02-20T12:54:17.777Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2111.10952&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code：T5&lt;/p&gt;
-&lt;p&gt;一句话概述：任务数量很多时，不妨试试 MTL 预训练。&lt;/p&gt;
-&lt;p&gt;摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督任务的跨领域大规模任务集合。并借此研究了迄今为止最大规模的多任务预训练效果，分析常见任务族之间的协同训练迁移。结果显示，为多任务预训练手动策划一组理想的任务并不简单，而且多任务扩展本身可以极大地改进模型。最后，提出 ExT5：使用自监督跨度去噪和监督 ExMIX 的多任务目标预训练模型，在多个数据集上超过了 T5。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="ExT5" scheme="https://www.yam.gift/tags/ExT5/"/>
-    
-      <category term="T5" scheme="https://www.yam.gift/tags/T5/"/>
-    
-      <category term="MTL" scheme="https://www.yam.gift/tags/MTL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《舞狮少年》观后——信念、文化与希望</title>
-    <link href="https://www.yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/"/>
-    <id>https://www.yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/</id>
-    <published>2021-12-26T15:00:00.000Z</published>
-    <updated>2021-12-26T17:05:07.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;疫情一波又一波，感觉已经很久没有出去过了，周六晚上舒璇说明天一起出去看个电影吧，好久没有活动了，最近正好上映了一部口碑很不错的片子。我好奇一问：“啥电影啊？”答：“舞狮少年”。我一想，哎，这不是昨晚看某个 UP 主提到过的影片么，说看起来像是鸡汤片。对鸡汤我一向是不喜欢的，可能是以前喝太多了，有点腻上头了。不过最后，当然是毫无异议地来到了电影院，我其实有点担心自己会睡着。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="Diary" scheme="https://www.yam.gift/tags/Diary/"/>
-    
-      <category term="Culture" scheme="https://www.yam.gift/tags/Culture/"/>
-    
-      <category term="Faith" scheme="https://www.yam.gift/tags/Faith/"/>
-    
-      <category term="Hope" scheme="https://www.yam.gift/tags/Hope/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Multitask Prompted Training Enables Zero-shot Task Generalization</title>
-    <link href="https://www.yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/"/>
-    <id>https://www.yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/</id>
-    <published>2021-12-25T15:00:00.000Z</published>
-    <updated>2021-12-26T12:58:56.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;一句话描述：多任务 Prompt 可以明确影响 Zero-shot 学习。&lt;/p&gt;
-&lt;p&gt;论文：&lt;a href=&quot;https://arxiv.org/abs/2110.08207&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2110.08207] Multitask Prompted Training Enables Zero-Shot Task Generalization&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Code：&lt;a href=&quot;https://github.com/bigscience-workshop/promptsource/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;bigscience-workshop/promptsource: Toolkit for collecting and applying prompts&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;摘要：大语言模型显示出可观的 Zero-shot 泛化能力，被假设成是语言模型中多任务训练暗含的结果，所以这个能力能不能体现的直接点？本文使用一大堆有监督数据集，每个又有多个不同自然语言的 prompt，通过微调一个预训练的 Encoder-Decoder 模型，取得不错的 Zero-shot 性能。真可谓是大数据集、大 prompt 出奇迹。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="Multitask" scheme="https://www.yam.gift/tags/Multitask/"/>
-    
-      <category term="Promote" scheme="https://www.yam.gift/tags/Promote/"/>
-    
-      <category term="Zero-shot" scheme="https://www.yam.gift/tags/Zero-shot/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>虚拟网络指南</title>
-    <link href="https://www.yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/"/>
-    <id>https://www.yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/</id>
-    <published>2021-12-19T15:00:00.000Z</published>
-    <updated>2021-12-26T15:28:19.404Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;问题的研究总是源于现实，这不，一直对虚拟机的几种网络懵懵懂懂，直到有个需求冒出来，这才想办法（有机会）一把撸掉。&lt;/p&gt;
-&lt;p&gt;业务背景描述：一台 Win10 的主机，跟了我很多年的 ThinkPad，只有 4 核 4G；由于工作、生活各种需要，里面用 VirtualBox 装了个 Ubuntu18 的虚拟机。平时写代码，跑个实验啥的就都在虚拟机上。突然需要在局域网多台终端上能够访问到虚拟机中的某个服务，自然少不了要一番配置，研究一天后终于把几个主流模式差不多搞清楚了，特记录如下。当然，尚有诸多细节留待日后继续研究。&lt;/p&gt;
-&lt;p&gt;先把官方文档的一张表放这里：&lt;/p&gt;
-&lt;div class=&quot;table-container&quot;&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Mode&lt;/th&gt;
-&lt;th&gt;VM→Host&lt;/th&gt;
-&lt;th&gt;VM←Host&lt;/th&gt;
-&lt;th&gt;VM1←→VM2&lt;/th&gt;
-&lt;th&gt;VM→Net/LAN&lt;/th&gt;
-&lt;th&gt;VM←Net/LAN&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Host-only&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;—（共享网卡后+）&lt;/td&gt;
-&lt;td&gt;—&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Internal&lt;/td&gt;
-&lt;td&gt;—&lt;/td&gt;
-&lt;td&gt;—&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;—&lt;/td&gt;
-&lt;td&gt;—&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Bridged&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;NAT&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;端口转发&lt;/td&gt;
-&lt;td&gt;-&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;端口转发&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;NATservice&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;端口转发&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;+&lt;/td&gt;
-&lt;td&gt;端口转发&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;p&gt;表格来自：&lt;a href=&quot;https://www.virtualbox.org/manual/ch06.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://www.virtualbox.org/manual/ch06.html&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://www.yam.gift/categories/Coding/"/>
-    
-    
-      <category term="CS" scheme="https://www.yam.gift/tags/CS/"/>
-    
-      <category term="Network" scheme="https://www.yam.gift/tags/Network/"/>
-    
-      <category term="Virtual Network" scheme="https://www.yam.gift/tags/Virtual-Network/"/>
-    
-      <category term="NAT" scheme="https://www.yam.gift/tags/NAT/"/>
-    
-      <category term="Host-only" scheme="https://www.yam.gift/tags/Host-only/"/>
-    
-      <category term="Bridge" scheme="https://www.yam.gift/tags/Bridge/"/>
     
   </entry>
   
