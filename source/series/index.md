@@ -47,6 +47,7 @@ date: 2019-07-13 20:00:00
     - [对NLP预训练模型的思考](https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/)
     - [NLP 表征的历史与未来](https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/)
     - [句子表征综述](https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/)
+    - [ChatGPT Prompt工程：设计、实践与思考](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/)
 
 
 - 语言
@@ -64,6 +65,8 @@ date: 2019-07-13 20:00:00
 
 
 - 论文
+    - [2022 LM Cascades](https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/)
+    - [2022 Put Human in NLP Loop](https://yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/)
     - [2022 DeepGen](https://yam.gift/2022/10/15/Paper/2022-10-15-DeepGen/)
     - [2022 Global Pointer](https://yam.gift/2022/10/16/Paper/2022-10-16-GlobalPointer/)
     - [2022 大脑解码与NLP](https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/)
@@ -75,6 +78,7 @@ date: 2019-07-13 20:00:00
     - [2022 FLAN](https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/)
     - [2021 W2NER](https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/)
     - [2021 W2NER 代码](https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/)
+    - [2021 W2NER 解读](https://yam.gift/2022/10/30/Paper/2022-10-30-W2NER-Study/)
     - [2021 ExT5](https://yam.gift/2022/02/19/Paper/2022-02-19-ExT5/)
     - [2021 多任务Prompt元学习](https://yam.gift/2021/12/25/Paper/2021-12-25-MLT-Promote/)
     - [2021 Prompt综述](https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/)
@@ -88,6 +92,7 @@ date: 2019-07-13 20:00:00
     - [2021 高效深度学习：让模型更小、更快、更好](https://yam.gift/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/)
     - [2021 预训练模型的过去、现在和未来](https://yam.gift/2021/06/20/Paper/2021-06-20-PretrainedModels/)
     - [2021 Few-Shot NER and BERT Noisy Learning：ProtoBERT](https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/)
+    - [2020 GPT3 和它的 In-Context Learning](https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/)
     - [2020 T5](https://yam.gift/2022/03/05/Paper/2022-03-05-T5/)
     - [2020 SqueezeBERT](https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/)
     - [2020 深度探索 Bert：BERTology](https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/)
@@ -309,6 +314,7 @@ date: 2019-07-13 20:00:00
 
 - [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
 - [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
+- [麦肯锡战略化思维》读书笔记](https://yam.gift/2022/10/23/CogPsy/2022-10-23-Structured-Strategic-Thought/)
 
 
 ## 杂文随笔Essay
@@ -318,3 +324,4 @@ date: 2019-07-13 20:00:00
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
 - [《舞狮少年》观后 —— 信念、文化与希望 | Yam](https://yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/)
 - [只如初见的不只爱情 | Yam](https://yam.gift/2022/09/11/Diary/2022-09-11-Passion/)
+- [人生随笔 | Yam](https://yam.gift/2023/01/21/Diary/2023-01-21-Life/)
