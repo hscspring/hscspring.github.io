@@ -72,7 +72,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-GraphQL/2019-08-24-GraphQL" class="post-GraphQL/2019-08-24-GraphQL post type-post status-publish format-standard hentry">
+    <article id="post-GraphQL/2019-08-24-GraphQL-Elixir" class="post-GraphQL/2019-08-24-GraphQL-Elixir post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -80,43 +80,40 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/08/24/GraphQL/2019-08-24-GraphQL/">GraphQL Glance</a>
+      <a class="article-title" href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">GraphQL Elixir Glance</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cle0srovy001y2ygpmx1pztwa" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cle2kq8xg0024twbz41sm25zm" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
         <blockquote>
-<p>This is a quick and simple glance to the raw document (in the references), maybe you could treat it as a brief note. Hope it’s helpful to u.</p>
+<p>There are several problems with the origin docs, so I reproduced this quick glance. It’s much simple and only contains the brief information. Hope this is helpful to u.</p>
 </blockquote>
-<div class="toc"><ul class="toc-item"><li><span><a href="#Core-Concepts" data-toc-modified-id="Core-Concepts-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Core Concepts</a></span><ul class="toc-item"><li><span><a href="#The-Schema-Definition-Language-(SDL)" data-toc-modified-id="The-Schema-Definition-Language-(SDL)-1.1"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>The Schema Definition Language (SDL)</a></span></li><li><span><a href="#Fetching-Data-with-Queries" data-toc-modified-id="Fetching-Data-with-Queries-1.2"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>Fetching Data with Queries</a></span></li><li><span><a href="#Writing-Data-with-Mutations" data-toc-modified-id="Writing-Data-with-Mutations-1.3"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>Writing Data with Mutations</a></span></li><li><span><a href="#Realtime-Updates-with-Subscriptions" data-toc-modified-id="Realtime-Updates-with-Subscriptions-1.4"><span class="toc-item-num">1.4&nbsp;&nbsp;</span>Realtime Updates with Subscriptions</a></span></li><li><span><a href="#Defining-a-Schema" data-toc-modified-id="Defining-a-Schema-1.5"><span class="toc-item-num">1.5&nbsp;&nbsp;</span>Defining a Schema</a></span></li></ul></li><li><span><a href="#Architecture" data-toc-modified-id="Architecture-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>Architecture</a></span></li><li><span><a href="#Clients" data-toc-modified-id="Clients-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>Clients</a></span></li><li><span><a href="#Server" data-toc-modified-id="Server-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>Server</a></span><ul class="toc-item"><li><span><a href="#GraphQL-execution" data-toc-modified-id="GraphQL-execution-4.1"><span class="toc-item-num">4.1&nbsp;&nbsp;</span>GraphQL execution</a></span></li><li><span><a href="#Batched-Resolving" data-toc-modified-id="Batched-Resolving-4.2"><span class="toc-item-num">4.2&nbsp;&nbsp;</span>Batched Resolving</a></span></li></ul></li><li><span><a href="#More-Concepts" data-toc-modified-id="More-Concepts-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>More Concepts</a></span><ul class="toc-item"><li><span><a href="#Enhancing-Reusability-with-Fragments" data-toc-modified-id="Enhancing-Reusability-with-Fragments-5.1"><span class="toc-item-num">5.1&nbsp;&nbsp;</span>Enhancing Reusability with Fragments</a></span></li><li><span><a href="#Parameterizing-Fields-with-Arguments" data-toc-modified-id="Parameterizing-Fields-with-Arguments-5.2"><span class="toc-item-num">5.2&nbsp;&nbsp;</span>Parameterizing Fields with Arguments</a></span></li><li><span><a href="#Named-Query-Results-with-Aliases" data-toc-modified-id="Named-Query-Results-with-Aliases-5.3"><span class="toc-item-num">5.3&nbsp;&nbsp;</span>Named Query Results with Aliases</a></span></li><li><span><a href="#Advanced-SDL" data-toc-modified-id="Advanced-SDL-5.4"><span class="toc-item-num">5.4&nbsp;&nbsp;</span>Advanced SDL</a></span></li></ul></li><li><span><a href="#Tooling-and-Ecosystem" data-toc-modified-id="Tooling-and-Ecosystem-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>Tooling and Ecosystem</a></span></li><li><span><a href="#Security" data-toc-modified-id="Security-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>Security</a></span><ul class="toc-item"><li><span><a href="#Timeout" data-toc-modified-id="Timeout-7.1"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Timeout</a></span></li><li><span><a href="#Maximum-Query-Depth" data-toc-modified-id="Maximum-Query-Depth-7.2"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Maximum Query Depth</a></span></li><li><span><a href="#Query-Complexity" data-toc-modified-id="Query-Complexity-7.3"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>Query Complexity</a></span></li><li><span><a href="#Throttling" data-toc-modified-id="Throttling-7.4"><span class="toc-item-num">7.4&nbsp;&nbsp;</span>Throttling</a></span></li></ul></li><li><span><a href="#References" data-toc-modified-id="References-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>References</a></span></li></ul></div>
-
-<p>At its core, GraphQL enables <em>declarative data fetching</em> where a client can specify exactly what data it needs from an API. GraphQL is a <em>query language</em> for APIs - not databases. </p>
-<p><strong>REST vs GraphQL</strong></p>
+<h2 id="Getting-Started"><a href="#Getting-Started" class="headerlink" title="Getting Started"></a>Getting Started</h2><p>Schema-Driven Development</p>
 <ul>
-<li>Data Fetching: multiple endpoints VS single query</li>
-<li>Over-fetching and Under-fetching (n+1) : fixed data structure VS given exact data</li>
-<li>Rapid Product Iterations on the Frontend: adjust with data change VS flexible</li>
-<li>Insightful Analytics on the Backend: fine-grained insights about the data</li>
-<li>Benefits of a Schema &amp; Type System: type system =&gt; schema, frontend and backends can do their work without further communication</li>
+<li>Define your types and the appropriate queries and mutations for them.</li>
+<li>Implement functions called <strong>resolvers</strong> to handle these types and their fields.</li>
+<li>As new requirements arrive, go back to step 1 to update the schema, and continue through the other steps.</li>
 </ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Step1: create</span></span><br><span class="line">$ mix phx.new community --no-html</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step2: add dependencies to `mix.exs`</span></span><br><span class="line">&#123;:dataloader, <span class="string">"~&gt; 1.0.0"</span>&#125;, <span class="comment"># absinthe_ecto was DEPRECATED</span></span><br><span class="line">&#123;:absinthe_plug, <span class="string">"~&gt; 1.4.0"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step3: modify database info in `config/dev.exs`</span></span><br><span class="line"><span class="comment"># maybe you should modify username or password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step4: install deps</span></span><br><span class="line">$ mix deps.get</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step5: generate tables and seed data</span></span><br><span class="line">$ mix phx.gen.context News Link links url:string description:text</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step6: add seed data in `priv/repo/seeds.exs`</span></span><br><span class="line"><span class="built_in">alias</span> Community.News.Link</span><br><span class="line"><span class="built_in">alias</span> Community.Repo</span><br><span class="line">%Link&#123;url: <span class="string">"http://graphql.org/"</span>, description: <span class="string">"The Best Query Language"</span>&#125; |&gt; Repo.insert!</span><br><span class="line">%Link&#123;url: <span class="string">"http://dev.apollodata.com/"</span>, description: <span class="string">"Awesome GraphQL Client"</span>&#125; |&gt; Repo.insert!</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step7: setup ecto (create + migrate)</span></span><br><span class="line">$ mix ecto.setup</span><br></pre></td></tr></table></figure>
+<p>You should see two pieces of items in the <code>links</code> table.</p>
         
           <p class="article-more-link">
-            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL/">
+    <a href="/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/">
     <time datetime="2019-08-24T10:00:00.000Z" class="entry-date">
         2019-08-24
     </time>
@@ -129,7 +126,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Query/">Query</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elixir/">Elixir</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GraphQL/">GraphQL</a></li></ul>
 
     </footer>
 </article>
@@ -154,7 +151,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cle0sroz500h52ygp20p7tci9" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cle2kq8xs003atwbz5c7ia2rw" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -219,7 +216,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cle0srox3005i2ygpon4nli22" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cle2kq8y20040twbzh6c1dvm2" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -278,7 +275,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="cle0srp4800z02ygpqrhop16j" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="cle2kq96y0115twbz2ca7qv0w" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -336,7 +333,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="cle0srozb00he2ygpz4vs2h3u" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="cle2kq8y1003vtwbz9kt11aqe" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -396,7 +393,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/" data-id="cle0srowc003b2ygpkp6870zn" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/" data-id="cle2kq8zz00adtwbzb0gj20ot" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -453,7 +450,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" data-id="cle0srp4200yf2ygpbu3amd11" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" data-id="cle2kq96h010otwbzk0y3a54b" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -509,7 +506,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/" data-id="cle0srp64011t2ygpa8tlxhlg" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/" data-id="cle2kq991014ztwbzphtegwk9" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -575,7 +572,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/15/Diary/2019-07-15-diary/" data-id="cle0srovs001a2ygp2t2beoa2" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/15/Diary/2019-07-15-diary/" data-id="cle2kq8x5001ftwbzbr0yavik" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -632,7 +629,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/" data-id="cle0srozl00ir2ygpfcnyetx8" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/" data-id="cle2kq8xw003htwbzbe6eybig" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
