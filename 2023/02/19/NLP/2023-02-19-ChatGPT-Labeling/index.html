@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-6.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-7.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-8.jpg">
-<meta property="og:updated_time" content="2023-02-19T14:17:05.816Z">
+<meta property="og:updated_time" content="2023-02-19T14:20:06.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ChatGPT 标注指南：任务、数据与规范">
 <meta name="twitter:description" content="ChatGPT 刚刚出来时，业内人士一致认为高质量的数据是一个非常关键的因素。且不论这个结论在 ChatGPT 这里是否正确，但高质量的数据对模型大有裨益却是公认的。而且，我们也可以从公开的 InstructGPT 标注指南中对此窥探一二。本文主要就围绕这份指南进行介绍，有点标题党了，但是考虑到 ChatGPT 和 InstructGPT 是兄弟关系，我们有理由相信 ChatGPT 的标注也是基于">
@@ -279,24 +279,21 @@
 <li><p>Certain：是否确认包含 PII？如果你觉得一个 Prompt 可能包含 PII 但你又不确定，PII 标记为 “是”，Certain 标记为 “否”。</p>
 <p>而关于个人信息的范围界定更是详细，这既是个法律（隐私）问题，也是个道德问题（给用户的保证），所以必须保守！关于这部分可以阅读核心文献【4】，有详细的说明和 Case。我们这里简单概括一下，读者可以感知一下：</p>
 </li>
-<li><p>姓名：全名始终算 PII，即便他们是无意间提到的著名历史人物、被引用的书籍作者、在引用书籍/电影/新闻文章等的上下文中提到的作者的全名。名字（First Name）一般没问题，除非能和其他信息结合起来可以识别出某人；其他类似的包括用户名、艺名、代名等，或关于此人的很多辅助信息。不确定时需要 Google 搜索，看看能否根据已有信息识别出此人，可以就标记为 PII 和 Certain；否则标记为 PII 和非 Certain。识别一组人的信息可能是 PII，如 “甲壳虫乐队”，但更大的群体不是，如 “哈佛法学院 2021 级”，对于中间的，标记为 PII + 非 Certain。不确定是虚构的还是真实的全名，或者部分虚构但基于真人的全名，如一些圣经人物，标记为 PII + 非 Certain。</p>
-</li>
+<li>姓名：全名始终算 PII，即便他们是无意间提到的著名历史人物、被引用的书籍作者、在引用书籍/电影/新闻文章等的上下文中提到的作者的全名。名字（First Name）一般没问题，除非能和其他信息结合起来可以识别出某人；其他类似的包括用户名、艺名、代名等，或关于此人的很多辅助信息。不确定时需要 Google 搜索，看看能否根据已有信息识别出此人，可以就标记为 PII 和 Certain；否则标记为 PII 和非 Certain。识别一组人的信息可能是 PII，如 “甲壳虫乐队”，但更大的群体不是，如 “哈佛法学院 2021 级”，对于中间的，标记为 PII + 非 Certain。不确定是虚构的还是真实的全名，或者部分虚构但基于真人的全名，如一些圣经人物，标记为 PII + 非 Certain。</li>
 <li>小于街道+城市的地理分区。</li>
 <li>与个人直接相关的日期元素：出生日期、入院日期、死亡日期等。</li>
 <li>联系信息：电话、传真、电邮等。</li>
 <li><p>身份证明信息：身份证号、社保账号、医保号、银行卡号、执照、车辆、车牌、设备标识符、IP、个人网站等等。即使部分屏蔽的字母数字 ID 也算 PII。</p>
-<p>一些不是 PII：</p>
+<p>还有一些不是 PII 的：</p>
 </li>
-<li><p>公司名称，包括公司联系信息。</p>
-</li>
+<li>公司名称，包括公司联系信息。</li>
 <li>没有名字的聊天记录。</li>
 <li>产品名称。</li>
 <li>没有名字的收据。</li>
 <li>希腊神话中的人物。</li>
 </ul>
 </li>
-<li><p>标签（下拉选）：这条 Instruction 定义了什么样的任务？</p>
-</li>
+<li>标签（下拉选）：这条 Instruction 定义了什么样的任务？</li>
 <li>封闭域（下拉选）：如果模型不应该使用比提供的信息更多的信息，则任务是 “封闭域”。</li>
 <li>用户意图不明（是/否）。</li>
 <li>Instruction 包含显式约束（是/否）。</li>
