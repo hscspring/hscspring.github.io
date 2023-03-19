@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-8.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-9.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-10.jpg">
-<meta property="og:updated_time" content="2023-02-06T01:56:53.520Z">
+<meta property="og:updated_time" content="2023-03-13T07:19:36.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ChatGPT Prompt工程：设计、实践与思考">
 <meta name="twitter:description" content="ChatGPT 火爆出圈了，有些人惊叹于它的能力，当然也有部分人觉得也就那样。这就不得不提 Prompt 了，据说【相关文献1】，ChatGPT 效果好不好完全取决于你的 Prompt，“看来 Propmt 也成一个技术活儿了”。当我这么想的时候，没想到国外居然已经有了成熟的售卖 Prompt 的网站，这玩意儿居然成了 NFT（Non-Fungible Token），真是世界变化太快，本人过于迟钝">
@@ -287,7 +287,15 @@
 </ol>
 <p>以上内容来自【核心文献4】，个人感觉非常值得一试，强烈推荐。</p>
 <p>另外，该作者还开发了一个 AI 写作系统：<a href="https://aicontentreactor.com/" target="_blank" rel="noopener">AI Content Reactor</a>，感兴趣可以一试。</p>
-<p>对写作或 Prompt 感兴趣也可以加入他的邮件推送列表：<a href="https://pages.roblennon.xyz/newsletter" target="_blank" rel="noopener">Join 5,082+ creators, solopreneurs, and founders</a>。</p>
+<p>对写作或 Prompt 感兴趣也可以加入他的邮件推送列表：<a href="https://pages.roblennon.xyz/newsletter" target="_blank" rel="noopener">Join 5,082+ creators, solopreneurs, and founders</a>。这里再补充一个邮件推送的如何写好 Prompt 的小结：</p>
+<ul>
+<li>描述 AI 扮演的角色</li>
+<li>提供要执行的任务</li>
+<li>给出完成任务的步骤</li>
+<li>围绕任务提供上下文</li>
+<li>如果需要，陈述一个具体的目标</li>
+<li>要求格式化输出</li>
+</ul>
 <h2 id="多想一点"><a href="#多想一点" class="headerlink" title="多想一点"></a>多想一点</h2><p>关于 ChatGPT 的 Prompt 我们已经有了一定程度的理解，这部分内容主要想务虚地探讨一下为什么效果好，以及为什么需要 Prompt，而且效果那么依赖 Prompt？</p>
 <p>首先是大模型的超能力——这个的确是自己以前没意识到的，只知道 BERT 这么大的模型比 TextCNN 这类效果好，也知道更大会更好；但确实没有一个具体的概念——到底多好。从 T5 统一所有 NLP 的输入、GPT3 的 In-Context，到后面 Prompt 和 MTL 的大发展，好像都没有感受到那种大突破——直到现在，我们都知道了。我记得之前看过一篇研究 BERT 究竟学到了什么的 Paper：<a href="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" target="_blank" rel="noopener">A Primer in BERTology: What we know about how BERT works</a>，这篇 Paper 的结果是在理解范围内的：能学到一些句法和语义知识，在推理和常识方面不太理想。其实，ChatGPT 依然如此，但没想到却出彩了。另外，也是我一直以来对大模型不太感冒，感觉有点无脑，所以会对类似 <a href="https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/" target="_blank" rel="noopener">R-Drop</a> 这类 Paper 比较感兴趣，还会在小模型上做一些<a href="https://yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" target="_blank" rel="noopener">实验</a>。但大模型一直都比较关注其设计，比如 <a href="https://yam.gift/2021/07/31/Paper/2021-07-31-UniLM/" target="_blank" rel="noopener">UniLM</a>、<a href="https://yam.gift/2022/03/05/Paper/2022-03-05-T5/" target="_blank" rel="noopener">T5</a> 、<a href="https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/" target="_blank" rel="noopener">DeBERTa</a> 等，尤其是 T5 以及后面的 ExT5 对任务的统一，UniLM 对模型架构的统一，这种 Unified 做法实在是太吸引人了，让人拍案叫绝。这期间其实对 GPT 系列关注不太多，<a href="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" target="_blank" rel="noopener">GPT2</a> 的 Paper 和代码精读过，但主要是当时有生成的业务需要。<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/" target="_blank" rel="noopener">GPT3</a> 就一直没仔细读，直到前几天才带着重新学习的心态读了一下，收获很大，有点后悔当时没有认真研读了。对于 In-Context 方面的关注源于 FaceBook 的 <a href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/" target="_blank" rel="noopener">MetaICL</a>，主要是看到了 Meta Learning 这个东西，这也是一种 Unify，而且更加抽象——个人很喜欢。总的来说，在语言大模型方面，其实大家研究的都差不多，都在慢慢关注到 In-Context 能力（T5 不是也可以这么理解么）。不过 OpenAI 是一条路走到底，这个只能佩服了。如果说从一开始就有这种前瞻的认识和理解，那只能说太太太牛逼格拉斯了。这可不是写写文章自己随便研究研究，每年多少亿资金砸进去啊，真有魄力。</p>
 <p>那么，为什么是 ChatGPT？这就不得不说接下来的强化学习了。关于强化学习在 AI 中的作用我在很久以前在 <a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">NLP与AI</a> 这篇文章中就提到过了，这些年也在关注这个领域的进展。在 ChatGPT 前关注到的最新的研究是 Allen AI 的那篇 <a href="https://arxiv.org/abs/2210.01241" target="_blank" rel="noopener">Is Reinforcement Learning (Not) for Natural Language Processing?: Benchmarks, Baselines, and Building Blocks for Natural Language Policy Optimization</a>，额，这么长的标题。当时正好是某个工作日上午，当日常刷论文刷到这篇并快速浏览完后，激动的恨不得在工位上大吼几声。如果说深度学习是在学习表征的话，强化学习就是在学习规则。我们知道，强化学习一般是在一个发散的空间内探索，所以这里必须要有个东西把规则限制到特定区域内。怎么做呢？要么，我们已经搞清楚语言及背后的意识和思维的奥秘，直接编码规则；要么，直接给出结果，把过程当做黑盒，我就要这个结果，给我往这个方向靠，有点类似于早期控制论那一套人工智能的思路。这就是 Instruct + HF（Human Feedback）的作用了——也是 ChatGPT 之所以成功的一个非常重要的设计。Instruct 引导模型的 In-Context 能力，同时把结果限制在一个范围内，HF 则给出结果反馈，让这个结果往期望的方向上靠。刚刚我们提到强化学习是学习规则，但是这个规则可不是那么容易学的，而 Instruct + HF 就是一个不错的范式。训练完成后，Instruct + 语言模型就可以做到在「用户满意规则」下完成任务了。不能不说，这真的是一个极其精（鸡）巧（贼）的设计。</p>
