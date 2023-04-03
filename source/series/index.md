@@ -41,6 +41,7 @@ date: 2019-07-13 20:00:00
     - [《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）](https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/)
     - [浅析文本分类 —— 情感分析与自然语言处理](https://yam.gift/2021/10/27/NLP/2021-10-27-Senta/)
     - [TensorBay 指南](https://yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/)
+    - [ChatGPT 标注指南：任务、数据与规范 | Yam](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/)
 
 
 - 思考
