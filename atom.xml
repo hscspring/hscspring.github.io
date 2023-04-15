@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2023-02-19T14:23:17.132Z</updated>
+  <updated>2023-04-15T09:53:33.030Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -15,6 +15,55 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ChatGPT 基础科普：知其一点所以然</title>
+    <link href="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/"/>
+    <id>https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/</id>
+    <published>2023-04-15T10:00:00.000Z</published>
+    <updated>2023-04-15T09:53:33.030Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2022年底，ChatGPT突然间在AI圈开始流行，准确来说是搞自然语言处理（Natural Language Processing，NLP）圈子里先火起来了。遥想当时，本以为就会在圈内火一阵，结果现在……没想到居然成了AI的救命稻草，当然对AI工程师尤其是NLP工程师是什么就不好说了。海内外沸腾之后就是第一时间的跟进，结果自然是努力对齐而无功，连牛逼的Google和FaceBook都翻车了。不过总归是折腾出来一些东西，大伙儿也都有了目标，圈子又有了新活力。希望OpenAI继续发力，我等再多苟些日子。&lt;/p&gt;
+&lt;p&gt;无论是ChatGPT还是后来的模仿者，它们其实都是语言模型，准确来说——大语言模型。使用时，无论是调用API还是开源项目，总有一些参数可能需要调整。对大部分内行人士来说应该都不成问题，但对外行就有点玄乎了。基于此，本文将简要介绍ChatGPT相关技术基本原理，行文将站在外行人角度，尝试将内容尽量平民化。虽然不能深入细节，但知晓原理足以很好使用了。&lt;/p&gt;
+&lt;p&gt;本文共分为四个部分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LM：这是ChatGPT的基石的基石，是一个最基本的概念，绕不开，逃不过，没办法。&lt;/li&gt;
+&lt;li&gt;Transformer：这是ChatGPT的基石，准确来说它的一部分是基石。&lt;/li&gt;
+&lt;li&gt;GPT：本体，从GPT-1，一直到现在的GPT-4，按openai自己的说法，那模型都是那个模型，只是它长大了，变胖了，不过更好看了。关于这点，大家基本都没想到。现在好了，攀不上了。&lt;/li&gt;
+&lt;li&gt;RLHF：ChatGPT神兵利器，有此利刃，ChatGPT才是那个ChatGPT，不然就只能是GPT-3。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Transformer" scheme="https://www.yam.gift/tags/Transformer/"/>
+    
+      <category term="GPT-2" scheme="https://www.yam.gift/tags/GPT-2/"/>
+    
+      <category term="ChatGPT" scheme="https://www.yam.gift/tags/ChatGPT/"/>
+    
+      <category term="LM" scheme="https://www.yam.gift/tags/LM/"/>
+    
+      <category term="InstructGPT" scheme="https://www.yam.gift/tags/InstructGPT/"/>
+    
+      <category term="GPT-3" scheme="https://www.yam.gift/tags/GPT-3/"/>
+    
+      <category term="GPT-1" scheme="https://www.yam.gift/tags/GPT-1/"/>
+    
+      <category term="RLHF" scheme="https://www.yam.gift/tags/RLHF/"/>
+    
+      <category term="LLM" scheme="https://www.yam.gift/tags/LLM/"/>
+    
+  </entry>
   
   <entry>
     <title>ChatGPT 标注指南：任务、数据与规范</title>
@@ -662,35 +711,6 @@
       <category term="BM25" scheme="https://www.yam.gift/tags/BM25/"/>
     
       <category term="Rank" scheme="https://www.yam.gift/tags/Rank/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>量化NLM模型的记忆力</title>
-    <link href="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/"/>
-    <id>https://www.yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/</id>
-    <published>2022-04-15T15:00:00.000Z</published>
-    <updated>2022-04-16T12:05:51.680Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Paper：&lt;a href=&quot;https://arxiv.org/abs/2202.07646&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;[2202.07646] Quantifying Memorization Across Neural Language Models&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;一句话概述：更大的模型更可能学到重复数据的特性，去重是缓解模型记忆危害的不错策略。&lt;/p&gt;
-&lt;p&gt;摘要：语言模型能够记住一些训练数据，如果经过合适地提示引导，可能会生成记住的数据。这肯定不太合适，因为可能会侵犯隐私、降低效用（重复的容易记住的词往往质量比较低），并且有失公平（有些文本被记住而有些没有）。本文描述了三个对数线性关系，量化了 LM 生成记忆数据的程度。记忆会显著增加，如果增大：（1）模型的容量，（2）样本的重复次数，（3）提示文的 Token 数量。总的来说，LM 的记忆比之前认识到的更普遍，并随着模型不断增大可能变得更糟。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
-    
-      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
-    
-      <category term="PLM" scheme="https://www.yam.gift/tags/PLM/"/>
-    
-      <category term="NLM" scheme="https://www.yam.gift/tags/NLM/"/>
     
   </entry>
   
