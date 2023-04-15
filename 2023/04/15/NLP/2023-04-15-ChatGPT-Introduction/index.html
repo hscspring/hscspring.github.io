@@ -22,23 +22,23 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="2022年底，ChatGPT突然间在AI圈开始流行，准确来说是搞自然语言处理（Natural Language Processing，NLP）圈子里先火起来了。遥想当时，本以为就会在圈内火一阵，结果现在……没想到居然成了AI的救命稻草，当然对AI工程师尤其是NLP工程师是什么就不好说了。海内外沸腾之后就是第一时间的跟进，结果自然是努力对齐而无功，连牛逼的Google和FaceBook都翻车了。不过">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-1.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-1.png">
 <meta property="og:image" content="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-2.png">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-3.gif">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-2.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-3.gif">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-1.jpeg">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-4.png">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-5.png">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-6.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-4.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-5.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-6.png">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-gpt3-5.jpg">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-7.png">
-<meta property="og:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-8.png">
-<meta property="og:updated_time" content="2023-04-15T09:53:33.030Z">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-7.png">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-8.png">
+<meta property="og:updated_time" content="2023-04-15T10:00:49.738Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ChatGPT 基础科普：知其一点所以然">
 <meta name="twitter:description" content="2022年底，ChatGPT突然间在AI圈开始流行，准确来说是搞自然语言处理（Natural Language Processing，NLP）圈子里先火起来了。遥想当时，本以为就会在圈内火一阵，结果现在……没想到居然成了AI的救命稻草，当然对AI工程师尤其是NLP工程师是什么就不好说了。海内外沸腾之后就是第一时间的跟进，结果自然是努力对齐而无功，连牛逼的Google和FaceBook都翻车了。不过">
-<meta name="twitter:image" content="https://www.yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/images/ChatGPT-Intro-1.png">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-1.png">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -121,7 +121,7 @@
 <h3 id="LM"><a href="#LM" class="headerlink" title="LM"></a>LM</h3><p>LM，Language Model，语言模型，简单来说就是利用自然语言构建的模型。这个自然语言就是人常说的话，或者记录的文字等等，只要是人生产出来的文字，都可以看做语言。你现在看到的文字也是。模型就是根据特定输入，通过一定计算输出相应结果的一个东西，可以把它当做人的大脑，输入就是你的耳、眼听或看到的文字，输出就是嘴巴说出来或手写出来的文字。总结一下，语言模型就是利用自然语言文本构建的，根据输入的文字，输出相应文字的模型。</p>
 <p>具体是怎么做的呢，方法有很多种，比如我写好一个模板：「XX喜欢YY」，如果XX=我，YY=你，那就是我喜欢你，反过来就是你喜欢我。我们这里重点要说的是概率语言模型，它的核心是概率，准确来说是下一个词的概率。这种语言模型在通过已经有的词预测接下来的词。我们举个简单的例子，比如你只告诉模型：「我喜欢你」这句话，当你输入「我」的时候，它就知道你接下来要说「喜欢」了。为什么？因为它脑子里就只有这四个字，你没告诉它其他的呀。</p>
 <p>好，接下来，我们要升级了。假设你给了模型很多很多句话，多到现在网上能找到的资料都给了它。这时候你再输入「我」，我敢打赌它大概不会说「喜欢」了。为什么？简单，见多了世面，眼里怎么可能只有喜欢你三个字。但因为我们考虑的是最大概率，很有可能它每次都会输出同样的话。对，没错，如果每次都只选择下个最大概率的词，你就是会得到同样的话。这种方法叫做Greedy Search（中文叫贪心搜索），很贪，很短视！所以，语言模型都会在这个地方做一些策略，让模型每一步多看几个可能的词，而不是就看那最高的一个，这样继续往下找的时候，你会发现到下一步时，刚刚最大概率的词，如果加上这一步的词，它的路径（两步概率乘积）可能没有刚刚小一点概率的词的路径。举个例子，请看下面这幅图：</p>
-<p><img src="images/ChatGPT-Intro-1.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-1.png" alt=""></p>
 <p>（图1：如何预测下一个词）</p>
 <p>先看第一步，如果只选概率最大的那个词，那就变成「我想」了，但是别急，我们给「喜欢」一点机会，同时考虑它们两个好不好。再往下看一步，最大概率的都是你，我们也选两个，最后有这么几句（以及我们附上它们的概率）：</p>
 <ul>
@@ -147,7 +147,7 @@
 <p><img src="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" alt=""></p>
 <p>（图2：RNN，来自：<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/）" target="_blank" rel="noopener">https://colah.github.io/posts/2015-08-Understanding-LSTMs/）</a></p>
 <p>右边是左边的展开，A就是参数，X是输入，h就是输出，由于自然语言是Token by Token的，所以就组成了一个序列。那这个参数怎么学习呢？这就要稍微解释一下学习过程，请看下面的图：</p>
-<p><img src="images/ChatGPT-Intro-2.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-2.png" alt=""></p>
 <p>（图3：语言模型输入输出）</p>
 <p>第一行就是X，第二行就是Y，SOS表示Start of Sentence，EOS就不多解释了。注意，上面的h并不是那个输出的概率，而是hidden state，如果需要概率，可以将h再做一个张量运算，归一化到整个词表即可。简单的演示一下代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line">rnn = nn.RNN(<span class="number">32</span>, <span class="number">64</span>)</span><br><span class="line">input = torch.randn(<span class="number">4</span>, <span class="number">32</span>)</span><br><span class="line">h0 = torch.randn(<span class="number">1</span>, <span class="number">64</span>)</span><br><span class="line">output, hn  = rnn(input, h0)</span><br><span class="line">output.shape, hn.shape</span><br><span class="line"><span class="comment"># (torch.Size([4, 64]), torch.Size([1, 64]))</span></span><br></pre></td></tr></table></figure>
@@ -160,7 +160,7 @@
 <h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p>接下来出场的是Transformer，一个刚开始在NLP领域，后来横跨到语音和图像领域，并最终统一几乎所有模态的架构。这是Google2017年发的一篇论文，标题叫《Attention Is All You Need》，其最重要的核心就是提出来的Self-Attention机制，中文也叫自注意力。简单来说，就是在语言模型建模过程中，把注意力放在那些重要的Token上。想来，Google在发表论文之初也没有料想到今天吧。</p>
 <p>Transformer是一种Encoder-Decoder架构，简单来说就是先把输入映射到Encoder，这里大家可以把Encoder先想象成上面介绍的RNN，Decoder也可以想象成RNN。这样，左边负责编码，右边则负责解码。这里面不同的是，左边因为我们是知道数据的，所以建模时可以同时利用当前Token的历史Token和未来（前面的）Token；但解码时，因为是一个Token一个Token输出来的，所以只能根据历史Token以及Encoder的Token表示进行建模，而不能利用未来的Token。</p>
 <p>Transformer的这种架构从更普遍的角度来看，其实是Seq2Seq架构，大家别慌，这简单来说就是序列到序列模型，也就是输入是一个文本序列，输出是另一个文本序列。翻译就是个很好的例子，我们看下面这个来自Google的GNMT（Google Neutral Machine Translation）的经典图片：</p>
-<p><img src="images/ChatGPT-Intro-3.gif" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-3.gif" alt=""></p>
 <p>（图4：GNMT图示，来自GNMT GitHub：<a href="https://github.com/belvo/Google-Neural-Machine-Translation-GNMT-）" target="_blank" rel="noopener">https://github.com/belvo/Google-Neural-Machine-Translation-GNMT-）</a></p>
 <p>刚刚已经说了，Encoder和Decoder可以采用RNN，最终就是Encoder所有Token最终输出一个向量，作为整句话的表示。说到这里，整句话又怎么表示呢？刚刚上面我们也提到过，如果RNN这种结构，可以把最后一个Token的输出作为整个句子的表示。当然了，很符合直觉地，你也可以取每个Token向量的平均值，或第一个和最后一个的平均值，或后面N个的平均值。这些都可以，问题不大，不过一般取平均的情况比较多，效果要好一些。除了平均值，也可以求和、取最大值等，我们就不多深入讨论了。现在重点来了，看Decoder的过程，仔细看，其实它在生成每一个Token时都用到了Encoder每一个Token的信息，以及它已经生成的Token的信息。前面这种关注Encoder中Token的信息的机制就是Attention（注意力机制）。直观点解释，当生成Knowledge时，「知识」两个字会被赋予更多权重，其他也是类似。</p>
 <p>让我们带着上面的记忆，看一下Transformer的结构，如下图所示：</p>
@@ -173,11 +173,11 @@
 <p>Transformer这个架构基于Seq2Seq，可以同时处理NLU和NLG任务，而且这种Self Attention机制的特征提取能力很强。这就使得NLP取得了阶段性的突破，深度学习开始进入了微调模型时代。大概的做法就是拿着一个开源的预训练模型，然后在自己的数据上微调一下，让它能够搞定特定的任务。这个开源的预训练模型往往就是个语言模型，从大量数据语料上，使用我们前面讲的语言模型的训练方法训练而来。NLU领域的第一个工作是Google的BERT，相信不少人即便不是这个行业的也大概听过。BERT就是用了Transformer的Encoder架构，有12个Block（看上面那个图，这每一个Block也可以叫一层），1亿多参数，它不预测下一个Token，而是随机把15%的Token盖住，然后利用其他没盖住的Token来预测盖住的Token。其实和根据上文预测下一个Token是类似的，不同的是可以利用下文信息。NLG领域的第一个工作是OpenAI的GPT，用的是Transformer的Decoder架构，参数和BERT差不多。它们都发表于2018年，然后分别走上了两条不同的路。</p>
 <h3 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h3><p>GPT，Generative Pre-trained Transformer，没错了，就是ChatGPT的那个GPT，中文叫「生成式预训练Transformer」。生成式的意思就是类似语言模型那样，Token by Token生成文本，也就是上面提到的Decoder。预训练刚刚液体过了，就是在大量语料上训练的语言模型。GPT模型从1到4，一共经历了5个版本，中间有个ChatGPT是3.5版，接下来我们分别介绍它们的基本思想。</p>
 <p>GPT1和BERT一样，走的是下游任务微调套路，也就是固定住预训练模型不动，然后在不同下游任务上微调一个模型，如下图所示：</p>
-<p><img src="images/ChatGPT-Intro-4.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-4.png" alt=""></p>
 <p>（图6：GPT基本结构，来自GPT论文）</p>
 <p>左边我们上面已经介绍过了，用的就是Transformer的架构（GPT中是Decoder），具体里面的子模块可以不用关注。重点看看右边，这里有一个值得注意的地方，就是针对不同的任务输入，都拼接成文本序列，然后丢给Transformer Decoder再通过一个Linear+SoftMax输出结果。Linear是一种最基础的网络结构，SoftMax我们前面介绍过，主要用来把输出映射到概率分布（和为1）。这种拼接输入的方法日后在当时那个大模型时代非常流行的，紧跟其后的BERT也是类似的方式。这样统一的处理方法能够减少不同任务对模型的改动。反正不管什么任务，都想方设法搞成一个序列就行。</p>
 <p>这篇文章还有几个点在当时看起来可能没啥感觉，但现在回看却有点意思（就像乔布斯说的dot）。第一个是预训练层数和任务表现的关系，如左下图所示；第二个是训练参数数量和模型性能关系。</p>
-<p><img src="images/ChatGPT-Intro-5.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-5.png" alt=""></p>
 <p>（图7：左图是GPT参数量与效果图，右图是Zero-Shot能力，来自GPT论文）</p>
 <p>上图可以得出两个基本结论：第一，预训练模型中的每一层都包含用于解决目标任务的有用功能，说明多层有更多能力；第二，随着参数的增加，Zero-Shot获得更好的性能。简单总结来看就是，模型大了不仅能学到更多知识，有助于解决下游任务，还表现出了Zero-Shot能力。</p>
 <blockquote>
@@ -185,7 +185,7 @@
 </blockquote>
 <p>好了，有了上面的结论，很自然会怎么样？是不是想看看更多层（更多参数）的表现如何？于是半年多后GPT-2来了，参数量从GPT的110M增加到了1.5B，十倍于前者。更有意思的是，在GPT论文的<a href="https://openai.com/research/language-unsupervised" target="_blank" rel="noopener">博客</a>中有一个「未来工作」，放在第一个的就是扩大规模，还有两个分别是提升微调和更好地理解为什么生成式预训练能提升理解（NLU）能力。</p>
 <p>GPT发表于2018年6月，GPT-2发表于2019年2月，就是前者的升级版：一个是扩大规模，再就是Zero-Shot。如果说前者是观察到了这个现象，那后者就是进一步研究这个现象。请看下面这张图：</p>
-<p><img src="images/ChatGPT-Intro-6.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-6.png" alt=""></p>
 <p>（图8：参数量和Zero-Shot表现，来自GPT-2论文）</p>
 <p>纵坐标是不同任务的评估指标，横坐标是参数量，效果一目了然。进一步验证了前面的想法，那下一步要做的就是继续扩大规模……不过且慢，在此之前我们不妨看一下GPT-2中的Token生成策略，也就是生成下一个Token时的方法。前面第一部分我们提到过比较优秀的Beam Search，不过它有两个比较明显的问题，第一是生成的内容容易重复；第二是高质量的文本和高概率并不一定相关，人更加喜欢有「不一样」的内容，而不是完全可预测的，比如张爱玲说过「孤独的人有他们自己的泥沼」，这种独一无二的文字用高概率的词大概率是得不到的。简单来看，这两个问题其实可以归结为一个点：生成的内容确定性太大。</p>
 <p>现在，我们介绍一种基于采样的方法，简单点来说，就是基于已有的上下文随机选择下一个Token。不过随机也有问题，那就是可能生成不连贯的文本（很容易理解对吧）。这里有个Trick可以缓解这个问题——进一步增加高概率词的可能性，降低低概率词的可能性。这样就不太容易随机到很低概率（很可能不连贯）的生成。具体的做法是用过一个<code>temperature</code>的参数调整输出的概率分布，这个参数值越大，分布就看起来越平滑，也就是高概率和低概率的差距拉小了（对输出不那么确定）；当然越小的话，高概率和低概率的差距更明显了（对输出比较确定）。如果趋近于0，那就和Greedy Search一样了。这在深度学习中是一种比较常见的方法，感兴趣的读者可以进一步读一下这个StackOverflow的<a href="https://stackoverflow.com/questions/58764619/why-should-we-use-temperature-in-softmax/63471046#63471046" target="_blank" rel="noopener">解释</a>。</p>
@@ -213,11 +213,11 @@
 <p>第一点在下一节就会提到，主要说说第二点。这里说的意思是，当我们给出一些示例时（Few-Shot），我们还无法精准确定是在推理时「学习」到新任务的处理方法（这种情况下，如果没有示例就没有能力；这里的「学习」要打引号，因为它不调整参数），还是在训练时已经具备了这个能力，示例只是让它「回想」起之前学的。这里有点绕，拿人来举例（可能不太恰当，希望能说明问题），比如说你在读到一首诗时，自己也诗兴大发写了一句。你说这句诗是因为你读到这首诗时「领悟」到的，还是你本来就有这个积累（记忆），现在只是因为读这首诗而被勾了出来？你看，这涉及到大脑、思维、意识等领域知识，而人类至今还没有搞清楚它们的原理，所以我们现在还不知道答案。</p>
 <h3 id="RLHF"><a href="#RLHF" class="headerlink" title="RLHF"></a>RLHF</h3><p>RLHF，Reinforcement Learning from Human Feedback，从人类反馈中学习，听起来怎么平平无奇。确实，它的思想非常朴素简单，但却有着不可忽视的效果。刚刚我们已经提到了，GPT-3说未来要找新的方法，这其中就包括从人类中学习、强化学习微调、多模态等。时至今日，从InstructGPT到ChatGPT，再到GPT-4，它一步一步在实现这些新的方法。这里有一点需要提醒，这些方向并不是一开始就清晰地摆在那里的，中间还是有非常多的探索和阶段性成果（既有他们自己的研究，也有其他从业人员的研究）。千万不要看到结果觉得平平无奇，尤其是作为非行业人士（特别是有些媒体），这中间的艰难探索永远值得尊敬。另外，有时候即便知道了方法，要做出来，还做出效果来，这也是非常有难度的。而且本文由于科普性质，只能介绍一丢丢内容，虽然整体结构比较完整，但总体还是比较浅显（所以标题是「一点所以然」）。总的来说，要做出来很有难度，不过我们只是用的话，如前面所言，有手就行。</p>
 <p>好了，言归正传，RLHF被人熟知应该主要是源自OpenAI的InstructGPT这篇论文，当然更大范围的熟知就是ChatGPT的发布。因为后者没有论文，也没有开源，所以我们也只能拿InstructGPT的管窥一窥ChatGPT的豹。当然，如果按照ChatGPT<a href="https://openai.com/blog/chatgpt" target="_blank" rel="noopener">官方页面</a>的说法，这个「管」可能还比较粗。如果用简单的语言来描述InstructGPT，其实就是用强化学习的算法微调一个根据人类反馈改进的语言模型。重要的是，它调出了效果——1.3B的InstructGPT堪比175B的GPT-3，如下图所示：</p>
-<p><img src="images/ChatGPT-Intro-7.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-7.png" alt=""></p>
 <p>（图11：不同策略不同模型效果对比，来自InstructGPT论文）</p>
 <p>上面一共五根线，我们稍微解释一下，上面两根（PPO）的，就是InstructGPT设置下的结果；中间那根SFT可以理解成GPT-3+微调，理论上来说（实际也是这样）微调后的效果要好于Few-Shot，更好于Zero-Shot；下面两根是GPT-3的结果。当然，这个评测方式可能有一点值得商酌。</p>
 <p>好了，现在咱们看看它是如何做的，RLHF在其中又是起了什么作用，如何起作用的。还是那张被到处张贴的图，如果要统计引用率，我感觉这张图绝对不低。</p>
-<p><img src="images/ChatGPT-Intro-8.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-8.png" alt=""></p>
 <p>（图12：InstructGPT工作流程，来自InstructGPT论文）</p>
 <p>这张图比较直观的展示了InstructGPT的整个流程。共三个步骤：</p>
 <ul>
@@ -409,6 +409,21 @@
 
 <div id="bg"></div>
 
-  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
