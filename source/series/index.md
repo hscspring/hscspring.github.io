@@ -30,8 +30,14 @@ date: 2019-07-13 20:00:00
     - [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
     - [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
 
-
 ## 自然语言处理NLP
+
+- ChatGPT系列
+    - [ChatGPT 基础科普：知其一点所以然](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/)
+    - [ChatGPT Prompt工程：设计、实践与思考](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/)
+    - [ChatGPT Prompt 示例](https://yam.gift/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/)
+    - [ChatGPT 标注指南：任务、数据与规范](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/)
+    - [ChatGPT 开发指南：Hugging LLM Hugging Future](https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/)
 
 
 - 基础
@@ -41,14 +47,12 @@ date: 2019-07-13 20:00:00
     - [《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）](https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/)
     - [浅析文本分类 —— 情感分析与自然语言处理](https://yam.gift/2021/10/27/NLP/2021-10-27-Senta/)
     - [TensorBay 指南](https://yam.gift/2021/09/21/NLP/2021-09-21-TensorBay-Intro/)
-    - [ChatGPT 标注指南：任务、数据与规范 | Yam](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/)
 
 
 - 思考
     - [对NLP预训练模型的思考](https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/)
     - [NLP 表征的历史与未来](https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/)
     - [句子表征综述](https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/)
-    - [ChatGPT Prompt工程：设计、实践与思考](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/)
 
 
 - 语言
