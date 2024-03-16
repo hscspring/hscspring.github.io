@@ -32,13 +32,25 @@ date: 2019-07-13 20:00:00
 
 ## 自然语言处理NLP
 
-- ChatGPT系列
+- ChatGPT/LLM系列
     - [ChatGPT 基础科普：知其一点所以然](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/)
     - [ChatGPT Prompt工程：设计、实践与思考](https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/)
     - [ChatGPT Prompt 示例](https://yam.gift/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/)
     - [ChatGPT 标注指南：任务、数据与规范](https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/)
     - [ChatGPT 开发指南：Hugging LLM Hugging Future](https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/)
+    - [关于大语言模型的思考](https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/)
+    - [OpenAIGC 大赛小结](https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/)
 
+
+- LLM继续训练、预训练
+
+    - [LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam](https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/)
+    - [LLM Continual Pre-training：Ziya2 | Yam](https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/)
+
+- LLM数据处理相关
+
+    - [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
+    - [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
 
 - 基础
     - [自然语言处理（NLP）知识地图](https://yam.gift/2017/04/09/NLP/2017-04-09-NLPKnowledgeTree/)
@@ -243,6 +255,11 @@ date: 2019-07-13 20:00:00
 ## 编程Coding
 
 
+- Rust与AI
+  
+  - [【Rust与AI】概览和方向 | Yam](https://yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/)
+  - [【Rust与AI】LLM模型基本架构 | Yam](https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/)
+  
 - Rust
   - [Rust str 转 String](https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/)
   - [Rust Tutorial](https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/)
