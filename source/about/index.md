@@ -61,10 +61,11 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - Datawhale x 魔搭社区《Sora原理与技术实战》Transformers 技术解析+实战(LLM) 负责人。
     - 项目：[datawhalechina/sora-tutorial](https://github.com/datawhalechina/sora-tutorial)
     - 视频：[【AI+X组队学习】Sora原理与技术实战：Transformers技术解析+手写LLM实战_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV17Z421a71d/?vd_source=25267fdf6ac60f2b1937c53c36aa5ee7)
-
 - 上海AILab《书生·浦语大模型实战营》LMDeploy 大模型量化部署实践 负责人。
     - 项目：[InternLM/Tutorial](https://github.com/InternLM/tutorial)
     - 视频：[LMDeploy 大模型量化部署实践_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1iW4y1A77P/?vd_source=25267fdf6ac60f2b1937c53c36aa5ee7)
+- Datawhale × 开放原子基金会《开源大模型入门》大模型应用开发范式 负责人。
+    - 项目/视频：https://www.devedu.net/goods/show/46
 
 - Datawhale《面经项目》贡献者。
     - 项目：[Datawhale 成员整理的面经，包括机器学习，CV，NLP，推荐，开发等](https://github.com/datawhalechina/daily-interview)
