@@ -1,6 +1,6 @@
 ---
 title: 自然语言计算机形式分析的理论与方法笔记(Ch16)
-date: 2019-04–03 11:32:00
+date: 2019-04-04 11:32:00
 categories: Feeling
 tags: [NLP, AI, Machine Translation]
 ---
@@ -75,7 +75,7 @@ CMU 王野翊 和 Alex Waible 提出基于结构的对齐模型改进 IBM 模型
 
 统计机器翻译需要训练两个不同的知识源：一个是语言模型 P(T)，一个是翻译模型 P(S|T)，比如法译英翻译器中，要把源语言法语翻译成英语的句子的时候，使用如下模型训练：
 
-$$\hat e_1^l = \arg\max\ P(e_1^l)P(f_1^j|e_1^l)​$$
+$$\hat e_1^l = \arg\max\ P(e_1^l)P(f_1^j|e_1^l)$$
 
 其中，$$f_1^j = f_1,…,f_j$$ 表示法语句子，$$e_1^l = e_1,…,e_l$$ 表示英语句子。
 
@@ -89,7 +89,7 @@ $$\hat e_1^l = \arg\max\ P(e_1^l)P(e_1^l|f_1^j)$$
 
 $$P(e|f) \approx p_{\lambda_1…\lambda_m} (e|f)$$ = 
 
-$$\exp[\sum_{m=1}^M \lambda_m h_m(e,f)] \sum_{e'} \exp[\sum_{m=1}^M \lambda_m h_m(e',f)]​$$
+$$\exp[\sum_{m=1}^M \lambda_m h_m(e,f)] \sum_{e'} \exp[\sum_{m=1}^M \lambda_m h_m(e',f)]$$
 
 对于给定法语句子 f，最佳的英语译文 e 可用下式表示：
 
