@@ -113,6 +113,55 @@ theme: cyanstyle
 #                 anchorClassName: 'markdownIt-Anchor'
 #                 resetIds: true
 
+
+
+# https://github.com/hexojs/hexo-renderer-markdown-it/tree/4.1.0
+markdown:
+  render:
+    html: true
+    xhtmlOut: false
+    breaks: true
+    linkify: true
+    typographer: true
+    quotes: '“”‘’'
+  plugins:
+    - markdown-it-abbr
+    - markdown-it-cjk-breaks
+    - markdown-it-container
+    - markdown-it-deflist
+    - markdown-it-emoji
+    - markdown-it-footnote
+    - markdown-it-ins
+    - markdown-it-mark
+    - markdown-it-sub
+    - markdown-it-sup
+  anchors:
+    level: 2
+    collisionSuffix: ''
+    permalink: false
+    permalinkClass: 'header-anchor'
+    permalinkSide: 'left'
+    permalinkSymbol: '¶'
+    case: 0
+    separator: ''
+
+
+math:
+  engine: 'katex' # or 'katex'
+  mathjax:
+    src: "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+    config:
+      tex2jax:
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ]
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        processEscapes: true
+  katex:
+    css: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css"
+    js: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"
+    config:
+
+
+# https://github.com/hexojs/hexo-renderer-markdown-it/tree/v7.1.1
 # markdown:
 #   preset: 'default'
 #   render:
