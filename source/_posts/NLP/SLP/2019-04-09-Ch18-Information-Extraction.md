@@ -200,7 +200,7 @@ random sample of relations from the output, and having a human check the accurac
 
 - Only want to know if the system can discover and don't care how many times it discovers 
 
-    $$\hat p = \frac {\# of\ correctly\ extracted\ relation\ tuples\ in\ the\ sample}{total \# of\ extracted\ relation\ tuples\ in\ the\ sample}$$
+    $$\hat p = \frac {num\ of\ correctly\ extracted\ relation\ tuples\ in\ the\ sample}{total\ num\ of\ extracted\ relation\ tuples\ in\ the\ sample}$$
 
 - Another approach that gives us a little bit of information about recall is to compute precision at different levels of recall. Assuming that our system is able to rank the relations it produces (by probability, or confidence) we can separately compute precision for the top 1000 new relations, the top 10,000 new relations, the top 100,000, and so on.
 
