@@ -1,6 +1,6 @@
 ---
 title: 自然语言计算机形式分析的理论与方法笔记(Ch16)
-date: 2019-04-04 11:32:00
+date: 2019-04-04 23:32:00
 categories: Feeling
 tags: [NLP, AI, Machine Translation]
 ---
