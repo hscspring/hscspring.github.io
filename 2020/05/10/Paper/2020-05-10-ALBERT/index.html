@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>ALBERT 论文+代码笔记 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Paper：1909.11942.pdf Code：google-research&#x2F;albert: ALBERT: A Lite BERT for Self-supervised Learning of Language Representations 核心思想：基于 Bert 的改进版本：分解 Embedding 参数、层间参数共享、SOP 替代 NSP。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ALBERT 论文+代码笔记">
+<meta property="og:url" content="https://www.yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="Paper：1909.11942.pdf Code：google-research&#x2F;albert: ALBERT: A Lite BERT for Self-supervised Learning of Language Representations 核心思想：基于 Bert 的改进版本：分解 Embedding 参数、层间参数共享、SOP 替代 NSP。">
+<meta property="og:locale">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-1.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-2.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-3.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-4.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-5.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-6.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/paper-albert-7.jpeg">
+<meta property="article:published_time" content="2020-05-10T15:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-10T16:23:44.171Z">
+<meta property="article:author" content="Yam">
+<meta property="article:tag" content="NLP">
+<meta property="article:tag" content="BERT">
+<meta property="article:tag" content="ALBERT">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-albert-1.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2020-05-10-ALBERT" class="post-Paper/2020-05-10-ALBERT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      ALBERT 论文+代码笔记
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" data-id="clx98np1r00jntsbz49qiiepa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>Paper：<a
+href="https://arxiv.org/pdf/1909.11942.pdf">1909.11942.pdf</a></p>
+<p>Code：<a
+href="https://github.com/google-research/ALBERT">google-research/albert:
+ALBERT: A Lite BERT for Self-supervised Learning of Language
+Representations</a></p>
+<p>核心思想：基于 Bert 的改进版本：分解 Embedding
+参数、层间参数共享、SOP 替代 NSP。</p>
+<span id="more"></span>
+<h2 id="what">What</h2>
+<h3 id="动机和核心问题">动机和核心问题</h3>
+<p>大模型有好表现，但因为<strong>内存限制和训练时间太久</strong>，导致模型无法继续变大。本文提出两种参数裁剪的方法来降低
+Bert 的内存消耗并增加训练速度。</p>
+<p>关于内存已有的一些解决方案：模型并行、更聪明的内存管理。ALBERT
+结合了两种技术同时解决了内存和训练时长的问题：</p>
+<ul>
+<li>分解 Embedding 的参数</li>
+<li>跨层参数共享</li>
+</ul>
+<p>还有个增益是可以充当正则化的形式，从而稳定训练并有助于泛化。</p>
+<h3 id="模型和算法">模型和算法</h3>
+<p>对 Bert 模型进行了三个方面调整：</p>
+<ul>
+<li>分解 Embedding 参数：WordPiece Embedding 学习的是
+<em>context-independent</em> 表示；hidden-layer Embedding 学习的是
+<em>context-dependent</em> 表示。前者 Size
+取小点就可以缩小参数规模，因此本文将 Embedding
+的参数分解为两个较小的矩阵。即首先将 One-hot 投影到尺寸为 E(128)
+的较低维嵌入空间中，然后再将其投影到隐藏空间中。参数规模从 O(V × H)
+减小到 O(V × E + E × H)。</li>
+<li>跨层共享：共享了层间的所有参数。这里作者对比了 Bert 和 ALBERT
+层输入和输出的相似度，发现 ALBERT
+的结果更加平滑，说明权重共享对稳定网络参数有影响。另外相似度的结果是振荡的，不是像
+DQEs（见《相关工作》）所说的达到了平衡点（对于该平衡点，特定层的输入和输出嵌入保持不变）。</li>
+<li>句子连贯性损失函数：Bert 的 NSP(Next Sentence Prediction)
+被发现不可靠，本文作者猜测任务难度相比 MLM
+来说太小，其实它可以看作一个任务做了主题预测和连贯性预测，但主题预测很容易，而且和
+MLM 有重叠。因此本文提出了 SOP(Sentence-order
+Prediction)，聚焦在句子连贯的建模上，具体做法是：Positive 和 Bert
+一样，来自同一个文档的两个连续片段；Negative
+用的还是这两个片段，只不过交换了一下顺序。事实证明 NSP 根本无法解决 SOP
+任务（即，它最终学习了更容易的主题预测信号，并在 SOP
+任务上以随机基线水平执行），而 SOP 可以将 NSP
+任务解决为合理的程度。</li>
+</ul>
+<p>还有个地方要注意，本文<strong>并没有使用（其实是在 xxlarge
+中）dropout</strong>。</p>
+<p>接下来是代码部分了，我们直接阅读官方代码（注意，是 1.x 的
+Tensorflow，不是最新的 2.x）。模型的整体架构可以简化如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AlbertModel</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, config, input_ids, input_mask, token_type_ids</span>):</span><br><span class="line">        input_shape = get_shape_list(input_ids, expected_rank=<span class="number">2</span>)</span><br><span class="line">        batch_size, seq_length = input_shape</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># Token Embedding </span></span><br><span class="line">        <span class="comment"># (batch_size, seq_length, embedding_size)</span></span><br><span class="line">        word_embedding_output = embedding_lookup(</span><br><span class="line">            input_ids=input_ids, vocab_size=config.vocab_size, embedding_size=<span class="number">128</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Add positional embeddings and token type embeddings, </span></span><br><span class="line">        <span class="comment"># then layer normalize and perform dropout.</span></span><br><span class="line">        <span class="comment"># (batch_size, seq_length, embedding_size)</span></span><br><span class="line">        embedding_output = embedding_postprocessor(</span><br><span class="line">            input_tensor=word_embedding_output, token_type_ids=token_type_ids,</span><br><span class="line">            token_type_vocab_size=<span class="number">2</span>, max_position_embeddings=<span class="number">512</span>,</span><br><span class="line">            dropout_prob=config.hidden_dropout_prob, <span class="comment"># 0.1, 0.1, 0.1, 0</span></span><br><span class="line">            token_type_embedding_name=<span class="string">&quot;token_type_embeddings&quot;</span>,</span><br><span class="line">            position_embedding_name=<span class="string">&quot;position_embeddings&quot;</span></span><br><span class="line">        )</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># Run the stacked transformer.</span></span><br><span class="line">        <span class="comment"># `sequence_output` shape = [batch_size, seq_length, hidden_size].</span></span><br><span class="line">        <span class="comment"># 下面注释的参数分别对应 base large xlarge 和 xxlarge</span></span><br><span class="line">        all_encoder_layers = transformer_model(</span><br><span class="line">            input_tensor=embedding_output, attention_mask=input_mask,</span><br><span class="line">            hidden_size=config.hidden_size, <span class="comment"># 768, 1024, 2048, 4096</span></span><br><span class="line">            num_hidden_layers=config.num_hidden_layers, <span class="comment"># 12, 24, 24, 12</span></span><br><span class="line">            num_hidden_groups=<span class="number">1</span>, </span><br><span class="line">            num_attention_heads=config.num_attention_heads, <span class="comment"># 12, 16, 16, 64</span></span><br><span class="line">            intermediate_size=config.intermediate_size, <span class="comment"># 3072, 4096, 8192, 16384</span></span><br><span class="line">            inner_group_num=<span class="number">1</span>,</span><br><span class="line">            intermediate_act_fn=get_activation(<span class="string">&quot;gelu&quot;</span>),</span><br><span class="line">            hidden_dropout_prob=config.hidden_dropout_prob, <span class="comment"># 0.1, 0.1, 0.1, 0</span></span><br><span class="line">            attention_probs_dropout_prob=config.attention_probs_dropout_prob, <span class="comment"># as above</span></span><br><span class="line">            initializer_range=<span class="number">0.02</span>, do_return_all_layers=<span class="literal">True</span>, use_einsum=<span class="literal">True</span></span><br><span class="line">        )</span><br><span class="line">        </span><br><span class="line">        sequence_output = all_encoder_layers[-<span class="number">1</span>]</span><br><span class="line">        <span class="comment"># The &quot;pooler&quot; converts the encoded sequence tensor of shape</span></span><br><span class="line">        <span class="comment"># [batch_size, seq_length, hidden_size] to a tensor of shape</span></span><br><span class="line">        <span class="comment"># [batch_size, hidden_size]. This is necessary for segment-level</span></span><br><span class="line">        <span class="comment"># (or segment-pair-level) classification tasks where we need a fixed</span></span><br><span class="line">        <span class="comment"># dimensional representation of the segment.</span></span><br><span class="line">        <span class="comment"># We &quot;pool&quot; the model by simply taking the hidden state corresponding</span></span><br><span class="line">        <span class="comment"># to the first token. We assume that this has been pre-trained</span></span><br><span class="line">        first_token_tensor = tf.squeeze(sequence_output[:, <span class="number">0</span>:<span class="number">1</span>, :], axis=<span class="number">1</span>)</span><br><span class="line">        pooled_output = tf.layers.dense(</span><br><span class="line">            first_token_tensor,</span><br><span class="line">            config.hidden_size,</span><br><span class="line">            activation=tf.tanh,</span><br><span class="line">            kernel_initializer=create_initializer(config.initializer_range)</span><br><span class="line">        )</span><br></pre></td></tr></table></figure>
+<p>共分为三个组块：Embedding，Transformer 和 Pooling，其中 Embedding
+包括了 Token Embedding、Position Embedding 和 Token type
+Embedding；Transformer 。。。；Pooling 。。。。</p>
+<p><strong>Embedding</strong></p>
+<p>Token Embedding 比较简单，没有特别的，稍微需要提一下的是 table 的
+initializer 都是使用了
+<code>tf.truncated_normal_initializer(stddev=0.02)</code>，这也包括下面的位置编码和
+token type
+编码。再就是第一个调整的地方：使用了低维的嵌入（128），后面进到
+Transformer 后会先转成 hidden_size。</p>
+<p>然后是 Token type Embedding，这里的 type_vocab_size 等于
+2，其实就是用 0 和 1 分别表示两个句子，label
+就是第二个句子是不是第一个句子的下一句，这是 Bert 的基本配置，参见<a
+href="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/">这里</a>。</p>
+<p>接下来是 Position Embedding，使用的是绝对位置编码，先用
+max_sequence_len（512）创建一个 table，然后根据 sequence
+的长度切片。</p>
+<blockquote>
+<p>此处有感慨，参见《打开脑洞》。</p>
+</blockquote>
+<p><strong>Transformer</strong></p>
+<p>首先就是将进来的 Embedding 转为 hidden size（Bert
+不需要这一步，因为两者是相等的）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># (batch_size, seq_length, embedding_size) =&gt;  (batch_size, seq_length, hidden_size)</span></span><br><span class="line">prev_output = dense_layer_2d(input_tensor, hidden_size)</span><br></pre></td></tr></table></figure>
+<p>然后就是 stack Transformer 了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> layer_idx <span class="keyword">in</span> <span class="built_in">range</span>(num_hidden_layers=<span class="number">12</span>):</span><br><span class="line">    group_idx = <span class="built_in">int</span>(layer_idx / num_hidden_layers * num_hidden_groups=<span class="number">1</span>)</span><br><span class="line">    layer_output = prev_output</span><br><span class="line">    <span class="keyword">for</span> inner_group_idx <span class="keyword">in</span> <span class="built_in">range</span>(inner_group_num=<span class="number">1</span>):</span><br><span class="line">        layer_output = attention_ffn_block(...)</span><br><span class="line">        prev_output = layer_output</span><br><span class="line">        all_layer_outputs.append(layer_output)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 原始代码如下：</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transformer_model</span>(<span class="params">input_tensor,</span></span><br><span class="line"><span class="params">                      attention_mask,</span></span><br><span class="line"><span class="params">                      hidden_size=<span class="number">768</span>,</span></span><br><span class="line"><span class="params">                      num_hidden_layers=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">                      num_hidden_groups=<span class="number">1</span>,</span></span><br><span class="line"><span class="params">                      num_attention_heads=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">                      intermediate_size=<span class="number">3072</span>,</span></span><br><span class="line"><span class="params">                      inner_group_num=<span class="number">1</span>,</span></span><br><span class="line"><span class="params">                      intermediate_act_fn=<span class="string">&quot;gelu&quot;</span>,</span></span><br><span class="line"><span class="params">                      hidden_dropout_prob=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">                      attention_probs_dropout_prob=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">                      initializer_range=<span class="number">0.02</span>,</span></span><br><span class="line"><span class="params">                      do_return_all_layers=<span class="literal">False</span>,</span></span><br><span class="line"><span class="params">                      use_einsum=<span class="literal">True</span></span>):</span><br><span class="line">    attention_head_size = hidden_size // num_attention_heads</span><br><span class="line">    input_shape = get_shape_list(input_tensor, expected_rank=<span class="number">3</span>)</span><br><span class="line">    input_width = input_shape[<span class="number">2</span>]</span><br><span class="line">    </span><br><span class="line">    all_layer_outputs = []</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> input_width != hidden_size:</span><br><span class="line">        <span class="comment"># 本文的情况（第一个调整点）</span></span><br><span class="line">        prev_output = dense_layer_2d(</span><br><span class="line">            input_tensor, hidden_size, create_initializer(initializer_range),</span><br><span class="line">            <span class="literal">None</span>, use_einsum=use_einsum, name=<span class="string">&quot;embedding_hidden_mapping_in&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 正常情况（如 Bert）</span></span><br><span class="line">        prev_output = input_tensor</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 层间参数共享（第二个调整点）</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;transformer&quot;</span>, reuse=tf.AUTO_REUSE):</span><br><span class="line">        <span class="keyword">for</span> layer_idx <span class="keyword">in</span> <span class="built_in">range</span>(num_hidden_layers):</span><br><span class="line">            group_idx = <span class="built_in">int</span>(layer_idx / num_hidden_layers * num_hidden_groups)</span><br><span class="line">            <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;group_%d&quot;</span> % group_idx):</span><br><span class="line">                <span class="keyword">with</span> tf.name_scope(<span class="string">&quot;layer_%d&quot;</span> % layer_idx):</span><br><span class="line">                    layer_output = prev_output</span><br><span class="line">                    <span class="keyword">for</span> inner_group_idx <span class="keyword">in</span> <span class="built_in">range</span>(inner_group_num):</span><br><span class="line">                        <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;inner_group_%d&quot;</span> % inner_group_idx):</span><br><span class="line">                            layer_output = attention_ffn_block(</span><br><span class="line">                                layer_input=layer_output,</span><br><span class="line">                                hidden_size=hidden_size,</span><br><span class="line">                                attention_mask=attention_mask,</span><br><span class="line">                                num_attention_heads=num_attention_heads,</span><br><span class="line">                                attention_head_size=attention_head_size,</span><br><span class="line">                                attention_probs_dropout_prob=attention_probs_dropout_prob,</span><br><span class="line">                                intermediate_size=intermediate_size,</span><br><span class="line">                                intermediate_act_fn=intermediate_act_fn,</span><br><span class="line">                                initializer_range=initializer_range,</span><br><span class="line">                                hidden_dropout_prob=hidden_dropout_prob,</span><br><span class="line">                                use_einsum=use_einsum)</span><br><span class="line">                            prev_output = layer_output</span><br><span class="line">                            all_layer_outputs.append(layer_output)</span><br><span class="line">    <span class="keyword">if</span> do_return_all_layers:</span><br><span class="line">        <span class="keyword">return</span> all_layer_outputs</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> all_layer_outputs[-<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+<p>因为这里其实并没有分组（都是 1），所以就是 12 层的
+attention_ffn_block stack。看到这里的时候有个关于归一化的疑惑，之前看
+Transformer 的时候看的是这个版本：<a
+href="http://nlp.seas.harvard.edu/2018/04/03/attention.html">The
+Annotated Transformer</a>，每个 block 里面是先 norm 再传给 attention
+layer，出来后和输入做残差连接，当时觉得和<a
+href="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/">图</a>不太一样，也没有多想；后来看到
+<a href="https://github.com/OpenNMT/OpenNMT-py">OpenNMT</a>
+也是这么实现的，就更没多想了。但是这次回看了一下 Bert
+的代码实现，发现就是和图示一样的：先将输入和 attention layer
+的输出做残差连接，再
+norm。如果有同学看到这里知道原因的话还希望能告知一二，不胜感激。</p>
+<p>接下来看一下 attention_ffn_block：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 参数都是 base 的</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attention_ffn_block</span>(<span class="params">layer_input,</span></span><br><span class="line"><span class="params">                        attention_mask,</span></span><br><span class="line"><span class="params">                        hidden_size=<span class="number">768</span>,</span></span><br><span class="line"><span class="params">                        num_attention_heads=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">                        attention_head_size=<span class="number">64</span>,</span></span><br><span class="line"><span class="params">                        attention_probs_dropout_prob=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">                        intermediate_size=<span class="number">3072</span>,</span></span><br><span class="line"><span class="params">                        intermediate_act_fn=<span class="string">&quot;gleu&quot;</span>,</span></span><br><span class="line"><span class="params">                        initializer_range=<span class="number">0.02</span>,</span></span><br><span class="line"><span class="params">                        hidden_dropout_prob=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">                        use_einsum=<span class="literal">True</span></span>):</span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;attention_1&quot;</span>):</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;self&quot;</span>):</span><br><span class="line">            attention_output = attention_layer(</span><br><span class="line">                from_tensor=layer_input,</span><br><span class="line">                to_tensor=layer_input,</span><br><span class="line">                attention_mask=attention_mask,</span><br><span class="line">                num_attention_heads=num_attention_heads,</span><br><span class="line">                attention_probs_dropout_prob=attention_probs_dropout_prob,</span><br><span class="line">                initializer_range=initializer_range,</span><br><span class="line">                use_einsum=use_einsum</span><br><span class="line">            )</span><br><span class="line">        <span class="comment"># Run a linear projection of `hidden_size` then add a residual</span></span><br><span class="line">        <span class="comment"># with `layer_input`.</span></span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;output&quot;</span>):</span><br><span class="line">            attention_output = dense_layer_3d_proj(</span><br><span class="line">                attention_output,</span><br><span class="line">                hidden_size,</span><br><span class="line">                attention_head_size,</span><br><span class="line">                create_initializer(initializer_range),</span><br><span class="line">                <span class="literal">None</span>,</span><br><span class="line">                use_einsum=use_einsum,</span><br><span class="line">                name=<span class="string">&quot;dense&quot;</span></span><br><span class="line">            )</span><br><span class="line">            attention_output = dropout(attention_output, hidden_dropout_prob)</span><br><span class="line">    attention_output = layer_norm(attention_output + layer_input)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;ffn_1&quot;</span>):</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;intermediate&quot;</span>):</span><br><span class="line">            intermediate_output = dense_layer_2d(</span><br><span class="line">                attention_output,</span><br><span class="line">                intermediate_size,</span><br><span class="line">                create_initializer(initializer_range),</span><br><span class="line">                intermediate_act_fn,</span><br><span class="line">                use_einsum=use_einsum,</span><br><span class="line">                num_attention_heads=num_attention_heads,</span><br><span class="line">                name=<span class="string">&quot;dense&quot;</span>)</span><br><span class="line">        <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;output&quot;</span>):</span><br><span class="line">            ffn_output = dense_layer_2d(</span><br><span class="line">                intermediate_output,</span><br><span class="line">                hidden_size,</span><br><span class="line">                create_initializer(initializer_range),</span><br><span class="line">                <span class="literal">None</span>,</span><br><span class="line">                use_einsum=use_einsum,</span><br><span class="line">                num_attention_heads=num_attention_heads,</span><br><span class="line">                name=<span class="string">&quot;dense&quot;</span>)</span><br><span class="line">        ffn_output = dropout(ffn_output, hidden_dropout_prob)</span><br><span class="line">    ffn_output = layer_norm(ffn_output + attention_output)</span><br><span class="line">    <span class="keyword">return</span> ffn_output</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去掉参数共享的简化版</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attention_ffn_block</span>(<span class="params">...</span>):</span><br><span class="line">    <span class="comment"># Multi-Head Attention</span></span><br><span class="line">    attention_output = attention_layer(...)</span><br><span class="line">    attention_output = dense_layer_3d_proj(...)</span><br><span class="line">    attention_output = dropout(attention_output, hidden_dropout_prob)</span><br><span class="line">    attention_output = layer_norm(attention_output + layer_input)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># Feed Forward</span></span><br><span class="line">    intermediate_output = dense_layer_2d(...)</span><br><span class="line">    ffn_output = dense_layer_2d(...)</span><br><span class="line">    ffn_output = dropout(ffn_output, hidden_dropout_prob)</span><br><span class="line">    ffn_output = layer_norm(ffn_output + attention_output)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> ffn_output</span><br></pre></td></tr></table></figure>
+<p>这个就是 Transformer（准确来说是 Encoder）的一个 block 了，和原 Bert
+的代码对比就可以发现，ALBERT 版本是把 block
+单独抽出来作为一个函数（同时也是方便参数共享），另外也把原来的 dense
+连接单独抽为一个函数（<code>dense_layer_xd</code>），代码看起来更加清晰。<code>dense_layer_2d</code>
+输出的 shape 是 <code>(batch_size, seq_length, hidden_size)</code>，而
+<code>dense_layer_3d</code> 输出的 shape 则是
+<code>(batch_size, seq_length, num_heads, head_size)</code>。</p>
+<p>再下来就是 attention layer，也就是 Self attention，Transformer
+Encoder 的 Attention，qkv 都来自前一层输出的 Attention（可以参考<a
+href="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/">这里</a>的代码）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">attention_layer</span>(<span class="params">from_tensor,</span></span><br><span class="line"><span class="params">                    to_tensor,</span></span><br><span class="line"><span class="params">                    attention_mask,</span></span><br><span class="line"><span class="params">                    num_attention_heads=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">                    attention_probs_dropout_prob=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">                    initializer_range=<span class="number">0.02</span>,</span></span><br><span class="line"><span class="params">                    use_einsum=<span class="literal">True</span></span>):</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># (batch_size, seq_length, hidden_size)</span></span><br><span class="line">    from_shape = get_shape_list(from_tensor, expected_rank=[<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">    to_shape = get_shape_list(to_tensor, expected_rank=[<span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line">    <span class="comment"># 768/12 = 64</span></span><br><span class="line">    size_per_head = <span class="built_in">int</span>(from_shape[<span class="number">2</span>]/num_attention_heads)</span><br><span class="line">    </span><br><span class="line">    batch_size = from_shape[<span class="number">0</span>]</span><br><span class="line">    from_seq_length = from_shape[<span class="number">1</span>]</span><br><span class="line">    to_seq_length = to_shape[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># `q,k,v` = [B, F, N, H]</span></span><br><span class="line">    <span class="comment"># from_tensor == to_tensor == prev_layer_output</span></span><br><span class="line">    q = dense_layer_3d(from_tensor, num_attention_heads, size_per_head)</span><br><span class="line">    k = dense_layer_3d(to_tensor, num_attention_heads, size_per_head)</span><br><span class="line">    v = dense_layer_3d(to_tensor, num_attention_heads, size_per_head)</span><br><span class="line">    </span><br><span class="line">    q = tf.transpose(q, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line">    k = tf.transpose(k, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line">    v = tf.transpose(v, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> attention_mask:</span><br><span class="line">        attention_mask = tf.reshape(attention_mask, [batch_size, <span class="number">1</span>, to_seq_length, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># &#x27;new_embeddings = [B, N, F, H]&#x27;</span></span><br><span class="line">    new_embeddings = dot_product_attention(</span><br><span class="line">        q, k, v, attention_mask, attention_probs_dropout_prob)</span><br><span class="line">    <span class="keyword">return</span> tf.transpose(new_embeddings, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<p>我们也稍微回顾一下 attention 的计算，之前写过类似的笔记：<a
+href="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/">Bahdanau
+Attention</a> 和 <a
+href="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/">Luong
+Attention</a>，另外在 <a
+href="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/">Transformer</a>
+笔记中也有介绍过 OpenNMT 的实现，可以参考。下面的实现来自 <a
+href="%5BAttention%20Is%20All%20You%20Need%20Note%20%7C%20Yam%5D(https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/)">Attention
+is All You Need</a>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">dot_product_attention</span>(<span class="params">q, k, v, mask, dropout_rate=<span class="number">0.1</span></span>):</span><br><span class="line">    <span class="comment"># (seq_length, num_heads, q_length, kv_length)</span></span><br><span class="line">    <span class="comment"># (qk^t)/sqrt(d_k)·v, d_k = q_d</span></span><br><span class="line">    logits = tf.matmul(q, k, transpose_b=<span class="literal">True</span>)</span><br><span class="line">    logits = tf.multiply(logits, <span class="number">1.0</span> / math.sqrt(<span class="built_in">float</span>(get_shape_list(q)[-<span class="number">1</span>])))</span><br><span class="line">    <span class="keyword">if</span> mask <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="comment"># `attention_mask` = [B, T]</span></span><br><span class="line">        from_shape = get_shape_list(q)</span><br><span class="line">        broadcast_ones = tf.ones([from_shape[<span class="number">0</span>], <span class="number">1</span>, from_shape[<span class="number">2</span>], <span class="number">1</span>], tf.float32)</span><br><span class="line">        mask = tf.matmul(broadcast_ones,</span><br><span class="line">                         tf.cast(mask, tf.float32), transpose_b=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># Since attention_mask is 1.0 for positions we want to attend and 0.0 for</span></span><br><span class="line">        <span class="comment"># masked positions, this operation will create a tensor which is 0.0 for</span></span><br><span class="line">        <span class="comment"># positions we want to attend and -10000.0 for masked positions.</span></span><br><span class="line">        adder = (<span class="number">1.0</span> - mask) * -<span class="number">10000.0</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># Since we are adding it to the raw scores before the softmax, this is</span></span><br><span class="line">        <span class="comment"># effectively the same as removing these entirely.</span></span><br><span class="line">        logits += adder</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        adder = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    attention_probs = tf.nn.softmax(logits, name=<span class="string">&quot;attention_probs&quot;</span>)</span><br><span class="line">    attention_probs = dropout(attention_probs, dropout_rate)</span><br><span class="line">    <span class="keyword">return</span> tf.matmul(attention_probs, v)</span><br></pre></td></tr></table></figure>
+<p>到这里 Transformer
+就介绍完了，可以看到虽然源代码量看起来很大，但其实读起来并不复杂，整体还是非常清晰流畅的。</p>
+<p><strong>Pooling</strong></p>
+<p>这部分非常简单：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">first_token_tensor = tf.squeeze(self.sequence_output[:, <span class="number">0</span>:<span class="number">1</span>, :], axis=<span class="number">1</span>)</span><br><span class="line"><span class="comment"># (batch_size, hidden_size)</span></span><br><span class="line">pooled_output = tf.layers.dense(</span><br><span class="line">    first_token_tensor, </span><br><span class="line">    config.hidden_size, </span><br><span class="line">    activation=tf.tanh,</span><br><span class="line">    kernel_initializer=create_initializer(config.initializer_range))</span><br></pre></td></tr></table></figure>
+<p>这里的 first_token 其实就是句子标记 CLS，在本模型中就是 0 或 1，0
+表示两个句子是连贯的，1
+表示两个句子是交换了顺序的，这样做的目的是为了接下来计算 Loss（因为只要
+CLS 的结果即可）。</p>
+<p>以上就是模型和算法的所有部分了，简单总结一下：</p>
+<ul>
+<li>模型还是基于 Bert，即 Transformer 的 Encoder 架构。</li>
+<li>对模型进行了三个调整：分解 Embedding、共享层间参数、SOP 替代
+NSP（代码见《如何开始训练》）。</li>
+</ul>
+<h3 id="特点和创新">特点和创新</h3>
+<ul>
+<li>分解 Embedding 参数</li>
+<li>SOP 替代 NSP</li>
+<li>证明 dropout 有损基于 Transformer 的模型</li>
+</ul>
+<h2 id="how">How</h2>
+<h3 id="如何构造数据">如何构造数据</h3>
+<p>主要的不同是使用了 n-gram masking，也就是随机选择 mask n-gram，n
+最大取 3，分布为： <span class="math display">\[
+p(n)=\frac{1 / n}{\sum_{k=1}^{N} 1 / k}
+\]</span> n 为 1 时就是 mask 一个词。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取 unigram, bigram, thigram 的概率</span></span><br><span class="line">pvals = <span class="number">1.</span> / np.arange(<span class="number">1</span>, <span class="number">3</span> + <span class="number">1</span>)</span><br><span class="line">pvals /= pvals.<span class="built_in">sum</span>(keepdims=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># pvals = array([0.54545455, 0.27272727, 0.18181818])</span></span><br></pre></td></tr></table></figure>
+<p>这段预处理代码比较繁琐，我们稍微简化一下，以词 token 为例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">create_masked_lm_predictions</span>(<span class="params"></span></span><br><span class="line"><span class="params">    tokens, </span></span><br><span class="line"><span class="params">    masked_lm_prob=<span class="number">0.15</span>, </span></span><br><span class="line"><span class="params">    max_predictions_per_seq=<span class="number">20</span>, </span></span><br><span class="line"><span class="params">    vocab_words=<span class="built_in">list</span>(<span class="params">tokenizer.vocab.keys(<span class="params"></span>)</span>), </span></span><br><span class="line"><span class="params">    rng=random.Random(<span class="params"><span class="number">12345</span></span>)</span>):</span><br><span class="line">    cand_indexes = []</span><br><span class="line">    <span class="keyword">for</span> (i, token) <span class="keyword">in</span> <span class="built_in">enumerate</span>(tokens):</span><br><span class="line">        <span class="keyword">if</span> token == <span class="string">&quot;[CLS]&quot;</span> <span class="keyword">or</span> token == <span class="string">&quot;[SEP]&quot;</span>:</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        cand_indexes.append([i])</span><br><span class="line">    </span><br><span class="line">    output_tokens = <span class="built_in">list</span>(tokens)</span><br><span class="line">    masked_lm_positions = []</span><br><span class="line">    masked_lm_labels = []</span><br><span class="line">    num_to_predict = <span class="built_in">min</span>(max_predictions_per_seq, </span><br><span class="line">                         <span class="built_in">max</span>(<span class="number">1</span>, <span class="built_in">int</span>(<span class="built_in">round</span>(<span class="built_in">len</span>(tokens) * masked_lm_prob))))</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;num_to_predict: &quot;</span>, num_to_predict)</span><br><span class="line">    <span class="comment"># 不同 gram 的比例</span></span><br><span class="line">    ngrams = np.arange(<span class="number">1</span>, <span class="number">3</span> + <span class="number">1</span>, dtype=np.int64)</span><br><span class="line">    pvals = <span class="number">1.</span> / np.arange(<span class="number">1</span>, <span class="number">3</span> + <span class="number">1</span>)</span><br><span class="line">    pvals /= pvals.<span class="built_in">sum</span>(keepdims=<span class="literal">True</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 每个 token 对应的三个 ngram</span></span><br><span class="line">    ngram_indexes = []</span><br><span class="line">    <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cand_indexes)):</span><br><span class="line">        ngram_index = []</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> ngrams:</span><br><span class="line">            ngram_index.append(cand_indexes[idx:idx+n])</span><br><span class="line">        ngram_indexes.append(ngram_index)</span><br><span class="line">    rng.shuffle(ngram_indexes)</span><br><span class="line">    </span><br><span class="line">    masked_lms = []</span><br><span class="line">    <span class="comment"># 获取 masked tokens</span></span><br><span class="line">    <span class="comment"># cand_index_set 其实就是每个 token 的三个 ngram</span></span><br><span class="line">    <span class="comment"># 比如：[[[13]], [[13], [14]], [[13], [14], [15]]]</span></span><br><span class="line">    <span class="keyword">for</span> cand_index_set <span class="keyword">in</span> ngram_indexes:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(masked_lms) &gt;= num_to_predict:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># 根据 cand_index_set 不同长度 choice</span></span><br><span class="line">        n = np.random.choice(</span><br><span class="line">            ngrams[:<span class="built_in">len</span>(cand_index_set)], </span><br><span class="line">            p=pvals[:<span class="built_in">len</span>(cand_index_set)] / pvals[:<span class="built_in">len</span>(cand_index_set)].<span class="built_in">sum</span>(keepdims=<span class="literal">True</span>))</span><br><span class="line">        <span class="comment"># [16, 17] = sum([[16], [17]], [])</span></span><br><span class="line">        index_set = <span class="built_in">sum</span>(cand_index_set[n - <span class="number">1</span>], [])</span><br><span class="line">        <span class="comment"># 处理选定的 ngram index ：80% MASK，10% 是原来的，10% 随机替换一个</span></span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> index_set:</span><br><span class="line">            masked_token = <span class="literal">None</span></span><br><span class="line">            <span class="keyword">if</span> rng.random() &lt; <span class="number">0.8</span>:</span><br><span class="line">                masked_token = <span class="string">&quot;[MASK]&quot;</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">if</span> rng.random() &lt; <span class="number">0.5</span>:</span><br><span class="line">                    masked_token = tokens[index]</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    masked_token = vocab_words[rng.randint(<span class="number">0</span>, <span class="built_in">len</span>(vocab_words) - <span class="number">1</span>)]</span><br><span class="line">            output_tokens[index] = masked_token</span><br><span class="line">            masked_lms.append(MaskedLmInstance(index=index, label=tokens[index]))</span><br><span class="line">    </span><br><span class="line">    masked_lms = <span class="built_in">sorted</span>(masked_lms, key=<span class="keyword">lambda</span> x: x.index)</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> masked_lms:</span><br><span class="line">        masked_lm_positions.append(p.index)</span><br><span class="line">        masked_lm_labels.append(p.label)</span><br><span class="line">    <span class="keyword">return</span> (output_tokens, masked_lm_positions, masked_lm_labels)</span><br></pre></td></tr></table></figure>
+<p>这里做了不少简化，但足够说明思路了，其实就是根据给定的 p(n) 选择
+ngram 作为预测词处理。原代码除了考虑 wordpiece
+的情况，还考虑了其他的一些细节，比如不能超过
+num_to_predict，不重复处理等等，想起了陈皓的一句话：“细节处尽是魔鬼。”。</p>
+<p>最后看一个输入和输出的例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">&quot; &quot;</span>.join(tokens))</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[CLS] Text should be one-sentence-per-line, with empty lines between documents. [SEP] This sample text is public domain and was randomly selected from Project Guttenberg. [SEP]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot; &quot;</span>.joint(output_tokens))</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[CLS] Text should be one-sentence-per-line, with empty lines between [MASK] [SEP] [MASK] [MASK] text is public domain and was randomly 屿 from Project Guttenberg. [SEP]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">masked_lm_positions <span class="comment"># [9, 11, 12, 20]</span></span><br><span class="line">masked_lm_labels <span class="comment"># [&#x27;documents.&#x27;, &#x27;This&#x27;, &#x27;sample&#x27;, &#x27;selected&#x27;]</span></span><br></pre></td></tr></table></figure>
+<h3 id="如何开始训练">如何开始训练</h3>
+<p>这里主要提一下 SOP（ Sentence Order Prediction Loss
+Function），其他的和 Bert 类似，具体原理前面已经提到了，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_sentence_order_output</span>(<span class="params">pooled_output, labels</span>):</span><br><span class="line">    <span class="comment"># Simple binary classification. Note that 0 is &quot;next sentence&quot; and 1 is</span></span><br><span class="line">    <span class="comment"># &quot;random sentence&quot;. This weight matrix is not used after pre-training.</span></span><br><span class="line">    <span class="keyword">with</span> tf.variable_scope(<span class="string">&quot;cls/seq_relationship&quot;</span>):</span><br><span class="line">        output_weights = tf.get_variable(</span><br><span class="line">            <span class="string">&quot;output_weights&quot;</span>,</span><br><span class="line">            shape=[<span class="number">2</span>, <span class="number">768</span>],</span><br><span class="line">            initializer=create_initializer(<span class="number">0.02</span>))</span><br><span class="line">        output_bias = tf.get_variable(</span><br><span class="line">            <span class="string">&quot;output_bias&quot;</span>, </span><br><span class="line">            shape=[<span class="number">2</span>], </span><br><span class="line">            initializer=tf.zeros_initializer())</span><br><span class="line">	</span><br><span class="line">    <span class="comment"># (batch_size, hidden_size) * (2, hidden_size)^T</span></span><br><span class="line">    <span class="comment"># =&gt; (batch_size, 2), 2 是类别数量</span></span><br><span class="line">    logits = tf.matmul(pooled_output, output_weights, transpose_b=<span class="literal">True</span>)</span><br><span class="line">    logits = tf.nn.bias_add(logits, output_bias)</span><br><span class="line">    log_probs = tf.nn.log_softmax(logits, axis=-<span class="number">1</span>)</span><br><span class="line">    labels = tf.reshape(labels, [-<span class="number">1</span>])</span><br><span class="line">    <span class="comment"># （batch_size, 2)</span></span><br><span class="line">    one_hot_labels = tf.one_hot(labels, depth=<span class="number">2</span>, dtype=tf.float32)</span><br><span class="line">    per_example_loss = -tf.reduce_sum(one_hot_labels * log_probs, axis=-<span class="number">1</span>)</span><br><span class="line">    loss = tf.reduce_mean(per_example_loss)</span><br><span class="line">    <span class="keyword">return</span> (loss, per_example_loss, log_probs)</span><br></pre></td></tr></table></figure>
+<p>其实就是个多（二）分类。MLM 的 Loss 不再赘述。</p>
+<h3 id="如何使用结果">如何使用结果</h3>
+<p>与 Bert 一样。</p>
+<h3 id="数据和实验">数据和实验</h3>
+<p><strong>层间相似度</strong>，对应《模型和算法》的第二个调整：</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-1.jpeg" /></p>
+<p><strong>参数量</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-2.jpeg" /></p>
+<p>RoBERTa 的参数量在<a
+href="https://github.com/pytorch/fairseq/tree/master/examples/roberta">这里</a>，DistilBERT
+的参数量是 66M。</p>
+<p><strong>Bert vs. ALBERT</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-3.jpeg" /></p>
+<p>Speedup 是训练时间，以 Bert large 为基准，ALBERT large 速度是 1.7
+倍，但 xxlarge 比 Bert large 慢了 3 倍。</p>
+<p><strong>Embedding Size 的影响</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-4.jpeg" /></p>
+<p><strong>层间参数共享的影响</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-5.jpeg" /></p>
+<p><strong>NSP vs. SOP</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-6.jpeg" /></p>
+<p><strong>Dropout</strong></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-7.jpeg" /></p>
+<p>在各项任务中的表现可以查阅<a
+href="https://github.com/google-research/albert">这里</a>。</p>
+<h2 id="discussion">Discussion</h2>
+<h3 id="相关工作">相关工作</h3>
+<p><strong>扩大语言表征模型</strong></p>
+<ul>
+<li>语言表征是有用的，近几年最显著的变化是从词或上下文表征到全网络预训练然后下游任务精调。
+<ul>
+<li>词表征：Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg S Corrado, and
+Jeff Dean. Distributed represen- tations of words and phrases and their
+compositionality. In <em>Advances in neural information processing
+systems</em>, pp. 3111–3119, 2013.</li>
+<li>句表征：Quoc Le and Tomas Mikolov. Distributed representations of
+sentences and documents. In <em>Proceedings of the 31st ICML</em>,
+Beijing, China, 2014.</li>
+<li>词表征：Jeffrey Pennington, Richard Socher, and Christopher Manning.
+Glove: Global vectors for word rep- resentation. EMNLP 2014.</li>
+<li>下游任务：Andrew M Dai and Quoc V Le. Semi-supervised sequence
+learning. In <em>Advances in neural infor- mation processing
+systems</em>, pp. 3079–3087, 2015.</li>
+<li>上下文：Bryan McCann, James Bradbury, Caiming Xiong, and Richard
+Socher. Learned in translation: Contextualized word vectors. NIPS
+2017.</li>
+<li>上下文：Matthew Peters, Mark Neumann, Mohit Iyyer, Matt Gardner,
+Christopher Clark, Kenton Lee, and Luke Zettlemoyer. Deep contextualized
+word representations. ACL 2018.</li>
+<li>下游任务：Alec Radford, Karthik Narasimhan, Tim Salimans, and Ilya
+Sutskever. Improving language understanding by generative pre-training.
+OpenAI, 2018.</li>
+<li>下游任务：Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina
+Toutanova. BERT: Pre-training of deep bidirectional transformers for
+language understanding. ACL 2019.</li>
+<li>大模型好效果：Alec Radford, Jeffrey Wu, Rewon Child, David Luan,
+Dario Amodei, and Ilya Sutskever. Language models are unsupervised
+multitask learners. <em>OpenAI Blog</em>, 1(8), 2019.</li>
+</ul></li>
+<li>已有方案：
+<ul>
+<li>时间换空间：Tianqi Chen, Bing Xu, Chiyuan Zhang, and Carlos
+Guestrin. Training deep nets with sublinear memory cost. <em>arXiv
+preprint arXiv:1604.06174</em>, 2016.</li>
+<li>时间换空间：Aidan N Gomez, Mengye Ren, Raquel Urtasun, and Roger B
+Grosse. The reversible residual network: Backpropagation without storing
+activations. In <em>Advances in neural information processing
+systems</em>, pp. 2214–2224, 2017.</li>
+<li>并行训练：Colin Raffel, Noam Shazeer, Adam Roberts, Katherine Lee,
+Sharan Narang, Michael Matena, Yanqi Zhou, Wei Li, and Peter J Liu.
+Exploring the limits of transfer learning with a unified text-to-text
+transformer. <em>arXiv preprint arXiv:1910.10683</em>, 2019.</li>
+</ul></li>
+</ul>
+<p><strong>跨层参数共享</strong></p>
+<p>关注 Encoder-Decoder 架构：Ashish Vaswani, Noam Shazeer, Niki Parmar,
+Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz Kaiser, and Illia
+Polosukhin. Attention is all you need. In <em>Advances in neural
+information processing systems</em>, pp. 5998–6008, 2017.</p>
+<p>跨层共享效果更好（与本文观察不一致）：Mostafa Dehghani, Stephan
+Gouws, Oriol Vinyals, Jakob Uszkoreit, and Łukasz Kaiser. Universal
+transformers. <em>arXiv preprint arXiv:1807.03819</em>, 2018.</p>
+<p>DQEs，Input 和 Output 能达到平衡点（与本文观察不一致）：Shaojie Bai,
+J. Zico Kolter, and Vladlen Koltun. Deep equilibrium models. In
+<em>Neural Information Processing Systems (NeurIPS)</em>, 2019.</p>
+<p>加一个共享参数的 Transformer：Jie Hao, Xing Wang, Baosong Yang,
+Longyue Wang, Jinfeng Zhang, and Zhaopeng Tu. Modeling recurrence for
+transformer. <em>Proceedings of the 2019 Conference of the North</em>,
+2019.</p>
+<p><strong>句子顺序</strong></p>
+<ul>
+<li>连贯性和衔接性：
+<ul>
+<li>Jerry R. Hobbs. Coherence and coreference. <em>Cognitive
+Science</em>, 3(1):67–90, 1979.</li>
+<li>M.A.K. Halliday and Ruqaiya Hasan. <em>Cohesion in English</em>.
+Routledge, 1976.</li>
+<li>Barbara J. Grosz, Aravind K. Joshi, and Scott Weinstein. Centering:
+A framework for modeling the local coherence of discourse.
+<em>Computational Linguistics</em>, 21(2):203–225, 1995.</li>
+</ul></li>
+<li>用句子预测相邻句子的词：
+<ul>
+<li>Ryan Kiros, Yukun Zhu, Ruslan Salakhutdinov, Richard S. Zemel,
+Antonio Torralba, Raquel Urtasun, and Sanja Fidler. Skip-thought
+vectors. NIPS 2015.</li>
+<li>Felix Hill, Kyunghyun Cho, and Anna Korhonen. Learning distributed
+representations of sentences from unlabelled data. ACL 2016.</li>
+</ul></li>
+<li>预测未来的句子：Zhe Gan, Yunchen Pu, Ricardo Henao, Chunyuan Li,
+Xiaodong He, and Lawrence Carin. Learn- ing generic sentence
+representations using convolutional neural networks. ACL 2017.</li>
+<li>预测话语标记：
+<ul>
+<li>Yacine Jernite, Samuel R Bowman, and David Sontag. Discourse-based
+objectives for fast unsupervised sentence representation learning.
+<em>arXiv preprint arXiv:1705.00557</em>, 2017.（本文类似）</li>
+<li>Allen Nie, Erin Bennett, and Noah Goodman. DisSent: Learning
+sentence representations from explicit discourse relations. ACL
+2019.</li>
+</ul></li>
+<li>预测句对的第二部分是不是被另一个文档的句子替换：Jacob Devlin,
+Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. BERT: Pre-training
+of deep bidirectional transformers for language understanding. ACL
+2019.（Bert）</li>
+<li>将预测句子顺序结合在一个三分类任务中：Wei Wang, Bin Bi, Ming Yan,
+Chen Wu, Zuyi Bao, Liwei Peng, and Luo Si. StructBERT: Incorporating
+language structures into pre-training for deep language understanding.
+<em>arXiv preprint arXiv:1908.04577</em>, 2019.</li>
+</ul>
+<p><strong>Dropout</strong> CNN 中同时使用批归一化和 dropout
+可能导致结果更差：</p>
+<ul>
+<li>Christian Szegedy, Sergey Ioffe, Vincent Vanhoucke, and Alexander A
+Alemi. Inception-v4, inception-resnet and the impact of residual
+connections on learning. In <em>Thirty-First AAAI Confer- ence on
+Artificial Intelligence</em>, 2017.</li>
+<li>Xiang Li, Shuo Chen, Xiaolin Hu, and Jian Yang. Understanding the
+disharmony between dropout and batch normalization by variance shift. In
+<em>Proceedings of the IEEE Conference on Computer Vision and Pattern
+Recognition</em>, pp. 2682–2690, 2019.</li>
+</ul>
+<p><strong>加快 ALBERT 的训练和推理速度</strong></p>
+<ul>
+<li>稀疏注意力：Rewon Child, Scott Gray, Alec Radford, and Ilya
+Sutskever. Generating long sequences with sparse transformers. <em>arXiv
+preprint arXiv:1904.10509</em>, 2019.</li>
+<li>块注意力：Tao Shen, Tianyi Zhou, Guodong Long, Jing Jiang, and
+Chengqi Zhang. Bi-directional block self- attention for fast and
+memory-efficient sequence modeling. <em>arXiv preprint
+arXiv:1804.00857</em>, 2018.</li>
+</ul>
+<h3 id="打开脑洞">打开脑洞</h3>
+<p>又到了自由讨论的时间了。首先，必须感慨一下，Google
+的代码写的真是实在，很浅白，注释很清楚。记得张俊林老师曾在一篇介绍预训练的<a
+href="https://zhuanlan.zhihu.com/p/49271699">知乎文章</a>中评价过
+Bert，说它在模型上其实没有太多创新，但是<strong>自然、简洁、优雅、有效</strong>地解决了问题，我想这可能就是
+“工程师” 的 “工程”
+两字的价值体现吧。这可能是我们平时应该特别注意和学习的地方，大多数人总是不由自主地把一个别人本来很简洁的东西
+“改造” 得很复杂，如果是研究需要，那为了 1-2
+个百分点是可以的，但工程上就没太多必要了，那是事倍功半。Google
+风格真是越看越爱，导致我现在基本上只跟踪 Google
+的最新研究。当然还有个原因——最近这些年 NLP
+领域的几个重大突破（Word2Vec，Transformer，Bert）基本都和 Google
+有关，这是算法、工程、数据综合后的结果，不应该感到意外。Facebook
+则总是会及时做出更加易用和优化的产品（FastText，RoBERTa），当然 Facebook
+更强的是推荐和视频领域。由于自己目前做 NLP 工作偏多，自然会更加关注
+Google 一些。</p>
+<p>然后开始胡侃这篇文章。这篇文章和 Facebook 的 RoBERTa
+结果相差不多，但是参数量的确少了不少（毕竟前两个改动都是减少参数的），而且除
+xxlarge 外比 <a
+href="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/">DistilBERT</a>
+都少（操作起来要比后者省事多了，个人意见，蒸馏真不是一种优雅的方法）。所以实际使用的时候可以酌情考虑
+ALBERT 或 RoBERTa，当然对中文来说，考虑到要 wwm（Whole Word
+Masking），目前<a
+href="https://github.com/ymcui/Chinese-BERT-wwm">开源</a>只有
+RoBERTa。</p>
+<p>另外有个有意思的地方是 ALBERT 在构造数据时用了 n-gram mask，有点类似
+wwm，可以算是一种改进，并没有用 RoBERTa 中的动态
+Mask（可能是考虑提升比较微弱吧，但把 NSP 给换成 SOP 了，因为 RoBERTa
+证明那没啥用然后就把它给去了），也没有使用 DistilBERT 中的 token prob
+mask（就是让选择 mask 时更加关注低频词，进而实现对 mask
+的平滑取样，我觉得是非常 make sense
+的一个点），可能是时间相隔太近吧，看了一下 arxiv
+上的第一版的投稿时间，确实只差了 6
+天。所以，下一个创新点也许是把这个点加进去？也许说不定已经有了，只是我没关注到。</p>
+<h2 id="appendix">Appendix</h2>
+<ul>
+<li><p><a
+href="https://github.com/huggingface/transformers/blob/master/src/transformers/modeling_albert.py">transformers/modeling_albert.py
+at master · huggingface/transformers</a></p></li>
+<li><p><a
+href="https://github.com/kamalkraj/ALBERT-TF2.0">kamalkraj/ALBERT-TF2.0:
+ALBERT model Pretraining and Fine Tuning using TF2.0</a></p></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2020/05/10/Paper/2020-05-10-ALBERT/">
+    <time datetime="2020-05-10T15:00:00.000Z" class="entry-date">
+        2020-05-10
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ALBERT/" rel="tag">ALBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/" rel="tag">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" rel="prev"><span class="meta-nav">←</span> 中文分词系列一：思考分词</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" rel="next">多贝里《清醒思考的艺术》读书笔记 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">116</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">30</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/">自然语言计算机形式分析的理论与方法笔记(Ch17)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/">自然语言计算机形式分析的理论与方法笔记(Ch16)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">Tiny LLM Continual Pre-training：RHO-1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/">LLM打街霸</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/">LLM中的演绎推理、归纳推理和溯因推理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.17px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.83px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.5px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.83px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.83px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.67px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.5px;">Business</a> <a href="/tags/C/" style="font-size: 10.83px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.83px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.83px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Cognition/" style="font-size: 10.83px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.5px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.83px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.83px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.83px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.83px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.17px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.83px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.83px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 13.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.83px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.83px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.67px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.83px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.83px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.83px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.67px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.67px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.83px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.83px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.83px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 10.83px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.83px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.83px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.83px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.83px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.5px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.5px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.83px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 10.83px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.83px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 11.67px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.17px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.67px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.83px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.17px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.67px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.83px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.67px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.83px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.83px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.83px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.83px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.83px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.83px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.5px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.83px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.83px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.33px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.83px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.33px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.83px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.83px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.33px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.83px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.83px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.83px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.83px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.83px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.83px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.67px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.83px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.83px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.83px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.67px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.83px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.83px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.83px;">System</a> <a href="/tags/T5/" style="font-size: 10.83px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.67px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.83px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.83px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.5px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10.83px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.83px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.67px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.67px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.83px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

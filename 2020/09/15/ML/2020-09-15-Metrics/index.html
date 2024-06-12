@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>Metrics | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="机器学习的数据集一般被划分为训练集和测试集，训练集用于训练模型，测试集则用于评估模型。针对不同的机器学习问题（分类、排序、回归、序列预测等），评估指标的选择也有所不同。本文主要介绍机器学习中常用的模型评估指标。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Metrics">
+<meta property="og:url" content="https://www.yam.gift/2020/09/15/ML/2020-09-15-Metrics/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="机器学习的数据集一般被划分为训练集和测试集，训练集用于训练模型，测试集则用于评估模型。针对不同的机器学习问题（分类、排序、回归、序列预测等），评估指标的选择也有所不同。本文主要介绍机器学习中常用的模型评估指标。">
+<meta property="og:locale">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-2.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-3.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-4.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-5.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-6.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ml-metrics-7.jpeg">
+<meta property="article:published_time" content="2020-09-15T12:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-10T16:23:44.161Z">
+<meta property="article:author" content="Yam">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="Machine Learning">
+<meta property="article:tag" content="Accuracy">
+<meta property="article:tag" content="Precision">
+<meta property="article:tag" content="Recall">
+<meta property="article:tag" content="RMSE">
+<meta property="article:tag" content="ROC">
+<meta property="article:tag" content="AUC">
+<meta property="article:tag" content="P-R">
+<meta property="article:tag" content="KS">
+<meta property="article:tag" content="WOE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/ml-metrics-2.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-ML/2020-09-15-Metrics" class="post-ML/2020-09-15-Metrics post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      Metrics
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/15/ML/2020-09-15-Metrics/" data-id="clx98np0m003jtsbzcabwxzrc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>机器学习的数据集一般被划分为训练集和测试集，训练集用于训练模型，测试集则用于评估模型。针对不同的机器学习问题（分类、排序、回归、序列预测等），评估指标的选择也有所不同。本文主要介绍机器学习中常用的模型评估指标。</p>
+<span id="more"></span>
+<div class="toc">
+<ul class="toc-item">
+<li>
+<span><a href="#Accuracy" data-toc-modified-id="Accuracy-1">Accuracy</a></span>
+</li>
+<li>
+<span><a href="#Precision-Recall-和-F1" data-toc-modified-id="Precision-Recall-和-F1-2">Precision
+Recall 和 F1</a></span>
+</li>
+<li>
+<span><a href="#RMSE" data-toc-modified-id="RMSE-3">RMSE</a></span>
+</li>
+<li>
+<span><a href="#ROC-和-AUC" data-toc-modified-id="ROC-和--AUC-4">ROC 和
+AUC</a></span>
+</li>
+<li>
+<span><a href="#KS" data-toc-modified-id="KS-5">KS</a></span>
+</li>
+<li>
+<span><a href="#评分卡" data-toc-modified-id="评分卡-6">评分卡</a></span>
+</li>
+<li>
+<span><a href="#参考资料" data-toc-modified-id="参考资料-7">参考资料</a></span>
+</li>
+</ul>
+</div>
+<h2 id="accuracy">Accuracy</h2>
+<p><strong>准确率</strong>是最简单的评价指标，公式如下： <span
+class="math display">\[
+\frac {N_{correct}} {N_{total}}
+\]</span> 但是存在明显的缺陷：</p>
+<ul>
+<li>当样本分布不均匀时，指标的结果由占比大的类别决定。比如正样本占
+99%，只要分类器将所有样本都预测为正样本就能获得 99% 的准确率。</li>
+<li>结果太笼统，实际应用中，我们可能更加关注某一类别样本的情况。比如搜索时会关心
+“检索出的信息有多少是用户感兴趣的”，“用户感兴趣的信息有多少被检测出来了”
+等等。</li>
+</ul>
+<p>相应地还有<strong>错误率</strong>：分类错误的样本占总样本的比例。
+<span class="math display">\[
+error(f ; \mathcal{D})=\int_{\boldsymbol{x} \sim \mathcal{D}}
+\mathbb{I}(f(\boldsymbol{x}) \neq y) p(\boldsymbol{x}) \mathrm{d}
+\boldsymbol{x} \\
+acc(f; \mathcal{D}) = 1 - error(f ; \mathcal{D})
+\]</span></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score</span><br><span class="line"></span><br><span class="line">y_pred = [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>]</span><br><span class="line">y_true = [<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">accuracy_score(y_true, y_pred) <span class="comment"># 0.5</span></span><br></pre></td></tr></table></figure>
+<h2 id="precision-recall-和-f1">Precision Recall 和 F1</h2>
+<p><strong>精准率</strong>（Precision）也叫查准率，衡量的是所有预测为正例的结果中，预测正确的（为真正例）比例。</p>
+<p><strong>召回率</strong>（Recall）也叫查全率，衡量的是实际的正例有多少被模型预测为正例。</p>
+<p>在排序问题中，一般以 TopN 的结果作为正例，然后计算前 N
+个位置上的精准率 Precision@N 和召回率 Recall@N。</p>
+<p>精确率和召回率是一对相互矛盾的指标，一般来说高精准往往低召回，相反亦然。其实这个是比较直观的，比如我们想要一个模型准确率达到
+100%，那就意味着要保证每一个结果都是真正例，这就会导致有些正例被放弃；相反，要保证模型能将所有正例都预测为正例，意味着有些反例也会混进来。这背后的根本原因就在于我们的数据往往是随机、且充满噪声的，并不是非黑即白。</p>
+<p>精准率和召回率与<strong>混淆矩阵</strong>密切相关，混淆矩阵是将分类（二分类）结果通过矩阵的形式直观展现出来：</p>
+<table>
+<thead>
+<tr class="header">
+<th>真实情况</th>
+<th>预测结果正例</th>
+<th>预测结果反例</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>正例</td>
+<td>TP（真正例）</td>
+<td>FN（假反例）</td>
+</tr>
+<tr class="even">
+<td>反例</td>
+<td>FP（假正例）</td>
+<td>TN（真反例）</td>
+</tr>
+</tbody>
+</table>
+<p>然后，很容易就得到精准率（P）和召回率（R）的计算公式： <span
+class="math display">\[
+P = \frac{TP}{TP + FP} \\
+R = \frac{TP}{TP + FN}
+\]</span> 得到 P 和 R 后就可以画出更加直观的 <strong>P-R 图（P-R
+曲线）</strong>，横坐标为召回率，纵坐标是精准率。绘制方法如下：</p>
+<ul>
+<li>对模型的学习结果进行排序（一般都有一个概率值）</li>
+<li>按照上面的顺序逐个把样本作为正例进行预测，每次都可以得到一个 P R
+值</li>
+<li>将得到的 P R 值按照 R 为横坐标，P 为纵坐标绘制曲线图</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span>, <span class="type">Tuple</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_confusion_matrix</span>(<span class="params"></span></span><br><span class="line"><span class="params">    y_pred: <span class="type">List</span>[<span class="built_in">int</span>], </span></span><br><span class="line"><span class="params">    y_true: <span class="type">List</span>[<span class="built_in">int</span>]</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="type">Tuple</span>[<span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>, <span class="built_in">int</span>]:</span><br><span class="line">    </span><br><span class="line">    length = <span class="built_in">len</span>(y_pred)</span><br><span class="line">    <span class="keyword">assert</span> length == <span class="built_in">len</span>(y_true)</span><br><span class="line">    tp, fp, fn, tn = <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        <span class="keyword">if</span> y_pred[i] == y_true[i] <span class="keyword">and</span> y_pred[i] == <span class="number">1</span>:</span><br><span class="line">            tp += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> y_pred[i] == y_true[i] <span class="keyword">and</span> y_pred[i] == <span class="number">0</span>:</span><br><span class="line">            tn += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> y_pred[i] == <span class="number">1</span> <span class="keyword">and</span> y_true[i] == <span class="number">0</span>:</span><br><span class="line">            fp += <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> y_pred[i] == <span class="number">0</span> <span class="keyword">and</span> y_true[i] == <span class="number">1</span>:</span><br><span class="line">            fn += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> (tp, fp, tn, fn)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_p</span>(<span class="params">tp: <span class="built_in">int</span>, fp: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> tp / (tp + fp)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_r</span>(<span class="params">tp: <span class="built_in">int</span>, fn: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> tp / (tp + fn)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_pr_pairs</span>(<span class="params"></span></span><br><span class="line"><span class="params">    y_pred_prob: <span class="type">List</span>[<span class="built_in">float</span>], </span></span><br><span class="line"><span class="params">    y_true: <span class="type">List</span>[<span class="built_in">int</span>]</span></span><br><span class="line"><span class="params">	</span>) -&gt; <span class="type">Tuple</span>[<span class="type">List</span>[<span class="built_in">int</span>], <span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">    ps = [<span class="number">1</span>]</span><br><span class="line">    rs = [<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> prob1 <span class="keyword">in</span> y_pred_prob:</span><br><span class="line">        y_pred_i = []</span><br><span class="line">        <span class="keyword">for</span> prob2 <span class="keyword">in</span> y_pred_prob:</span><br><span class="line">            <span class="keyword">if</span> prob2 &lt; prob1:</span><br><span class="line">                y_pred_i.append(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                y_pred_i.append(<span class="number">1</span>)</span><br><span class="line">        tp, fp, tn, fn = get_confusion_matrix(y_pred_i, y_true)</span><br><span class="line">        p = calc_p(tp, fp)</span><br><span class="line">        r = calc_r(tp, fn)</span><br><span class="line">        ps.append(p)</span><br><span class="line">        rs.append(r)</span><br><span class="line">    ps.append(<span class="number">0</span>)</span><br><span class="line">    rs.append(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> ps, rs</span><br><span class="line"></span><br><span class="line">y_pred_prob = [<span class="number">0.9</span>, <span class="number">0.8</span>, <span class="number">0.7</span>, <span class="number">0.6</span>, <span class="number">0.55</span>, <span class="number">0.54</span>, <span class="number">0.53</span>, <span class="number">0.52</span>, <span class="number">0.51</span>, <span class="number">0.505</span>,</span><br><span class="line">               <span class="number">0.4</span>, <span class="number">0.39</span>, <span class="number">0.38</span>, <span class="number">0.37</span>, <span class="number">0.36</span>, <span class="number">0.35</span>, <span class="number">0.34</span>, <span class="number">0.33</span>, <span class="number">0.3</span>, <span class="number">0.1</span>]</span><br><span class="line">y_true = [<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line">y_pred = [<span class="number">1</span>] * <span class="number">10</span> + [<span class="number">0</span>] * <span class="number">10</span></span><br><span class="line">ps, rs = get_pr_pairs(y_pred_prob, y_true)</span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">ax.plot(rs, ps);</span><br></pre></td></tr></table></figure>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-2.jpeg" /></p>
+<p>如果有多个模型就可以绘制多条 P-R 曲线：</p>
+<ul>
+<li>如果某个模型的曲线完全被另外一个模型
+“包住”（即后者更加凹向原点），那么后者的性能一定优于前者。</li>
+<li>如果多个模型的曲线发生交叉，此时不好判断哪个模型较优，一个较为合理的方法是计算曲线下面积，但这个值不太好估算。</li>
+</ul>
+<p>为了获得模型优劣，需要综合 P 和 R，平衡点
+<strong>BEP</strong>（Break-Even Point）就是这样一个度量，它是 P=R
+时的取值，BPE 越远离原点，说明模型效果越好。由于 BPE
+过于简单，实际中常用 <strong>F1</strong> 值衡量： <span
+class="math display">\[
+F1 = \frac {2PR}{P+R}
+\]</span> F1 有更一般的形式： <span class="math display">\[
+F_{\beta}=\frac{\left(1+\beta^{2}\right) \times P \times
+R}{\left(\beta^{2} \times P\right)+R}
+\]</span></p>
+<ul>
+<li>当 β &gt; 1 时，更偏好召回</li>
+<li>当 β &lt; 1 时，更偏好精准</li>
+<li>当 β = 1 时，平衡精准和召回，即为 F1</li>
+</ul>
+<p>F1 其实来自精准和召回的加权调和平均： <span class="math display">\[
+HarmonicMean(a_1, a_2,…,a_n) = \frac
+{n}{\frac{1}{a_1}+\frac{1}{a_2}+…+\frac{1}{a_n}} \\
+F = \frac {1}{\alpha \frac{1}{P} + (1-\alpha) \frac{1}{R}} = F_\beta \\
+\beta^2 = \frac{1-\alpha}{\alpha}
+\]</span>
+当有多个混淆矩阵（多次训练、多个数据集、多分类任务）时，有两种方式估算
+“全局” 性能：</p>
+<ul>
+<li>macro 方法：先计算每个 PR，取平均后，再计算 F1</li>
+<li>micro 方法：先计算混淆矩阵元素的平均，再计算 PR 和 F1</li>
+</ul>
+<h2 id="rmse">RMSE</h2>
+<p>均方根误差 RMSE（Root Mearn Square
+Error）主要用在回归模型，也就是俗称的 R 方。计算公式为： <span
+class="math display">\[
+RMSE = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat y_i)^2} {n}}
+\]</span> 但是如果有非常严重的离群点时，那些点会影响 RMSE
+的结果，针对这个问题：</p>
+<ul>
+<li><p>如果离群点为噪声，则去除这些点</p></li>
+<li><p>如果离群点为正常样本，可以重新建模</p></li>
+<li><p>换一个评估指标，比如平均绝对百分比误差 MAPE（Mean Absolute
+Percent Error） <span class="math display">\[
+  MAPE = \sum_{i=1}^{n} \left| \frac{y_i - \hat y_i}{y_i} \right| \times
+\frac{100}{n}
+  \]</span> MAPE
+对每个误差进行了归一化，一定程度上降低了离群点的影响。</p></li>
+</ul>
+<h2 id="roc-和-auc">ROC 和 AUC</h2>
+<p>受试者工作特征 <strong>ROC</strong>（Receiver Operating
+Characteristic）曲线是另一个重要的二分类指标。它的横坐标是 “假正例率”
+<strong>FPR</strong>（False Positive Rate），纵坐标是 “真正例率”
+<strong>TPR</strong>（True Positive Rate），计算公式如下： <span
+class="math display">\[
+FPR = \frac{FP}{FP + TN} \\
+TPR = \frac{TP}{TP + FN}
+\]</span> 绘制方法和上面的 P-R 曲线类似，不再赘述。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">calc_fpr</span>(<span class="params">fp: <span class="built_in">int</span>, tn: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> fp / (fp + tn)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">calc_tpr</span>(<span class="params">tp: <span class="built_in">int</span>, fn: <span class="built_in">int</span></span>) -&gt; <span class="built_in">float</span>:</span><br><span class="line">    <span class="keyword">return</span> tp / (tp + fn)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_ftpr_pairs</span>(<span class="params"></span></span><br><span class="line"><span class="params">    y_pred_prob: <span class="type">List</span>[<span class="built_in">float</span>], </span></span><br><span class="line"><span class="params">    y_true: <span class="type">List</span>[<span class="built_in">int</span>]</span></span><br><span class="line"><span class="params">	</span>) -&gt; <span class="type">Tuple</span>[<span class="type">List</span>[<span class="built_in">int</span>], <span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">    fprs = [<span class="number">0</span>]</span><br><span class="line">    tprs = [<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> prob1 <span class="keyword">in</span> y_pred_prob:</span><br><span class="line">        y_pred_i = []</span><br><span class="line">        <span class="keyword">for</span> prob2 <span class="keyword">in</span> y_pred_prob:</span><br><span class="line">            <span class="keyword">if</span> prob2 &lt; prob1:</span><br><span class="line">                y_pred_i.append(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                y_pred_i.append(<span class="number">1</span>)</span><br><span class="line">        tp, fp, tn, fn = get_confusion_matrix(y_pred_i, y_true)</span><br><span class="line">        fpr = calc_fpr(fp, tn)</span><br><span class="line">        tpr = calc_tpr(tp, fn)</span><br><span class="line">        fprs.append(fpr)</span><br><span class="line">        tprs.append(tpr)</span><br><span class="line">    fprs.append(<span class="number">1</span>)</span><br><span class="line">    tprs.append(<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">return</span> fprs, tprs</span><br><span class="line">fprs, tprs = get_ftpr_pairs(y_pred_prob, y_true)</span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">ax.plot(fprs, tprs);</span><br></pre></td></tr></table></figure>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-3.jpeg" /></p>
+<p>除此之外，还有一种绘制 ROC 曲线的方法：</p>
+<ul>
+<li>假设有 m+ 个正例，m- 个负例，对模型输出的预测概率按从高到低排序</li>
+<li>然后依次将每个样本的预测值作为阈值（即将该样本作为正例），假设前一个坐标为（x,
+y），若当前为真正例，对应标记点为（x,
+y+1/m+），若当前为假正例，则对应标记点为（x+1/m-, y）</li>
+<li>将所有点相连即可得到 ROC 曲线</li>
+</ul>
+<p>该方法和这种做法是一样的：将纵坐标的刻度间隔设为
+1/m+，横坐标的刻度间隔设为
+1/m-，从（0,0）开始，每遇到一个真正例就沿着纵轴绘制一个刻度间隔的曲线，假正例就沿着横轴绘制一个刻度间隔的曲线，最终就可以得到
+ROC 曲线。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_ftpr_pairs2</span>(<span class="params"></span></span><br><span class="line"><span class="params">    y_pred_prob: <span class="type">List</span>[<span class="built_in">float</span>], </span></span><br><span class="line"><span class="params">    y_true: <span class="type">List</span>[<span class="built_in">int</span>]</span></span><br><span class="line"><span class="params">    </span>) -&gt; <span class="type">Tuple</span>[<span class="type">List</span>[<span class="built_in">int</span>], <span class="type">List</span>[<span class="built_in">int</span>]]:</span><br><span class="line">    mplus = <span class="built_in">sum</span>(y_true)</span><br><span class="line">    msub = <span class="built_in">len</span>(y_true) - mplus</span><br><span class="line">    pairs = [(<span class="number">0</span>, <span class="number">0</span>)]</span><br><span class="line">    prev = (<span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    length = <span class="built_in">len</span>(y_pred_prob)</span><br><span class="line">    <span class="keyword">assert</span> length == <span class="built_in">len</span>(y_true)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">        <span class="keyword">if</span> y_true[i] == <span class="number">1</span>:</span><br><span class="line">            pair = (prev[<span class="number">0</span>], prev[<span class="number">1</span>] + <span class="number">1</span>/mplus)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            pair = (prev[<span class="number">0</span>] + <span class="number">1</span>/msub, prev[<span class="number">1</span>])</span><br><span class="line">        pairs.append(pair)</span><br><span class="line">        prev = pair</span><br><span class="line">    pairs.append((<span class="number">1</span>, <span class="number">1</span>))</span><br><span class="line">    fprs, tprs = [], []</span><br><span class="line">    <span class="keyword">for</span> pair <span class="keyword">in</span> pairs:</span><br><span class="line">        fprs.append(pair[<span class="number">0</span>])</span><br><span class="line">        tprs.append(pair[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">return</span> fprs, tprs</span><br><span class="line">fprs, tprs = get_ftpr_pairs2(y_pred_prob, y_true)</span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">ax.plot(fprs, tprs);</span><br></pre></td></tr></table></figure>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-4.jpeg" /></p>
+<p>该方法和上面第一种方法得到的曲线完全一致。</p>
+<p>多个模型时，与 P-R 曲线也是类似，如果某个模型的曲线完全 “包住”
+另一个，则前者性能好于后者。如果曲线相互交叉，则比较曲线下面积：<strong>AUC</strong>（Area
+Under ROC Curve）。</p>
+<p>AUC 取值一般在 0.5-1 之间，处于 y=x
+直线的上方（如果不是的话，把预测概率翻转成 1-p 就能获得更好的模型）。AUC
+值越大，说明模型越可能把真正例排在前面，性能越好。此时，假正例率很低同时真正例率很高，意味着召回高并且误判率小。对角线对应着随机模型（各占
+50%），（0，1）点对应的是理想模型，即所有正例 100%
+召回且没有一个负例被判别为正例。</p>
+<p>AUC 面积可以通过以下公式进行估算： <span class="math display">\[
+AUC = \frac{1}{2} \sum_{i=1}^{m-1} (x_{i+1} - x_i) \cdot (y_i + y_{i+1})
+\]</span> AUC 考虑的是样本预测的排序质量，与排序误差紧密相连，排序
+“损失” loss 可定义为： <span class="math display">\[
+\ell_{rank} = \frac{1}{m^+ m^-} \sum_{x^+ \in D^+} \sum_{x^- \in D^-}
+\left( \mathbb{I}(f(x^+) &lt; f(x^-)) + \frac{1}{2} \mathbb{I}(f(x^+) =
+f(x^-)) \right)
+\]</span> 该式子的意思是，如果正例预测值小于负例，计 1
+个罚分，如果相等则计 0.5 个罚分。显然，该式对应的就是 ROC
+曲线上面的面积。因此有： <span class="math display">\[
+AUC = 1 - \ell_{rank}
+\]</span> 与 P-R 曲线相比，ROC
+曲线有一个特点：<strong>当正负样本的分布发生变化时，ROC
+曲线形状能基本保持不变，而 P-R
+曲线的形状一般会发生比较剧烈的变化</strong>。因此，当数据不均匀时，ROC
+曲线更能够反映模型好坏。而这背后的原因是：</p>
+<ul>
+<li>P-R
+曲线关注的是【真实的正例中预测为正例的比例】和【预测的正例中实际为正例的比例】（分别对应
+Recall 和 Precision）</li>
+<li>ROC
+曲线关注的是【真实的正例中预测为正例的比例】和【真实的负例中预测为正例的比例】（分别对应
+TPR 和 FPR）</li>
+</ul>
+<p>可以发现，P-R 并没有关注负例的情况。另外，还可以发现，Recall 其实就是
+TPR（真正例率）；P-R 曲线中，R 为横坐标；ROC 曲线中，TPR 为纵坐标。</p>
+<h2 id="ks">KS</h2>
+<p>作为一个工程师，看到 KS 我们的第一反应应该是：既然已经有了 PR、ROC
+等评价指标，为什么还需要
+KS？它解决了前面指标解决不了的什么问题？它究竟有什么特点？</p>
+<p>KS Test（Kolmogorov-Smirnov）是由两位苏联数学家 A.N. Kolmogorov 和
+N.V. Smirnov
+提出的，用于比较样本与参考概率分布或比较两个样本的非参数检验。</p>
+<p>我们以两样本为例，假设 m 个 sample 来自分布 F(x)，n 个来自 G(x)，定义
+KS 统计量（KS 距离）为： <span class="math display">\[
+D_{m,n} = \sup_x |F_{m}(x) - G_{n}(x)|
+\]</span> 其中 F(x) 和 G(x) 都是经验累积分布函数 ECDF（empirical
+distribution function），定义如下： <span class="math display">\[
+F_n(x) = \frac{1}{n} \sum_{i=1}^n I_{[-\infty, x] (X_i)} \\
+if \quad X_i \le x, \quad I(X_i) = 1, \quad else \quad 0
+\]</span> sup 表示上确界，也是最小上界。</p>
+<p>原始假设 H0：两组 sample 来自统一分布，在大样本上，在置信水平 α
+下如果满足下面的条件则拒绝零假设（认为两组样本来自不同分布）： <span
+class="math display">\[
+D_{m,n} &gt; c(\alpha) \sqrt{\frac{m + n}{m \cdot n}} \\
+s.t. \quad c(\alpha) = \sqrt{-\ln(\frac{\alpha}{2}) \cdot \frac{1}{2}}
+\]</span> 代入后得到： <span class="math display">\[
+D_{m,n} &gt; \frac{1}{\sqrt{m}} \sqrt{-\ln(\frac{\alpha}{2}) \cdot
+\frac{1+\frac{m}{n}}{2}}
+\]</span> 常用的值如下：</p>
+<table>
+<thead>
+<tr class="header">
+<th>alpha</th>
+<th>0.10</th>
+<th>0.05</th>
+<th>0.01</th>
+<th>0.005</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>c(α)</td>
+<td>1.224</td>
+<td>1.358</td>
+<td>1.628</td>
+<td>1.731</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy <span class="keyword">import</span> stats</span><br><span class="line">rvs1 = stats.norm.rvs(size=<span class="number">200</span>, loc=<span class="number">0.</span>, scale=<span class="number">1</span>)</span><br><span class="line">rvs2 = stats.norm.rvs(size=<span class="number">300</span>, loc=<span class="number">0.5</span>, scale=<span class="number">1.5</span>)</span><br><span class="line">stats.ks_2samp(rvs1, rvs2)</span><br><span class="line"><span class="comment"># 在置信度 0.05 水平下：1.358 * np.sqrt(500/60000) = 0.124</span></span><br><span class="line"><span class="comment"># Ks_2sampResult(statistic=0.265, pvalue=7.126401335710852e-08)</span></span><br><span class="line"><span class="comment"># 0.265 &gt; 0.124 所以拒绝原假设，即认为两组样本来自不同分布</span></span><br><span class="line"><span class="comment"># 事实上，即便是 0.005 的置信水平下依然要拒绝原假设</span></span><br><span class="line">fig, ax = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">1</span>, figsize=(<span class="number">12</span>, <span class="number">5</span>))</span><br><span class="line">ax.hist(rvs1, density=<span class="literal">False</span>, histtype=<span class="string">&#x27;stepfilled&#x27;</span>, alpha=<span class="number">0.2</span>, color=<span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">ax.hist(rvs2, density=<span class="literal">False</span>, histtype=<span class="string">&#x27;stepfilled&#x27;</span>, alpha=<span class="number">0.2</span>, color=<span class="string">&#x27;blue&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>其中 statistic 就是 ks 统计量。</p>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-5.jpeg" /></p>
+<p>那这又和评价指标有啥关联呢？</p>
+<p>我们考虑这么一种情况，假设数据集的 Label 并不是离散的（如二分类的
+0-1），而是可能满足一定分布，也就是说标签有很多灰色地带。其实这在实际生活中倒是更加常见，以金融风控为例，不少特征都是基于某个时间点做划分的，比如逾期还款
+x 天，这个 x 是非常灵活的，而且也很难说 x-1 天的就一定比 x+1
+天的信用好。这就意味着给定特征下，我们的标签最好能够有一定 “弹性”。</p>
+<p>那么，怎么去体现这个 “弹性” 呢？因为 KS 正好是衡量两个 “分布” 的
+“距离”，我们可以构造一个函数：</p>
+<p><span class="math display">\[
+ks = | TPR - FPR|
+\]</span></p>
+<p>然后我们可以画出 KS 曲线，可以<a
+href="https://www.researchgate.net/publication/303758723_On_the_equivalence_between_Kolmogorov-Smirnov_and_ROC_curve_metrics_for_binary_classification">证明</a>，KS
+和 ROC 等价，且满足如下公式： <span class="math display">\[
+AUC_{ROC} = 0.5 + AUC_{KS}
+\]</span> KS
+的最大值就用来评估模型的区分度。而所谓的区分度正可以看作是正负例的差异，具体而言，如果正负例对于标签没有区分度，说明两个样本重叠较大；区分度越大，说明两个概率分布相隔越远。回到
+KS 上：</p>
+<ul>
+<li>如果 KS 的最大值很小，说明 TPR 和 FPR
+接近同一分布，也就意味着真实的正例和负例被预测为正例的比例相似，说明模型很差。</li>
+<li>如果 KS 的最大值很大，说明 TPR 和 FPR
+区别很大，意味着真实的正例被预测为正例和真实的负例被预测为正例相差很大，说明模型效果较好（能够区分真实正例和真实负例）。</li>
+</ul>
+<p>事实上，KS
+的确常用在金融风控中，用来评估模型的区分度，区分度越大说明模型的风险排序能力越强。但值太大也有问题（可能过拟合），一般超过
+0.75 就认为过高，而低于 0.2 则过低。关于这个我们可以看图说明：</p>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-6.jpeg" /></p>
+<p>我们假设曲线光滑，那么 AUC_KS ≈ 1/2 × max_KS，根据前面的公式： <span
+class="math display">\[
+AUC_{ROC} \approx \frac{1}{2} + \frac{\max_{KS}}{2}
+\]</span> 由于上面提到的金融风控中 Label 的弹性，当 KS 过高时，ROC 的
+AUC
+就会很高，说明结果并没有这种弹性（模糊性、连续性），此时模型有过拟合风险。</p>
+<p>既然 KS 可以，那我们自然就要问了，t 检验行不行？因为 t
+检验也是检验两组样本是否来自同一个分布的统计量啊。答案是：不行。因为我们实际上是使用了它的定义（距离），而
+t-test 的定义并没有体现出这一点。</p>
+<p>独立双样本 t 检验，方差不相等： <span class="math display">\[
+t = \frac{\bar X_1 - \bar X_2}{s_{\bar{\Delta}}} \\
+s.t. \quad s_{\bar{\Delta}} = \sqrt{\frac{s_1^2}{n_1} +
+\frac{s_2^2}{n_2}}
+\]</span> 独立双样本 t 检验，样本数相同，方差相似： <span
+class="math display">\[
+t = \frac{\bar X_1 - \bar X_2}{s_{p} \sqrt{\frac{2}{n}}} \\
+s.t. \quad s_{p} = \sqrt{\frac{s_{X_1}^2 + s_{X_2}^2}{2}}
+\]</span> <a
+href="https://stats.stackexchange.com/questions/208517/kolmogorov-smirnov-test-vs-t-test">这里</a>的图也可以说明这一点：</p>
+<p><img src="http://qnimg.lovevivian.cn/ml-metrics-7.jpeg" /></p>
+<p>其他距离其实也没有太多意义，因为 FPR 和 TPR 的 x
+是一样的，不同的也就是 y 值。</p>
+<h2 id="评分卡">评分卡</h2>
+<p>评分卡模型是一个线性回归模型： <span class="math display">\[
+Y = \sum_{i=0}^n \theta_ix_i + b
+\]</span> 特征覆盖率高，保持稳定，特征变量有明显的可解释性。样本为 0
+时可以根据专家历史经验设定权重；样本为几百时，可根据单特征区分能力如
+KS/IV 值等进行权重设定。</p>
+<p><strong>非线性处理</strong></p>
+<p>有两种方式：WOE 处理和分桶。</p>
+<p><strong>证据权重 WOE</strong>（Weight of
+Evidence）是一种自变量编码方案，定义为： <span class="math display">\[
+WOE_i = \ln \left( \frac{ B_i/B_T}{G_i/G_T} \right)
+\]</span> 其中，Bi 表示第 i 个分组里 bad label 的数量，Bt 为总的 bad
+label 数量；G 表示 good label。WOE 越大，bad label 比例越高，此时的 WOE
+值可以作为该分组的特征值。</p>
+<p><strong>分桶</strong>是指对有一定跳变的连续值特征进行分桶，将弱线性特征转化为强线性特征。</p>
+<p><strong>交叉特征处理</strong></p>
+<p>主要采取对客户分群的方式，对细分群体进行单独建模（本质上是一种交叉特征的体现）。</p>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/26708119/">机器学习
+(豆瓣)</a></li>
+<li><a href="https://book.douban.com/subject/30285146/">百面机器学习
+(豆瓣)</a></li>
+<li><a
+href="https://www.wikiwand.com/en/Kolmogorov%E2%80%93Smirnov_test">Kolmogorov–Smirnov
+test - Wikiwand</a></li>
+<li><a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html">scipy.stats.ks_2samp
+— SciPy v1.5.2 Reference Guide</a></li>
+<li><a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_ind.html">scipy.stats.ttest_ind
+— SciPy v1.5.2 Reference Guide</a></li>
+<li><a href="https://www.wikiwand.com/en/Student%27s_t-test">Student's
+t-test - Wikiwand</a></li>
+<li><a
+href="https://stats.stackexchange.com/questions/208517/kolmogorov-smirnov-test-vs-t-test">distributions
+- Kolmogorov–Smirnov test vs. t-test - Cross Validated</a></li>
+<li><a
+href="https://www.datadoghq.com/blog/engineering/robust-statistical-distances-for-machine-learning/#kolmogorovsmirnov">Robust
+Statistical Distances for Machine Learning | Datadog</a></li>
+<li><a
+href="https://mp.weixin.qq.com/s/TD89GfNmBAW40RzQYQ1PQg">机器学习在信贷风控建模中的优势和挑战</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/146476834">WOE编码为啥有效 -
+知乎</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2020/09/15/ML/2020-09-15-Metrics/">
+    <time datetime="2020-09-15T12:00:00.000Z" class="entry-date">
+        2020-09-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AUC/" rel="tag">AUC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Accuracy/" rel="tag">Accuracy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KS/" rel="tag">KS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/P-R/" rel="tag">P-R</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Precision/" rel="tag">Precision</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RMSE/" rel="tag">RMSE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ROC/" rel="tag">ROC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recall/" rel="tag">Recall</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WOE/" rel="tag">WOE</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2020/09/18/ML/2020-09-18-EDA/" rel="prev"><span class="meta-nav">←</span> EDA</a></span>
+    
+    
+        <span class="nav-next"><a href="/2020/09/13/Paper/2020-09-13-PEGASUS/" rel="next">PEGASUS 论文笔记 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">116</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">30</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/">自然语言计算机形式分析的理论与方法笔记(Ch17)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/">自然语言计算机形式分析的理论与方法笔记(Ch16)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">Tiny LLM Continual Pre-training：RHO-1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/">LLM打街霸</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/">LLM中的演绎推理、归纳推理和溯因推理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.17px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.83px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.5px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.83px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.83px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.67px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.5px;">Business</a> <a href="/tags/C/" style="font-size: 10.83px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.83px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.83px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Cognition/" style="font-size: 10.83px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.5px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.83px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.83px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.83px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.83px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.17px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.83px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.83px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 13.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.83px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.83px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.67px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.83px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.83px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.83px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.67px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.67px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.83px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.83px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.83px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 10.83px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.83px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.83px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.83px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.83px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.5px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.5px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.83px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 10.83px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.83px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 11.67px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.17px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.67px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.83px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.17px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.67px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.83px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.67px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.83px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.83px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.83px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.83px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.83px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.83px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.5px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.83px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.83px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.33px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.83px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.33px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.83px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.83px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.33px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.83px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.83px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.83px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.83px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.83px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.83px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.67px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.83px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.83px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.83px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.67px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.83px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.83px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.83px;">System</a> <a href="/tags/T5/" style="font-size: 10.83px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.67px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.83px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.83px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.5px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10.83px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.83px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.67px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.67px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.83px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

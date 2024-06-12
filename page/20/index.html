@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yam">
+<meta property="og:url" content="https://www.yam.gift/page/20/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:locale">
+<meta property="article:author" content="Yam">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-AI/2018-08-14-Ng-CNN" class="post-AI/2018-08-14-Ng-CNN post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/08/14/AI/2018-08-14-Ng-CNN/">NG CNN 笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/08/14/AI/2018-08-14-Ng-CNN/" data-id="clx98np0b0007tsbzuwxm3udq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：来自<a
+href="http://mooc.study.163.com/course/2001281004">卷积神经网络 -
+网易云课堂</a>的关键点记录，用来随时查阅，多图（88张）。课程真的很好；）</p>
+</blockquote>
+<h2 id="目录">目录</h2>
+<p>
+<div class="lev1 toc-item">
+<a href="#Week1-卷积神经网络" data-toc-modified-id="Week1-卷积神经网络-1"><span
+class="toc-item-num">1  </span>Week1 卷积神经网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#计算机视觉" data-toc-modified-id="计算机视觉-11"><span
+class="toc-item-num">1.1  </span>计算机视觉 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#边缘检测示例" data-toc-modified-id="边缘检测示例-12"><span
+class="toc-item-num">1.2  </span>边缘检测示例 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#更多边缘检测内容" data-toc-modified-id="更多边缘检测内容-13"><span
+class="toc-item-num">1.3  </span>更多边缘检测内容 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Padding" data-toc-modified-id="Padding-14"><span
+class="toc-item-num">1.4  </span>Padding</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#卷积步长" data-toc-modified-id="卷积步长-15"><span
+class="toc-item-num">1.5  </span>卷积步长 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#卷积为何有效" data-toc-modified-id="卷积为何有效-16"><span
+class="toc-item-num">1.6  </span>卷积为何有效 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#单层卷积网络" data-toc-modified-id="单层卷积网络-17"><span
+class="toc-item-num">1.7  </span>单层卷积网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#简单卷积网络示例" data-toc-modified-id="简单卷积网络示例-18"><span
+class="toc-item-num">1.8  </span>简单卷积网络示例 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#池化层" data-toc-modified-id="池化层-19"><span
+class="toc-item-num">1.9  </span>池化层 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#卷积神经网络示例" data-toc-modified-id="卷积神经网络示例-110"><span
+class="toc-item-num">1.10  </span>卷积神经网络示例 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#为什么使用卷积？" data-toc-modified-id="为什么使用卷积？-111"><span
+class="toc-item-num">1.11  </span>为什么使用卷积？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-112"><span
+class="toc-item-num">1.12  </span>注意点 &amp; Tips</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week2-深度卷积网络：实例探究" data-toc-modified-id="Week2-深度卷积网络：实例探究-2"><span
+class="toc-item-num">2  </span>Week2 深度卷积网络：实例探究 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#为什么要进行实例探究？" data-toc-modified-id="为什么要进行实例探究？-21"><span
+class="toc-item-num">2.1  </span>为什么要进行实例探究？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#经典网络" data-toc-modified-id="经典网络-22"><span
+class="toc-item-num">2.2  </span>经典网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#残差网络" data-toc-modified-id="残差网络-23"><span
+class="toc-item-num">2.3  </span>残差网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#残差网络为什么有用？" data-toc-modified-id="残差网络为什么有用？-24"><span
+class="toc-item-num">2.4  </span>残差网络为什么有用？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#网络中的网络以及-1×1-卷积" data-toc-modified-id="网络中的网络以及-1×1-卷积-25"><span
+class="toc-item-num">2.5  </span>网络中的网络以及 1×1 卷积 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Google-Inception-网络简介" data-toc-modified-id="Google-Inception-网络简介-26"><span
+class="toc-item-num">2.6  </span>Google Inception 网络简介 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Inception-网络" data-toc-modified-id="Inception-网络-27"><span
+class="toc-item-num">2.7  </span>Inception 网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#使用开源的实现方案" data-toc-modified-id="使用开源的实现方案-28"><span
+class="toc-item-num">2.8  </span>使用开源的实现方案 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#迁移学习" data-toc-modified-id="迁移学习-29"><span
+class="toc-item-num">2.9  </span>迁移学习 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#数据扩充" data-toc-modified-id="数据扩充-210"><span
+class="toc-item-num">2.10  </span>数据扩充 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#计算机视觉现状" data-toc-modified-id="计算机视觉现状-211"><span
+class="toc-item-num">2.11  </span>计算机视觉现状 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-212"><span
+class="toc-item-num">2.12  </span>注意点 &amp; Tips</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week3-目标检测" data-toc-modified-id="Week3-目标检测-3"><span
+class="toc-item-num">3  </span>Week3 目标检测 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#目标定位" data-toc-modified-id="目标定位-31"><span
+class="toc-item-num">3.1  </span>目标定位 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#特征点监测" data-toc-modified-id="特征点监测-32"><span
+class="toc-item-num">3.2  </span>特征点监测 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#目标监测" data-toc-modified-id="目标监测-33"><span
+class="toc-item-num">3.3  </span>目标监测 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#卷积的滑动窗口实现" data-toc-modified-id="卷积的滑动窗口实现-34"><span
+class="toc-item-num">3.4  </span>卷积的滑动窗口实现 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Bounding-Box-预测" data-toc-modified-id="Bounding-Box-预测-35"><span
+class="toc-item-num">3.5  </span>Bounding Box 预测 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#交并比" data-toc-modified-id="交并比-36"><span
+class="toc-item-num">3.6  </span>交并比 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#非最大值抑制" data-toc-modified-id="非最大值抑制-37"><span
+class="toc-item-num">3.7  </span>非最大值抑制 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Anchor-Boxes" data-toc-modified-id="Anchor-Boxes-38"><span
+class="toc-item-num">3.8  </span>Anchor Boxes</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#YOLO-算法" data-toc-modified-id="YOLO-算法-39"><span
+class="toc-item-num">3.9  </span>YOLO 算法 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#RPN-网络" data-toc-modified-id="RPN-网络-310"><span
+class="toc-item-num">3.10  </span>RPN 网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-311"><span
+class="toc-item-num">3.11  </span>注意点 &amp; Tips</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week4-特殊应用：人脸识别和神经风格转换" data-toc-modified-id="Week4-特殊应用：人脸识别和神经风格转换-4"><span
+class="toc-item-num">4  </span>Week4 特殊应用：人脸识别和神经风格转换
+</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#什么是人脸识别？" data-toc-modified-id="什么是人脸识别？-41"><span
+class="toc-item-num">4.1  </span>什么是人脸识别？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#One-Short-学习" data-toc-modified-id="One-Short-学习-42"><span
+class="toc-item-num">4.2  </span>One-Short 学习 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Siamese-网络" data-toc-modified-id="Siamese-网络-43"><span
+class="toc-item-num">4.3  </span>Siamese 网络 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Triplet-损失" data-toc-modified-id="Triplet-损失-44"><span
+class="toc-item-num">4.4  </span>Triplet 损失 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#面部验证与二分类" data-toc-modified-id="面部验证与二分类-45"><span
+class="toc-item-num">4.5  </span>面部验证与二分类 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#什么是神经风格转移" data-toc-modified-id="什么是神经风格转移-46"><span
+class="toc-item-num">4.6  </span>什么是神经风格转移 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#深度卷积网络在学什么？" data-toc-modified-id="深度卷积网络在学什么？-47"><span
+class="toc-item-num">4.7  </span>深度卷积网络在学什么？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#代价函数" data-toc-modified-id="代价函数-48"><span
+class="toc-item-num">4.8  </span>代价函数 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#内容代价函数" data-toc-modified-id="内容代价函数-49"><span
+class="toc-item-num">4.9  </span>内容代价函数 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#风格代价函数" data-toc-modified-id="风格代价函数-410"><span
+class="toc-item-num">4.10  </span>风格代价函数 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#一维到三维推广" data-toc-modified-id="一维到三维推广-411"><span
+class="toc-item-num">4.11  </span>一维到三维推广 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#注意点&amp;Tips" data-toc-modified-id="注意点&amp;Tips-412"><span
+class="toc-item-num">4.12  </span>注意点 &amp; Tips</a>
+</div>
+        
+          <p class="article-more-link">
+            <a href="/2018/08/14/AI/2018-08-14-Ng-CNN/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/08/14/AI/2018-08-14-Ng-CNN/">
+    <time datetime="2018-08-14T01:00:00.000Z" class="entry-date">
+        2018-08-14
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CNN/" rel="tag">CNN</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepLearning/" rel="tag">DeepLearning</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-C/2018-07-31-C-Advance-Weng-ZhejiangUniversity" class="post-C/2018-07-31-C-Advance-Weng-ZhejiangUniversity post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/">浙大翁恺老师《C 语言程序设计进阶》笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/" data-id="clx98np0g0019tsbzm3pa2v58" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：本文档为<a
+href="https://www.icourse163.org/learn/ZJU-200001?tid=1002775002#/learn/announce">浙大翁恺老师《C
+语言程序设计进阶》课程</a>内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，方便随时反复查看，内容不一定适合其他人。</p>
+<p>如果想看 C 语言基础版的，可以移步：<a
+href="https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/">浙大翁恺老师《程序设计入门——C语言》笔记
+| Yam</a>。</p>
+<p>小感想：自从大学上过这门课后就再没碰过了。这次学完两门课，写了一些代码，才慢慢有了一些感觉。这种感觉不光是对
+C，更是对写代码和深入探索未知的过程。虽然有时候也会情绪低落、状态低迷，什么都不想做，但整体还是蛮开心的，也从没有想过放弃。希望能在这条路上与更多的小伙伴同行。</p>
+</blockquote>
+<h1 id="目录">目录</h1>
+<p>
+<div class="lev1 toc-item">
+<a href="#Week1：指针与字符串" data-toc-modified-id="Week1：指针与字符串-1"><span
+class="toc-item-num">1  </span>Week1：指针与字符串 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#指针的使用" data-toc-modified-id="指针的使用-11"><span
+class="toc-item-num">1.1  </span>指针的使用 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针的应用场景1" data-toc-modified-id="指针的应用场景1-111"><span
+class="toc-item-num">1.1.1  </span>指针的应用场景 1</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针的应用场景2" data-toc-modified-id="指针的应用场景2-112"><span
+class="toc-item-num">1.1.2  </span>指针的应用场景 2</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针常见的错误" data-toc-modified-id="指针常见的错误-113"><span
+class="toc-item-num">1.1.3  </span>指针常见的错误 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针与数组" data-toc-modified-id="指针与数组-114"><span
+class="toc-item-num">1.1.4  </span>指针与数组 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针与-CONST" data-toc-modified-id="指针与-CONST-115"><span
+class="toc-item-num">1.1.5  </span>指针与 CONST</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#练习题" data-toc-modified-id="练习题-116"><span
+class="toc-item-num">1.1.6  </span>练习题 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#指针运算" data-toc-modified-id="指针运算-12"><span
+class="toc-item-num">1.2  </span>指针运算 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#指针用途小结" data-toc-modified-id="指针用途小结-121"><span
+class="toc-item-num">1.2.1  </span>指针用途小结 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#动态内存分配" data-toc-modified-id="动态内存分配-13"><span
+class="toc-item-num">1.3  </span>动态内存分配 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#练习题" data-toc-modified-id="练习题-131"><span
+class="toc-item-num">1.3.1  </span>练习题 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#字符串操作" data-toc-modified-id="字符串操作-14"><span
+class="toc-item-num">1.4  </span>字符串操作 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#单字符串输入输出" data-toc-modified-id="单字符串输入输出-141"><span
+class="toc-item-num">1.4.1  </span>单字符串输入输出 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#字符串数组" data-toc-modified-id="字符串数组-142"><span
+class="toc-item-num">1.4.2  </span>字符串数组 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#字符串函数的实现" data-toc-modified-id="字符串函数的实现-15"><span
+class="toc-item-num">1.5  </span>字符串函数的实现 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week2：ACLLib-的基本图形函数" data-toc-modified-id="Week2：ACLLib-的基本图形函数-2"><span
+class="toc-item-num">2  </span>Week2：ACLLib 的基本图形函数 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#ACLLib-入门" data-toc-modified-id="ACLLib-入门-21"><span
+class="toc-item-num">2.1  </span>ACLLib 入门 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#WindowsAPI" data-toc-modified-id="WindowsAPI-22"><span
+class="toc-item-num">2.2  </span>WindowsAPI</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#创建-ACLLIB-程序" data-toc-modified-id="创建-ACLLIB-程序-23"><span
+class="toc-item-num">2.3  </span>创建 ACLLIB 程序 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#基本绘图函数" data-toc-modified-id="基本绘图函数-24"><span
+class="toc-item-num">2.4  </span>基本绘图函数 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#Win-下命令行编译程序" data-toc-modified-id="Win-下命令行编译程序-25"><span
+class="toc-item-num">2.5  </span>Win 下命令行编译程序 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week3：结构类型" data-toc-modified-id="Week3：结构类型-3"><span
+class="toc-item-num">3  </span>Week3：结构类型 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#枚举" data-toc-modified-id="枚举-31"><span
+class="toc-item-num">3.1  </span>枚举 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#结构" data-toc-modified-id="结构-32"><span
+class="toc-item-num">3.2  </span>结构 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#联合" data-toc-modified-id="联合-33"><span
+class="toc-item-num">3.3  </span>联合 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week4：链表" data-toc-modified-id="Week4：链表-4"><span
+class="toc-item-num">4  </span>Week4：链表 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#可变数组" data-toc-modified-id="可变数组-41"><span
+class="toc-item-num">4.1  </span>可变数组 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#链表" data-toc-modified-id="链表-42"><span
+class="toc-item-num">4.2  </span>链表 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week5：程序结构" data-toc-modified-id="Week5：程序结构-5"><span
+class="toc-item-num">5  </span>Week5：程序结构 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#全局变量" data-toc-modified-id="全局变量-51"><span
+class="toc-item-num">5.1  </span>全局变量 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#编译预处理和宏" data-toc-modified-id="编译预处理和宏-52"><span
+class="toc-item-num">5.2  </span>编译预处理和宏 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#宏定义" data-toc-modified-id="宏定义-521"><span
+class="toc-item-num">5.2.1  </span>宏定义 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#带参数的宏" data-toc-modified-id="带参数的宏-522"><span
+class="toc-item-num">5.2.2  </span>带参数的宏 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#练习题" data-toc-modified-id="练习题-523"><span
+class="toc-item-num">5.2.3  </span>练习题 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#大程序结构" data-toc-modified-id="大程序结构-53"><span
+class="toc-item-num">5.3  </span>大程序结构 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#大程序" data-toc-modified-id="大程序-531"><span
+class="toc-item-num">5.3.1  </span>大程序 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#头文件" data-toc-modified-id="头文件-532"><span
+class="toc-item-num">5.3.2  </span>头文件 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#声明" data-toc-modified-id="声明-533"><span
+class="toc-item-num">5.3.3  </span>声明 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week6：交互图形设计" data-toc-modified-id="Week6：交互图形设计-6"><span
+class="toc-item-num">6  </span>Week6：交互图形设计 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#图形的终端输入输出" data-toc-modified-id="图形的终端输入输出-61"><span
+class="toc-item-num">6.1  </span>图形的终端输入输出 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#函数指针及其应用" data-toc-modified-id="函数指针及其应用-62"><span
+class="toc-item-num">6.2  </span>函数指针及其应用 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#函数指针" data-toc-modified-id="函数指针-621"><span
+class="toc-item-num">6.2.1  </span>函数指针 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#函数指针的使用" data-toc-modified-id="函数指针的使用-622"><span
+class="toc-item-num">6.2.2  </span>函数指针的使用 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#交互图形程序设计" data-toc-modified-id="交互图形程序设计-63"><span
+class="toc-item-num">6.3  </span>交互图形程序设计 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#回调函数" data-toc-modified-id="回调函数-631"><span
+class="toc-item-num">6.3.1  </span>回调函数 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#图形交互消息" data-toc-modified-id="图形交互消息-632"><span
+class="toc-item-num">6.3.2  </span>图形交互消息 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#游戏设计思路" data-toc-modified-id="游戏设计思路-64"><span
+class="toc-item-num">6.4  </span>游戏设计思路 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#Week7：文件" data-toc-modified-id="Week7：文件-7"><span
+class="toc-item-num">7  </span>Week7：文件 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#格式化输入输出" data-toc-modified-id="格式化输入输出-71"><span
+class="toc-item-num">7.1  </span>格式化输入输出 </a>
+</div>
+<div class="lev3 toc-item">
+<a href="#printf" data-toc-modified-id="printf-711"><span
+class="toc-item-num">7.1.1  </span>printf</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#scanf" data-toc-modified-id="scanf-712"><span
+class="toc-item-num">7.1.2  </span>scanf</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#printf-和-scanf-的返回值" data-toc-modified-id="printf-和-scanf-的返回值-713"><span
+class="toc-item-num">7.1.3  </span>printf 和 scanf 的返回值 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#文件输入输出" data-toc-modified-id="文件输入输出-72"><span
+class="toc-item-num">7.2  </span>文件输入输出 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#二进制文件" data-toc-modified-id="二进制文件-73"><span
+class="toc-item-num">7.3  </span>二进制文件 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#按位运算" data-toc-modified-id="按位运算-74"><span
+class="toc-item-num">7.4  </span>按位运算 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#移位运算" data-toc-modified-id="移位运算-75"><span
+class="toc-item-num">7.5  </span>移位运算 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#位运算例子" data-toc-modified-id="位运算例子-76"><span
+class="toc-item-num">7.6  </span>位运算例子 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#位段" data-toc-modified-id="位段-77"><span
+class="toc-item-num">7.7  </span>位段 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#期末考试" data-toc-modified-id="期末考试-8"><span
+class="toc-item-num">8  </span>期末考试 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#附录" data-toc-modified-id="附录-9"><span
+class="toc-item-num">9  </span>附录 </a>
+</div>
+<h1 id="week1指针与字符串">Week1：指针与字符串</h1>
+<h2 id="指针的使用">指针的使用</h2>
+<h3 id="指针的应用场景1">指针的应用场景1</h3>
+<ul>
+<li><p>交换两个变量的值</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span> *pa, <span class="type">int</span> *pb)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> t = *pa;</span><br><span class="line">    *pa = *pb;</span><br><span class="line">    *pb = t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>函数返回多个值，某些值就只能通过指针返回</p>
+<ul>
+<li>传入的参数实际上是需要保存带回的结果的变量</li>
+</ul></li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/">
+    <time datetime="2018-07-31T15:54:00.000Z" class="entry-date">
+        2018-07-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-NLP/2018-07-22-NLP-and-AI" class="post-NLP/2018-07-22-NLP-and-AI post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/07/22/NLP/2018-07-22-NLP-and-AI/">NLP 与 AI</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" data-id="clx98np0p004dtsbzb4r4cqaq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>NLP 很难，但如果用一句话概括这种难度，应该是
+“语义理解”，也就是让机器理解自然语言。“理解”
+的意思是它明白那句话是什么意思，这个意思包括字面表现出来的意思和字面背后说话人实际想要表达的意思。比较上层的应用自不必说，即便是最底层的分词、词性标注、句法分析等任务也是同样涵盖在内。“分词”
+是汉语以及其他一些没有对词语进行分割的语言才需要做的，而汉语相比其他语言除了分词上的问题外，还有大量汉语本身的特殊问题。仅拿文字处理举例，汉语中看似完全相反的话可能表达的是一个意思，比如
+2018（CCF-GAIR）<a
+href="https://mp.weixin.qq.com/s/jgEOZ-Z6ez4q98KgUJCADw">NLP
+专场</a>云孚科技张文斌分享的几个例子：了得 VS 了不得，我可想死你了 VS
+你可想死我了；汉语的抽象程度相对更高，往往几个字就表达了很多东西，这点可以通过书籍的薄厚程度就能感知一二；汉语最小单元汉字数量非常多，相比英语熵要大很多。再说分词，之前看过一篇文章讲到分词，提到两个观点：第一，分词的主要目的是消除歧义；第二，汉语的不分词是导致其在世界范围内流传不广、难学的主要因素之一。我对这两个观点都比较认同，不分词从认知的角度来说的确需要更多的注意力，其实我们阅读过程中大脑后台已经做了分词，所以文字的不分词有点感觉是浪费人的精力。当然其他如词性标注、实体识别、句法、语义角色等任务也有类似的问题。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/07/22/NLP/2018-07-22-NLP-and-AI/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/07/22/NLP/2018-07-22-NLP-and-AI/">
+    <time datetime="2018-07-22T09:22:49.000Z" class="entry-date">
+        2018-07-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-NLP/2018-07-12-NLP-Business-and-System" class="post-NLP/2018-07-12-NLP-Business-and-System post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/">2018CCF-GAIR：自然语言如何商业落地摘录及思考</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/" data-id="clx98np0o004atsbzvdfi9uqn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>2018 全球人工智能与机器人峰会（CCF-GAIR）NLP 专场，云孚科技创始人兼
+CEO 张文斌；竹间智能 CTO 翁嘉颀；神州泰岳大数据 VP 张瑞飞；薄言 RSVP.ai
+联合创始人 CTO 熊琨 带来的分享笔记摘录，文字稿来自：<a
+href="https://mp.weixin.qq.com/s/jgEOZ-Z6ez4q98KgUJCADw">AI
+科技评论：自然语言处理可以这样商业落地</a>。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/07/12/NLP/2018-07-12-NLP-Business-and-System/">
+    <time datetime="2018-07-12T09:22:49.000Z" class="entry-date">
+        2018-07-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/System/" rel="tag">System</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-C/2018-06-20-C-Weng-ZhejiangUniversity" class="post-C/2018-06-20-C-Weng-ZhejiangUniversity post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/">浙大翁恺老师《程序设计入门——C语言》笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/" data-id="clx98np0i001stsbznh0gxuns" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：本文档为<a
+href="https://www.icourse163.org/learn/ZJU-199001?tid=1002774001#/learn/announce">浙大翁恺老师《程序设计入门——C语言》课程</a>内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，内容不一定适合其他人。</p>
+<p>翁老师讲课真的很通俗易懂，这个课程作为入门课难度适中，推荐需要学习 C
+语言的同学从这门课开始。</p>
+</blockquote>
+<h1 id="目录">目录</h1>
+<ol type="1">
+<li>程序设计与 C 语言 1.1 计算机和编程语言 1.2 C 语言 1.3
+第一个程序</li>
+<li>计算 2.1 变量 2.2 数据类型 2.3 表达式</li>
+<li>判断与循环 3.1 判断 3.2 循环</li>
+<li>进一步的判断与循环 4.1 逻辑类型和运算 4.2 级联和嵌套的判断 4.3
+多路分支 4.4 循环的例子 4.5 判断和循环常见的错误</li>
+<li>循环控制 5.1 循环控制 5.2 多重循环 5.3 循环应用</li>
+<li>数组与函数 6.1 数组 6.2 函数的定义与使用 6.3 函数的参数和变量 6.4
+二维数组</li>
+<li>数组运算 7.1 数组运算 7.2 搜索 7.3 排序初步</li>
+<li>指针与字符串 8.1 指针 8.2 字符类型 8.3 字符串 8.4 字符串计算</li>
+</ol>
+<p>期中测验 期末考试 附录</p>
+<h1 id="程序设计与-c-语言">1. 程序设计与 C 语言</h1>
+<h2 id="计算机和编程语言">1.1 计算机和编程语言</h2>
+<ul>
+<li>人：What to do；计算：How to do</li>
+<li>计算机做的所有事情都是计算，计算的步骤就是算法。</li>
+<li>程序的执行
+<ul>
+<li>解释</li>
+<li>编译</li>
+</ul></li>
+</ul>
+<h2 id="c-语言">1.2 C 语言</h2>
+<ul>
+<li><p>历史</p>
+<ul>
+<li>FORTRAN - BCPL - B - C</li>
+<li>1973 年 3 月：第三版 Unix 上出现了 C 语言编译器</li>
+<li>1973 年 11 月：第四版 Unix 完全用 C 语言重写</li>
+</ul></li>
+<li><p>版本</p>
+<ul>
+<li><p>经典 C</p></li>
+<li><p>1989 ANSI C</p></li>
+<li><p>1990 ISO 接受了 ANSI 的标准——C89</p></li>
+<li><p>1995 1999 两次更新：C95 C99</p></li>
+</ul></li>
+<li><p>应用</p>
+<ul>
+<li>操作系统</li>
+<li>嵌入式系统</li>
+<li>驱动程序</li>
+<li>底层驱动：图形引擎、图像处理、声音效果等</li>
+</ul></li>
+</ul>
+<h2 id="第一个程序">1.3 第一个程序</h2>
+        
+          <p class="article-more-link">
+            <a href="/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/">
+    <time datetime="2018-06-20T00:32:00.000Z" class="entry-date">
+        2018-06-20
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Math/2018-05-13-Essence-of-Linear-Algebra" class="post-Math/2018-05-13-Essence-of-Linear-Algebra post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/">线性代数的本质笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/" data-id="clx98np0l0032tsbztexg0tq6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：来自：<a
+href="https://space.bilibili.com/88461692/#/channel/detail?cid=9450">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅和再学习的。多图。
+感谢作者的付出，真心很赞。</p>
+<p>吐槽一下：B
+站真的不是看学术视频的好地方，乱七八糟的弹幕每次要屏蔽，连续暂停会卡顿，快进快退会卡顿。</p>
+<p>后面六个视频要多看几遍。</p>
+</blockquote>
+<h1 id="目录">目录</h1>
+<p>
+<div class="lev1 toc-item">
+<a href="#序言" data-toc-modified-id="序言-1"><span
+class="toc-item-num">1  </span>序言 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#向量究竟是什么？" data-toc-modified-id="向量究竟是什么？-2"><span
+class="toc-item-num">2  </span>向量究竟是什么？</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#线性组合、张成的空间与基" data-toc-modified-id="线性组合、张成的空间与基-3"><span
+class="toc-item-num">3  </span>线性组合、张成的空间与基 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#矩阵与线性变换" data-toc-modified-id="矩阵与线性变换-4"><span
+class="toc-item-num">4  </span>矩阵与线性变换 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#矩阵乘法与线性变换复合" data-toc-modified-id="矩阵乘法与线性变换复合-5"><span
+class="toc-item-num">5  </span>矩阵乘法与线性变换复合 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#三维空间中的线性变换" data-toc-modified-id="三维空间中的线性变换-51"><span
+class="toc-item-num">5.1  </span>三维空间中的线性变换 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#行列式" data-toc-modified-id="行列式-6"><span
+class="toc-item-num">6  </span>行列式 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#逆矩阵、列空间与零空间" data-toc-modified-id="逆矩阵、列空间与零空间-7"><span
+class="toc-item-num">7  </span>逆矩阵、列空间与零空间 </a>
+</div>
+<div class="lev2 toc-item">
+<a href="#非方阵" data-toc-modified-id="非方阵-71"><span
+class="toc-item-num">7.1  </span>非方阵 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#点积与对偶性" data-toc-modified-id="点积与对偶性-8"><span
+class="toc-item-num">8  </span>点积与对偶性 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#叉积的标准介绍" data-toc-modified-id="叉积的标准介绍-9"><span
+class="toc-item-num">9  </span>叉积的标准介绍 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#以线性变换的思想看叉积" data-toc-modified-id="以线性变换的思想看叉积-10"><span
+class="toc-item-num">10  </span>以线性变换的思想看叉积 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#基变换" data-toc-modified-id="基变换-11"><span
+class="toc-item-num">11  </span>基变换 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#特征向量与特征值" data-toc-modified-id="特征向量与特征值-12"><span
+class="toc-item-num">12  </span>特征向量与特征值 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#抽象向量空间" data-toc-modified-id="抽象向量空间-13"><span
+class="toc-item-num">13  </span>抽象向量空间 </a>
+</div>
+<h1 id="序言">序言</h1>
+<p>几何水平上的理解能让你判断出解决特定问题需要用什么样的工具，感受到他们为什么有用，以及如何解读最终结果。数值水平上的理解则能让你顺利应用这些工具。</p>
+<h1 id="向量究竟是什么">向量究竟是什么？</h1>
+<p>将向量看作运动（就像在数轴上一样）。</p>
+<p>看作空间中的箭头，看作数字列表。</p>
+<h1 id="线性组合张成的空间与基">线性组合、张成的空间与基</h1>
+<p>将向量看作单位向量的缩放（缩放向量并相加）：选择标量，对向量分别进行缩放，然后把结果相加。</p>
+<p><img
+src="http://qnimg.lovevivian.cn/video-xiandaibenzhi1.jpeg" /></p>
+<p>如果选择不同的基向量会怎样？</p>
+<p>它同样允许我们在<strong>一对数和二维向量之间自由转化</strong>。但这种变换关系与之前用
+i 帽和 j 帽的变换关系完全不同。</p>
+<p>每当我们用数字描述向量时，它都依赖于我们正在使用的基。 <img
+src="http://qnimg.lovevivian.cn/video-xiandaibenzhi2.jpeg" /></p>
+<p>但当共线时，它们张成的空间就是终点落在一条直线上的向量的集合。</p>
+<p>两个向量张成的空间实际上是问仅通过向量加法与向量数乘这两种基础运算，能获得的所有可能向量的集合是什么？</p>
+<p>Trick：单个向量看作箭头；多个向量看作点（否则会太拥挤）。所以对大部分二维向量对来说，它们张成的空间是整个无限大的二维平面；但如果共线，它们张成的空间就是一条直线。</p>
+<p>三维与二维类似：当你缩放第三个向量时，它将前两个向量张成的平面沿它的方向来回异动，从而扫过整个空间。另一种思考方式是：利用自由变化的三个标量，从而得到空间中所有的三维向量。</p>
+<p>一组向量中如果有至少一个是多余的（没有对张成空间做出任何贡献，如二维的共线、三维的共面等），也就是移除那个向量而不减小张成的空间，此时它们是
+“线性相关”
+的。另一种表述是，其中一个向量可以表示为其他向量的线性组合，因为这个向量已经落在其他向量张成的空间之中。</p>
+<p>另一方面，如果所有向量都给张成的空间增加了新的维度，它们就被称为
+“线性无关” 的。</p>
+<p>空间的一组基的严格定义：张成该空间的一个线性无关向量的集合。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/">
+    <time datetime="2018-05-13T01:23:27.000Z" class="entry-date">
+        2018-05-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linear-Algebra/" rel="tag">Linear Algebra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Math/2018-05-12-Essence-of-Calculus" class="post-Math/2018-05-12-Essence-of-Calculus post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/">微积分的本质笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/" data-id="clx98np0k002otsbz7isf9rw4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <blockquote>
+<p>说明：来自：<a
+href="https://space.bilibili.com/88461692/#/channel/detail?cid=13407">3Blue1Brown</a>，关键点的记录，用来当笔记随时查阅的。多图（69张）。
+感谢作者的付出，真心很赞。</p>
+</blockquote>
+<h1 id="目录">目录</h1>
+<p>
+<div class="lev1 toc-item">
+<a href="#导论" data-toc-modified-id="导论-1"><span
+class="toc-item-num">1  </span>导论 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#导数的悖论" data-toc-modified-id="导数的悖论-2"><span
+class="toc-item-num">2  </span>导数的悖论 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#用几何来求导" data-toc-modified-id="用几何来求导-3"><span
+class="toc-item-num">3  </span>用几何来求导 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#链式法则和乘积法则" data-toc-modified-id="链式法则和乘积法则-4"><span
+class="toc-item-num">4  </span>链式法则和乘积法则 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#指数函数求导" data-toc-modified-id="指数函数求导-5"><span
+class="toc-item-num">5  </span>指数函数求导 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#隐函数求导" data-toc-modified-id="隐函数求导-6"><span
+class="toc-item-num">6  </span>隐函数求导 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#极限" data-toc-modified-id="极限-7"><span
+class="toc-item-num">7  </span>极限 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#积分与微积分基本定理" data-toc-modified-id="积分与微积分基本定理-8"><span
+class="toc-item-num">8  </span>积分与微积分基本定理 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#面积和斜率有什么联系？" data-toc-modified-id="面积和斜率有什么联系？-9"><span
+class="toc-item-num">9  </span>面积和斜率有什么联系？</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#脚注：高阶导数" data-toc-modified-id="脚注：高阶导数-91"><span
+class="toc-item-num">9.1  </span>脚注：高阶导数 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#泰勒级数" data-toc-modified-id="泰勒级数-10"><span
+class="toc-item-num">10  </span>泰勒级数 </a>
+</div>
+<h1 id="导论">导论</h1>
+<p>微积分的三个中心思想：积分、微分、两者互逆。</p>
+<p><img
+src="http://qnimg.lovevivian.cn/video-weijifenbenzhi1.jpeg" /></p>
+<p><img
+src="http://qnimg.lovevivian.cn/video-weijifenbenzhi2.jpeg" /></p>
+<p>（难怪正态分布这么多见……）</p>
+<p><img
+src="http://qnimg.lovevivian.cn/video-weijifenbenzhi3.jpeg" /></p>
+<p>f(x) 可以是任意函数</p>
+<p>微积分基本定理：积分与导数之间的来回转化关系，也就是某个图像下方面积函数的导数能够还原出定义这个图像的函数。它将积分和导数两大概念联系起来。</p>
+        
+          <p class="article-more-link">
+            <a href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/12/Math/2018-05-12-Essence-of-Calculus/">
+    <time datetime="2018-05-12T04:23:27.000Z" class="entry-date">
+        2018-05-12
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Calculus/" rel="tag">Calculus</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Math/" rel="tag">Math</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-AI/2018-05-07-RL-Series" class="post-AI/2018-05-07-RL-Series post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/05/07/AI/2018-05-07-RL-Series/">“心有麟熙”《强化学习炼金术》系列笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/05/07/AI/2018-05-07-RL-Series/" data-id="clx98np090003tsbzx8e9jr9o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <blockquote>
+<p>说明：本系列主要为李飞飞教授博士范麟熙个人公众号（DrJimFan）：
+“心有麟熙”
+《强化学习炼金术》系列笔记。范博士的讲解简单易懂，由浅入深，每一期都有视频和文字内容，非常贴心，大家可以关注公众号学习。另外，本系列还在持续更新中……</p>
+</blockquote>
+<ul>
+<li><a
+href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap1-Bandit.ipynb">Chap1-Bandit</a></li>
+<li><a
+href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap1-Exercise.ipynb">Chap1-Exercise</a></li>
+<li><a
+href="https://nbviewer.jupyter.org/github/hscspring/All4AI/blob/master/RL-Tutorial/Chap2-MDP.ipynb">Chap2-MDP</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/05/07/AI/2018-05-07-RL-Series/">
+    <time datetime="2018-05-07T09:07:19.000Z" class="entry-date">
+        2018-05-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reinforcement-Learning/" rel="tag">Reinforcement Learning</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-ML/2018-04-22-ML-Concept" class="post-ML/2018-04-22-ML-Concept post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/22/ML/2018-04-22-ML-Concept/">机器学习概念</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/" data-id="clx98np0l0039tsbzge94y2ew" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>有幸与 <a href="https://github.com/ahangchen">ahangchen
+(梦里茶)</a>和 <a href="https://github.com/luopengting">luopengting
+(lpt)</a> 一起参与了《机器学习》（周志华）概念整理<a
+href="https://github.com/ahangchen/windy-afternoon/blob/master/ml/melon/README.md">项目</a>，今天正式完稿。我负责整理了以下章节：</p>
+<ul>
+<li>第 11 章：<a
+href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch11.md">特征选择与稀疏学习</a></li>
+<li>第 14 章：<a
+href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch14.md">概率图模型</a></li>
+<li>第 15 章：<a
+href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch15.md">规则学习</a></li>
+<li>第 16 章：<a
+href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch16.md">强化学习</a></li>
+<li>附录：<a
+href="https://github.com/hscspring/All4AI/blob/master/ML-Concepts/ch17.md">相关数学知识</a></li>
+</ul>
+<p>最终的电子书：<a
+href="https://ahangchen.gitbooks.io/windy-afternoon/content/ml/melon/">西瓜书概念整理</a>。欢迎大家阅读。如任何疑问或建议，随时欢迎提出。</p>
+<blockquote>
+<p>注意：</p>
+<ol type="1">
+<li>由于作了一些简化，可能会与上面链接中的内容不太一致。</li>
+<li>GitHub 中公式无法渲染，下载到本地即可，推荐用 <a
+href="https://typora.io/">Typora — a markdown editor, markdown
+reader.</a>。</li>
+</ol>
+</blockquote>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/22/ML/2018-04-22-ML-Concept/">
+    <time datetime="2018-04-22T08:41:19.000Z" class="entry-date">
+        2018-04-22
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ZhouZhihua/" rel="tag">ZhouZhihua</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-AI/2018-04-07-AI-Philosophy-Note" class="post-AI/2018-04-07-AI-Philosophy-Note post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/">人工智能哲学笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/" data-id="clx98np0d000ctsbzsbb9svsy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h1 id="目录">目录</h1>
+<p>
+<div class="lev1 toc-item">
+<a href="#背景" data-toc-modified-id="背景-1"><span
+class="toc-item-num">1  </span>背景 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#为何人工智能科学需要哲学的参与" data-toc-modified-id="为何人工智能科学需要哲学的参与-2"><span
+class="toc-item-num">2  </span>为何人工智能科学需要哲学的参与 </a>
+</div>
+<div class="lev1 toc-item">
+<a href="#近代欧洲哲学与人工智能" data-toc-modified-id="近代欧洲哲学与人工智能-3"><span
+class="toc-item-num">3  </span>近代欧洲哲学与人工智能</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#希腊文明对-AI-的滋养" data-toc-modified-id="希腊文明对-AI-的滋养-31"><span
+class="toc-item-num">3.1  </span>希腊文明对 AI 的滋养</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#近代哲学" data-toc-modified-id="近代哲学-32"><span
+class="toc-item-num">3.2  </span>近代哲学</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#康德、类比推理和-“照猫画虎”" data-toc-modified-id="康德、类比推理和-“照猫画虎”-4"><span
+class="toc-item-num">4  </span>康德、类比推理和 “照猫画虎”</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#康德" data-toc-modified-id="康德-41"><span
+class="toc-item-num">4.1  </span>康德</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#类比推理" data-toc-modified-id="类比推理-42"><span
+class="toc-item-num">4.2  </span>类比推理</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#照猫画虎" data-toc-modified-id="照猫画虎-43"><span
+class="toc-item-num">4.3  </span>照猫画虎</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#汉字屋论证" data-toc-modified-id="汉字屋论证-5"><span
+class="toc-item-num">5  </span>汉字屋论证</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#塞尔" data-toc-modified-id="塞尔-51"><span
+class="toc-item-num">5.1  </span>塞尔</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#汉字屋实验" data-toc-modified-id="汉字屋实验-52"><span
+class="toc-item-num">5.2  </span>汉字屋实验</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#反驳" data-toc-modified-id="反驳-53"><span
+class="toc-item-num">5.3  </span>反驳</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#衍生性问题讨论" data-toc-modified-id="衍生性问题讨论-54"><span
+class="toc-item-num">5.4  </span>衍生性问题讨论</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#其他讨论" data-toc-modified-id="其他讨论-55"><span
+class="toc-item-num">5.5  </span>其他讨论</a>
+</div>
+<div class="lev1 toc-item">
+<a href="#维特根斯坦、“颜色不相容”、框架问题和拆弹机器人" data-toc-modified-id="维特根斯坦、“颜色不相容”、框架问题和拆弹机器人-6"><span
+class="toc-item-num">6  </span>维特根斯坦、“颜色不相容”、框架问题和拆弹机器人</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#早期《逻辑哲学论》" data-toc-modified-id="早期《逻辑哲学论》-61"><span
+class="toc-item-num">6.1  </span>早期《逻辑哲学论》</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#晚期《哲学研究》" data-toc-modified-id="晚期《哲学研究》-62"><span
+class="toc-item-num">6.2  </span>晚期《哲学研究》</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#维特根斯坦和框架问题" data-toc-modified-id="维特根斯坦和框架问题-63"><span
+class="toc-item-num">6.3  </span>维特根斯坦和框架问题</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#心灵模块论" data-toc-modified-id="心灵模块论-631"><span
+class="toc-item-num">6.3.1  </span>心灵模块论</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#拆弹机器人" data-toc-modified-id="拆弹机器人-632"><span
+class="toc-item-num">6.3.2  </span>拆弹机器人</a>
+</div>
+<div class="lev3 toc-item">
+<a href="#颜色不相容" data-toc-modified-id="颜色不相容-633"><span
+class="toc-item-num">6.3.3  </span>颜色不相容</a>
+</div>
+<div class="lev2 toc-item">
+<a href="#结论" data-toc-modified-id="结论-64"><span
+class="toc-item-num">6.4  </span>结论</a>
+</div>
+<h1 id="背景">背景</h1>
+<ul>
+<li>来源：<a
+href="http://open.163.com/special/cuvocw/rengongzhinengzhexue.html">复旦大学公开课：人工智能哲学_全
+7 集_网易公开课</a></li>
+<li>讲师：徐英瑾教授</li>
+<li>课程介绍：本课程从人工智能科学发展的科学史概要出发，讨论了哲学思辨和人工智能研究之间的密切关系，并从人工智能的角度，重新审视了近代欧洲哲学对于
+“机器是否能够思维”
+这个问题的思辨结论。尔后，讨论了如何从当代计算机科学的角度来解读康德哲学，并从中得到一个关于类比推理的计算模型。本课程也讨论了当代美国哲学家塞尔对于
+“计算模型如何获得关于符号的语义知识”
+的忧虑，并进一步探讨了这一忧虑在计算机科学内部的表达形式：框架问题。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/">
+    <time datetime="2018-04-07T12:00:00.000Z" class="entry-date">
+        2018-04-07
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Philosophy/" rel="tag">Philosophy</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/19/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="page-number" href="/page/19/">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/">21</a><a class="page-number" href="/page/22/">22</a><a class="extend next" rel="next" href="/page/21/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">116</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">30</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/">自然语言计算机形式分析的理论与方法笔记(Ch17)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/">自然语言计算机形式分析的理论与方法笔记(Ch16)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">Tiny LLM Continual Pre-training：RHO-1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/">LLM打街霸</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/">LLM中的演绎推理、归纳推理和溯因推理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.17px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.83px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.5px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.83px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.83px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.67px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.5px;">Business</a> <a href="/tags/C/" style="font-size: 10.83px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.83px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.83px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Cognition/" style="font-size: 10.83px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.5px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.83px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.83px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.83px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.83px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.17px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.83px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.83px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 13.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.83px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.83px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.67px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.83px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.83px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.83px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.67px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.67px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.83px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.83px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.83px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 10.83px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.83px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.83px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.83px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.83px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.5px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.5px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.83px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 10.83px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.83px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 11.67px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.17px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.67px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.83px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.17px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.67px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.83px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.67px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.83px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.83px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.83px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.83px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.83px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.83px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.5px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.83px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.83px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.33px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.83px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.33px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.83px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.83px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.33px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.83px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.83px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.83px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.83px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.83px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.83px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.67px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.83px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.83px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.83px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.67px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.83px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.83px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.83px;">System</a> <a href="/tags/T5/" style="font-size: 10.83px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.67px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.83px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.83px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.5px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10.83px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.83px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.67px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.67px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.83px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

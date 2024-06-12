@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习" />
+  
+
+  
+  
+  
+  
+  
+  <title>数据结构与算法：线性结构 | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上一章提到了数据结构的重要性，这章开始我们就逐步深入理解一下数据结构相关的内容。最常用也是最常见的数据结构都是线性结构，线性结构简单来说就是一条序列，中间有若干元素，“线性” 也是和后面要说的树、图相比而言的。 需要注意的是，数据在计算机中有两种物理存储方式，分别是链式存储和顺序存储，顺序存储是利用计算机中连续一块内存进行存储，链式存储利用指针指向不同的地址进行存储；而上面列出的这些数据结构都是逻">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法：线性结构">
+<meta property="og:url" content="https://www.yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="上一章提到了数据结构的重要性，这章开始我们就逐步深入理解一下数据结构相关的内容。最常用也是最常见的数据结构都是线性结构，线性结构简单来说就是一条序列，中间有若干元素，“线性” 也是和后面要说的树、图相比而言的。 需要注意的是，数据在计算机中有两种物理存储方式，分别是链式存储和顺序存储，顺序存储是利用计算机中连续一块内存进行存储，链式存储利用指针指向不同的地址进行存储；而上面列出的这些数据结构都是逻">
+<meta property="og:locale">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ds-ch3-1.jpeg">
+<meta property="og:image" content="http://qnimg.lovevivian.cn/ds-ch3-2.jpeg">
+<meta property="article:published_time" content="2019-07-13T15:30:00.000Z">
+<meta property="article:modified_time" content="2024-06-10T16:23:44.159Z">
+<meta property="article:author" content="Yam">
+<meta property="article:tag" content="String">
+<meta property="article:tag" content="Data Structure">
+<meta property="article:tag" content="Computer Science">
+<meta property="article:tag" content="Linear Sturcture">
+<meta property="article:tag" content="Linked List">
+<meta property="article:tag" content="Array">
+<meta property="article:tag" content="Stack">
+<meta property="article:tag" content="Queue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://qnimg.lovevivian.cn/ds-ch3-1.jpeg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  
+  <!-- baidu webmaster push -->
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"><link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</head>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
+        <h2 class="site-description"><script>hitokoto();</script></h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure" class="post-DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      数据结构与算法：线性结构
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" data-id="clx98np3h0139tsbz4x4umy3v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>上一章提到了数据结构的重要性，这章开始我们就逐步深入理解一下数据结构相关的内容。最常用也是最常见的数据结构都是线性结构，线性结构简单来说就是一条序列，中间有若干元素，“线性”
+也是和后面要说的树、图相比而言的。</p>
+<p>需要注意的是，数据在计算机中有两种物理存储方式，分别是链式存储和顺序存储，顺序存储是利用计算机中连续一块内存进行存储，链式存储利用指针指向不同的地址进行存储；而上面列出的这些数据结构都是逻辑结构，存储方式不同数据结构的实现方法和复杂度也不同，但效果是可以完全相同的。</p>
+<blockquote>
+<p>存储方式和结构之间没有关系，任何一种结构都可以使用顺序或链式存储实现，要看具体的场景和目的。</p>
+</blockquote>
+<span id="more"></span>
+<p>另外，在对数据结构的分析中，我们将重点关注两个方面：</p>
+<ul>
+<li>该结构的特点是什么</li>
+<li>该结构基本操作的详细实现思路
+<ul>
+<li>这里指的是类似伪代码的做法，侧重分析算法过程，具体实现可以直接看附的代码</li>
+<li>基本操作是指抽象数据类型的操作集</li>
+</ul></li>
+</ul>
+<blockquote>
+<p>什么是抽象数据类型？简称
+ADT，在计算机科学中，抽象数据类型（ADT）是数据类型的数学模型，其中数据类型由其行为（语义）从数据用户的角度定义，特别是在可能的取值、
+对此类数据的可能操作以及这些操作的行为等方面。详见：<a
+href="https://en.wikipedia.org/wiki/Abstract_data_type">Abstract data
+type - Wikipedia</a></p>
+</blockquote>
+<p>当然，也会对实际代码（C 语言为例）中的一些需要注意的点进行分析。</p>
+<p>强烈建议结合给出的 code 看。</p>
+<h2 id="线性表">线性表</h2>
+<p>线性表是由同一类型的数据元素构成的有序序列线性结构。主要特点是：数据类型相同。基本操作包括：</p>
+<ul>
+<li>初始化一个空表 L</li>
+<li>根据位序 k 返回相应元素</li>
+<li>查找元素 X 出现的第一次的位置</li>
+<li>在位序 i 前插入一个新元素 X</li>
+<li>删除指定位序 i 的元素</li>
+<li>返回线性表 L 的长度</li>
+</ul>
+<p>实际中，利用链式存储和顺序存储的线性表分别叫做链表和顺序表。链表是一种最基础的数据结构，由一组元素以一种特定的顺序组合或链接在一起。包括：单链表、循环链表、双向链表。顺序表是指在内存中用地址连续的一块存储空间顺序存放数据元素的表。这两种是最基础的数据结构，可以用来实现各种数据结构，尤其是链表的应用极为广泛，而且链式存储在插入和删除后不需要移动数据元素（只需要修改链）。选择不同的存储方式过程会不太相同，我们这里主要考虑基于链表的实现，分析侧重基本操作的详细实现思路。</p>
+<blockquote>
+<p>关于结点的结构体定义：</p>
+<ul>
+<li>对顺序表来说，定义一个结构，包括整个线性表的数据和最后一个元素的位置；</li>
+<li>对链表来说，定义一个数据元素和指向下个元素的指针即可。</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一般 typedef 和 最后一个单词中间的就是原来的数据结构</span></span><br><span class="line"><span class="comment">// ###  顺序表  ###</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> &#123;</span></span><br><span class="line">    datatype data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> last;</span><br><span class="line">&#125; SeqList;</span><br><span class="line"><span class="comment">// or 直接定义为指针</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> &#123;</span></span><br><span class="line">    datatype data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> last;</span><br><span class="line">&#125; *SeqList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ###  链表  ###</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> *<span class="title">PtrToLnode</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> &#123;</span></span><br><span class="line">    datatype data;</span><br><span class="line">    PtrToLnode Next;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// or </span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    datatype data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Next</span>;</span></span><br><span class="line">&#125; Lnode, *LinkList;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ###  特别注意！！！  ###</span></span><br><span class="line"><span class="comment">// 对于**结构指针**，结构变量的名字并不是结构变量的地址，必须用 &amp; 运算符，或者给分配一个地址</span></span><br><span class="line"><span class="comment">// 比如有 struct</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> &#123;</span></span><br><span class="line">    datatype data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> last;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> <span class="title">origin</span>, *<span class="title">pp</span>;</span></span><br><span class="line"><span class="comment">// or 上面两步可以合二为一</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Lnode</span> &#123;</span></span><br><span class="line">    datatype data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> last;</span><br><span class="line">&#125; origin, *pp;</span><br><span class="line"><span class="comment">// 需要这么操作。此时的 &amp;origin 是一个地址，但 pp（结构指针）并不是 struct 的地址。</span></span><br><span class="line">pp = &amp;origin; </span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">pp = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> Lnode)); <span class="comment">// (typedef)malloc(sizeof(struct name));</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 赋值</span></span><br><span class="line">(*pp).last; </span><br><span class="line"><span class="comment">// or </span></span><br><span class="line">pp-&gt;last;</span><br></pre></td></tr></table></figure>
+<p>结构这里稍微啰嗦了点，不过如果这个理解到位了，我觉得可能对理解代码的操作非常有帮助，而且无论哪种形式的写法一看基本就懂了，不至于变个形式一脸懵逼。相关代码在<a
+href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/struct.c">这里</a>。</p>
+<h3 id="单链表">单链表</h3>
+<ul>
+<li><p>创建：主要有三种方式，分别是：头部插入、尾部插入和带头结点的尾部插入。</p>
+<ul>
+<li>头部插入：
+<ul>
+<li>首先我们需要定义一个空的结点（链表的初始状态）和临时结点，均为之前定义好的结构体；然后读取数据并给临时结点分配空间；接下来将临时结点的
+data 指向读入的数，Next 指向链表（第一次为空，即指向
+NULL）；然后把临时结点赋给链表；重复上面两步，最后返回链表。</li>
+<li>这里面有个需要注意的地方：Next 第一轮指向链表时，链表为
+NULL，即临时结点指向 NULL，然后把临时结点赋给链表时，链表最后的指向也是
+NULL；之后轮中，临时结点每次都会首先指向上一轮创建的链表，这一步其实就是插入结点，是整个流程的核心步骤。</li>
+</ul></li>
+<li>尾部插入：
+<ul>
+<li>头部插入因为是往前面插，所以遍历时元素正好是逆序的，当然这也并没有什么问题，不过我们习惯上还是按照插入的顺序输出。于是就有了尾部插入。思路和前者类似，有一个变化是需要增加一个尾部指针。</li>
+<li>基本步骤如下：首先定义一个空结点（链表的初始状态）、一个空的尾部结点和一个临时结点，类型均为之前定义的结构体；然后读取数据并给临时结点分配空间；接下来将临时结点的
+data 指向读入的数，这里需要注意，第一轮时，链表为
+NULL，需要把临时结点赋给
+Head，临时结点赋给尾部结点；然后之后轮中，尾部结点的 Next
+指向临时结点完成插入，再把临时结点赋给尾部结点；最后如果尾部结点的 Next
+没指向 NULL，就将其指向 NULL。</li>
+<li>这种方式是通过利用一个尾部结点+临时结点的方式不断插入数据，特别要注意的是头结点，只需要第一轮处理一次即可，因为链表我们只需要知道头就可以了。还有个需要注意的是每一轮都需要把临时结点赋给尾结点，以便尾结点在下一轮插入前始终指向最后一个结点。</li>
+</ul></li>
+<li>带头结点尾部插入：
+<ul>
+<li>尾部插入中，第一个结点没有直接前驱结点（加入时链表为空），所以第一个结点的地址就是整个链表的指针，需要放在链表的头指针变量中。其他结点都有直接前驱结点，地址放入直接前驱结点的指针域。因为第一个结点的特殊性，为了方便操作，一般会在链表头部加入一个
+“头结点”，标识链表的头指针变量（Head）中存放该结点的地址，这样所有的结点处理方式就变得一致。<strong>头结点数据域无定义，指针域存放第一个数据结点的地址，空表时该指针域为空。</strong></li>
+<li>基本步骤如下：首先定义头结点（链表的初始状态）、滑动（尾部）结点和临时结点，类型均为之前定义的结构体；然后为头结点分配空间，并将头结点的
+Next 指向
+NULL（空表指针域为空）；接下来是比较重要的一步：让滑动（尾部）节点等于头结点（目的是在接下来读入数据时，由滑动结点不停后移实现插入）；然后读入数据并给临时结点分配空间，将临时结点的
+data 指向读入的数；再将滑动（尾部）结点（第一轮就是 Head 结点）的 Next
+指向临时结点完成插入；然后将临时结点赋给滑动（尾部）节点（以后轮就是刚插入的结点），这样尾部节点不断后移生成链表；最后将滑动（尾部）节点
+Next 指向 NULL。</li>
+</ul></li>
+<li>通过对比，我们发现这三种方法插入数据的思路差不多，最大的不同在头结点的处理。另外，尾部结点我觉得用滑块来称呼可能更容易理解，比如带头结点尾部插入算法中，刚开始滑动结点就在头结点上，然后加入进来新的结点后就把滑动结点的
+Next
+指向这个结点，然后再让滑动结点等于这个新结点。这样其实滑动结点把整个链条给走了一遍，理解起来非常简单。这里如果理解了的话，整个线性表就都不难了。</li>
+</ul></li>
+<li><p>插入和删除：这两个有点类似，可以放一块说。插入是在某一个结点前面插入，删除是删除某一个结点，先简单分析一下思路。</p>
+<ul>
+<li>插入时，我们有一个结点的数据和待插入的位置，首先找到这个位置的前驱结点，然后将前驱结点的
+Next 指向要插入的结点，同时将结点 data 指向数据；接下来将插入结点的 Next
+指向代插入位置；</li>
+<li>删除时，我们只有待删除的位置，首先也是要找到这个位置的前驱结点，然后将前驱结点的
+Next 指向待删除结点的 Next 即可。</li>
+<li>还需要注意的是边界的判断。另外不难发现，链表最重要的是理解它指针指向的变化，尤其是滑动结点（尾部结点）的指针。</li>
+</ul></li>
+<li><p>查找和求表长：查找包括按位置查找和按元素查找。遍历整个链表即可，稍微需要注意的是，每遍历一个元素，要让链表等于下个结点（即
+链表=链表-&gt;Next）。另外带头结点的长度会加 1。</p></li>
+</ul>
+<h3 id="循环链表和双向链表">循环链表和双向链表</h3>
+<p>带头结点的单链表最后一个结点的指针域是空指针，也就是没有指向任何地方，如果将该指针域指向链表头（就是那个无定义的数据域），就构成了单循环链表。操作基本与单链表相同，只是原来判断指针是否为
+NULL
+变为是否指向头指针。对于单循环链表，可以从表中任意结点开始遍历整个链表，而且由于链表常用的操作是在表尾、表头进行的，通过尾指针可以提高一些操作效率。比如连接两个单循环链表，如果用头指针则需要找到第一个链表的尾结点，时间复杂度为
+O(N)，但用尾指针时间复杂度为 O(1)。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// R1, R2 为尾指针</span></span><br><span class="line">p = R1-&gt;Next; <span class="comment">// 保存 R1 的头结点指针</span></span><br><span class="line">R1-&gt;Next = R2-&gt;Next-&gt;Next; <span class="comment">// 头尾相连</span></span><br><span class="line"><span class="built_in">free</span>(R2-&gt;Next);</span><br><span class="line">R2-&gt;Next = p; <span class="comment">// 重新组成循环链表 ==&gt; R2 的尾指针指向 R1 的头结点</span></span><br></pre></td></tr></table></figure>
+<p>单链表没有保存前驱结点，所以每次寻找前驱结点的复杂度都为
+O(N)，如果为每个结点添加一个前驱结点，就变成了双向链表，如果首尾相连，则为循环双向链表。双向链表满足：<code>p-Pre-&gt;Next = p = p-Next-&gt;Pre</code>，在一些插入和删除操作中非常方便。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 插入：p 为某结点，在 p 前插入 s</span></span><br><span class="line">s-&gt;data = x;</span><br><span class="line">s-&gt;Pre = p-&gt;Pre;</span><br><span class="line">p-&gt;Pre-&gt;Next = s;</span><br><span class="line">s-&gt;Next = p;</span><br><span class="line">p-&gt;Pre = s;</span><br><span class="line"><span class="comment">// pp s p  pn</span></span><br><span class="line"><span class="comment">// 所有的结点 Pre 和 Next 都要到位</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除：删除结点 p</span></span><br><span class="line">p-&gt;Pre-&gt;Next = p-&gt;Next;</span><br><span class="line">p-&gt;Next-&gt;Pre = p-&gt;Pre;</span><br><span class="line"><span class="built_in">free</span>(p);</span><br><span class="line"><span class="comment">// pp  p  pn</span></span><br></pre></td></tr></table></figure>
+<p>有关链表相关的基本操作和例子代码实现可以参考<a
+href="https://github.com/hscspring/Note_Coding/tree/master/Data_Structure_C/Ch3/list">这里</a>。</p>
+<h2 id="串">串</h2>
+<p>串是由零个或多个任意字符组成的字符序列。</p>
+<ul>
+<li>串中任意连续字符组成的子序列为该串的子串。</li>
+<li>子串第一个字符在主串中的序号为子串在主串中的位置。</li>
+<li>两个串长度相等且每一个对应字符都相等，则串相等。</li>
+</ul>
+<p>基本操作：</p>
+<ul>
+<li>求串长、串赋值、串插入、串删除</li>
+<li>串连接、求子串、串比较、串定位</li>
+</ul>
+<p>由于串的特殊性质，我们采用顺序存储的方式，顺序存储可以事先固定长度，也可以动态分配内存，实际中一般采用后者，这种方式也叫堆分配存储。存储结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> *<span class="title">String</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SNode</span> &#123;</span></span><br><span class="line">    <span class="type">char</span> *ch; <span class="comment">// 起始位置</span></span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>我们主要讨论串连接、求子串、串比较和串定位，其他操作和顺序表基本相同。</p>
+<ul>
+<li>串连接：给定两个串，依次把每个串的元素赋给新建的串即可。需要注意的是，如果是用非动态分配内存的方式，要先判断位置够不够放两个要连接的串。</li>
+<li>求子串：给定串、位置 i 和长度 len，返回从 i 开始，长度为 len
+的子串。需要注意两个地方：
+<ul>
+<li>条件判断：<code>i&lt;0, len&gt;S-&gt;len, i&gt;len, len&lt;0</code>
+这些是最基本的不满足条件，也可以 <code>len&gt;S-&gt;Len-i</code>
+保证一定能取到 len 长度的子串。</li>
+<li>初始化：结构初始化(不初始化会收到警告，建议初始化)。如果是动态扩充子串，则需要初始化结构中指向元素的指针(数组)，然后每增加一个元素扩充一次空间；如果是一次性指派大小，直接指派
+len 大小的空间即可。</li>
+</ul></li>
+<li>串比较：比较两个字符串，<strong>不相等时，给出的是第一个不相等位置元素的差值</strong>，比如
+<code>'abc' - 'abc ' = -32</code>，就是空格的
+ASCII。需要注意的是，两个数组不能用 a==b
+来比较，因为他们的地址不可能一样，所以结果永远为 False，可以使用
+<code>string.h</code> 中的 strcmp。</li>
+<li>串定位：在给定串中寻找所有的子串，并返回子串的开始位置。
+<ul>
+<li>需要注意的是，给定串中已经比较过的字符是否可以继续使用会影响结果，比如给定串
+<code>abbabbabbabbaacc</code> 和子串
+<code>abba</code>，如果给定串中已经比较过的字符不能继续使用，则结果为 0
+6，否则为 0 3 6 9。</li>
+<li>程序本身需要注意的一个地方是 index
+的修正，当比较的字符不相等时，需要把子串的 index 设置为 0
+(即重新开始匹配)，给定串的 index 设置为 <code>i-j+1</code> (i 和 j
+分别为给定串和子串的 index，即要保证 i 不断在向前移动)。</li>
+<li>另外，C
+语言不能返回数组，一般是返回指针，这个指针指向数组的第一个元素的位置。</li>
+</ul></li>
+</ul>
+<p>相关代码实现在<a
+href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/string/string.c">这里</a>。另外，<code>string.h</code>
+里面有很多字符串的操作已经实现。关于字符串的一些笔记也可参考：<a
+href="https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/">浙大翁恺老师《程序设计入门
+——C 语言》笔记 | Yam</a></p>
+<h2 id="数组">数组</h2>
+<p>数组的元素可以是某种具有相同结构的数据，可看作线性表的扩充。一维数组可以看成一个线性表，二维数组可以看成数据元素是一维数组的一维数组。由于数组具有固定的格式和元素数量，因此在数组上一般不做插入、删除元素的操作，对数组的操作通常包括：取值、赋值操作。容易看出，数组采用顺序存储较为合适。一维数组比较简单，我们主要讨论二维数组。</p>
+<p>二维数组一般有两种存储方式：以行序为主或以列序为主。以行序为例，Loc(Aij)
+= Loc(A00) + (i × n + j) × L，其中 n 为每行元素个数，L
+为每个元素占据的地址单元。</p>
+<p>如果二维数组中的元素均为数字，这时候该二维数组又叫矩阵，在机器学习中经常会遇到稀疏矩阵，即大多数的元素都是零，此时如果依然按照顺序存储将会浪费大量空间，所以对于稀疏矩阵一般只存储非零元素，即将每一个非零元素存储为
+(i, j, v) 的三元组，i 和 j 表示位置，v 表示非零元素。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAX 1024</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">elem</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> i; </span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    <span class="type">int</span> v;</span><br><span class="line">&#125; *Mae;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">matrix</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> m; <span class="comment">// 行数</span></span><br><span class="line">    <span class="type">int</span> n; <span class="comment">// 列数</span></span><br><span class="line">    <span class="type">int</span> k; <span class="comment">// 非零元素个数</span></span><br><span class="line">    Mae data[MAX] </span><br><span class="line">&#125; * Spm;</span><br></pre></td></tr></table></figure>
+<p>我们分别将元素和矩阵定义为两个指向结构体的指针，关于 struct
+的定义可以参考：<a
+href="https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/">浙大翁恺老师《C
+语言程序设计进阶》笔记 | Yam</a>。</p>
+<p>我们接下来重点讨论一下矩阵（稀疏矩阵）的转置。由于稀疏矩阵的存储采用上面定义的方式，转置会稍微麻烦一些，我们可以把原矩阵
+data 中存储的每一个 elem 的 i 和 j 分别赋给新矩阵的 j 和
+i，但这样有个问题：新的矩阵不一定和原始矩阵一个顺序（事实上基本不可能一个顺序）。举个例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原矩阵 data</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">0</span></span><br><span class="line"><span class="comment">// 转置后</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">0</span></span><br><span class="line"><span class="comment">// 我们想要的（按行序）</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">0</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>我们当然可以依次按照列（转置后的行）从 0 到列数扫描一遍 data
+的每个元素，按照顺序放到位置上（比如<a
+href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/array/array2.c">这里</a>的实现）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (col=<span class="number">0</span>; col&lt;Matrix-&gt;col; col++)</span><br><span class="line">	<span class="keyword">for</span> (p=<span class="number">0</span>; p&lt;Matrix-&gt;vnum; p++)</span><br><span class="line">        <span class="keyword">if</span> (Matrix-&gt;data[p] == col) &#123;</span><br><span class="line">            TMatrix-&gt;data[q].i = Matrix-&gt;data[p].j;</span><br><span class="line">            j and v also;</span><br><span class="line">            q++;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>但这样的时间复杂度为：O(col ×
+vnum)，如果非零元素个数比较多时（假设所有元素非零），时间复杂度将达到
+O(col × col × row），还不如按普通的存储方法存储。</p>
+<p>仔细分析一下刚刚的算法，不难发现同一个非零元素重复了 col
+次，这是完全没必要的，是否能够对其进行优化将时间复杂度降低一个数量级？我们发现，如果能直接确定矩阵中每个三元组在转置矩阵中的位置，那只要扫描一次矩阵即可。因为矩阵第一列的第一个非零元素一定存储在转置矩阵
+data 的第一个元素，那么第二列的第一个非零元素就存储在转置矩阵 data
+的第一个元素加原矩阵第一列非零的元素个数。</p>
+<p>我们需要额外的两个数组，一个存储原矩阵每列非零元素的个数，定义为
+<code>num[]</code>；一个存储原矩阵每列第一个非零元素在转置矩阵 data
+中的位置，定义为 <code>cpo[]</code>。分别满足：</p>
+<ul>
+<li><code>cpo[0] = 0;</code> 原矩阵第 0 列第一个非零元素必定是转置矩阵
+data 的第 0 个元素</li>
+<li><code>cpo[i] = cpo[i-1] + num[i-1];</code> 原矩阵第 i
+列第一个非零元素就是转置矩阵第 i-1 个非零元素的位置加上原矩阵第 i-1
+列非零元素的个数</li>
+</ul>
+<p>举个例子，给定一个 2 x 3 的矩阵 A（转置矩阵为 TA）：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A</span></span><br><span class="line">[</span><br><span class="line">    [<span class="number">1</span> <span class="number">0</span> <span class="number">4</span>]</span><br><span class="line">    [<span class="number">2</span> <span class="number">3</span> <span class="number">0</span>]]</span><br><span class="line">A-&gt;m = <span class="number">2</span>; A-&gt;n = <span class="number">3</span>; A-&gt;k = <span class="number">4</span>; A-&gt;data = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>), (<span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>)];</span><br><span class="line"><span class="comment">// A 每列的非零元素个数分别为 2 1 1</span></span><br><span class="line">num = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>];</span><br><span class="line"><span class="comment">// A 每列的第 0 个非零元素在 TA-&gt;data 中的位置</span></span><br><span class="line"><span class="comment">// 即 B-&gt;data = [(0, 0, 1)_0, (0, 2, 4)_3, (1, 0, 2)_0, (1, 1, 3)_2]，使用 cpo[j]</span></span><br><span class="line"><span class="comment">//     A 第 0 列的第 0 个非零元素在 TA-&gt;data 的第 cpo[0]=0 个位置上</span></span><br><span class="line"><span class="comment">//     A 第 2 列的第 0 个非零元素在 TA-&gt;data 的第 cpo[2]=3 个位置上</span></span><br><span class="line"><span class="comment">//     A 第 0 列的第 0 个非零元素在 TA-&gt;data 的第 cpo[0]=0 个位置上</span></span><br><span class="line"><span class="comment">//     A 第 1 列的第 0 个非零元素在 TA-&gt;data 的第 cpo[1]=2 个位置上</span></span><br><span class="line">cpo = [<span class="number">0</span>, <span class="number">0</span>+<span class="number">2</span>, <span class="number">2</span>+<span class="number">1</span>] = [<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>] ;</span><br><span class="line"><span class="comment">// 因为每一列可能不止一个非零元素，所以每次赋值后需要对 cpo 的元素 ++</span></span><br><span class="line">cpo[j]++;</span><br><span class="line"><span class="comment">// i j 位置翻转</span></span><br><span class="line">TA-&gt;data[<span class="number">0</span>] = (<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">TA-&gt;data[<span class="number">3</span>] = (<span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>);</span><br><span class="line">TA-&gt;data[<span class="number">0</span>++=<span class="number">1</span>] = (<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">TA-&gt;data[<span class="number">2</span>] = (<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line"><span class="comment">// TA 最终显示应该是</span></span><br><span class="line">TA-&gt;data = [(<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>), (<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>), (<span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">0</span>, <span class="number">4</span>)];</span><br><span class="line"><span class="comment">// TA</span></span><br><span class="line">[ </span><br><span class="line">	[<span class="number">1</span> <span class="number">2</span>]</span><br><span class="line">	[<span class="number">0</span> <span class="number">3</span>]</span><br><span class="line">	[<span class="number">4</span> <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+<p>其时间复杂度为 O(col+vnum)。具体实现可以参考这里的<a
+href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/array/array.c">代码</a>。</p>
+<h2 id="堆栈">堆栈</h2>
+<p>堆栈是具有一定操作约束的线性表（只在一端，即栈顶做）。基本操作包括：</p>
+<ul>
+<li><p>栈初始化</p></li>
+<li><p>判断是否为空栈或栈满</p></li>
+<li><p>插入数据：入栈</p></li>
+<li><p>删除数据：出栈并返回栈顶元素</p></li>
+</ul>
+<p>堆栈的特点是后进先出（Last In First
+Out，LIFO），可以采用顺序存储或链式存储。</p>
+<ul>
+<li><p>顺序存储：通常由一个一维数组和一个记录栈顶元素位置的变量组成。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Stack</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="type">int</span> *data;</span><br><span class="line">    <span class="type">int</span> Top;</span><br><span class="line">    <span class="type">int</span> MaxSize;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Stack</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> Top;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>初始化：通常将 0 下标设为栈底，空栈时
+<code>S→Top == -1</code>，栈满时 <code>S→top == S→MAXSIZE-1;</code></li>
+<li>入栈：<code>S→data[++(S→Top)] = element;</code></li>
+<li>出栈：<code>return S→data[(S→Top)--]</code></li>
+</ul></li>
+<li><p>链式存储：实际是一个单链表，插入和删除只能在链栈的栈顶进行。</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Stack</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    Stack Next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>初始化：<code>S→Next = NULL</code>，为空时一样；</li>
+<li>入栈：<code>Cell→data = element, Cell→Next = S→Next(NULL), S→Next = Cell;</code></li>
+<li>出栈：<code>Cell = S→Next, element = Cell→data, S→Next = Cell→Next;</code></li>
+</ul></li>
+</ul>
+<p>几种不同的堆栈实现可以参照这里的<a
+href="https://github.com/hscspring/Note_Coding/tree/master/Data_Structure_C/Ch3/stack">代码</a>。</p>
+<p>堆栈最常见的应用之一就是表达式求值了（如
+<code>3*2^(4+2*2-1*3)-5</code>），这种我们日常使用的表达式叫
+“中缀表达式”，即运算符在数字的中间；相对应地，还有后缀表达式和前缀表达式。其中后缀表达式非常方便计算机处理，基本步骤如下：</p>
+<ul>
+<li>依次弹出后缀表达式栈中元素</li>
+<li>如果是数字则直接压入新栈</li>
+<li>如果是运算符则从新栈中弹出两个元素进行运算，然后将得到的结果压入新栈</li>
+<li>弹出新栈最后一个元素即为计算结果</li>
+</ul>
+<p>举个例子，比如表达式：<code>2*3+4/2</code>
+对应的后缀表达式为：<code>23*42/+</code>：</p>
+<ul>
+<li>新栈压入 2 3，遇见 × 号，弹出 3 2，计算得 6
+压入新栈，此时新栈中元素为 6</li>
+<li>新栈继续压入 4 2，遇见 ÷ 号，弹出 2 4，计算得 2
+压入新栈，此时新栈中元素为 6 2</li>
+<li>遇到 ＋ 号，弹出 2 6，计算得 8，压入新栈</li>
+<li>弹出新栈元素 8 为计算结果</li>
+</ul>
+<p>那么，接下来的问题就是如何将中缀表达式转化为后缀表达式。这个稍微有一点复杂，其基本策略是：从头到尾读取中缀表达式的每个对象，对不同对象按不同情况处理：</p>
+<ul>
+<li>运算数：直接输出</li>
+<li>左括号：压入堆栈</li>
+<li>右括号：将栈顶运算符弹出并输出，直到遇到左括号（出栈，不输出）</li>
+<li>运算符：
+<ul>
+<li>若优先级大于栈顶运算符，则把它压入栈（要继续等待后面的结果）</li>
+<li>若优先级小于等于栈顶运算符，将栈顶元素弹出并输出；再比较新的栈顶运算符，直到该运算符优先级大于栈顶运算符为止，然后将该运算符压入栈</li>
+</ul></li>
+<li>若各对象处理完毕，则把堆栈中存留的运算符一并输出</li>
+</ul>
+<p>代码实现在<a
+href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/stack/stack_example.c">这里</a>，由于使用
+<code>getchar</code> 每次获取一个
+char，因此目前只能计算每个数字是正的一位数的四则混合运算。具体实现时，有两点需要特别注意：</p>
+<ul>
+<li>左括号运算符的优先级在栈内和栈外不同：栈外优先级最高，栈内最低</li>
+<li>由于既有运算符又有数字，所以无论栈的类型是 char int 还是
+float，都需要注意类型转换</li>
+</ul>
+<h2 id="队列">队列</h2>
+<p>队列也是具有一定操作约束的线性表，只能在一端插入，另一端删除。基本操作包括：</p>
+<ul>
+<li>生成空队列（初始化）</li>
+<li>判断队列是否为空或满</li>
+<li>将元素插入队列</li>
+<li>将队头元素从队列中删除并返回</li>
+</ul>
+<p>队列的特点是先进先出（First In First
+Out，FIFO），可以采用顺序存储或链式存储。</p>
+<ul>
+<li><p>顺序存储：通常由一个一维数组和记录队列头、队列尾位置的变量组成</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Queue</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="type">int</span> data[MAXSIZE];</span><br><span class="line">    <span class="type">int</span> rear, front;</span><br><span class="line">    <span class="type">int</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// or 我们偏好（指针）使用的定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Queue</span>;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="type">int</span> * data;</span><br><span class="line">    <span class="type">int</span> rear, front;</span><br><span class="line">    <span class="type">int</span> MaxSize;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>队列在入队时，队尾指针加 1；出队时，队头指针加
+1。这样有个问题是当元素不断出队时，data 会留出一大块空的空间（“假溢出”
+现象）：</p>
+<p><img src="http://qnimg.lovevivian.cn/ds-ch3-1.jpeg" /></p>
+<p>（图来自《数据结构（C 语言版）》邓文华）</p>
+<p>解决方法之一就是使用循环结构（循环队列），此时入队或出队时，指针不能简单加
+1，而是需要对 MAXSIZE
+取余。原因是是循环结构，所以出队后空出来的位置可以入队新的元素。</p>
+<p>另外还有个问题是 “队满” 和 “队空”
+的条件是相同的：首尾指针指向同一个位置。有两个方法可以解决这个问题：</p>
+<ul>
+<li>设置一个存储元素个数的变量，为 0 时队空；为 MAXSIZE 时队满；</li>
+<li>留一个位置，队头指向该位置，队尾指向该位置的后一个位置，此时
+<code>(rear + 1) % MAXSIZE == front</code>，表示队满；队头队尾指针指向同一个位置时队空。</li>
+</ul>
+<p>接下来就是基本操作了（我们使用第二种方法）：</p>
+<ul>
+<li>初始化：<code>Q-&gt;front = Q-&gt;rear = 0;</code></li>
+<li>入队：<code>Q-&gt;rear = (Q-&gt;rear+1) % MaxSize; Q-&gt;data[Q-&gt;rear] = x;</code></li>
+<li>出队：<code>Q-&gt;front = (Q-&gt;front+1) % MaxSize; x = Q-&gt;data[Q-&gt;front];</code></li>
+<li>是否空：<code>Q-&gt;front == Q-&gt;rear;</code></li>
+<li>是否满：<code>(Q-&gt;rear+1) % MaxSize == Q-&gt;front;</code></li>
+</ul></li>
+<li><p>链式存储：可以用一个单链表实现，插入和删除分别在两头进行</p>
+<p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 队列中的结点</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> &#123;</span></span><br><span class="line">	<span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">Next</span>;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Node</span> *<span class="title">rear</span>, *<span class="title">front</span>;</span> <span class="comment">// 队列的头尾指针</span></span><br><span class="line">    <span class="type">int</span> MaxSize; <span class="comment">// 队列的最大容量</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">QNode</span> *<span class="title">Queue</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>基本操作如下：</p>
+<ul>
+<li>初始化：<code>Pd-&gt;Next = NULL; Q-&gt;front = Pd; Q-&gt;rear = Pd;</code></li>
+<li>入队：<code>P-&gt;data = x; P-&gt;Next = NULL; Q-&gt;rear-&gt;Next = P; Q-&gt;rear = P;</code></li>
+<li>出队：<code>P = Q-&gt;front-&gt;Next; Q-&gt;front-&gt;Next = P-&gt;Next; x = P-&gt;data;</code>
+如果出队后队列为空，要移动 rear
+指针：<code>if (Q-&gt;front-&gt;Next == NULL) Q-&gt;rear = Q-&gt;front;</code></li>
+<li>是否为空：<code>Q-&gt;rear == Q-&gt;front;</code></li>
+</ul>
+<p>因为是链表实现，所以不存在 “满”
+这种情况。下面的图例（带头结点的链队列）看起来非常清晰：</p>
+<p><img src="http://qnimg.lovevivian.cn/ds-ch3-2.jpeg" /></p>
+<p>（图来自《数据结构（C 语言版）》邓文华）</p></li>
+</ul>
+<p>通过两种存储方式的对比可以明显感觉到彼此不同的特点，个人偏好链式存储，因为它看起来比较优雅。几种不同的队列实现可以参照这里的<a
+href="https://github.com/hscspring/Note_Coding/tree/master/Data_Structure_C/Ch3/queue">代码</a>。</p>
+<h2 id="小结">小结</h2>
+<p>线性结构的本质在于
+“线性”，也就是说无论具体哪种结构，数据看起来都是像一条条 “线”
+一样。对应于数据在计算机中物理存储的方式不同，又分为顺序和链式两种实现方式；具体采用哪种方式主要取决于目的，二者各有特色，并没有绝对的好坏。顺序存储利用了位置固定不变的信息，index
+就很方便，但对应的插入和删除就比较麻烦；而链式存储就正好相反。当然，需要注意的是，不光是本章的线性结构，之后的树和图也同样如此。</p>
+<p>线性结构是最基本的数据结构，本章涉及到的只是其中最基础（相对来说也是最简单）的部分，如果想更进一步了解，可以参考
+Kyle Loudon 的《算法精解：C
+语言描述》，该书最大的特色是讲解了各种数据结构在实际中的应用情况。</p>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/2348767/">数据结构
+(豆瓣)</a></li>
+<li><a
+href="https://www.icourse163.org/learn/ZJU-93001?tid=1003013004#/learn/announce">数据结构_中国大学
+MOOC (慕课)</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/">
+    <time datetime="2019-07-13T15:30:00.000Z" class="entry-date">
+        2019-07-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Array/" rel="tag">Array</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer-Science/" rel="tag">Computer Science</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/" rel="tag">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linear-Sturcture/" rel="tag">Linear Sturcture</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linked-List/" rel="tag">Linked List</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Queue/" rel="tag">Queue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Stack/" rel="tag">Stack</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2019/07/14/Paper/2019-07-14-XLNet-Paper/" rel="prev"><span class="meta-nav">←</span> XLNet 论文笔记</a></span>
+    
+    
+        <span class="nav-next"><a href="/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" rel="next">Longest Substring Without Repeating Characters (LeetCode 3) <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">116</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">30</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/">自然语言计算机形式分析的理论与方法笔记(Ch17)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/06/11/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/">自然语言计算机形式分析的理论与方法笔记(Ch16)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">Tiny LLM Continual Pre-training：RHO-1</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/">LLM打街霸</a>
+          </li>
+        
+          <li>
+            <a href="/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/">LLM中的演绎推理、归纳推理和溯因推理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.17px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.83px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 13.33px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.5px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.83px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.83px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.67px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.5px;">Business</a> <a href="/tags/C/" style="font-size: 10.83px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.83px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.83px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Cognition/" style="font-size: 10.83px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.5px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.83px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.83px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.83px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.83px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.17px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.83px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.83px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.5px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 13.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dropout/" style="font-size: 10.83px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.83px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.67px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.83px;">Embeddings</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.83px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.83px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.67px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.67px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.83px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.83px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.83px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 10.83px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.83px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.83px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.83px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.83px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.5px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.5px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.83px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 10.83px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.83px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MTL/" style="font-size: 11.67px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.17px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.67px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.83px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.17px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.67px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.83px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.67px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.83px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.83px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.83px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.83px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.83px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.83px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.5px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.83px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.83px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.33px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.83px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.33px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.83px;">R-Drop</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.83px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 13.33px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.83px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.83px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.83px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.83px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.83px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.83px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.67px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.83px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.83px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.83px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.67px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.83px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.83px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.83px;">System</a> <a href="/tags/T5/" style="font-size: 10.83px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.67px;">THW</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.83px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.83px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.5px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10.83px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.83px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.67px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.67px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.83px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2024 Yam
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
