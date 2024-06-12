@@ -3,7 +3,7 @@ Hexo Blog.
 
 
 - node 版本：`nvm use 12`
-- 在public下新建CNAME
+- 在public下新建CNAME，或直接复制过去
 
 ```bash
 npm i
