@@ -79,24 +79,34 @@ tag_generator:
 ## Themes: https://hexo.io/themes/
 theme: cyanstyle
 
-# https://zhuanlan.zhihu.com/p/105986034
+
 markdown:
+  preset: 'default'
   render:
     html: true
     xhtmlOut: false
+    langPrefix: 'language-'
     breaks: true
     linkify: true
     typographer: true
+    quotes: '“”‘’'
+  enable_rules:
+  disable_rules:
   plugins:
-    - markdown-it-footnote
-    - markdown-it-sup
-    - markdown-it-sub
-    - markdown-it-abbr
-    - markdown-it-emoji
-    # - hexo-math
   anchors:
-    level: 1
+    level: 2
     collisionSuffix: ''
+    permalink: false
+    permalinkClass: 'header-anchor'
+    permalinkSide: 'left'
+    permalinkSymbol: '¶'
+    case: 0
+    separator: '-'
+  images:
+    lazyload: false
+    prepend_root: false
+    post_asset: false
+  inline: false  # https://markdown-it.github.io/markdown-it/#MarkdownIt.renderInline
 
 # mathjax:
 #     enable: true
