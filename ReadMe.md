@@ -5,15 +5,12 @@ Hexo Blog.
 - node 版本：`nvm use 12`
 - 在public下新建CNAME
 
+```bash
+npm i
+hexo g
+```
 
 
-3件套：
-
-- 
-- 
-- 
-
-前两个也可以，但是显示不太好。
 
 
 
@@ -39,6 +36,8 @@ Hexo Blog.
 方案三（最终使用）：
 
 - https://github.com/byronwanbl/hexo-renderer-markdown-it-katex
+    - 默认使用KaTex，不用做任何配置
+
 
 
 
