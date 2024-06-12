@@ -15,7 +15,7 @@
   <title>FLAN：Fine-tuned Language Models are Zero-Shot Learners | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Paper：[2109.01652] Finetuned Language Models Are Zero-Shot Learners Code：https://github.com/google-research/flan 一句话概述：指示微调赋予 MTL Zero-Shot 能力。 摘要：本文探索了一种简单的方法来提升语言模型的 Zero-Shot 能力——指示（或指令）微调（instruct">
-<meta name="keywords" content="AI,NLP,NLG,Prompt,Zero-Shot,MTL,FLAN">
+<meta name="keywords" content="AI,NLP,NLG,Zero-Shot,Prompt,MTL,FLAN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FLAN：Fine-tuned Language Models are Zero-Shot Learners">
 <meta property="og:url" content="https://www.yam.gift/2022/08/28/Paper/2022-08-28-FLAN/index.html">
@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flan-8.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flan-9.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flan-10.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.174Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FLAN：Fine-tuned Language Models are Zero-Shot Learners">
 <meta name="twitter:description" content="Paper：[2109.01652] Finetuned Language Models Are Zero-Shot Learners Code：https://github.com/google-research/flan 一句话概述：指示微调赋予 MTL Zero-Shot 能力。 摘要：本文探索了一种简单的方法来提升语言模型的 Zero-Shot 能力——指示（或指令）微调（instruct">
@@ -98,7 +98,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/08/28/Paper/2022-08-28-FLAN/" data-id="clx98np2100m8tsbzklfx4oki" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/08/28/Paper/2022-08-28-FLAN/" data-id="clxbpfs7x00b8dlbzop5w1e1n" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -106,67 +106,36 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/2109.01652">[2109.01652]
-Finetuned Language Models Are Zero-Shot Learners</a></p>
-<p>Code：https://github.com/google-research/flan</p>
+        <p>Paper：<a href="https://arxiv.org/abs/2109.01652" target="_blank" rel="noopener">[2109.01652] Finetuned Language Models Are Zero-Shot Learners</a></p>
+<p>Code：<a href="https://github.com/google-research/flan" target="_blank" rel="noopener">https://github.com/google-research/flan</a></p>
 <p>一句话概述：指示微调赋予 MTL Zero-Shot 能力。</p>
-<p>摘要：本文探索了一种简单的方法来提升语言模型的 Zero-Shot
-能力——指示（或指令）微调（instruction
-tuning），在一组通过指示描述的数据集上对语言模型微调，大大提高了在未见过任务上的
-Zero-Shot 能力。模型 137B，在超过 60
-个使用描述模板描述的数据集上微调。FLAN 在 20/25 个任务上超过了 175B 的
-GPT3，Few-Shot 能力也大部分超过了
-GPT3。消融实结果发现，微调的数据集数量、模型规模、指示，这三个因素是指示微调的关键。</p>
-<span id="more"></span>
+<p>摘要：本文探索了一种简单的方法来提升语言模型的 Zero-Shot 能力——指示（或指令）微调（instruction tuning），在一组通过指示描述的数据集上对语言模型微调，大大提高了在未见过任务上的 Zero-Shot 能力。模型 137B，在超过 60 个使用描述模板描述的数据集上微调。FLAN 在 20/25 个任务上超过了 175B 的 GPT3，Few-Shot 能力也大部分超过了 GPT3。消融实结果发现，微调的数据集数量、模型规模、指示，这三个因素是指示微调的关键。</p>
+<a id="more"></a>
 <h2 id="背景">背景</h2>
-<p>PLM 在 Few-Shot 上表现一般都很好，但是在 Zero-Shot
-上就很一般了，一个潜在的原因是模型很难执行和预训练不一样格式的
-prompt。FLAN（Fine-tuned Language
-Net）却通过「指示微调」实现了不错的效果，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-1.jpg" /></p>
+<p>PLM 在 Few-Shot 上表现一般都很好，但是在 Zero-Shot 上就很一般了，一个潜在的原因是模型很难执行和预训练不一样格式的 prompt。FLAN（Fine-tuned Language Net）却通过「指示微调」实现了不错的效果，如下图所示：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-1.jpg" alt></p>
 <p>它具体是怎么做的呢，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-2.jpg" /></p>
-<p>FLAN
-在一组短语为指示的混合任务上微调预训练模型，比如上面的：Translate this
-sentence to Spanish。在推理时，对没见过的任务（上面的 NLI）使用 FLAN
-进行实验。</p>
-<p>那么「指示微调」和 T5/BERT 的微调，以及 Prompt
-微调有啥区别呢，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-3.jpg" /></p>
-<p>A
-我们很熟悉，预训练模型最开始就是这么用的，当然现在很多时候也是这么用的。B
-是需要语言模型给个 prompt 提示的。C 是 FLAN
-的做法，主要是通过对多种任务的糅合学习 Zero-Shot 能力。</p>
-<p>这里的「指示」和 GPT3 或 T5 的 Prompt
-又有啥区别呢，我们看看下面这个例子：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-2.jpg" alt></p>
+<p>FLAN 在一组短语为指示的混合任务上微调预训练模型，比如上面的：Translate this sentence to Spanish。在推理时，对没见过的任务（上面的 NLI）使用 FLAN 进行实验。</p>
+<p>那么「指示微调」和 T5/BERT 的微调，以及 Prompt 微调有啥区别呢，如下图所示：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-3.jpg" alt></p>
+<p>A 我们很熟悉，预训练模型最开始就是这么用的，当然现在很多时候也是这么用的。B 是需要语言模型给个 prompt 提示的。C 是 FLAN 的做法，主要是通过对多种任务的糅合学习 Zero-Shot 能力。</p>
+<p>这里的「指示」和 GPT3 或 T5 的 Prompt 又有啥区别呢，我们看看下面这个例子：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">T5 prompt: </span><br><span class="line">cb hypothesis: At my age you will probably have learnt one lesson. </span><br><span class="line">premise: It’s not certain how many lessons you’ll learn by your thirties. </span><br><span class="line"></span><br><span class="line">GPT-3 prompt: </span><br><span class="line">At my age you will probably have learnt one lesson. </span><br><span class="line">question: It’s not certain how many lessons you’ll learn by your thirties. <span class="literal">true</span>, <span class="literal">false</span>, or neither? </span><br><span class="line">answer: </span><br><span class="line"></span><br><span class="line">FLAN prompt: </span><br><span class="line">Premise: At my age you will probably have learnt one lesson. </span><br><span class="line">Hypothesis: It’s not certain how many lessons you’ll learn by your thirties. </span><br><span class="line">Does the premise entail the hypothesis?</span><br></pre></td></tr></table></figure>
-<p>T5 的 prompt 更像是数据集的一个 Tag（上面的 cb hypothesis 和
-premise），在 Zero-Shot
-下由于是没见过的任务，所以模型并没有学到这种模式。GPT3 的 prompt
-看起来好像数据好像被训练过，模型来完成剩下的部分，这其实是 In-Context
-Learning。FLAN 的 prompt
-看起来好像是让模型去执行某个任务，它被形式化为对「指示」做出回应，所以如果不微调没法工作。这也算是对
-MTL 无法 Zero-Shot 的一种增强补充。</p>
+<p>T5 的 prompt 更像是数据集的一个 Tag（上面的 cb hypothesis 和 premise），在 Zero-Shot 下由于是没见过的任务，所以模型并没有学到这种模式。GPT3 的 prompt 看起来好像数据好像被训练过，模型来完成剩下的部分，这其实是 In-Context Learning。FLAN 的 prompt 看起来好像是让模型去执行某个任务，它被形式化为对「指示」做出回应，所以如果不微调没法工作。这也算是对 MTL 无法 Zero-Shot 的一种增强补充。</p>
 <h2 id="flan">FLAN</h2>
-<p>指示微调的初衷是提升语言模型对自然语言指示的响应能力。这个 idea
-是使用监督信号来教语言模型执行通过指示描述的任务，语言模型学会通遵循指示后，即使对看不见的任务也可以响应。</p>
+<p>指示微调的初衷是提升语言模型对自然语言指示的响应能力。这个 idea 是使用监督信号来教语言模型执行通过指示描述的任务，语言模型学会通遵循指示后，即使对看不见的任务也可以响应。</p>
 <p><strong>任务和模板</strong></p>
 <p>FLAN 使用的任务和数据集如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-4.jpg" /></p>
-<p>一共 62 个数据集，分成 12 个任务集。人工搞了 10
-个模板，使用自然语言指示来描述数据集的任务。10
-个模板大部分都描述了原始任务，但为了增加多样性，对每个数据集还包括最多三个「扭转任务」的模板（比如情感分类，包括要求生成电影评论的模板）。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-4.jpg" alt></p>
+<p>一共 62 个数据集，分成 12 个任务集。人工搞了 10 个模板，使用自然语言指示来描述数据集的任务。10 个模板大部分都描述了原始任务，但为了增加多样性，对每个数据集还包括最多三个「扭转任务」的模板（比如情感分类，包括要求生成电影评论的模板）。</p>
 <p>下面是用于 NLI 数据集的多指示模板的例子：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-5.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-5.jpg" alt></p>
 <p><strong>评估划分</strong></p>
-<p>这里采用了保守的做法，在 Figure3
-中，数据集不属于同一个任务集的才算未见过。</p>
+<p>这里采用了保守的做法，在 Figure3 中，数据集不属于同一个任务集的才算未见过。</p>
 <p><strong>分类任务</strong></p>
-<p>因为是生成结果，所以对分类任务要额外处理一下。有用
-<code>rank classification</code>
-方法（就是看哪个选项生成的概率高）的，但问题是有时候对某个选项的表达可能不止一种，导致实际选项的那个值概率很低。比如选项是「是/否」，但表达「是」的方式可能是「好/可以/没问题」等等。</p>
-<p>FLAN 使用了 <code>OPTION</code> 后缀，将 <code>OPTION</code>
-和输出的标签依次排在后面，让模型在响应分类任务时知道需要哪些选项。具体可以看本文第二张图中右边部分的例子。</p>
+<p>因为是生成结果，所以对分类任务要额外处理一下。有用 <code>rank classification</code> 方法（就是看哪个选项生成的概率高）的，但问题是有时候对某个选项的表达可能不止一种，导致实际选项的那个值概率很低。比如选项是「是/否」，但表达「是」的方式可能是「好/可以/没问题」等等。</p>
+<p>FLAN 使用了 <code>OPTION</code> 后缀，将 <code>OPTION</code> 和输出的标签依次排在后面，让模型在响应分类任务时知道需要哪些选项。具体可以看本文第二张图中右边部分的例子。</p>
 <p><strong>训练细节</strong></p>
 <p>模型架构：</p>
 <ul>
@@ -174,47 +143,34 @@ MTL 无法 Zero-Shot 的一种增强补充。</p>
 </ul>
 <p>指示微调：</p>
 <ul>
-<li>为了平衡不同数据集大小，每个数据集样本数量限制在 30k，并使用
-examples-proportional 混合方案，混合比例最高 3000，这里的 3000
-意思是对超过 3000 个的样本，数据集不会收到额外的采样权重。</li>
+<li>为了平衡不同数据集大小，每个数据集样本数量限制在 30k，并使用 examples-proportional 混合方案，混合比例最高 3000，这里的 3000 意思是对超过 3000 个的样本，数据集不会收到额外的采样权重。</li>
 <li>微调 30k 步</li>
 <li>BatchSize=8192 Tokens</li>
 <li>Adafactor Optimizer</li>
 <li>LR=3e-5</li>
 <li>输入和输出长度为 1024 和 256。</li>
-<li>使用 <code>packing</code> 将多个样本拼接成一个
-sequence，输入和目标之间使用 <code>EOS</code> 分开。</li>
+<li>使用 <code>packing</code> 将多个样本拼接成一个 sequence，输入和目标之间使用 <code>EOS</code> 分开。</li>
 </ul>
 <h2 id="实验">实验</h2>
 <p>实验结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-6.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-6.jpg" alt></p>
 <p>越往右分数越高。虽然在上面的任务集上效果还可以，但有个局限是对很多语言模型任务没有提升，如常识推理、以句子完成形式表示的共指解决任务。这说明，当下游任务与原始语言建模预训练目标相同时（即指示大部分时候是冗余的），指示微调是没用的。</p>
 <h2 id="消融">消融</h2>
 <p><strong>数据集和任务的数量</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-7.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-7.jpg" alt></p>
 <p>这里需要注意的是，这种消融无法得出哪个集群贡献最大。</p>
 <p><strong>模型规模</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-8.jpg" /></p>
-<p>这个结果有意思了，在小模型（其实也不算小了）上居然还不如不微调。一个可能的解释是，对于小规模模型，微调期间使用的大约
-40
-个任务会填充整个模型的容量，导致这些模型在新任务上表现更差。相反，在大模型上，也会填充模型，但也教会模型如何遵循指示。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-8.jpg" alt></p>
+<p>这个结果有意思了，在小模型（其实也不算小了）上居然还不如不微调。一个可能的解释是，对于小规模模型，微调期间使用的大约 40 个任务会填充整个模型的容量，导致这些模型在新任务上表现更差。相反，在大模型上，也会填充模型，但也教会模型如何遵循指示。</p>
 <p><strong>指示</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-9.jpg" /></p>
-<p>使用指示训练是 Zero-Shot
-能力的关键。另一方面也看到，简单地使用数据集名也具有一定指示作用，其实这也算是一种
-prompt 了。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-9.jpg" alt></p>
+<p>使用指示训练是 Zero-Shot 能力的关键。另一方面也看到，简单地使用数据集名也具有一定指示作用，其实这也算是一种 prompt 了。</p>
 <p><strong>Few-Shot 作为指示</strong></p>
-<p>就是从训练集中选择 16 个样本和 Zero-Shot
-的样本拼在一起，结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flan-10.jpg" /></p>
-<p>结果都提升了效果，尤其是在大/复杂输出空间的任务上，如 struct to
-text，翻译，closed-book QA
-等，可能是这些样本帮助模型更好地理解输出格式。另外，Few-Shot
-不同模板间标准差比较低（柱图上那个短短的竖线），表明对 prompt
-的敏感性较低。</p>
+<p>就是从训练集中选择 16 个样本和 Zero-Shot 的样本拼在一起，结果如下：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flan-10.jpg" alt></p>
+<p>结果都提升了效果，尤其是在大/复杂输出空间的任务上，如 struct to text，翻译，closed-book QA 等，可能是这些样本帮助模型更好地理解输出格式。另外，Few-Shot 不同模板间标准差比较低（柱图上那个短短的竖线），表明对 prompt 的敏感性较低。</p>
 <h2 id="小结">小结</h2>
-<p>本文探索了一个简单的方法来提升语言模型基于指示的 Zero-Shot 能力，FLAN
-与 GPT3 相比具有优势，并表明大规模语言模型可以遵循指令的潜在能力。</p>
+<p>本文探索了一个简单的方法来提升语言模型基于指示的 Zero-Shot 能力，FLAN 与 GPT3 相比具有优势，并表明大规模语言模型可以遵循指令的潜在能力。</p>
 
       
     </div><!-- .entry-content -->
@@ -372,21 +328,6 @@ text，翻译，closed-book QA
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

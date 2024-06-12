@@ -14,13 +14,13 @@
   
   <title>T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper &quot;Exploring the Limits of Tr">
+  <meta name="description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Tr">
 <meta name="keywords" content="NLP,Transformer,T5,MTL,C4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer">
 <meta property="og:url" content="https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper &quot;Exploring the Limits of Tr">
+<meta property="og:description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Tr">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-t5-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-t5-2.jpg">
@@ -39,10 +39,10 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-t5-15.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-t5-16.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-t5-17.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.173Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer">
-<meta name="twitter:description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper &quot;Exploring the Limits of Tr">
+<meta name="twitter:description" content="论文：[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer Code：google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Tr">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-t5-1.jpg">
   
   
@@ -105,7 +105,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/" data-id="clx98np1y00lntsbzikhun7x7" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/03/05/Paper/2022-03-05-T5/" data-id="clxbpfs7h00aldlbzuiqxsjj1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -113,47 +113,23 @@
       
             <!-- Table of Contents -->
               
-        <p>论文：<a href="https://arxiv.org/abs/1910.10683">[1910.10683]
-Exploring the Limits of Transfer Learning with a Unified Text-to-Text
-Transformer</a></p>
-<p>Code：<a
-href="https://github.com/google-research/text-to-text-transfer-transformer">google-research/text-to-text-transfer-transformer:
-Code for the paper "Exploring the Limits of Transfer Learning with a
-Unified Text-to-Text Transformer"</a></p>
-<p>一句话概述：把所有 NLP 任务统一成 Text-to-Text 格式使用 Transformer
-统一处理。</p>
-<p>摘要：迁移学习在 NLP
-领域已经是最有效的方法，本文引入了统一的文本处理框架——将所有文本问题统一成
-Text-to-Text 的格式。为了验证效果，构建了 C4 数据集（Colossal Clean
-Crawled Cropus），结果发现取得了很好的效果。</p>
-<span id="more"></span>
+        <p>论文：<a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="noopener">[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer</a></p>
+<p>Code：<a href="https://github.com/google-research/text-to-text-transfer-transformer" target="_blank" rel="noopener">google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer”</a></p>
+<p>一句话概述：把所有 NLP 任务统一成 Text-to-Text 格式使用 Transformer 统一处理。</p>
+<p>摘要：迁移学习在 NLP 领域已经是最有效的方法，本文引入了统一的文本处理框架——将所有文本问题统一成 Text-to-Text 的格式。为了验证效果，构建了 C4 数据集（Colossal Clean Crawled Cropus），结果发现取得了很好的效果。</p>
+<a id="more"></a>
 <h3 id="初衷">初衷</h3>
-<p>首先，我们看统一的样式，拿 Paper
-里的一张图来说明，几种不同的任务被统一成如下格式：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-1.jpg" /></p>
-<p>从直觉上看其实思想很简单，Encoder 把任务和 X 放进去，Decoder
-生成对应的 Y。X 部分基本没啥说的，一般就是正常的自然语言文本；Y
-的形式比较多样，毕竟 NLP
-有那么多种任务，但总的来说还是可以分为两大类：分类（包括回归）和生成。分类就让
-Decoder 生成对应的 Label，生成（摘要、翻译等）则让 Decoder
-像正常一样生成文本即可。总的来说这个想法是比较 Make Sense 的。</p>
-<p>那么，为什么要这样做呢？最直观的原因就是：简单、省事。由于 NLP
-已经步入了预训练时代，衡量不同预训练模型、不同的预训练目标、不同的数据集等等就变得非常容易。不同的任务不仅不会成为一个变量，反而会成为衡量这些因素的一个很好的标准——效果越好，在不同任务上表现就应当越好，这比单一任务有说服力，还不用那么麻烦地一个个处理。我想这应该来自于
-GPT-3 这样 NLG 大模型的 Zero-Shot 和 Few-Shot 能力，结合 Bert 优秀的 NLU
-能力，喜欢「偷懒」的程序员们应该老早就想怎么避免单个处理任务，这才有了这篇规模浩大的「实验报告」。而且，论文还提到说目的不是提出一个新方法，而是提供一个
-NLP 领域全面综合的视角。从他们的过程和结果来看，的确做到了这点。</p>
+<p>首先，我们看统一的样式，拿 Paper 里的一张图来说明，几种不同的任务被统一成如下格式：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-1.jpg" alt></p>
+<p>从直觉上看其实思想很简单，Encoder 把任务和 X 放进去，Decoder 生成对应的 Y。X 部分基本没啥说的，一般就是正常的自然语言文本；Y 的形式比较多样，毕竟 NLP 有那么多种任务，但总的来说还是可以分为两大类：分类（包括回归）和生成。分类就让 Decoder 生成对应的 Label，生成（摘要、翻译等）则让 Decoder 像正常一样生成文本即可。总的来说这个想法是比较 Make Sense 的。</p>
+<p>那么，为什么要这样做呢？最直观的原因就是：简单、省事。由于 NLP 已经步入了预训练时代，衡量不同预训练模型、不同的预训练目标、不同的数据集等等就变得非常容易。不同的任务不仅不会成为一个变量，反而会成为衡量这些因素的一个很好的标准——效果越好，在不同任务上表现就应当越好，这比单一任务有说服力，还不用那么麻烦地一个个处理。我想这应该来自于 GPT-3 这样 NLG 大模型的 Zero-Shot 和 Few-Shot 能力，结合 Bert 优秀的 NLU 能力，喜欢「偷懒」的程序员们应该老早就想怎么避免单个处理任务，这才有了这篇规模浩大的「实验报告」。而且，论文还提到说目的不是提出一个新方法，而是提供一个 NLP 领域全面综合的视角。从他们的过程和结果来看，的确做到了这点。</p>
 <blockquote>
-<p>We emphasize that our goal is not to propose new methods but instead
-to provide a comprehensive perspective on where the field stands.</p>
+<p>We emphasize that our goal is not to propose new methods but instead to provide a comprehensive perspective on where the field stands.</p>
 </blockquote>
 <h3 id="配置">配置</h3>
-<p>这部分有几个要点得明确：模型、数据集、下游任务和输入输出格式。这些都是基本设置，有了这些才能开始接下去的实验。值得一提的是，无论是开始的
-Introduction
-还是之后的部分，论文对历史发展介绍都比较全面，不光是在做实验，同时也是在综述领域演变，而且很细。确实是在提供更全面综合的视角。</p>
+<p>这部分有几个要点得明确：模型、数据集、下游任务和输入输出格式。这些都是基本设置，有了这些才能开始接下去的实验。值得一提的是，无论是开始的 Introduction 还是之后的部分，论文对历史发展介绍都比较全面，不光是在做实验，同时也是在综述领域演变，而且很细。确实是在提供更全面综合的视角。</p>
 <h4 id="模型">模型</h4>
-<p>这部分详细介绍了 Transformer
-架构，以及它的由来和演变，本文采用的模型架构也是
-Transformer，不过有几个地方调整：</p>
+<p>这部分详细介绍了 Transformer 架构，以及它的由来和演变，本文采用的模型架构也是 Transformer，不过有几个地方调整：</p>
 <ul>
 <li>移除了 Layer Norm 的偏置项。</li>
 <li>将层归一化放在残差连接路径之外。</li>
@@ -161,20 +137,15 @@ Transformer，不过有几个地方调整：</p>
 </ul>
 <p>归一化的具体代码如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##### Layer Norm #####</span></span><br><span class="line"><span class="comment"># Transformer，代码来自 Tensorflow 官方文档</span></span><br><span class="line">attn_output, _ = self.mha(x, x, x, mask)  <span class="comment"># (batch_size, input_seq_len, d_model)</span></span><br><span class="line">attn_output = self.dropout(attn_output, training=training)</span><br><span class="line">out = self.layernorm(x + attn_output)  <span class="comment"># (batch_size, input_seq_len, d_model)</span></span><br><span class="line"><span class="comment"># T5</span></span><br><span class="line">x = self.layernorm(x)</span><br><span class="line">attn_output, _ = self.mha(x, x, x, mask)</span><br><span class="line">attn_output = self.dropout(attn_output, training=training)</span><br><span class="line">out = x + attn_output</span><br></pre></td></tr></table></figure>
-<p>T5 这个也是 OpenNMT 的做法，具体可以看这篇
-Paper：https://arxiv.org/pdf/2002.04745.pdf</p>
+<p>T5 这个也是 OpenNMT 的做法，具体可以看这篇 Paper：<a href="https://arxiv.org/pdf/2002.04745.pdf" target="_blank" rel="noopener">https://arxiv.org/pdf/2002.04745.pdf</a></p>
 <p>位置编码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码来自 Transformers</span></span><br><span class="line">context_position = tf.<span class="built_in">range</span>(query_length)[:, <span class="literal">None</span>]</span><br><span class="line">memory_position = tf.<span class="built_in">range</span>(key_length)[<span class="literal">None</span>, :]</span><br><span class="line">relative_position = memory_position - context_position  <span class="comment"># shape (query_length, key_length)</span></span><br><span class="line">relative_position_bucket = self._relative_position_bucket(</span><br><span class="line">    relative_position,</span><br><span class="line">    bidirectional=(<span class="keyword">not</span> self.is_decoder),</span><br><span class="line">    num_buckets=self.relative_attention_num_buckets,</span><br><span class="line">)</span><br><span class="line"><span class="comment"># relative_attention_bias 是初始化的参数</span></span><br><span class="line">values = tf.gather(self.relative_attention_bias, relative_position_bucket)</span><br><span class="line">values = tf.expand_dims(tf.transpose(values, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]), axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<p>感兴趣的可以阅读 Transformer 中 T5 的源代码。另外需要提醒的是，T5
-仓库中并没有模型代码，模型用的是 <a
-href="https://github.com/tensorflow/mesh">mesh</a> 里面的，Mesh
-是一个分布式计算平台。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码来自 Transformers</span></span><br><span class="line">context_position = tf.range(query_length)[:, <span class="literal">None</span>]</span><br><span class="line">memory_position = tf.range(key_length)[<span class="literal">None</span>, :]</span><br><span class="line">relative_position = memory_position - context_position  <span class="comment"># shape (query_length, key_length)</span></span><br><span class="line">relative_position_bucket = self._relative_position_bucket(</span><br><span class="line">    relative_position,</span><br><span class="line">    bidirectional=(<span class="keyword">not</span> self.is_decoder),</span><br><span class="line">    num_buckets=self.relative_attention_num_buckets,</span><br><span class="line">)</span><br><span class="line"><span class="comment"># relative_attention_bias 是初始化的参数</span></span><br><span class="line">values = tf.gather(self.relative_attention_bias, relative_position_bucket)</span><br><span class="line">values = tf.expand_dims(tf.transpose(values, [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>]), axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>感兴趣的可以阅读 Transformer 中 T5 的源代码。另外需要提醒的是，T5 仓库中并没有模型代码，模型用的是 <a href="https://github.com/tensorflow/mesh" target="_blank" rel="noopener">mesh</a> 里面的，Mesh 是一个分布式计算平台。</p>
 <h4 id="数据集">数据集</h4>
 <p>为了这个任务专门搞了个大数据集，确实到位。数据集是从网上抓取的，有以下特点：</p>
 <ul>
 <li>原始来源是 2019 年 4 月的数据。</li>
-<li><a href="https://commoncrawl.org/">Common Crawl</a> 每个月产生 20 T
-数据集。</li>
+<li><a href="https://commoncrawl.org/" target="_blank" rel="noopener">Common Crawl</a> 每个月产生 20 T 数据集。</li>
 <li>只保留了英文数据。</li>
 <li>预处理后得到 750G。</li>
 </ul>
@@ -197,11 +168,9 @@ href="https://github.com/tensorflow/mesh">mesh</a> 里面的，Mesh
 <li>分类：GLUE、SuperGLUE</li>
 </ul>
 <h4 id="输入输出">输入输出</h4>
-<p>主要就是在原始句子前面添加一个任务前缀，就像前面的图
-1，具体可以参考附录 D，不再赘述。</p>
+<p>主要就是在原始句子前面添加一个任务前缀，就像前面的图 1，具体可以参考附录 D，不再赘述。</p>
 <h3 id="实验">实验</h3>
-<p>接下来就是本文的重头了，整整 30
-页的实验报告，我们重点关注要验证什么，以及结果如何。大的方面主要包括以下几个：</p>
+<p>接下来就是本文的重头了，整整 30 页的实验报告，我们重点关注要验证什么，以及结果如何。大的方面主要包括以下几个：</p>
 <ul>
 <li>架构</li>
 <li>训练目标</li>
@@ -232,13 +201,8 @@ href="https://github.com/tensorflow/mesh">mesh</a> 里面的，Mesh
 <li>MaxSeqLen=512</li>
 <li>BatchSize=128</li>
 <li>共 2^35=34B Tokens</li>
-<li>「inverse square root」 Learning Rate
-Schedule：<code>1/sqrt(max(n,k))</code>，n 是当前训练的 iteration，k 是
-warm-up steps（10^4），即前 10^4 步学习率保持为
-0.01，然后指数衰减直到预训练结束。</li>
-<li>微调 2^18 步，BatchSize=128，MaxSeqLen=512，学习率固定 0.01，每 5000
-步根据最佳验证集结果保存。值得注意的是，每个任务都是单独选择最佳的
-checkpoint。</li>
+<li>「inverse square root」 Learning Rate Schedule：<code>1/sqrt(max(n,k))</code>，n 是当前训练的 iteration，k 是 warm-up steps（10^4），即前 10^4 步学习率保持为 0.01，然后指数衰减直到预训练结束。</li>
+<li>微调 2^18 步，BatchSize=128，MaxSeqLen=512，学习率固定 0.01，每 5000 步根据最佳验证集结果保存。值得注意的是，每个任务都是单独选择最佳的 checkpoint。</li>
 </ul>
 <p><strong>词表</strong></p>
 <ul>
@@ -253,14 +217,11 @@ checkpoint。</li>
 <li>预测替换位置的 Token</li>
 </ul>
 <p><strong>表现</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-2.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-2.jpg" alt></p>
 <p>五角星是 Baseline，加粗的表示相差 2 个标准差之内的。</p>
 <h4 id="架构">架构</h4>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-3.jpg" /></p>
-<p>Encoder-Decoder 参数量虽然相比单独的 Encoder 或 Decoder
-增加了一倍，但计算量却差不多。这是因为 Encoder 仅应用于输入序列，Decoder
-仅应用于输出序列，语言模型（BERT）中的 L
-层必须同时应用于输入和输出序列。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-3.jpg" alt></p>
+<p>Encoder-Decoder 参数量虽然相比单独的 Encoder 或 Decoder 增加了一倍，但计算量却差不多。这是因为 Encoder 仅应用于输入序列，Decoder 仅应用于输出序列，语言模型（BERT）中的 L 层必须同时应用于输入和输出序列。</p>
 <p>对比实验包括（Text-to-Text 格式可以使用任一种架构）：</p>
 <ul>
 <li>Encoder-Decoder 模型，各 L 层，共 2P 参数，M FLOPS</li>
@@ -269,29 +230,27 @@ checkpoint。</li>
 <li>Decoder，L 层，P 参数，M FLOPS</li>
 <li>Decoder PrefixLM + 输入完全可见自注意力</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-4.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-4.jpg" alt></p>
 <h4 id="无监督目标">无监督目标</h4>
 <p>不同的训练目标（重要）：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-5.jpg" /></p>
-<p>注意，PrefixLM 是从中间随机选个位置切开的，BERT 15%（90% Mask，10%
-随机替换）。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-5.jpg" alt></p>
+<p>注意，PrefixLM 是从中间随机选个位置切开的，BERT 15%（90% Mask，10% 随机替换）。</p>
 <p>效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-6.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-6.jpg" alt></p>
 <p>BERT 风格变种的效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-7.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-7.jpg" alt></p>
 <p>注意后两种，不仅效果可以，而且由于 target 更短，训练更快。</p>
 <p>然后是不同损坏比例的效果：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-8.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-8.jpg" alt></p>
 <p>最后是不同 Span 的长度：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-9.jpg" /></p>
-<p>长度 2-3 效果都可以，另外 Span 也有加速训练效果。需要注意的是，15%
-是所有损坏的 Token 数（而不是 Span 数）。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-9.jpg" alt></p>
+<p>长度 2-3 效果都可以，另外 Span 也有加速训练效果。需要注意的是，15% 是所有损坏的 Token 数（而不是 Span 数）。</p>
 <h4 id="预训练数据集">预训练数据集</h4>
 <p>好家伙，连数据集的效果都要测一下，效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-10.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-10.jpg" alt></p>
 <p>得出一个结论：领域数据集上预训练能够提升下有效果（为啥感觉像是句废话……）。</p>
 <p>接下来是数据量大小的实验：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-11.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-11.jpg" alt></p>
 <p>结论如下：</p>
 <ul>
 <li>随着预训练数据集缩小，模型的训练损失明显更小，这表明可能存在记忆。（可不就是疯狂复制的锅）</li>
@@ -300,47 +259,32 @@ checkpoint。</li>
 <h4 id="训练策略">训练策略</h4>
 <p>首先是不同的微调方法：</p>
 <ul>
-<li>适配层：在 Transformer 每个 Block 的前馈网络后添加的
-dense-ReLU-dense Block，微调时，仅仅适配层和层归一化参数调整。</li>
-<li>逐层解冻：微调时，从最后一层开始，随着训练的继续，之前的层逐步解开，直到所有参数都可以微调更新。具体是每隔
-<code>2^18/12</code> 步微调一个额外的层。</li>
+<li>适配层：在 Transformer 每个 Block 的前馈网络后添加的 dense-ReLU-dense Block，微调时，仅仅适配层和层归一化参数调整。</li>
+<li>逐层解冻：微调时，从最后一层开始，随着训练的继续，之前的层逐步解开，直到所有参数都可以微调更新。具体是每隔 <code>2^18/12</code> 步微调一个额外的层。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-12.jpg" /></p>
-<p>结论：低资源任务（SQuAD）在小 d 时效果也可以；高资源任务则需要更大的
-d。说明只要将维度适当地缩放到任务大小，就可以在较少的参数上进行微调。</p>
-<p>接下来是多任务数据混合策略，注意，虽然是多任务训练，但是评估表现时，不同的任务会选择不同的
-checkpoint。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-12.jpg" alt></p>
+<p>结论：低资源任务（SQuAD）在小 d 时效果也可以；高资源任务则需要更大的 d。说明只要将维度适当地缩放到任务大小，就可以在较少的参数上进行微调。</p>
+<p>接下来是多任务数据混合策略，注意，虽然是多任务训练，但是评估表现时，不同的任务会选择不同的 checkpoint。</p>
 <ul>
-<li>Examples-proportional 混合：给定任务 n 的样本数量为 en，训练时从第 m
-个任务采样的概率 <code>rm=min(em, K)/Σmin(en, K)</code>，K
-是人工数据集大小限制。</li>
-<li>Temperature-scaled 混合：给定 temperature T，每个任务的混合率 rm
-提高到 <code>1/T</code> 次幂并重新归一化。T=1
-时就是上面的混合方法。</li>
-<li>Equal
-混合：从每个任务中等概率采样。具体来说，每个批次中的每个样本都是均匀随机地从一个数据集上采样的。</li>
+<li>Examples-proportional 混合：给定任务 n 的样本数量为 en，训练时从第 m 个任务采样的概率 <code>rm=min(em, K)/Σmin(en, K)</code>，K 是人工数据集大小限制。</li>
+<li>Temperature-scaled 混合：给定 temperature T，每个任务的混合率 rm 提高到 <code>1/T</code> 次幂并重新归一化。T=1 时就是上面的混合方法。</li>
+<li>Equal 混合：从每个任务中等概率采样。具体来说，每个批次中的每个样本都是均匀随机地从一个数据集上采样的。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-13.jpg" /></p>
-<p>训练步骤都是
-<code>2^19 + 2^18 = 786,432</code>，结果显示还是预训练+微调效果好，Equal
-的效果最差，猜测是低资源任务过拟合，高资源任务又数据不足。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-13.jpg" alt></p>
+<p>训练步骤都是 <code>2^19 + 2^18 = 786,432</code>，结果显示还是预训练+微调效果好，Equal 的效果最差，猜测是低资源任务过拟合，高资源任务又数据不足。</p>
 <p>最后看看多任务学习+微调策略。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-14.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-14.jpg" alt></p>
 <p>注意，多任务预训练+微调采用 <code>K=2^19</code>，结果显示：</p>
 <ul>
 <li>多任务预训练+微调效果很不错。</li>
-<li>Leave-one
-只是稍微差了些，说明多任务上训练的模型可以适配新任务。</li>
+<li>Leave-one 只是稍微差了些，说明多任务上训练的模型可以适配新任务。</li>
 <li>多任务预训练在翻译任务上效果没那么差，说明翻译不太依赖预训练，无监督预训练在其他任务起了非常重要的作用。</li>
 </ul>
-<p>总而言之，对于普通任务（数据量没那么大）无监督的预训练很有用；多任务预训练是有一定的
-Zero-Shot 潜力的。</p>
+<p>总而言之，对于普通任务（数据量没那么大）无监督的预训练很有用；多任务预训练是有一定的 Zero-Shot 潜力的。</p>
 <h4 id="缩放">缩放</h4>
 <p>主要指更大的模型、更多的训练步骤和更大的 BatchSize。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-15.jpg" /></p>
-<p>基本上，大模型多步骤=更好=多钱。需要注意的是集成策略时在最终输出到
-SoftMax 前会将多个模型的 logits
-平均。结论是：将小型模型预训练更长时间是个不错的策略。一个预训练模型+4个不同的微调版本效果还是不行，大模型时代，集成效果都要打折扣了。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-15.jpg" alt></p>
+<p>基本上，大模型多步骤=更好=多钱。需要注意的是集成策略时在最终输出到 SoftMax 前会将多个模型的 logits 平均。结论是：将小型模型预训练更长时间是个不错的策略。一个预训练模型+4个不同的微调版本效果还是不行，大模型时代，集成效果都要打折扣了。</p>
 <h4 id="汇总">汇总</h4>
 <p>意味着要把之前最好的都放一块整一个「完美」的版本出来了：</p>
 <ul>
@@ -348,16 +292,15 @@ SoftMax 前会将多个模型的 logits
 <li>长时间训练：1 million 步，BatchSize=2^11，序列长度 512</li>
 <li>模型尺寸：Base 220M，Small 60M，Large 770M，3B 和 11B</li>
 <li>多任务预训练：对无监督和监督任务的多任务组合进行预训练，再微调</li>
-<li>分别在 GLUE 和 SuperGLUE 单个任务上微调：BatchSize=8，序列长度 512
-在<strong>每一个</strong>任务上微调</li>
+<li>分别在 GLUE 和 SuperGLUE 单个任务上微调：BatchSize=8，序列长度 512 在<strong>每一个</strong>任务上微调</li>
 <li>Beam Search：width=4，α=0.6</li>
 <li>测试集：使用测试集而不是验证集</li>
 </ul>
 <p>先看一下和之前的效果对比：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-16.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-16.jpg" alt></p>
 <p>看起来有不小的提升，我咋觉得全靠更多的训练步骤呢。。。</p>
 <p>再看看和之前 SOAT 的对比：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-t5-17.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-t5-17.jpg" alt></p>
 <p>嗯，差距还是不小，后面 T5 又搞出来个 1.1 版，具体有这么些改进：</p>
 <ul>
 <li>前馈层使用 GEGLU 代替 ReLU</li>
@@ -370,8 +313,7 @@ SoftMax 前会将多个模型的 logits
 <h4 id="要点">要点</h4>
 <ul>
 <li>Text-to-Text：方便地将多个任务放在一个模型</li>
-<li>架构：Enc-Dec 的 Transformer（Enc 和 Dec
-可以共享参数）效果最好。是不是最符合人类直觉，先理解再说话？</li>
+<li>架构：Enc-Dec 的 Transformer（Enc 和 Dec 可以共享参数）效果最好。是不是最符合人类直觉，先理解再说话？</li>
 <li>无监督目标：MLM，使用 Span 加速预训练</li>
 <li>数据集：C4，大数据集预训练，数据集太小（重复采样）没用</li>
 <li>训练策略：微调预训练模型的所有参数效果最好；多任务预训练+微调取得和无监督预训练+微调相当的效果</li>
@@ -382,22 +324,17 @@ SoftMax 前会将多个模型的 logits
 <ul>
 <li>大模型的不便：提倡研究以更便宜的模型实现更强性能的方法。</li>
 <li>更高效地知识抽取：怀疑这种简单化的技术（大规模预训练）可能不是教授模型通用知识的非常有效的方法。</li>
-<li>形式化任务之间的相似性：领域内未标记数据预训练可以提升下游相关任务性能，所以制定一个更严格的「预训练任务和下游任务之间的相似性」的概念是有用的，这样我们就可以对使用什么未标记的数据来源做出更有原则的选择。我理解这其实就是说
-T5 自己。</li>
-<li>与语言（自然语言）无关的模型：进一步研究与语言无关的模型，即无论文本的语言如何，都可以以良好的性能执行给定
-NLP 任务的模型。</li>
+<li>形式化任务之间的相似性：领域内未标记数据预训练可以提升下游相关任务性能，所以制定一个更严格的「预训练任务和下游任务之间的相似性」的概念是有用的，这样我们就可以对使用什么未标记的数据来源做出更有原则的选择。我理解这其实就是说 T5 自己。</li>
+<li>与语言（自然语言）无关的模型：进一步研究与语言无关的模型，即无论文本的语言如何，都可以以良好的性能执行给定 NLP 任务的模型。</li>
 </ul>
 <blockquote>
-<p>T5 在模型上并没太多创新，但是这个统一各种任务的模式却是不错，诚如
-paper
-所言，这可以更方便地评估大模型的各种能力，可以让研究者将重心放在设计模型架构、预训练目标等方面。就这方面来说，这篇
-paper 又开启了一个小时代。</p>
+<p>T5 在模型上并没太多创新，但是这个统一各种任务的模式却是不错，诚如 paper 所言，这可以更方便地评估大模型的各种能力，可以让研究者将重心放在设计模型架构、预训练目标等方面。就这方面来说，这篇 paper 又开启了一个小时代。</p>
 </blockquote>
 <h3 id="参考">参考</h3>
 <ul>
-<li>【1】https://www.tensorflow.org/text/tutorials/transformer</li>
-<li>【2】https://github.com/huggingface/transformers/blob/v4.16.2/src/transformers/models/t5/modeling_tf_t5.py</li>
-<li>【3】https://github.com/google-research/text-to-text-transfer-transformer/blob/main/released_checkpoints.md#t511</li>
+<li>【1】<a href="https://www.tensorflow.org/text/tutorials/transformer" target="_blank" rel="noopener">https://www.tensorflow.org/text/tutorials/transformer</a></li>
+<li>【2】<a href="https://github.com/huggingface/transformers/blob/v4.16.2/src/transformers/models/t5/modeling_tf_t5.py" target="_blank" rel="noopener">https://github.com/huggingface/transformers/blob/v4.16.2/src/transformers/models/t5/modeling_tf_t5.py</a></li>
+<li>【3】<a href="https://github.com/google-research/text-to-text-transfer-transformer/blob/main/released_checkpoints.md#t511" target="_blank" rel="noopener">https://github.com/google-research/text-to-text-transfer-transformer/blob/main/released_checkpoints.md#t511</a></li>
 </ul>
 
       
@@ -556,21 +493,6 @@ paper 又开启了一个小时代。</p>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

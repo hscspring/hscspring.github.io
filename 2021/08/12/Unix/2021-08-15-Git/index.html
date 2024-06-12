@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Git 相关备忘。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.178Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Memo">
 <meta name="twitter:description" content="Git 相关备忘。">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/12/Unix/2021-08-15-Git/" data-id="clx98np2400mutsbzh4mba8y1" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/12/Unix/2021-08-15-Git/" data-id="clxbpfs8e00bvdlbz9jzpilxu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -96,64 +96,45 @@
             <!-- Table of Contents -->
               
         <p>Git 相关备忘。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h3 id="clone">Clone</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --recurse-submodules -j8 git://github.com/foo/bar.git</span><br><span class="line"><span class="built_in">cd</span> bar</span><br><span class="line">git submodule update --init --recursive</span><br></pre></td></tr></table></figure>
 <h3 id="url">URL</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新设置remote url</span></span><br><span class="line">git remote -v</span><br><span class="line">git remote set-url origin https://github.com/hscspring/Trainer</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 重新设置remote url</span></span><br><span class="line">git remote -v</span><br><span class="line">git remote <span class="built_in">set</span>-url origin https://github.com/hscspring/Trainer</span><br></pre></td></tr></table></figure>
 <h3 id="add">Add</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只stash某个文件</span></span><br><span class="line">git stash push /path/to/file</span><br></pre></td></tr></table></figure>
 <h3 id="diff">DIFF</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 针对某文件对比两次提交</span></span><br><span class="line">git diff HEAD^^ HEAD main.c</span><br><span class="line">git diff HEAD^^..HEAD -- main.c</span><br><span class="line">git diff HEAD~2 HEAD -- main.c</span><br></pre></td></tr></table></figure>
 <h3 id="标签">标签</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出标签</span></span><br><span class="line">git tag</span><br><span class="line">git tag -l <span class="string">&quot;&lt;tagname&gt;&quot;</span></span><br><span class="line"><span class="comment"># 展示</span></span><br><span class="line">git show &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 轻量标签</span></span><br><span class="line">git tag &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 附注标签</span></span><br><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">&quot;&lt;commit_info&gt;&quot;</span></span><br><span class="line"><span class="comment"># 后期打</span></span><br><span class="line">git tag -a &lt;tagname&gt; &lt;commit_id&gt; -m <span class="string">&quot;&lt;commit_info&gt;&quot;</span></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">git push origin &lt;tagname&gt;</span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="comment"># 删除本地</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 删除远程</span></span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt;</span><br><span class="line">git push origin --delete &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 批量删除</span></span><br><span class="line">git push -d $(git tag -l <span class="string">&quot;tag_prefix*&quot;</span>)</span><br><span class="line">git tag -d $(git tag -l <span class="string">&quot;*v3.[2]*-beta*&quot;</span>)</span><br><span class="line">git tag -d $(git tag -l v0.2.[0-5])</span><br><span class="line"><span class="comment"># 切换到标签位置</span></span><br><span class="line">git checkout &lt;tagname&gt; <span class="comment"># ①</span></span><br><span class="line"><span class="comment"># 从 tag 创建新分支</span></span><br><span class="line">git checkout -b &lt;branch&gt; &lt;tagname&gt;</span><br></pre></td></tr></table></figure>
-<p>注意：①会使仓库处于 “分离头指针（detached HEAD）” 的状态，在
-“分离头指针” 状态下，如果做了某些更改然后提交它们，标签不会发生变化，
-但新提交将不属于任何分支，并且将无法访问，除非通过确切的提交哈希才能访问。
-因此，如果你需要进行更改，比如要修复旧版本中的错误，那么通常需要『从tag创建新分支』。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列出标签</span></span><br><span class="line">git tag</span><br><span class="line">git tag -l <span class="string">"&lt;tagname&gt;"</span></span><br><span class="line"><span class="comment"># 展示</span></span><br><span class="line">git show &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 轻量标签</span></span><br><span class="line">git tag &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 附注标签</span></span><br><span class="line">git tag -a &lt;tagname&gt; -m <span class="string">"&lt;commit_info&gt;"</span></span><br><span class="line"><span class="comment"># 后期打</span></span><br><span class="line">git tag -a &lt;tagname&gt; &lt;commit_id&gt; -m <span class="string">"&lt;commit_info&gt;"</span></span><br><span class="line"><span class="comment"># 推送</span></span><br><span class="line">git push origin &lt;tagname&gt;</span><br><span class="line">git push origin --tags</span><br><span class="line"><span class="comment"># 删除本地</span></span><br><span class="line">git tag -d &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 删除远程</span></span><br><span class="line">git push origin :refs/tags/&lt;tagname&gt;</span><br><span class="line">git push origin --delete &lt;tagname&gt;</span><br><span class="line"><span class="comment"># 批量删除</span></span><br><span class="line">git push -d $(git tag -l <span class="string">"tag_prefix*"</span>)</span><br><span class="line">git tag -d $(git tag -l <span class="string">"*v3.[2]*-beta*"</span>)</span><br><span class="line">git tag -d $(git tag -l v0.2.[0-5])</span><br><span class="line"><span class="comment"># 切换到标签位置</span></span><br><span class="line">git checkout &lt;tagname&gt; <span class="comment"># ①</span></span><br><span class="line"><span class="comment"># 从 tag 创建新分支</span></span><br><span class="line">git checkout -b &lt;branch&gt; &lt;tagname&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：①会使仓库处于 “分离头指针（detached HEAD）” 的状态，在 “分离头指针” 状态下，如果做了某些更改然后提交它们，标签不会发生变化， 但新提交将不属于任何分支，并且将无法访问，除非通过确切的提交哈希才能访问。 因此，如果你需要进行更改，比如要修复旧版本中的错误，那么通常需要『从tag创建新分支』。</p>
 <h3 id="分支">分支</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 新分支</span></span><br><span class="line">git checkout -b &lt;new_branch_name&gt; &lt;tag_name&gt;</span><br><span class="line"><span class="comment"># 冲突解决后</span></span><br><span class="line">git rebase --<span class="built_in">continue</span></span><br><span class="line"><span class="comment"># 删除 -d删除成功merge的，-D强制删除</span></span><br><span class="line">git push -d origin &lt;branchname&gt;</span><br><span class="line">git branch -d &lt;branchname&gt;</span><br></pre></td></tr></table></figure>
 <h3 id="提交">提交</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改最近的提交</span></span><br><span class="line">git commit --amend -m <span class="string">&quot;new_message&quot;</span></span><br><span class="line"><span class="comment"># 强制推送</span></span><br><span class="line">git push --force repo_name branch_name</span><br><span class="line"><span class="comment"># 如果有其他改动会中止</span></span><br><span class="line">git push --force-with-lease repo_name branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改历史提交消息</span></span><br><span class="line">git rebase -i HEAD~3  <span class="comment"># 3表示当前提交往前数3次</span></span><br><span class="line">pick =&gt; reword, save &amp; close</span><br><span class="line"><span class="built_in">type</span> new message, save &amp; close</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改最近的提交</span></span><br><span class="line">git commit --amend -m <span class="string">"new_message"</span></span><br><span class="line"><span class="comment"># 强制推送</span></span><br><span class="line">git push --force repo_name branch_name</span><br><span class="line"><span class="comment"># 如果有其他改动会中止</span></span><br><span class="line">git push --force-with-lease repo_name branch_name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改历史提交消息</span></span><br><span class="line">git rebase -i HEAD~3  <span class="comment"># 3表示当前提交往前数3次</span></span><br><span class="line">pick =&gt; reword, save &amp; close</span><br><span class="line"><span class="built_in">type</span> new message, save &amp; close</span><br><span class="line">git push --force</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a
-href="https://www.educative.io/answers/how-to-change-a-git-commit-message-after-a-push">How
-to change a Git commit message after a push</a></li>
-<li><a
-href="https://stackoverflow.com/questions/179123/how-to-modify-existing-unpushed-commit-messages">git
-- How to modify existing, unpushed commit messages? - Stack
-Overflow</a></li>
+<li><a href="https://www.educative.io/answers/how-to-change-a-git-commit-message-after-a-push" target="_blank" rel="noopener">How to change a Git commit message after a push</a></li>
+<li><a href="https://stackoverflow.com/questions/179123/how-to-modify-existing-unpushed-commit-messages" target="_blank" rel="noopener">git - How to modify existing, unpushed commit messages? - Stack Overflow</a></li>
 </ul>
 <h3 id="token">Token</h3>
 <ul>
-<li><a
-href="https://gist.github.com/jonjack/bf295d4170edeb00e96fb158f9b1ba3c">Adding
-&amp; Updating GitHub Access Token on Mac</a></li>
+<li><a href="https://gist.github.com/jonjack/bf295d4170edeb00e96fb158f9b1ba3c" target="_blank" rel="noopener">Adding &amp; Updating GitHub Access Token on Mac</a></li>
 </ul>
 <h3 id="fetch-folk">Fetch Folk</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add upstream https://github.com/otheruser/repo.git</span><br><span class="line">git fetch upstream</span><br><span class="line">git branch -va</span><br><span class="line">git checkout main</span><br><span class="line"><span class="comment"># replay local work on top of the fetched branch, git pull --rebase</span></span><br><span class="line">git rebase upstream/main</span><br><span class="line"><span class="comment"># merge, like git pull</span></span><br><span class="line">git merge upstream/main</span><br><span class="line"><span class="comment"># 修改远程分支</span></span><br><span class="line">git remote set-url origin &lt;remote-repo&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add upstream https://github.com/otheruser/repo.git</span><br><span class="line">git fetch upstream</span><br><span class="line">git branch -va</span><br><span class="line">git checkout main</span><br><span class="line"><span class="comment"># replay local work on top of the fetched branch, git pull --rebase</span></span><br><span class="line">git rebase upstream/main</span><br><span class="line"><span class="comment"># merge, like git pull</span></span><br><span class="line">git merge upstream/main</span><br><span class="line"><span class="comment"># 修改远程分支</span></span><br><span class="line">git remote <span class="built_in">set</span>-url origin &lt;remote-repo&gt;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a
-href="https://stackoverflow.com/questions/7244321/how-do-i-update-or-sync-a-forked-repository-on-github">git
-- How do I update or sync a forked repository on GitHub? - Stack
-Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/7244321/how-do-i-update-or-sync-a-forked-repository-on-github" target="_blank" rel="noopener">git - How do I update or sync a forked repository on GitHub? - Stack Overflow</a></li>
 </ul>
 <h3 id="largefile">LargeFile</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  ***** Delete large committed files *****</span></span><br><span class="line">git filter-branch -f --index-filter <span class="string">&quot;git rm -rf --cached --ignore-unmatch FOLDERNAME&quot;</span> -- --all</span><br><span class="line"></span><br><span class="line"><span class="built_in">rm</span> -rf .git/refs/original/</span><br><span class="line">git reflog expire --expire=now --all</span><br><span class="line">git gc --prune=now</span><br><span class="line">git gc --aggressive --prune=now</span><br><span class="line"></span><br><span class="line">git push --all --force</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  ***** Delete large committed files *****</span></span><br><span class="line">git filter-branch -f --index-filter <span class="string">"git rm -rf --cached --ignore-unmatch FOLDERNAME"</span> -- --all</span><br><span class="line"></span><br><span class="line">rm -rf .git/refs/original/</span><br><span class="line">git reflog expire --expire=now --all</span><br><span class="line">git gc --prune=now</span><br><span class="line">git gc --aggressive --prune=now</span><br><span class="line"></span><br><span class="line">git push --all --force</span><br></pre></td></tr></table></figure>
 <ul>
-<li><a
-href="https://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-the-git-repository/43640996#43640996">version
-control - How to remove/delete a large file from commit history in the
-Git repository? - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/2100907/how-to-remove-delete-a-large-file-from-commit-history-in-the-git-repository/43640996#43640996" target="_blank" rel="noopener">version control - How to remove/delete a large file from commit history in the Git repository? - Stack Overflow</a></li>
 </ul>
 <h3 id="version">Version</h3>
 <p><code>&lt;major&gt;.&lt;minor&gt;.&lt;patch&gt;-beta.&lt;beta&gt; == 1.2.3-beta.2</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~version  <span class="comment"># only accept new patch</span></span><br><span class="line">^version  <span class="comment"># accept new minor and patch</span></span><br><span class="line">version   <span class="comment"># exact</span></span><br><span class="line">&gt;version</span><br><span class="line">&gt;=version</span><br><span class="line">&lt;version</span><br><span class="line">&lt;=version</span><br><span class="line">1.2.x      <span class="comment"># 1.2.*</span></span><br><span class="line">*          <span class="comment"># any</span></span><br><span class="line">latest     <span class="comment"># obtain latest</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li><a
-href="https://stackoverflow.com/questions/22343224/whats-the-difference-between-tilde-and-caret-in-package-json">node.js
-- What's the difference between tilde(~) and caret(^) in package.json? -
-Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/22343224/whats-the-difference-between-tilde-and-caret-in-package-json" target="_blank" rel="noopener">node.js - What’s the difference between tilde(~) and caret(^) in package.json? - Stack Overflow</a></li>
 </ul>
 
       
@@ -312,21 +293,6 @@ Stack Overflow</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

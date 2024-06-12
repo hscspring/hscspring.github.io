@@ -14,18 +14,18 @@
   
   <title>Gan 原理、证明与实现 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   文章目录 1 简介 2 证明 2.1 概念与过程形式化 2.2 理论推导 2.3 证明 2.3.1 最优判别器 2.3.2 最优生成器 2.4 重述训练过程 2.4.1 参数优化过程 2.4.2 实际训练过程 2.4.3 最终过程 3 代码 4 代码学习 5 应用 6 数据集 7 其他资料 8 参考文献">
-<meta name="keywords" content="Gan,AI,DeepLearning">
+  <meta name="description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan    文章目录 1  简介 2  证明 2.1  概念与过程形式化 2.2  理论推导 2.3  证明 2.3.1  最优判别器 2.3.2  最优生成器 2.4  重述训练过程 2.4.1  参数优化过程 2.4.2  实际训练过程 2.4.3  最终过程 3  代码 4  代码学习 5  应用 6  数">
+<meta name="keywords" content="AI,Gan,DeepLearning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gan 原理、证明与实现">
 <meta property="og:url" content="https://www.yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   文章目录 1 简介 2 证明 2.1 概念与过程形式化 2.2 理论推导 2.3 证明 2.3.1 最优判别器 2.3.2 最优生成器 2.4 重述训练过程 2.4.1 参数优化过程 2.4.2 实际训练过程 2.4.3 最终过程 3 代码 4 代码学习 5 应用 6 数据集 7 其他资料 8 参考文献">
+<meta property="og:description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan    文章目录 1  简介 2  证明 2.1  概念与过程形式化 2.2  理论推导 2.3  证明 2.3.1  最优判别器 2.3.2  最优生成器 2.4  重述训练过程 2.4.1  参数优化过程 2.4.2  实际训练过程 2.4.3  最终过程 3  代码 4  代码学习 5  应用 6  数">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.155Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gan 原理、证明与实现">
-<meta name="twitter:description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan   文章目录 1 简介 2 证明 2.1 概念与过程形式化 2.2 理论推导 2.3 证明 2.3.1 最优判别器 2.3.2 最优生成器 2.4 重述训练过程 2.4.1 参数优化过程 2.4.2 实际训练过程 2.4.3 最终过程 3 代码 4 代码学习 5 应用 6 数据集 7 其他资料 8 参考文献">
+<meta name="twitter:description" content="说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：Gan    文章目录 1  简介 2  证明 2.1  概念与过程形式化 2.2  理论推导 2.3  证明 2.3.1  最优判别器 2.3.2  最优生成器 2.4  重述训练过程 2.4.1  参数优化过程 2.4.2  实际训练过程 2.4.3  最终过程 3  代码 4  代码学习 5  应用 6  数">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/" data-id="clx98np080002tsbzs5rlq81x" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/" data-id="clxbpfs3h000edlbz2o192c93" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -96,21 +96,35 @@
             <!-- Table of Contents -->
               
         <blockquote>
-<p>说明：本文主要介绍 Gan
-的基本原理、证明过程及简单的代码实现。这里是文章链接：<a
-href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/Gan-Tutorial/Gan.ipynb">Gan</a></p>
+<p>说明：本文主要介绍 Gan 的基本原理、证明过程及简单的代码实现。这里是文章链接：<a href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/Gan-Tutorial/Gan.ipynb" target="_blank" rel="noopener">Gan</a></p>
 </blockquote>
 <ul>
-<li><p>文章目录 1 简介 2 证明 2.1 概念与过程形式化 2.2 理论推导 2.3 证明
-2.3.1 最优判别器 2.3.2 最优生成器 2.4 重述训练过程 2.4.1 参数优化过程
-2.4.2 实际训练过程 2.4.3 最终过程 3 代码 4 代码学习 5 应用 6 数据集 7
-其他资料 8 参考文献</p></li>
-<li><p><a
-href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo1">Demo1:
-手写数字生成</a></p></li>
-<li><p><a
-href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo2">Demo2:
-二次元头像生成</a></p></li>
+<li>
+<p>文章目录<br>
+1  简介<br>
+2  证明<br>
+2.1  概念与过程形式化<br>
+2.2  理论推导<br>
+2.3  证明<br>
+2.3.1  最优判别器<br>
+2.3.2  最优生成器<br>
+2.4  重述训练过程<br>
+2.4.1  参数优化过程<br>
+2.4.2  实际训练过程<br>
+2.4.3  最终过程<br>
+3  代码<br>
+4  代码学习<br>
+5  应用<br>
+6  数据集<br>
+7  其他资料<br>
+8  参考文献</p>
+</li>
+<li>
+<p><a href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo1" target="_blank" rel="noopener">Demo1: 手写数字生成</a></p>
+</li>
+<li>
+<p><a href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo2" target="_blank" rel="noopener">Demo2: 二次元头像生成</a></p>
+</li>
 </ul>
 
       
@@ -269,21 +283,6 @@ href="https://github.com/hscspring/All4AI/tree/master/Gan-Tutorial/Demo2">Demo2:
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

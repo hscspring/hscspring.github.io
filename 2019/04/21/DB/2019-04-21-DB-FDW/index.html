@@ -15,14 +15,14 @@
   <title>DataBase Foreign Data Wrapper | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：Foreign data wrappers - PostgreSQL w">
-<meta name="keywords" content="DB,Postgres,SQL,FDW,Materialized Views">
+<meta name="keywords" content="DB,FDW,Materialized Views,Postgres,SQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DataBase Foreign Data Wrapper">
 <meta property="og:url" content="https://www.yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/index.html">
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：Foreign data wrappers - PostgreSQL w">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.157Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DataBase Foreign Data Wrapper">
 <meta name="twitter:description" content="有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：Foreign data wrappers - PostgreSQL w">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="clx98np0h001qtsbz0ljdsu34" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="clxbpfs3w001fdlbzexswus8y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,183 +95,106 @@
       
             <!-- Table of Contents -->
               
-        <p>有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive
-的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个
-DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用
-FDW 就非常方便了。FDW 全称 Foreign Data
-Wrapper，这里有一些基本的介绍：<a
-href="https://wiki.postgresql.org/wiki/Foreign_data_wrappers">Foreign
-data wrappers - PostgreSQL wiki</a>，FDW
-非常简单且效果不错，下面逐步介绍（基于
-postgres）基本操作和注意事项。</p>
-<span id="more"></span>
+        <p>有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：<a href="https://wiki.postgresql.org/wiki/Foreign_data_wrappers" target="_blank" rel="noopener">Foreign data wrappers - PostgreSQL wiki</a>，FDW 非常简单且效果不错，下面逐步介绍（基于 postgres）基本操作和注意事项。</p>
+<a id="more"></a>
 <h2 id="场景描述">场景描述</h2>
-<p>当我们需要从一个 DB（B）获取另一个 DB（A）的表时（常见于各类 BI
-需求），一种方法是把 A 的数据完整备份到
-B（这里不涉及主从问题），这样做不是不可以，但是比较麻烦；还有一种更为直接的方法就是使用
-FDW 插件连接两个 DB，然后就可以直接通过 B 获取 A 的数据。</p>
-<p>当然，实际中我们往往还会对从 A 映射过来的数据 <a
-href="http://www.postgresqltutorial.com/postgresql-materialized-views/">Materialized
-Views</a> 化，简单来说就是对 Table 或 View
-进行本地化处理（物理存储）以提升访问速度，唯一需要注意的是需要定期
-REFRESH 才能将源 DB
-的数据更新，不过这可以通过设置一个定时任务非常简单地实现。</p>
+<p>当我们需要从一个 DB（B）获取另一个 DB（A）的表时（常见于各类 BI 需求），一种方法是把 A 的数据完整备份到 B（这里不涉及主从问题），这样做不是不可以，但是比较麻烦；还有一种更为直接的方法就是使用 FDW 插件连接两个 DB，然后就可以直接通过 B 获取 A 的数据。</p>
+<p>当然，实际中我们往往还会对从 A 映射过来的数据 <a href="http://www.postgresqltutorial.com/postgresql-materialized-views/" target="_blank" rel="noopener">Materialized Views</a> 化，简单来说就是对 Table 或 View 进行本地化处理（物理存储）以提升访问速度，唯一需要注意的是需要定期 REFRESH 才能将源 DB 的数据更新，不过这可以通过设置一个定时任务非常简单地实现。</p>
 <h2 id="执行步骤">执行步骤</h2>
-<p>接下来就是这一系列步骤了，包括使用 FDW 映射到 Materialized Views
-再到定时任务整个过程的处理。为此，我们事先假设好一个场景，下面的例子将以场景中指定的名字演示。</p>
-<p>假设我们有个文本生成的应用：TextGeneration，应用本身只有一张表：<code>text_generation</code>，其他的表如
-<code>auth_*</code> 和 <code>django_*</code> 是 Django 自动创建的表，DB
-名字为 <code>tg</code>。</p>
-<p>然后我们还有一个应用：BI，DB 名字为 <code>bi-data</code>，现在想在 BI
-的 DB 中使用 TextGeneration 的那张表。</p>
+<p>接下来就是这一系列步骤了，包括使用 FDW 映射到 Materialized Views 再到定时任务整个过程的处理。为此，我们事先假设好一个场景，下面的例子将以场景中指定的名字演示。</p>
+<p>假设我们有个文本生成的应用：TextGeneration，应用本身只有一张表：<code>text_generation</code>，其他的表如 <code>auth_*</code> 和 <code>django_*</code> 是 Django 自动创建的表，DB 名字为 <code>tg</code>。</p>
+<p>然后我们还有一个应用：BI，DB 名字为 <code>bi-data</code>，现在想在 BI 的 DB 中使用 TextGeneration 的那张表。</p>
 <h3 id="fdw">FDW</h3>
 <p>Step 1: Install the <code>postgres_fdw</code> extension</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> EXTENSION IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> postgres_fdw;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> EXTENSION <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> postgres_fdw;</span><br></pre></td></tr></table></figure>
 <p>Step 2: Create a server</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> SERVER IF <span class="keyword">EXISTS</span> tg_server CASCADE; # prevent duplicated</span><br><span class="line"><span class="keyword">CREATE</span> SERVER tg_server FOREIGH DATA WRAPPER postgres_fdw OPTIONS (host <span class="string">&#x27;xxx.xxx.xxx.xxx&#x27;</span>, dbname <span class="string">&#x27;tg&#x27;</span>, port <span class="string">&#x27;5432&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">SERVER</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tg_server <span class="keyword">CASCADE</span>; <span class="comment"># prevent duplicated</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SERVER</span> tg_server FOREIGH <span class="keyword">DATA</span> WRAPPER postgres_fdw OPTIONS (host <span class="string">'xxx.xxx.xxx.xxx'</span>, dbname <span class="string">'tg'</span>, port <span class="string">'5432'</span>);</span><br></pre></td></tr></table></figure>
 <p>Step3: Create the user mapping</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> MAPPING <span class="keyword">FOR</span> bi_read_tg_only_user SERVER tg_server OPTIONS (<span class="keyword">user</span> <span class="string">&#x27;tg_read_only_user&#x27;</span>, password <span class="string">&#x27;xxxxxxx&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="keyword">MAPPING</span> <span class="keyword">FOR</span> bi_read_tg_only_user <span class="keyword">SERVER</span> tg_server OPTIONS (<span class="keyword">user</span> <span class="string">'tg_read_only_user'</span>, <span class="keyword">password</span> <span class="string">'xxxxxxx'</span>);</span><br></pre></td></tr></table></figure>
 <p>这里需要说明一下如何创建用户：</p>
 <ul>
-<li>源 DB 创建为目标 DB 创建一个只读账号，比如
-<code>tg_read_only_user</code></li>
-<li>目标 DB 创建一个读写账号，针对从源 DB 映射过来的 schema
-只读，或者创建一个只读账号比如 <code>bi_read_tg_only_user</code>。</li>
-<li>使用目标 DB 的账号去 map 源 DB 为目标 DB 创建的只读账号，即使用
-<code>bi_read_only_user</code> 去 map
-<code>tg_read_only_user</code></li>
-<li>使用目标 DB 的读写或只读账号访问数据，即使用
-<code>bi_read_only_user</code> 访问数据</li>
+<li>源 DB 创建为目标 DB 创建一个只读账号，比如 <code>tg_read_only_user</code></li>
+<li>目标 DB 创建一个读写账号，针对从源 DB 映射过来的 schema 只读，或者创建一个只读账号比如 <code>bi_read_tg_only_user</code>。</li>
+<li>使用目标 DB 的账号去 map 源 DB 为目标 DB 创建的只读账号，即使用 <code>bi_read_only_user</code> 去 map <code>tg_read_only_user</code></li>
+<li>使用目标 DB 的读写或只读账号访问数据，即使用 <code>bi_read_only_user</code> 访问数据</li>
 </ul>
-<p>如果两个 DB
-在同一个数据库实例里面，那只要注意给不同用户赋权即可。或者<strong>简单起见可以只创建一个用户，分别只读源
-DB，读写或只读目标 DB</strong>。</p>
+<p>如果两个 DB 在同一个数据库实例里面，那只要注意给不同用户赋权即可。或者<strong>简单起见可以只创建一个用户，分别只读源 DB，读写或只读目标 DB</strong>。</p>
 <p>需要特别说明的两点：</p>
 <ul>
-<li>有读写权限的用户操作从其他源 DB 映射过来的 schema 时，源 DB
-的数据也会发生变化，安全起见建议创建一个只读账号。</li>
-<li>如果在目标 DB 中创建了只读用户，默认只有 public
-的权限，需要注意给你想要给的 schema 的权限（就是你想读取的从其他 DB
-映射过来的 schema）</li>
+<li>有读写权限的用户操作从其他源 DB 映射过来的 schema 时，源 DB 的数据也会发生变化，安全起见建议创建一个只读账号。</li>
+<li>如果在目标 DB 中创建了只读用户，默认只有 public 的权限，需要注意给你想要给的 schema 的权限（就是你想读取的从其他 DB 映射过来的 schema）</li>
 </ul>
-<p>关于如何创建只读用户以及如何给不同的 schema
-权限赋权，可以参考下这篇<a
-href="https://yam.gift/2019/06/15/2019-06-15-Common-DB-Related/">文章</a>。</p>
+<p>关于如何创建只读用户以及如何给不同的 schema 权限赋权，可以参考下这篇<a href="https://yam.gift/2019/06/15/2019-06-15-Common-DB-Related/" target="_blank" rel="noopener">文章</a>。</p>
 <p>Step4: Create new schema to access source DB</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> SCHEMA IF <span class="keyword">EXISTS</span> tg_schema; # prevent duplicated</span><br><span class="line"><span class="keyword">CREATE</span> SCHEMA tg_schema;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">SCHEMA</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tg_schema; <span class="comment"># prevent duplicated</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> tg_schema;</span><br></pre></td></tr></table></figure>
 <p>Step5: Import schema of source DB</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IMPORT <span class="keyword">FOREIGN</span> SCHEMA public <span class="keyword">FROM</span> SERVER tg_server <span class="keyword">INTO</span> tg_schema;</span><br><span class="line"># <span class="keyword">or</span> <span class="keyword">only</span> import <span class="keyword">some</span> tables</span><br><span class="line">IMPORT <span class="keyword">FOREIGN</span> SCHEMA public LIMIT <span class="keyword">TO</span> ( text_generation ) </span><br><span class="line"><span class="keyword">FROM</span> SERVER tg_server <span class="keyword">INTO</span> tg_schema;</span><br></pre></td></tr></table></figure>
-<p>这里我们第一行命令是把源 DB 的 public schema
-导入过来了，你也可以根据需要导入其他
-schema。第二行则是只导入指定表格的例子。</p>
-<p>到这里我们的 FDW 操作其实已经完成了，此时，你可以在目标 DB 中通过
-<code>schema_name.table_name</code> 使用源 DB 的数据啦，注意 table name
-是源 DB 的表。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">from</span> tg_schema.text_generation;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">IMPORT FOREIGN SCHEMA public FROM SERVER tg_server INTO tg_schema;</span><br><span class="line"><span class="comment"># or only import some tables</span></span><br><span class="line">IMPORT FOREIGN SCHEMA public LIMIT TO ( text_generation ) </span><br><span class="line">FROM SERVER tg_server INTO tg_schema;</span><br></pre></td></tr></table></figure>
+<p>这里我们第一行命令是把源 DB 的 public schema 导入过来了，你也可以根据需要导入其他 schema。第二行则是只导入指定表格的例子。</p>
+<p>到这里我们的 FDW 操作其实已经完成了，此时，你可以在目标 DB 中通过 <code>schema_name.table_name</code> 使用源 DB 的数据啦，注意 table name 是源 DB 的表。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> tg_schema.text_generation;</span><br></pre></td></tr></table></figure>
 <h3 id="materialized-views">Materialized Views</h3>
-<p>Foreign tables 只是真实 data
-的一个代理，为了独立使用这些数据，实际中最简单的复制数据的方法就是使用
-materialized views。</p>
+<p>Foreign tables 只是真实 data 的一个代理，为了独立使用这些数据，实际中最简单的复制数据的方法就是使用 materialized views。</p>
 <p>Step 1: Create materialized view</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> MATERIALIZED <span class="keyword">VIEW</span> IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> tgmv_text_generation <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tg_schema.text_generation; # 这里还可以执行其他 <span class="keyword">sql</span></span><br></pre></td></tr></table></figure>
-<p>这样就把映射过来的 <code>tg_schema</code> 中的
-<code>text_generation</code> 表（也就是源 DB 中的那张表）转为
-materialized view 了，我们把 view 命名为
-<code>tgmv_text_generation</code>。当然，在 materialized
-时可以执行许多其他有用的 SQL 命令，比如 COUNT，GROUP BY 等。</p>
-<p>这时就可以直接使用 <code>tgmv_text_generation</code> 了，和上面从
-<code>tg_schema.text_generation</code> 中获取的数据应该是一致的。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">from</span> tgmv_text_generation;</span><br></pre></td></tr></table></figure>
-<p>那么，当源 DB 的数据发生变化时怎么更新到我们的 materialized views
-中呢？这时候就需要进行 REFRESH。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">MATERIALIZED</span> <span class="keyword">VIEW</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> tgmv_text_generation <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tg_schema.text_generation; <span class="comment"># 这里还可以执行其他 sql</span></span><br></pre></td></tr></table></figure>
+<p>这样就把映射过来的 <code>tg_schema</code> 中的 <code>text_generation</code> 表（也就是源 DB 中的那张表）转为 materialized view 了，我们把 view 命名为 <code>tgmv_text_generation</code>。当然，在 materialized 时可以执行许多其他有用的 SQL 命令，比如 COUNT，GROUP BY 等。</p>
+<p>这时就可以直接使用 <code>tgmv_text_generation</code> 了，和上面从 <code>tg_schema.text_generation</code> 中获取的数据应该是一致的。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> tgmv_text_generation;</span><br></pre></td></tr></table></figure>
+<p>那么，当源 DB 的数据发生变化时怎么更新到我们的 materialized views 中呢？这时候就需要进行 REFRESH。</p>
 <p>Step2: Refresh data</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REFRESH MATERIALIZED <span class="keyword">VIEW</span> tgmv_text_generation;</span><br></pre></td></tr></table></figure>
-<p>本来到这里就可以了，但是这里有个 <code>EXCLUSIVE</code> lock
-的问题，会导致刷新速度巨慢，详见 Materialized Views 的参考文献。</p>
-<p>解决方式是使用 <code>CONCURRENTLY</code>，不过需要定义至少一个 UNIQUE
-index：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> INDEX IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> id <span class="keyword">ON</span> tgmv_text_generation (id);</span><br><span class="line">REFRESH MATERIALIZED <span class="keyword">VIEW</span> CONCURRENTLY tgmv_text_generation;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">REFRESH MATERIALIZED VIEW tgmv_text_generation;</span><br></pre></td></tr></table></figure>
+<p>本来到这里就可以了，但是这里有个 <code>EXCLUSIVE</code> lock 的问题，会导致刷新速度巨慢，详见 Materialized Views 的参考文献。</p>
+<p>解决方式是使用 <code>CONCURRENTLY</code>，不过需要定义至少一个 UNIQUE index：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> <span class="keyword">id</span> <span class="keyword">ON</span> tgmv_text_generation (<span class="keyword">id</span>);</span><br><span class="line">REFRESH MATERIALIZED VIEW CONCURRENTLY tgmv_text_generation;</span><br></pre></td></tr></table></figure>
 <p>这里的 id 就是源 DB <code>text_generation</code> 表里的 id 列。</p>
 <h3 id="批量脚本">批量脚本</h3>
-<p>实际应用中我们肯定不止一张表格，不可能手动一步一步去执行这些操作，这时候可以通过一个
-SQL 命令脚本完成，还以上面的案例为例。</p>
+<p>实际应用中我们肯定不止一张表格，不可能手动一步一步去执行这些操作，这时候可以通过一个 SQL 命令脚本完成，还以上面的案例为例。</p>
 <p>Step 1: Create SQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- create.sql</span></span><br><span class="line"><span class="comment">-- 映射和赋权可以单独登陆 psql 创建</span></span><br><span class="line">DO $$</span><br><span class="line"><span class="keyword">DECLARE</span> r record;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="comment">-- 映射</span></span><br><span class="line">    <span class="keyword">CREATE</span> EXTENSION IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> postgres_fdw;</span><br><span class="line">    <span class="keyword">DROP</span> SERVER IF <span class="keyword">EXISTS</span> tg_server CASCADE;</span><br><span class="line">    <span class="keyword">CREATE</span> SERVER tg_server FOREIGH DATA WRAPPER postgres_fdw OPTIONS (host <span class="string">&#x27;xxx.xxx.xxx.xxx&#x27;</span>, dbname <span class="string">&#x27;tg&#x27;</span>, port <span class="string">&#x27;5432&#x27;</span>);</span><br><span class="line">    <span class="keyword">CREATE</span> <span class="keyword">USER</span> MAPPING <span class="keyword">FOR</span> bi_read_tg_only_user SERVER tg_server OPTIONS (<span class="keyword">user</span> <span class="string">&#x27;tg_read_only_user&#x27;</span>, password <span class="string">&#x27;xxxxxxx&#x27;</span>);</span><br><span class="line">    <span class="keyword">DROP</span> SCHEMA IF <span class="keyword">EXISTS</span> tg_schema;</span><br><span class="line">    <span class="keyword">CREATE</span> SCHEMA tg_schema;</span><br><span class="line">    IMPORT <span class="keyword">FOREIGN</span> SCHEMA public <span class="keyword">FROM</span> SERVER tg_server <span class="keyword">INTO</span> tg_schema;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 赋权</span></span><br><span class="line">    <span class="keyword">GRANT</span> USAGE <span class="keyword">ON</span> SCHEMA tg_schema <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="keyword">ALL</span> TABLES <span class="keyword">IN</span> SCHEMA tg_schema <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    <span class="comment">-- grant access to the new table automatically</span></span><br><span class="line">    <span class="keyword">ALTER</span> <span class="keyword">DEFAULT</span> PRIVILEGES <span class="keyword">IN</span> SCHEMA tg_schema <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> TABLES <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 持久化</span></span><br><span class="line">    <span class="keyword">CREATE</span> EXTENSION IF <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> btree_gist;</span><br><span class="line">    <span class="keyword">FOR</span> r <span class="keyword">IN</span> <span class="keyword">SELECT</span> tname <span class="keyword">FROM</span> (<span class="keyword">VALUES</span> </span><br><span class="line">            (<span class="string">&#x27;auth_group&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_group_permissions&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_permission&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user_groups&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user_user_permissions&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_admin_log&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_content_type&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_migrations&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_session&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_site&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;text_generation&#x27;</span>)) <span class="keyword">AS</span> x(tname)</span><br><span class="line">    LOOP</span><br><span class="line">    	<span class="comment">-- ignore django_* tables.</span></span><br><span class="line">        IF r.tname <span class="keyword">like</span> <span class="string">&#x27;django_%&#x27;</span> <span class="keyword">THEN</span></span><br><span class="line">            RAISE NOTICE <span class="string">&#x27;tgmv_% need not to process....&#x27;</span>, r.tname;</span><br><span class="line">        <span class="keyword">ELSE</span></span><br><span class="line">            <span class="keyword">EXECUTE</span> format(<span class="string">&#x27;CREATE MATERIALIZED VIEW IF NOT EXISTS tgmv_%s AS &#x27;</span></span><br><span class="line">                <span class="string">&#x27;SELECT * FROM tg_schema.%s&#x27;</span>, </span><br><span class="line">                r.tname, r.tname);</span><br><span class="line">            <span class="keyword">EXECUTE</span> format(<span class="string">&#x27;CREATE UNIQUE INDEX IF NOT EXISTS id ON tgmv_%s (id)&#x27;</span>, </span><br><span class="line">                r.tname);</span><br><span class="line">            <span class="comment">-- 下面这句是刷新时用的，创建时可以不需要</span></span><br><span class="line">            <span class="keyword">EXECUTE</span> format(<span class="string">&#x27;REFRESH MATERIALIZED VIEW CONCURRENTLY tgmv_%s&#x27;</span>, r.tname);</span><br><span class="line">        <span class="keyword">END</span> IF;</span><br><span class="line">    <span class="keyword">END</span> LOOP;</span><br><span class="line"><span class="keyword">END</span>$$</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- create.sql</span></span><br><span class="line"><span class="comment">-- 映射和赋权可以单独登陆 psql 创建</span></span><br><span class="line"><span class="keyword">DO</span> $$</span><br><span class="line"><span class="keyword">DECLARE</span> r <span class="built_in">record</span>;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">    <span class="comment">-- 映射</span></span><br><span class="line">    <span class="keyword">CREATE</span> EXTENSION <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> postgres_fdw;</span><br><span class="line">    <span class="keyword">DROP</span> <span class="keyword">SERVER</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tg_server <span class="keyword">CASCADE</span>;</span><br><span class="line">    <span class="keyword">CREATE</span> <span class="keyword">SERVER</span> tg_server FOREIGH <span class="keyword">DATA</span> WRAPPER postgres_fdw OPTIONS (host <span class="string">'xxx.xxx.xxx.xxx'</span>, dbname <span class="string">'tg'</span>, port <span class="string">'5432'</span>);</span><br><span class="line">    <span class="keyword">CREATE</span> <span class="keyword">USER</span> <span class="keyword">MAPPING</span> <span class="keyword">FOR</span> bi_read_tg_only_user <span class="keyword">SERVER</span> tg_server OPTIONS (<span class="keyword">user</span> <span class="string">'tg_read_only_user'</span>, <span class="keyword">password</span> <span class="string">'xxxxxxx'</span>);</span><br><span class="line">    <span class="keyword">DROP</span> <span class="keyword">SCHEMA</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tg_schema;</span><br><span class="line">    <span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> tg_schema;</span><br><span class="line">    IMPORT FOREIGN SCHEMA public FROM SERVER tg_server INTO tg_schema;</span><br><span class="line"></span><br><span class="line">    <span class="comment">-- 赋权</span></span><br><span class="line">    <span class="keyword">GRANT</span> <span class="keyword">USAGE</span> <span class="keyword">ON</span> <span class="keyword">SCHEMA</span> tg_schema <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="keyword">ALL</span> <span class="keyword">TABLES</span> <span class="keyword">IN</span> <span class="keyword">SCHEMA</span> tg_schema <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    <span class="comment">-- grant access to the new table automatically</span></span><br><span class="line">    <span class="keyword">ALTER</span> <span class="keyword">DEFAULT</span> <span class="keyword">PRIVILEGES</span> <span class="keyword">IN</span> <span class="keyword">SCHEMA</span> tg_schema <span class="keyword">GRANT</span> <span class="keyword">SELECT</span> <span class="keyword">ON</span> <span class="keyword">TABLES</span> <span class="keyword">TO</span> bi_read_tg_only_user;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">-- 持久化</span></span><br><span class="line">    <span class="keyword">CREATE</span> EXTENSION <span class="keyword">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> btree_gist;</span><br><span class="line">    FOR r IN <span class="keyword">SELECT</span> tname <span class="keyword">FROM</span> (<span class="keyword">VALUES</span> </span><br><span class="line">            (<span class="string">'auth_group'</span>),</span><br><span class="line">            (<span class="string">'auth_group_permissions'</span>),</span><br><span class="line">            (<span class="string">'auth_permission'</span>),</span><br><span class="line">            (<span class="string">'auth_user'</span>),</span><br><span class="line">            (<span class="string">'auth_user_groups'</span>),</span><br><span class="line">            (<span class="string">'auth_user_user_permissions'</span>),</span><br><span class="line">            (<span class="string">'django_admin_log'</span>),</span><br><span class="line">            (<span class="string">'django_content_type'</span>),</span><br><span class="line">            (<span class="string">'django_migrations'</span>),</span><br><span class="line">            (<span class="string">'django_session'</span>),</span><br><span class="line">            (<span class="string">'django_site'</span>),</span><br><span class="line">            (<span class="string">'text_generation'</span>)) <span class="keyword">AS</span> x(tname)</span><br><span class="line">    <span class="keyword">LOOP</span></span><br><span class="line">    	<span class="comment">-- ignore django_* tables.</span></span><br><span class="line">        <span class="keyword">IF</span> r.tname <span class="keyword">like</span> <span class="string">'django_%'</span> <span class="keyword">THEN</span></span><br><span class="line">            <span class="keyword">RAISE</span> <span class="keyword">NOTICE</span> <span class="string">'tgmv_% need not to process....'</span>, r.tname;</span><br><span class="line">        ELSE</span><br><span class="line">            <span class="keyword">EXECUTE</span> <span class="keyword">format</span>(<span class="string">'CREATE MATERIALIZED VIEW IF NOT EXISTS tgmv_%s AS '</span></span><br><span class="line">                <span class="string">'SELECT * FROM tg_schema.%s'</span>, </span><br><span class="line">                r.tname, r.tname);</span><br><span class="line">            <span class="keyword">EXECUTE</span> <span class="keyword">format</span>(<span class="string">'CREATE UNIQUE INDEX IF NOT EXISTS id ON tgmv_%s (id)'</span>, </span><br><span class="line">                r.tname);</span><br><span class="line">            <span class="comment">-- 下面这句是刷新时用的，创建时可以不需要</span></span><br><span class="line">            <span class="keyword">EXECUTE</span> <span class="keyword">format</span>(<span class="string">'REFRESH MATERIALIZED VIEW CONCURRENTLY tgmv_%s'</span>, r.tname);</span><br><span class="line">        <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">LOOP</span>;</span><br><span class="line"><span class="keyword">END</span>$$</span><br></pre></td></tr></table></figure>
 <p>然后执行 SQL 命令就可以自动在 DB <code>bi-data</code> 中创建了：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ psql -h [HOST] -p [PORT] -U bi_read_tg_only_user -d bi-data -a -f create.sql</span><br></pre></td></tr></table></figure>
 <p>Step 2: Refresh SQL</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- refresh.sql</span></span><br><span class="line"><span class="keyword">SELECT</span> id <span class="keyword">from</span> tg_schema.auth_group LIMIT <span class="number">1</span>; <span class="comment">-- 先重新连接 server</span></span><br><span class="line">DO $$</span><br><span class="line"><span class="keyword">DECLARE</span> r record;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">FOR</span> r <span class="keyword">IN</span> <span class="keyword">SELECT</span> tname <span class="keyword">FROM</span> (<span class="keyword">VALUES</span> </span><br><span class="line">            (<span class="string">&#x27;auth_group&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_group_permissions&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_permission&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user_groups&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;auth_user_user_permissions&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_admin_log&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_content_type&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_migrations&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_session&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;django_site&#x27;</span>),</span><br><span class="line">            (<span class="string">&#x27;text_generation&#x27;</span>)) <span class="keyword">AS</span> x(tname)</span><br><span class="line">    LOOP</span><br><span class="line">    	<span class="comment">-- ignore django_* tables.</span></span><br><span class="line">        IF r.tname <span class="keyword">like</span> <span class="string">&#x27;django_%&#x27;</span> <span class="keyword">THEN</span></span><br><span class="line">            RAISE NOTICE <span class="string">&#x27;tgmv_% need not to process....&#x27;</span>, r.tname;</span><br><span class="line">        <span class="keyword">ELSE</span></span><br><span class="line">            <span class="keyword">EXECUTE</span> format(<span class="string">&#x27;REFRESH MATERIALIZED VIEW CONCURRENTLY tgmv_%s&#x27;</span>, r.tname);</span><br><span class="line">        <span class="keyword">END</span> IF;</span><br><span class="line">    <span class="keyword">END</span> LOOP;</span><br><span class="line"><span class="keyword">END</span>$$</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- refresh.sql</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">from</span> tg_schema.auth_group <span class="keyword">LIMIT</span> <span class="number">1</span>; <span class="comment">-- 先重新连接 server</span></span><br><span class="line"><span class="keyword">DO</span> $$</span><br><span class="line"><span class="keyword">DECLARE</span> r <span class="built_in">record</span>;</span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	<span class="keyword">FOR</span> r <span class="keyword">IN</span> <span class="keyword">SELECT</span> tname <span class="keyword">FROM</span> (<span class="keyword">VALUES</span> </span><br><span class="line">            (<span class="string">'auth_group'</span>),</span><br><span class="line">            (<span class="string">'auth_group_permissions'</span>),</span><br><span class="line">            (<span class="string">'auth_permission'</span>),</span><br><span class="line">            (<span class="string">'auth_user'</span>),</span><br><span class="line">            (<span class="string">'auth_user_groups'</span>),</span><br><span class="line">            (<span class="string">'auth_user_user_permissions'</span>),</span><br><span class="line">            (<span class="string">'django_admin_log'</span>),</span><br><span class="line">            (<span class="string">'django_content_type'</span>),</span><br><span class="line">            (<span class="string">'django_migrations'</span>),</span><br><span class="line">            (<span class="string">'django_session'</span>),</span><br><span class="line">            (<span class="string">'django_site'</span>),</span><br><span class="line">            (<span class="string">'text_generation'</span>)) <span class="keyword">AS</span> x(tname)</span><br><span class="line">    <span class="keyword">LOOP</span></span><br><span class="line">    	<span class="comment">-- ignore django_* tables.</span></span><br><span class="line">        <span class="keyword">IF</span> r.tname <span class="keyword">like</span> <span class="string">'django_%'</span> <span class="keyword">THEN</span></span><br><span class="line">            <span class="keyword">RAISE</span> <span class="keyword">NOTICE</span> <span class="string">'tgmv_% need not to process....'</span>, r.tname;</span><br><span class="line">        ELSE</span><br><span class="line">            <span class="keyword">EXECUTE</span> <span class="keyword">format</span>(<span class="string">'REFRESH MATERIALIZED VIEW CONCURRENTLY tgmv_%s'</span>, r.tname);</span><br><span class="line">        <span class="keyword">END</span> <span class="keyword">IF</span>;</span><br><span class="line">    <span class="keyword">END</span> <span class="keyword">LOOP</span>;</span><br><span class="line"><span class="keyword">END</span>$$</span><br></pre></td></tr></table></figure>
 <p>脚本中我们把所有的表格都放进去了，实际可以只放自己需要的，这样就不需要条件判断了。</p>
-<p><strong>特别注意</strong>：在使用的过程中发现有时候会出现刷新不成功的情况，具体的报错是：ERROR:
-cannot set parameter "role" within security-restricted
-operation，这种情况猜测是因为 server
-长时间没有连接导致的，可以在刷新之前 select schema
-中的任意一张表（具体见上面的 sql）即可解决。</p>
+<p><strong>特别注意</strong>：在使用的过程中发现有时候会出现刷新不成功的情况，具体的报错是：ERROR:  cannot set parameter “role” within security-restricted operation，这种情况猜测是因为 server 长时间没有连接导致的，可以在刷新之前 select schema 中的任意一张表（具体见上面的 sql）即可解决。</p>
 <h3 id="定时-refresh">定时 REFRESH</h3>
-<p>实际应用中我们需要创建一个定时执行的脚本任务来批量刷新表格。当然首先推荐的就是
-<a
-href="https://www.adminschoice.com/crontab-quick-reference">Crontab</a>
-了，因为它很简单而且很好用。</p>
+<p>实际应用中我们需要创建一个定时执行的脚本任务来批量刷新表格。当然首先推荐的就是 <a href="https://www.adminschoice.com/crontab-quick-reference" target="_blank" rel="noopener">Crontab</a> 了，因为它很简单而且很好用。</p>
 <p>Step 1: Create bash script</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># refres.sh</span></span><br><span class="line">LOGFILE=/tmp/log.txt <span class="comment"># absolute path, log file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;begin to refresh view...&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=======================&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">date</span> +%Y年%m月%d日%H点%M分%S秒 &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;开始刷新&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=======================&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">export</span> PGPASSWORD=<span class="string">&quot;xxxxxxxx&quot;</span> <span class="comment"># 这里使用了环境变量就不用输密码了</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line">psql -h [HOST] -p [PORT] -U bi_read_tg_only_user -d bi-data -a -f /absolute/path/to/refresh.sql  &gt;&gt; <span class="variable">$LOGFILE</span> 2&gt;&amp;1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=======================&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">date</span> +%Y年%m月%d日%H点%M分%S秒 &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;结束刷新&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;=======================\n\n&quot;</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;all views in bi-data have been refreshed...&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># refres.sh</span></span><br><span class="line">LOGFILE=/tmp/log.txt <span class="comment"># absolute path, log file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"begin to refresh view..."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"======================="</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line">date +%Y年%m月%d日%H点%M分%S秒 &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"开始刷新"</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"======================="</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">export</span> PGPASSWORD=<span class="string">"xxxxxxxx"</span> <span class="comment"># 这里使用了环境变量就不用输密码了</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line">psql -h [HOST] -p [PORT] -U bi_read_tg_only_user -d bi-data -a -f /absolute/path/to/refresh.sql  &gt;&gt; <span class="variable">$LOGFILE</span> 2&gt;&amp;1</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"======================="</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line">date +%Y年%m月%d日%H点%M分%S秒 &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"结束刷新"</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"=======================\n\n"</span> &gt;&gt; <span class="variable">$LOGFILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"all views in bi-data have been refreshed..."</span></span><br></pre></td></tr></table></figure>
 <p>Step 2: Create crontab task</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
 <p>添加一条命令，比如我们要每天凌晨两点刷新：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 2 * * * /bin/sh /absolute/path/to/refresh.sh</span><br></pre></td></tr></table></figure>
-<p>这样每天两点的时候就会自动执行 <code>refresh.sh</code>
-并且把日志写入设置好的文件： <code>tmp/log.txt</code>。</p>
-<p>这一步很有可能会遇到不少坑，最主要的就是定时任务不生效。如果不幸有人遇到了，我建议大家按这里的指导去排查：<a
-href="https://stackoverflow.com/questions/22743548/cronjob-not-running">linux
-- CronJob not running - Stack
-Overflow</a>，相信我一定是哪里没搞对，这个东西绝对是可以用的，也要相信自己一定可以搞定。</p>
-<p>当然，如果你实在是搞不定或者不喜欢用这个小工具，也可以使用 <a
-href="https://schedule.readthedocs.io/en/stable/">schedule</a>
-起一个独立的服务，专门做数据更新或备份。</p>
+<p>这样每天两点的时候就会自动执行 <code>refresh.sh</code> 并且把日志写入设置好的文件： <code>tmp/log.txt</code>。</p>
+<p>这一步很有可能会遇到不少坑，最主要的就是定时任务不生效。如果不幸有人遇到了，我建议大家按这里的指导去排查：<a href="https://stackoverflow.com/questions/22743548/cronjob-not-running" target="_blank" rel="noopener">linux - CronJob not running - Stack Overflow</a>，相信我一定是哪里没搞对，这个东西绝对是可以用的，也要相信自己一定可以搞定。</p>
+<p>当然，如果你实在是搞不定或者不喜欢用这个小工具，也可以使用 <a href="https://schedule.readthedocs.io/en/stable/" target="_blank" rel="noopener">schedule</a> 起一个独立的服务，专门做数据更新或备份。</p>
 <h2 id="参考文献">参考文献</h2>
 <ul>
-<li>关于 FDW
+<li>
+<p>关于 FDW</p>
 <ul>
-<li><a
-href="https://riptutorial.com/postgresql/example/29417/foreign-data-wrapper">postgresql
-- Foreign Data Wrapper | postgresql Tutorial</a></li>
-<li><a href="http://jarnaldich.me/blog/2018/10/02/fdw-sync.html">Joan
-Arnaldich - Foreign Data Wrappers for Data Synchronization</a></li>
-<li><a
-href="https://thoughtbot.com/blog/postgres-foreign-data-wrapper">PostgreSQL's
-Foreign Data Wrapper</a></li>
-<li><a
-href="https://stackoverflow.com/questions/4678862/joining-results-from-two-separate-databases">postgresql
-- Joining Results from Two Separate Databases - Stack Overflow</a></li>
-</ul></li>
-<li>关于 Materialized Views
+<li><a href="https://riptutorial.com/postgresql/example/29417/foreign-data-wrapper" target="_blank" rel="noopener">postgresql - Foreign Data Wrapper | postgresql Tutorial</a></li>
+<li><a href="http://jarnaldich.me/blog/2018/10/02/fdw-sync.html" target="_blank" rel="noopener">Joan Arnaldich - Foreign Data Wrappers for Data Synchronization</a></li>
+<li><a href="https://thoughtbot.com/blog/postgres-foreign-data-wrapper" target="_blank" rel="noopener">PostgreSQL’s Foreign Data Wrapper</a></li>
+<li><a href="https://stackoverflow.com/questions/4678862/joining-results-from-two-separate-databases" target="_blank" rel="noopener">postgresql - Joining Results from Two Separate Databases - Stack Overflow</a></li>
+</ul>
+</li>
+<li>
+<p>关于 Materialized Views</p>
 <ul>
-<li><a
-href="http://www.postgresqltutorial.com/postgresql-materialized-views/">PostgreSQL
-Materialized Views</a></li>
-<li><a
-href="https://medium.com/jobteaser-dev-team/materialized-views-with-postgresql-for-beginners-9809483db35f">Materialized
-views with PostgreSQL for beginners – JobTeaser Tech – Medium</a></li>
-<li><a
-href="https://dba.stackexchange.com/questions/199994/what-happens-if-two-process-try-to-refresh-materialized-view-concurrently-at-the">postgresql
-- What happens if two process try to REFRESH MATERIALIZED VIEW
-CONCURRENTLY at the same time? - Database Administrators Stack
-Exchange</a></li>
-<li><a
-href="https://stackoverflow.com/questions/41803781/refresh-materialized-views-with-concurrency">postgresql
-- Refresh materialized views with concurrency - Stack Overflow</a></li>
-<li><a
-href="https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/">Speed
-up with Materialized Views on PostgreSQL and Rails — SitePoint</a></li>
-</ul></li>
-<li>关于 Crontab
+<li><a href="http://www.postgresqltutorial.com/postgresql-materialized-views/" target="_blank" rel="noopener">PostgreSQL Materialized Views</a></li>
+<li><a href="https://medium.com/jobteaser-dev-team/materialized-views-with-postgresql-for-beginners-9809483db35f" target="_blank" rel="noopener">Materialized views with PostgreSQL for beginners – JobTeaser Tech – Medium</a></li>
+<li><a href="https://dba.stackexchange.com/questions/199994/what-happens-if-two-process-try-to-refresh-materialized-view-concurrently-at-the" target="_blank" rel="noopener">postgresql - What happens if two process try to REFRESH MATERIALIZED VIEW CONCURRENTLY at the same time? - Database Administrators Stack Exchange</a></li>
+<li><a href="https://stackoverflow.com/questions/41803781/refresh-materialized-views-with-concurrency" target="_blank" rel="noopener">postgresql - Refresh materialized views with concurrency - Stack Overflow</a></li>
+<li><a href="https://www.sitepoint.com/speed-up-with-materialized-views-on-postgresql-and-rails/" target="_blank" rel="noopener">Speed up with Materialized Views on PostgreSQL and Rails — SitePoint</a></li>
+</ul>
+</li>
+<li>
+<p>关于 Crontab</p>
 <ul>
-<li><a
-href="https://stackoverflow.com/questions/22743548/cronjob-not-running">linux
-- CronJob not running - Stack Overflow</a></li>
-<li><a
-href="https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/">Crontab
-in Linux with 20 Useful Examples to Schedule Jobs - TecAdmin</a></li>
-</ul></li>
+<li><a href="https://stackoverflow.com/questions/22743548/cronjob-not-running" target="_blank" rel="noopener">linux - CronJob not running - Stack Overflow</a></li>
+<li><a href="https://tecadmin.net/crontab-in-linux-with-20-examples-of-cron-schedule/" target="_blank" rel="noopener">Crontab in Linux with 20 Useful Examples to Schedule Jobs - TecAdmin</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="changelog">CHANGELOG</h2>
 <ul>
@@ -434,21 +357,6 @@ in Linux with 20 Useful Examples to Schedule Jobs - TecAdmin</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

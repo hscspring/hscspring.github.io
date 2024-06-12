@@ -29,7 +29,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.172Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note">
 <meta name="twitter:description" content="Paper：2105.00828 BERT memorisation and pitfalls in low-resource scenarios Code：无 核心思想：结合原型网络，将少样本的标签表征为稠密向量。">
@@ -95,7 +95,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/" data-id="clx98np1s00jxtsbz74vjdtz1" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/" data-id="clxbpfs6y009hdlbzt40k6clq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -103,44 +103,30 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/2105.00828">2105.00828 BERT
-memorisation and pitfalls in low-resource scenarios</a></p>
+        <p>Paper：<a href="https://arxiv.org/abs/2105.00828" target="_blank" rel="noopener">2105.00828 BERT memorisation and pitfalls in low-resource scenarios</a></p>
 <p>Code：无</p>
 <p>核心思想：结合原型网络，将少样本的标签表征为稠密向量。</p>
-<span id="more"></span>
+<a id="more"></a>
 <p>为了更好理解预训练模型是如何学习的，本文研究了在噪声和少资源场景下泛化和记忆的能力。结果如下：</p>
 <ul>
 <li>标签或数据噪声几乎不影响模型表现</li>
 <li>在少资源任务（如 few-shot 学习或稀有实体识别）上完全失败</li>
 </ul>
-<p>为了缓解这种限制，本文基于 BERT 和 prototypical
-网络提出新的架构，提升在少资源情况下命名实体识别任务的表现。</p>
+<p>为了缓解这种限制，本文基于 BERT 和 prototypical 网络提出新的架构，提升在少资源情况下命名实体识别任务的表现。</p>
 <h3 id="背景动机">背景动机</h3>
-<p>之前的<a
-href="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/">研究</a>更多关注学到了什么，但是怎么从下游任务数据中学习的过程，以及学习动力的定性性质仍不清楚。本文主要研究基于
-transformer
-的预训练模型在标签不足或噪声条件下的学习行为。结果发现一个预训练的 BERT
-几乎不会忘记已经学到的样例，而且大部分的样例在前几个 epoch
-就学到了，后面的训练过程更多记忆噪声。</p>
-<p>记忆机制在少样本不均衡类型场景下尤其重要，如果一个类型少于 25
-次，BERT 会完全失败，只有达到 100
-次才会有合理的表现。为了解决这个限制，文章提出了一种方法，该方法使用受原型网络启发的层来增强
-BERT（Snell
-等人，2017）。该层在特征空间中以每个类为基础显式聚类示例，并通过找到它们最近的类质心对测试示例进行分类。</p>
+<p>之前的<a href="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" target="_blank" rel="noopener">研究</a>更多关注学到了什么，但是怎么从下游任务数据中学习的过程，以及学习动力的定性性质仍不清楚。本文主要研究基于 transformer 的预训练模型在标签不足或噪声条件下的学习行为。结果发现一个预训练的 BERT 几乎不会忘记已经学到的样例，而且大部分的样例在前几个 epoch 就学到了，后面的训练过程更多记忆噪声。</p>
+<p>记忆机制在少样本不均衡类型场景下尤其重要，如果一个类型少于 25 次，BERT 会完全失败，只有达到 100 次才会有合理的表现。为了解决这个限制，文章提出了一种方法，该方法使用受原型网络启发的层来增强 BERT（Snell 等人，2017）。该层在特征空间中以每个类为基础显式聚类示例，并通过找到它们最近的类质心对测试示例进行分类。</p>
 <p>主要贡献如下：</p>
 <ul>
 <li>确定了学习的第二阶段，BERT 不会过拟合噪声数据</li>
-<li>实验证明 BERT
-对标签噪声鲁棒性很好，即使标签噪声极强也能够达到接近最优的表现</li>
+<li>实验证明 BERT 对标签噪声鲁棒性很好，即使标签噪声极强也能够达到接近最优的表现</li>
 <li>相比其他一些替代方法，遗忘率低得多</li>
 <li>针对有限样本少类型识别失败的问题，提出新的方案：ProtoBERT</li>
 </ul>
 <h3 id="算法模型">算法模型</h3>
 <p>将 BERT 的预训练知识与具有 few-shot 能力的原型网络结合：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-5.jpg" /></p>
-<p>原型网络旨在构建一个 Embedding
-空间，其中输入在每个类的基础上进行聚类，允许我们通过找到最接近的质心并将其分配给相应的类来对
-Token 进行分类。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-5.jpg" alt></p>
+<p>原型网络旨在构建一个 Embedding 空间，其中输入在每个类的基础上进行聚类，允许我们通过找到最接近的质心并将其分配给相应的类来对 Token 进行分类。</p>
 <p><strong>一些定义</strong></p>
 <ul>
 <li>定义支持集合 S，Sk 表示 S 中所有的元素 label 都是 k</li>
@@ -149,59 +135,63 @@ Token 进行分类。</p>
 </ul>
 <p><strong>对给定的输入 x 分类过程</strong></p>
 <ul>
-<li><p>对每个 label k 计算质心，它等于 S 中 label 为 k 的所有元素通过 f
-得到的向量的平均值 <span class="math display">\[
-  c_k = \frac{1}{|S_k|} \sum_{x_i \in S_k} f(x_i)
-  \]</span></p></li>
-<li><p>计算 x 和质心的距离，并得到 k 维向量 v： <span
-class="math display">\[
-  dist_k = d(f(x), c_k)
-  \]</span></p></li>
-<li><p>计算 x 属于 k 的概率： <span class="math display">\[
-  p(y = k | x) = \frac{\exp(-d(f(x, ck))}{\sum_{k&#39;} \exp(-d(f(x),
-c_{k&#39;}))} \\
-  = {softmax}(-v)_k \\
-  v \in \mathbb{R}^k
-  \]</span></p></li>
+<li>
+<p>对每个 label k 计算质心，它等于 S 中 label 为 k 的所有元素通过 f 得到的向量的平均值</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>k</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><mi mathvariant="normal">∣</mi><msub><mi>S</mi><mi>k</mi></msub><mi mathvariant="normal">∣</mi></mrow></mfrac><munder><mo>∑</mo><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>∈</mo><msub><mi>S</mi><mi>k</mi></msub></mrow></munder><mi>f</mi><mo stretchy="false">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">c_k = \frac{1}{|S_k|} \sum_{x_i \in S_k} f(x_i)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.721636em;vertical-align:-1.400196em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.855664em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:-0.05764em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.400196em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>
+<p>计算 x 和质心的距离，并得到 k 维向量 v：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mi>k</mi></msub><mo>=</mo><mi>d</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>c</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">dist_k = d(f(x), c_k)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+</li>
+<li>
+<p>计算 x 属于 k 的概率：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo stretchy="false">(</mo><mi>y</mi><mo>=</mo><mi>k</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>d</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>c</mi><mi>k</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><mrow><munder><mo>∑</mo><msup><mi>k</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></munder><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mo>−</mo><mi>d</mi><mo stretchy="false">(</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi>c</mi><msup><mi>k</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msub><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow></mfrac><mspace linebreak="newline"></mspace><mo>=</mo><mrow><mi>s</mi><mi>o</mi><mi>f</mi><mi>t</mi><mi>m</mi><mi>a</mi><mi>x</mi></mrow><mo stretchy="false">(</mo><mo>−</mo><mi>v</mi><msub><mo stretchy="false">)</mo><mi>k</mi></msub><mspace linebreak="newline"></mspace><mi>v</mi><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">p(y = k | x) = \frac{\exp(-d(f(x, ck))}{\sum_{k&#x27;} \exp(-d(f(x), c_{k&#x27;}))} \\
+= {softmax}(-v)_k \\
+v \in \mathbb{R}^k
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.41271em;vertical-align:-0.9857100000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1863979999999999em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6828285714285715em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.29971000000000003em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.6828285714285715em;"><span style="top:-2.786em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault">d</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9857100000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mord mathdefault">t</span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span></span><span class="mopen">(</span><span class="mord">−</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.5782em;vertical-align:-0.0391em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8991079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">R</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
 </ul>
-<p>训练过程就是优化此概率和 x 的 one-hot 真实 label。S 和 Q
-每个训练步都会变化，d 采用欧氏距离。</p>
-<p>对于 NER 任务，并不会学习 O
-的通用表征，只需要模型将其作为一个【没有其他相似类型】的反馈，因此 v
-可以表示为： <span class="math display">\[
-v = (d_O, dist_0, dist_1, ..., dist_k)
-\]</span> dO 表示【足够接近】的阈值。</p>
+<p>训练过程就是优化此概率和 x 的 one-hot 真实 label。S 和 Q 每个训练步都会变化，d 采用欧氏距离。</p>
+<p>对于 NER 任务，并不会学习 O 的通用表征，只需要模型将其作为一个【没有其他相似类型】的反馈，因此 v 可以表示为：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>v</mi><mo>=</mo><mo stretchy="false">(</mo><msub><mi>d</mi><mi>O</mi></msub><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mn>0</mn></msub><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mn>1</mn></msub><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><mi>d</mi><mi>i</mi><mi>s</mi><msub><mi>t</mi><mi>k</mi></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">v = (d_O, dist_0, dist_1, ..., dist_k)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">O</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">i</span><span class="mord mathdefault">s</span><span class="mord"><span class="mord mathdefault">t</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>dO 表示【足够接近】的阈值。</p>
 <p><strong>S 和 Q 采样过程</strong></p>
 <ul>
-<li>随机从训练集 X 中选择属于每个稀有类的 s1
-个样本，并将稀有类的剩余样本添加到 Q。</li>
+<li>随机从训练集 X 中选择属于每个稀有类的 s1 个样本，并将稀有类的剩余样本添加到 Q。</li>
 <li>从 X 中选择 s2 个不属于稀有类的样本，并将它们添加到 S。</li>
-<li>从 X 中选择 n·s1·cm 个样本没有同时在 S 或 Q 中，然后将它们添加到 Q
-中。其中，n 是负样本比例，cm 是训练集中稀有类别的数量</li>
+<li>从 X 中选择 n·s1·cm 个样本没有同时在 S 或 Q 中，然后将它们添加到 Q 中。其中，n 是负样本比例，cm 是训练集中稀有类别的数量</li>
 </ul>
 <p>采样后数据如下：</p>
 <ul>
-<li><p>S 包含的样本数： <span class="math display">\[
-  c_m · s_1 + s_2
-  \]</span></p></li>
-<li><p>Q 包含的样本数： <span class="math display">\[
-  \sum_{k \in C_m} (|X_k| - s_1) + n · s_1 · c_m
-  \]</span> Cm 是稀有类别的集合，Xk 是训练集中 label 是 k
-的样本数。</p></li>
+<li>
+<p>S 包含的样本数：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>c</mi><mi>m</mi></msub><mo separator="true">⋅</mo><msub><mi>s</mi><mn>1</mn></msub><mo>+</mo><msub><mi>s</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">c_m · s_1 + s_2
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>Q 包含的样本数：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><munder><mo>∑</mo><mrow><mi>k</mi><mo>∈</mo><msub><mi>C</mi><mi>m</mi></msub></mrow></munder><mo stretchy="false">(</mo><mi mathvariant="normal">∣</mi><msub><mi>X</mi><mi>k</mi></msub><mi mathvariant="normal">∣</mi><mo>−</mo><msub><mi>s</mi><mn>1</mn></msub><mo stretchy="false">)</mo><mo>+</mo><mi>n</mi><mo separator="true">⋅</mo><msub><mi>s</mi><mn>1</mn></msub><mo separator="true">⋅</mo><msub><mi>c</mi><mi>m</mi></msub></mrow><annotation encoding="application/x-tex">\sum_{k \in C_m} (|X_k| - s_1) + n · s_1 · c_m
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4522180000000002em;vertical-align:-1.402213em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000003em;"><span style="top:-1.847887em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mrel mtight">∈</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:-0.07153em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.402213em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.59445em;vertical-align:-0.15em;"></span><span class="mord mathdefault">n</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>Cm 是稀有类别的集合，Xk 是训练集中 label 是 k 的样本数。</p>
+</li>
 </ul>
 <p>总之，高 s1/s2 则稀有类别优先，反之则更关注其他类别。</p>
-<p>如果在训练期间支持集中没有某个类的样本，则分配 400
-的距离，从而不可能在该特定批次中将输入错误地分类为缺失的类。</p>
+<p>如果在训练期间支持集中没有某个类的样本，则分配 400 的距离，从而不可能在该特定批次中将输入错误地分类为缺失的类。</p>
 <p><strong>测试环节</strong></p>
 <p>提供两种方法计算 Token 的类别：</p>
 <ul>
-<li><p>第一种方法使用来自 X
-的所有示例来计算测试时所需的质心，这会产生更好的结果，但对于较大的数据集来说计算成本很高。</p></li>
-<li><p>第二种方法使用在每个训练步骤产生的质心的移动平均值来近似质心 ck：
-<span class="math display">\[
-  c_k^{(t)} \leftarrow \alpha c_k^{(t)} \cdot (1-\alpha) c_k^{(t-1)}
-  \]</span> 其中 α
-是权重因子。这种方法在训练期间产生的开销很小，并且只比第一种方法表现差一点。</p></li>
+<li>
+<p>第一种方法使用来自 X 的所有示例来计算测试时所需的质心，这会产生更好的结果，但对于较大的数据集来说计算成本很高。</p>
+</li>
+<li>
+<p>第二种方法使用在每个训练步骤产生的质心的移动平均值来近似质心 ck：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>c</mi><mi>k</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>←</mo><mi>α</mi><msubsup><mi>c</mi><mi>k</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></msubsup><mo>⋅</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo stretchy="false">)</mo><msubsup><mi>c</mi><mi>k</mi><mrow><mo stretchy="false">(</mo><mi>t</mi><mo>−</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msubsup></mrow><annotation encoding="application/x-tex">c_k^{(t)} \leftarrow \alpha c_k^{(t)} \cdot (1-\alpha) c_k^{(t-1)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.3461079999999999em;vertical-align:-0.3013079999999999em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0448em;"><span style="top:-2.3986920000000005em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">t</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013079999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">←</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.3461079999999999em;vertical-align:-0.3013079999999999em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0448em;"><span style="top:-2.3986920000000005em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">t</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013079999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.3461079999999999em;vertical-align:-0.3013079999999999em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mclose">)</span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0448em;"><span style="top:-2.3986920000000005em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.2198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3013079999999999em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>其中 α 是权重因子。这种方法在训练期间产生的开销很小，并且只比第一种方法表现差一点。</p>
+</li>
 </ul>
 <h3 id="实验报告">实验报告</h3>
 <h4 id="实验设置">实验设置</h4>
@@ -229,7 +219,7 @@ v = (d_O, dist_0, dist_1, ..., dist_k)
 <p><strong>标签噪声</strong></p>
 <p>通过随机变换部分训练标签引入人工噪声。</p>
 <h4 id="bert-学习时噪声的影响">BERT 学习时噪声的影响</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-1.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-1.jpg" alt></p>
 <p>三个不同的阶段：</p>
 <ul>
 <li>拟合：学习如何泛化，使用简单的模式尽可能解释更多的训练数据。</li>
@@ -237,15 +227,11 @@ v = (d_O, dist_0, dist_1, ..., dist_k)
 <li>记忆：快速记住噪声样例，提高训练表现，同时验证集表现下降。</li>
 </ul>
 <p><strong>第二阶段学习</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-2.jpg" /></p>
-<p>在第二阶段，BERT <strong>完全忽略</strong>了带噪声的
-Token，因此在它们上的表现比随机分类器更差。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-2.jpg" alt></p>
+<p>在第二阶段，BERT <strong>完全忽略</strong>了带噪声的 Token，因此在它们上的表现比随机分类器更差。</p>
 <p><strong>噪声鲁棒性</strong></p>
-<p>图 1 中观察到 BERT
-对噪声和一般过拟合非常稳健。在没有噪声的情况下，即使进一步训练，BERT
-也不会过度拟合。即使有很大比例的噪声，也可以通过在第二阶段提前停止来获得与在干净数据上训练的模型相似的性能。</p>
-<p>而且第二阶段的噪声，仅使用训练的 loss 聚类就可以达到 90% 的噪声检测
-F1。</p>
+<p>图 1 中观察到 BERT 对噪声和一般过拟合非常稳健。在没有噪声的情况下，即使进一步训练，BERT 也不会过度拟合。即使有很大比例的噪声，也可以通过在第二阶段提前停止来获得与在干净数据上训练的模型相似的性能。</p>
+<p>而且第二阶段的噪声，仅使用训练的 loss 聚类就可以达到 90% 的噪声检测 F1。</p>
 <p><strong>预训练影响</strong></p>
 <p>一个使用相同架构（BERT）随机初始化的模型不仅表现差，而且没有显示出第二阶段训练及对噪声鲁棒。</p>
 <p><strong>其他预训练模型</strong></p>
@@ -260,55 +246,47 @@ F1。</p>
 <li>一个遗忘事件：epoch t-1 能够正确分类，epoch t 不能</li>
 <li>一个学习事件：epoch t-1 不能正确分类，epoch t 能</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-3.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-3.jpg" alt></p>
 <p>被遗忘的大多是相应类别的非典型示例。</p>
 <h4 id="少资源场景下的-bert">少资源场景下的 BERT</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg" alt></p>
 <p>可以观察到两个现象：</p>
 <ul>
 <li>减少句子的数量会大大降低模型的泛化能力，但不会降低其记忆能力。</li>
 <li>当可用的句子较少时，它们往往是在较早的时期首次学习的。</li>
 </ul>
 <h4 id="protobert">ProtoBERT</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg" /></p>
-<p>在少样本稀有类型上，ProtoBERT 超过基准，随着可用样例数量增加，BERT 和
-ProtoBERT 不相上下。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg" /></p>
-<p>在所有数据集全集上的表现与 baseline 相似，但是
-WNUT17（侧重识别稀有实体）上要好很多。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg" alt></p>
+<p>在少样本稀有类型上，ProtoBERT 超过基准，随着可用样例数量增加，BERT 和 ProtoBERT 不相上下。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg" alt></p>
+<p>在所有数据集全集上的表现与 baseline 相似，但是 WNUT17（侧重识别稀有实体）上要好很多。</p>
 <h3 id="相关讨论">相关讨论</h3>
 <ul>
 <li>记忆
 <ul>
-<li>Carlini et al. 2019：LSTM 能够在训练的开始阶段记住
-OOD（分布外）样例。</li>
-<li>Liu et al. 2020：训练的早期阶段正则化对于防止 CNN
-残差模型在以后记住噪声样例至关重要。</li>
-<li>Li et al.
-2020：早期停止和梯度下降有助于增加模型对标签噪声的鲁棒性。</li>
+<li>Carlini et al. 2019：LSTM 能够在训练的开始阶段记住 OOD（分布外）样例。</li>
+<li>Liu et al. 2020：训练的早期阶段正则化对于防止 CNN 残差模型在以后记住噪声样例至关重要。</li>
+<li>Li et al. 2020：早期停止和梯度下降有助于增加模型对标签噪声的鲁棒性。</li>
 <li>Petroni et al. 2019：预训练模型在回忆事实方面非常有效。</li>
-<li>Zhang et al.,
-2017b：记忆与泛化密切相关：已经观察到神经网络可以在噪声之前学习简单的模式并进行泛化，尽管能够完全记住随机样例。</li>
-</ul></li>
+<li>Zhang et al., 2017b：记忆与泛化密切相关：已经观察到神经网络可以在噪声之前学习简单的模式并进行泛化，尽管能够完全记住随机样例。</li>
+</ul>
+</li>
 <li>遗忘
 <ul>
-<li>Toneva et al.
-2019：模型总是会忘记很大一部分训练数据，而这部分可遗忘的样例主要取决于训练数据的内在属性而不是特定模型。</li>
+<li>Toneva et al. 2019：模型总是会忘记很大一部分训练数据，而这部分可遗忘的样例主要取决于训练数据的内在属性而不是特定模型。</li>
 <li>本文：BERT 相比 BiLSTM 或其他非预训练的变种几乎不会忘记。</li>
-</ul></li>
+</ul>
+</li>
 <li>OOD 和噪声数据
 <ul>
-<li>Hendrycks et al
-2020：与非预训练方法相比，预训练模型在分布外数据上表现更好，并且能够更好地检测此类数据，但它们仍然不能完全分离分布内和分布外示例。</li>
+<li>Hendrycks et al 2020：与非预训练方法相比，预训练模型在分布外数据上表现更好，并且能够更好地检测此类数据，但它们仍然不能完全分离分布内和分布外示例。</li>
 <li>Kumar et al. 2020：预训练模型对拼写错误敏感。</li>
 <li>本文：关注模型在存在标签噪声的情况下的学习动力，并发现预训练的方法对此类噪声具有显着的弹性。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h3 id="小结">小结</h3>
-<p>本文解决了 BERT 无法从极少量样本中学习的问题，具体是通过原型网络增强
-BERT。同时分析了 BERT 在噪声下的性能，结果发现，即使标签损坏，BERT
-也能够达到接近最佳的性能。这种能力是由于 BERT
-倾向于将训练分为三个不同的阶段：拟合、稳定和记忆，这使得模型可以在早期忽略噪声样本。</p>
+<p>本文解决了 BERT 无法从极少量样本中学习的问题，具体是通过原型网络增强 BERT。同时分析了 BERT 在噪声下的性能，结果发现，即使标签损坏，BERT 也能够达到接近最佳的性能。这种能力是由于 BERT 倾向于将训练分为三个不同的阶段：拟合、稳定和记忆，这使得模型可以在早期忽略噪声样本。</p>
 
       
     </div><!-- .entry-content -->
@@ -466,21 +444,6 @@ BERT。同时分析了 BERT 在噪声下的性能，结果发现，即使标签�
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

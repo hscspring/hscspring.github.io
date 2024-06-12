@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="问题的起因是最近做的一个项目需要在后端绘制 Scatter，横轴是 float 数据，纵轴是分类的文本标签。具体的要求是：  每个数据集可能有若干个主体，也就是一个画布可能需要绘制多幅图； 每幅图的分类类型并不一定相同，但整体类别是知道的；比如：共有 8 种颜色 ”红橙黄绿青蓝紫“，但主体 1 的类别可能是 ”红橙黄“，主体 2 的类别可能是 ”红黄绿“； 要保证同一种类别在图中的颜色标记是一样的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.160Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="绘制文本分类数据">
 <meta name="twitter:description" content="问题的起因是最近做的一个项目需要在后端绘制 Scatter，横轴是 float 数据，纵轴是分类的文本标签。具体的要求是：  每个数据集可能有若干个主体，也就是一个画布可能需要绘制多幅图； 每幅图的分类类型并不一定相同，但整体类别是知道的；比如：共有 8 种颜色 ”红橙黄绿青蓝紫“，但主体 1 的类别可能是 ”红橙黄“，主体 2 的类别可能是 ”红黄绿“； 要保证同一种类别在图中的颜色标记是一样的">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/12/15/DataSci/2018-12-15-Text-Classification-Data-Plot/" data-id="clx98np0g001ctsbzamn2cbtb" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/12/15/DataSci/2018-12-15-Text-Classification-Data-Plot/" data-id="clxbpfs470021dlbz8cw5b0cl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,32 +95,16 @@
       
             <!-- Table of Contents -->
               
-        <p>问题的起因是最近做的一个项目需要在后端绘制 Scatter，横轴是 float
-数据，纵轴是分类的文本标签。具体的要求是：</p>
+        <p>问题的起因是最近做的一个项目需要在后端绘制 Scatter，横轴是 float 数据，纵轴是分类的文本标签。具体的要求是：</p>
 <ul>
 <li>每个数据集可能有若干个主体，也就是一个画布可能需要绘制多幅图；</li>
-<li>每幅图的分类类型并不一定相同，但整体类别是知道的；比如：共有 8
-种颜色 ”红橙黄绿青蓝紫“，但主体 1 的类别可能是 ”红橙黄“，主体 2
-的类别可能是 ”红黄绿“；</li>
+<li>每幅图的分类类型并不一定相同，但整体类别是知道的；比如：共有 8 种颜色 ”红橙黄绿青蓝紫“，但主体 1 的类别可能是 ”红橙黄“，主体 2 的类别可能是 ”红黄绿“；</li>
 <li>要保证同一种类别在图中的颜色标记是一样的，比如：红色类别是红色，那么如果某一个主体的类别中没有红色类别，其他类别在画图时也不应使用红色；</li>
-<li>要保证类别的顺序按给定的顺序；比如给定的顺序是
-”红橙黄绿青蓝紫“，主体 1 的类别是 ”红橙黄“，那绘制出来的图像 y
-轴必须是按照这个顺序下来的，如果是 ”红黄蓝“ 也是类似。</li>
+<li>要保证类别的顺序按给定的顺序；比如给定的顺序是 ”红橙黄绿青蓝紫“，主体 1 的类别是 ”红橙黄“，那绘制出来的图像 y 轴必须是按照这个顺序下来的，如果是 ”红黄蓝“ 也是类似。</li>
 </ul>
-<p>本来项目是用 NodeJS
-写的，后端画图找了不少工具都不太好用（前端工具巨多），后来用了 <a
-href="https://github.com/plotly/plotly-nodejs">plotly/plotly-nodejs</a>，但是表现力方面差强人意，而且由于是调用
-RESTFul API，数据点太多时会超时，本身也会有网络请求耗时。最后就想到用
-Python 在内部起一个 server，使用 Matplotlib 或 Seaborn 绘图。</p>
-<p>Seaborn
-一行命令就可以绘制，而且参数可以自动把不同的主体区分开；Matplotlib
-就稍微麻烦些，不能直接实现预期的目的，后来经过试验，发现可以将类别转为数字然后再将数字的
-y 轴转为 string 即可。</p>
-<p>Notebook 在这里：<a
-href="https://github.com/hscspring/Note_DS/blob/master/Visualization/text-classification-data.ipynb">text-classification-data</a>，或用
-nbviewer 打开：<a
-href="http://nbviewer.jupyter.org/github/hscspring/Note_DS/blob/master/Visualization/text-classification-data.ipynb">Jupyter
-Notebook Viewer</a></p>
+<p>本来项目是用 NodeJS 写的，后端画图找了不少工具都不太好用（前端工具巨多），后来用了 <a href="https://github.com/plotly/plotly-nodejs" target="_blank" rel="noopener">plotly/plotly-nodejs</a>，但是表现力方面差强人意，而且由于是调用 RESTFul API，数据点太多时会超时，本身也会有网络请求耗时。最后就想到用 Python 在内部起一个 server，使用 Matplotlib 或 Seaborn 绘图。</p>
+<p>Seaborn 一行命令就可以绘制，而且参数可以自动把不同的主体区分开；Matplotlib 就稍微麻烦些，不能直接实现预期的目的，后来经过试验，发现可以将类别转为数字然后再将数字的 y 轴转为 string 即可。</p>
+<p>Notebook 在这里：<a href="https://github.com/hscspring/Note_DS/blob/master/Visualization/text-classification-data.ipynb" target="_blank" rel="noopener">text-classification-data</a>，或用 nbviewer 打开：<a href="http://nbviewer.jupyter.org/github/hscspring/Note_DS/blob/master/Visualization/text-classification-data.ipynb" target="_blank" rel="noopener">Jupyter Notebook Viewer</a></p>
 
       
     </div><!-- .entry-content -->
@@ -278,21 +262,6 @@ Notebook Viewer</a></p>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -14,18 +14,18 @@
   
   <title>Pandas 入门 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目录   1  Pandas 数据结构入门   1.1  Series   1.2  DataFrame   1.3  索引对象   2  重新索引：reindex   3  从一个坐标轴删除条目   3.1  索引，挑选和过滤   3.1.1  使用标签选取数据   3.1.2  使用位置选取数据   3.2  算术运算   3.2.1  广播   4  文件操作   5  基本运算   6">
+  <meta name="description" content="目录  1&amp;nbsp;&amp;nbsp;Pandas 数据结构入门1.1&amp;nbsp;&amp;nbsp;Series1.2&amp;nbsp;&amp;nbsp;DataFrame1.3&amp;nbsp;&amp;nbsp;索引对象2&amp;nbsp;&amp;nbsp;重新索引：reindex3&amp;nbsp;&amp;nbsp;从一个坐标轴删除条目3.1&amp;nbsp;&amp;nbsp;索引，挑选和过滤3.1.1&amp;nbsp;&amp;nbsp;使用标签选取数据3.1.2&amp;nbsp">
 <meta name="keywords" content="Python,Data Science,Pandas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pandas 入门">
 <meta property="og:url" content="https://www.yam.gift/2017/03/05/DataSci/2017-03-05-Pandas/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="目录   1  Pandas 数据结构入门   1.1  Series   1.2  DataFrame   1.3  索引对象   2  重新索引：reindex   3  从一个坐标轴删除条目   3.1  索引，挑选和过滤   3.1.1  使用标签选取数据   3.1.2  使用位置选取数据   3.2  算术运算   3.2.1  广播   4  文件操作   5  基本运算   6">
+<meta property="og:description" content="目录  1&amp;nbsp;&amp;nbsp;Pandas 数据结构入门1.1&amp;nbsp;&amp;nbsp;Series1.2&amp;nbsp;&amp;nbsp;DataFrame1.3&amp;nbsp;&amp;nbsp;索引对象2&amp;nbsp;&amp;nbsp;重新索引：reindex3&amp;nbsp;&amp;nbsp;从一个坐标轴删除条目3.1&amp;nbsp;&amp;nbsp;索引，挑选和过滤3.1.1&amp;nbsp;&amp;nbsp;使用标签选取数据3.1.2&amp;nbsp">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.160Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pandas 入门">
-<meta name="twitter:description" content="目录   1  Pandas 数据结构入门   1.1  Series   1.2  DataFrame   1.3  索引对象   2  重新索引：reindex   3  从一个坐标轴删除条目   3.1  索引，挑选和过滤   3.1.1  使用标签选取数据   3.1.2  使用位置选取数据   3.2  算术运算   3.2.1  广播   4  文件操作   5  基本运算   6">
+<meta name="twitter:description" content="目录  1&amp;nbsp;&amp;nbsp;Pandas 数据结构入门1.1&amp;nbsp;&amp;nbsp;Series1.2&amp;nbsp;&amp;nbsp;DataFrame1.3&amp;nbsp;&amp;nbsp;索引对象2&amp;nbsp;&amp;nbsp;重新索引：reindex3&amp;nbsp;&amp;nbsp;从一个坐标轴删除条目3.1&amp;nbsp;&amp;nbsp;索引，挑选和过滤3.1.1&amp;nbsp;&amp;nbsp;使用标签选取数据3.1.2&amp;nbsp">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/03/05/DataSci/2017-03-05-Pandas/" data-id="clx98np0g0017tsbz2g06zii0" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/03/05/DataSci/2017-03-05-Pandas/" data-id="clxbpfs44001ydlbzxosb941l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -96,137 +96,13 @@
             <!-- Table of Contents -->
               
         <h2 id="目录">目录</h2>
-<p>
-<div class="lev1 toc-item">
-<a href="#Pandas-数据结构入门" data-toc-modified-id="Pandas-数据结构入门-1"><span
-class="toc-item-num">1  </span>Pandas 数据结构入门</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#Series" data-toc-modified-id="Series-11"><span
-class="toc-item-num">1.1  </span>Series</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#DataFrame" data-toc-modified-id="DataFrame-12"><span
-class="toc-item-num">1.2  </span>DataFrame</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#索引对象" data-toc-modified-id="索引对象-13"><span
-class="toc-item-num">1.3  </span>索引对象</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#重新索引：reindex" data-toc-modified-id="重新索引：reindex-2"><span
-class="toc-item-num">2  </span>重新索引：reindex</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#从一个坐标轴删除条目" data-toc-modified-id="从一个坐标轴删除条目-3"><span
-class="toc-item-num">3  </span>从一个坐标轴删除条目</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#索引，挑选和过滤" data-toc-modified-id="索引，挑选和过滤-31"><span
-class="toc-item-num">3.1  </span>索引，挑选和过滤</a>
-</div>
-<div class="lev3 toc-item">
-<a href="#使用标签选取数据" data-toc-modified-id="使用标签选取数据-311"><span
-class="toc-item-num">3.1.1  </span>使用标签选取数据</a>
-</div>
-<div class="lev3 toc-item">
-<a href="#使用位置选取数据" data-toc-modified-id="使用位置选取数据-312"><span
-class="toc-item-num">3.1.2  </span>使用位置选取数据</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#算术运算" data-toc-modified-id="算术运算-32"><span
-class="toc-item-num">3.2  </span>算术运算</a>
-</div>
-<div class="lev3 toc-item">
-<a href="#广播" data-toc-modified-id="广播-321"><span
-class="toc-item-num">3.2.1  </span>广播</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#文件操作" data-toc-modified-id="文件操作-4"><span
-class="toc-item-num">4  </span>文件操作</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#基本运算" data-toc-modified-id="基本运算-5"><span
-class="toc-item-num">5  </span>基本运算</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#常用操作" data-toc-modified-id="常用操作-6"><span
-class="toc-item-num">6  </span>常用操作</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#排序" data-toc-modified-id="排序-61"><span
-class="toc-item-num">6.1  </span>排序</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#重命名列" data-toc-modified-id="重命名列-62"><span
-class="toc-item-num">6.2  </span>重命名列</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#设置索引" data-toc-modified-id="设置索引-63"><span
-class="toc-item-num">6.3  </span>设置索引</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#重设索引" data-toc-modified-id="重设索引-64"><span
-class="toc-item-num">6.4  </span>重设索引</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#查看最大最小值" data-toc-modified-id="查看最大最小值-65"><span
-class="toc-item-num">6.5  </span>查看最大最小值</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#改变数据类型" data-toc-modified-id="改变数据类型-66"><span
-class="toc-item-num">6.6  </span>改变数据类型</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#计算-Series-每个值的频率" data-toc-modified-id="计算-Series-每个值的频率-67"><span
-class="toc-item-num">6.7  </span>计算 Series 每个值的频率</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#DataFrame-的合并" data-toc-modified-id="DataFrame-的合并-7"><span
-class="toc-item-num">7  </span>DataFrame 的合并</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#Concat" data-toc-modified-id="Concat-71"><span
-class="toc-item-num">7.1  </span>Concat</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#Merge" data-toc-modified-id="Merge-72"><span
-class="toc-item-num">7.2  </span>Merge</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#Groupby" data-toc-modified-id="Groupby-73"><span
-class="toc-item-num">7.3  </span>Groupby</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#透视表" data-toc-modified-id="透视表-8"><span
-class="toc-item-num">8  </span>透视表</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#pivot_table" data-toc-modified-id="pivot_table-81"><span
-class="toc-item-num">8.1  </span>pivot_table</a>
-</div>
-<div class="lev2 toc-item">
-<a href="#crosstab" data-toc-modified-id="crosstab-82"><span
-class="toc-item-num">8.2  </span>crosstab</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#时间序列分析" data-toc-modified-id="时间序列分析-9"><span
-class="toc-item-num">9  </span>时间序列分析</a>
-</div>
-<div class="lev1 toc-item">
-<a href="#参考网站" data-toc-modified-id="参考网站-10"><span
-class="toc-item-num">10  </span>参考网站</a>
-</div>
-<p>Pandas 建造在 NumPy 之上，它使得以 NumPy 为中心的应用很容易使用。</p>
-<p>由于 Hexo 对 Pandas
-输出的表格支持不好，详细内容可点击：http://nbviewer.jupyter.org/github/hscspring/DataScience/blob/master/DataClearing/Pandas.ipynb</p>
+ <p><div class="lev1 toc-item"><a href="#Pandas-数据结构入门" data-toc-modified-id="Pandas-数据结构入门-1"><span class="toc-item-num">1&nbsp;&nbsp;</span>Pandas 数据结构入门</a></div><div class="lev2 toc-item"><a href="#Series" data-toc-modified-id="Series-11"><span class="toc-item-num">1.1&nbsp;&nbsp;</span>Series</a></div><div class="lev2 toc-item"><a href="#DataFrame" data-toc-modified-id="DataFrame-12"><span class="toc-item-num">1.2&nbsp;&nbsp;</span>DataFrame</a></div><div class="lev2 toc-item"><a href="#索引对象" data-toc-modified-id="索引对象-13"><span class="toc-item-num">1.3&nbsp;&nbsp;</span>索引对象</a></div><div class="lev1 toc-item"><a href="#重新索引：reindex" data-toc-modified-id="重新索引：reindex-2"><span class="toc-item-num">2&nbsp;&nbsp;</span>重新索引：reindex</a></div><div class="lev1 toc-item"><a href="#从一个坐标轴删除条目" data-toc-modified-id="从一个坐标轴删除条目-3"><span class="toc-item-num">3&nbsp;&nbsp;</span>从一个坐标轴删除条目</a></div><div class="lev2 toc-item"><a href="#索引，挑选和过滤" data-toc-modified-id="索引，挑选和过滤-31"><span class="toc-item-num">3.1&nbsp;&nbsp;</span>索引，挑选和过滤</a></div><div class="lev3 toc-item"><a href="#使用标签选取数据" data-toc-modified-id="使用标签选取数据-311"><span class="toc-item-num">3.1.1&nbsp;&nbsp;</span>使用标签选取数据</a></div><div class="lev3 toc-item"><a href="#使用位置选取数据" data-toc-modified-id="使用位置选取数据-312"><span class="toc-item-num">3.1.2&nbsp;&nbsp;</span>使用位置选取数据</a></div><div class="lev2 toc-item"><a href="#算术运算" data-toc-modified-id="算术运算-32"><span class="toc-item-num">3.2&nbsp;&nbsp;</span>算术运算</a></div><div class="lev3 toc-item"><a href="#广播" data-toc-modified-id="广播-321"><span class="toc-item-num">3.2.1&nbsp;&nbsp;</span>广播</a></div><div class="lev1 toc-item"><a href="#文件操作" data-toc-modified-id="文件操作-4"><span class="toc-item-num">4&nbsp;&nbsp;</span>文件操作</a></div><div class="lev1 toc-item"><a href="#基本运算" data-toc-modified-id="基本运算-5"><span class="toc-item-num">5&nbsp;&nbsp;</span>基本运算</a></div><div class="lev1 toc-item"><a href="#常用操作" data-toc-modified-id="常用操作-6"><span class="toc-item-num">6&nbsp;&nbsp;</span>常用操作</a></div><div class="lev2 toc-item"><a href="#排序" data-toc-modified-id="排序-61"><span class="toc-item-num">6.1&nbsp;&nbsp;</span>排序</a></div><div class="lev2 toc-item"><a href="#重命名列" data-toc-modified-id="重命名列-62"><span class="toc-item-num">6.2&nbsp;&nbsp;</span>重命名列</a></div><div class="lev2 toc-item"><a href="#设置索引" data-toc-modified-id="设置索引-63"><span class="toc-item-num">6.3&nbsp;&nbsp;</span>设置索引</a></div><div class="lev2 toc-item"><a href="#重设索引" data-toc-modified-id="重设索引-64"><span class="toc-item-num">6.4&nbsp;&nbsp;</span>重设索引</a></div><div class="lev2 toc-item"><a href="#查看最大最小值" data-toc-modified-id="查看最大最小值-65"><span class="toc-item-num">6.5&nbsp;&nbsp;</span>查看最大最小值</a></div><div class="lev2 toc-item"><a href="#改变数据类型" data-toc-modified-id="改变数据类型-66"><span class="toc-item-num">6.6&nbsp;&nbsp;</span>改变数据类型</a></div><div class="lev2 toc-item"><a href="#计算-Series-每个值的频率" data-toc-modified-id="计算-Series-每个值的频率-67"><span class="toc-item-num">6.7&nbsp;&nbsp;</span>计算 Series 每个值的频率</a></div><div class="lev1 toc-item"><a href="#DataFrame-的合并" data-toc-modified-id="DataFrame-的合并-7"><span class="toc-item-num">7&nbsp;&nbsp;</span>DataFrame 的合并</a></div><div class="lev2 toc-item"><a href="#Concat" data-toc-modified-id="Concat-71"><span class="toc-item-num">7.1&nbsp;&nbsp;</span>Concat</a></div><div class="lev2 toc-item"><a href="#Merge" data-toc-modified-id="Merge-72"><span class="toc-item-num">7.2&nbsp;&nbsp;</span>Merge</a></div><div class="lev2 toc-item"><a href="#Groupby" data-toc-modified-id="Groupby-73"><span class="toc-item-num">7.3&nbsp;&nbsp;</span>Groupby</a></div><div class="lev1 toc-item"><a href="#透视表" data-toc-modified-id="透视表-8"><span class="toc-item-num">8&nbsp;&nbsp;</span>透视表</a></div><div class="lev2 toc-item"><a href="#pivot_table" data-toc-modified-id="pivot_table-81"><span class="toc-item-num">8.1&nbsp;&nbsp;</span>pivot_table</a></div><div class="lev2 toc-item"><a href="#crosstab" data-toc-modified-id="crosstab-82"><span class="toc-item-num">8.2&nbsp;&nbsp;</span>crosstab</a></div><div class="lev1 toc-item"><a href="#时间序列分析" data-toc-modified-id="时间序列分析-9"><span class="toc-item-num">9&nbsp;&nbsp;</span>时间序列分析</a></div><div class="lev1 toc-item"><a href="#参考网站" data-toc-modified-id="参考网站-10"><span class="toc-item-num">10&nbsp;&nbsp;</span>参考网站</a></div>
+</p><p>Pandas 建造在 NumPy 之上，它使得以 NumPy 为中心的应用很容易使用。</p>
+<p>由于 Hexo 对 Pandas 输出的表格支持不好，详细内容可点击：<a href="http://nbviewer.jupyter.org/github/hscspring/DataScience/blob/master/DataClearing/Pandas.ipynb" target="_blank" rel="noopener">http://nbviewer.jupyter.org/github/hscspring/DataScience/blob/master/DataClearing/Pandas.ipynb</a></p>
 <h2 id="参考网站">参考网站</h2>
 <ul>
-<li><a
-href="http://cloga.info/python/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/2013/09/17/pandasintro">Cloga
-的互联网笔记</a>大神～</li>
-<li><a href="http://pda.readthedocs.io/en/latest/chp5.html">Python For
-Data Analysis 0.1</a></li>
+<li><a href="http://cloga.info/python/%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6/2013/09/17/pandasintro" target="_blank" rel="noopener">Cloga 的互联网笔记 </a>大神～</li>
+<li><a href="http://pda.readthedocs.io/en/latest/chp5.html" target="_blank" rel="noopener">Python For Data Analysis 0.1</a></li>
 </ul>
 
       
@@ -385,21 +261,6 @@ Data Analysis 0.1</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

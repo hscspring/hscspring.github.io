@@ -14,19 +14,19 @@
   
   <title>GPT-2 论文+代码笔记 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper &quot;Language Models are Unsupervised Multitask Learners&quot; minimaxir/gpt-2-simple: Python package to easil">
+  <meta name="description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper “Language Models are Unsupervised Multitask Learners” minimaxir/gpt-2-simple: Python package to easil">
 <meta name="keywords" content="NLP,GPT-2,Transformer,Language Model">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GPT-2 论文+代码笔记">
 <meta property="og:url" content="https://www.yam.gift/2020/04/07/Paper/2020-04-07-GPT2/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper &quot;Language Models are Unsupervised Multitask Learners&quot; minimaxir/gpt-2-simple: Python package to easil">
+<meta property="og:description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper “Language Models are Unsupervised Multitask Learners” minimaxir/gpt-2-simple: Python package to easil">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-gpt2-1.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.170Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GPT-2 论文+代码笔记">
-<meta name="twitter:description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper &quot;Language Models are Unsupervised Multitask Learners&quot; minimaxir/gpt-2-simple: Python package to easil">
+<meta name="twitter:description" content="Paper: Language Models are Unsupervised Multitask Learners Code:  openai/gpt-2: Code for the paper “Language Models are Unsupervised Multitask Learners” minimaxir/gpt-2-simple: Python package to easil">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/paper-gpt2-1.jpeg">
   
   
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="clx98np1o00iotsbz94m8fmmt" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="clxbpfs6i0086dlbzekb3vgtu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,81 +97,54 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper: <a
-href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf">Language
-Models are Unsupervised Multitask Learners</a></p>
+        <p>Paper: <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf" target="_blank" rel="noopener">Language Models are Unsupervised Multitask Learners</a></p>
 <p>Code:</p>
 <ul>
-<li><a href="https://github.com/openai/gpt-2">openai/gpt-2: Code for the
-paper "Language Models are Unsupervised Multitask Learners"</a></li>
-<li><a
-href="https://github.com/minimaxir/gpt-2-simple">minimaxir/gpt-2-simple:
-Python package to easily retrain OpenAI's GPT-2 text-generating model on
-new texts</a></li>
+<li><a href="https://github.com/openai/gpt-2" target="_blank" rel="noopener">openai/gpt-2: Code for the paper “Language Models are Unsupervised Multitask Learners”</a></li>
+<li><a href="https://github.com/minimaxir/gpt-2-simple" target="_blank" rel="noopener">minimaxir/gpt-2-simple: Python package to easily retrain OpenAI’s GPT-2 text-generating model on new texts</a></li>
 </ul>
 <p>核心思想：基于 Transformer 的更加 General 的语言模型。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="what">What</h2>
 <h3 id="动机和核心问题">动机和核心问题</h3>
-<p>作者认为目前这种对单域数据集进行单任务训练的普遍性，是造成当前系统缺乏普遍性的主要原因。另外，目前最好的方法是预训练模型
-+ 下游任务的监督训练。本文是将二者结合起来，提供更加 general
-的迁移方法，它可以使下游任务能够在 zero-shot
-下实施，不需要参数或架构调整。证明了语言模型有在 zero-shot
-下执行一系列任务的潜力。所以本文核心点有两个：</p>
+<p>作者认为目前这种对单域数据集进行单任务训练的普遍性，是造成当前系统缺乏普遍性的主要原因。另外，目前最好的方法是预训练模型 + 下游任务的监督训练。本文是将二者结合起来，提供更加 general 的迁移方法，它可以使下游任务能够在 zero-shot 下实施，不需要参数或架构调整。证明了语言模型有在 zero-shot 下执行一系列任务的潜力。所以本文核心点有两个：</p>
 <ul>
 <li>更加 general 的预训练模型</li>
 <li>zero-shot 实施的多下游任务</li>
 </ul>
 <p>前者是后者的基础，后者是前者的应用。</p>
 <h3 id="模型和算法">模型和算法</h3>
-<p>其核心是：多领域文本建模，以实现在<strong>不同任务</strong>上的迁移。所以
-model 是这样的：p(output | input, task).</p>
+<p>其核心是：多领域文本建模，以实现在<strong>不同任务</strong>上的迁移。所以 model 是这样的：p(output | input, task).</p>
 <p>具体方法是：基于 Transformer，对 GPT-1 的改进：</p>
 <ul>
 <li>Layer normalization 移动到每个 sub-block 的 input</li>
 <li>最后一个 self-attention block 后面加 layer normalization</li>
-<li>在初始化时按 1 /√N 的比例缩放残差层的权重，其中 N
-是残差层的数量</li>
+<li>在初始化时按 1 /√N 的比例缩放残差层的权重，其中 N 是残差层的数量</li>
 <li>Vocabulary 扩展到 50,257</li>
 <li>上下文 token 数从 512 调整到 1024</li>
 <li>更大的 batch size（512）</li>
 </ul>
-<p>看这些貌似没啥感觉（当你对底层不理解时，顶层的东西看似懂了的其实都没懂，又称
-“司机的知识”），还是代码来的实在。这部分的代码主要来自官方代码。正式开始前，先把参数放出来：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">HParams</span>:</span><br><span class="line">    n_vocab:<span class="built_in">int</span>=<span class="number">50257</span></span><br><span class="line">    n_ctx:<span class="built_in">int</span>=<span class="number">1024</span></span><br><span class="line">    n_embd:<span class="built_in">int</span>=<span class="number">768</span></span><br><span class="line">    n_head:<span class="built_in">int</span>=<span class="number">12</span></span><br><span class="line">    n_layer:<span class="built_in">int</span>=<span class="number">12</span></span><br></pre></td></tr></table></figure>
+<p>看这些貌似没啥感觉（当你对底层不理解时，顶层的东西看似懂了的其实都没懂，又称 “司机的知识”），还是代码来的实在。这部分的代码主要来自官方代码。正式开始前，先把参数放出来：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HParams</span>:</span></span><br><span class="line">    n_vocab:int=<span class="number">50257</span></span><br><span class="line">    n_ctx:int=<span class="number">1024</span></span><br><span class="line">    n_embd:int=<span class="number">768</span></span><br><span class="line">    n_head:int=<span class="number">12</span></span><br><span class="line">    n_layer:int=<span class="number">12</span></span><br></pre></td></tr></table></figure>
 <p><strong>输入</strong></p>
 <p>首先是输入的 X：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context = tf.fill([batch_size, <span class="number">1</span>], start_token)</span><br></pre></td></tr></table></figure>
-<p>这里的 context 就是 start 不为 None 时的 token，我们假设 batch_size
-为 1，<code>tf.fill</code> 就是把 start_token 填充为
-<code>[batch_size, 1]</code> 的 shape，后面的 1
-是指序列长度，我们是按一个一个 token 依次生成的。</p>
+<p>这里的 context 就是 start 不为 None 时的 token，我们假设 batch_size 为 1，<code>tf.fill</code> 就是把 start_token 填充为 <code>[batch_size, 1]</code> 的 shape，后面的 1 是指序列长度，我们是按一个一个 token 依次生成的。</p>
 <p>然后是 position 和 token 的 embedding：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># weight of position embedding</span></span><br><span class="line">wpe = tf.compat.v1.get_variable(<span class="string">&#x27;wpe&#x27;</span>, [hparams.n_ctx, hparams.n_embd],</span><br><span class="line">                                initializer=tf.random_normal_initializer(stddev=<span class="number">0.01</span>))</span><br><span class="line"><span class="comment"># weight of token embedding</span></span><br><span class="line">wte = tf.compat.v1.get_variable(<span class="string">&#x27;wte&#x27;</span>, [hparams.n_vocab, hparams.n_embd],</span><br><span class="line">                                initializer=tf.random_normal_initializer(stddev=<span class="number">0.02</span>))</span><br></pre></td></tr></table></figure>
-<p><code>n_ctx</code> 是上下文的 token 数，<code>n_vocab</code>
-是词表大小。合并两个 embedding：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># weight of position embedding</span></span><br><span class="line">wpe = tf.compat.v1.get_variable(<span class="string">'wpe'</span>, [hparams.n_ctx, hparams.n_embd],</span><br><span class="line">                                initializer=tf.random_normal_initializer(stddev=<span class="number">0.01</span>))</span><br><span class="line"><span class="comment"># weight of token embedding</span></span><br><span class="line">wte = tf.compat.v1.get_variable(<span class="string">'wte'</span>, [hparams.n_vocab, hparams.n_embd],</span><br><span class="line">                                initializer=tf.random_normal_initializer(stddev=<span class="number">0.02</span>))</span><br></pre></td></tr></table></figure>
+<p><code>n_ctx</code> 是上下文的 token 数，<code>n_vocab</code> 是词表大小。合并两个 embedding：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h = tf.gather(wte, X) + tf.gather(wpe, positions_for(X, past_length))</span><br></pre></td></tr></table></figure>
-<p><code>position_for</code> 的目的是给 position 编码，它的结果是和 x
-类似的一个
-Tensor，可以看出这里采用的是绝对位置编码。<code>tf.gather</code>
-就是根据索引从参数轴收集切片，即 X 这里的 one hot token 编码使用 wte
-索引 X 的向量，和 lookup 类似。这样就得到了最终的输入 h，它的 shape
-为：<code>[batch_size, 1, embedding_shape]</code>，在本例中即为：<code>[1, 1, 768]</code>。</p>
+<p><code>position_for</code> 的目的是给 position 编码，它的结果是和 x 类似的一个 Tensor，可以看出这里采用的是绝对位置编码。<code>tf.gather</code> 就是根据索引从参数轴收集切片，即 X 这里的 one hot token 编码使用 wte 索引 X 的向量，和 lookup 类似。这样就得到了最终的输入 h，它的 shape 为：<code>[batch_size, 1, embedding_shape]</code>，在本例中即为：<code>[1, 1, 768]</code>。</p>
 <p><strong>Transformer</strong></p>
-<p>接下来就是核心的模型部分了，也就是我们熟知的
-Transformer。先看一下整体的流程：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pasts = tf.unstack(past, axis=<span class="number">1</span>) <span class="keyword">if</span> past <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> [<span class="literal">None</span>] * hparams.n_layer</span><br><span class="line"><span class="keyword">for</span> layer, past <span class="keyword">in</span> <span class="built_in">enumerate</span>(pasts):</span><br><span class="line">    h, present = block(h, <span class="string">&#x27;h%d&#x27;</span> % layer, past=past, hparams=hparams)</span><br><span class="line">    presents.append(present)</span><br><span class="line">    </span><br><span class="line">results[<span class="string">&#x27;present&#x27;</span>] = tf.stack(presents, axis=<span class="number">1</span>)</span><br><span class="line">h = norm(h, <span class="string">&#x27;ln_f&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<p><code>tf.unstack</code> 是从 axis 维对张量从 R 级调整为 R-1
-级，我们从 None 开始，暂时不需要考虑。可以看到就是 n_layer 个 block
-叠加，最后做了个归一化处理。<code>tf.stack</code> 和
-<code>tf.unstack</code> 的作用恰好相反。</p>
+<p>接下来就是核心的模型部分了，也就是我们熟知的 Transformer。先看一下整体的流程：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pasts = tf.unstack(past, axis=<span class="number">1</span>) <span class="keyword">if</span> past <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> [<span class="literal">None</span>] * hparams.n_layer</span><br><span class="line"><span class="keyword">for</span> layer, past <span class="keyword">in</span> enumerate(pasts):</span><br><span class="line">    h, present = block(h, <span class="string">'h%d'</span> % layer, past=past, hparams=hparams)</span><br><span class="line">    presents.append(present)</span><br><span class="line">    </span><br><span class="line">results[<span class="string">'present'</span>] = tf.stack(presents, axis=<span class="number">1</span>)</span><br><span class="line">h = norm(h, <span class="string">'ln_f'</span>)</span><br></pre></td></tr></table></figure>
+<p><code>tf.unstack</code> 是从 axis 维对张量从 R 级调整为 R-1 级，我们从 None 开始，暂时不需要考虑。可以看到就是 n_layer 个 block 叠加，最后做了个归一化处理。<code>tf.stack</code> 和 <code>tf.unstack</code> 的作用恰好相反。</p>
 <p>在 block 前，可以先简单看一下 norm 函数：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">norm</span>(<span class="params">x, *, axis=-<span class="number">1</span>, epsilon=<span class="number">1e-5</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Normalize to mean = 0, std = 1, then do a diagonal affine transform.&quot;&quot;&quot;</span></span><br><span class="line">    n_state = x.shape[-<span class="number">1</span>]</span><br><span class="line">    g = tf.compat.v1.get_variable(<span class="string">&#x27;g&#x27;</span>, [n_state], initializer=tf.constant_initializer(<span class="number">1</span>))</span><br><span class="line">    b = tf.compat.v1.get_variable(<span class="string">&#x27;b&#x27;</span>, [n_state], initializer=tf.constant_initializer(<span class="number">0</span>))</span><br><span class="line">    u = tf.reduce_mean(x, axis=axis, keepdims=<span class="literal">True</span>) <span class="comment"># 均值</span></span><br><span class="line">    s = tf.reduce_mean(tf.square(x-u), axis=axis, keepdims=<span class="literal">True</span>) <span class="comment"># 方差</span></span><br><span class="line">    x = (x - u) * tf.compat.v1.rsqrt(s + epsilon)</span><br><span class="line">    x = x*g + b</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
-<p><code>tf.compat.v1.rsqrt</code> 是计算平方根的倒数，上面这其实就是 z
-分数标准化过程。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">norm</span><span class="params">(x, *, axis=<span class="number">-1</span>, epsilon=<span class="number">1e-5</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Normalize to mean = 0, std = 1, then do a diagonal affine transform."""</span></span><br><span class="line">    n_state = x.shape[<span class="number">-1</span>]</span><br><span class="line">    g = tf.compat.v1.get_variable(<span class="string">'g'</span>, [n_state], initializer=tf.constant_initializer(<span class="number">1</span>))</span><br><span class="line">    b = tf.compat.v1.get_variable(<span class="string">'b'</span>, [n_state], initializer=tf.constant_initializer(<span class="number">0</span>))</span><br><span class="line">    u = tf.reduce_mean(x, axis=axis, keepdims=<span class="literal">True</span>) <span class="comment"># 均值</span></span><br><span class="line">    s = tf.reduce_mean(tf.square(x-u), axis=axis, keepdims=<span class="literal">True</span>) <span class="comment"># 方差</span></span><br><span class="line">    x = (x - u) * tf.compat.v1.rsqrt(s + epsilon)</span><br><span class="line">    x = x*g + b</span><br><span class="line">    <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+<p><code>tf.compat.v1.rsqrt</code> 是计算平方根的倒数，上面这其实就是 z 分数标准化过程。</p>
 <p><strong>block</strong></p>
 <p>先看 block 是什么：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">block</span>(<span class="params">x, scope, *, past, hparams</span>):</span><br><span class="line">	nx = x.shape[-<span class="number">1</span>]</span><br><span class="line">	a, present = attn(norm(x, <span class="string">&#x27;ln_1&#x27;</span>), <span class="string">&#x27;attn&#x27;</span>, nx, past=past, hparams=hparams)</span><br><span class="line">	x = x + a</span><br><span class="line">	m = mlp(norm(x, <span class="string">&#x27;ln_2&#x27;</span>), <span class="string">&#x27;mlp&#x27;</span>, nx*<span class="number">4</span>, hparams=hparams)</span><br><span class="line">	x = x + m</span><br><span class="line">    <span class="keyword">return</span> x, present</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">block</span><span class="params">(x, scope, *, past, hparams)</span>:</span></span><br><span class="line">	nx = x.shape[<span class="number">-1</span>]</span><br><span class="line">	a, present = attn(norm(x, <span class="string">'ln_1'</span>), <span class="string">'attn'</span>, nx, past=past, hparams=hparams)</span><br><span class="line">	x = x + a</span><br><span class="line">	m = mlp(norm(x, <span class="string">'ln_2'</span>), <span class="string">'mlp'</span>, nx*<span class="number">4</span>, hparams=hparams)</span><br><span class="line">	x = x + m</span><br><span class="line">    <span class="keyword">return</span> x, present</span><br></pre></td></tr></table></figure>
 <p>它的结构如下：</p>
 <ul>
 <li>attention layer：注意力层</li>
@@ -181,50 +154,27 @@ Transformer。先看一下整体的流程：</p>
 </ul>
 <p><strong>attention</strong></p>
 <p>无疑这个地方是最核心的了：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># x: [1, 1, 768], nx: 768, past: None</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attn</span>(<span class="params">x, scope, n_state, *, past, hparams</span>):</span><br><span class="line">    c = conv1d(x, <span class="string">&#x27;c_attn&#x27;</span>, n_state*<span class="number">3</span>)</span><br><span class="line">    q, k, v = <span class="built_in">map</span>(split_heads, tf.split(c, <span class="number">3</span>, axis=<span class="number">2</span>))</span><br><span class="line">    present = tf.stack([k, v], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> past <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        pk, pv = tf.unstack(past, axis=<span class="number">1</span>)</span><br><span class="line">        k = tf.concat([pk, k], axis=-<span class="number">2</span>)</span><br><span class="line">        v = tf.concat([pv, v], axis=-<span class="number">2</span>)</span><br><span class="line">    a = multihead_attn(q, k, v)</span><br><span class="line">    a = merge_heads(a)</span><br><span class="line">    a = conv1d(a, <span class="string">&#x27;c_proj&#x27;</span>, n_state)</span><br><span class="line">    <span class="keyword">return</span> a, present</span><br></pre></td></tr></table></figure>
-<p>这里出现了好几个操作：<code>conv1d</code>, <code>split_heads</code>,
-<code>multihead_attn</code>,
-<code>merge_heads</code>，我们分别来看一下。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># conv1d</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">conv1d</span>(<span class="params">x, scope, nf, *, w_init_stdev=<span class="number">0.02</span></span>):</span><br><span class="line">    <span class="comment"># x [1, 1, 768], start is [1,1], nx=768, nf=768*3</span></span><br><span class="line">    *start, nx = shape_list(x)</span><br><span class="line">    w = tf.compat.v1.get_variable(</span><br><span class="line">        <span class="string">&#x27;w&#x27;</span>, [<span class="number">1</span>, nx, nf], initializer=tf.random_normal_initializer(stddev=w_init_stdev))</span><br><span class="line">    b = tf.compat.v1.get_variable(</span><br><span class="line">        <span class="string">&#x27;b&#x27;</span>, [nf], initializer=tf.constant_initializer(<span class="number">0</span>))</span><br><span class="line">    c = tf.reshape(</span><br><span class="line">        	tf.matmul(tf.reshape(x, [-<span class="number">1</span>, nx]), tf.reshape(w, [-<span class="number">1</span>, nf])) + b, </span><br><span class="line">        	start+[nf])</span><br><span class="line">    <span class="comment"># 1*768 × 768*2304 =&gt; 1*2304 reshape to [1, 1, 2304]</span></span><br><span class="line">    <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
-<p>我不知道这里为什么会有这么个操作，不过在 <a
-href="https://github.com/huggingface/transformers">Transformers</a>
-源代码中看到这么一句注释：Conv1D layer as defined by Radford et al. for
-OpenAI GPT (and also used in GPT-2). Basically works like a Linear layer
-but the weights are transposed.
-姑且就这样吧。如果只看输入输出的话，它无非就是把输入的维度做了调整，在这里就是把维度放大
-3 倍（真不知道怎么想出来的）。这里的目的是为了后面的 q k v。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">split_heads</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="comment"># From [batch, sequence, features] to [batch, heads, sequence, features]</span></span><br><span class="line">    <span class="comment"># 即：[1, 1, 768] ==&gt; [1, 12, 1, 64]</span></span><br><span class="line">    <span class="keyword">return</span> tf.transpose(split_states(x, hparams.n_head), [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">split_states</span>(<span class="params">x, n</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Reshape the last dimension of x into [n, x.shape[-1]/n].&quot;&quot;&quot;</span></span><br><span class="line">    *start, m = shape_list(x) <span class="comment"># [1, 1, 768]</span></span><br><span class="line">    <span class="keyword">return</span> tf.reshape(x, start + [n, m//n]) <span class="comment"># [1, 1, 12, 768//12=64]</span></span><br></pre></td></tr></table></figure>
-<p>最后的 shape：<code>[batch, heads, sequence, features]</code> 也就是
-q k v 的 shape，也就是把输入 X 的维度分配到 12 个 head 上。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">multihead_attn</span>(<span class="params">q, k, v</span>):</span><br><span class="line">    <span class="comment"># q, k, v have shape [batch, heads, sequence, features], [1, 12, 1, 64]</span></span><br><span class="line">    w = tf.matmul(q, k, transpose_b=<span class="literal">True</span>) <span class="comment"># [1, 12, 1, 1]</span></span><br><span class="line">    w = w * tf.compat.v1.rsqrt(tf.cast(v.shape[-<span class="number">1</span>], w.dtype)) <span class="comment"># q*k^T/√d_k</span></span><br><span class="line">    w = mask_attn_weights(w)</span><br><span class="line">    w = softmax(w)</span><br><span class="line">    a = tf.matmul(w, v)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">mask_attn_weights</span>(<span class="params">w</span>):</span><br><span class="line">    <span class="comment"># w has shape [batch, heads, dst_sequence, src_sequence]</span></span><br><span class="line">    <span class="comment"># where information flows from src to dst.</span></span><br><span class="line">    _, _, nd, ns = shape_list(w)</span><br><span class="line">    b = attention_mask(nd, ns, dtype=w.dtype)</span><br><span class="line">    b = tf.reshape(b, [<span class="number">1</span>, <span class="number">1</span>, nd, ns])</span><br><span class="line">    w = w*b - tf.cast(<span class="number">1e10</span>, w.dtype)*(<span class="number">1</span>-b)</span><br><span class="line">    <span class="keyword">return</span> w</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">attention_mask</span>(<span class="params">nd, ns, *, dtype</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    1&#x27;s in the lower triangle, counting from the lower right corner.</span></span><br><span class="line"><span class="string">    Same as tf.matrix_band_part(tf.ones([nd, ns]), -1, ns-nd), </span></span><br><span class="line"><span class="string">    but doesn&#x27;t produce garbage on TPUs.</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    i = tf.<span class="built_in">range</span>(nd)[:,<span class="literal">None</span>]</span><br><span class="line">    j = tf.<span class="built_in">range</span>(ns)</span><br><span class="line">    m = i &gt;= j - ns + nd <span class="comment"># 只有 nd &gt; ns 时，m 才可能有 False，mask 才生效</span></span><br><span class="line">    <span class="keyword">return</span> tf.cast(m, dtype)</span><br></pre></td></tr></table></figure>
-<p><code>tf.cast</code> 是改变类型，w 其实就是 Transformer 中的标准 w
-计算方式，后面的这个 <code>mask_attn_weights</code> 是对权重 mask，即
-masked self-attention，这里其实没有发生作用，我感觉它的主要作用是 mask
-未来的字符，这里的 LM 模型利用的是已生成文本，所以并不需要
-mask。<code>softmax</code> 没啥好说的，也是 self-attention
-的标准配置。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">merge_heads</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="comment"># Reverse of split_heads</span></span><br><span class="line">    <span class="keyword">return</span> merge_states(tf.transpose(x, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]))</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge_states</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;Smash the last two dimensions of x into a single dimension.&quot;&quot;&quot;</span></span><br><span class="line">    *start, a, b = shape_list(x)</span><br><span class="line">    <span class="keyword">return</span> tf.reshape(x, start + [a*b])</span><br></pre></td></tr></table></figure>
-<p>这步是 合并 head 操作，最终的 shape 为
-<code>[batch_size, sequence, n_state]</code>，即
-<code>[1, 1, 768]</code>。然后后面再接一个 <code>conv1d</code>
-就是最终的输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># x: [1, 1, 768], nx: 768, past: None</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attn</span><span class="params">(x, scope, n_state, *, past, hparams)</span>:</span></span><br><span class="line">    c = conv1d(x, <span class="string">'c_attn'</span>, n_state*<span class="number">3</span>)</span><br><span class="line">    q, k, v = map(split_heads, tf.split(c, <span class="number">3</span>, axis=<span class="number">2</span>))</span><br><span class="line">    present = tf.stack([k, v], axis=<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> past <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">        pk, pv = tf.unstack(past, axis=<span class="number">1</span>)</span><br><span class="line">        k = tf.concat([pk, k], axis=<span class="number">-2</span>)</span><br><span class="line">        v = tf.concat([pv, v], axis=<span class="number">-2</span>)</span><br><span class="line">    a = multihead_attn(q, k, v)</span><br><span class="line">    a = merge_heads(a)</span><br><span class="line">    a = conv1d(a, <span class="string">'c_proj'</span>, n_state)</span><br><span class="line">    <span class="keyword">return</span> a, present</span><br></pre></td></tr></table></figure>
+<p>这里出现了好几个操作：<code>conv1d</code>, <code>split_heads</code>, <code>multihead_attn</code>, <code>merge_heads</code>，我们分别来看一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># conv1d</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">conv1d</span><span class="params">(x, scope, nf, *, w_init_stdev=<span class="number">0.02</span>)</span>:</span></span><br><span class="line">    <span class="comment"># x [1, 1, 768], start is [1,1], nx=768, nf=768*3</span></span><br><span class="line">    *start, nx = shape_list(x)</span><br><span class="line">    w = tf.compat.v1.get_variable(</span><br><span class="line">        <span class="string">'w'</span>, [<span class="number">1</span>, nx, nf], initializer=tf.random_normal_initializer(stddev=w_init_stdev))</span><br><span class="line">    b = tf.compat.v1.get_variable(</span><br><span class="line">        <span class="string">'b'</span>, [nf], initializer=tf.constant_initializer(<span class="number">0</span>))</span><br><span class="line">    c = tf.reshape(</span><br><span class="line">        	tf.matmul(tf.reshape(x, [<span class="number">-1</span>, nx]), tf.reshape(w, [<span class="number">-1</span>, nf])) + b, </span><br><span class="line">        	start+[nf])</span><br><span class="line">    <span class="comment"># 1*768 × 768*2304 =&gt; 1*2304 reshape to [1, 1, 2304]</span></span><br><span class="line">    <span class="keyword">return</span> c</span><br></pre></td></tr></table></figure>
+<p>我不知道这里为什么会有这么个操作，不过在 <a href="https://github.com/huggingface/transformers" target="_blank" rel="noopener"> Transformers</a> 源代码中看到这么一句注释：Conv1D layer as defined by Radford et al. for OpenAI GPT (and also used in GPT-2). Basically works like a Linear layer but the weights are transposed. 姑且就这样吧。如果只看输入输出的话，它无非就是把输入的维度做了调整，在这里就是把维度放大 3 倍（真不知道怎么想出来的）。这里的目的是为了后面的 q k v。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_heads</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment"># From [batch, sequence, features] to [batch, heads, sequence, features]</span></span><br><span class="line">    <span class="comment"># 即：[1, 1, 768] ==&gt; [1, 12, 1, 64]</span></span><br><span class="line">    <span class="keyword">return</span> tf.transpose(split_states(x, hparams.n_head), [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>])</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">split_states</span><span class="params">(x, n)</span>:</span></span><br><span class="line">    <span class="string">"""Reshape the last dimension of x into [n, x.shape[-1]/n]."""</span></span><br><span class="line">    *start, m = shape_list(x) <span class="comment"># [1, 1, 768]</span></span><br><span class="line">    <span class="keyword">return</span> tf.reshape(x, start + [n, m//n]) <span class="comment"># [1, 1, 12, 768//12=64]</span></span><br></pre></td></tr></table></figure>
+<p>最后的 shape：<code>[batch, heads, sequence, features]</code> 也就是 q k v 的 shape，也就是把输入 X 的维度分配到 12 个 head 上。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">multihead_attn</span><span class="params">(q, k, v)</span>:</span></span><br><span class="line">    <span class="comment"># q, k, v have shape [batch, heads, sequence, features], [1, 12, 1, 64]</span></span><br><span class="line">    w = tf.matmul(q, k, transpose_b=<span class="literal">True</span>) <span class="comment"># [1, 12, 1, 1]</span></span><br><span class="line">    w = w * tf.compat.v1.rsqrt(tf.cast(v.shape[<span class="number">-1</span>], w.dtype)) <span class="comment"># q*k^T/√d_k</span></span><br><span class="line">    w = mask_attn_weights(w)</span><br><span class="line">    w = softmax(w)</span><br><span class="line">    a = tf.matmul(w, v)</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mask_attn_weights</span><span class="params">(w)</span>:</span></span><br><span class="line">    <span class="comment"># w has shape [batch, heads, dst_sequence, src_sequence]</span></span><br><span class="line">    <span class="comment"># where information flows from src to dst.</span></span><br><span class="line">    _, _, nd, ns = shape_list(w)</span><br><span class="line">    b = attention_mask(nd, ns, dtype=w.dtype)</span><br><span class="line">    b = tf.reshape(b, [<span class="number">1</span>, <span class="number">1</span>, nd, ns])</span><br><span class="line">    w = w*b - tf.cast(<span class="number">1e10</span>, w.dtype)*(<span class="number">1</span>-b)</span><br><span class="line">    <span class="keyword">return</span> w</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">attention_mask</span><span class="params">(nd, ns, *, dtype)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    1's in the lower triangle, counting from the lower right corner.</span></span><br><span class="line"><span class="string">    Same as tf.matrix_band_part(tf.ones([nd, ns]), -1, ns-nd), </span></span><br><span class="line"><span class="string">    but doesn't produce garbage on TPUs.</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    i = tf.range(nd)[:,<span class="literal">None</span>]</span><br><span class="line">    j = tf.range(ns)</span><br><span class="line">    m = i &gt;= j - ns + nd <span class="comment"># 只有 nd &gt; ns 时，m 才可能有 False，mask 才生效</span></span><br><span class="line">    <span class="keyword">return</span> tf.cast(m, dtype)</span><br></pre></td></tr></table></figure>
+<p><code>tf.cast</code> 是改变类型，w 其实就是 Transformer 中的标准 w 计算方式，后面的这个 <code>mask_attn_weights</code> 是对权重 mask，即 masked self-attention，这里其实没有发生作用，我感觉它的主要作用是  mask 未来的字符，这里的 LM 模型利用的是已生成文本，所以并不需要 mask。<code>softmax</code> 没啥好说的，也是 self-attention 的标准配置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_heads</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="comment"># Reverse of split_heads</span></span><br><span class="line">    <span class="keyword">return</span> merge_states(tf.transpose(x, [<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>]))</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_states</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""Smash the last two dimensions of x into a single dimension."""</span></span><br><span class="line">    *start, a, b = shape_list(x)</span><br><span class="line">    <span class="keyword">return</span> tf.reshape(x, start + [a*b])</span><br></pre></td></tr></table></figure>
+<p>这步是 合并 head 操作，最终的 shape 为 <code>[batch_size, sequence, n_state]</code>，即 <code>[1, 1, 768]</code>。然后后面再接一个 <code>conv1d</code> 就是最终的输出。</p>
 <p><strong>mlp</strong></p>
 <p>接下来是一个 mlp 层：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">mlp</span>(<span class="params">x, scope, n_state, *, hparams</span>):</span><br><span class="line">    nx = x.shape[-<span class="number">1</span>]</span><br><span class="line">    h = gelu(conv1d(x, <span class="string">&#x27;c_fc&#x27;</span>, n_state))</span><br><span class="line">    h2 = conv1d(h, <span class="string">&#x27;c_proj&#x27;</span>, nx)</span><br><span class="line">    <span class="keyword">return</span> h2</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">gelu</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0.5</span>*x*(<span class="number">1</span>+tf.tanh(np.sqrt(<span class="number">2</span>/np.pi)*(x+<span class="number">0.044715</span>*tf.<span class="built_in">pow</span>(x, <span class="number">3</span>))))</span><br></pre></td></tr></table></figure>
-<p><code>gelu</code> 是个激活函数，其实就是两层
-<code>conv1d</code>，最终 h2 的 shape 和输入的 x
-其实一样，只不过中间的隐层这里为 4 倍的 <code>n_state</code>。</p>
-<p>所有的 block 跑完后，最后接一个归一化层，就这样 Transformer
-部分就执行完了。简单总结一下大致的结构：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">mlp</span><span class="params">(x, scope, n_state, *, hparams)</span>:</span></span><br><span class="line">    nx = x.shape[<span class="number">-1</span>]</span><br><span class="line">    h = gelu(conv1d(x, <span class="string">'c_fc'</span>, n_state))</span><br><span class="line">    h2 = conv1d(h, <span class="string">'c_proj'</span>, nx)</span><br><span class="line">    <span class="keyword">return</span> h2</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gelu</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0.5</span>*x*(<span class="number">1</span>+tf.tanh(np.sqrt(<span class="number">2</span>/np.pi)*(x+<span class="number">0.044715</span>*tf.pow(x, <span class="number">3</span>))))</span><br></pre></td></tr></table></figure>
+<p><code>gelu</code> 是个激活函数，其实就是两层 <code>conv1d</code>，最终 h2 的 shape 和输入的 x 其实一样，只不过中间的隐层这里为 4 倍的 <code>n_state</code>。</p>
+<p>所有的 block 跑完后，最后接一个归一化层，就这样 Transformer 部分就执行完了。简单总结一下大致的结构：</p>
 <ul>
 <li>若干个（n_layer）block + 归一化。</li>
-<li>每个 block 包括一个 self_attention 层和 mlp
-层，以及分别对应了残差连接。</li>
+<li>每个 block 包括一个 self_attention 层和 mlp 层，以及分别对应了残差连接。</li>
 <li>self_attention 和 mlp 的输入都做了归一化。</li>
-<li>self_attention
-分为：<code>conv1d =&gt; split_heads =&gt; multihead_attention =&gt; merge_heads =&gt; conv1d</code>。</li>
-<li>mlp 分为就是一个两层的
-<code>conv1d</code>，其实就是一个感知机。</li>
+<li>self_attention 分为：<code>conv1d =&gt; split_heads =&gt; multihead_attention =&gt; merge_heads =&gt; conv1d</code>。</li>
+<li>mlp 分为就是一个两层的 <code>conv1d</code>，其实就是一个感知机。</li>
 </ul>
 <p><strong>Language model loss</strong></p>
 <p>Transformer 之后接的是语言模型的损失函数：</p>
@@ -235,142 +185,74 @@ mask。<code>softmax</code> 没啥好说的，也是 self-attention
 <li>下游任务 zero-shot</li>
 </ul>
 <h2 id="how">How</h2>
-<p>官方代码也没提供训练代码，下面这部分的代码部分来自
-gpt-2-simple，注意这个并不适用于 Tensorflow 2.0
-及以上版本（无法读取预训练模型），其他的倒是没有啥问题。</p>
+<p>官方代码也没提供训练代码，下面这部分的代码部分来自 gpt-2-simple，注意这个并不适用于 Tensorflow 2.0 及以上版本（无法读取预训练模型），其他的倒是没有啥问题。</p>
 <h3 id="如何构造数据">如何构造数据</h3>
-<p>输入的数据可以是最原始的纯文本，只不过进来后需要 Token 化，将文本变成
-One-Hot 编码。参考官方的实现：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">encode</span>(<span class="params">self, text</span>):</span><br><span class="line">    bpe_tokens = []</span><br><span class="line">    <span class="keyword">for</span> token <span class="keyword">in</span> re.findall(pat, text):</span><br><span class="line">        token = <span class="string">&#x27;&#x27;</span>.join(byte_encoder[b] <span class="keyword">for</span> b <span class="keyword">in</span> token.encode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">        bpe_tokens.extend(encoder[bpe_token] <span class="keyword">for</span> bpe_token <span class="keyword">in</span> bpe(token).split(<span class="string">&#x27; &#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> bpe_tokens</span><br><span class="line">text = <span class="string">&quot;I&#x27;m loving U.&quot;</span></span><br><span class="line"><span class="comment"># 原始 tokens: [&#x27;I&#x27;, &quot;&#x27;m&quot;, &#x27; loving&#x27;, &#x27; U&#x27;, &#x27;.&#x27;]</span></span><br><span class="line"><span class="comment"># unicode tokens: [&#x27;I&#x27;, &quot;&#x27;m&quot;, &#x27;Ġloving&#x27;, &#x27;ĠU&#x27;, &#x27;.&#x27;]</span></span><br><span class="line"><span class="comment"># bpe tokens: [40, 1101, 14442, 471, 13]</span></span><br></pre></td></tr></table></figure>
-<p>这个就是把原始的输入 text 转为 one-hot 编码的代码，Tokenize 的模型是
-bpe，encoder 类似 word2id，作者这里利用了 unicode 编码，先将 token 换成
-unicode 的统一编码，然后再利用 bpe 模型去 token
-化。中文的处理方式类似。</p>
+<p>输入的数据可以是最原始的纯文本，只不过进来后需要 Token 化，将文本变成 One-Hot 编码。参考官方的实现：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(self, text)</span>:</span></span><br><span class="line">    bpe_tokens = []</span><br><span class="line">    <span class="keyword">for</span> token <span class="keyword">in</span> re.findall(pat, text):</span><br><span class="line">        token = <span class="string">''</span>.join(byte_encoder[b] <span class="keyword">for</span> b <span class="keyword">in</span> token.encode(<span class="string">'utf-8'</span>))</span><br><span class="line">        bpe_tokens.extend(encoder[bpe_token] <span class="keyword">for</span> bpe_token <span class="keyword">in</span> bpe(token).split(<span class="string">' '</span>))</span><br><span class="line">    <span class="keyword">return</span> bpe_tokens</span><br><span class="line">text = <span class="string">"I'm loving U."</span></span><br><span class="line"><span class="comment"># 原始 tokens: ['I', "'m", ' loving', ' U', '.']</span></span><br><span class="line"><span class="comment"># unicode tokens: ['I', "'m", 'Ġloving', 'ĠU', '.']</span></span><br><span class="line"><span class="comment"># bpe tokens: [40, 1101, 14442, 471, 13]</span></span><br></pre></td></tr></table></figure>
+<p>这个就是把原始的输入 text 转为 one-hot 编码的代码，Tokenize 的模型是 bpe，encoder 类似 word2id，作者这里利用了 unicode 编码，先将 token 换成 unicode 的统一编码，然后再利用 bpe 模型去 token 化。中文的处理方式类似。</p>
 <h3 id="如何开始训练">如何开始训练</h3>
 <p>这里主要是定义好 loss function：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">context = tf.compat.v1.placeholder(tf.int32, [batch_size, <span class="literal">None</span>])</span><br><span class="line">output = model(hparams=hparams, X=context)</span><br><span class="line">loss = tf.reduce_mean(</span><br><span class="line">    input_tensor=tf.nn.sparse_softmax_cross_entropy_with_logits(</span><br><span class="line">        labels=context[:, <span class="number">1</span>:],</span><br><span class="line">        logits=output[<span class="string">&#x27;logits&#x27;</span>][:, :-<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
-<p>label 其实就是输入 one-hot 的下一个 token，logits
-可以看出没有取最后一个。这里 context 可以批量训练，序列的长度在 GPT-2
-中是 1024。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">context = tf.compat.v1.placeholder(tf.int32, [batch_size, <span class="literal">None</span>])</span><br><span class="line">output = model(hparams=hparams, X=context)</span><br><span class="line">loss = tf.reduce_mean(</span><br><span class="line">    input_tensor=tf.nn.sparse_softmax_cross_entropy_with_logits(</span><br><span class="line">        labels=context[:, <span class="number">1</span>:],</span><br><span class="line">        logits=output[<span class="string">'logits'</span>][:, :<span class="number">-1</span>]))</span><br></pre></td></tr></table></figure>
+<p>label 其实就是输入 one-hot 的下一个 token，logits 可以看出没有取最后一个。这里 context 可以批量训练，序列的长度在 GPT-2 中是 1024。</p>
 <h3 id="如何使用结果">如何使用结果</h3>
 <p>使用 gpt-2-simple 结合官方代码，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gpt_2_simple <span class="keyword">as</span> gpt2 </span><br><span class="line"></span><br><span class="line">models_dir = <span class="string">&quot;/path/to/gpt-2/models/&quot;</span></span><br><span class="line">model_name = <span class="string">&quot;124M&quot;</span></span><br><span class="line"></span><br><span class="line">sess = gpt2.start_tf_sess()</span><br><span class="line">gpt2.load_gpt2(sess, model_name=model_name, model_dir=models_dir)</span><br><span class="line"></span><br><span class="line">output = sample_sequence(</span><br><span class="line">    hparams=hparams, length=<span class="number">50</span>, start_token=enc.encoder[<span class="string">&#x27;&lt;|endoftext|&gt;&#x27;</span>], </span><br><span class="line">    batch_size=<span class="number">1</span>, temperature=<span class="number">1</span>, top_k=<span class="number">40</span>, top_p=<span class="number">1</span>)[:, <span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">context_tokens = sampler.sample(<span class="number">1</span>) <span class="comment"># 取一个 token，比如：array([198])</span></span><br><span class="line">out = sess.run(output, feed_dict=&#123;context: batch_size * [context_tokens]&#125;)</span><br><span class="line">text = enc.decode(out[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
-<p>如果需要进一步理解，可以仔细阅读下 gpt-2-simple
-的代码，可以算是一个最佳实践了。在此基础上调整为中文的也非常方便。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gpt_2_simple <span class="keyword">as</span> gpt2 </span><br><span class="line"></span><br><span class="line">models_dir = <span class="string">"/path/to/gpt-2/models/"</span></span><br><span class="line">model_name = <span class="string">"124M"</span></span><br><span class="line"></span><br><span class="line">sess = gpt2.start_tf_sess()</span><br><span class="line">gpt2.load_gpt2(sess, model_name=model_name, model_dir=models_dir)</span><br><span class="line"></span><br><span class="line">output = sample_sequence(</span><br><span class="line">    hparams=hparams, length=<span class="number">50</span>, start_token=enc.encoder[<span class="string">'&lt;|endoftext|&gt;'</span>], </span><br><span class="line">    batch_size=<span class="number">1</span>, temperature=<span class="number">1</span>, top_k=<span class="number">40</span>, top_p=<span class="number">1</span>)[:, <span class="number">1</span>:]</span><br><span class="line"></span><br><span class="line">context_tokens = sampler.sample(<span class="number">1</span>) <span class="comment"># 取一个 token，比如：array([198])</span></span><br><span class="line">out = sess.run(output, feed_dict=&#123;context: batch_size * [context_tokens]&#125;)</span><br><span class="line">text = enc.decode(out[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+<p>如果需要进一步理解，可以仔细阅读下 gpt-2-simple 的代码，可以算是一个最佳实践了。在此基础上调整为中文的也非常方便。</p>
 <h3 id="数据和实验">数据和实验</h3>
 <p>文章一共做了八个项目的对比实验，分别是：</p>
 <ul>
 <li>Language Modeling：</li>
-<li>Children's Book Test：考察 LM
-在命名实体，名词，动词和介词等不同类别单词上的性能。</li>
+<li>Children’s Book Test：考察 LM 在命名实体，名词，动词和介词等不同类别单词上的性能。</li>
 <li>LAMBADA：测试系统对文本中的远程依存关系建模的能力。</li>
-<li>Winograd Schema
-Challenge：测量系统解决文本歧义的能力来衡量系统执行常识推理的能力。</li>
-<li>Reading
-Comprehension：测试阅读理解能力及模型根据历史对话记录回答问题的能力。</li>
+<li>Winograd Schema Challenge：测量系统解决文本歧义的能力来衡量系统执行常识推理的能力。</li>
+<li>Reading Comprehension：测试阅读理解能力及模型根据历史对话记录回答问题的能力。</li>
 <li>Summarization</li>
 <li>Translation</li>
 <li>Question Answering</li>
 </ul>
 <p>内容着实有点多，就不一一列出来了，重点看一下 LM 的吧。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-gpt2-1.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-gpt2-1.jpeg" alt></p>
 <h2 id="discussion">Discussion</h2>
 <h3 id="相关工作">相关工作</h3>
 <ul>
-<li>RNN + 1 Billion Word: Jozefowicz, R., Vinyals, O., Schuster, M.,
-Shazeer, N., and Wu, Y. Exploring the limits of language modeling. arXiv
-preprint arXiv:1602.02410, 2016.</li>
-<li>更大的数据集：Bajgar, O., Kadlec, R., and Kleindienst, J. Embracing
-data abundance: Booktest dataset for reading comprehension. arXiv
-preprint arXiv:1610.00956, 2016.</li>
-<li>深入分析了模型的性能如何随模型容量和数据集大小的变化：Hestness, J.,
-Narang, S., Ardalani, N., Diamos, G., Jun, H., Kianinejad, H., Patwary,
-M., Ali, M., Yang, Y., and Zhou, Y. Deep learning scaling is
-predictable, empirically. arXiv preprint arXiv:1712.00409, 2017.</li>
-<li>生成模型如何学习：Karpathy, A., Johnson, J., and Fei-Fei, L.
-Visualizing and understanding recurrent networks. arXiv preprint
-arXiv:1506.02078, 2015.</li>
-<li>生成 Wikipedia 文章的模型也学会了在语言之间翻译名称：Liu, P. J.,
-Saleh, M., Pot, E., Goodrich, B., Sepassi, R., Kaiser, L., and Shazeer,
-N. Generating wikipedia by summarizing long sequences. arXiv preprint
-arXiv:1801.10198, 2018.</li>
-<li>过滤和构建网页的大型文本语料库的替代方法：Davies, M. The 14 billion
-https://corpus.byu.edu/iWeb/, 2018.</li>
-<li>GloVe 引入全局词频统计：Pennington, J., Socher, R., and Manning, C.
-Glove: Global vectors for word representation. In Proceedings of the
-2014 conference on empirical methods in natural language processing
-(EMNLP), pp. 1532–1543, 2014.</li>
-<li>Skip-thought 向量：Kiros, R., Zhu, Y., Salakhutdinov, R. R., Zemel,
-R., Urtasun, R., Torralba, A., and Fidler, S. Skip-thought vectors. In
-Advances in neural information processing systems, pp. 3294–3302,
-2015.</li>
-<li>机器翻译模型中的向量表示：McCann, B., Bradbury, J., Xiong, C., and
-Socher, R. Learned in translation: Contextualized word vectors. In
-Advances in Neural Information Processing Systems, pp. 6294–6305,
-2017.</li>
-<li>基于 RNN 精调：Howard, J. and Ruder, S. Universal language model
-ﬁne-tuning for text classiﬁcation. In Proceedings of the 56th Annual
-Meeting of the Association for Computational Linguistics (Volume 1: Long
-Papers), volume 1, pp. 328–339, 2018.</li>
-<li>自然语言推理模型的迁移表示：Conneau, A., Kiela, D., Schwenk, H.,
-Barrault, L., and Bordes, A. Supervised learning of universal sentence
-representations from natural language inference data. arXiv preprint
-arXiv:1705.02364, 2017a.</li>
-<li>大型多任务训练：Subramanian, S., Trischler, A., Bengio, Y., and Pal,
-C. J. Learning general purpose distributed sentence representations via
-large scale multi-task learning. arXiv preprint arXiv:1804.00079,
-2018.</li>
-<li>预训练模型对 Seq2Seq 模型的 Encoder 和 Decoder 有益：Ramachandran,
-P., Liu, P. J., and Le, Q. V. Unsupervised pretraining for sequence to
-sequence learning. arXiv preprint arXiv:1611.02683, 2016.</li>
+<li>RNN + 1 Billion Word: Jozefowicz, R., Vinyals, O., Schuster, M., Shazeer, N., and Wu, Y. Exploring the limits of language modeling. arXiv preprint arXiv:1602.02410, 2016.</li>
+<li>更大的数据集：Bajgar, O., Kadlec, R., and Kleindienst, J. Embracing data abundance: Booktest dataset for reading comprehension. arXiv preprint arXiv:1610.00956, 2016.</li>
+<li>深入分析了模型的性能如何随模型容量和数据集大小的变化：Hestness, J., Narang, S., Ardalani, N., Diamos, G., Jun, H., Kianinejad, H., Patwary, M., Ali, M., Yang, Y., and Zhou, Y. Deep learning scaling is predictable, empirically. arXiv preprint arXiv:1712.00409, 2017.</li>
+<li>生成模型如何学习：Karpathy, A., Johnson, J., and Fei-Fei, L. Visualizing and understanding recurrent networks. arXiv preprint arXiv:1506.02078, 2015.</li>
+<li>生成 Wikipedia 文章的模型也学会了在语言之间翻译名称：Liu, P. J., Saleh, M., Pot, E., Goodrich, B., Sepassi, R., Kaiser, L., and Shazeer, N. Generating wikipedia by summarizing long sequences. arXiv preprint arXiv:1801.10198, 2018.</li>
+<li>过滤和构建网页的大型文本语料库的替代方法：Davies, M. The 14 billion <a href="https://corpus.byu.edu/iWeb/" target="_blank" rel="noopener">https://corpus.byu.edu/iWeb/</a>, 2018.</li>
+<li>GloVe 引入全局词频统计：Pennington, J., Socher, R., and Manning, C. Glove: Global vectors for word representation. In Proceedings of the 2014 conference on empirical methods in natural language processing (EMNLP), pp. 1532–1543, 2014.</li>
+<li>Skip-thought 向量：Kiros, R., Zhu, Y., Salakhutdinov, R. R., Zemel, R., Urtasun, R., Torralba, A., and Fidler, S. Skip-thought vectors. In Advances in neural information processing systems, pp. 3294–3302, 2015.</li>
+<li>机器翻译模型中的向量表示：McCann, B., Bradbury, J., Xiong, C., and Socher, R. Learned in translation: Contextualized word vectors. In Advances in Neural Information Processing Systems, pp. 6294–6305, 2017.</li>
+<li>基于 RNN 精调：Howard, J. and Ruder, S. Universal language model ﬁne-tuning for text classiﬁcation. In Proceedings of the 56th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers), volume 1, pp. 328–339, 2018.</li>
+<li>自然语言推理模型的迁移表示：Conneau, A., Kiela, D., Schwenk, H., Barrault, L., and Bordes, A. Supervised learning of universal sentence representations from natural language inference data. arXiv preprint arXiv:1705.02364, 2017a.</li>
+<li>大型多任务训练：Subramanian, S., Trischler, A., Bengio, Y., and Pal, C. J. Learning general purpose distributed sentence representations via large scale multi-task learning. arXiv preprint arXiv:1804.00079, 2018.</li>
+<li>预训练模型对 Seq2Seq 模型的 Encoder 和 Decoder 有益：Ramachandran, P., Liu, P. J., and Le, Q. V. Unsupervised pretraining for sequence to sequence learning. arXiv preprint arXiv:1611.02683, 2016.</li>
 <li>预训练模型对下游生成任务有效：
 <ul>
-<li>Wolf, T., Sanh, V., Chaumond, J., and Delangue, C. Transfertransfo:
-A transfer learning approach for neural network based conversational
-agents. arXiv preprint arXiv:1901.08149, 2019.</li>
-<li>Dinan, E., Roller, S., Shuster, K., Fan, A., Auli, M., and Weston,
-J. Wizard of wikipedia: Knowledge-powered conversational agents. arXiv
-preprint arXiv:1811.01241, 2018.</li>
-</ul></li>
+<li>Wolf, T., Sanh, V., Chaumond, J., and Delangue, C. Transfertransfo: A transfer learning approach for neural network based conversational agents. arXiv preprint arXiv:1901.08149, 2019.</li>
+<li>Dinan, E., Roller, S., Shuster, K., Fan, A., Auli, M., and Weston, J. Wizard of wikipedia: Knowledge-powered conversational agents. arXiv preprint arXiv:1811.01241, 2018.</li>
+</ul>
+</li>
 </ul>
 <h3 id="特殊情况">特殊情况</h3>
-<p>训练集和测试集数据重叠问题。好的去重技术：可伸缩的模糊匹配（Scalable
-fuzzy matching），目前建议在切分训练集和测试集时，将基于 n-gram
-重叠的重复数据删除方法作为重要的验证步骤和健全性检查。另一个确定模型性能是否由重复数据导致的方法是，根据数据本身的测试集（而不是另外的数据集）检查性能（其实这也可能有重复）。</p>
+<p>训练集和测试集数据重叠问题。好的去重技术：可伸缩的模糊匹配（Scalable fuzzy matching），目前建议在切分训练集和测试集时，将基于 n-gram 重叠的重复数据删除方法作为重要的验证步骤和健全性检查。另一个确定模型性能是否由重复数据导致的方法是，根据数据本身的测试集（而不是另外的数据集）检查性能（其实这也可能有重复）。</p>
 <h3 id="打开脑洞">打开脑洞</h3>
-<p>我：这 GPT-2 怎么看起来好像就是一个 Transformer 的 Language Model
-啊？</p>
-<p>小 A：可不是么，怎么有点大力出奇迹的感觉呢：更大的词表、更大的 batch
-size、更长的 context、更多的参数……然后结果就——更加 general……</p>
-<p>小 B：也不能这么说，至少它证明了两点，第一，Transformer
-的表征能力；第二，大模型的表征能力。而且也让我们的武器库里又多了一件不错的工具不是么？</p>
-<p>小 C：确实如此，NLP 领域 LM 是最基本的模型，纵览发展历史，从 N-gram
-到 RNN 再到 LSTM 再到 GPT-2，每个模型背后都隐藏着一次大的创新。现在是
-Attention 的高光时刻。大家觉得下一个创新点可能在哪里？</p>
+<p>我：这 GPT-2 怎么看起来好像就是一个 Transformer 的 Language Model 啊？</p>
+<p>小 A：可不是么，怎么有点大力出奇迹的感觉呢：更大的词表、更大的 batch size、更长的 context、更多的参数……然后结果就——更加 general……</p>
+<p>小 B：也不能这么说，至少它证明了两点，第一，Transformer 的表征能力；第二，大模型的表征能力。而且也让我们的武器库里又多了一件不错的工具不是么？</p>
+<p>小 C：确实如此，NLP 领域 LM 是最基本的模型，纵览发展历史，从 N-gram 到 RNN 再到 LSTM 再到 GPT-2，每个模型背后都隐藏着一次大的创新。现在是 Attention 的高光时刻。大家觉得下一个创新点可能在哪里？</p>
 <p>小 A：我觉得肯定是某个新东西 + 大力出奇迹！</p>
 <p>小 B：那你说这个新东西可能的方向是什么？</p>
-<p>小
-C：我觉得这样干想不现实，可能还是从人的认知方面去借鉴一些思想。我们再次概览历史，N-gram
-可以看作局部建模，RNN 建模范围更广，LSTM
-让建模范围更广的同时更加符合人的机制（遗忘、更新等），Transformer
-则是关注更广范围内的重点信息，就像人会关注核心词和关键词一样。如果再从人的角度往下推，可能就是背景知识这些外部信息了，因为同样的文本在不同的背景下，我们关注的点可能不一样。也许可以可以借鉴
-GloVe 的方式，也许是使用 Knowledge Graph。</p>
-<p>小 B：我之前看过一篇关于 AI 建模体系的<a
-href="https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/">文章</a>，作者对不同种类的
-AI
-方法进行了整合，最终的结论就是多种方法融合。不过那个有点大，而且也是一家之言。</p>
+<p>小 C：我觉得这样干想不现实，可能还是从人的认知方面去借鉴一些思想。我们再次概览历史，N-gram 可以看作局部建模，RNN 建模范围更广，LSTM 让建模范围更广的同时更加符合人的机制（遗忘、更新等），Transformer 则是关注更广范围内的重点信息，就像人会关注核心词和关键词一样。如果再从人的角度往下推，可能就是背景知识这些外部信息了，因为同样的文本在不同的背景下，我们关注的点可能不一样。也许可以可以借鉴 GloVe 的方式，也许是使用 Knowledge Graph。</p>
+<p>小 B：我之前看过一篇关于 AI 建模体系的<a href="https://yam.gift/2018/07/22/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">文章</a>，作者对不同种类的 AI 方法进行了整合，最终的结论就是多种方法融合。不过那个有点大，而且也是一家之言。</p>
 <p>小 A：你们想的可真多，我还就喜欢大力出奇迹，简单粗暴，就是干！</p>
 <p>众人：……</p>
 <h2 id="appendix">Appendix</h2>
 <p>补充两篇我觉得不错的博客文章和本文可以相互补充：</p>
 <ul>
-<li><a href="http://jalammar.github.io/illustrated-gpt2/">The
-Illustrated GPT-2 (Visualizing Transformer Language Models) – Jay
-Alammar – Visualizing machine learning one concept at a time</a></li>
-<li><a
-href="https://amaarora.github.io/2020/02/18/annotatedGPT2.html">The
-Annotated GPT-2 | Making commits each day, towards a better
-future</a></li>
+<li><a href="http://jalammar.github.io/illustrated-gpt2/" target="_blank" rel="noopener">The Illustrated GPT-2 (Visualizing Transformer Language Models) – Jay Alammar – Visualizing machine learning one concept at a time</a></li>
+<li><a href="https://amaarora.github.io/2020/02/18/annotatedGPT2.html" target="_blank" rel="noopener">The Annotated GPT-2 | Making commits each day, towards a better future</a></li>
 </ul>
 
       
@@ -529,21 +411,6 @@ future</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

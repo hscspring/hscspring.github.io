@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-3.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-1.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch11-4.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.169Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Syntactic Parsing Note (SLP Ch13)">
 <meta name="twitter:description" content="This chapter focuses on the structures assigned by context-free grammars. Context-free grammars don’t specify how the parse tree for a given sentence should be computed. We therefore need to specify a">
@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" data-id="clx98np3w015otsbz83v6yr6h" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" data-id="clxbpfsix01d2dlbzm2t7nwsg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,47 +100,31 @@
       
             <!-- Table of Contents -->
               
-        <p>This chapter focuses on the structures assigned by context-free
-grammars. Context-free grammars don’t specify how the parse tree for a
-given sentence should be computed. We therefore need to specify
-algorithms that employ these grammars to efficiently produce correct
-trees. They are useful in applications such as <strong>grammar
-checking</strong>, <strong>semantic analysis</strong>, <strong>question
-answering</strong> and <strong>information extraction</strong>.</p>
-<span id="more"></span>
+        <p>This chapter focuses on the structures assigned by context-free grammars. Context-free grammars don’t specify how the parse tree for a given sentence should be computed. We therefore need to specify algorithms that employ these grammars to efficiently produce correct trees. They are useful in applications such as <strong>grammar checking</strong>, <strong>semantic analysis</strong>, <strong>question answering</strong> and <strong>information extraction</strong>.</p>
+<a id="more"></a>
 <h2 id="ambiguity">Ambiguity</h2>
-<p><strong>Structural ambiguity</strong> arises from many commonly used
-rules in phrase-structure grammars which occurs when the grammar can
-assign more than one parse to a sentence.</p>
+<p><strong>Structural ambiguity</strong> arises from many commonly used rules in phrase-structure grammars which occurs when the grammar can assign more than one parse to a sentence.</p>
 <p>Two common kinds of ambiguity are:</p>
 <ul>
-<li><p><strong>attachment ambiguity</strong>: a particular constituent
-can be attached to the parse tree at more than one place</p></li>
-<li><p><strong>coordination ambiguity</strong>: different sets of
-phrases can be conjoined by a conjunction like <em>and</em></p></li>
+<li>
+<p><strong>attachment ambiguity</strong>: a particular constituent can be attached to the parse tree at more than one place</p>
+</li>
+<li>
+<p><strong>coordination ambiguity</strong>: different sets of phrases can be conjoined by a conjunction like <em>and</em></p>
+</li>
 </ul>
-<p><strong>Syntactic disambiguation</strong> algorithms require
-statistical, semantic, and contextual knowledge sources that vary in how
-well they can ben integrated into parsing algorithms.</p>
+<p><strong>Syntactic disambiguation</strong> algorithms require statistical, semantic, and contextual knowledge sources that vary in how well they can ben integrated into parsing algorithms.</p>
 <blockquote>
 <p>中文也有同样的问题，后续撰文介绍；此处想起西蒙在《人工科学》中的一个观点：语言学的进步所必须把握的主要方向之一，是发展一种合适的语义学以补充句法。</p>
 <p>现在看来，我们对句法分析的重视程度远远不够。</p>
 </blockquote>
-<h2 id="cky-parsing-a-dynamic-programming-approach">CKY Parsing: A
-Dynamic Programming Approach</h2>
-<p>Cocke-Kasami-Younger (CKY) algorithm is the most widely used
-dynamic-programming based approach to parsing. Related approaches
-include the <strong>Earley algorithm</strong> and <strong>chart
-parsing</strong>.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch11-2.jpeg" /></p>
-<h3 id="conversion-to-chomsky-normal-form">Conversion to Chomsky Normal
-Form</h3>
-<p>Restricting a grammar to CNF does not lead to any loss in
-expressiveness, since any context-free grammar can be converted into a
-corresponding CNF grammar that accepts exactly the same set of strings
-as the original grammar.</p>
-<p>Rules with a single non-terminal on the right are called <strong>unit
-productions</strong>.</p>
+<h2 id="cky-parsing-a-dynamic-programming-approach">CKY Parsing: A Dynamic Programming Approach</h2>
+<p>Cocke-Kasami-Younger (CKY) algorithm is the most widely used dynamic-programming based approach to parsing. Related approaches include the <strong>Earley algorithm</strong> and <strong>chart parsing</strong>.</p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch11-2.jpeg" alt></p>
+<h3 id="conversion-to-chomsky-normal-form">Conversion to Chomsky Normal Form</h3>
+<p>Restricting a grammar to CNF does not lead to any loss in expressiveness, since any context-free grammar can be converted into a corresponding CNF grammar that accepts exactly the same set of strings as the<br>
+original grammar.</p>
+<p>Rules with a single non-terminal on the right are called <strong>unit productions</strong>.</p>
 <p>The entire conversation process is as follows:</p>
 <ul>
 <li>Copy all conforming rules to the new grammar unchanged</li>
@@ -148,88 +132,48 @@ productions</strong>.</p>
 <li>Convert unit-productions</li>
 <li>Make all rules binary and add them to new grammar</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch11-3.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch11-3.jpeg" alt></p>
 <h3 id="cky-recognition">CKY Recognition</h3>
-<p>In CNF, each non-terminal node above the part-of-speech level in a
-parse tree will have exactly two daughters. An Example:</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch11-1.jpeg" /></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function CKY-PARSE(words, grammar) returns table</span><br><span class="line">    <span class="keyword">for</span> j←<span class="keyword">from</span> <span class="number">1</span> to LENGTH(words) do</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">all</span> &#123;A | A→ words[j]∈grammar &#125;</span><br><span class="line">            table[j-<span class="number">1</span>, j]←table[j-<span class="number">1</span>, j] ∪ A</span><br><span class="line">        <span class="keyword">for</span> i←<span class="keyword">from</span> j-<span class="number">2</span> downto <span class="number">0</span> do</span><br><span class="line">            <span class="keyword">for</span> k←i+<span class="number">1</span> to j-<span class="number">1</span> do</span><br><span class="line">                <span class="keyword">for</span> <span class="built_in">all</span> &#123;A | A→ BC∈grammar <span class="keyword">and</span> B∈table[i,k] <span class="keyword">and</span> C∈table[k,j]&#125;</span><br><span class="line">                    table[i,j] ← table[i,j] ∪ A</span><br></pre></td></tr></table></figure>
-<p>The code can be found <a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Syntax/CKY.ipynb">here</a>.
-Honestly, I am not quite sure it's right :)</p>
+<p>In CNF, each non-terminal node above the part-of-speech level in a parse tree will have exactly two daughters. An Example:</p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch11-1.jpeg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function CKY-PARSE(words, grammar) returns table</span><br><span class="line">    <span class="keyword">for</span> j←<span class="keyword">from</span> <span class="number">1</span> to LENGTH(words) do</span><br><span class="line">        <span class="keyword">for</span> all &#123;A | A→ words[j]∈grammar &#125;</span><br><span class="line">            table[j<span class="number">-1</span>, j]←table[j<span class="number">-1</span>, j] ∪ A</span><br><span class="line">        <span class="keyword">for</span> i←<span class="keyword">from</span> j<span class="number">-2</span> downto <span class="number">0</span> do</span><br><span class="line">            <span class="keyword">for</span> k←i+<span class="number">1</span> to j<span class="number">-1</span> do</span><br><span class="line">                <span class="keyword">for</span> all &#123;A | A→ BC∈grammar <span class="keyword">and</span> B∈table[i,k] <span class="keyword">and</span> C∈table[k,j]&#125;</span><br><span class="line">                    table[i,j] ← table[i,j] ∪ A</span><br></pre></td></tr></table></figure>
+<p>The code can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Syntax/CKY.ipynb" target="_blank" rel="noopener">here</a>. Honestly, I am not quite sure it’s right :)</p>
 <h3 id="cky-parsing">CKY Parsing</h3>
-<p>Turn the above recognized algorithm into a parser algorithm which
-could return all possible parses:</p>
+<p>Turn the above recognized algorithm into a parser algorithm which could return all possible parses:</p>
 <ul>
-<li>augment the entries in the table so that each non-terminal is paired
-with pointers to the table entries from which it was derived</li>
-<li>permit multiple versions of the same non-terminal to be entered into
-the table</li>
+<li>augment the entries in the table so that each non-terminal is paired with pointers to the table entries from which it was derived</li>
+<li>permit multiple versions of the same non-terminal to be entered into the table</li>
 </ul>
 <h3 id="cky-in-practice">CKY in Practice</h3>
-<p>Our parser isn’t returning trees that are consistent with the grammar
-given to us by our friendly syntacticians. In addition, the conversion
-to CNF will complicate any syntax-driven approach to semantic
-analysis.</p>
+<p>Our parser isn’t returning trees that are consistent with the grammar given to us by our friendly syntacticians. In addition, the conversion to CNF will complicate any syntax-driven approach to semantic analysis.</p>
 <ul>
-<li>One approach to getting around these problems is to keep enough
-information around to transform our trees back to the original grammar
-as a post-processing step of the parse.</li>
-<li>Another solution is to adopt a more complex dynamic programming
-solution that simply accepts arbitrary CFGs.</li>
+<li>One approach to getting around these problems is to keep enough information around to transform our trees back to the original grammar as a post-processing step of the parse.</li>
+<li>Another solution is to adopt a more complex dynamic programming solution that simply accepts arbitrary CFGs.</li>
 </ul>
-<p><a
-href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/">这里</a>有一些笔记可以参考。</p>
+<p><a href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/" target="_blank" rel="noopener">这里</a>有一些笔记可以参考。</p>
 <h2 id="partial-parsing">Partial Parsing</h2>
-<p>For those task which do not require complex, complete parse trees for
-all inputs, a <strong>partial parse</strong>, or <strong>shallow
-parse</strong>, of input sentences may be sufficient.</p>
-<p><strong>Chunking</strong> is the process of identifying and
-classifying the flat, non-overlapping segments of a sentence that
-constitute the basic non-recursive phrases corresponding to the major
-content-word parts-of-speech: noun phrases, verb phrases, adjective
-phrases, and prepositional phrases.</p>
-<p>What constitutes a syntactic base phrase depends on the application.
-First and foremost, base phrases of a given type do not recursively
-contain any constituents of the same type.</p>
-<h3 id="machine-learning-based-approaches-to-chunking">Machine
-Learning-Based Approaches to Chunking</h3>
+<p>For those task which do not require complex, complete parse trees for all inputs, a <strong>partial parse</strong>, or <strong>shallow parse</strong>, of input sentences may be sufficient.</p>
+<p><strong>Chunking</strong> is the process of identifying and classifying the flat, non-overlapping segments of a sentence that constitute the basic non-recursive phrases corresponding to the major content-word parts-of-speech: noun phrases, verb phrases, adjective phrases, and prepositional phrases.</p>
+<p>What constitutes a syntactic base phrase depends on the application. First and foremost, base phrases of a given type do not recursively contain any constituents of the same type.</p>
+<h3 id="machine-learning-based-approaches-to-chunking">Machine Learning-Based Approaches to Chunking</h3>
 <p>It’s common to model chunking as <strong>IOB</strong> tagging.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The   morning flight from Denver has  arrvied</span></span><br><span class="line"><span class="comment"># B_NP  I_NP    I_NP   B_PP B_NP   B_VP I_VP</span></span><br><span class="line"><span class="comment"># The same sentence with only the base-NPs tagged illustrates the role of the O tags</span></span><br><span class="line"><span class="comment"># The   morning flight from Denver has  arrvied</span></span><br><span class="line"><span class="comment"># B_NP  I_NP    I_NP   O    B_NP   O    O</span></span><br></pre></td></tr></table></figure>
-<p>There is no explicit encoding of the end of a chunk in IOB tagging;
-the end of any chunk is implicit in any transition from an I or B to a B
-or O tag.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch11-4.jpeg" /></p>
-<p>Sequence model in a training set, Viterbi decoding is commonly
-used.</p>
+<p>There is no explicit encoding of the end of a chunk in IOB tagging; the end of any chunk is implicit in any transition from an I or B to a B or O tag.</p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch11-4.jpeg" alt></p>
+<p>Sequence model in a training set, Viterbi decoding is commonly used.</p>
 <h3 id="chunking-system-evaluations">Chunking-System Evaluations</h3>
-<p>Chunkers are evaluated according to the notions of precision, recall,
-and the F-measure borrowed from the field of information retrieval.</p>
-<p>Precision: = Number of correct chunks given by system / Total numbers
-of chunks given by system</p>
-<p>Recall: = Number of correct chunks given by system / Total number of
-actual chunks in the text</p>
-<p>Correct here means that both the boundaries of the chunk and the
-chunk’s label are correct.</p>
-<p><span class="math display">\[F = \frac {(\beta^2 + 1)PR}{\beta^2P +
-R}\]</span></p>
-<p>Also can be seen <a
-href="https://yam.gift/2019/05/05/SLP/2019-05-05-NaiveBayes-and-Sentiment-Classification/">here</a></p>
+<p>Chunkers are evaluated according to the notions of precision, recall, and the F-measure borrowed from the field of information retrieval.</p>
+<p>Precision: = Number of correct chunks given by system / Total numbers of chunks given by system</p>
+<p>Recall: = Number of correct chunks given by system / Total number of actual chunks in the text</p>
+<p>Correct here means that both the boundaries of the chunk and the chunk’s label are correct.</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>=</mo><mfrac><mrow><mo stretchy="false">(</mo><msup><mi>β</mi><mn>2</mn></msup><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mi>P</mi><mi>R</mi></mrow><mrow><msup><mi>β</mi><mn>2</mn></msup><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">F = \frac {(\beta^2 + 1)PR}{\beta^2P + R}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.371548em;vertical-align:-0.8804400000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.491108em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804400000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>Also can be seen <a href="https://yam.gift/2019/05/05/SLP/2019-05-05-NaiveBayes-and-Sentiment-Classification/" target="_blank" rel="noopener">here</a></p>
 <h2 id="summary">Summary</h2>
 <ul>
-<li><strong>Structural ambiguity</strong> is a significant problem for
-parsers. Common sources of structural ambiguity include
-<strong>PP-attachment</strong>, <strong>coordination ambiguity</strong>,
-and <strong>noun-phrase bracketing ambiguity</strong>.</li>
-<li><strong>Dynamic programming</strong> parsing algorithms, such as
-<strong>CKY</strong>, use a table of partial parses to efficiently parse
-ambiguous sentences. CKY restricts the form of the grammar to Chomsky
-normal form (<strong>CNF</strong>).</li>
-<li>Many practical problems, including information extraction problems,
-can be solved without full parsing. <strong>Partial parsing</strong> and
-<strong>chunking</strong> are methods for identifying shallow syntactic
-constituents in a text. SOT methods use <strong>supervised machine
-learning</strong> with Viterbi decoder.</li>
+<li><strong>Structural ambiguity</strong> is a significant problem for parsers. Common sources of structural ambiguity include <strong>PP-attachment</strong>, <strong>coordination ambiguity</strong>, and <strong>noun-phrase bracketing ambiguity</strong>.</li>
+<li><strong>Dynamic programming</strong> parsing algorithms, such as <strong>CKY</strong>, use a table of partial parses to efficiently parse ambiguous sentences. CKY restricts the form of the grammar to Chomsky normal form (<strong>CNF</strong>).</li>
+<li>Many practical problems, including information extraction problems, can be solved without full parsing. <strong>Partial parsing</strong> and <strong>chunking</strong> are methods for identifying shallow syntactic constituents in a text. SOT methods use <strong>supervised machine learning</strong> with Viterbi decoder.</li>
 </ul>
 
       
@@ -388,21 +332,6 @@ learning</strong> with Viterbi decoder.</li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

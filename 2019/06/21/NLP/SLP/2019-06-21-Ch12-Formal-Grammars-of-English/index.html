@@ -15,7 +15,7 @@
   <title>Formal Grammars of English Note (SLP Ch12) | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="This chapter is devoted to the topic of context-free grammars. They are integral to many computational applications, including grammar checking, semantic interpretation, dialogue understanding, and ma">
-<meta name="keywords" content="AI,NLP,Formal Grammars,CFG,Context-Free Grammars,Phrase Structure Grammars,Treebank,Lexicalized Grammars,CCG">
+<meta name="keywords" content="AI,NLP,Formal Grammars,CCG,CFG,Context-Free Grammars,Phrase Structure Grammars,Treebank,Lexicalized Grammars">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Formal Grammars of English Note (SLP Ch12)">
 <meta property="og:url" content="https://www.yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/index.html">
@@ -23,7 +23,7 @@
 <meta property="og:description" content="This chapter is devoted to the topic of context-free grammars. They are integral to many computational applications, including grammar checking, semantic interpretation, dialogue understanding, and ma">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch10-1.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.169Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Formal Grammars of English Note (SLP Ch12)">
 <meta name="twitter:description" content="This chapter is devoted to the topic of context-free grammars. They are integral to many computational applications, including grammar checking, semantic interpretation, dialogue understanding, and ma">
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" data-id="clx98np3v015htsbzwhz177fq" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" data-id="clxbpfsj001d9dlbzgji63qo6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,376 +97,252 @@
       
             <!-- Table of Contents -->
               
-        <p>This chapter is devoted to the topic of context-free grammars. They
-are integral to many computational applications, including grammar
-checking, semantic interpretation, dialogue understanding, and machine
-translation.</p>
-<span id="more"></span>
+        <p>This chapter is devoted to the topic of context-free grammars. They are integral to many computational applications, including grammar checking, semantic interpretation, dialogue understanding, and machine translation.</p>
+<a id="more"></a>
 <h2 id="constituency">Constituency</h2>
-<p>The fundamental notion underlying the idea of constituency is that of
-abstraction — groups of words behaving as a single units, or
-constituents.</p>
+<p>The fundamental notion underlying the idea of constituency is that of abstraction — groups of words behaving as a single units, or constituents.</p>
 <ul>
 <li><strong>noun phrase</strong> can occur before verbs</li>
-<li><strong>preposed</strong> or <strong>postposed</strong>
-constructions</li>
+<li><strong>preposed</strong> or <strong>postposed</strong> constructions</li>
 </ul>
 <h2 id="context-free-grammars">Context-Free Grammars</h2>
-<p><strong>Context-Free Grammar</strong> or <strong>CFG</strong> are
-also called <strong>Phrase-Structure Grammars</strong>, the formalism is
-equivalent to <strong>Backus-Naur Form</strong>, or
-<strong>BNF</strong>.</p>
-<p>A CFG consists of a set of <strong>rules</strong> or
-<strong>productions</strong>, each of which expresses the ways that
-symbols of the language can be grouped and ordered together, and a
-<strong>lexicon</strong> of words and symbols.</p>
+<p><strong>Context-Free Grammar</strong> or <strong>CFG</strong> are also called <strong>Phrase-Structure Grammars</strong>, the formalism is equivalent to <strong>Backus-Naur Form</strong>, or <strong>BNF</strong>.</p>
+<p>A CFG consists of a set of <strong>rules</strong> or <strong>productions</strong>, each of which expresses the ways that symbols of the language can be grouped and ordered together, and a <strong>lexicon</strong> of words and symbols.</p>
 <p>Two classes of symbols:</p>
 <ul>
 <li><strong>terminal</strong>: words</li>
-<li><strong>non-terminals</strong>: express abstractions over
-terminals</li>
+<li><strong>non-terminals</strong>: express abstractions over terminals</li>
 </ul>
-<p>Notice that in the lexicon, the non-terminal associated with each
-word is its lexical category, or POS.</p>
+<p>Notice that in the lexicon, the non-terminal associated with each word is its lexical category, or POS.</p>
 <p>A CFG can be thought of in two ways:</p>
 <ul>
 <li>as a device for generating sentences</li>
 <li>as a device for assigning a structure to a given sentence</li>
 </ul>
-<p>A <strong>derivation</strong> of the string of words can be
-represented by a <strong>parse tree</strong>. The formal language
-defined by a CFG is the set of strings that are derivable from the
-designated <strong>start symbol</strong>.</p>
+<p>A <strong>derivation</strong> of the string of words can be represented by a <strong>parse tree</strong>. The formal language defined by a CFG is the set of strings that are derivable from the designated <strong>start symbol</strong>.</p>
 <p>Three types of phrase:</p>
 <ul>
-<li><p>PP: A <strong>prepositional phrase</strong> generally has a
-preposition followed by a noun phrase.</p></li>
-<li><p>NP: A <strong>noun phrase</strong> can be composed of either a
-ProperNoun or a determiner (Det) followed by a Nominal; a Nominal in
-turn can consist of one or more Nouns.</p></li>
-<li><p>VP: A <strong>verb phrase</strong> in English consists of a verb
-followed by assorted other things.</p></li>
+<li>
+<p>PP: A <strong>prepositional phrase</strong> generally has a preposition followed by a noun phrase.</p>
+</li>
+<li>
+<p>NP: A <strong>noun phrase</strong> can be composed of either a ProperNoun or a determiner (Det) followed by a Nominal; a Nominal in turn can consist of one or more Nouns.</p>
+</li>
+<li>
+<p>VP: A <strong>verb phrase</strong> in English consists of a verb followed by assorted other things.</p>
+</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch10-1.jpeg" /></p>
-<p>Sometimes, <strong>bracketed notation</strong> format is used to
-represent a parse tree:</p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch10-1.jpeg" alt></p>
+<p>Sometimes, <strong>bracketed notation</strong> format is used to represent a parse tree:</p>
 <p><code>[S[NP [Pro I]] [VP [V prefer] [NP [Det a] [Nom [N morning] [Nom [N flight]]]]]]</code></p>
-<p>Sentences (strings of words) that can be derived by a grammar are in
-the formal language defined by that grammar, and are called
-<strong>grammatical</strong>.</p>
-<p>Sentences that cannot be derived by a given formal grammar are not in
-the language defined by that grammar and are referred to as
-<strong>ungrammatical</strong>.</p>
-<p>In linguistics, the use of formal languages to model natural
-languages is called <strong>generative grammar</strong> since the
-language is defined by the set of possible sentences "generated" by the
-grammar.</p>
-<h3 id="formal-definition-of-context-free-grammar">Formal Definition of
-Context-Free Grammar</h3>
+<p>Sentences (strings of words) that can be derived by a grammar are in the formal language defined by that grammar, and are called <strong>grammatical</strong>.</p>
+<p>Sentences that cannot be derived by a given formal grammar are not in the language defined by that grammar and are referred to as <strong>ungrammatical</strong>.</p>
+<p>In linguistics, the use of formal languages to model natural languages is called <strong>generative grammar</strong> since the language is defined by the set of possible sentences “generated” by the grammar.</p>
+<h3 id="formal-definition-of-context-free-grammar">Formal Definition of Context-Free Grammar</h3>
 <p>A CFG G is defined by a 4-tuple: N, Σ, R, S:</p>
 <ul>
-<li>N: a set of <strong>non-terminal symbols</strong> (or
-<strong>variables</strong>)</li>
-<li>Σ: a set of <strong>terminal symbols</strong> (disjoint from N)</li>
-<li>R: a set of <strong>rules</strong> or productions, each of the form
-A → β
+<li>
+<p>N: a set of <strong>non-terminal symbols</strong> (or <strong>variables</strong>)</p>
+</li>
+<li>
+<p>Σ: a set of <strong>terminal symbols</strong> (disjoint from N)</p>
+</li>
+<li>
+<p>R: a set of <strong>rules</strong> or productions, each of the form A → β</p>
 <ul>
 <li>A: a non-terminal</li>
-<li>β: a string of symbols from the infinite set of strings
-<code>(Σ U N) *</code></li>
-</ul></li>
-<li>S: a designated <strong>start symbol</strong> and a member of N</li>
+<li>β: a string of symbols from the infinite set of strings <code>(Σ U N) *</code></li>
 </ul>
-<p>if A → β is a production of R and α and γ are any strings in the set
-<code>(Σ U N) *</code>, then we say that αAγ <strong>directly
-derives</strong> αβγ, or αAγ=&gt;αβγ.</p>
+</li>
+<li>
+<p>S: a designated <strong>start symbol</strong> and a member of N</p>
+</li>
+</ul>
+<p>if A → β is a production of R and α and γ are any strings in the set <code>(Σ U N) *</code>, then we say that αAγ <strong>directly derives</strong> αβγ, or αAγ=&gt;αβγ.</p>
 <p>Derivation is then a generalization of direct derivation:</p>
-<p>Let α1, α2, ..., αm be strings in <code>(Σ U N)∗</code>,m ≥ 1, such
-that:</p>
-<p><code>α1 =&gt; α2, α2 =&gt; α3, …, α_&#123;m-1&#125; =&gt; αm</code></p>
+<p>Let α1, α2, …, αm be strings in <code>(Σ U N)∗</code>,m ≥ 1, such that:</p>
+<p><code>α1 =&gt; α2, α2 =&gt; α3, …, α_{m-1} =&gt; αm</code></p>
 <p>We say that α1 <strong>derives</strong> αm.</p>
-<p>The language LG generated by a grammar G as the set of strings
-composed of terminal symbols that can be derived from the designated
-start symbol S:</p>
-<p><code>L_G = &#123;w | w is in Σ* and S =&gt; w&#125;</code></p>
-<p>Mapping from a string of words to its parse tree is called
-<strong>syntactic parsing</strong>.</p>
-<h2 id="some-grammar-rules-for-english">Some Grammar Rules for
-English</h2>
+<p>The language LG generated by a grammar G as the set of strings composed of terminal symbols that can be derived from the designated start symbol S:</p>
+<p><code>L_G = {w | w is in Σ* and S =&gt; w}</code></p>
+<p>Mapping from a string of words to its parse tree is called <strong>syntactic parsing</strong>.</p>
+<h2 id="some-grammar-rules-for-english">Some Grammar Rules for English</h2>
 <h3 id="sentence-level-constructions">Sentence-Level Constructions</h3>
 <p>Four common and important sentences:</p>
 <ul>
-<li><p>Sentences with <strong>declarative</strong> structure have a
-subject noun phrase followed by a verb phrase.</p></li>
-<li><p>Sentences with <strong>imperative</strong> structure often begin
-with a verb phrase and have no subject.</p></li>
-<li><p>Sentences with <strong>yes-no question</strong> structure are
-often (though not always) used to ask questions.</p></li>
-<li><p>One constituent is a <strong>wh-phrase</strong>, that is one that
-includes a <strong>wh-word</strong>.</p>
+<li>
+<p>Sentences with <strong>declarative</strong> structure have a subject noun phrase followed by a verb phrase.</p>
+</li>
+<li>
+<p>Sentences with <strong>imperative</strong> structure often begin with a verb phrase and have no subject.</p>
+</li>
+<li>
+<p>Sentences with <strong>yes-no question</strong> structure are often (though not always) used to ask questions.</p>
+</li>
+<li>
+<p>One constituent is a <strong>wh-phrase</strong>, that is one that includes a <strong>wh-word</strong>.</p>
 <ul>
-<li>The <strong>wh-subject-question</strong> structure is identical to
-the declarative structure, except that the first noun phrase contains
-some wh-word.</li>
-<li>The <strong>wh-non-subject-question</strong> structure which the
-wh-phrase is not the subject of the sentence, so the sentence includes
-another subject. It contains <strong>long-distance
-dependencies</strong>.</li>
-</ul></li>
+<li>The <strong>wh-subject-question</strong> structure is identical to the declarative structure, except that the first noun phrase contains some wh-word.</li>
+<li>The <strong>wh-non-subject-question</strong> structure which the wh-phrase is not the subject of the sentence, so the sentence includes another subject. It contains <strong>long-distance dependencies</strong>.</li>
+</ul>
+</li>
 </ul>
 <h3 id="clauses-and-sentences">Clauses and Sentences</h3>
-<p>S rules are intended to account for entire sentences that stand alone
-as fundamental units of discourse. However, S can also occur on the
-right-hand side of grammar rules and hence can be embedded within larger
-sentences.</p>
-<p>A <strong>clause</strong> often describe as forming a complete
-thought, of which S is a node of the parse tree below which the main
-verb of the S has all of its <strong>arguments</strong>.</p>
+<p>S rules are intended to account for entire sentences that stand alone as fundamental units of discourse. However, S can also occur on the right-hand side of grammar rules and hence can be embedded within larger sentences.</p>
+<p>A <strong>clause</strong> often describe as forming a complete thought, of which S is a node of the parse tree below which the main verb of the S has all of its <strong>arguments</strong>.</p>
 <h3 id="the-noun-phrase">The Noun Phrase</h3>
-<p>There are three most frequent types of noun phrases: pronouns, proper
-nouns and NP→Det Nominal construction. Here focus the last type which
-consists of a head, the central noun in the noun phrase, along with
-various modifiers that can occur before or after the head noun.</p>
+<p>There are three most frequent types of noun phrases: pronouns, proper nouns and NP→Det Nominal construction. Here focus the last type which consists of a head, the central noun in the noun phrase, along with various modifiers that can occur before or after the head noun.</p>
 <ul>
-<li>The Determiner
+<li>
+<p>The Determiner</p>
 <ul>
-<li>a, the, this, some, those, US's, Jim's, etc.</li>
+<li>a, the, this, some, those, US’s, Jim’s, etc.</li>
 <li>mass nouns also don’t require determination.</li>
-</ul></li>
-<li>The Nominal
+</ul>
+</li>
+<li>
+<p>The Nominal</p>
 <ul>
-<li>The nominal construction follows the determiner and contains any
-pre- and posthead noun modifiers.</li>
-</ul></li>
-<li>Before the Head Noun
+<li>The nominal construction follows the determiner and contains any pre- and posthead noun modifiers.</li>
+</ul>
+</li>
+<li>
+<p>Before the Head Noun</p>
 <ul>
-<li><strong>Cardinal numbers, ordinal numbers, quantifiers</strong> and
-adjectives can appear before the head noun in a nominal.</li>
-<li>Adjectives can also be grouped into a phrase called an
-<strong>adjective phrase</strong> or AP.</li>
-</ul></li>
-<li>After the Head Noun
+<li><strong>Cardinal numbers, ordinal numbers, quantifiers</strong> and adjectives can appear before the head noun in a nominal.</li>
+<li>Adjectives can also be grouped into a phrase called an <strong>adjective phrase</strong> or AP.</li>
+</ul>
+</li>
+<li>
+<p>After the Head Noun</p>
 <ul>
-<li>A head noun can be followed by <strong>postmodifiers</strong>. Three
-kinds of nominal postmodifiers are common in English: prepositional
-phrases, non-finite clauses, relative clauses.</li>
-<li>non-finite postmodifiers are the <strong>gerundive</strong> (-ing),
--ed, and infinitive forms.</li>
-<li>A postnominal relative clause (more correctly a restrictive relative
-clause), is often begins with a <strong>relative pronoun</strong>
-(<em>that</em> and <em>who</em> are the most).</li>
+<li>A head noun can be followed by <strong>postmodifiers</strong>. Three kinds of nominal postmodifiers are common in English: prepositional phrases, non-finite clauses, relative clauses.</li>
+<li>non-finite postmodifiers are the <strong>gerundive</strong> (-ing), -ed, and infinitive forms.</li>
+<li>A postnominal relative clause (more correctly a restrictive relative clause), is often begins with a <strong>relative pronoun</strong> (<em>that</em> and <em>who</em> are the most).</li>
 <li>Various postnominal modifiers can be combined.</li>
-</ul></li>
-<li>Before the Noun Phrase
+</ul>
+</li>
+<li>
+<p>Before the Noun Phrase</p>
 <ul>
-<li>Word classes that modify and appear before NPs are called
-<strong>predeterminers</strong>.</li>
-<li>Many of these have to do with number or amount; a common
-predeterminer is <em>all</em>.</li>
-</ul></li>
+<li>Word classes that modify and appear before NPs are called <strong>predeterminers</strong>.</li>
+<li>Many of these have to do with number or amount; a common predeterminer is <em>all</em>.</li>
+</ul>
+</li>
 </ul>
 <h3 id="the-verb-phrase">The Verb Phrase</h3>
-<p>The verb phrase consists of the verb and a number of other
-constituents.</p>
-<p>Verb followed by an entire embedded sentence is called
-<strong>sentential complements</strong>.</p>
-<p>Verbs are compatible with different kinds of complements. In
-traditional grammar:</p>
+<p>The verb phrase consists of the verb and a number of other constituents.</p>
+<p>Verb followed by an entire embedded sentence is called <strong>sentential complements</strong>.</p>
+<p>Verbs are compatible with different kinds of complements. In traditional grammar:</p>
 <ul>
 <li><strong>transitive</strong> takes a direct object NP</li>
 <li><strong>intransitive</strong> do not</li>
 </ul>
-<p>Modern grammars <strong>subcategorize</strong> verbs into as many as
-100 subcategories. A verb <strong>subcategorizes for</strong> an NP or a
-non-finite VP (which are called <strong>complements</strong> of the
-verb). The possible sets of complements are called the
-<strong>subcategorization frame</strong> for the verb. We can capture
-the association between verbs and their complements by making separate
-subtypes of the class Verb. The problem is the significant increase in
-the number of rules and the associated loss of generality.</p>
+<p>Modern grammars <strong>subcategorize</strong>  verbs into as many as 100 subcategories. A verb <strong>subcategorizes for</strong> an NP or a non-finite VP (which are called <strong>complements</strong> of the verb). The possible sets of complements are called the <strong>subcategorization frame</strong> for the verb. We can capture the association between verbs and their complements by making separate subtypes of the class Verb. The problem is the significant increase in the number of rules and the associated loss of generality.</p>
 <h3 id="coordination">Coordination</h3>
-<p>A <strong>coordinate</strong> noun phrase can consist of two other
-noun phrases separated by a <strong>conjunction</strong>. The
-<strong>meta-rules</strong> is like: X → X and X (X stands for any
-non-terminal rather than a nonterminal itself).</p>
+<p>A <strong>coordinate</strong> noun phrase can consist of two other noun phrases separated by a <strong>conjunction</strong>. The <strong>meta-rules</strong> is like: X → X and X (X stands for any non-terminal rather than a nonterminal itself).</p>
 <h2 id="treebanks">Treebanks</h2>
-<p>A corpus where every sentence in the collection is paired with a
-corresponding parse tree, such a syntactically annotated corpus is
-called a <strong>treebank</strong>.</p>
-<p>A feature of Penn Treebanks: the use of <strong>traces</strong>
-(-NONE- nodes) to mark long-distance dependencies or <strong>syntactic
-movement</strong>.</p>
-<p>Syntactic constituents could be associated with a lexical
-<strong>head</strong>; N is the head of an NP, V is the head of a
-VP.</p>
-<p>The head is the word in the phrase that is grammatically the most
-important. Heads are passed up the parse tree; thus, each non-terminal
-in a parse tree is annotated with a single word, which is its lexical
-head.</p>
-<p>An alternative approach to finding a head is used in most practical
-computational systems. Instead of specifying head rules in the grammar
-itself, heads are identified dynamically in the context of trees for
-specific sentences.</p>
-<h2 id="grammar-equivalence-and-normal-form">Grammar Equivalence and
-Normal Form</h2>
+<p>A corpus where every sentence in the collection is paired with a corresponding parse tree, such a syntactically annotated corpus is called a <strong>treebank</strong>.</p>
+<p>A feature of Penn Treebanks: the use of <strong>traces</strong> (-NONE- nodes) to mark long-distance dependencies or <strong>syntactic movement</strong>.</p>
+<p>Syntactic constituents could be associated with a lexical <strong>head</strong>; N is the head of an NP, V is the head of a VP.</p>
+<p>The head is the word in the phrase that is grammatically the most important. Heads are passed up the parse tree; thus, each non-terminal in a parse tree is annotated with a single word, which is its lexical head.</p>
+<p>An alternative approach to finding a head is used in most practical computational systems. Instead of specifying head rules in the grammar itself, heads are identified dynamically in the context of trees for specific sentences.</p>
+<h2 id="grammar-equivalence-and-normal-form">Grammar Equivalence and Normal Form</h2>
 <p>We usually distinguish two kinds of grammar equivalence:</p>
 <ul>
-<li><p><strong>weak equivalence</strong>: generate the same set of
-strings and assign the same phrase structure to each sentence</p></li>
-<li><p><strong>strong equivalence</strong>: generate the same set of
-strings</p></li>
+<li>
+<p><strong>weak equivalence</strong>: generate the same set of strings and assign the same phrase structure to each sentence</p>
+</li>
+<li>
+<p><strong>strong equivalence</strong>: generate the same set of strings</p>
+</li>
 </ul>
-<p>It is sometimes useful to have a <strong>normal form</strong> for
-grammars, in which each of the productions takes a particular form. For
-example, a context-free grammar is in <strong>Chomsky normal
-form</strong> (CNF) if it is ε-free and if in addition each production
-is either of the form A → B C (two non-terminal symbols) or A → a (one
-terminal symbol). CNF grammars are <strong>binary branching</strong>,
-that is they have binary trees (down to the pre-lexical nodes).</p>
-<p>Any context-free grammar can be converted into a weakly equivalent
-Chomsky normal form grammar.</p>
-<p>The generation of a symbol A with a potentially infinite sequence of
-symbols B with a rule of the form A → A B is known as
-<strong>Chomsky-adjunction</strong>.</p>
-<p>It's much better to read <a
-href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/">自然语言计算机形式分析的理论与方法笔记
-(Ch03) | Yam</a> first.</p>
+<p>It is sometimes useful to have a <strong>normal form</strong> for grammars, in which each of the productions takes a particular form. For example, a context-free grammar is in <strong>Chomsky normal form</strong> (CNF) if it is ε-free and if in addition each production is either of the form A → B C (two non-terminal symbols) or A → a (one terminal symbol). CNF grammars are <strong>binary branching</strong>, that is they have binary trees (down to the pre-lexical nodes).</p>
+<p>Any context-free grammar can be converted into a weakly equivalent Chomsky normal form grammar.</p>
+<p>The generation of a symbol A with a potentially infinite sequence of symbols B with a rule of the form A → A B is known as <strong>Chomsky-adjunction</strong>.</p>
+<p>It’s much better to read <a href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/" target="_blank" rel="noopener">自然语言计算机形式分析的理论与方法笔记 (Ch03) | Yam</a> first.</p>
 <h2 id="lexicalized-grammars">Lexicalized Grammars</h2>
-<p>The approach to grammar presented thus far emphasizes
-phrase-structure rules while minimizing the role of the lexicon.
-However, as we saw in the discussions of agreement, subcategorization,
-and long distance dependencies, this approach leads to solutions that
-are cumbersome at best, yielding grammars that are redundant, hard to
-manage, and brittle.</p>
-<p>To overcome these issues, numerous alternative approaches have been
-developed that all share the common theme of making better use of the
-lexicon:</p>
+<p>The approach to grammar presented thus far emphasizes phrase-structure rules while minimizing the role of the lexicon. However, as we saw in the discussions of agreement, subcategorization, and long distance dependencies, this approach leads to solutions that are cumbersome at best, yielding grammars that are redundant, hard to manage, and brittle.</p>
+<p>To overcome these issues, numerous alternative approaches have been developed that all share the common theme of making better use of the lexicon:</p>
 <ul>
 <li>Lexical-Functional Grammar (LFG) (Bresnan, 1982)</li>
-<li>Head-Driven Phrase Structure Grammar (HPSG) (Pollard and Sag,
-1994)</li>
+<li>Head-Driven Phrase Structure Grammar (HPSG) (Pollard and Sag, 1994)</li>
 <li>Tree-Adjoining Grammar (TAG) (Joshi,1985)</li>
 <li>Combinatory Categorial Grammar (CCG)</li>
 </ul>
-<p>These approaches differ with respect to how lexicalized they are —
-the degree to which they rely on the lexicon as opposed to phrase
-structure rules to capture facts about the language.</p>
-<p>All these can be read in <a
-href="https://yam.gift/2019/01/09/NLPFA/2019-01-09-Ch04-Formal-Model-Based-on-Unity-Operation/">自然语言计算机形式分析的理论与方法笔记
-(Ch04) | Yam</a> and <a
-href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/">自然语言计算机形式分析的理论与方法笔记
-(Ch03) | Yam</a>.</p>
-<h3 id="combinatory-categorial-grammar">Combinatory Categorial
-Grammar</h3>
-<p>The categorial approach consists of three major elements: a set of
-categories, a lexicon that associates words with categories, and a set
-of rules that govern how categories combine in context.</p>
+<p>These approaches differ with respect to how lexicalized they are — the degree to which they rely on the lexicon as opposed to phrase structure rules to capture facts about the language.</p>
+<p>All these can be read in <a href="https://yam.gift/2019/01/09/NLPFA/2019-01-09-Ch04-Formal-Model-Based-on-Unity-Operation/" target="_blank" rel="noopener">自然语言计算机形式分析的理论与方法笔记 (Ch04) | Yam</a> and <a href="https://yam.gift/2018/12/22/NLPFA/2018-12-22-Ch03-Formal-Model-Based-on-Phrase-Structure-Grammar/" target="_blank" rel="noopener">自然语言计算机形式分析的理论与方法笔记 (Ch03) | Yam</a>.</p>
+<h3 id="combinatory-categorial-grammar">Combinatory Categorial Grammar</h3>
+<p>The categorial approach consists of three major elements: a set of categories, a lexicon that associates words with categories, and a set of rules that govern how categories combine in context.</p>
 <h4 id="categories">Categories</h4>
-<p>Categories are either atomic elements or single-argument functions
-that return a category as a value when provided with a desired category
-as argument.</p>
+<p>Categories are either atomic elements or single-argument functions that return a category as a value when provided with a desired category as argument.</p>
 <p>A set of categories L for a grammar:</p>
 <ul>
 <li>A is a subset of L, where A is a given set of atomic elements</li>
-<li><code>(X/Y), (X\Y) ∈ L, if X, Y ∈ L</code>, the slash defines a
-function which specifies the type of the expected argument, the
-direction it is expected be found, and the type of the result.
-<code>(X/Y)</code> is a function that seeks a constituent of type Y to
-its right and returns a value of X.</li>
+<li><code>(X/Y), (X\Y) ∈ L, if X, Y ∈ L</code>, the slash defines a function which specifies the type of the expected argument, the direction it is expected be found, and the type of the result. <code>(X/Y)</code> is a function that seeks a constituent of type Y to its right and returns a value of X.</li>
 </ul>
-<p>The set of atomic categories is typically very small and includes
-familiar elements such as sentences and noun phrases. Functional
-categories include verb phrases and complex noun phrases among
-others.</p>
+<p>The set of atomic categories is typically very small and includes familiar elements such as sentences and noun phrases. Functional categories include verb phrases and complex noun phrases among others.</p>
 <h4 id="the-lexicon">The Lexicon</h4>
-<p>The lexicon in a categorial approach consists of assignments of
-categories to words. These assignments can either be to atomic or
-functional categories, and due to lexical ambiguity words can be
-assigned to multiple categories.</p>
+<p>The lexicon in a categorial approach consists of assignments of categories to words. These assignments can either be to atomic or functional categories, and due to lexical ambiguity words can be assigned to multiple categories.</p>
 <h4 id="rules">Rules</h4>
-<p>The rules of a categorial grammar specify how functions and their
-arguments combine. The following two rule templates constitute the basis
-for all categorial grammars.</p>
+<p>The rules of a categorial grammar specify how functions and their arguments combine. The following two rule templates constitute the basis for all categorial grammars.</p>
 <ul>
-<li><code>X/Y Y =&gt; X</code>: <strong>forward function
-application</strong></li>
-<li><code>Y X\Y =&gt; X</code>: <strong>backward function
-application</strong></li>
+<li><code>X/Y Y =&gt; X</code>: <strong>forward function application</strong></li>
+<li><code>Y X\Y =&gt; X</code>: <strong>backward function application</strong></li>
 </ul>
-<p>The result of applying either of these rules is the category
-specified as the value of the function being applied.</p>
-<p>The basic categorial approach does not give us any more expressive
-power than we had with traditional CFG rules; it just moves information
-from the grammar to the lexicon. To move beyond these limitations CCG
-includes operations that operate over functions:</p>
+<p>The result of applying either of these rules is the category specified as the value of the function being applied.</p>
+<p>The basic categorial approach does not give us any more expressive power than we had with traditional CFG rules; it just moves information from the grammar to the lexicon. To move beyond these limitations CCG includes operations that operate over functions:</p>
 <ul>
-<li><strong>compose</strong>: Both kinds of composition are signalled by
-a B in CCG diagrams, accompanied by a <code>&lt; or &gt;</code> to
-indicate the direction.
+<li><strong>compose</strong>: Both kinds of composition are signalled by a B in CCG diagrams, accompanied by a <code>&lt; or &gt;</code> to indicate the direction.
 <ul>
-<li><code>X/Y Y/Z =&gt; X/Z</code>: <strong>forward
-composition</strong></li>
-<li><code>Y\Z X\Y =&gt; X\Z</code>: <strong>backward
-composition</strong></li>
-</ul></li>
-<li><strong>type raising</strong>: elevates simple categories to the
-status of functions. The category T in these rules can correspond to any
-of the atomic or functional categories already present in the grammar.
+<li><code>X/Y Y/Z =&gt; X/Z</code>: <strong>forward composition</strong></li>
+<li><code>Y\Z X\Y =&gt; X\Z</code>: <strong>backward composition</strong></li>
+</ul>
+</li>
+<li><strong>type raising</strong>: elevates simple categories to the status of functions. The category T in these rules can correspond to any of the atomic or functional categories already present in the grammar.
 <ul>
-<li><code>X ⇒ T/(T\X)</code></li>
+<li><code>X ⇒ T/(T\X) </code></li>
 <li><code>X ⇒ T\(T/X)</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h4 id="ccgbank">CCGBank</h4>
-<p>It was created by automatically translating phrase-structure trees
-from the Penn Treebank via a rule-based approach.</p>
+<p>It was created by automatically translating phrase-structure trees from the Penn Treebank via a rule-based approach.</p>
 <h2 id="summary">Summary</h2>
 <ul>
-<li><p>Groups of consecutive words act as a group or a constituent,
-which can be modeled by <strong>context-free grammars</strong> (which
-are also known as <strong>phrase-structure grammars</strong>).</p></li>
-<li><p>A context-free grammar consists of a set of
-<strong>rules</strong> or <strong>productions</strong>, expressed over a
-set of <strong>non-terminal</strong> symbols and a set of
-<strong>terminal</strong> symbols. Formally, a particular
-<strong>context-free language</strong> is the set of strings that can be
-<strong>derived</strong> from a particular <strong>context-free
-grammar</strong>.</p></li>
-<li><p>A <strong>generative grammar</strong> is a traditional name in
-linguistics for a formal language that is used to model the grammar of a
-natural language.</p></li>
-<li><p>There are many sentence-level grammatical constructions in
-English; <strong>declarative, imperative, yes-no question, and
-wh-question</strong> are four common types; these can be modeled with
-context-free rules.</p></li>
-<li><p>An English <strong>noun phrase</strong> can have
-<strong>determiners, numbers, quantifiers,</strong> and
-<strong>adjective phrases</strong> preceding the <strong>head
-noun</strong>, which can be followed by a number of
-<strong>postmodifiers</strong>; <strong>gerundive</strong> VPs,
-<strong>infinitives</strong> VPs, and <strong>past participial</strong>
-VPs are common possibilities.</p></li>
-<li><p><strong>Subjects</strong> in English <strong>agree</strong> with
-the main verb in person and number.</p></li>
-<li><p><strong>Verbs</strong> can be <strong>subcategorized</strong> by
-the types of <strong>complements</strong> they expect. Simple
-subcategories are <strong>transitive</strong> and
-<strong>intransitive</strong>; most grammars include many more
-categories than these.</p></li>
-<li><p><strong>Treebanks</strong> of parsed sentences exist for many
-genres of English and for many languages.</p></li>
-<li><p>Any context-free grammar can be converted to <strong>Chomsky
-normal form</strong>, in which the right-hand side of each rule has
-either two non-terminals or a single terminal.</p></li>
-<li><p><strong>Lexicalized grammars</strong> place more emphasis on the
-structure of the lexicon, lessening the burden on pure phrase-structure
-rules.</p></li>
-<li><p><strong>Combinatorial categorial grammar (CCG)</strong> is an
-important computationally relevant lexicalized approach. It consists of
-three major elements: a set of <strong>categories</strong>, a
-<strong>lexicon</strong> that associates words with categories, and a
-set of <strong>rules</strong> that govern how categories combine in
-context.</p></li>
+<li>
+<p>Groups of consecutive words act as a group or a constituent, which can be modeled by <strong>context-free grammars</strong> (which are also known as <strong>phrase-structure grammars</strong>).</p>
+</li>
+<li>
+<p>A context-free grammar consists of a set of <strong>rules</strong> or <strong>productions</strong>, expressed over a set of <strong>non-terminal</strong> symbols and a set of <strong>terminal</strong> symbols. Formally, a particular <strong>context-free language</strong> is the set of strings that can be <strong>derived</strong> from a particular <strong>context-free grammar</strong>.</p>
+</li>
+<li>
+<p>A <strong>generative grammar</strong> is a traditional name in linguistics for a formal language that is used to model the grammar of a natural language.</p>
+</li>
+<li>
+<p>There are many sentence-level grammatical constructions in English; <strong>declarative, imperative, yes-no question, and wh-question</strong> are four common types; these can be modeled with context-free rules.</p>
+</li>
+<li>
+<p>An English <strong>noun phrase</strong> can have <strong>determiners, numbers, quantifiers,</strong> and <strong>adjective phrases</strong> preceding the <strong>head noun</strong>, which can be followed by a number of <strong>postmodifiers</strong>; <strong>gerundive</strong> VPs, <strong>infinitives</strong> VPs, and <strong>past participial</strong> VPs are common possibilities.</p>
+</li>
+<li>
+<p><strong>Subjects</strong> in English <strong>agree</strong> with the main verb in person and number.</p>
+</li>
+<li>
+<p><strong>Verbs</strong> can be <strong>subcategorized</strong> by the types of <strong>complements</strong> they expect. Simple subcategories are <strong>transitive</strong> and <strong>intransitive</strong>; most grammars include many more categories than these.</p>
+</li>
+<li>
+<p><strong>Treebanks</strong> of parsed sentences exist for many genres of English and for many languages.</p>
+</li>
+<li>
+<p>Any context-free grammar can be converted to <strong>Chomsky normal form</strong>, in which the right-hand side of each rule has either two non-terminals or a single terminal.</p>
+</li>
+<li>
+<p><strong>Lexicalized grammars</strong> place more emphasis on the structure of the lexicon, lessening the burden on pure phrase-structure rules.</p>
+</li>
+<li>
+<p><strong>Combinatorial categorial grammar (CCG)</strong> is an important computationally relevant lexicalized approach. It consists of three major elements: a set of <strong>categories</strong>, a <strong>lexicon</strong> that associates words with categories, and a set of <strong>rules</strong> that govern how categories combine in context.</p>
+</li>
 </ul>
 
       
@@ -625,21 +501,6 @@ context.</p></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

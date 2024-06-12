@@ -23,7 +23,7 @@
 <meta property="og:description" content="Paper：[1907.11692] RoBERTa: A Robustly Optimized BERT Pretraining Approach Code：fairseq/examples/roberta at master · pytorch/fairseq 核心思想： 对 BERT 几个小点（主要是动态 Mask 和不使用 NSP）进行优化取得了比较好的实践结果。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-roberta-1.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.171Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RoBERTa 论文+代码笔记">
 <meta name="twitter:description" content="Paper：[1907.11692] RoBERTa: A Robustly Optimized BERT Pretraining Approach Code：fairseq/examples/roberta at master · pytorch/fairseq 核心思想： 对 BERT 几个小点（主要是动态 Mask 和不使用 NSP）进行优化取得了比较好的实践结果。">
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" data-id="clx98np1p00iztsbzks9jswxg" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" data-id="clxbpfs6l008idlbzf13m7klu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,51 +97,34 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/1907.11692">[1907.11692]
-RoBERTa: A Robustly Optimized BERT Pretraining Approach</a></p>
-<p>Code：<a
-href="https://github.com/pytorch/fairseq/tree/master/examples/roberta">fairseq/examples/roberta
-at master · pytorch/fairseq</a></p>
+        <p>Paper：<a href="https://arxiv.org/abs/1907.11692" target="_blank" rel="noopener">[1907.11692] RoBERTa: A Robustly Optimized BERT Pretraining Approach</a></p>
+<p>Code：<a href="https://github.com/pytorch/fairseq/tree/master/examples/roberta" target="_blank" rel="noopener">fairseq/examples/roberta at master · pytorch/fairseq</a></p>
 <p>核心思想：</p>
-<p>对 BERT 几个小点（主要是动态 Mask 和不使用
-NSP）进行优化取得了比较好的实践结果。</p>
-<span id="more"></span>
+<p>对 BERT 几个小点（主要是动态 Mask 和不使用 NSP）进行优化取得了比较好的实践结果。</p>
+<a id="more"></a>
 <h2 id="what">What</h2>
 <h3 id="动机和核心问题">动机和核心问题</h3>
-<p>预训练方法好是好，但很难确定到底哪些方面对模型贡献最大。所以本文在仔细评估
-Bert 超参数和训练数据规模的影响后，发现 BERT
-可以表现的更好，完全不亚于已发表的任何后 BERT 方法；而且也证明 MLM
-作为训练目标也有足够的竞争力（如对比 PLM）。贡献如下：</p>
+<p>预训练方法好是好，但很难确定到底哪些方面对模型贡献最大。所以本文在仔细评估 Bert 超参数和训练数据规模的影响后，发现 BERT 可以表现的更好，完全不亚于已发表的任何后 BERT 方法；而且也证明 MLM 作为训练目标也有足够的竞争力（如对比 PLM）。贡献如下：</p>
 <ul>
-<li>提出一组重要的 BERT
-设计选择和训练策略，并介绍了能够提高下游任务性能的替代方案。</li>
+<li>提出一组重要的 BERT 设计选择和训练策略，并介绍了能够提高下游任务性能的替代方案。</li>
 <li>使用了新的数据集（CCNews），并确认使用跟多数据能够提高下游任务性能。</li>
 <li>训练效果的提升说明 MLM 方法在所有已发表的方法中极具竞争力。</li>
 </ul>
 <h3 id="模型和算法">模型和算法</h3>
 <p>模型同 BERT，主要说一下几个改动。</p>
 <p><strong>动态 Masking</strong></p>
-<p>BERT 是随机 Mask，而且是静态的，也就是每条训练数据在每个 Epoch
-使用相同的 Mask。</p>
+<p>BERT 是随机 Mask，而且是静态的，也就是每条训练数据在每个 Epoch 使用相同的 Mask。</p>
 <p>本文采用动态 Mask，即每条训练数据被喂进模型时都生成新的 Mask。</p>
-<p>最终效果嘛，稍好一点。fairseq 专门实现了一个
-<code>MaskTokensDataset</code>，感觉还挺有意思的，看下是怎么 mask
-的。还是看简化后的代码，为了便于观察，数据也伪造了一下。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码来自 fairseq 的 MaskTokensDataset</span></span><br><span class="line">vocab_size = <span class="number">1000</span></span><br><span class="line">nspecial = <span class="number">5</span></span><br><span class="line">weights = np.ones(vocab_size)</span><br><span class="line">weights[:nspecial] = <span class="number">0</span></span><br><span class="line">weights = weights / weights.<span class="built_in">sum</span>()</span><br><span class="line">MASK_TOKEN_ID = -<span class="number">1</span></span><br><span class="line">item = torch.tensor([<span class="number">2</span>]*<span class="number">200</span>) <span class="comment"># 假设我们的 input_ids 都为 2，便于观察结果</span></span><br><span class="line">mask_prob = <span class="number">0.15</span></span><br><span class="line">random_token_prob = <span class="number">0.1</span></span><br><span class="line">leave_unmasked_prob = <span class="number">0.1</span></span><br><span class="line"><span class="comment"># 还有 0.8 自然就是要 mask 掉的 Token 了</span></span><br><span class="line"></span><br><span class="line">sz = <span class="built_in">len</span>(item)</span><br><span class="line">mask = np.full(sz, <span class="literal">False</span>)</span><br><span class="line">num_mask = <span class="built_in">int</span>(mask_prob * sz + np.random.rand())</span><br><span class="line">mask[np.random.choice(sz, num_mask, replace=<span class="literal">False</span>)] = <span class="literal">True</span> <span class="comment"># 15% 的被置为 True，也就是 30 个</span></span><br><span class="line"></span><br><span class="line">rand_or_unmask_prob = random_token_prob + leave_unmasked_prob</span><br><span class="line">rand_or_unmask = mask &amp; (np.random.rand(sz) &lt; rand_or_unmask_prob) <span class="comment"># 15% 的 20%</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 random 替换和 unmask 的 20% 处理好</span></span><br><span class="line">unmask_prob = leave_unmasked_prob / rand_or_unmask_prob</span><br><span class="line">decision = np.random.rand(sz) &lt; unmask_prob</span><br><span class="line">unmask = rand_or_unmask &amp; decision <span class="comment"># 保持为 True</span></span><br><span class="line">rand_mask = rand_or_unmask &amp; (~decision) <span class="comment"># 置为 False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把 unmask 的处理完，然后处理要替换的 Token</span></span><br><span class="line">mask = mask ^ unmask</span><br><span class="line">num_rand = rand_mask.<span class="built_in">sum</span>()</span><br><span class="line">new_item = np.copy(item)</span><br><span class="line">new_item[mask] = MASK_TOKEN_ID</span><br><span class="line"></span><br><span class="line">num_rand = rand_mask.<span class="built_in">sum</span>()</span><br><span class="line">new_item[rand_mask] = np.random.choice(vocab_size, num_rand, p=weights) <span class="comment"># 根据权重选择替换 id</span></span><br></pre></td></tr></table></figure>
-<p>最终的结果就是要实现的效果，mask 的大概是 15% 的
-80%，在本例中也就是大约 24 个，随机替换的大概是 15% 的 10%，在本例中大约
-3 个。</p>
+<p>最终效果嘛，稍好一点。fairseq 专门实现了一个 <code>MaskTokensDataset</code>，感觉还挺有意思的，看下是怎么 mask 的。还是看简化后的代码，为了便于观察，数据也伪造了一下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 代码来自 fairseq 的 MaskTokensDataset</span></span><br><span class="line">vocab_size = <span class="number">1000</span></span><br><span class="line">nspecial = <span class="number">5</span></span><br><span class="line">weights = np.ones(vocab_size)</span><br><span class="line">weights[:nspecial] = <span class="number">0</span></span><br><span class="line">weights = weights / weights.sum()</span><br><span class="line">MASK_TOKEN_ID = <span class="number">-1</span></span><br><span class="line">item = torch.tensor([<span class="number">2</span>]*<span class="number">200</span>) <span class="comment"># 假设我们的 input_ids 都为 2，便于观察结果</span></span><br><span class="line">mask_prob = <span class="number">0.15</span></span><br><span class="line">random_token_prob = <span class="number">0.1</span></span><br><span class="line">leave_unmasked_prob = <span class="number">0.1</span></span><br><span class="line"><span class="comment"># 还有 0.8 自然就是要 mask 掉的 Token 了</span></span><br><span class="line"></span><br><span class="line">sz = len(item)</span><br><span class="line">mask = np.full(sz, <span class="literal">False</span>)</span><br><span class="line">num_mask = int(mask_prob * sz + np.random.rand())</span><br><span class="line">mask[np.random.choice(sz, num_mask, replace=<span class="literal">False</span>)] = <span class="literal">True</span> <span class="comment"># 15% 的被置为 True，也就是 30 个</span></span><br><span class="line"></span><br><span class="line">rand_or_unmask_prob = random_token_prob + leave_unmasked_prob</span><br><span class="line">rand_or_unmask = mask &amp; (np.random.rand(sz) &lt; rand_or_unmask_prob) <span class="comment"># 15% 的 20%</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 random 替换和 unmask 的 20% 处理好</span></span><br><span class="line">unmask_prob = leave_unmasked_prob / rand_or_unmask_prob</span><br><span class="line">decision = np.random.rand(sz) &lt; unmask_prob</span><br><span class="line">unmask = rand_or_unmask &amp; decision <span class="comment"># 保持为 True</span></span><br><span class="line">rand_mask = rand_or_unmask &amp; (~decision) <span class="comment"># 置为 False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 把 unmask 的处理完，然后处理要替换的 Token</span></span><br><span class="line">mask = mask ^ unmask</span><br><span class="line">num_rand = rand_mask.sum()</span><br><span class="line">new_item = np.copy(item)</span><br><span class="line">new_item[mask] = MASK_TOKEN_ID</span><br><span class="line"></span><br><span class="line">num_rand = rand_mask.sum()</span><br><span class="line">new_item[rand_mask] = np.random.choice(vocab_size, num_rand, p=weights) <span class="comment"># 根据权重选择替换 id</span></span><br></pre></td></tr></table></figure>
+<p>最终的结果就是要实现的效果，mask 的大概是 15% 的 80%，在本例中也就是大约 24 个，随机替换的大概是 15% 的 10%，在本例中大约 3 个。</p>
 <p><strong>NSP</strong></p>
 <p>为了判断 NSP 到底有没有作用，本文做了几组对比实验：</p>
 <ul>
-<li>SEGMENT-PAIR+NSP：BERT
-的配置，每个输入包含一对片段，每个片段可能包含多个语句。</li>
+<li>SEGMENT-PAIR+NSP：BERT 的配置，每个输入包含一对片段，每个片段可能包含多个语句。</li>
 <li>SENTENCE-PAIR+NSP：每个输入包含一对自然语句，它们是从一个文档的连续部分或从单独的文档中采样而来的。</li>
-<li>FULL-SENTENCES：每个输入来自一个或多个文档的连续输入，如果跨越文档，加一个分割标记，不使用
-NSP。</li>
-<li>DOC-SENTENCES：同上，但不跨越文档。因为长度可能达不到
-512，所以动态增加 batch size，让总的 Token 数量和 FULL-SENTENCES
-接近。</li>
+<li>FULL-SENTENCES：每个输入来自一个或多个文档的连续输入，如果跨越文档，加一个分割标记，不使用 NSP。</li>
+<li>DOC-SENTENCES：同上，但不跨越文档。因为长度可能达不到 512，所以动态增加 batch size，让总的 Token 数量和 FULL-SENTENCES 接近。</li>
 </ul>
 <p>最后的结论有三个：</p>
 <ul>
@@ -150,12 +133,10 @@ NSP。</li>
 <li>不跨越文档略好</li>
 </ul>
 <p><strong>Batch Size</strong></p>
-<p>大批能够提高 MLM 的 ppl
-同时提升下游任务性能，而且更容易并行，训练步骤更少。</p>
+<p>大批能够提高 MLM 的 ppl 同时提升下游任务性能，而且更容易并行，训练步骤更少。</p>
 <p>本文采用 8K batch size。</p>
 <p><strong>Encoding</strong></p>
-<p>BERT 使用了 char-level 的 BPE（30K），本文使用了 byte-level 的
-BPE（50K），方法来自 GPT-2，该方法会增加参数量。</p>
+<p>BERT 使用了 char-level 的 BPE（30K），本文使用了 byte-level 的 BPE（50K），方法来自 GPT-2，该方法会增加参数量。</p>
 <h3 id="特点和创新">特点和创新</h3>
 <p>对 Bert 的改进：</p>
 <ul>
@@ -166,11 +147,8 @@ BPE（50K），方法来自 GPT-2，该方法会增加参数量。</p>
 </ul>
 <h2 id="how">How</h2>
 <h3 id="如何构造数据并训练使用">如何构造数据并训练使用</h3>
-<p>除了 byte-level BPE，FULL-SENTENCES，动态 Mask 和不使用 NSP，其他与
-BERT 一致。训练参数设置可以参见下面的【数据和实验】。</p>
-<p>官方文档提供了一些开箱即用的<a
-href="https://github.com/pytorch/fairseq/tree/master/examples/roberta">使用方法</a>，功能包括：提取序列特征、分类、Mask
-填充（预测）、代词消歧等。</p>
+<p>除了 byte-level BPE，FULL-SENTENCES，动态 Mask 和不使用 NSP，其他与 BERT 一致。训练参数设置可以参见下面的【数据和实验】。</p>
+<p>官方文档提供了一些开箱即用的<a href="https://github.com/pytorch/fairseq/tree/master/examples/roberta" target="_blank" rel="noopener">使用方法</a>，功能包括：提取序列特征、分类、Mask 填充（预测）、代词消歧等。</p>
 <h3 id="数据和实验">数据和实验</h3>
 <p>数据（160G）包括：BOOKCORPUS、CC-NEWS、OPENWEBTEXT 和 STORIES。</p>
 <p>模型训练有几个调整（其他同 BERT）：</p>
@@ -191,96 +169,58 @@ href="https://github.com/pytorch/fairseq/tree/master/examples/roberta">使用方
 <li>MAX Length 512 Tokens</li>
 </ul>
 <p><strong>数据量和训练时长的影响</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-roberta-1.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-roberta-1.jpeg" alt></p>
 <p>具体任务上的结果和精调的配置可以参见论文。</p>
 <h2 id="discussion">Discussion</h2>
 <h3 id="相关工作">相关工作</h3>
 <p><strong>语言模型</strong>：</p>
 <ul>
-<li>Andrew M Dai and Quoc V Le. 2015. Semi-supervised sequence learning.
-In <em>Advances in Neural Informa- tion Processing Systems
-(NIPS)</em>.</li>
-<li><strong>ELMo</strong>: Matthew Peters, Mark Neumann, Mohit Iyyer,
-Matt Gardner, Christopher Clark, Kenton Lee, and Luke Zettlemoyer. 2018.
-Deep contextualized word representations. In <em>North American
-Association for Com- putational Linguistics (NAACL)</em>.</li>
-<li><strong>ULMFiT</strong>: Jeremy Howard and Sebastian Ruder. 2018.
-Universal language model fine-tuning for text classification. <em>arXiv
-preprint arXiv:1801.06146</em>.</li>
+<li>Andrew M Dai and Quoc V Le. 2015. Semi-supervised sequence learning. In <em>Advances in Neural Informa- tion Processing Systems (NIPS)</em>.</li>
+<li><strong>ELMo</strong>: Matthew Peters, Mark Neumann, Mohit Iyyer, Matt Gardner, Christopher Clark, Kenton Lee, and Luke Zettlemoyer. 2018. Deep contextualized word representations. In <em>North American Association for Com- putational Linguistics (NAACL)</em>.</li>
+<li><strong>ULMFiT</strong>: Jeremy Howard and Sebastian Ruder. 2018. Universal language model fine-tuning for text classification. <em>arXiv preprint arXiv:1801.06146</em>.</li>
 </ul>
 <p><strong>翻译</strong>：</p>
 <ul>
-<li>Bryan McCann, James Bradbury, Caiming Xiong, and Richard Socher.
-2017. Learned in translation: Con- textualized word vectors. In
-<em>Advances in Neural Information Processing Systems (NIPS)</em>, pages
-6297– 6308.</li>
+<li>Bryan McCann, James Bradbury, Caiming Xiong, and Richard Socher. 2017. Learned in translation: Con- textualized word vectors. In <em>Advances in Neural Information Processing Systems (NIPS)</em>, pages 6297– 6308.</li>
 </ul>
 <p><strong>MLM</strong>：</p>
 <ul>
-<li><strong>BERT</strong>: Jacob Devlin, Ming-Wei Chang, Kenton Lee, and
-Kristina Toutanova. 2019. BERT: Pre-training of deep bidirectional
-transformers for language under- standing. In <em>North American
-Association for Computational Linguistics (NAACL)</em>.</li>
-<li><strong>XLM</strong>: Guillaume Lample and Alexis Conneau. 2019.
-Crosslingual language model pretraining. <em>arXiv preprint
-arXiv:1901.07291</em>.</li>
+<li><strong>BERT</strong>: Jacob Devlin, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2019. BERT: Pre-training of deep bidirectional transformers for language under- standing. In <em>North American Association for Computational Linguistics (NAACL)</em>.</li>
+<li><strong>XLM</strong>: Guillaume Lample and Alexis Conneau. 2019. Crosslingual language model pretraining. <em>arXiv preprint arXiv:1901.07291</em>.</li>
 </ul>
 <p><strong>Finetune</strong>：</p>
 <ul>
-<li><p><strong>GPT</strong>: Alec Radford, Karthik Narasimhan, Time
-Salimans, and Ilya Sutskever. 2018. Improving language understanding
-with unsupervised learning. Technical report, OpenAI.</p></li>
-<li><p><strong>ULMFiT</strong></p></li>
-<li><p><strong>UniLM</strong>: Li Dong, Nan Yang, Wenhui Wang, Furu Wei,
-Xiaodong Liu, Yu Wang, Jianfeng Gao, Ming Zhou, and Hsiao-Wuen Hon.
-2019. Unified language model pre-training for natural language
-understanding and generation. <em>arXiv preprint
-arXiv:1905.03197</em>.</p></li>
-<li><p><strong>ERNIE</strong> (Entity Embedding): Yu Stephanie Sun,
-Shuohuan Wang, Yukun Li, Shikun Feng, Xuyi Chen, Han Zhang, Xinlun Tian,
-Danxi- ang Zhu, Hao Tian, and Hua Wu. 2019. ERNIE: Enhanced
-representation through knowledge integra- tion. <em>arXiv preprint
-arXiv:1904.09223</em>.</p></li>
-<li><p><strong>SpanBERT</strong> (span prediction): Mandar Joshi, Danqi
-Chen, Yinhan Liu, Daniel S. Weld, Luke Zettlemoyer, and Omer Levy. 2019.
-SpanBERT: Improving pre-training by representing and predicting spans.
-<em>arXiv preprint arXiv:1907.10529</em>.</p></li>
+<li>
+<p><strong>GPT</strong>: Alec Radford, Karthik Narasimhan, Time Salimans, and Ilya Sutskever. 2018. Improving language understanding with unsupervised learning. Technical report, OpenAI.</p>
+</li>
+<li>
+<p><strong>ULMFiT</strong></p>
+</li>
+<li>
+<p><strong>UniLM</strong>: Li Dong, Nan Yang, Wenhui Wang, Furu Wei, Xiaodong Liu, Yu Wang, Jianfeng Gao, Ming Zhou, and Hsiao-Wuen Hon. 2019. Unified language model pre-training for natural language understanding and generation. <em>arXiv preprint arXiv:1905.03197</em>.</p>
+</li>
+<li>
+<p><strong>ERNIE</strong> (Entity Embedding): Yu Stephanie Sun, Shuohuan Wang, Yukun Li, Shikun Feng, Xuyi Chen, Han Zhang, Xinlun Tian, Danxi- ang Zhu, Hao Tian, and Hua Wu. 2019. ERNIE: Enhanced representation through knowledge integra- tion. <em>arXiv preprint arXiv:1904.09223</em>.</p>
+</li>
+<li>
+<p><strong>SpanBERT</strong> (span prediction): Mandar Joshi, Danqi Chen, Yinhan Liu, Daniel S. Weld, Luke Zettlemoyer, and Omer Levy. 2019. SpanBERT: Improving pre-training by representing and predicting spans. <em>arXiv preprint arXiv:1907.10529</em>.</p>
+</li>
 </ul>
 <p><strong>自回归预训练的变种</strong>：</p>
 <ul>
-<li><strong>MASS</strong>: Kaitao Song, Xu Tan, Tao Qin, Jianfeng Lu,
-and Tie-Yan Liu. 2019. MASS: Masked sequence to sequence pre-training
-for language generation. In <em>International Conference on Machine
-Learning (ICML)</em>.</li>
-<li><strong>KERMIT</strong>: William Chan, Nikita Kitaev, Kelvin Guu,
-Mitchell Stern, and Jakob Uszkoreit. 2019. KERMIT: Generative
-insertion-based modeling for sequences. <em>arXiv preprint
-arXiv:1906.01604</em>.</li>
-<li><strong>XLNet</strong>: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime
-Car- bonell, Ruslan Salakhutdinov, and Quoc V Le. 2019. Xlnet:
-Generalized autoregressive pre-training for language understanding.
-<em>arXiv preprint arXiv:1906.08237</em>.</li>
+<li><strong>MASS</strong>: Kaitao Song, Xu Tan, Tao Qin, Jianfeng Lu, and Tie-Yan Liu. 2019. MASS: Masked sequence to sequence pre-training for language generation. In <em>International Conference on Machine Learning (ICML)</em>.</li>
+<li><strong>KERMIT</strong>: William Chan, Nikita Kitaev, Kelvin Guu, Mitchell Stern, and Jakob Uszkoreit. 2019. KERMIT: Generative insertion-based modeling for sequences. <em>arXiv preprint arXiv:1906.01604</em>.</li>
+<li><strong>XLNet</strong>: Zhilin Yang, Zihang Dai, Yiming Yang, Jaime Car- bonell, Ruslan Salakhutdinov, and Quoc V Le. 2019. Xlnet: Generalized autoregressive pre-training for language understanding. <em>arXiv preprint arXiv:1906.08237</em>.</li>
 </ul>
 <p><strong>更多数据大模型</strong>：</p>
 <ul>
 <li><strong>BERT</strong></li>
-<li>Alexei Baevski, Sergey Edunov, Yinhan Liu, Luke Zettlemoyer, and
-Michael Auli. 2019. Cloze-driven pretraining of self-attention networks.
-<em>arXiv preprint arXiv:1903.07785</em>.</li>
+<li>Alexei Baevski, Sergey Edunov, Yinhan Liu, Luke Zettlemoyer, and Michael Auli. 2019. Cloze-driven pretraining of self-attention networks. <em>arXiv preprint arXiv:1903.07785</em>.</li>
 <li><strong>XLNet</strong></li>
-<li><strong>GPT-2</strong>: Alec Radford, Jeffrey Wu, Rewon Child, David
-Luan, Dario Amodei, and Ilya Sutskever. 2019. Language models are
-unsupervised multitask learners. Technical report, OpenAI.</li>
+<li><strong>GPT-2</strong>: Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, and Ilya Sutskever. 2019. Language models are unsupervised multitask learners. Technical report, OpenAI.</li>
 </ul>
 <h3 id="胡思乱想">胡思乱想</h3>
-<p>忽然发现近年来的论文公式是越来越少，整个就成了各式各样的实验报告，各种
-Trick
-满天飞，这是要变成经验科学了么……说不清楚是好是坏，但个人对这个趋势不太认同，还是希望能百花齐放。论文整理完才发现貌似没有太多东西，这几个小
-Trick
-更像是锦上添花，我甚至怀疑是不是因为数据量大了、训练时间长了，所以结果变好了，毕竟公开数据集就那点东西。其实就自己感觉，后
-BERT 时代的种种搞法都没从本质上改变什么，NLP
-不该在这条路上一路走到黑，尤其发散型任务（比如文本生成），能否在强化学习、GAN
-方面进一步突破呢？</p>
+<p>忽然发现近年来的论文公式是越来越少，整个就成了各式各样的实验报告，各种 Trick 满天飞，这是要变成经验科学了么……说不清楚是好是坏，但个人对这个趋势不太认同，还是希望能百花齐放。论文整理完才发现貌似没有太多东西，这几个小 Trick 更像是锦上添花，我甚至怀疑是不是因为数据量大了、训练时间长了，所以结果变好了，毕竟公开数据集就那点东西。其实就自己感觉，后 BERT 时代的种种搞法都没从本质上改变什么，NLP 不该在这条路上一路走到黑，尤其发散型任务（比如文本生成），能否在强化学习、GAN 方面进一步突破呢？</p>
 
       
     </div><!-- .entry-content -->
@@ -438,21 +378,6 @@ BERT 时代的种种搞法都没从本质上改变什么，NLP
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

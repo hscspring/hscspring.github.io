@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Normalizing text means converting it to a more convenient, standard form.  tokenization: separating out or tokenizing words from running text lemmatization: words have the same root but different surf">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.168Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02)">
 <meta name="twitter:description" content="Normalizing text means converting it to a more convenient, standard form.  tokenization: separating out or tokenizing words from running text lemmatization: words have the same root but different surf">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" data-id="clx98np3r014ttsbz5np61yka" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" data-id="clxbpfsij01cedlbz2a330jlk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,48 +95,30 @@
       
             <!-- Table of Contents -->
               
-        <p><strong>Normalizing text</strong> means converting it to a more
-convenient, standard form.</p>
+        <p><strong>Normalizing text</strong> means converting it to a more convenient, standard form.</p>
 <ul>
-<li><strong>tokenization</strong>: separating out or tokenizing words
-from running text</li>
-<li><strong>lemmatization</strong>: words have the same root but
-different surface. <strong>Stemming</strong> refers to a simpler version
-of lemmatization in which just strip suffixes from the end of the
-word.</li>
+<li><strong>tokenization</strong>: separating out or tokenizing words from running text</li>
+<li><strong>lemmatization</strong>: words have the same root but different surface. <strong>Stemming</strong> refers to a simpler version of lemmatization in which just strip suffixes from the end of the word.</li>
 <li><strong>sentence segmentation</strong></li>
 </ul>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="regular-expressions">Regular Expressions</h2>
-<p>For Re, Please read this <a
-href="https://yam.gift/2017/09/04/2017-09-04-Regular-Expression/">note</a>,
-and exercises in the book can be found <a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/SLP-Ch2.ipynb">here</a>.
-An important use of regular expressions is in substitutions.</p>
+<p>For Re, Please read this <a href="https://yam.gift/2017/09/04/2017-09-04-Regular-Expression/" target="_blank" rel="noopener">note</a>, and exercises in the book can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Re/SLP-Ch2.ipynb" target="_blank" rel="noopener">here</a>. An important use of regular expressions is in substitutions.</p>
 <h2 id="words">Words</h2>
-<p>Wheather we consider a token as a word depends on the
-application.</p>
+<p>Wheather we consider a token as a word depends on the application.</p>
 <ul>
 <li>Punctuations in pos, parsing, or speech synthesis.</li>
 <li>Disfluencies in speech recognition.</li>
-<li>Capitalized and upcapitalized tokens are different in pos or ner,
-but same in speech recognition.</li>
-<li>In English, wordforms are sufficient, but in Arabic, is
-lemmatization.</li>
+<li>Capitalized and upcapitalized tokens are different in pos or ner, but same in speech recognition.</li>
+<li>In English, wordforms are sufficient, but in Arabic, is lemmatization.</li>
 </ul>
-<p><strong>Types</strong> are the number of distinct words,
-<strong>Tokens</strong> are the total number of words.</p>
+<p><strong>Types</strong> are the number of distinct words, <strong>Tokens</strong> are the total number of words.</p>
 <ul>
-<li>Herdan's Law (Heaps' Law): |V| = kN^β, k and β are positive
-constants, 0&lt;β&lt;1, β depends on the corpus size and the genre, for
-large corpora, β ranges from .67 to .75</li>
+<li>Herdan’s Law (Heaps’ Law): |V| = kN^β, k and β are positive constants, 0&lt;β&lt;1, β depends on the corpus size and the genre, for large corpora, β ranges from .67 to .75</li>
 </ul>
-<p>The number of lemmas can instead of wordform types, dictionaries can
-help in giving lemma counts.</p>
+<p>The number of lemmas can instead of wordform types, dictionaries can help in giving lemma counts.</p>
 <h2 id="corpora">Corpora</h2>
-<p>It's important to consider who produced the language, in what context
-, for what purpose, and make sure that the models are fit to the
-data.</p>
+<p>It’s important to consider who produced the language, in what context , for what purpose, and make sure that the models are fit to the data.</p>
 <ul>
 <li>language</li>
 <li>genre</li>
@@ -144,138 +126,71 @@ data.</p>
 <li>time matter</li>
 </ul>
 <h2 id="text-normalization">Text Normalization</h2>
-<h3 id="unix-tools-for-crude-tokenization-and-normalization">Unix tools
-for crude tokenization and normalization</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tokenize words by changing every sequence of nonalphabetic characters to a newline</span></span><br><span class="line"><span class="comment"># ’A-Za-z’ means alphabetic</span></span><br><span class="line"><span class="comment"># -c option complements to non-alphabet</span></span><br><span class="line"><span class="comment"># -s option squeezes all sequences into a single character</span></span><br><span class="line"><span class="built_in">tr</span> -sc <span class="string">&#x27;A-Za-z&#x27;</span> <span class="string">&#x27;\n&#x27;</span> &lt; sh.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># n sort the lines, and pass them to uniq -c </span></span><br><span class="line"><span class="built_in">tr</span> -sc <span class="string">&#x27;A-Za-z&#x27;</span> <span class="string">&#x27;\n&#x27;</span> &lt; sh.txt | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c</span><br><span class="line"></span><br><span class="line"><span class="comment"># -n to sort numerically, -r to sort in reverse order</span></span><br><span class="line"><span class="built_in">tr</span> -sc <span class="string">&#x27;A-Za-z&#x27;</span> <span class="string">&#x27;\n&#x27;</span> &lt; sh.txt | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -c | <span class="built_in">sort</span> -n -r</span><br></pre></td></tr></table></figure>
-<h3 id="word-tokenization-and-normalization">Word Tokenization and
-Normalization</h3>
-<p><strong>Normalization</strong>: putting words/tokens in a standard
-format.</p>
+<h3 id="unix-tools-for-crude-tokenization-and-normalization">Unix tools for crude tokenization and normalization</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tokenize words by changing every sequence of nonalphabetic characters to a newline</span></span><br><span class="line"><span class="comment"># ’A-Za-z’ means alphabetic</span></span><br><span class="line"><span class="comment"># -c option complements to non-alphabet</span></span><br><span class="line"><span class="comment"># -s option squeezes all sequences into a single character</span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># n sort the lines, and pass them to uniq -c </span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt | sort | uniq -c</span><br><span class="line"></span><br><span class="line"><span class="comment"># -n to sort numerically, -r to sort in reverse order</span></span><br><span class="line">tr -sc <span class="string">'A-Za-z'</span> <span class="string">'\n'</span> &lt; sh.txt | sort | uniq -c | sort -n -r</span><br></pre></td></tr></table></figure>
+<h3 id="word-tokenization-and-normalization">Word Tokenization and Normalization</h3>
+<p><strong>Normalization</strong>: putting words/tokens in a standard format.</p>
 <p>Some examples that keep the punctuation internally:</p>
 <ul>
 <li>abbreviation: <code>m.p.h Ph.D. AT&amp;T cap'n</code></li>
-<li>special characters and numbers:
-<code>$45.55 01/02/06 555,550.50</code></li>
+<li>special characters and numbers: <code>$45.55 01/02/06 555,550.50 </code></li>
 <li>urls: <code>http://www.google.com</code></li>
 <li>tags: <code>#nlproc</code></li>
 <li>email: <code>someone@gmail.com</code></li>
 </ul>
-<p>A <strong>clitic</strong> is a part of word that can't stand on its
-own, and can only occur when it is attached to another word.</p>
-<p>A <strong>named entity</strong> need to be treated as a single
-token.</p>
-<p>Tokens can also be normalized in which a single normalized form is
-chosen for words with multiple forms like USA and US.</p>
-<p><strong>Penn Treebank tokenization</strong> standard can be found
-here: <a
-href="https://www.nltk.org/_modules/nltk/tokenize/treebank.html">nltk.tokenize.treebank
-— NLTK 3.4.1 documentation</a>.</p>
+<p>A <strong>clitic</strong> is a part of word that can’t stand on its own, and can only occur when it is attached to another word.</p>
+<p>A <strong>named entity</strong> need to be treated as a single token.</p>
+<p>Tokens can also be normalized in which a single normalized form is chosen for words with multiple forms like USA and US.</p>
+<p><strong>Penn Treebank tokenization</strong> standard can be found here: <a href="https://www.nltk.org/_modules/nltk/tokenize/treebank.html" target="_blank" rel="noopener">nltk.tokenize.treebank — NLTK 3.4.1 documentation</a>.</p>
 <p><strong>Case folding</strong> is another kind of normalization.</p>
 <ul>
-<li>For speech recognition and information retrieval, everything is
-mapped to lower case</li>
-<li>For sentiment analysis and text classification, IE, MT, case is
-helpful</li>
+<li>For speech recognition and information retrieval, everything is mapped to lower case</li>
+<li>For sentiment analysis and text classification, IE, MT, case is helpful</li>
 </ul>
-<h3 id="word-segmentation-in-chinese-the-maxmatch-algorithm">Word
-Segmentation in Chinese: the MaxMatch algorithm</h3>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function MaxMatch(sentence, dictionary) returns word sequence W</span><br><span class="line">	<span class="keyword">if</span> sentence <span class="keyword">is</span> empty</span><br><span class="line">    	<span class="keyword">return</span> empty <span class="built_in">list</span></span><br><span class="line">    <span class="keyword">for</span> i←length(sentence) downto <span class="number">1</span></span><br><span class="line">    	firstword = first i chars of sentence</span><br><span class="line">        remainder = rest of sentence</span><br><span class="line">        <span class="keyword">if</span> InDictionary(firstword, dictionary)</span><br><span class="line">        	<span class="keyword">return</span> <span class="built_in">list</span>(firstword, MaxMatch(remainder, dictionary))</span><br><span class="line">    <span class="comment"># no word was found, so make a one-character word</span></span><br><span class="line">    firstword = first char of sentence</span><br><span class="line">    remainder = rest of sentence</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>(firstword, MaxMatch(remainder, dictionary))</span><br></pre></td></tr></table></figure>
+<h3 id="word-segmentation-in-chinese-the-maxmatch-algorithm">Word Segmentation in Chinese: the MaxMatch algorithm</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function MaxMatch(sentence, dictionary) returns word sequence W</span><br><span class="line">	<span class="keyword">if</span> sentence <span class="keyword">is</span> empty</span><br><span class="line">    	<span class="keyword">return</span> empty list</span><br><span class="line">    <span class="keyword">for</span> i←length(sentence) downto <span class="number">1</span></span><br><span class="line">    	firstword = first i chars of sentence</span><br><span class="line">        remainder = rest of sentence</span><br><span class="line">        <span class="keyword">if</span> InDictionary(firstword, dictionary)</span><br><span class="line">        	<span class="keyword">return</span> list(firstword, MaxMatch(remainder, dictionary))</span><br><span class="line">    <span class="comment"># no word was found, so make a one-character word</span></span><br><span class="line">    firstword = first char of sentence</span><br><span class="line">    remainder = rest of sentence</span><br><span class="line">    <span class="keyword">return</span> list(firstword, MaxMatch(remainder, dictionary))</span><br></pre></td></tr></table></figure>
 <ul>
 <li>cannot dealing with <strong>unknown words</strong></li>
-<li>genres that differ a lot from the assumptions made by the dictionary
-builder</li>
-<li>most accurate algorithms generally use statistical <strong>sequence
-models</strong></li>
+<li>genres that differ a lot from the assumptions made by the dictionary builder</li>
+<li>most accurate algorithms generally use statistical <strong>sequence models</strong></li>
 </ul>
-<p>The code is here: <a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Segmentation/Segmentation.ipynb">Segmentation</a></p>
-<h3 id="collapsing-words-lemmatization-and-stemming">Collapsing words:
-Lemmatization and Stemming</h3>
-<p>The most sophisticated methods for <strong>lemmatization</strong>
-involve complete <strong>morphological parsing</strong> of the word.</p>
-<p><strong>Morphology</strong> is the study of the way words are built
-up from smaller meaning-bearing units called <strong>morphemes</strong>.
-Two broad classes of morphemes can be distinguished:</p>
+<p>The code is here: <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Segmentation/Segmentation.ipynb" target="_blank" rel="noopener">Segmentation</a></p>
+<h3 id="collapsing-words-lemmatization-and-stemming">Collapsing words: Lemmatization and Stemming</h3>
+<p>The most sophisticated methods for <strong>lemmatization</strong> involve complete <strong>morphological parsing</strong> of the word.</p>
+<p><strong>Morphology</strong> is the study of the way words are built up from smaller meaning-bearing units called <strong>morphemes</strong>. Two broad classes of morphemes can be distinguished:</p>
 <ul>
-<li><strong>stems</strong>—the central morpheme of the word, supplying
-the main meaning</li>
-<li><strong>affixes</strong>—adding “additional” meanings of various
-kinds</li>
+<li><strong>stems</strong>—the central morpheme of the word, supplying the main meaning</li>
+<li><strong>affixes</strong>—adding “additional” meanings of various kinds</li>
 </ul>
-<p>This naive version of morphological analysis is called
-<strong>stemming</strong>. One of the most widely used stemming
-algorithms is the <strong>Porter</strong>. The algorithm is based on
-series of rewrite rules run in series, as a <strong>cascade</strong>, in
-which the output of each pass is fed as input to the next pass. Detailed
-rule lists and code can be found on <a
-href="https://tartarus.org/martin/PorterStemmer/index.html">Porter
-Stemming Algorithm</a>.</p>
+<p>This naive version of morphological analysis is called <strong>stemming</strong>. One of the most widely used stemming algorithms is the <strong>Porter</strong>. The algorithm is based on series of rewrite rules run in series, as a <strong>cascade</strong>, in<br>
+which the output of each pass is fed as input to the next pass. Detailed rule lists and code can be found on <a href="https://tartarus.org/martin/PorterStemmer/index.html" target="_blank" rel="noopener">Porter Stemming Algorithm</a>.</p>
 <h3 id="byte-pair-encoding">Byte-Pair Encoding</h3>
-<p>Stemming or lemmatizing can help deal with <strong>unknown
-words</strong>.</p>
-<p>It uses a different kind of tokenization in which most tokens are
-words, but some tokens are frequent word parts like -er, so that an
-unseen word can be represented by combining the parts. The simplest such
-algorithm is <strong>byte-pair encoding</strong>, or
-<strong>BPE</strong>, which is based on a method for text
-compression.</p>
-<p>Code can be found <a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Normalization/BPE.ipynb">here</a>.</p>
+<p>Stemming or lemmatizing can help deal with <strong>unknown words</strong>.</p>
+<p>It uses a different kind of tokenization in which most tokens are words, but some tokens are frequent word parts like -er, so that an unseen word can be represented by combining the parts. The simplest such algorithm is <strong>byte-pair encoding</strong>, or <strong>BPE</strong>, which is based on a method for text compression.</p>
+<p>Code can be found <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Normalization/BPE.ipynb" target="_blank" rel="noopener">here</a>.</p>
 <h3 id="sentence-segmentation">Sentence Segmentation</h3>
-<p>Question marks and exclamation points are relatively unambiguous
-markers of sentence boundaries. Periods, on the other hand, are more
-ambiguous. The period character “.” is ambiguous between a sentence
-boundary marker and a marker of abbreviations like Mr. or Inc.</p>
-<p>In general, sentence tokenization methods work by building a binary
-classifier (based on a sequence of rules or on machine learning) that
-decides if a period is part of the word or is a sentence-boundary
-marker.</p>
+<p>Question marks and exclamation points are relatively unambiguous markers of sentence boundaries. Periods, on the other hand, are more ambiguous. The period character “.” is ambiguous between a sentence boundary marker and a marker of abbreviations like Mr. or Inc.</p>
+<p>In general, sentence tokenization methods work by building a binary classifier (based on a sequence of rules or on machine learning) that decides if a period is part of the word or is a sentence-boundary marker.</p>
 <h2 id="minimum-edit-distance">Minimum Edit Distance</h2>
-<p><strong>Edit distance</strong> is a way to quantify string
-similarity. <strong>Minimum edit distance</strong> is the minimum number
-of editing operations needed to transform one string to another.
-<strong>Operation list</strong> includes deletion, substitution and
-insertion.</p>
-<p><strong>Levenshtein distance</strong> is the simplest weighting
-factor which has two versions:</p>
+<p><strong>Edit distance</strong>  is a way to quantify string similarity. <strong>Minimum edit distance</strong> is the minimum number of editing operations needed to transform one string to another. <strong>Operation list</strong> includes deletion, substitution and insertion.</p>
+<p><strong>Levenshtein distance</strong> is the simplest weighting factor which has two versions:</p>
 <ul>
 <li>three operations has a cost of 1</li>
-<li>insertion or deletion has a cost of 1, substitution has a cost of
-2</li>
+<li>insertion or deletion has a cost of 1, substitution has a cost of 2</li>
 </ul>
-<h3 id="the-minimum-edit-distance-algorithm">The Minimum Edit Distance
-Algorithm</h3>
-<p>Given source string X of length n, and target string Y of length m,
-<code>D(i, j)</code> is the edit distance between <code>X[1…i]</code>
-and <code>Y[1…j]</code>, the edit distance between X and Y is D(n,
-m).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit distance</span></span><br><span class="line">D[i,j] = <span class="built_in">min</span>(</span><br><span class="line">	D[i-<span class="number">1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">    D[i, j-<span class="number">1</span>] + ins-cost(target[i]),</span><br><span class="line">    D[i-<span class="number">1</span>, j-<span class="number">1</span>] + sub-cost(source[i], target[j])</span><br><span class="line">)</span><br><span class="line"><span class="comment"># Levenshtein distance</span></span><br><span class="line">D[i,j] = <span class="built_in">min</span>(</span><br><span class="line">	D[i-<span class="number">1</span>, j] + <span class="number">1</span>,</span><br><span class="line">    D[i, j-<span class="number">1</span>] + <span class="number">1</span>,</span><br><span class="line">    D[i-<span class="number">1</span>, j-<span class="number">1</span>] + (<span class="number">2</span> <span class="keyword">if</span> source[i] ≠ target[j] <span class="keyword">or</span> <span class="number">0</span> <span class="keyword">if</span> source[i] = target[j])</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>With a small change, minimum edit distance can also provide the
-minimum cost <strong>alignment</strong> between two strings. It's useful
-in speech recognition (used to compute the word error rate) and machine
-translation (plays a role in which sentences in a parallel corpus need
-to be matched to each other).</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function MIN-EDIT-DISTANCE(source, target) returns <span class="built_in">min</span>-distance</span><br><span class="line">	n ← LENGTH(source)</span><br><span class="line">    m ← LENGTH(target)</span><br><span class="line">    Create a distance matrix distance [n+<span class="number">1</span>, m+<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    D[<span class="number">0</span>, <span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	D[i, <span class="number">0</span>] ← D[i-<span class="number">1</span>, <span class="number">0</span>] + <span class="keyword">del</span>-cost(source[i])</span><br><span class="line">    <span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">    	D[<span class="number">0</span>, j] ← D[<span class="number">0</span>, j-<span class="number">1</span>] + ins-cost(target[j])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	<span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">        	D[i, j] ← MIN(</span><br><span class="line">                D[i-<span class="number">1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">                D[i, j-<span class="number">1</span>] + ins-cost(target[i]),</span><br><span class="line">                D[i-<span class="number">1</span>, j-<span class="number">1</span>] + sub-cost(source[i], target[j]))</span><br><span class="line">    <span class="keyword">return</span> D[n, m]</span><br></pre></td></tr></table></figure>
-<p>The code is here: <a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Similarity/Min-Edit-Distance.ipynb">Edit-Distance</a>.</p>
-<p>The <strong>Viterbi</strong> algorithm is a probabilistic extension
-of minimum edit distance. Instead of computing the “minimum edit
-distance” between two strings, Viterbi computes the “maximum probability
-alignment” of one string with another.</p>
+<h3 id="the-minimum-edit-distance-algorithm">The Minimum Edit Distance Algorithm</h3>
+<p>Given source string X of length n, and target string Y of length m, <code>D(i, j)</code> is the edit distance between <code>X[1…i]</code> and <code>Y[1…j]</code>, the edit distance between X and Y is D(n, m).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># edit distance</span></span><br><span class="line">D[i,j] = min(</span><br><span class="line">	D[i<span class="number">-1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">    D[i, j<span class="number">-1</span>] + ins-cost(target[i]),</span><br><span class="line">    D[i<span class="number">-1</span>, j<span class="number">-1</span>] + sub-cost(source[i], target[j])</span><br><span class="line">)</span><br><span class="line"><span class="comment"># Levenshtein distance</span></span><br><span class="line">D[i,j] = min(</span><br><span class="line">	D[i<span class="number">-1</span>, j] + <span class="number">1</span>,</span><br><span class="line">    D[i, j<span class="number">-1</span>] + <span class="number">1</span>,</span><br><span class="line">    D[i<span class="number">-1</span>, j<span class="number">-1</span>] + (<span class="number">2</span> <span class="keyword">if</span> source[i] ≠ target[j] <span class="keyword">or</span> <span class="number">0</span> <span class="keyword">if</span> source[i] = target[j])</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>With a small change, minimum edit distance can also provide the minimum cost <strong>alignment</strong> between two strings. It’s useful in speech recognition (used to compute the word error rate) and machine translation (plays a role in which sentences in a parallel corpus need to be matched to each other).</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function MIN-EDIT-DISTANCE(source, target) returns min-distance</span><br><span class="line">	n ← LENGTH(source)</span><br><span class="line">    m ← LENGTH(target)</span><br><span class="line">    Create a distance matrix distance [n+<span class="number">1</span>, m+<span class="number">1</span>]</span><br><span class="line">    </span><br><span class="line">    D[<span class="number">0</span>, <span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	D[i, <span class="number">0</span>] ← D[i<span class="number">-1</span>, <span class="number">0</span>] + <span class="keyword">del</span>-cost(source[i])</span><br><span class="line">    <span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">    	D[<span class="number">0</span>, j] ← D[<span class="number">0</span>, j<span class="number">-1</span>] + ins-cost(target[j])</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> each row i <span class="keyword">from</span> <span class="number">1</span> to n do</span><br><span class="line">    	<span class="keyword">for</span> each column j <span class="keyword">from</span> <span class="number">1</span> to m do</span><br><span class="line">        	D[i, j] ← MIN(</span><br><span class="line">                D[i<span class="number">-1</span>, j] + <span class="keyword">del</span>-cost(source[i]),</span><br><span class="line">                D[i, j<span class="number">-1</span>] + ins-cost(target[i]),</span><br><span class="line">                D[i<span class="number">-1</span>, j<span class="number">-1</span>] + sub-cost(source[i], target[j]))</span><br><span class="line">    <span class="keyword">return</span> D[n, m]</span><br></pre></td></tr></table></figure>
+<p>The code is here: <a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Similarity/Min-Edit-Distance.ipynb" target="_blank" rel="noopener">Edit-Distance</a>.</p>
+<p>The <strong>Viterbi</strong> algorithm is a probabilistic extension of minimum edit distance. Instead of computing the “minimum edit distance” between two strings, Viterbi computes the “maximum probability alignment” of one string with another.</p>
 <h2 id="summary">Summary</h2>
 <ul>
-<li><strong>Regular expression</strong> is powerful for
-pattern-matching.</li>
-<li><strong>Word tokenization and normalization</strong> are generally
-done by cascades of simple regular expressions substitutions or finite
-automata.</li>
-<li><strong>Porter algorithm</strong> is simple and efficient to do
-stemming, stripping off affixes. It does not have high accuracy but may
-be useful for some tasks.</li>
-<li><strong>Minimum edit distance</strong> between two strings is the
-minimum number of operations it takes to edit one to another. It can be
-computed by <strong>dynamic programming</strong>, which also results in
-an <strong>alignment</strong> of the two strings.</li>
+<li><strong>Regular expression</strong> is powerful for pattern-matching.</li>
+<li><strong>Word tokenization and normalization</strong> are generally done by cascades of simple regular expressions substitutions or finite automata.</li>
+<li><strong>Porter algorithm</strong> is simple and efficient to do stemming, stripping off affixes. It does not have high accuracy but may be useful for some tasks.</li>
+<li><strong>Minimum edit distance</strong> between two strings is the minimum number of operations it takes to edit one to another. It can be computed by <strong>dynamic programming</strong>, which also results in an <strong>alignment</strong> of the two strings.</li>
 </ul>
 
       
@@ -434,21 +349,6 @@ an <strong>alignment</strong> of the two strings.</li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

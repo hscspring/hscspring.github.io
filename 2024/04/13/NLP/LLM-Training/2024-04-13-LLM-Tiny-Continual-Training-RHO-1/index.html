@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-rho1-9.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-rho1-10.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-rho1-11.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.166Z">
+<meta property="og:updated_time" content="2024-06-12T08:30:34.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tiny LLM Continual Pre-training：RHO-1">
 <meta name="twitter:description" content="并不是所有的Next Token都有用，RHO-1选择那些最有用的Next Token，提升了小模型的继续训练效率。">
@@ -99,7 +99,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" data-id="clx98np3q014ntsbz9amuhqqj" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" data-id="clxbpfsg8016ddlbzsngmftnp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -107,10 +107,8 @@
       
             <!-- Table of Contents -->
               
-        <p>并不是所有的Next Token都有用，<a
-href="http://arxiv.org/abs/2404.07965">RHO-1</a>选择那些最有用的Next
-Token，提升了小模型的继续训练效率。</p>
-<span id="more"></span>
+        <p>并不是所有的Next Token都有用，<a href="http://arxiv.org/abs/2404.07965" target="_blank" rel="noopener">RHO-1</a>选择那些最有用的Next Token，提升了小模型的继续训练效率。</p>
+<a id="more"></a>
 <h2 id="背景">背景</h2>
 <p>NTP？语料中的Token在训练中并不是同样重要，RHO-1并不是预测下一个Token，而是选择性地训练“有用”的Token。这需要一个参考模型对Token进行打分，然后选择那些更高损失的Token。</p>
 <p>初衷：</p>
@@ -119,45 +117,39 @@ Token，提升了小模型的继续训练效率。</p>
 <li>而且严格的过滤还可能同时去掉一些有用的Token。</li>
 <li>另外，网络爬取的语料也和下游应用场景的理想分布不一致。比如各种有害Token，它们和有用的Token应用同样的损失不仅浪费资源，也限制LLM的智能潜力。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-4.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-4.jpg" alt></p>
 <h2 id="token级别学习">Token级别学习</h2>
-<p>结论：并不是所有Token都同样重要。显著的损失减少仅限于一组Token，许多Token是已经学习到的“简单Token”。而有些是“Hard
-Token”，具体表现是波动的损失且不收敛，这些Token可能导致无效的梯度更新。</p>
+<p>结论：并不是所有Token都同样重要。显著的损失减少仅限于一组Token，许多Token是已经学习到的“简单Token”。而有些是“Hard Token”，具体表现是波动的损失且不收敛，这些Token可能导致无效的梯度更新。</p>
 <p>做法：在15B的Token（OpenWebMath）上继续训练TinyLLaMA-1B，每1B的Token保存一次，然后验证这些间隔Token级别的损失。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-1.jpg" /></p>
-<p><strong>发现1：</strong>如上图a所示，Token轨迹表现出四类，如下所示。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-1.jpg" alt></p>
+<p>**发现1：**如上图a所示，Token轨迹表现出四类，如下所示。</p>
 <ul>
 <li>H→H：11%，可能由于高度的不确定性。</li>
 <li>L→H：12%，……</li>
 <li>H→L：26%，显著的损失降低，是继续训练学到的。</li>
 <li>L→L：51%，损失没有变化，都很低，是此前已经学到了的（简单Token）。</li>
 </ul>
-<p><strong>发现2：</strong>如上图b和c所示，L→L和H→H中，一些Token损失表现出持续的波动，且不收敛。结果发现这些Token大部分都是噪音。如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-2.jpg" /></p>
+<p>**发现2：**如上图b和c所示，L→L和H→H中，一些Token损失表现出持续的波动，且不收敛。结果发现这些Token大部分都是噪音。如下图所示。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-2.jpg" alt></p>
 <p>小结：在训练期间，与每个Token相关的损失不会像总体损失那样平稳下降；相反，不同的Token之间存在复杂的动态变化。如果在训练期间能够为模型选择适当的Token，就可能稳定模型的训练轨迹并提高效率。</p>
 <h2 id="slm">SLM</h2>
 <p>受文档级别过滤用的参考模型启发，本文提出Token级别的数据选择。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-3.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-3.jpg" alt></p>
 <p>这里的直觉是，高超额损失的Token更易学习，更符合预期分布，且自然排除了无关或低质量的Token。</p>
-<p><strong>Reference Modeling</strong> <span class="math display">\[
-\mathcal{L}_{\text {ref }}\left(x_i\right)=-\log P\left(x_i \mid
-x&lt;i\right) \tag{1}
-\]</span> 式（1）用来计算Token的分数。</p>
-<p><strong>Selective Pretraining</strong> <span class="math display">\[
-\mathcal{L}_{\text {CLM }}(\theta)=-\frac{1}{N} \sum_{i=1}^N \log
-P\left(x_i \mid x_{&lt;i} ; \theta\right) \tag{2}
-\]</span> 式（2）计算语言模型的损失。 <span class="math display">\[
-\mathcal{L}_{\Delta}\left(x_i\right)=\mathcal{L}_\theta\left(x_i\right)-\mathcal{L}_{\text
-{ref }}\left(x_i\right) \tag{3}
-\]</span> 式（3）表示Token xi的超额损失（excess loss）。 <span
-class="math display">\[
-\mathcal{L}_{\text {SLM }}(\theta)=-\frac{1}{N * k \%} \sum_{i=1}^N I_{k
-\%}\left(x_i\right) \cdot \log P\left(x_i \mid x_{&lt;i} ; \theta\right)
-\tag{4}
-\]</span> 式（4）为最终的损失，这里的k%（Top
-k%）表示Token选择（基于超额损失）的比率。如果xi在top k%中，<span
-class="math inline">\(I=1\)</span>，否则<span
-class="math inline">\(I=0\)</span>，即不计算这些Token的损失。这确保了损失只应用于被认为对语言模型学习最有益的Token。</p>
+<p><strong>Reference Modeling</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">L</mi><mtext>ref </mtext></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><mi>P</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>∣</mo><mi>x</mi><mo>&lt;</mo><mi>i</mi><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{L}_{\text {ref }}\left(x_i\right)=-\log P\left(x_i \mid x&lt;i\right) \tag{1}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ref </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">i</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">1</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>式（1）用来计算Token的分数。</p>
+<p><strong>Selective Pretraining</strong></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">L</mi><mtext>CLM </mtext></msub><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>log</mi><mo>⁡</mo><mi>P</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>x</mi><mrow><mo>&lt;</mo><mi>i</mi></mrow></msub><mo separator="true">;</mo><mi>θ</mi><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(2)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{L}_{\text {CLM }}(\theta)=-\frac{1}{N} \sum_{i=1}^N \log P\left(x_i \mid x_{&lt;i} ; \theta\right) \tag{2} 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">CLM </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">2</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>式（2）计算语言模型的损失。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">L</mi><mi mathvariant="normal">Δ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo>=</mo><msub><mi mathvariant="script">L</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo>−</mo><msub><mi mathvariant="script">L</mi><mtext>ref </mtext></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(3)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{L}_{\Delta}\left(x_i\right)=\mathcal{L}_\theta\left(x_i\right)-\mathcal{L}_{\text {ref }}\left(x_i\right) \tag{3}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">Δ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">ref </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">3</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>式（3）表示Token xi的超额损失（excess loss）。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">L</mi><mtext>SLM </mtext></msub><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><mn>1</mn><mrow><mi>N</mi><mo>∗</mo><mi>k</mi><mi mathvariant="normal">%</mi></mrow></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msub><mi>I</mi><mrow><mi>k</mi><mi mathvariant="normal">%</mi></mrow></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mi>P</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>x</mi><mrow><mo>&lt;</mo><mi>i</mi></mrow></msub><mo separator="true">;</mo><mi>θ</mi><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(4)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{L}_{\text {SLM }}(\theta)=-\frac{1}{N * k \%} \sum_{i=1}^N I_{k \%}\left(x_i\right) \cdot \log P\left(x_i \mid x_{&lt;i} ; \theta\right) \tag{4}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal">L</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">SLM </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord">−</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mord">%</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.74156em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198000000000005em;margin-left:-0.07847em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mord mtight">%</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2190919999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mpunct">;</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">4</span></span><span class="mord">)</span></span></span></span></span></span></p>
+<p>式（4）为最终的损失，这里的k%（Top k%）表示Token选择（基于超额损失）的比率。如果xi在top k%中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">I=1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，否则<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>I</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">I=0</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span></span></span></span>，即不计算这些Token的损失。这确保了损失只应用于被认为对语言模型学习最有益的Token。</p>
 <h2 id="实验设置">实验设置</h2>
 <p><strong>RM：</strong></p>
 <ul>
@@ -165,7 +157,8 @@ class="math inline">\(I=0\)</span>，即不计算这些Token的损失。这确�
 <ul>
 <li>数学：0.5B（Token）数学相关高质量数据集</li>
 <li>通用：1.9B（Token）高质量数据集</li>
-</ul></li>
+</ul>
+</li>
 <li>3Epoch</li>
 <li>LR：5e-5 (1B), 1e-5 (7B), cosine decay schedule</li>
 <li>MaxLen: 2048 (1B), 4096 (7B)</li>
@@ -177,36 +170,38 @@ class="math inline">\(I=0\)</span>，即不计算这些Token的损失。这确�
 <ul>
 <li>数学：OpenWebMath，14B Token</li>
 <li>通用：SlimPajama:StarCoderData:OpenWebMath = 6:3:1</li>
-</ul></li>
+</ul>
+</li>
 <li>base
 <ul>
 <li>数学：TinyLLaMA-1.1B+LR8e-5和Mistral-7B+LR2e-5</li>
 <li>通用：TinyLLaMA-1.1B+LR1e-4和Mistral-7B+LR2e-5</li>
-</ul></li>
+</ul>
+</li>
 <li>BatchSize=1M Tokens</li>
 <li>Token选择比率：TinyLLaMA 60%，Mistral-7B 70%</li>
 </ul>
 <h2 id="实验结果">实验结果</h2>
 <p><strong>数学</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-5.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-5.jpg" alt></p>
 <p>1B模型的提升远大于7B。</p>
 <p><strong>通用</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-6.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-6.jpg" alt></p>
 <p>为啥没有横向的对比？也没有7B的结果。</p>
 <h2 id="分析">分析</h2>
 <p><strong>选择的Token的损失和下游性能表现更一致</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-7.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-7.jpg" alt></p>
 <p><strong>这种表现呈现出二次幂关系</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-8.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-8.jpg" alt></p>
 <p><strong>选择了哪些Token？</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-9.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-9.jpg" alt></p>
 <p>都是选择的数学相关的Token。</p>
 <p><strong>而且，后面ckpt选择的Token在训练后期具有更高的PPL</strong>，如Figure8所示，这表明模型可能首先优化了具有更大可学习空间的Token，从而提高了学习效率。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-10.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-10.jpg" alt></p>
 <p><strong>不同Token选择率的效果</strong></p>
 <p>如Figure9所示，60%时效果最佳。</p>
 <p><strong>Weak-to-Strong泛化</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-11.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-11.jpg" alt></p>
 <p>TinyLLaMA-1.1B为RM+LLaMA2-7B继续训练，依然可以受益。但是感觉收益明显不多。</p>
 <p>考虑到前面的实验结果，看起来模型规模越大，这种Trick的收益越小。</p>
 <h2 id="讨论">讨论</h2>
@@ -219,8 +214,7 @@ class="math inline">\(I=0\)</span>，即不计算这些Token的损失。这确�
 <p><strong>如何改进SLM？</strong></p>
 <p>包括：重新赋权Token而不是选择；使用参考模型作为奖励模型来引导使用强化学习进行预训练；使用多个参考模型减少过拟合；设计Token级别的学习和迭代策略等。</p>
 <p><strong>扩展SLM</strong></p>
-<p>SLM
-可以扩展到监督微调，以解决许多SFT数据集中的噪声和分布不匹配问题。另一个潜在的应用是对齐，例如，通过训练一个参考模型来强调有用性、真实性和无害性，我们可以获得一个在预训练阶段原生对齐的基础模型。</p>
+<p>SLM 可以扩展到监督微调，以解决许多SFT数据集中的噪声和分布不匹配问题。另一个潜在的应用是对齐，例如，通过训练一个参考模型来强调有用性、真实性和无害性，我们可以获得一个在预训练阶段原生对齐的基础模型。</p>
 <h2 id="总结">总结</h2>
 <p>整体看下来是一个针对小模型、领域数据继续训练的高效方案。通过选择对下游任务“有用”的Token快速在给定数据集上收敛。</p>
 <p>不过，很显然，随着模型规模的增加，边际收益在不断下降，甚至还可能有负面作用（过拟合）。果然是一力降十会啊，再高超的技巧在绝对的实力面前都显得那么苍白。</p>
@@ -379,21 +373,6 @@ class="math inline">\(I=0\)</span>，即不计算这些Token的损失。这确�
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

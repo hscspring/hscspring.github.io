@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ziya2-training-stability.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ziya2-benchmark.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.166Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLM Continual Pre-training：Ziya2">
 <meta name="twitter:description" content="LLM的训练策略非常讲究，本文主要记录Ziya2的继续训练策略。">
@@ -94,7 +94,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" data-id="clx98np3e012rtsbzk0yihbns" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" data-id="clxbpfsfx0161dlbz4po5ct62" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -102,9 +102,8 @@
       
             <!-- Table of Contents -->
               
-        <p>LLM的训练策略非常讲究，本文主要记录<a
-href="http://arxiv.org/abs/2311.03301">Ziya2</a>的继续训练策略。</p>
-<span id="more"></span>
+        <p>LLM的训练策略非常讲究，本文主要记录<a href="http://arxiv.org/abs/2311.03301" target="_blank" rel="noopener">Ziya2</a>的继续训练策略。</p>
+<a id="more"></a>
 <h2 id="梗概">梗概</h2>
 <p>Ziya2主要关注继续训练，训练过程包括3个阶段：</p>
 <ul>
@@ -113,30 +112,24 @@ href="http://arxiv.org/abs/2311.03301">Ziya2</a>的继续训练策略。</p>
 <li>阶段三：主要在数学数据上无监督训练。</li>
 </ul>
 <p>如下图所示：</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-training.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training.jpg" alt></p>
 <h2 id="架构">架构</h2>
 <p><strong>Tokenizer</strong></p>
-<p>Tokenizer采用BPE
-Tokenizer，词表重用了原始LLaMA的600个，额外增加了7400个常用中文字符（同时包含简体和繁体中文，以及标点符号）。</p>
+<p>Tokenizer采用BPE Tokenizer，词表重用了原始LLaMA的600个，额外增加了7400个常用中文字符（同时包含简体和繁体中文，以及标点符号）。</p>
 <p>原因是原始编码方式编码中文需要2-4个Tokenizer，比较低效，调整后大概提升了34%的编码和解码效率。</p>
 <p><strong>Position Embedding</strong></p>
-<p>依然是RoPE，不过观察到CT（Continual
-Training）数据集和原始LLaMA2的数据集的文本长度分布存在差异，因此需要根据数据分布调整位置编码（模型适配）。为了避免与混合精度相关的溢出问题，使用了
-FP32。</p>
+<p>依然是RoPE，不过观察到CT（Continual Training）数据集和原始LLaMA2的数据集的文本长度分布存在差异，因此需要根据数据分布调整位置编码（模型适配）。为了避免与混合精度相关的溢出问题，使用了 FP32。</p>
 <p><strong>LN 和 Attention</strong></p>
 <p>和上面同样的原因（分布不同导致的溢出），重新优化了LLaMA2的：</p>
 <ul>
 <li>LN 用了 APEX RMSNorm，可以在 FP32 下运行。</li>
-<li>Attention
-使用融合运算符替换注意力模块中的缩放、掩码和Softmax运算符，加速计算（没看到代码）。同样为了防止溢出使用
-FP32 训练。</li>
+<li>Attention 使用融合运算符替换注意力模块中的缩放、掩码和Softmax运算符，加速计算（没看到代码）。同样为了防止溢出使用 FP32 训练。</li>
 </ul>
 <h2 id="继续训练">继续训练</h2>
 <p>整体就是前面的三阶段，我们具体展开来看。</p>
 <p><strong>初始化</strong></p>
 <p>考虑到扩充了词表，对这些新Token，使用随机初始化。对那些在LLaMA2中已有的中文相关Token（2-4个构成一个汉字），直接加权平均作为中文字的Embedding。看个例子。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> LlamaTokenizer</span><br><span class="line"></span><br><span class="line">tk = LlamaTokenizer.from_pretrained(<span class="string">&quot;./tokenizer.model&quot;</span>)</span><br><span class="line">tk.encode(<span class="string">&quot;谢&quot;</span>, add_special_tokens=<span class="literal">False</span>)</span><br><span class="line"><span class="comment"># [29871, 235, 179, 165]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> LlamaTokenizer</span><br><span class="line"></span><br><span class="line">tk = LlamaTokenizer.from_pretrained(<span class="string">"./tokenizer.model"</span>)</span><br><span class="line">tk.encode(<span class="string">"谢"</span>, add_special_tokens=<span class="literal">False</span>)</span><br><span class="line"><span class="comment"># [29871, 235, 179, 165]</span></span><br></pre></td></tr></table></figure>
 <p>29871是插入的空白字符，后面3个Token表示”谢“字。</p>
 <p>其实，LLaMA2词表里还有一些中文是字符（也就是”字“）粒度的，虽然论文这里没说明，但一般情况下这些Token（一个Token就是一个汉字）都是直接复制原模型的Embedding。</p>
 <p><strong>训练策略</strong></p>
@@ -146,27 +139,27 @@ FP32 训练。</li>
 <ul>
 <li>采样和LLaMA2接近的英文数据，从Wudao-Ziya和Yuan1.0采样中文数据，采样Code数据。</li>
 <li>共650B，Shuffle后将不同的数据分割拼接成4096个Token一个样本（需要Mask防止不同的数据彼此影响）。</li>
-</ul></li>
+</ul>
+</li>
 <li>阶段二：
 <ul>
 <li>为了提升下游任务表现，使用<strong>中英文指令的有监督的数据</strong>，但并不是做指令微调，依然做无监督继续训练。</li>
-<li>与阶段一不同的是，只有<strong>同类型指令</strong>的数据才会拼接成4096长度的样本，不够的用特殊Token
-Padding。</li>
+<li>与阶段一不同的是，只有<strong>同类型指令</strong>的数据才会拼接成4096长度的样本，不够的用特殊Token Padding。</li>
 <li>为了保留获得的知识，<strong>同时采样</strong>（与指令有监督数据）同比例的无监督中英文数据。</li>
-</ul></li>
+</ul>
+</li>
 <li>阶段三：
 <ul>
 <li>加入推理相关的有监督数据，比如Wanjuan-Ziya和MetaMath-Ziya。</li>
 <li>数据混合方法和阶段二一样。</li>
 <li>阶段三后，模型数学推理能力和编程能力得到显著提高。说明数学推理技能对需要推理的任务（如编程）至关重要。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>数据如下图所示。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" alt></p>
 <p>各个阶段的数据分布如下图所示。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" alt></p>
 <p><strong>优化器</strong></p>
 <p>AdamW，β1=0.9，β2=0.95。</p>
 <p>由于数据集中加入了额外的中文和代码数据导致和原模型数据分布有差异，因此需要额外的Warmup。所以将LLaMA2的0.4%的Warmup比例调到了1%。</p>
@@ -177,16 +170,13 @@ src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" />
 <p>另外也用了Flash-Attention和Fused-Softmax提升训练效率。</p>
 <p><strong>训练稳定性</strong></p>
 <p>从Ziya-13B的FP16换成了BF16，保证收敛稳定性。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-training-stability.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-stability.jpg" alt></p>
 <h2 id="评测情况">评测情况</h2>
 <p>Ziya2的评测方法是通用方法，即在多个Benchmark上跑分。Base是ChatGPT和7个开源模型，结果如下表所示。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-benchmark.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-benchmark.jpg" alt></p>
 <p>MMLU和CMMLU是NLU相关测评，涵盖多个主题的问题。C-Eval是中文的各专业多选题。GSM8K是小学数学题。MATH是数学竞赛题，有详细的分步解决方案。HumanEval是根据提供的文档进行编程的题。</p>
 <p>不说Base，光说和Ziya-13B的对比，确实提升非常明显。这除了归功于本文介绍到的各种优化，还有高质量的数据。效果如下图所示。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg" alt></p>
 <p>阶段一：MMLU在训练开始时分数下降是因为加入了大量中文数据，随着训练增加分数增加；同时中文分数得到极大提升（CMMLU和C-Eval）。</p>
 <p>阶段二：在所有Benchmark上都有提升，尤其是C-Eval、GSM8K和MATH，说明加入监督数据能降低训练步数。</p>
 <p>阶段三：GSM8K、MATH和HumanEval得到极大提升，同时通用任务上分数基本没变，说明特定任务数据能显著提高特定任务分数，但另一方面这种提高不一定有益，因为可能只是学习到了问题的格式，而不是真正的能力。</p>
@@ -349,21 +339,6 @@ src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg" /></p>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

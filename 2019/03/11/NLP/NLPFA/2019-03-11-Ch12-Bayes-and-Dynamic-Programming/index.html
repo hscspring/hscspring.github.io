@@ -14,18 +14,18 @@
   
   <title>自然语言计算机形式分析的理论与方法笔记(Ch12) | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词   1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→">
+  <meta name="description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the">
 <meta name="keywords" content="AI,NLP,Bayes,Spell Check,Viterbi,Minimum Edit Distance,FSM,Forward,Backward">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自然语言计算机形式分析的理论与方法笔记(Ch12)">
 <meta property="og:url" content="https://www.yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词   1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→">
+<meta property="og:description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.167Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch12)">
-<meta name="twitter:description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词   1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the→">
+<meta name="twitter:description" content="第十二章：Bayes 公式与动态规划算法 拼写错误的检查与更正 1992 年，Kukich 把这个领域分解为三大问题：  非词错误检查 孤立词错误更正 依赖于上下文的错误检查和更正  打字操作时的错误：插入、脱落、改变位置等 书写错误地拼写同音词和准同音词    1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：  插入：the→ther 脱落：the→th 替代：the">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="clx98np3m0144tsbzl8vphxto" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="clxbpfsgl016ydlbza7eaavzp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,8 +95,7 @@
       
             <!-- Table of Contents -->
               
-        <h1 id="第十二章bayes-公式与动态规划算法">第十二章：Bayes
-公式与动态规划算法</h1>
+        <h1>第十二章：Bayes 公式与动态规划算法</h1>
 <h2 id="拼写错误的检查与更正">拼写错误的检查与更正</h2>
 <p>1992 年，Kukich 把这个领域分解为三大问题：</p>
 <ul>
@@ -106,7 +105,8 @@
 <ul>
 <li>打字操作时的错误：插入、脱落、改变位置等</li>
 <li>书写错误地拼写同音词和准同音词</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>1964 年 Damerau 发现 80% 的错误由 “单个错误” 引起的：</p>
 <ul>
@@ -120,19 +120,21 @@
 <li>打字操作错误：一般与键盘有关</li>
 <li>认知错误：不知道如何拼写</li>
 </ul>
-<p>OCR
-错误一般分为五类：替代、多重替代、空白脱落、空白插入和识别失败。</p>
-<span id="more"></span>
+<p>OCR 错误一般分为五类：替代、多重替代、空白脱落、空白插入和识别失败。</p>
+<a id="more"></a>
 <p>检查方法最通常的做法是使用词典，为了表示能产生的屈折变化和派生，词典一般还包括形态分析模式。</p>
 <blockquote>
-<p>中文和英文情况不太一样，最大的不同是中文不会出现打出一个不存在的字这种情况。根据我们之前<a
-href="http://aiwriter.cn/home">项目</a>的经验，中文的拼写错误主要包括以下几种：</p>
+<p>中文和英文情况不太一样，最大的不同是中文不会出现打出一个不存在的字这种情况。根据我们之前<a href="http://aiwriter.cn/home" target="_blank" rel="noopener">项目</a>的经验，中文的拼写错误主要包括以下几种：</p>
 <ul>
-<li><p>拼音输入法导致的同音、近音错误，比如 “拼音” 打成 “朋友”，“打成”
-打成 “达成” 或 “调查” 之类</p></li>
-<li><p>五笔输入法导致的形近错误，比如 “土” 打成 “士” 之类</p></li>
-<li><p>键盘邻近键位导致的错误，比如 “爱情” 打成 “矮穷”，就是把 “情” 的 i
-打成了 o 之类</p></li>
+<li>
+<p>拼音输入法导致的同音、近音错误，比如 “拼音” 打成 “朋友”，“打成” 打成 “达成” 或 “调查” 之类</p>
+</li>
+<li>
+<p>五笔输入法导致的形近错误，比如 “土” 打成 “士” 之类</p>
+</li>
+<li>
+<p>键盘邻近键位导致的错误，比如 “爱情” 打成 “矮穷”，就是把 “情” 的 i 打成了 o 之类</p>
+</li>
 </ul>
 <p>上面的分法是从输入的角度看，每种其实又有两个维度：</p>
 <ul>
@@ -140,40 +142,22 @@ href="http://aiwriter.cn/home">项目</a>的经验，中文的拼写错误主要
 <li>输入的词在上下文语境中不对，比如 “体现出XXX” 打成 “体系出XXX”</li>
 </ul>
 <p>第一个维度用词典可以，第二个维度则需要借助其他一些方法结合词典才能起作用。</p>
-<p>由于项目时间很短，我们重点做了第一种错误，此外还做了很多词法、语法、语义方面的检查和更正，后面的这几种错误主要是本章所说的认知错误，就是用户不知道那个是错的，比如
-“过早夭折” 这个词的错误叫 “书面语重复”，因为 “夭折” 就包含了 “过早”
-的意思，再比如 “定金” 和 “订金” 这类属于
-“易混淆词”，必须要根据句子的语义才能做出正确的判断。</p>
+<p>由于项目时间很短，我们重点做了第一种错误，此外还做了很多词法、语法、语义方面的检查和更正，后面的这几种错误主要是本章所说的认知错误，就是用户不知道那个是错的，比如 “过早夭折” 这个词的错误叫 “书面语重复”，因为 “夭折” 就包含了 “过早” 的意思，再比如 “定金” 和 “订金” 这类属于 “易混淆词”，必须要根据句子的语义才能做出正确的判断。</p>
 </blockquote>
 <h2 id="bayes-公式与噪声信道模型">Bayes 公式与噪声信道模型</h2>
-<p>”噪声信道“ 这个比喻来自 20 世纪 70 年代 IBM
-实验室应用于语音识别的模型，F. JelineK 在 1976 年把这样的模型叫作
-”噪声信道模型“，是 Bayes 推理的一个特殊情况。</p>
-<p>用 w* 表示 ”对正确单词 w 的估计“，O 表示
-”观察序列，从中选出最优单词的等式为：</p>
-<p><span class="math display">\[w^{*} = arg_{w\in V} max
-P(w|O)\]</span></p>
+<p>”噪声信道“ 这个比喻来自 20 世纪 70 年代 IBM 实验室应用于语音识别的模型，F. JelineK 在 1976 年把这样的模型叫作 ”噪声信道模型“，是 Bayes 推理的一个特殊情况。</p>
+<p>用 w* 表示 ”对正确单词 w 的估计“，O 表示 ”观察序列，从中选出最优单词的等式为：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo lspace="0em" rspace="0em">∗</mo></msup><mo>=</mo><mi>a</mi><mi>r</mi><msub><mi>g</mi><mrow><mi>w</mi><mo>∈</mo><mi>V</mi></mrow></msub><mi>m</mi><mi>a</mi><mi>x</mi><mi>P</mi><mo stretchy="false">(</mo><mi>w</mi><mi mathvariant="normal">∣</mi><mi>O</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w^{*} = arg_{w\in V} max P(w|O)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.738696em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∗</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mrel mtight">∈</span><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mclose">)</span></span></span></span></span></p>
 <p>P(w|O) 无法直接计算，可以通过贝叶斯公式将上式变为：</p>
-<p><span class="math display">\[w^* = arg_{w \in V} max \frac
-{P(O|w)P(w)}{P(O)} = arg_{w \in V} max{P(O|w)P(w)}\]</span></p>
-<p>P(O) 很难估计但却不影响等式，P(w)
-是先验概率，可以在语料中统计出来，P(O|w)
-是似然度也可以通过语料估计出来。</p>
-<p>P577
-页的例子比较详细，不过是关于单词拼写错误的，但和我们平时了解的单词或字级别的也没有太多区别。比如我们要对
-“我 书 兔” 进行纠错，问题可以转换为：“我后面出现 书 的概率”：</p>
-<p>P(书|我） =
-P(我书)/P(我)，后面的两个概率都可以通过语料计算出来，语料足够大时，可近似认为频率等于概率，于是我们就获得
-P(书|我）的概率估计。我们同样可以估计出
-P（属|我）、P（输|我）……等等的概率，这些都是 “书”
-可能被打错（这里假设根据拼音输入法）的情况，然后我们找出最高概率的情况，就可以当作把它当作是正确的。这种做法在
-NLP 中有个名词叫 N-gram，如果只考虑上一个词就是
-Bi-gram，考虑上两个词的是 Tri-gram，更加详细的介绍可以阅读：<a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/LM.ipynb">LM</a></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>w</mi><mo>∗</mo></msup><mo>=</mo><mi>a</mi><mi>r</mi><msub><mi>g</mi><mrow><mi>w</mi><mo>∈</mo><mi>V</mi></mrow></msub><mi>m</mi><mi>a</mi><mi>x</mi><mfrac><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>O</mi><mi mathvariant="normal">∣</mi><mi>w</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>O</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mi>a</mi><mi>r</mi><msub><mi>g</mi><mrow><mi>w</mi><mo>∈</mo><mi>V</mi></mrow></msub><mi>m</mi><mi>a</mi><mi>x</mi><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>O</mi><mi mathvariant="normal">∣</mi><mi>w</mi><mo stretchy="false">)</mo><mi>P</mi><mo stretchy="false">(</mo><mi>w</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">w^* = arg_{w \in V} max \frac {P(O|w)P(w)}{P(O)} = arg_{w \in V} max{P(O|w)P(w)}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.738696em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mrel mtight">∈</span><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.02691em;">w</span><span class="mrel mtight">∈</span><span class="mord mathdefault mtight" style="margin-right:0.22222em;">V</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.17737em;"><span></span></span></span></span></span></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord">∣</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mclose">)</span></span></span></span></span></span></p>
+<p>P(O) 很难估计但却不影响等式，P(w) 是先验概率，可以在语料中统计出来，P(O|w) 是似然度也可以通过语料估计出来。</p>
+<p>P577 页的例子比较详细，不过是关于单词拼写错误的，但和我们平时了解的单词或字级别的也没有太多区别。比如我们要对 “我 书 兔” 进行纠错，问题可以转换为：“我后面出现 书 的概率”：</p>
+<p>P(书|我） = P(我书)/P(我)，后面的两个概率都可以通过语料计算出来，语料足够大时，可近似认为频率等于概率，于是我们就获得 P(书|我）的概率估计。我们同样可以估计出 P（属|我）、P（输|我）……等等的概率，这些都是 “书” 可能被打错（这里假设根据拼音输入法）的情况，然后我们找出最高概率的情况，就可以当作把它当作是正确的。这种做法在 NLP 中有个名词叫 N-gram，如果只考虑上一个词就是 Bi-gram，考虑上两个词的是 Tri-gram，更加详细的介绍可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/LM.ipynb" target="_blank" rel="noopener">LM</a></p>
 <h2 id="最小编辑距离算法">最小编辑距离算法</h2>
-<p>Wagner 和 Fischer 1974
-年提出，两个符号串的最小编辑距离就是指把一个符号串转换为另一个符号串时所需要的最小编辑操作的次数。最小编辑距离使用动态规划来计算。</p>
-<p>关于最小编辑距离大家可以阅读：<a href="">最小编辑距离</a>。</p>
+<p>Wagner 和 Fischer 1974 年提出，两个符号串的最小编辑距离就是指把一个符号串转换为另一个符号串时所需要的最小编辑操作的次数。最小编辑距离使用动态规划来计算。</p>
+<p>关于最小编辑距离大家可以阅读：<a href>最小编辑距离</a>。</p>
 <h2 id="发音问题研究中的-bayes-方法">发音问题研究中的 Bayes 方法</h2>
 <p>发音变异有两类：词汇变异和音位变异。前者用来表示词表中单词的语音片段的差异，后者是单独的语音片段在不同的上下文中的发音差异。</p>
 <ul>
@@ -181,7 +165,8 @@ href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/LM
 <ul>
 <li>方言变异是一种社会语言变异</li>
 <li>另一个原因是语域或风格</li>
-</ul></li>
+</ul>
+</li>
 <li>音位变异发生在表层形式，反映了语音因素和发音因素。每一条音位变体规则都依赖于一组十分复杂的因素，这些因素需要在概率上加以解释。很多这样的规则都是模拟协同发音的。协同发音是由相邻语音片段的发音运动而引起的某一语音片段发音的改变。英语的大多数音位变体规则有这几种类型：
 <ul>
 <li>同化：把一个语音片段改变得更像它邻接的语音片段。普遍的同化是腭化（跨语言同化现象）。</li>
@@ -190,45 +175,26 @@ href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Ngram/LM
 <li>闪音化：闪音化时，前面的元音发的高一些，后面的元音倾向于非重读；但并不总是必要的。</li>
 <li>元音弱化：很多非重读音节中的原因变为弱化元音。最常见的弱化元音是混元音。是否弱化取决于很多因素，如不同场合、单词的频率、是否为短语最后一个元音、语言习惯等。</li>
 <li>增音</li>
-</ul></li>
 </ul>
-<p>使用 Bayes 的基本原理是，发音为 y
-的单词（可能有很多个）的前一个单词是 X
-的时候，这个发音最可能对应的单词。即：p(w) * p(y|w)，p(w) 为 X
-的先验概率，p(y|w) 为单词 X 下个发音为 y 的概率。</p>
+</li>
+</ul>
+<p>使用 Bayes 的基本原理是，发音为 y 的单词（可能有很多个）的前一个单词是 X 的时候，这个发音最可能对应的单词。即：p(w) * p(y|w)，p(w) 为 X 的先验概率，p(y|w) 为单词 X 下个发音为 y 的概率。</p>
 <h2 id="发音变异的决策树模型">发音变异的决策树模型</h2>
-<p>1984 年，Breiman
-等使用分类回归树（一种决策树），从标注语料库中自动地推导出词汇到表层发音的映射关系。决策树提取由特征集所描述的情况，并把这种情况分类为范畴和相关的概率。</p>
+<p>1984 年，Breiman 等使用分类回归树（一种决策树），从标注语料库中自动地推导出词汇到表层发音的映射关系。决策树提取由特征集所描述的情况，并把这种情况分类为范畴和相关的概率。</p>
 <p>在发音问题研究中，可以训练决策树来提取一个词汇音子和它的各种上下文特征（包围的音子、重音、音节结构信息等），并选择适合的表层音子（一个概率分布）来实现它。</p>
 <h2 id="加权自动机">加权自动机</h2>
-<p>为了提高效率通常把编辑好的发音变异存储在词表中，这种词表的两种最普遍的方式是
-trie 和加权有限状态自动机（概率有限状态自动机）。Markov
-链是加权自动机的一种特殊情况（也包括 Ngram
-语法）。任何一个加权自动机，只要其中的输入序列不是唯一地指定其状态序列，就可以被模拟为一个
-HMM（隐马尔科夫模型）。</p>
-<p>关于自动机的大家可以查看：<a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Automata/FSM_Tutorial.ipynb">FSM</a></p>
+<p>为了提高效率通常把编辑好的发音变异存储在词表中，这种词表的两种最普遍的方式是 trie 和加权有限状态自动机（概率有限状态自动机）。Markov 链是加权自动机的一种特殊情况（也包括 Ngram 语法）。任何一个加权自动机，只要其中的输入序列不是唯一地指定其状态序列，就可以被模拟为一个 HMM（隐马尔科夫模型）。</p>
+<p>关于自动机的大家可以查看：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Automata/FSM_Tutorial.ipynb" target="_blank" rel="noopener">FSM</a></p>
 <h2 id="向前算法">向前算法</h2>
-<p>对于给定的加权自动机计算出音子串对于某一单词的似然读，这个算法叫
-”向前算法“。</p>
+<p>对于给定的加权自动机计算出音子串对于某一单词的似然读，这个算法叫 ”向前算法“。</p>
 <p>向前算法是另外一种动态规划算法，可以看成是最小编辑距离算法的轻度泛化。二者相同的是，当用它求观察序列的概率的时候，要使用一个表来存储中间值；不同的是，向前算法在列上所标记的不总是以线性顺序排列的状态，而且还隐含着一个状态图，在这个状态图中，从一个状态到另一个状态之间存在着多条路径。在最小编辑距离算法中，从周围的三个单元计算每一个单元的值，并把结果填到矩阵中；向前算法中，可能会有其他的状态进入一个状态中。最小编辑距离算法只需要计算概率的最小值，而向前算法要计算能够观察的所有可能路径的概率总和。</p>
-<p>关于向前算法大家可以阅读：<a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb">HMM-Tutorial</a></p>
+<p>关于向前算法大家可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb" target="_blank" rel="noopener">HMM-Tutorial</a></p>
 <h2 id="viterbi-算法">Viterbi 算法</h2>
-<p>Viterbi
-算法是向前算法的特殊情况，向前算法把前面所有的路径总和放到当前单元中，Viterbi
-算法则把前面所有路径中最大的放到当前单元中。</p>
-<p>Viterbi 算法在 NLP
-中的一个重要应用是分词，分词就是找到词语的边界，Sproat
-等人提出一个非常简单的算法：选择包含最高频率的单词的切分为正确的切分。换言之，把每一种潜在切分中每一个单词的概率相乘，选择最大的作为最终的切分。</p>
-<p>具体实现时，要把表示汉语词表的加权有限状态转录机（FST）和 Viterbi
-结合。FST
-词表中每个单词表示为弧的一个序列，序列中的每个弧代表一个汉字，概率通过熵来计算，选择最小熵的切分。</p>
-<p>关于 Viterbi 算法大家可以阅读：<a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb">HMM-Tutorial</a></p>
-<p>这章内容涉及到的算法对大部分 NLPer
-来说都比较熟悉了，Bayes、自动机、向前算法、Viterbi
-等，书中讲的比较简单，也没有代码，所以很有必要扩充阅读。</p>
+<p>Viterbi 算法是向前算法的特殊情况，向前算法把前面所有的路径总和放到当前单元中，Viterbi 算法则把前面所有路径中最大的放到当前单元中。</p>
+<p>Viterbi 算法在 NLP 中的一个重要应用是分词，分词就是找到词语的边界，Sproat 等人提出一个非常简单的算法：选择包含最高频率的单词的切分为正确的切分。换言之，把每一种潜在切分中每一个单词的概率相乘，选择最大的作为最终的切分。</p>
+<p>具体实现时，要把表示汉语词表的加权有限状态转录机（FST）和 Viterbi 结合。FST 词表中每个单词表示为弧的一个序列，序列中的每个弧代表一个汉字，概率通过熵来计算，选择最小熵的切分。</p>
+<p>关于 Viterbi 算法大家可以阅读：<a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/PrababilisticGraphModel/HMM/HMM-Tutorial.ipynb" target="_blank" rel="noopener">HMM-Tutorial</a></p>
+<p>这章内容涉及到的算法对大部分 NLPer 来说都比较熟悉了，Bayes、自动机、向前算法、Viterbi 等，书中讲的比较简单，也没有代码，所以很有必要扩充阅读。</p>
 
       
     </div><!-- .entry-content -->
@@ -386,21 +352,6 @@ href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/Prababil
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

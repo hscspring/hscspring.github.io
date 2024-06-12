@@ -25,7 +25,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-llm-colosseum-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/proj-llm-colosseum-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.165Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLM打街霸">
 <meta name="twitter:description" content="国外的一个项目，看了一下比较简单，于是也拿过来玩儿一下。由于原项目没支持中文，就简单支持了一下，顺便简单地重构了一下代码。  代码地址（Fork）：https://github.com/hscspring/llm-colosseum 项目原地址：https://github.com/OpenGenerativeAI/llm-colosseum">
@@ -91,7 +91,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" data-id="clx98np1f00gvtsbzh8u9nu3r" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" data-id="clxbpfs5w006ndlbzik9w5hq1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -101,12 +101,11 @@
               
         <p>国外的一个项目，看了一下比较简单，于是也拿过来玩儿一下。由于原项目没支持中文，就简单支持了一下，顺便简单地重构了一下代码。</p>
 <ul>
-<li>代码地址（Fork）：https://github.com/hscspring/llm-colosseum</li>
-<li>项目原地址：https://github.com/OpenGenerativeAI/llm-colosseum</li>
+<li>代码地址（Fork）：<a href="https://github.com/hscspring/llm-colosseum" target="_blank" rel="noopener">https://github.com/hscspring/llm-colosseum</a></li>
+<li>项目原地址：<a href="https://github.com/OpenGenerativeAI/llm-colosseum" target="_blank" rel="noopener">https://github.com/OpenGenerativeAI/llm-colosseum</a></li>
 </ul>
-<p><img
-src="https://qnimg.lovevivian.cn/blog-llm-colosseum-1.jpg" /></p>
-<span id="more"></span>
+<p><img src="https://qnimg.lovevivian.cn/blog-llm-colosseum-1.jpg" alt></p>
+<a id="more"></a>
 <h2 id="设计">设计</h2>
 <p>项目的整体逻辑非常简单，直接使用LLM生成对应的Action，其他都交给diambra了。核心逻辑就下面这几行代码。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    observation, reward = env.step(actions)</span><br><span class="line">    <span class="comment"># use LLM</span></span><br><span class="line">    actions = payer.robot.plan(position_prompt, action_prompt, reward_prompt)</span><br><span class="line">    payer.robot.observe(observations, actions, reward)</span><br></pre></td></tr></table></figure>
@@ -117,19 +116,17 @@ src="https://qnimg.lovevivian.cn/blog-llm-colosseum-1.jpg" /></p>
 <p>由于使用同一个角色，同样的提示词，所以结果还是有一定参考意义的。</p>
 <h2 id="运行">运行</h2>
 <p>启动非常简单，根据原网站安装好后，先启动引擎，然后启动执行脚本。如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先启动engine</span></span><br><span class="line">docker run -it --<span class="built_in">rm</span> --name engine -p 50051:50051 \</span><br><span class="line">  -v <span class="variable">$HOME</span>/.diambra/credentials:/tmp/.diambra/credentials \</span><br><span class="line">  -v <span class="variable">$HOME</span>/.diambra/roms:/opt/diambraArena/roms \</span><br><span class="line">  docker.io/diambra/engine:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行脚本</span></span><br><span class="line">LAN=zh LOG=debug DIAMBRA_ENVS=localhost:50051 python3.11 script.py  glm-3-turbo qwen-turbo</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先启动engine</span></span><br><span class="line">docker run -it --rm --name engine -p 50051:50051 \</span><br><span class="line">  -v <span class="variable">$HOME</span>/.diambra/credentials:/tmp/.diambra/credentials \</span><br><span class="line">  -v <span class="variable">$HOME</span>/.diambra/roms:/opt/diambraArena/roms \</span><br><span class="line">  docker.io/diambra/engine:latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行脚本</span></span><br><span class="line">LAN=zh LOG=debug DIAMBRA_ENVS=localhost:50051 python3.11 script.py  glm-3-turbo qwen-turbo</span><br></pre></td></tr></table></figure>
 <p>这里的<code>LAN</code>可以指定语言，可选为<code>zh</code>和<code>en</code>，<code>LOG</code>可以指定日志级别，<code>debug</code>会输出每一次的Prompt，<code>info</code>则只输出玩家动作。最后两个是模型对应的名称，默认有下面一些。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MODELS = &#123;</span><br><span class="line">    <span class="string">&quot;GLM&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;glm-4&quot;</span>,</span><br><span class="line">        <span class="string">&quot;glm-3-turbo&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;QWEN&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;qwen-plus&quot;</span>,</span><br><span class="line">        <span class="string">&quot;qwen-turbo&quot;</span>,</span><br><span class="line">        <span class="string">&quot;qwen1.5-72b-chat&quot;</span>,</span><br><span class="line">        <span class="string">&quot;qwen1.5-14b-chat&quot;</span>,</span><br><span class="line">        <span class="string">&quot;qwen1.5-7b-chat&quot;</span>,</span><br><span class="line">        <span class="string">&quot;qwen1.5-1.8b-chat&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">MODELS = &#123;</span><br><span class="line">    <span class="string">"GLM"</span>: &#123;</span><br><span class="line">        <span class="string">"glm-4"</span>,</span><br><span class="line">        <span class="string">"glm-3-turbo"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"QWEN"</span>: &#123;</span><br><span class="line">        <span class="string">"qwen-plus"</span>,</span><br><span class="line">        <span class="string">"qwen-turbo"</span>,</span><br><span class="line">        <span class="string">"qwen1.5-72b-chat"</span>,</span><br><span class="line">        <span class="string">"qwen1.5-14b-chat"</span>,</span><br><span class="line">        <span class="string">"qwen1.5-7b-chat"</span>,</span><br><span class="line">        <span class="string">"qwen1.5-1.8b-chat"</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果不提供两个名称（PK的对象），则随机从上面的模型里选择两个。</p>
 <p>因为都是通过API进行调用的，所以需要提供千问和智谱的Key，写在<code>.env</code>里，<code>source .env</code>即可。如果需要使用本地LLM或其他API，修改<code>agent/llm.py</code>即可。注意让LLM的输出为字符串。</p>
 <h2 id="结果">结果</h2>
 <p>主要测了千问和智谱系列，测试结果仅供参考；）。以“行”为基准查看，1表示该模型胜过了列上的模型，0则相反。</p>
 <p>中文结果：</p>
-<p><img
-src="https://qnimg.lovevivian.cn/proj-llm-colosseum-1.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-1.jpg" alt></p>
 <p>英文结果：</p>
-<p><img
-src="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg" alt></p>
 <p>其实相差不太大，关注中文结果，我们发现，qwen-turbo、glm-turbo、glm-4不相上下。专门对qwen-turbo和glm-turbo进行了PK，结果也不是稳定的，双方互有输赢。感兴趣的朋友可以进一步探索，比如使用其他模型、调试提示词、更换角色、更换游戏等。值得一提的是，如果更换角色，相应的动作列表、基本配置可能需要修改；如果更换游戏，则需要改更多的配置。</p>
 <h2 id="最后">最后</h2>
 <p>LLM的测评是个非常有意思的话题，迄今为止主流做法还是各种数据集榜单，肯定不是最好的方法，但简单、直观，起码可以做个参考。有Paper在训练LLM的同时训练一个评测的LLM——即用LLM评测LLM。还有放在竞技场上的评测，给定输入，随机选择2个模型输出，由用户投票“好”的输出，最终统计所有模型的得分。当然还有很多非常规的评测方法，不过本项目又给我们提供了一个新的好玩儿的思路。其实这种思路就是“放在实际场景”评测的特殊版本，这种评测显然看起来更加合理些。</p>
@@ -290,21 +287,6 @@ src="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg" /></p>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

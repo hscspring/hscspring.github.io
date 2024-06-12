@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-pegasus-9.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-pegasus-10.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-pegasus-11.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.171Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PEGASUS 论文笔记">
 <meta name="twitter:description" content="Paper：[1912.08777] PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive Summarization Code：google-research/pegasus 核心思想：基于 GSG 的 Transformer 在文本摘要上的应用。">
@@ -99,7 +99,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" data-id="clx98np1q00j6tsbz2rp2459t" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" data-id="clxbpfs6o008tdlbz11azk6wi" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -107,13 +107,10 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/1912.08777">[1912.08777]
-PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive
-Summarization</a></p>
-<p>Code：<a
-href="https://github.com/google-research/pegasus">google-research/pegasus</a></p>
+        <p>Paper：<a href="https://arxiv.org/abs/1912.08777" target="_blank" rel="noopener">[1912.08777] PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive Summarization</a></p>
+<p>Code：<a href="https://github.com/google-research/pegasus" target="_blank" rel="noopener">google-research/pegasus</a></p>
 <p>核心思想：基于 GSG 的 Transformer 在文本摘要上的应用。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="what">What</h2>
 <h3 id="动机和核心问题">动机和核心问题</h3>
 <ul>
@@ -122,8 +119,7 @@ href="https://github.com/google-research/pegasus">google-research/pegasus</a></p
 </ul>
 <p>本文的贡献如下：</p>
 <ul>
-<li>提出新的文本摘要自监督预训练目标：gap-sentences
-generation（GSG）</li>
+<li>提出新的文本摘要自监督预训练目标：gap-sentences generation（GSG）</li>
 <li>在大量下游摘要任务中进行评估</li>
 <li>在少量数据上精调取得很好的效果</li>
 <li>对结果进行了人工评估</li>
@@ -132,8 +128,7 @@ generation（GSG）</li>
 <p>依然是基于 Transformer 的架构，不过在以下方面做了调整。</p>
 <p><strong>GSG</strong></p>
 <ul>
-<li>PEGASUS 选择了 mask 掉整个句子，然后将 mask
-掉的句子重建为摘要。</li>
+<li>PEGASUS 选择了 mask 掉整个句子，然后将 mask 掉的句子重建为摘要。</li>
 <li>因为是摘要任务，所以目标句子选择时基于重要性而不是随机选取。</li>
 </ul>
 <p>三种选择句子的方式：</p>
@@ -144,7 +139,8 @@ generation（GSG）</li>
 <ul>
 <li>Ind：独立的 ROUGE1-F1</li>
 <li>Seq：连续选择后贪婪最大化的 ROUGE1-F1</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>计算 ROUGE1-F1 时，也采用了两种方式：</p>
 <ul>
@@ -152,20 +148,15 @@ generation（GSG）</li>
 <li>Uniq：n-grams 集合</li>
 </ul>
 <p>这里的代码是这样的：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From https://github.com/google-research/pegasus</span></span><br><span class="line"><span class="function"><span class="type">float</span> <span class="title">ComputeRougeFromCandidateCounts</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> RougeSentenceData&amp; reference_data,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> RougeSentenceData&amp; candidate_data,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> std::vector&lt;<span class="type">double</span>&gt;&amp; candidate_counts, MetricType rouge_type,</span></span></span><br><span class="line"><span class="params"><span class="function">    RougeComputeOption option)</span> </span>&#123;</span><br><span class="line">  <span class="type">double</span> overlaps = <span class="number">0</span>;</span><br><span class="line">  <span class="type">const</span> <span class="keyword">auto</span>&amp; reference_ngrams = reference_data.<span class="built_in">ngrams</span>();</span><br><span class="line">  <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; reference_ngrams.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">    <span class="type">double</span> reference_count_conditional;</span><br><span class="line">    <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE)</span><br><span class="line">      reference_count_conditional = std::<span class="built_in">min</span>(reference_ngrams[i].second, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG)</span><br><span class="line">      reference_count_conditional = std::<span class="built_in">log</span>(<span class="number">1</span> + reference_ngrams[i].second);</span><br><span class="line">    <span class="keyword">else</span>  <span class="comment">// standard</span></span><br><span class="line">      reference_count_conditional = reference_ngrams[i].second;</span><br><span class="line">    <span class="type">const</span> <span class="type">double</span> reference_count = reference_count_conditional;</span><br><span class="line">    <span class="type">const</span> <span class="type">double</span> candidate_count = candidate_counts[i];</span><br><span class="line">    overlaps += std::<span class="built_in">min</span>(reference_count, candidate_count);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="type">float</span> recall = <span class="number">0</span>;</span><br><span class="line">  <span class="type">float</span> precision = <span class="number">0</span>;</span><br><span class="line">  <span class="type">float</span> f1 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE) &#123;</span><br><span class="line">    recall = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(</span><br><span class="line">        overlaps / std::<span class="built_in">max</span>(<span class="number">1.0</span>, reference_data.<span class="built_in">num_unique_ngrams</span>()));</span><br><span class="line">    precision = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(</span><br><span class="line">        overlaps / std::<span class="built_in">max</span>(<span class="number">1.0</span>, candidate_data.<span class="built_in">num_unique_ngrams</span>()));</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG) &#123;</span><br><span class="line">    recall = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(overlaps /</span><br><span class="line">                                std::<span class="built_in">max</span>(<span class="number">0.1</span>, reference_data.<span class="built_in">log_num_ngrams</span>()));</span><br><span class="line">    precision = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(</span><br><span class="line">        overlaps / std::<span class="built_in">max</span>(<span class="number">0.1</span>, candidate_data.<span class="built_in">log_num_ngrams</span>()));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;  <span class="comment">// standard</span></span><br><span class="line">    recall = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(overlaps /</span><br><span class="line">                                std::<span class="built_in">max</span>(<span class="number">1.0</span>, reference_data.<span class="built_in">num_ngrams</span>()));</span><br><span class="line">    precision = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(overlaps /</span><br><span class="line">                                   std::<span class="built_in">max</span>(<span class="number">1.0</span>, candidate_data.<span class="built_in">num_ngrams</span>()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From https://github.com/google-research/pegasus</span></span><br><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">ComputeRougeFromCandidateCounts</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> RougeSentenceData&amp; reference_data,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> RougeSentenceData&amp; candidate_data,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;&amp; candidate_counts, MetricType rouge_type,</span></span></span><br><span class="line"><span class="function"><span class="params">    RougeComputeOption option)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> overlaps = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; reference_ngrams = reference_data.ngrams();</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; reference_ngrams.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">    <span class="keyword">double</span> reference_count_conditional;</span><br><span class="line">    <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE)</span><br><span class="line">      reference_count_conditional = <span class="built_in">std</span>::<span class="built_in">min</span>(reference_ngrams[i].second, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG)</span><br><span class="line">      reference_count_conditional = <span class="built_in">std</span>::<span class="built_in">log</span>(<span class="number">1</span> + reference_ngrams[i].second);</span><br><span class="line">    <span class="keyword">else</span>  <span class="comment">// standard</span></span><br><span class="line">      reference_count_conditional = reference_ngrams[i].second;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">double</span> reference_count = reference_count_conditional;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">double</span> candidate_count = candidate_counts[i];</span><br><span class="line">    overlaps += <span class="built_in">std</span>::<span class="built_in">min</span>(reference_count, candidate_count);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">float</span> recall = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">float</span> precision = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">float</span> f1 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE) &#123;</span><br><span class="line">    recall = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(</span><br><span class="line">        overlaps / <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">1.0</span>, reference_data.num_unique_ngrams()));</span><br><span class="line">    precision = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(</span><br><span class="line">        overlaps / <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">1.0</span>, candidate_data.num_unique_ngrams()));</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG) &#123;</span><br><span class="line">    recall = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(overlaps /</span><br><span class="line">                                <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">0.1</span>, reference_data.log_num_ngrams()));</span><br><span class="line">    precision = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(</span><br><span class="line">        overlaps / <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">0.1</span>, candidate_data.log_num_ngrams()));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;  <span class="comment">// standard</span></span><br><span class="line">    recall = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(overlaps /</span><br><span class="line">                                <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">1.0</span>, reference_data.num_ngrams()));</span><br><span class="line">    precision = <span class="keyword">static_cast</span>&lt;<span class="keyword">float</span>&gt;(overlaps /</span><br><span class="line">                                   <span class="built_in">std</span>::<span class="built_in">max</span>(<span class="number">1.0</span>, candidate_data.num_ngrams()));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里的 candidate_counts 是事先计算好的 overlap：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From https://github.com/google-research/pegasus</span></span><br><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">AddCountsFromCandidate</span><span class="params">(<span class="type">const</span> RougeSentenceData&amp; candidate_data,</span></span></span><br><span class="line"><span class="params"><span class="function">                                   <span class="type">const</span> RougeSentenceData&amp; reference_data,</span></span></span><br><span class="line"><span class="params"><span class="function">                                   std::vector&lt;<span class="type">double</span>&gt;* candidate_counts,</span></span></span><br><span class="line"><span class="params"><span class="function">                                   RougeComputeOption option)</span> </span>&#123;</span><br><span class="line">  <span class="type">const</span> <span class="keyword">auto</span>&amp; reference_ngrams = reference_data.<span class="built_in">ngrams</span>();</span><br><span class="line">  <span class="type">const</span> <span class="keyword">auto</span>&amp; candidate_ngrams = candidate_data.<span class="built_in">ngrams</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Merge join reference and candidate.</span></span><br><span class="line">  <span class="comment">// ngrams have been sorted by `gram`</span></span><br><span class="line">  <span class="type">int</span> c_idx = <span class="number">0</span>;</span><br><span class="line">  <span class="type">int</span> r_idx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (c_idx &lt; candidate_ngrams.<span class="built_in">size</span>() &amp;&amp; r_idx &lt; reference_ngrams.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="type">const</span> <span class="keyword">auto</span>&amp; cand = candidate_ngrams[c_idx];</span><br><span class="line">    <span class="type">const</span> <span class="keyword">auto</span>&amp; ref = reference_ngrams[r_idx];</span><br><span class="line">    <span class="keyword">if</span> (cand.first == ref.first) &#123;</span><br><span class="line">      <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE)</span><br><span class="line">        (*candidate_counts)[r_idx] += std::<span class="built_in">min</span>(cand.second, <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG)</span><br><span class="line">        (*candidate_counts)[r_idx] += std::<span class="built_in">log</span>(<span class="number">1</span> + cand.second);</span><br><span class="line">      <span class="keyword">else</span>  <span class="comment">// standard</span></span><br><span class="line">        (*candidate_counts)[r_idx] += cand.second;</span><br><span class="line">      ++c_idx;</span><br><span class="line">      ++r_idx;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cand.first &lt; ref.first) &#123;</span><br><span class="line">      ++c_idx;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ++r_idx;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ngrams 是已经按照 gram 的散列排序好的（这里采用了 queue 来生成
-ngram）：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From: https://github.com/google-research/pegasus</span></span><br><span class="line">RougeSentenceData::<span class="built_in">RougeSentenceData</span>(</span><br><span class="line">    <span class="type">const</span> std::vector&lt;std::string&gt;&amp; sentence_tokens, MetricType rouge_type,</span><br><span class="line">    <span class="type">int</span> ngram_size)</span><br><span class="line">    : <span class="built_in">tokens_</span>(sentence_tokens), <span class="built_in">rouge_type_</span>(rouge_type) &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">NGramRougeType</span>(rouge_type)) &#123;</span><br><span class="line">    num_ngrams_ = <span class="number">0</span>;</span><br><span class="line">    std::string ngram;</span><br><span class="line">    std::deque&lt;std::string&gt; ngram_token_queue;</span><br><span class="line">    <span class="comment">// Ngram operator</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">const</span> std::string&amp; token : sentence_tokens) &#123;</span><br><span class="line">      ngram_token_queue.<span class="built_in">push_back</span>(token);</span><br><span class="line">      <span class="keyword">if</span> (ngram_token_queue.<span class="built_in">size</span>() &gt; ngram_size) &#123;</span><br><span class="line">        ngram_token_queue.<span class="built_in">pop_front</span>();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (ngram_token_queue.<span class="built_in">size</span>() == ngram_size) &#123;</span><br><span class="line">        std::string ngram = absl::<span class="built_in">StrJoin</span>(ngram_token_queue, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        ngrams_map_[<span class="built_in">Fingerprint2011</span>(ngram)]++;</span><br><span class="line">        num_ngrams_ += <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ngrams_.<span class="built_in">assign</span>(ngrams_map_.<span class="built_in">begin</span>(), ngrams_map_.<span class="built_in">end</span>());</span><br><span class="line">    std::<span class="built_in">sort</span>(ngrams_.<span class="built_in">begin</span>(), ngrams_.<span class="built_in">end</span>(),</span><br><span class="line">              [](<span class="type">const</span> std::pair&lt;<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>, <span class="type">int</span>&gt;&amp; left,</span><br><span class="line">                 <span class="type">const</span> std::pair&lt;<span class="type">unsigned</span> <span class="type">long</span> <span class="type">long</span>, <span class="type">int</span>&gt;&amp; right) &#123;</span><br><span class="line">                <span class="keyword">return</span> left.first &lt; right.first;</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the values of all keys in the ngrams_maps_ must be positive.</span></span><br><span class="line">    num_unique_ngrams_ = ngrams_.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; element : ngrams_)</span><br><span class="line">      log_num_ngrams_ += std::<span class="built_in">log</span>(<span class="number">1</span> + element.second);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From https://github.com/google-research/pegasus</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">AddCountsFromCandidate</span><span class="params">(<span class="keyword">const</span> RougeSentenceData&amp; candidate_data,</span></span></span><br><span class="line"><span class="function"><span class="params">                                   <span class="keyword">const</span> RougeSentenceData&amp; reference_data,</span></span></span><br><span class="line"><span class="function"><span class="params">                                   <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;* candidate_counts,</span></span></span><br><span class="line"><span class="function"><span class="params">                                   RougeComputeOption option)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; reference_ngrams = reference_data.ngrams();</span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">auto</span>&amp; candidate_ngrams = candidate_data.ngrams();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Merge join reference and candidate.</span></span><br><span class="line">  <span class="comment">// ngrams have been sorted by `gram`</span></span><br><span class="line">  <span class="keyword">int</span> c_idx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">int</span> r_idx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> (c_idx &lt; candidate_ngrams.<span class="built_in">size</span>() &amp;&amp; r_idx &lt; reference_ngrams.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; cand = candidate_ngrams[c_idx];</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ref = reference_ngrams[r_idx];</span><br><span class="line">    <span class="keyword">if</span> (cand.first == ref.first) &#123;</span><br><span class="line">      <span class="keyword">if</span> (option == ROUGE_OPTION_DEDUPLICATE)</span><br><span class="line">        (*candidate_counts)[r_idx] += <span class="built_in">std</span>::<span class="built_in">min</span>(cand.second, <span class="number">1</span>);</span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (option == ROUGE_OPTION_LOG)</span><br><span class="line">        (*candidate_counts)[r_idx] += <span class="built_in">std</span>::<span class="built_in">log</span>(<span class="number">1</span> + cand.second);</span><br><span class="line">      <span class="keyword">else</span>  <span class="comment">// standard</span></span><br><span class="line">        (*candidate_counts)[r_idx] += cand.second;</span><br><span class="line">      ++c_idx;</span><br><span class="line">      ++r_idx;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cand.first &lt; ref.first) &#123;</span><br><span class="line">      ++c_idx;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      ++r_idx;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ngrams 是已经按照 gram 的散列排序好的（这里采用了 queue 来生成 ngram）：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// From: https://github.com/google-research/pegasus</span></span><br><span class="line">RougeSentenceData::RougeSentenceData(</span><br><span class="line">    <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt;&amp; sentence_tokens, MetricType rouge_type,</span><br><span class="line">    <span class="keyword">int</span> ngram_size)</span><br><span class="line">    : tokens_(sentence_tokens), rouge_type_(rouge_type) &#123;</span><br><span class="line">  <span class="keyword">if</span> (NGramRougeType(rouge_type)) &#123;</span><br><span class="line">    num_ngrams_ = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">string</span> ngram;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; ngram_token_queue;</span><br><span class="line">    <span class="comment">// Ngram operator</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; token : sentence_tokens) &#123;</span><br><span class="line">      ngram_token_queue.push_back(token);</span><br><span class="line">      <span class="keyword">if</span> (ngram_token_queue.<span class="built_in">size</span>() &gt; ngram_size) &#123;</span><br><span class="line">        ngram_token_queue.pop_front();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (ngram_token_queue.<span class="built_in">size</span>() == ngram_size) &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">string</span> ngram = absl::StrJoin(ngram_token_queue, <span class="string">" "</span>);</span><br><span class="line">        ngrams_map_[Fingerprint2011(ngram)]++;</span><br><span class="line">        num_ngrams_ += <span class="number">1</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ngrams_.assign(ngrams_map_.<span class="built_in">begin</span>(), ngrams_map_.<span class="built_in">end</span>());</span><br><span class="line">    <span class="built_in">std</span>::sort(ngrams_.<span class="built_in">begin</span>(), ngrams_.<span class="built_in">end</span>(),</span><br><span class="line">              [](<span class="keyword">const</span> <span class="built_in">std</span>::pair&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>&gt;&amp; left,</span><br><span class="line">                 <span class="keyword">const</span> <span class="built_in">std</span>::pair&lt;<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>, <span class="keyword">int</span>&gt;&amp; right) &#123;</span><br><span class="line">                <span class="keyword">return</span> left.first &lt; right.first;</span><br><span class="line">              &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// the values of all keys in the ngrams_maps_ must be positive.</span></span><br><span class="line">    num_unique_ngrams_ = ngrams_.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span>&amp; element : ngrams_)</span><br><span class="line">      log_num_ngrams_ += <span class="built_in">std</span>::<span class="built_in">log</span>(<span class="number">1</span> + element.second);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>关于评估方法的详细情况需要单独介绍，这里不再赘述。</p>
 <ul>
-<li>BLEU：<a
-href="https://github.com/hscspring/All4NLP/blob/master/BLEU/BLEU-Tutorial.ipynb">All4NLP/BLEU-Tutorial.ipynb
-at master · hscspring/All4NLP</a></li>
-<li>NIST：<a
-href="https://github.com/hscspring/All4NLP/blob/master/BLEU/NIST-Tutorial.ipynb">All4NLP/NIST-Tutorial.ipynb
-at master · hscspring/All4NLP</a></li>
+<li>BLEU：<a href="https://github.com/hscspring/All4NLP/blob/master/BLEU/BLEU-Tutorial.ipynb" target="_blank" rel="noopener">All4NLP/BLEU-Tutorial.ipynb at master · hscspring/All4NLP</a></li>
+<li>NIST：<a href="https://github.com/hscspring/All4NLP/blob/master/BLEU/NIST-Tutorial.ipynb" target="_blank" rel="noopener">All4NLP/NIST-Tutorial.ipynb at master · hscspring/All4NLP</a></li>
 </ul>
 <p><strong>MLM</strong></p>
 <p>两种不同的训练方式：</p>
@@ -173,63 +164,39 @@ at master · hscspring/All4NLP</a></li>
 <li>原始的 MLM 方式，此时在下游任务中 Decoder 和 Encoder 共享参数</li>
 <li>原始的 MLM mask 和 GSG 一起</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-1.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-1.jpeg" alt></p>
 <p>实验发现 MLM 在训练步数很大时并没能提升下游任务。</p>
 <h3 id="特点和创新">特点和创新</h3>
-<p>考虑到 Large 把 MLM 部分的 mask 给去了，那这跟 Bart
-没啥区别啊，所不同的大概就是 Bart 做的是重建输入文本，PEGASUS
-做的是重建摘要。其实从上面的贡献部分也可以看出，对模型最大的调整就是
-GSG，这东西说白了和之前的 SpanBert
-也没啥不同。再非要说有啥创新的地方，大概就是聚焦到 “文本摘要”
-这个具体的任务吧，而且做了非常详尽的实验（可能这才是最有价值的地方）。</p>
+<p>考虑到 Large 把 MLM 部分的 mask 给去了，那这跟 Bart 没啥区别啊，所不同的大概就是 Bart 做的是重建输入文本，PEGASUS 做的是重建摘要。其实从上面的贡献部分也可以看出，对模型最大的调整就是 GSG，这东西说白了和之前的 SpanBert 也没啥不同。再非要说有啥创新的地方，大概就是聚焦到 “文本摘要” 这个具体的任务吧，而且做了非常详尽的实验（可能这才是最有价值的地方）。</p>
 <h2 id="how">How</h2>
 <h3 id="如何使用">如何使用</h3>
-<p>训练可以参照官方文档（居然不是
-TF2.0，真的是服气，不想说话），注意按照 GitHub 的 setup
-安装依赖。推理部分可以使用 transformers，已经用 PyTorch
-给实现好了，具体可以看<a
-href="https://github.com/huggingface/transformers/issues/4918#issuecomment-672171223">这里</a>。</p>
-<p>其实从中整体上看，模型就是输入一个文档，然后输出对应的摘要文本。因此推理的本质其实就是一个
-“生成” 的过程，这里面用到的技术都是通用的，所以我们看 transformers
-的源代码其实就是继承了 Bart 的生成：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">PegasusForConditionalGeneration</span>(<span class="title class_ inherited__">BartForConditionalGeneration</span>):</span><br><span class="line">    config_class = PegasusConfig</span><br><span class="line">    authorized_missing_keys = [</span><br><span class="line">        <span class="string">r&quot;final_logits_bias&quot;</span>,</span><br><span class="line">        <span class="string">r&quot;encoder\.version&quot;</span>,</span><br><span class="line">        <span class="string">r&quot;decoder\.version&quot;</span>,</span><br><span class="line">        <span class="string">r&quot;model.encoder.embed_positions&quot;</span>,</span><br><span class="line">        <span class="string">&quot;model.decoder.embed_positions&quot;</span>,</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
+<p>训练可以参照官方文档（居然不是 TF2.0，真的是服气，不想说话），注意按照 GitHub 的 setup 安装依赖。推理部分可以使用 transformers，已经用 PyTorch 给实现好了，具体可以看<a href="https://github.com/huggingface/transformers/issues/4918#issuecomment-672171223" target="_blank" rel="noopener">这里</a>。</p>
+<p>其实从中整体上看，模型就是输入一个文档，然后输出对应的摘要文本。因此推理的本质其实就是一个 “生成” 的过程，这里面用到的技术都是通用的，所以我们看 transformers 的源代码其实就是继承了 Bart 的生成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PegasusForConditionalGeneration</span><span class="params">(BartForConditionalGeneration)</span>:</span></span><br><span class="line">    config_class = PegasusConfig</span><br><span class="line">    authorized_missing_keys = [</span><br><span class="line">        <span class="string">r"final_logits_bias"</span>,</span><br><span class="line">        <span class="string">r"encoder\.version"</span>,</span><br><span class="line">        <span class="string">r"decoder\.version"</span>,</span><br><span class="line">        <span class="string">r"model.encoder.embed_positions"</span>,</span><br><span class="line">        <span class="string">"model.decoder.embed_positions"</span>,</span><br><span class="line">    ]</span><br></pre></td></tr></table></figure>
 <h3 id="数据和实验">数据和实验</h3>
 <p>这部分工作做的挺扎实的，内容非常详实。</p>
 <h4 id="数据">数据</h4>
-<p>首先是预训练的数据集，使用了 C4 和 HugeNews，前者是 750G
-的网页文本，后者是 3.8T 的1.5B
-篇新闻类文章。这样的数据量真的让人叹为观止了。</p>
-<p>下游任务的数据集达到了 12
-个之多，基本覆盖了所有的文本摘要数据集，Tensorflow
-官方有一份数据集的集合列表：<a
-href="https://www.tensorflow.org/datasets/catalog/overview">TensorFlow
-Datasets</a>。</p>
+<p>首先是预训练的数据集，使用了 C4 和 HugeNews，前者是 750G 的网页文本，后者是 3.8T 的1.5B 篇新闻类文章。这样的数据量真的让人叹为观止了。</p>
+<p>下游任务的数据集达到了 12 个之多，基本覆盖了所有的文本摘要数据集，Tensorflow 官方有一份数据集的集合列表：<a href="https://www.tensorflow.org/datasets/catalog/overview" target="_blank" rel="noopener">TensorFlow Datasets</a>。</p>
 <h4 id="实验">实验</h4>
 <p>模型参数：</p>
 <ul>
-<li>Base：12 层，768 hidden size，3072 feed-forward layer size，12
-self-attention heads，223 M 参数</li>
-<li>Large：16 层，1024 hidden size，4096 feed-forward layer size，16
-self-attention heads，568 M 参数</li>
+<li>Base：12 层，768 hidden size，3072 feed-forward layer size，12 self-attention heads，223 M 参数</li>
+<li>Large：16 层，1024 hidden size，4096 feed-forward layer size，16 self-attention heads，568 M 参数</li>
 </ul>
 <p>训练参数：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-2.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-2.jpeg" alt></p>
 <p>没有预训练的 Base 可以作为 TransformerBase。</p>
 <p>在生成时使用了 greedy-decoding 和 beam-search 两种方式。</p>
 <p><strong>消融实验</strong></p>
 <p>预训练步数对下游任务影响显著：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-3.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-3.jpeg" alt></p>
 <p>主题相关的预训练模型对下游任务更加有效：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-4.jpeg" /></p>
-<p>GSG 的 Ind-Orig 效果最好（证明按重要性选择是有效的），GSR（GSG 占
-document 句子的比例）小于 50% 时表现好；单独使用 MLM 效果很差，MLM +
-Ind-Orig 和随机效果相近，另外实验也发现 MLM 在预训练早期（100k-200k
-步）时能够提升下游任务，但当步数继续增加时反而会有抑制效果。所以
-<strong>Large 就没有包括
-MLM</strong>（是不是可以理解为——多此一举）。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-5.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-4.jpeg" alt></p>
+<p>GSG 的 Ind-Orig 效果最好（证明按重要性选择是有效的），GSR（GSG 占 document 句子的比例）小于 50% 时表现好；单独使用 MLM 效果很差，MLM + Ind-Orig 和随机效果相近，另外实验也发现 MLM 在预训练早期（100k-200k 步）时能够提升下游任务，但当步数继续增加时反而会有抑制效果。所以 <strong>Large 就没有包括 MLM</strong>（是不是可以理解为——多此一举）。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-5.jpeg" alt></p>
 <p>词表选择 Unigram 效果较好：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-6.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-6.jpeg" alt></p>
 <p><strong>大模型</strong></p>
 <p>除了之前提到的参数外，其他方面也选用了消融实验的最佳配置：</p>
 <ul>
@@ -239,17 +206,16 @@ MLM</strong>（是不是可以理解为——多此一举）。</p>
 <li>选中的句子 20% 不改变</li>
 </ul>
 <p>在不同下游任务上的结果：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-7.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-7.jpeg" alt></p>
 <p>结果也显示，小数据集更能从预训练中获益。</p>
 <p><strong>小样本</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-8.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-8.jpeg" alt></p>
 <p>三根线分别是三种分数，折线上的五个点对应了不同数量的数据。</p>
 <p><strong>质量</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-9.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-9.jpeg" alt></p>
 <p><strong>模型是记忆器还是具备生成能力</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-10.jpeg" /></p>
-<p>这里的 similarity 是计算下游任务测试集和预训练文档的，采用了 ROUGE-2
-Recall，即：common 2-grams / 测试集 2-grams。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-10.jpeg" alt></p>
+<p>这里的 similarity 是计算下游任务测试集和预训练文档的，采用了 ROUGE-2 Recall，即：common 2-grams / 测试集 2-grams。</p>
 <p><strong>更进一步</strong></p>
 <ul>
 <li>在 C4 和 HugeNews 混合数据上做预训练，两者的权重是样本的数量</li>
@@ -258,7 +224,7 @@ Recall，即：common 2-grams / 测试集 2-grams。</p>
 <li>由于 Perplexity 收敛过慢，预训练从 500k 调整到 1.5M 步</li>
 <li>SentencePiece Tokenizer 编码换行符</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-11.jpeg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-11.jpeg" alt></p>
 <h2 id="discussion">Discussion</h2>
 <p><strong>相关工作</strong></p>
 <ul>
@@ -268,11 +234,7 @@ Recall，即：common 2-grams / 测试集 2-grams。</p>
 <li>BART：根据不同的噪声输入重建文本</li>
 </ul>
 <p><strong>打开脑洞</strong></p>
-<p>前面已经提到，本文对模型其实并没有创新，唯一的小调整是
-GSG，但确实是一份不错的实验报告（貌似现在论文都是这个趋势），实验细节非常多，可以给要发
-paper 的同学不少启发。纵观全文，依然是满满的 “大力出奇迹” 既视感，不过
-GSG 的想法貌似还可以用来做关键词（短语）提取，不过这样倒是不需要 Decoder
-部分了，应该用 Bert 的架构再加上一个按重要性 Mask 就可以实现了。</p>
+<p>前面已经提到，本文对模型其实并没有创新，唯一的小调整是 GSG，但确实是一份不错的实验报告（貌似现在论文都是这个趋势），实验细节非常多，可以给要发 paper 的同学不少启发。纵观全文，依然是满满的 “大力出奇迹” 既视感，不过 GSG 的想法貌似还可以用来做关键词（短语）提取，不过这样倒是不需要 Decoder 部分了，应该用 Bert 的架构再加上一个按重要性 Mask 就可以实现了。</p>
 
       
     </div><!-- .entry-content -->
@@ -430,21 +392,6 @@ GSG 的想法貌似还可以用来做关键词（短语）提取，不过这样�
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

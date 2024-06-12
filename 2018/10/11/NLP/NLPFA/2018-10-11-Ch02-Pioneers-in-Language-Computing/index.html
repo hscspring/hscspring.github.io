@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第二章：语言计算研究的先驱  A.A.Markov 的马尔科夫链 G.K.Zipf 的Zipf 定律 Shannon 的熵 Y.Bar-Hillel 的范畴语法 Z.Harris 的语言串分析 Kulakina 的语言集合论模型">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.166Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch02)">
 <meta name="twitter:description" content="第二章：语言计算研究的先驱  A.A.Markov 的马尔科夫链 G.K.Zipf 的Zipf 定律 Shannon 的熵 Y.Bar-Hillel 的范畴语法 Z.Harris 的语言串分析 Kulakina 的语言集合论模型">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/10/11/NLP/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/" data-id="clx98np3f012xtsbzpjknq9w5" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2018/10/11/NLP/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/" data-id="clxbpfsg50168dlbz9703mky7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,7 +95,7 @@
       
             <!-- Table of Contents -->
               
-        <h1 id="第二章语言计算研究的先驱">第二章：语言计算研究的先驱</h1>
+        <h1>第二章：语言计算研究的先驱</h1>
 <ul>
 <li>A.A.Markov 的马尔科夫链</li>
 <li>G.K.Zipf 的Zipf 定律</li>
@@ -104,161 +104,127 @@
 <li>Z.Harris 的语言串分析</li>
 <li>Kulakina 的语言集合论模型</li>
 </ul>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="markov-链">Markov 链</h2>
 <p>可以将语言的使用看作一个随机过程：</p>
 <ul>
 <li>时间的函数，随时间改变而变</li>
 <li>每时刻函数值不确定，符合一定概率分布</li>
 </ul>
-<p>Markov
-链：每个语言符号出现概率不相互独立，每一个随机过程的结局依赖于前面随机过程的结果，这种链就叫做
-Markov 链。</p>
+<p>Markov 链：每个语言符号出现概率不相互独立，每一个随机过程的结局依赖于前面随机过程的结果，这种链就叫做 Markov 链。</p>
 <ul>
-<li>一重 Markov
-链，二元语法：只考虑前面一个语言符号对后面一个语言符号出现概率的影响</li>
-<li>二重 Markov
-链，三元语法：考虑前面两个语言符号对后面一个语言符号出现概率的影响</li>
-<li>三重 Markov
-链，四元语法：考虑前面三个语言符号对后面一个语言符号出现概率的影响</li>
+<li>一重 Markov 链，二元语法：只考虑前面一个语言符号对后面一个语言符号出现概率的影响</li>
+<li>二重 Markov 链，三元语法：考虑前面两个语言符号对后面一个语言符号出现概率的影响</li>
+<li>三重 Markov 链，四元语法：考虑前面三个语言符号对后面一个语言符号出现概率的影响</li>
 </ul>
 <h2 id="zipf-定律">Zipf 定律</h2>
 <ul>
-<li>1916 年，J.Estoup：<span class="math display">\[n_r · r =
-k\]</span>，n 为单词的绝对频率，r 为对应的序号</li>
-<li>1928 年，E.Condon：<span class="math display">\[f_r = cr^{-1}, f =
-\frac{n_r}{N}, c = \frac{k}{N}\]</span>，N 为所考察文本的总长度</li>
+<li>1916 年，J.Estoup：$$n_r · r = k$$，n 为单词的绝对频率，r 为对应的序号</li>
+<li>1928 年，E.Condon：$$f_r = cr^{-1}, f = \frac{n_r}{N}, c = \frac{k}{N}$$，N 为所考察文本的总长度</li>
 <li>1935 年，G.K.Zipf
 <ul>
-<li>检验 Condon 的结果，相同；t→∞ 时，频率 f 变成了概率 p：<span
-class="math display">\[p_r = cr^{-1}\]</span></li>
+<li>检验 Condon 的结果，相同；t→∞ 时，频率 f 变成了概率 p：$$p_r = cr^{-1}$$</li>
 <li>r=1 时，c=p1，测出 c=0.1</li>
-<li>修正：c 为一个参数：0&lt;c&lt;0.1，对于 r=1……n，c 使得
-Σp=1，这个单参数频率分布定律即为 Zipf 定律</li>
-</ul></li>
-<li>1936 年，M.Joos：<span class="math display">\[p_r = cr^{-b}, b&gt;0,
-c&gt;0\]</span>，对于 r=1……n，b，c 使得
-Σp=1，即为双参数频率分布定律，也叫双参数 Zipf 定律</li>
-<li>20 世纪 50 年代初期，B.B.Mandelbrot：<span
-class="math display">\[p_r = c(r+a)^{-b}, 0≤a&lt;1, b&gt;0,
-c&gt;0\]</span>，对于 r=1……n，a，b，c 使得 Σp=1，即为三参数 Zipf 定律
+<li>修正：c 为一个参数：0&lt;c&lt;0.1，对于 r=1……n，c 使得 Σp=1，这个单参数频率分布定律即为 Zipf 定律</li>
+</ul>
+</li>
+<li>1936 年，M.Joos：$$p_r = cr^{-b}, b&gt;0, c&gt;0$$，对于 r=1……n，b，c 使得 Σp=1，即为双参数频率分布定律，也叫双参数 Zipf 定律</li>
+<li>20 世纪 50 年代初期，B.B.Mandelbrot：$$p_r = c(r+a)^{-b}, 0≤a&lt;1, b&gt;0, c&gt;0$$，对于 r=1……n，a，b，c 使得 Σp=1，即为三参数 Zipf 定律
 <ul>
 <li>c 与出现概率最高的单词的概率大小有关</li>
-<li>b 与高概率单词的数量有关，对于 r&lt;50 的高概率单词，b
-是非减函数，随着 r 的增大，b 并不减小</li>
+<li>b 与高概率单词的数量有关，对于 r&lt;50 的高概率单词，b 是非减函数，随着 r 的增大，b 并不减小</li>
 <li>a 与单词的数量 N 有关</li>
-</ul></li>
 </ul>
-<p>公式的性质（一个 r 对应一个
-p）决定了文本中不能存在频率相同的单词，但实际上当单词频率比较小的时候，频率相同的词会大大增加，此时会出现数据稀疏问题。</p>
+</li>
+</ul>
+<p>公式的性质（一个 r 对应一个 p）决定了文本中不能存在频率相同的单词，但实际上当单词频率比较小的时候，频率相同的词会大大增加，此时会出现数据稀疏问题。</p>
 <h2 id="shannon-关于-熵-的研究">Shannon 关于 “熵” 的研究</h2>
 <ul>
 <li>什么是熵？</li>
 </ul>
-<p>自然语言是一种具有概率性的随机过程（信息的本质），每一个语言符号出现的不定度很大（Markov
-链）。信息量的大小就是用在接收到消息之前，随机试验不定度（熵）的大小来度量的。接收到语言符号前，熵因语言符号数目和出现的概率不同而不同，接收到后，不定度被消除，熵等于零。<strong>信息量是被消除的熵，熵是信息量的度量。</strong></p>
+<p>自然语言是一种具有概率性的随机过程（信息的本质），每一个语言符号出现的不定度很大（Markov 链）。信息量的大小就是用在接收到消息之前，随机试验不定度（熵）的大小来度量的。接收到语言符号前，熵因语言符号数目和出现的概率不同而不同，接收到后，不定度被消除，熵等于零。<strong>信息量是被消除的熵，熵是信息量的度量。</strong></p>
 <ul>
-<li><p>如何衡量熵的大小？</p>
+<li>
+<p>如何衡量熵的大小？</p>
 <ul>
-<li>1928 年：L.Hartley：某装置有 D 个可能的位置或状态，两个组合会有：D^2
-个状态。要使 2X 个装置的能力恰为 X 个装置的 2
-倍，定义一个装置的信息能力为：logD，D
-为整个系统可以进入的不同状态数。即：logD^2 = 2logD</li>
-<li>1951 年：Shannon：如果随机试验有 n
-个结局，而且是不等概率的，随机试验的熵为：<span
-class="math display">\[H_1 = - \sum^{n}_{i=1} p_i \log_2p_i\]</span>。
+<li>1928 年：L.Hartley：某装置有 D 个可能的位置或状态，两个组合会有：D^2 个状态。要使 2X 个装置的能力恰为 X 个装置的 2 倍，定义一个装置的信息能力为：logD，D 为整个系统可以进入的不同状态数。即：logD^2 = 2logD</li>
+<li>1951 年：Shannon：如果随机试验有 n 个结局，而且是不等概率的，随机试验的熵为：$$H_1 = - \sum^{n}_{i=1} p_i \log_2p_i$$。
 <ul>
 <li>可以想象为最优编码中一定的判断或信息编码的位数的下界。</li>
 <li>当编码对象的先验概率不相等时，<strong>熵就是其最小编码位数</strong>（即对高概率的编码短，低概率的编码长，加权平均后为最小编码位数，比等概率平均要小）。</li>
-</ul></li>
-<li>Shannon：用 log n 度量<strong>某一个</strong>有 n
-个可能等概率结果的随机试验的熵是合理的
+</ul>
+</li>
+<li>Shannon：用 log n 度量<strong>某一个</strong>有 n 个可能等概率结果的随机试验的熵是合理的
 <ul>
 <li>n 越大不确定度越大</li>
 <li>两个试验，log n^2 = 2log n 是一个的两倍</li>
-<li>两个试验，分别 m 和 n 个可能结局，复合试验 mn
-个可能的等概率结局，log mn = log m + log n</li>
-<li>log n = -(log 1 - log n) = - log 1/n，1/n 即为概率，- n × 1/n × log
-1/n = - Σ 1/n × log 1/n = log n</li>
-</ul></li>
-</ul></li>
-<li><p>困惑度</p>
+<li>两个试验，分别 m 和 n 个可能结局，复合试验 mn 个可能的等概率结局，log mn = log m + log n</li>
+<li>log n = -(log 1 - log n) = - log 1/n，1/n 即为概率，- n × 1/n × log 1/n = - Σ 1/n × log 1/n = log n</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>困惑度</p>
 <ul>
 <li>2^H，熵越大，困惑度越大</li>
 <li>均概率时，熵最大（最大熵原理），便可以通过优化熵达到优化模型的目的</li>
 <li>随着 Markov 链重数增大，条件熵越来越小</li>
 <li>熵有下限，随着重数增加，熵逐渐趋于稳定而不再减少，此时的熵就是包含在自然语言一个符号中的真实信息量，叫做极限熵。</li>
-</ul></li>
-<li><p>熵率：单词数除序列熵（可以想象成每个单词的熵）</p></li>
-<li><p>把语言想象成产生单词序列的随机过程 L，则 <span
-class="math display">\[H(L) = \lim_{n\to\inf} \frac{1}{n} H(w_1, w_2,
-..., w_n)\]</span></p>
-<p>= <span class="math display">\[\lim_{n\to\inf} -\frac{1}{n} \sum_{w
-\in L} P(w_1, w_2, ..., w_n) \log_{2} P(w_1, w_2, ...,
-w_n)\]</span>（注：原书没有 负号）</p>
-<p>根据 Shannon-McMillan-Breiman
-定理，如果语言在某种意义下是正则的（既是平稳的，又是遍历的），那么有：<span
-class="math display">\[H(L) = \lim_{n \to \inf} (-\frac{1}{n} \log_2
-P(w_1, w_2, ..., w_n))\]</span></p>
+</ul>
+</li>
+<li>
+<p>熵率：单词数除序列熵（可以想象成每个单词的熵）</p>
+</li>
+<li>
+<p>把语言想象成产生单词序列的随机过程 L，则 $$H(L) = \lim_{n\to\inf} \frac{1}{n} H(w_1, w_2, …, w_n)$$</p>
+<p>= $$\lim_{n\to\inf} -\frac{1}{n} \sum_{w \in L} P(w_1, w_2, …, w_n) \log_{2} P(w_1, w_2, …, w_n)$$（注：原书没有 负号）</p>
+<p>根据 Shannon-McMillan-Breiman 定理，如果语言在某种意义下是正则的（既是平稳的，又是遍历的），那么有：$$H(L) = \lim_{n \to \inf} (-\frac{1}{n} \log_2 P(w_1, w_2, …, w_n))$$</p>
 <ul>
 <li>意味着可以取语言中的一个足够长的序列来替代语言中所有可能的序列总和。</li>
 <li>定理的直觉理解：一个足够长的单词序列可以在其中包含其他很多较短的序列，而且每一个这些较短的序列都可以按照各自的概率重复地出现在较长的序列之中。</li>
 <li>自然语言不平稳，所以统计模型对自然语言分布和熵的描述都是近似的。</li>
-</ul></li>
-<li><p>语言的极限熵</p>
+</ul>
+</li>
+<li>
+<p>语言的极限熵</p>
 <ul>
 <li>可靠下界</li>
 <li>理解语言中哪一部分提供的信息量最大（高频字熵值大，能够提供的信息量小）</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <blockquote>
 <p>关于熵，会专门撰文一篇。</p>
 </blockquote>
 <h2 id="bar-hillel-的范畴语法">Bar-Hillel 的范畴语法</h2>
 <ul>
-<li>1935 年，数理逻辑学家 Kazimierz Ajukievicz
-提出了范畴语法的基本概念</li>
-<li>1958 年，数学家 J. Joachim Lambek
-在《句子结构的数学》中提出了句法类型演算的理论，可以判断一个符号串是不是语言中成立的句子</li>
-<li>1959 年，Bar-Hillel
-在《自然语言结构的判定程序》中进一步发展了句法类型演算的理论</li>
-<li>1960 年，Bar-Hillel
-等在《论范畴语法和短语结构语法》中把这种语法命名为 “范畴语法”</li>
-<li>20 世纪 90 年代，M. Steedman 和 J. Baldridge
-提出了组合范畴语法（Combinatory Categorial
-Grammar，CCG）：添加了函子范畴的组合运算。</li>
+<li>1935 年，数理逻辑学家 Kazimierz Ajukievicz 提出了范畴语法的基本概念</li>
+<li>1958 年，数学家 J. Joachim Lambek 在《句子结构的数学》中提出了句法类型演算的理论，可以判断一个符号串是不是语言中成立的句子</li>
+<li>1959 年，Bar-Hillel 在《自然语言结构的判定程序》中进一步发展了句法类型演算的理论</li>
+<li>1960 年，Bar-Hillel 等在《论范畴语法和短语结构语法》中把这种语法命名为 “范畴语法”</li>
+<li>20 世纪 90 年代，M. Steedman 和 J. Baldridge 提出了组合范畴语法（Combinatory Categorial Grammar，CCG）：添加了函子范畴的组合运算。</li>
 </ul>
 <h3 id="句法类型">句法类型</h3>
-<p>任何词都可以根据它在句子中的功能归入一定的句法类型，如果用 n
-表示名词的句法类型，S 表示句子，则其他的一些句法类型都可以用 n 和 S
-以不同的方式结合起来表示。规则：</p>
+<p>任何词都可以根据它在句子中的功能归入一定的句法类型，如果用 n 表示名词的句法类型，S 表示句子，则其他的一些句法类型都可以用 n 和 S 以不同的方式结合起来表示。规则：</p>
 <ul>
-<li>有词 B，其后面词 C 的句法类型为 γ，词序列 BC 的功能与 β 相同，则词 B
-的句法类型为：β/γ</li>
-<li>有词 B，其前面词 A 的句法类型为 α，词序列 AB 的功能与 β 相同，则词 B
-的句法类型为：α</li>
-<li>有词 B，其前面词 A 的句法类型为 α，后面词 C 句法类型为 γ，词序列 ABC
-的功能与 β 相同，则词 B 的句法类型为 α/γ</li>
+<li>有词 B，其后面词 C 的句法类型为 γ，词序列 BC 的功能与 β 相同，则词 B 的句法类型为：β/γ</li>
+<li>有词 B，其前面词 A 的句法类型为 α，词序列 AB 的功能与 β 相同，则词 B 的句法类型为：α\β</li>
+<li>有词 B，其前面词 A 的句法类型为 α，后面词 C 句法类型为 γ，词序列 ABC 的功能与 β 相同，则词 B 的句法类型为 α\β/γ</li>
 </ul>
 <p>英语的句法类型：</p>
 <ul>
 <li>名词：<strong>n</strong>，John</li>
 <li>形容词：<strong>n/n</strong>，poor，即 poor John 也为名词</li>
-<li>不及物动词：**n*，works，即 John works 功能与句子相同</li>
-<li>及物动词：<strong>n/n</strong>，likes，即 John likes Jane
-功能与句子相同</li>
-<li>副词：**(n)*，soundly，即 John slept soundly，slept soundly
-功能与句子相同</li>
-<li>副词：**S*，here，即 John works here，John works 为 S，John works
-here 为新的 S</li>
-<li>副词：<strong>n/(n)</strong>，never，即 John never works，works 为
-n，never works 也为 n</li>
-<li>介词：<strong>S/n</strong>，for，即 John works for Jane，John works
-为 S</li>
-<li>连词：<strong>S/S</strong>，and，即 John works and Jane resets</li>
+<li>不及物动词：<strong>n\S</strong>，works，即 John works 功能与句子相同</li>
+<li>及物动词：<strong>n\S/n</strong>，likes，即 John likes Jane 功能与句子相同</li>
+<li>副词：<strong>(n\S)\n\S</strong>，soundly，即 John slept soundly，slept soundly 功能与句子相同</li>
+<li>副词：<strong>S\S</strong>，here，即 John works here，John works 为 S，John works here 为新的 S</li>
+<li>副词：<strong>n\S/(n\S)</strong>，never，即 John never works，works 为 n\S，never works 也为 n\S</li>
+<li>介词：<strong>S\S/n</strong>，for，即 John works for Jane，John works 为 S</li>
+<li>连词：<strong>S\S/S</strong>，and，即 John works and Jane resets</li>
 </ul>
-<p>S 和 n 为原子范畴，其他此类为复合范畴。S
-代表了陈述句所表示的真值命题，n 代表了该命题中的论元。</p>
+<p>S 和 n 为原子范畴，其他此类为复合范畴。S 代表了陈述句所表示的真值命题，n 代表了该命题中的论元。</p>
 <p>范畴语法是词汇主义的典型代表之一，因为任何一个单词的语法特征都可以通过原子范畴和复合范畴表示出来。</p>
 <p>英语动词短语增加的句法类型符号：</p>
 <ul>
@@ -268,30 +234,43 @@ n，never works 也为 n</li>
 </ul>
 <h3 id="句法类型演算">句法类型演算</h3>
 <ul>
-<li><p>如果有形如 α，α/γ，γ 的符号序列，用 β 替换，包括：</p>
+<li>
+<p>如果有形如 α，α\β/γ，γ 的符号序列，用 β 替换，包括：</p>
 <ul>
-<li>用 β 替换形如 α，α的符号序列：(α)(α) → β</li>
+<li>用 β 替换形如 α，α\β 的符号序列：(α)(α\β) → β</li>
 <li>用 β 替换形如 β/γ，γ 的符号序列：(β/γ)(γ) → β</li>
-</ul></li>
-<li><p>补充规则：</p>
+</ul>
+</li>
+<li>
+<p>补充规则：</p>
 <ul>
-<li>(α)(β) → α</li>
+<li>(α\β)(β\γ) → α\γ</li>
 <li>(α/β)(β/γ) → α/γ</li>
-</ul></li>
-<li><p>如果语言中的词标上句法类型，通过有穷个演算步骤，可以把词序列化为
-S，则这个序列便是该语言中的合格句子。</p></li>
-<li><p>一个词可以属于几个句法类型，实际演算中应该把每个词可能有的句法类型全部列出来。</p></li>
-<li><p>范畴语法的规则考虑了语义，不过是通过句法类型以及反映这些类型的语义连锁的演算规则潜在地表示出来。</p></li>
-<li><p>范畴语法与短语结构语法风格不同：</p>
+</ul>
+</li>
+<li>
+<p>如果语言中的词标上句法类型，通过有穷个演算步骤，可以把词序列化为 S，则这个序列便是该语言中的合格句子。</p>
+</li>
+<li>
+<p>一个词可以属于几个句法类型，实际演算中应该把每个词可能有的句法类型全部列出来。</p>
+</li>
+<li>
+<p>范畴语法的规则考虑了语义，不过是通过句法类型以及反映这些类型的语义连锁的演算规则潜在地表示出来。</p>
+</li>
+<li>
+<p>范畴语法与短语结构语法风格不同：</p>
 <ul>
 <li>短语结构语法力图对句子进行切分，采用的是<strong>解析模式</strong>。</li>
 <li>范畴语法力图反映句法类型的语义连锁，采用的是<strong>构造模式</strong>。设法把语义直接表示在句法之中。</li>
-</ul></li>
-<li><p>演算乘法表</p></li>
+</ul>
+</li>
+<li>
+<p>演算乘法表</p>
+</li>
 </ul>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>前项/后项</th>
 <th>i/i</th>
 <th>i</th>
@@ -302,7 +281,7 @@ S，则这个序列便是该语言中的合格句子。</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>i/i</strong></td>
 <td>i/i</td>
 <td>i</td>
@@ -311,7 +290,7 @@ S，则这个序列便是该语言中的合格句子。</p></li>
 <td>i/p</td>
 <td>i/(q/n)</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>p/i</strong></td>
 <td>p/i</td>
 <td>p</td>
@@ -320,7 +299,7 @@ S，则这个序列便是该语言中的合格句子。</p></li>
 <td>p/p</td>
 <td>p/(q/n)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>q/i</strong></td>
 <td>q/i</td>
 <td>q</td>
@@ -329,13 +308,13 @@ S，则这个序列便是该语言中的合格句子。</p></li>
 <td>q/p</td>
 <td>q/(q/n)</td>
 </tr>
-<tr class="even">
-<td><strong>n/i</strong></td>
-<td>n/i</td>
-<td>n</td>
-<td>n/n</td>
-<td>n/q</td>
-<td>n/p</td>
+<tr>
+<td><strong>n\S/i</strong></td>
+<td>n\S/i</td>
+<td>n\S</td>
+<td>n\S/n</td>
+<td>n\S/q</td>
+<td>n\S/p</td>
 <td>n/S/(q/n)</td>
 </tr>
 </tbody>
@@ -343,63 +322,57 @@ S，则这个序列便是该语言中的合格句子。</p></li>
 <p>相交处的值可以反向展开，可以对语言现象获得新的认识。</p>
 <h2 id="harris-的语言串分析法">Harris 的语言串分析法</h2>
 <ul>
-<li>1962 年发表《句子结构的串分析》提出了 “语言串理论” 和
-“语言串分析法”，最早在计算机上实现的自然语言处理的形式模型。</li>
+<li>1962 年发表《句子结构的串分析》提出了 “语言串理论” 和 “语言串分析法”，最早在计算机上实现的自然语言处理的形式模型。</li>
 <li>串的两种表示
 <ul>
 <li>词串：任何一个句子或其组成部分中按线性顺序排列的一个或多个词。</li>
 <li>串式：用词类或其次类替换词串中的具体得出的单词而形成的符号串。</li>
-</ul></li>
+</ul>
+</li>
 <li>句子由若干个基本串通过附加、连接和替换等方式组合而成。组成句子的基本串中至少有一个中心串，代表句子的基干，也代表一种语言的基本句式。基本串包括中心串、附加串、连接串和替换串。从中心串出发通过扩展生成无限的句子。</li>
 <li>语言串分析法的句法规则：
 <ul>
 <li>词串替换为串式</li>
 <li>逐步切除附加串以获取中心串</li>
 <li>写出过程的句法规则</li>
-</ul></li>
+</ul>
+</li>
 <li>英语语言串分析系统：
 <ul>
 <li>N. Sager 20 世纪 80 年代：语言串分析器 LSP</li>
 <li>T. Strzalkowski：英语句法分析器 TTP</li>
-</ul></li>
 </ul>
-<h2 id="o.c.k-的语言集合论模型">O.C.K 的语言集合论模型</h2>
+</li>
+</ul>
+<h2 id="o-c-k-的语言集合论模型">O.C.K 的语言集合论模型</h2>
 <ul>
-<li>1958
-年发表《根据集合论定义语法概念的一种方法》，用集合论的方法建立自然语言的数学模型。以此模拟机器翻译中从词归约为词组，从词组归约为句子的层次分析过程。</li>
+<li>1958 年发表《根据集合论定义语法概念的一种方法》，用集合论的方法建立自然语言的数学模型。以此模拟机器翻译中从词归约为词组，从词组归约为句子的层次分析过程。</li>
 <li>通过毗连运算而形成的词的一切组合可以分为两个子集：
 <ul>
 <li>成立句子（语法正确，不是语义）的子集</li>
 <li>不成立句子的子集</li>
-</ul></li>
-<li>词的集合 W 和在 W 上成立的句子集 θ，就有了语言 L = {W,
-θ}，称为词汇集合 W 上的一种语言。</li>
-<li>词域：某个词的完整的形式系统（即词形变化的全部形式）。词域可将 W
-划分为彼此不想交的子集之并，得出域的分划，记为 𝜞 分划。</li>
-<li>族：对 A1xA2（A、A2 为任意词串），x 替换为 y 句子成立，则 x 和 y
-等价；等价的元素进入同一族。族可将 W
-分割为彼此不想交的子集之并，得出族的分划，记为 <strong>S</strong>
-分划。</li>
-<li>不考虑分划标准，只要用彼此不想交之并的形式表示 W：<strong>B</strong>
-分划。一个子集合只有一个词：<strong>E</strong> 分划。</li>
-<li>对任意句子 A=x1...xn，给定 B 分划，词 xi
-所进入的子集合的序列，称为句子 A 的 B 结构，记为 B(A)。</li>
-<li>同一句子在不同分划下有不同的 B
-结构（ES𝜞）形式。其实分别是：单个词、单个词的各种变形、可替换的同一类词。</li>
+</ul>
+</li>
+<li>词的集合 W 和在 W 上成立的句子集 θ，就有了语言 L = {W, θ}，称为词汇集合 W 上的一种语言。</li>
+<li>词域：某个词的完整的形式系统（即词形变化的全部形式）。词域可将 W 划分为彼此不想交的子集之并，得出域的分划，记为 𝜞 分划。</li>
+<li>族：对 A1xA2（A、A2 为任意词串），x 替换为 y 句子成立，则 x 和 y 等价；等价的元素进入同一族。族可将 W 分割为彼此不想交的子集之并，得出族的分划，记为 <strong>S</strong> 分划。</li>
+<li>不考虑分划标准，只要用彼此不想交之并的形式表示 W：<strong>B</strong> 分划。一个子集合只有一个词：<strong>E</strong> 分划。</li>
+<li>对任意句子 A=x1…xn，给定 B 分划，词 xi 所进入的子集合的序列，称为句子 A 的 B 结构，记为 B(A)。</li>
+<li>同一句子在不同分划下有不同的 B 结构（ES𝜞）形式。其实分别是：单个词、单个词的各种变形、可替换的同一类词。</li>
 <li>过程：递归将复杂结构按其层次化为不能再归约的简单结构。
 <ul>
 <li>n 级 B 格式 B~(n)：
 <ul>
 <li>含有的元素不少于两个</li>
-<li>存在一个元素 Bαn 使得 n-1 级 B 结构 B(A1) B~(n) B(A2) 和 B 结构
-B(A1) Bαn B(A2) 在任何词串 A1 和 A2 中同时成立或不成立</li>
-</ul></li>
+<li>存在一个元素 Bαn 使得 n-1 级 B 结构 B(A1) B~(n) B(A2) 和 B 结构 B(A1) Bαn B(A2) 在任何词串 A1 和 A2 中同时成立或不成立</li>
+</ul>
+</li>
 <li>n 级 B 结构：不包含 n 级 B 格式的 B 结构：B(A1) Bαn B(A2)</li>
 <li>B~(n) 可以替换为 Bαn，Bαn 称为 “结果元”，可以不唯一。</li>
-</ul></li>
 </ul>
-<p><strong>小结：</strong>Markov 链和熵的使用非常广泛深入，但 Zipf
-定律可能只是作为分析特定语言规律的一个工具，在实际应用场景中比较少见。范畴语法试图通过语法表达语义，采用构造模式，通过简单的原子范畴可以演算出所有的句子，而且对句法类型反向展开还有可能获得关于语言的新认识，可能是一种不错的方式。语言串分析法感觉和句法分析类似，串式具有抽象性，句法同样如此。语言集合论其实也是从词的角度（单个词、单个词+变种、一类词）试图将句子不断递归归约为简单结构，可以看成是机器翻译句法分析过程的数学模拟，具有一定参考价值。本章内容（尤其后面三节）表面看起来非常枯燥难懂，其实认真看下书还是很容易理解的，作者的解释非常细致。</p>
+</li>
+</ul>
+<p>**小结：**Markov 链和熵的使用非常广泛深入，但 Zipf 定律可能只是作为分析特定语言规律的一个工具，在实际应用场景中比较少见。范畴语法试图通过语法表达语义，采用构造模式，通过简单的原子范畴可以演算出所有的句子，而且对句法类型反向展开还有可能获得关于语言的新认识，可能是一种不错的方式。语言串分析法感觉和句法分析类似，串式具有抽象性，句法同样如此。语言集合论其实也是从词的角度（单个词、单个词+变种、一类词）试图将句子不断递归归约为简单结构，可以看成是机器翻译句法分析过程的数学模拟，具有一定参考价值。本章内容（尤其后面三节）表面看起来非常枯燥难懂，其实认真看下书还是很容易理解的，作者的解释非常细致。</p>
 
       
     </div><!-- .entry-content -->
@@ -557,21 +530,6 @@ B(A1) Bαn B(A2) 在任何词串 A1 和 A2 中同时成立或不成立</li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

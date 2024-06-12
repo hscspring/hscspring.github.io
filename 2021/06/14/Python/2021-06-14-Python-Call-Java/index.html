@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="一直以为这样的情况不会出现，但它还是出现了：一段 Java 代码+引用 Jar 包，一段 Python 代码要使用 Java 代码中某个方法。本来想用 Python 重新实现一遍，又觉得这简直是浪费时间，何不直接在 Python 代码中使用 Java 代码的该方法呢？应该特别简单，分分钟搞定的事情，结果还是掉坑里了，特此记录，以备后查。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.175Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python 调用 Java">
 <meta name="twitter:description" content="一直以为这样的情况不会出现，但它还是出现了：一段 Java 代码+引用 Jar 包，一段 Python 代码要使用 Java 代码中某个方法。本来想用 Python 重新实现一遍，又觉得这简直是浪费时间，何不直接在 Python 代码中使用 Java 代码的该方法呢？应该特别简单，分分钟搞定的事情，结果还是掉坑里了，特此记录，以备后查。">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/" data-id="clx98np2600n6tsbzit5u1mp5" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/" data-id="clxbpfs54004fdlbz3y6hv9h4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,49 +95,31 @@
       
             <!-- Table of Contents -->
               
-        <p>一直以为这样的情况不会出现，但它还是出现了：一段 Java 代码+引用 Jar
-包，一段 Python 代码要使用 Java 代码中某个方法。本来想用 Python
-重新实现一遍，又觉得这简直是浪费时间，何不直接在 Python 代码中使用 Java
-代码的该方法呢？应该特别简单，分分钟搞定的事情，结果还是掉坑里了，特此记录，以备后查。</p>
-<span id="more"></span>
-<p>首先，进一步明确下需求。为了方便，将实际的例子替换为一个比较简单的例子来记录说明；另外，实际也不使用
-IDE，就是个简单的脚本任务。</p>
+        <p>一直以为这样的情况不会出现，但它还是出现了：一段 Java 代码+引用 Jar 包，一段 Python 代码要使用 Java 代码中某个方法。本来想用 Python 重新实现一遍，又觉得这简直是浪费时间，何不直接在 Python 代码中使用 Java 代码的该方法呢？应该特别简单，分分钟搞定的事情，结果还是掉坑里了，特此记录，以备后查。</p>
+<a id="more"></a>
+<p>首先，进一步明确下需求。为了方便，将实际的例子替换为一个比较简单的例子来记录说明；另外，实际也不使用 IDE，就是个简单的脚本任务。</p>
 <p>来咯，Java 的代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Encoder.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> net.iharder.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Encoder</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">encode</span><span class="params">(String text)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">return</span> Base64.encodeObject(text);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">Encoder</span> <span class="variable">er</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Encoder</span>();</span><br><span class="line">        <span class="type">String</span> <span class="variable">text</span> <span class="operator">=</span> <span class="string">&quot;love u&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> er.encode(text);</span><br><span class="line">        System.out.println(code);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里的 <code>net.iharder.Base64</code> 是一个 jar
-包，编译后执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -<span class="built_in">cp</span> base64-2.3.9.jar:. Encoder.java</span><br><span class="line">java -<span class="built_in">cp</span> base64-2.3.9.jar:. Encoder</span><br><span class="line"><span class="comment"># rO0ABXQABmxvdmUgdQ==</span></span><br></pre></td></tr></table></figure>
-<p>现在，假设有一段 Python 代码需要调用上面
-<code>encode</code>方法。</p>
-<p><a
-href="https://web.archive.org/web/20170729052824/http://baojie.org/blog/2014/06/16/call-java-from-python/">5
-Ways of Calling Java from Python</a> 这里介绍了 5 种方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Encoder.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> net.iharder.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Encoder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">encode</span><span class="params">(String text)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Base64.encodeObject(text);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Encoder er = <span class="keyword">new</span> Encoder();</span><br><span class="line">        String text = <span class="string">"love u"</span>;</span><br><span class="line">        String code = er.encode(text);</span><br><span class="line">        System.out.println(code);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 <code>net.iharder.Base64</code> 是一个 jar 包，编译后执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -cp base64-2.3.9.jar:. Encoder.java</span><br><span class="line">java -cp base64-2.3.9.jar:. Encoder</span><br><span class="line"><span class="comment"># rO0ABXQABmxvdmUgdQ==</span></span><br></pre></td></tr></table></figure>
+<p>现在，假设有一段 Python 代码需要调用上面 <code>encode</code>方法。</p>
+<p><a href="https://web.archive.org/web/20170729052824/http://baojie.org/blog/2014/06/16/call-java-from-python/" target="_blank" rel="noopener">5 Ways of Calling Java from Python</a> 这里介绍了 5 种方法：</p>
 <ul>
-<li><a
-href="https://github.com/jpype-project/jpype">jpype-project/jpype: JPype
-is cross language bridge to allow python programs full access to java
-class libraries.</a></li>
-<li><a href="https://github.com/bartdag/py4j">bartdag/py4j: Py4J enables
-Python programs to dynamically access arbitrary Java objects</a></li>
-<li><a
-href="https://github.com/CellProfiler/python-javabridge">CellProfiler/python-javabridge:
-Python wrapper for the Java Native Interface</a></li>
-<li><a href="https://pypi.org/project/JCC/">JCC · PyPI</a></li>
-<li><a href="https://github.com/kivy/pyjnius">kivy/pyjnius: Access Java
-classes from Python</a></li>
+<li><a href="https://github.com/jpype-project/jpype" target="_blank" rel="noopener">jpype-project/jpype: JPype is cross language bridge to allow python programs full access to java class libraries.</a></li>
+<li><a href="https://github.com/bartdag/py4j" target="_blank" rel="noopener">bartdag/py4j: Py4J enables Python programs to dynamically access arbitrary Java objects</a></li>
+<li><a href="https://github.com/CellProfiler/python-javabridge" target="_blank" rel="noopener">CellProfiler/python-javabridge: Python wrapper for the Java Native Interface</a></li>
+<li><a href="https://pypi.org/project/JCC/" target="_blank" rel="noopener">JCC · PyPI</a></li>
+<li><a href="https://github.com/kivy/pyjnius" target="_blank" rel="noopener">kivy/pyjnius: Access Java classes from Python</a></li>
 </ul>
-<p>简单瞅了眼，发现前两个无论从
-API、维护还是适用方面都优于后面的，这里以 <code>jpype</code>
-为例说明。</p>
-<p>具体的，有两种方式，一种直接调用编译后的 <code>class</code>
-文件：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jpype</span><br><span class="line"></span><br><span class="line">jpype.startJVM(convertStrings=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">JDClass = jpype.JClass(<span class="string">&quot;Encoder&quot;</span>)</span><br><span class="line">jd = JDClass()</span><br><span class="line"></span><br><span class="line">res = jd.encode(<span class="string">&quot;love u&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">jpype.shutdownJVM()</span><br></pre></td></tr></table></figure>
+<p>简单瞅了眼，发现前两个无论从 API、维护还是适用方面都优于后面的，这里以 <code>jpype</code> 为例说明。</p>
+<p>具体的，有两种方式，一种直接调用编译后的 <code>class</code> 文件：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jpype</span><br><span class="line"></span><br><span class="line">jpype.startJVM(convertStrings=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line">JDClass = jpype.JClass(<span class="string">"Encoder"</span>)</span><br><span class="line">jd = JDClass()</span><br><span class="line"></span><br><span class="line">res = jd.encode(<span class="string">"love u"</span>)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line">jpype.shutdownJVM()</span><br></pre></td></tr></table></figure>
 <p>此时目录如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">├── Encoder.class</span><br><span class="line">├── Encoder.java</span><br><span class="line">├── encode.py</span><br><span class="line">└── net</span><br><span class="line">    └── iharder</span><br><span class="line">        ├── Base64<span class="variable">$1</span>.class</span><br><span class="line">        ├── Base64<span class="variable">$InputStream</span>.class</span><br><span class="line">        ├── Base64<span class="variable">$OutputStream</span>.class</span><br><span class="line">        └── Base64.class</span><br></pre></td></tr></table></figure>
 <p>或者直接使用 jar 包：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cvf Encoder.jar Encoder.class</span><br></pre></td></tr></table></figure>
 <p>代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jpype</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">deps = os.getcwd() + <span class="string">&quot;/base64-2.3.9.jar&quot;</span></span><br><span class="line">jar = os.getcwd() + <span class="string">&quot;/Encoder.jar&quot;</span></span><br><span class="line"></span><br><span class="line">jpype.startJVM(</span><br><span class="line">    <span class="comment"># jpype.getDefaultJVMPath(),</span></span><br><span class="line">    <span class="string">&quot;-ea&quot;</span>,</span><br><span class="line">    classpath=[deps, jar], <span class="comment"># 或 &quot;-Djava.class.path=%s:%s&quot; % (deps, jar),</span></span><br><span class="line">    convertStrings=<span class="literal">False</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Base64 = jpype.JClass(<span class="string">&quot;net.iharder.Base64&quot;</span>)</span><br><span class="line">res = Base64.encodeBytes([<span class="number">3</span>, <span class="number">34</span>, <span class="number">116</span>, <span class="number">9</span>])</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">JDClass = jpype.JClass(<span class="string">&quot;Encoder&quot;</span>)</span><br><span class="line">jd = JDClass()</span><br><span class="line">res = jd.encode(<span class="string">&quot;love u&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(res)</span><br><span class="line"></span><br><span class="line">jpype.shutdownJVM()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jpype</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">deps = os.getcwd() + <span class="string">"/base64-2.3.9.jar"</span></span><br><span class="line">jar = os.getcwd() + <span class="string">"/Encoder.jar"</span></span><br><span class="line"></span><br><span class="line">jpype.startJVM(</span><br><span class="line">    <span class="comment"># jpype.getDefaultJVMPath(),</span></span><br><span class="line">    <span class="string">"-ea"</span>,</span><br><span class="line">    classpath=[deps, jar], <span class="comment"># 或 "-Djava.class.path=%s:%s" % (deps, jar),</span></span><br><span class="line">    convertStrings=<span class="literal">False</span>,</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Base64 = jpype.JClass(<span class="string">"net.iharder.Base64"</span>)</span><br><span class="line">res = Base64.encodeBytes([<span class="number">3</span>, <span class="number">34</span>, <span class="number">116</span>, <span class="number">9</span>])</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line">JDClass = jpype.JClass(<span class="string">"Encoder"</span>)</span><br><span class="line">jd = JDClass()</span><br><span class="line">res = jd.encode(<span class="string">"love u"</span>)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line">jpype.shutdownJVM()</span><br></pre></td></tr></table></figure>
 <p>此时目录如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">├── Encoder.class</span><br><span class="line">├── Encoder.jar</span><br><span class="line">├── Encoder.java</span><br><span class="line">├── base64-2.3.9.jar</span><br><span class="line">└── encode.py</span><br></pre></td></tr></table></figure>
 <p>只使用两个 jar 文件即可。</p>
@@ -145,11 +127,8 @@ API、维护还是适用方面都优于后面的，这里以 <code>jpype</code>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --config javac</span><br><span class="line">sudo update-alternatives --config java</span><br></pre></td></tr></table></figure>
 <p><strong>参考资料</strong></p>
 <ul>
-<li><a href="https://code-maven.com/calling-java-from-python">Calling
-Java from Python</a></li>
-<li><a
-href="https://www.jianshu.com/p/38f6f2539e9c">Ubuntu安装java和使用update-java-alternatives进行切换
-- 简书</a></li>
+<li><a href="https://code-maven.com/calling-java-from-python" target="_blank" rel="noopener">Calling Java from Python</a></li>
+<li><a href="https://www.jianshu.com/p/38f6f2539e9c" target="_blank" rel="noopener">Ubuntu安装java和使用update-java-alternatives进行切换 - 简书</a></li>
 </ul>
 
       
@@ -308,21 +287,6 @@ href="https://www.jianshu.com/p/38f6f2539e9c">Ubuntu安装java和使用update-ja
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

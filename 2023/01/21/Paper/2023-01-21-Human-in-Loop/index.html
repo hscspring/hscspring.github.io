@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="这篇文章基于一篇 Survey（见核心文献），就是如何将人类的反馈放在 NLP 过程中，这个过程可以是训练，也可以是部署后，也可以是数据标注阶段。总之，它泛指把人类的反馈与 NLP 过程结合。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.174Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Put Human in NLP Loop">
 <meta name="twitter:description" content="这篇文章基于一篇 Survey（见核心文献），就是如何将人类的反馈放在 NLP 过程中，这个过程可以是训练，也可以是部署后，也可以是数据标注阶段。总之，它泛指把人类的反馈与 NLP 过程结合。">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/" data-id="clx98np2200mgtsbz0dflnrk9" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/" data-id="clxbpfs7v00b5dlbz8i8lspli" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,10 +95,8 @@
       
             <!-- Table of Contents -->
               
-        <p>这篇文章基于一篇 Survey（见核心文献），就是如何将人类的反馈放在 NLP
-过程中，这个过程可以是训练，也可以是部署后，也可以是数据标注阶段。总之，它泛指把人类的反馈与
-NLP 过程结合。</p>
-<span id="more"></span>
+        <p>这篇文章基于一篇 Survey（见核心文献），就是如何将人类的反馈放在 NLP 过程中，这个过程可以是训练，也可以是部署后，也可以是数据标注阶段。总之，它泛指把人类的反馈与 NLP 过程结合。</p>
+<a id="more"></a>
 <p>在正式开始前，我们需要先说明几个业界常用的概念：</p>
 <ul>
 <li>HITL：Human in the loop 的简称，将人置于循环迭代</li>
@@ -107,14 +105,12 @@ NLP 过程结合。</p>
 <p>首先要说的是动机——HITL 有啥用，为啥要 HITL？两个很重要的原因：</p>
 <ul>
 <li>提升模型效果（分类、对话和 QA 等）和泛化能力。</li>
-<li>提升模型可解释性和可用性（用户创建的特征词典、QA 中用户生成的对抗 Q
-等）并提升用户体验。</li>
+<li>提升模型可解释性和可用性（用户创建的特征词典、QA 中用户生成的对抗 Q 等）并提升用户体验。</li>
 </ul>
 <h2 id="hitl任务">HITL任务</h2>
 <p>具体有哪些实践任务呢？</p>
 <p><strong>文本分类</strong></p>
-<p>NLP
-基础任务，一般是这么做的：先训练一个分类器，然后基于该分类器结果人工进行标注，合并已标注数据持续训练模型。</p>
+<p>NLP 基础任务，一般是这么做的：先训练一个分类器，然后基于该分类器结果人工进行标注，合并已标注数据持续训练模型。</p>
 <p>具体点来说，包括以下一些操作：</p>
 <ul>
 <li>交互式地编辑文本特征或标注新文档。</li>
@@ -147,8 +143,7 @@ NLP 过程结合。</p>
 <li>离线反馈系统：离线批量更新，一般由标注人员批量生成对抗问题。</li>
 </ul>
 <h2 id="hitl流程">HITL流程</h2>
-<p>上面总的来说都是一些在 NLP 具体任务上的做法，每一个都涉及到相关
-paper，我们可以简单的将其归纳为这么一个流程：</p>
+<p>上面总的来说都是一些在 NLP 具体任务上的做法，每一个都涉及到相关 paper，我们可以简单的将其归纳为这么一个流程：</p>
 <ul>
 <li>首先搞一个/多个已有系统。在线、离线均可，实际任务或标注任务都行。</li>
 <li>从已有系统给出结果。这里样例的选取可以考虑能带来最大信息增益的、或者分数较低的、或者特征不显著的样本等等。</li>
@@ -161,8 +156,7 @@ paper，我们可以简单的将其归纳为这么一个流程：</p>
 <p>接下来是用户反馈的类型，刚刚上面已经提到一些，这里归纳一下：</p>
 <ul>
 <li>二元反馈（是/否，好/不好，满意/不满意等等）。</li>
-<li>打分反馈（5、10、100
-等为满分，给结果一个分值评价；按结果的好坏排序也属于这种）。</li>
+<li>打分反馈（5、10、100 等为满分，给结果一个分值评价；按结果的好坏排序也属于这种）。</li>
 <li>自然语言反馈：自然语言接口居多，根据反馈的文本可以直接作为更细模型的样本或依据。</li>
 </ul>
 <p>最后是使用方式，上面也提到一些，不过从算法角度看，可以分成两种：</p>
@@ -175,11 +169,9 @@ paper，我们可以简单的将其归纳为这么一个流程：</p>
 <p>首先是在 NLP 系统中扮演起更广泛的角色：</p>
 <ul>
 <li>作为更好理解模型和提升最终用户体验的一种方法。比如用户反馈可以用来缓解模型偏见。</li>
-<li>考虑让模型工程师和最终用户参与到 NLP
-开发流程。比如用户可以在运行时观察到模型的行为或者更改模型特征权重，给用户更多的控制权。</li>
+<li>考虑让模型工程师和最终用户参与到 NLP 开发流程。比如用户可以在运行时观察到模型的行为或者更改模型特征权重，给用户更多的控制权。</li>
 </ul>
-<p>然后是要设计以 Human 为中心的系统，比如：在 HITL
-界面添加模型解释线索，提高反馈质量（把原理告诉反馈者）。未来方向包括：</p>
+<p>然后是要设计以 Human 为中心的系统，比如：在 HITL 界面添加模型解释线索，提高反馈质量（把原理告诉反馈者）。未来方向包括：</p>
 <ul>
 <li>人类反馈具有主观性，应该从谁那里收集，执行某些任务是否需要专业知识？这个主要体现在终端用户这里。</li>
 <li>如何呈现模型学到的东西，以及需要哪些反馈？如何可视化模型从用户反馈中学习后的变化？</li>
@@ -189,14 +181,11 @@ paper，我们可以简单的将其归纳为这么一个流程：</p>
 <li>开源工具，发布新的 HITL NLP 工作时共享用户研究协议。</li>
 <li>创建和共享人类反馈数据集。</li>
 </ul>
-<p>这一部分内容看起来比较亮眼，关于方向的梳理极具指导意义，尤其是 Human
-为中心的系统设计，站在一个宏观和整体的角度对 HITL
-进行了思考。从系统的角度看，这和原来的设计可能完全不一样，要考虑的问题更加全面，而且角度也大相径庭。这一块也是目前已有系统非常不完善的地方，尤其是国内的一些应用，无法直视。</p>
+<p>这一部分内容看起来比较亮眼，关于方向的梳理极具指导意义，尤其是 Human 为中心的系统设计，站在一个宏观和整体的角度对 HITL 进行了思考。从系统的角度看，这和原来的设计可能完全不一样，要考虑的问题更加全面，而且角度也大相径庭。这一块也是目前已有系统非常不完善的地方，尤其是国内的一些应用，无法直视。</p>
 <h2 id="文献和参考">文献和参考</h2>
 <p><strong>核心文献</strong></p>
 <ul>
-<li>Zijie J. Wang, Putting Humans in the Natural Language Processing
-Loop: A Survey, 2022</li>
+<li>Zijie J. Wang, Putting Humans in the Natural Language Processing Loop: A Survey, 2022</li>
 </ul>
 
       
@@ -355,21 +344,6 @@ Loop: A Survey, 2022</li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

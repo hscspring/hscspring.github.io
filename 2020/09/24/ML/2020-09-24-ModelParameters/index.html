@@ -23,7 +23,7 @@
 <meta property="og:description" content="通过前面的 EDA 和特征工程探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。 本文分为以下几个部分：  重新思考梳理 Pipeline 流程 建模 调参">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/ml-modelparameters-1.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.162Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="建模调参">
 <meta name="twitter:description" content="通过前面的 EDA 和特征工程探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。 本文分为以下几个部分：  重新思考梳理 Pipeline 流程 建模 调参">
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="clx98np0m003mtsbznxrto73w" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="clxbpfs4v0040dlbzt0sd7mme" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,43 +97,19 @@
       
             <!-- Table of Contents -->
               
-        <p>通过前面的 <a
-href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/">EDA</a> 和<a
-href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/">特征工程</a>探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。</p>
+        <p>通过前面的 <a href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" target="_blank" rel="noopener">EDA</a> 和<a href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/" target="_blank" rel="noopener">特征工程</a>探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。</p>
 <p>本文分为以下几个部分：</p>
 <ul>
 <li>重新思考梳理 Pipeline 流程</li>
 <li>建模</li>
 <li>调参</li>
 </ul>
-<span id="more"></span>
-<div class="toc">
-<ul class="toc-item">
-<li>
-<span><a href="#Pipeline" data-toc-modified-id="Pipeline-1">Pipeline</a></span>
-</li>
-<li>
-<span><a href="#建模" data-toc-modified-id="建模-2">建模</a></span>
-</li>
-<li>
-<span><a href="#调参" data-toc-modified-id="调参-3">调参</a></span>
-</li>
-<li>
-<span><a href="#参考资料" data-toc-modified-id="参考资料-4">参考资料</a></span>
-</li>
-</ul>
-</div>
-<p>数据来自：<a
-href="https://tianchi.aliyun.com/competition/entrance/531830/introduction">零基础入门金融风控-贷款违约预测-天池大赛-阿里云天池</a></p>
-<p>代码 Notebook 在这里：<a
-href="https://github.com/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/ModelParameters.ipynb">ModelParameters</a>，或用
-<a
-href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/ModelParameters.ipynb">nbviewer</a>
-查看。</p>
+<a id="more"></a>
+<div class="toc"><ul class="toc-item"><li><span><a href="#Pipeline" data-toc-modified-id="Pipeline-1">Pipeline</a></span></li><li><span><a href="#建模" data-toc-modified-id="建模-2">建模</a></span></li><li><span><a href="#调参" data-toc-modified-id="调参-3">调参</a></span></li><li><span><a href="#参考资料" data-toc-modified-id="参考资料-4">参考资料</a></span></li></ul></div>
+<p>数据来自：<a href="https://tianchi.aliyun.com/competition/entrance/531830/introduction" target="_blank" rel="noopener">零基础入门金融风控-贷款违约预测-天池大赛-阿里云天池</a></p>
+<p>代码 Notebook 在这里：<a href="https://github.com/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/ModelParameters.ipynb" target="_blank" rel="noopener">ModelParameters</a>，或用 <a href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-DeepUnderstand/ModelParameters.ipynb" target="_blank" rel="noopener">nbviewer</a> 查看。</p>
 <h2 id="pipeline">Pipeline</h2>
-<p>这里的 Pipeline
-主要是指数据预处理环节，并不包括建模和调参。也就是说，Pipeline
-的输入是原始的数据，输出是最终的特征矩阵。以下只是个人观点，有不当之处还望指正。</p>
+<p>这里的 Pipeline 主要是指数据预处理环节，并不包括建模和调参。也就是说，Pipeline 的输入是原始的数据，输出是最终的特征矩阵。以下只是个人观点，有不当之处还望指正。</p>
 <ul>
 <li>依次分析特征，明确以下几个问题，并以此进行粗处理：
 <ul>
@@ -141,48 +117,51 @@ href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-De
 <li>哪些特征只有唯一一个值？</li>
 <li>哪些特征可以拆分成两个或多个表示？比如时间可以拆分成年月日。</li>
 <li>哪些特征可以组合？</li>
-</ul></li>
+</ul>
+</li>
 <li>对特征进行归类，分别处理为以下类别：
 <ul>
 <li>0-1 特征：直接用原始值作为特征。</li>
-<li>数值特征、不需要分桶：直接用原始值作为特征。对需要 log 处理的 log
-化。</li>
+<li>数值特征、不需要分桶：直接用原始值作为特征。对需要 log 处理的 log 化。</li>
 <li>数值特征、需要分桶：分桶后用 WOE 作为特征。</li>
 <li>对象特征、不需要分桶：直接编码后作为特征。</li>
 <li>对象特征、需要分桶：先编码，分桶后用 WOE 作为特征。</li>
-</ul></li>
+</ul>
+</li>
 <li>转换：
 <ul>
 <li>对象特征是否可转为数值。</li>
 <li>对象特征是否需要转为频率。</li>
-</ul></li>
+</ul>
+</li>
 <li>异常值处理：
 <ul>
-<li>对不需要分桶且符合正态分布（或 log 后）的使用基于高斯分布的方法，或
-3sigma。</li>
+<li>对不需要分桶且符合正态分布（或 log 后）的使用基于高斯分布的方法，或 3sigma。</li>
 <li>否则，可以尝试分桶。</li>
-</ul></li>
+</ul>
+</li>
 <li>缺失值处理：
 <ul>
 <li>对于要分桶的，将其单独作为一桶。</li>
 <li>不分桶的，对象特征按照众数填充，数值特征按照均值填充。</li>
-</ul></li>
+</ul>
+</li>
 <li>分桶、编码获得最后特征：
 <ul>
 <li>对需要分桶的特征进行分桶，可以采用等距（数值特征）、等频（类别特征）、卡方或基于决策树的算法等。</li>
 <li>对不需要分桶的对象特征 OneHot（或序号）编码。</li>
-</ul></li>
+</ul>
+</li>
 <li>转换数据类型：
 <ul>
-<li>将 int 的数据都转为极值范围内的 int 编码（float
-同理）以节约空间。</li>
-</ul></li>
+<li>将 int 的数据都转为极值范围内的 int 编码（float 同理）以节约空间。</li>
+</ul>
+</li>
 </ul>
 <p>通过上面几步，我们就可以得到最初的特征矩阵，然后就可以初步建立模型了。至于特征交互和特征选择则需要视模型而定，比如深度学习模型就不太需要做交互。</p>
-<p>上面 Pipeline
-的过程中会用到一系列的工具，可以将这些工具预先实现好，便于调用。主要包括以下一些功能：</p>
+<p>上面 Pipeline 的过程中会用到一系列的工具，可以将这些工具预先实现好，便于调用。主要包括以下一些功能：</p>
 <p><strong>整体信息</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看缺失值特征</span></span><br><span class="line">data.isna().<span class="built_in">sum</span>()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看缺失值特征</span></span><br><span class="line">data.isna().sum()</span><br></pre></td></tr></table></figure>
 <p><strong>基本信息</strong>：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 基本统计信息</span></span><br><span class="line">data[fea].describe()</span><br><span class="line"><span class="comment"># Unique Value Number</span></span><br><span class="line">data[fea].nunique()</span><br><span class="line"><span class="comment"># Unique Value</span></span><br><span class="line">data[fea].unique()</span><br><span class="line"><span class="comment"># 不同 value 的频次，类似于 Counter</span></span><br><span class="line">data[fea].value_counts(dropna=<span class="literal">False</span>).sort_index()</span><br></pre></td></tr></table></figure>
 <p><strong>单特征相关分布图</strong>：</p>
@@ -191,15 +170,15 @@ href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-De
 <li>单特征箱图、小提琴图</li>
 <li>单特征不同 Label（或其他离散属性）分布</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_feature_distribution</span>(<span class="params">df: pd.DataFrame, feature: <span class="built_in">str</span>, hue: <span class="type">Optional</span>[<span class="built_in">str</span>] = <span class="literal">None</span></span>):</span><br><span class="line">    rows = <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> hue:</span><br><span class="line">        hue = df[hue]</span><br><span class="line">        </span><br><span class="line">    fig, axs = plt.subplots(nrows=rows, ncols=<span class="number">2</span>, figsize=(<span class="number">15</span>, <span class="number">4</span>*rows))</span><br><span class="line">    </span><br><span class="line">    sns.histplot(x=df[feature], hue=hue, ax=axs[<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">    sns.kdeplot(x=df[feature], hue=hue, ax=axs[<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    sns.boxplot(x=hue, y=df[feature], hue=hue, ax=axs[<span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    sns.violinplot(x=hue, y=df[feature], hue=hue, ax=axs[<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plot_feature_distribution(data, fea, hue=label)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_feature_distribution</span><span class="params">(df: pd.DataFrame, feature: str, hue: Optional[str] = None)</span>:</span></span><br><span class="line">    rows = <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> hue:</span><br><span class="line">        hue = df[hue]</span><br><span class="line">        </span><br><span class="line">    fig, axs = plt.subplots(nrows=rows, ncols=<span class="number">2</span>, figsize=(<span class="number">15</span>, <span class="number">4</span>*rows))</span><br><span class="line">    </span><br><span class="line">    sns.histplot(x=df[feature], hue=hue, ax=axs[<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">    sns.kdeplot(x=df[feature], hue=hue, ax=axs[<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    sns.boxplot(x=hue, y=df[feature], hue=hue, ax=axs[<span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">    sns.violinplot(x=hue, y=df[feature], hue=hue, ax=axs[<span class="number">1</span>, <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plot_feature_distribution(data, fea, hue=label)</span><br></pre></td></tr></table></figure>
 <p><strong>两特征相关分布图</strong>：</p>
 <ul>
 <li>两变量散点图</li>
 <li>两变量折线图</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">plot_feature_relations</span>(<span class="params">df: pd.DataFrame, x: <span class="built_in">str</span>, y: <span class="built_in">str</span>, hue: <span class="built_in">str</span></span>):</span><br><span class="line">    <span class="keyword">if</span> hue:</span><br><span class="line">        hue = df[hue]</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">15</span>, <span class="number">4</span>))</span><br><span class="line">    </span><br><span class="line">    sns.scatterplot(x=df[x], y=df[y], hue=hue, ax=axs[<span class="number">0</span>])</span><br><span class="line">    sns.lineplot(x=df[x], y=df[y], hue=hue, ax=axs[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plot_feature_relations(data, fea1, fea2, hue=label)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_feature_relations</span><span class="params">(df: pd.DataFrame, x: str, y: str, hue: str)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> hue:</span><br><span class="line">        hue = df[hue]</span><br><span class="line">    fig, axs = plt.subplots(nrows=<span class="number">1</span>, ncols=<span class="number">2</span>, figsize=(<span class="number">15</span>, <span class="number">4</span>))</span><br><span class="line">    </span><br><span class="line">    sns.scatterplot(x=df[x], y=df[y], hue=hue, ax=axs[<span class="number">0</span>])</span><br><span class="line">    sns.lineplot(x=df[x], y=df[y], hue=hue, ax=axs[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plot_feature_relations(data, fea1, fea2, hue=label)</span><br></pre></td></tr></table></figure>
 <p>数据处理：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 替换</span></span><br><span class="line">data[fea].replace(to_replace=str1, value=str2, inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># NA 值判断</span></span><br><span class="line">pd.isna()</span><br><span class="line">pd.notna()</span><br><span class="line"><span class="comment"># FillNA</span></span><br><span class="line">data[feas] = data[feas].fillna(data[feas].mean())</span><br><span class="line"><span class="comment"># 低维类别特征 OneHot 编码</span></span><br><span class="line">data = pd.get_dummies(data, columns=feas, drop_first=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 高维类别特征 转换后编码或可直接作为特征</span></span><br><span class="line"><span class="keyword">for</span> fea <span class="keyword">in</span> feas:</span><br><span class="line">    data[fea+<span class="string">&#x27;_cnts&#x27;</span>] = data.groupby([fea])[<span class="string">&#x27;id&#x27;</span>].transform(<span class="string">&#x27;count&#x27;</span>)</span><br><span class="line">    data[fea+<span class="string">&#x27;_rank&#x27;</span>] = data.groupby([fea])[<span class="string">&#x27;id&#x27;</span>].rank(ascending=<span class="literal">False</span>).astype(<span class="built_in">int</span>)</span><br><span class="line">    <span class="keyword">del</span> data[fea]</span><br><span class="line"><span class="comment"># 合并拆分</span></span><br><span class="line">data = pd.concat([train, test], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line">train = data[data[label].notnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">test = data[data[label].isnull()].reset_index(drop=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 替换</span></span><br><span class="line">data[fea].replace(to_replace=str1, value=str2, inplace=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># NA 值判断</span></span><br><span class="line">pd.isna()</span><br><span class="line">pd.notna()</span><br><span class="line"><span class="comment"># FillNA</span></span><br><span class="line">data[feas] = data[feas].fillna(data[feas].mean())</span><br><span class="line"><span class="comment"># 低维类别特征 OneHot 编码</span></span><br><span class="line">data = pd.get_dummies(data, columns=feas, drop_first=<span class="literal">True</span>)</span><br><span class="line"><span class="comment"># 高维类别特征 转换后编码或可直接作为特征</span></span><br><span class="line"><span class="keyword">for</span> fea <span class="keyword">in</span> feas:</span><br><span class="line">    data[fea+<span class="string">'_cnts'</span>] = data.groupby([fea])[<span class="string">'id'</span>].transform(<span class="string">'count'</span>)</span><br><span class="line">    data[fea+<span class="string">'_rank'</span>] = data.groupby([fea])[<span class="string">'id'</span>].rank(ascending=<span class="literal">False</span>).astype(int)</span><br><span class="line">    <span class="keyword">del</span> data[fea]</span><br><span class="line"><span class="comment"># 合并拆分</span></span><br><span class="line">data = pd.concat([train, test], axis=<span class="number">0</span>, ignore_index=<span class="literal">True</span>)</span><br><span class="line">train = data[data[label].notnull()].reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">test = data[data[label].isnull()].reset_index(drop=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="建模">建模</h2>
 <p>机器学习的模型很多，但最经典的主要是以下几种：</p>
 <ul>
@@ -208,18 +187,13 @@ href="https://nbviewer.jupyter.org/github/hscspring/AI-Methods/blob/master/ML-De
 <li>决策树</li>
 </ul>
 <p><strong>逻辑回归</strong></p>
-<p>通俗来说，逻辑回归就是线性变换加一个非线性的类似 Sigmoid
-的激活，关于激活函数可以看<a
-href="https://yam.gift/2020/07/05/AIBK/2020-07-05-Activation/">这里</a>，具体而言就是每个特征一个系数，乘以每一项对应的数据后，所得的结果被归一化到
-0-1 之间，一般以 0.5 做区分。</p>
-<p>形式上，逻辑回归满足下面的概率分布： <span class="math display">\[
-P(Y=1|x) = \frac{\exp(w \cdot x + b)}{1 + \exp(w \cdot x + b)} \\
-P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)}
-\]</span> w 和 b 都是参数，w 被称为权值向量，b 被称为偏置。exp
-的值越接近正无穷，概率值越接近 1，越接近负无穷，概率值越接近
-0。逻辑回归使用极大似然法估计参数。</p>
-<p><img
-src="http://qnimg.lovevivian.cn/ml-modelparameters-1.jpeg" /></p>
+<p>通俗来说，逻辑回归就是线性变换加一个非线性的类似 Sigmoid 的激活，关于激活函数可以看<a href="https://yam.gift/2020/07/05/AIBK/2020-07-05-Activation/" target="_blank" rel="noopener">这里</a>，具体而言就是每个特征一个系数，乘以每一项对应的数据后，所得的结果被归一化到 0-1 之间，一般以 0.5 做区分。</p>
+<p>形式上，逻辑回归满足下面的概率分布：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac><mspace linebreak="newline"></mspace><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(Y=1|x) = \frac{\exp(w \cdot x + b)}{1 + \exp(w \cdot x + b)} \\
+P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)} 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.363em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">0</span><span class="mord">∣</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.25744em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">exp</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>w 和 b 都是参数，w 被称为权值向量，b 被称为偏置。exp 的值越接近正无穷，概率值越接近 1，越接近负无穷，概率值越接近 0。逻辑回归使用极大似然法估计参数。</p>
+<p><img src="http://qnimg.lovevivian.cn/ml-modelparameters-1.jpeg" alt></p>
 <p>逻辑回归的特点如下：</p>
 <ul>
 <li>优点：
@@ -227,24 +201,21 @@ src="http://qnimg.lovevivian.cn/ml-modelparameters-1.jpeg" /></p>
 <li>计算简单，训练速度快</li>
 <li>可解释性好</li>
 <li>参数占用空间小，推理快</li>
-</ul></li>
+</ul>
+</li>
 <li>缺点：
 <ul>
 <li>需要预先处理缺失值和异常值</li>
 <li>不能解决非线性问题</li>
 <li>准确率不高，很难拟合真实数据分布</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p><strong>SVM 支持向量机</strong></p>
-<p>在深度学习之前的时代，支持向量机是最强大的分类器，它形式优美严谨，而且可以通过核方法解决非线性问题，模型收敛速度也比较高效，是工业界的标配。SVM
-通过最大化数据间隔来获得分割数据的超平面，通过应用拉格朗日对偶性将原始优化问题转为对偶问题进行优化求解（更容易求解，并很自然地引入核函数进而推广到非线性分类问题）。详细可以参照下面两篇文章：</p>
+<p>在深度学习之前的时代，支持向量机是最强大的分类器，它形式优美严谨，而且可以通过核方法解决非线性问题，模型收敛速度也比较高效，是工业界的标配。SVM 通过最大化数据间隔来获得分割数据的超平面，通过应用拉格朗日对偶性将原始优化问题转为对偶问题进行优化求解（更容易求解，并很自然地引入核函数进而推广到非线性分类问题）。详细可以参照下面两篇文章：</p>
 <ul>
-<li><a
-href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/">Hard-SVM,
-Soft-SVM 和 KKT | Yam</a></li>
-<li><a
-href="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/">核方法 和
-SMO | Yam</a></li>
+<li><a href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/" target="_blank" rel="noopener">Hard-SVM, Soft-SVM 和 KKT | Yam</a></li>
+<li><a href="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" target="_blank" rel="noopener">核方法 和 SMO | Yam</a></li>
 </ul>
 <p>SVM 的特点如下：</p>
 <ul>
@@ -254,20 +225,21 @@ SMO | Yam</a></li>
 <li>使用核技巧解决非线性问题</li>
 <li>通过对偶问题转为凸优化问题，有较为高效的解决方法（如 SMO）</li>
 <li>近似于测试错误率的界限，有大量理论证实有效</li>
-</ul></li>
+</ul>
+</li>
 <li>缺点：
 <ul>
 <li>如果特征数超过数据样本数时容易过拟合</li>
 <li>不适合大规模数据</li>
 <li>只有二分类</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p><strong>决策树</strong></p>
 <p>决策树是一种自上而下对样本数据进行树形分类的过程，内部节点表示特征，叶子节点表示类别，有向边为特征的不同拆分。一棵决策树的生成一般包括：</p>
 <ul>
 <li>特征选择：即特征对数据集的分类能力，一般用信息增益或信息增益比衡量。</li>
-<li>树的构造：主要包括 ID3（最大信息增益）、C4.5（最大信息增益比）和
-CART 算法（最大基尼系数）。</li>
+<li>树的构造：主要包括 ID3（最大信息增益）、C4.5（最大信息增益比）和 CART 算法（最大基尼系数）。</li>
 <li>树的剪枝：一般有两种方法：预剪枝（生成决策树过程中提前停止树的增长）和后剪枝（在已生成的过拟合决策树上进行剪枝）。</li>
 </ul>
 <p>决策树的特点如下：</p>
@@ -277,50 +249,41 @@ CART 算法（最大基尼系数）。</li>
 <li>简单直观，计算量仅与特征数相关</li>
 <li>数据不需要预处理、归一化，不需要处理缺失数据</li>
 <li>既可以处理离散值也可以处理连续值</li>
-</ul></li>
+</ul>
+</li>
 <li>缺点：
 <ul>
 <li>容易过拟合</li>
 <li>由于采用贪心算法，容易得到局部最优解</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p><strong>集成方法</strong></p>
-<p>集成学习的思想是通过构建多个学习器来完成机器学习任务，一般可分为两种方式：一种是串行的，学习器之间有着强依赖关系；另一种是并行的，学习器之间相互独立。前者是
-Boosting，代表算法是 AdaBoost 和 GBDT，后者是
-Bagging，代表算法是随机森林。由于是组合了多个学习器，集成方法泛化能力一般比单一分类器好。</p>
+<p>集成学习的思想是通过构建多个学习器来完成机器学习任务，一般可分为两种方式：一种是串行的，学习器之间有着强依赖关系；另一种是并行的，学习器之间相互独立。前者是 Boosting，代表算法是 AdaBoost 和 GBDT，后者是 Bagging，代表算法是随机森林。由于是组合了多个学习器，集成方法泛化能力一般比单一分类器好。</p>
 <p>Boosting 和 Bagging 主要区别如下：</p>
 <ul>
-<li>样本选择：Bagging
-是从原始数据集中有放回选取，每轮训练集之间是独立的；Boosting
-每一轮训练数据不变，只是每个样本的权重会发生变化，因此同样的数据在不同的分类器中起的作用是不同的。</li>
-<li>样例权重：Bagging 是均匀取样，每个样本权重一样；Boosting
-根据分类结果调整权重，分错的样本权重更大。</li>
-<li>预测函数：Bagging 所有分类器权重相等；Boosting
-每个分类器权重不同，分类误差小的权重大。</li>
+<li>样本选择：Bagging 是从原始数据集中有放回选取，每轮训练集之间是独立的；Boosting 每一轮训练数据不变，只是每个样本的权重会发生变化，因此同样的数据在不同的分类器中起的作用是不同的。</li>
+<li>样例权重：Bagging 是均匀取样，每个样本权重一样；Boosting 根据分类结果调整权重，分错的样本权重更大。</li>
+<li>预测函数：Bagging 所有分类器权重相等；Boosting 每个分类器权重不同，分类误差小的权重大。</li>
 <li>并行计算：Bagging 各个分类器可以并行生成，Boosting 只能按顺序。</li>
 </ul>
 <p><strong>模型评估</strong></p>
-<p>机器学习中一般把数据集划分为训练集和测试集，前者用于训练模型，后者用于测试模型。通常都会假设测试集和训练集都是来自同一样本（独立同分布采样），但测试集应尽量与训练集互斥，即测试集样本尽量不在训练集中出现，这样才能真正检验模型是否
-”学习“ 到特征。</p>
+<p>机器学习中一般把数据集划分为训练集和测试集，前者用于训练模型，后者用于测试模型。通常都会假设测试集和训练集都是来自同一样本（独立同分布采样），但测试集应尽量与训练集互斥，即测试集样本尽量不在训练集中出现，这样才能真正检验模型是否 ”学习“ 到特征。</p>
 <p>对数据集的而划分一般有三种方法：</p>
 <ul>
-<li><p>留出法：将数据集划分为两个互斥的集合，分别作为训练集和测试集。划分时尽量保持数据分布的一致性。实际使用时，一般要采用若干次随机划分、重复进行试验评估后取平均值作为评估结果。划分比例一般选择大约
-2/3~4/5 的样本用于训练。</p></li>
-<li><p>交叉验证法：将数据集划分为 k
-个大小相似的互斥子集，每个子集尽可能保持数据分布的一致性（通过分层采样）。每次用
-k-1 个子集的并集训练，剩下那个测试，共 k
-次训练；又由于划分子集有多种方式，通常会使用不同的划分重复 p
-次，最终结果就是 p 次 k 个训练结果的均值。如常见的 ”10 次 10
-折交叉验证“。k=样本数时，得到交叉验证法的一个特例——留一法：m
-个样本被划分为 m 个子集，训练集比初始数据集只少了一个样本。</p></li>
-<li><p>自助法：有放回地从原始数据集中采样 m 次得到包含 m
-个样本的数据集作为训练集，没出现在训练集中的样本作为测试集。样本在 m
-次采样中始终没有被采到的概率是： <span class="math display">\[
-  (1-\frac{1}{m})^m \\
-  \lim_{m \rightarrow \infty} (1-\frac{1}{m})^m \rightarrow \frac{1}{e}
-\approx 0.368
-  \]</span>
-该方法在数据集小、难以有效划分训练/测试集时很有用，而且因为能从初始数据集中产生多个不同的训练集，对集成学习方法有很大好处。但这种方法产生的数据集改变了初始数据集的分布，这会引入估计偏差。</p></li>
+<li>
+<p>留出法：将数据集划分为两个互斥的集合，分别作为训练集和测试集。划分时尽量保持数据分布的一致性。实际使用时，一般要采用若干次随机划分、重复进行试验评估后取平均值作为评估结果。划分比例一般选择大约 2/3~4/5 的样本用于训练。</p>
+</li>
+<li>
+<p>交叉验证法：将数据集划分为 k 个大小相似的互斥子集，每个子集尽可能保持数据分布的一致性（通过分层采样）。每次用 k-1 个子集的并集训练，剩下那个测试，共 k 次训练；又由于划分子集有多种方式，通常会使用不同的划分重复 p 次，最终结果就是 p 次 k 个训练结果的均值。如常见的 ”10 次 10 折交叉验证“。k=样本数时，得到交叉验证法的一个特例——留一法：m 个样本被划分为 m 个子集，训练集比初始数据集只少了一个样本。</p>
+</li>
+<li>
+<p>自助法：有放回地从原始数据集中采样 m 次得到包含 m 个样本的数据集作为训练集，没出现在训练集中的样本作为测试集。样本在 m 次采样中始终没有被采到的概率是：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><msup><mo stretchy="false">)</mo><mi>m</mi></msup><mspace linebreak="newline"></mspace><munder><mo><mi>lim</mi><mo>⁡</mo></mo><mrow><mi>m</mi><mo>→</mo><mi mathvariant="normal">∞</mi></mrow></munder><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mfrac><mn>1</mn><mi>m</mi></mfrac><msup><mo stretchy="false">)</mo><mi>m</mi></msup><mo>→</mo><mfrac><mn>1</mn><mi>e</mi></mfrac><mo>≈</mo><mn>0.368</mn></mrow><annotation encoding="application/x-tex">(1-\frac{1}{m})^m \\
+\lim_{m \rightarrow \infty} (1-\frac{1}{m})^m \rightarrow \frac{1}{e} \approx 0.368
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1.45em;vertical-align:-0.7em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-2.4em;margin-left:0em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">m</span><span class="mrel mtight">→</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span><span class="mop">lim</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7em;"><span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">m</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7143919999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">m</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.00744em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault">e</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">3</span><span class="mord">6</span><span class="mord">8</span></span></span></span></span></p>
+<p>该方法在数据集小、难以有效划分训练/测试集时很有用，而且因为能从初始数据集中产生多个不同的训练集，对集成学习方法有很大好处。但这种方法产生的数据集改变了初始数据集的分布，这会引入估计偏差。</p>
+</li>
 </ul>
 <p>小结如下：</p>
 <ul>
@@ -329,9 +292,7 @@ k-1 个子集的并集训练，剩下那个测试，共 k
 <li>数据量小且可以有效划分时采用留一法</li>
 </ul>
 <p><strong>模型评价</strong></p>
-<p>一般使用 AUC 或 F1-Score 作为评价指标，具体可参考：<a
-href="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/">Metrics |
-Yam</a>。</p>
+<p>一般使用 AUC 或 F1-Score 作为评价指标，具体可参考：<a href="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/" target="_blank" rel="noopener">Metrics | Yam</a>。</p>
 <h2 id="调参">调参</h2>
 <p>常见的有三种方法：</p>
 <ul>
@@ -342,7 +303,8 @@ Yam</a>。</p>
 <li>3 bagging_fraction, feature_fraction, bagging_freq</li>
 <li>4 reg_lambda, reg_alpha</li>
 <li>5 min_split_gain</li>
-</ul></li>
+</ul>
+</li>
 <li>网格搜索：使用从参数网格中指定的值进行调整。适合于小数据集。</li>
 <li>贝叶斯调参：给定优化目标，不断添加样本点更新目标函数的后验分布，直到基本贴合真实分布。也就是每次调参考虑了上一次参数的信息。基本步骤如下：
 <ul>
@@ -350,29 +312,18 @@ Yam</a>。</p>
 <li>建立模型</li>
 <li>定义待优化的参数</li>
 <li>得到优化结果并返回要优化的分数指标</li>
-</ul></li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 贝叶斯</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rf_cv_lgb</span>(<span class="params"></span></span><br><span class="line"><span class="params">    num_leaves, </span></span><br><span class="line"><span class="params">    max_depth, </span></span><br><span class="line"><span class="params">    bagging_fraction, </span></span><br><span class="line"><span class="params">    feature_fraction, </span></span><br><span class="line"><span class="params">    bagging_freq, </span></span><br><span class="line"><span class="params">    min_data_in_leaf, </span></span><br><span class="line"><span class="params">    min_child_weight, </span></span><br><span class="line"><span class="params">    min_split_gain, </span></span><br><span class="line"><span class="params">    reg_lambda, </span></span><br><span class="line"><span class="params">    reg_alpha</span>):</span><br><span class="line">    model_lgb = lgb.LGBMClassifier(</span><br><span class="line">        boosting_type=<span class="string">&#x27;gbdt&#x27;</span>, </span><br><span class="line">        objective=<span class="string">&#x27;binary&#x27;</span>, </span><br><span class="line">        metric=<span class="string">&#x27;auc&#x27;</span>,</span><br><span class="line">        learning_rate=<span class="number">0.1</span>, </span><br><span class="line">        n_estimators=<span class="number">5000</span>,</span><br><span class="line">        num_leaves=<span class="built_in">int</span>(num_leaves), </span><br><span class="line">        max_depth=<span class="built_in">int</span>(max_depth), </span><br><span class="line">        bagging_fraction=<span class="built_in">round</span>(bagging_fraction, <span class="number">2</span>),</span><br><span class="line">        feature_fraction=<span class="built_in">round</span>(feature_fraction, <span class="number">2</span>),</span><br><span class="line">        bagging_freq=<span class="built_in">int</span>(bagging_freq), </span><br><span class="line">        min_data_in_leaf=<span class="built_in">int</span>(min_data_in_leaf),</span><br><span class="line">        min_child_weight=min_child_weight, </span><br><span class="line">        min_split_gain=min_split_gain,</span><br><span class="line">        reg_lambda=reg_lambda, </span><br><span class="line">        reg_alpha=reg_alpha,</span><br><span class="line">        n_jobs=-<span class="number">1</span>)</span><br><span class="line">    val = cross_val_score(</span><br><span class="line">        model_lgb, X_train, y_train, cv=<span class="number">5</span>, scoring=<span class="string">&#x27;roc_auc&#x27;</span></span><br><span class="line">    ).mean()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bayes_opt <span class="keyword">import</span> BayesianOptimization</span><br><span class="line">bayes_lgb = BayesianOptimization(</span><br><span class="line">    rf_cv_lgb, </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;num_leaves&#x27;</span>:(<span class="number">10</span>, <span class="number">200</span>),</span><br><span class="line">        <span class="string">&#x27;max_depth&#x27;</span>:(<span class="number">3</span>, <span class="number">20</span>),</span><br><span class="line">        <span class="string">&#x27;bagging_fraction&#x27;</span>:(<span class="number">0.5</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">&#x27;feature_fraction&#x27;</span>:(<span class="number">0.5</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">&#x27;bagging_freq&#x27;</span>:(<span class="number">0</span>, <span class="number">100</span>),</span><br><span class="line">        <span class="string">&#x27;min_data_in_leaf&#x27;</span>:(<span class="number">10</span>,<span class="number">100</span>),</span><br><span class="line">        <span class="string">&#x27;min_child_weight&#x27;</span>:(<span class="number">0</span>, <span class="number">10</span>),</span><br><span class="line">        <span class="string">&#x27;min_split_gain&#x27;</span>:(<span class="number">0.0</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">&#x27;reg_alpha&#x27;</span>:(<span class="number">0.0</span>, <span class="number">10</span>),</span><br><span class="line">        <span class="string">&#x27;reg_lambda&#x27;</span>:(<span class="number">0.0</span>, <span class="number">10</span>),</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">bayes_lgb.maximize(n_iter=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 贝叶斯</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rf_cv_lgb</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    num_leaves, </span></span></span><br><span class="line"><span class="function"><span class="params">    max_depth, </span></span></span><br><span class="line"><span class="function"><span class="params">    bagging_fraction, </span></span></span><br><span class="line"><span class="function"><span class="params">    feature_fraction, </span></span></span><br><span class="line"><span class="function"><span class="params">    bagging_freq, </span></span></span><br><span class="line"><span class="function"><span class="params">    min_data_in_leaf, </span></span></span><br><span class="line"><span class="function"><span class="params">    min_child_weight, </span></span></span><br><span class="line"><span class="function"><span class="params">    min_split_gain, </span></span></span><br><span class="line"><span class="function"><span class="params">    reg_lambda, </span></span></span><br><span class="line"><span class="function"><span class="params">    reg_alpha)</span>:</span></span><br><span class="line">    model_lgb = lgb.LGBMClassifier(</span><br><span class="line">        boosting_type=<span class="string">'gbdt'</span>, </span><br><span class="line">        objective=<span class="string">'binary'</span>, </span><br><span class="line">        metric=<span class="string">'auc'</span>,</span><br><span class="line">        learning_rate=<span class="number">0.1</span>, </span><br><span class="line">        n_estimators=<span class="number">5000</span>,</span><br><span class="line">        num_leaves=int(num_leaves), </span><br><span class="line">        max_depth=int(max_depth), </span><br><span class="line">        bagging_fraction=round(bagging_fraction, <span class="number">2</span>),</span><br><span class="line">        feature_fraction=round(feature_fraction, <span class="number">2</span>),</span><br><span class="line">        bagging_freq=int(bagging_freq), </span><br><span class="line">        min_data_in_leaf=int(min_data_in_leaf),</span><br><span class="line">        min_child_weight=min_child_weight, </span><br><span class="line">        min_split_gain=min_split_gain,</span><br><span class="line">        reg_lambda=reg_lambda, </span><br><span class="line">        reg_alpha=reg_alpha,</span><br><span class="line">        n_jobs=<span class="number">-1</span>)</span><br><span class="line">    val = cross_val_score(</span><br><span class="line">        model_lgb, X_train, y_train, cv=<span class="number">5</span>, scoring=<span class="string">'roc_auc'</span></span><br><span class="line">    ).mean()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> bayes_opt <span class="keyword">import</span> BayesianOptimization</span><br><span class="line">bayes_lgb = BayesianOptimization(</span><br><span class="line">    rf_cv_lgb, </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'num_leaves'</span>:(<span class="number">10</span>, <span class="number">200</span>),</span><br><span class="line">        <span class="string">'max_depth'</span>:(<span class="number">3</span>, <span class="number">20</span>),</span><br><span class="line">        <span class="string">'bagging_fraction'</span>:(<span class="number">0.5</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">'feature_fraction'</span>:(<span class="number">0.5</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">'bagging_freq'</span>:(<span class="number">0</span>, <span class="number">100</span>),</span><br><span class="line">        <span class="string">'min_data_in_leaf'</span>:(<span class="number">10</span>,<span class="number">100</span>),</span><br><span class="line">        <span class="string">'min_child_weight'</span>:(<span class="number">0</span>, <span class="number">10</span>),</span><br><span class="line">        <span class="string">'min_split_gain'</span>:(<span class="number">0.0</span>, <span class="number">1.0</span>),</span><br><span class="line">        <span class="string">'reg_alpha'</span>:(<span class="number">0.0</span>, <span class="number">10</span>),</span><br><span class="line">        <span class="string">'reg_lambda'</span>:(<span class="number">0.0</span>, <span class="number">10</span>),</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">bayes_lgb.maximize(n_iter=<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="参考资料">参考资料</h2>
 <ul>
-<li><a
-href="https://book.douban.com/subject/33437381/">统计学习方法（第2版）
-(豆瓣)</a></li>
-<li><a href="https://book.douban.com/subject/30285146/">百面机器学习
-(豆瓣)</a></li>
-<li><a href="https://book.douban.com/subject/26708119/">机器学习
-(豆瓣)</a></li>
-<li><a
-href="https://github.com/datawhalechina/team-learning-data-mining/blob/master/FinancialRiskControl/Task4%20%E5%BB%BA%E6%A8%A1%E8%B0%83%E5%8F%82.md">team-learning-data-mining/Task4
-建模调参.md at master ·
-datawhalechina/team-learning-data-mining</a></li>
-<li><a
-href="https://seaborn.pydata.org/tutorial/function_overview.html">Overview
-of seaborn plotting functions — seaborn 0.11.0 documentation</a></li>
-<li><a
-href="https://stats.stackexchange.com/questions/24437/advantages-and-disadvantages-of-svm">machine
-learning - Advantages and disadvantages of SVM - Cross
-Validated</a></li>
+<li><a href="https://book.douban.com/subject/33437381/" target="_blank" rel="noopener">统计学习方法（第2版） (豆瓣)</a></li>
+<li><a href="https://book.douban.com/subject/30285146/" target="_blank" rel="noopener">百面机器学习 (豆瓣)</a></li>
+<li><a href="https://book.douban.com/subject/26708119/" target="_blank" rel="noopener">机器学习 (豆瓣)</a></li>
+<li><a href="https://github.com/datawhalechina/team-learning-data-mining/blob/master/FinancialRiskControl/Task4%20%E5%BB%BA%E6%A8%A1%E8%B0%83%E5%8F%82.md" target="_blank" rel="noopener">team-learning-data-mining/Task4 建模调参.md at master · datawhalechina/team-learning-data-mining</a></li>
+<li><a href="https://seaborn.pydata.org/tutorial/function_overview.html" target="_blank" rel="noopener">Overview of seaborn plotting functions — seaborn 0.11.0 documentation</a></li>
+<li><a href="https://stats.stackexchange.com/questions/24437/advantages-and-disadvantages-of-svm" target="_blank" rel="noopener">machine learning - Advantages and disadvantages of SVM - Cross Validated</a></li>
 </ul>
 
       
@@ -531,21 +482,6 @@ Validated</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

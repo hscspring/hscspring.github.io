@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-flow-2.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-flow-3.jpeg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-bert-flow-4.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.172Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bert-Flow 论文笔记">
 <meta name="twitter:description" content="Paper：[2011.05864] On the Sentence Embeddings from Pre-trained Language Models Code：bohanli/BERT-flow: TensorFlow implementation of On the Sentence Embeddings from Pre-trained Language Models (EMNLP 2">
@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="clx98np1r00jgtsbz5rimpneo" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="clxbpfs6v0093dlbzw7vb6mx0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,248 +100,143 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/2011.05864">[2011.05864] On the
-Sentence Embeddings from Pre-trained Language Models</a></p>
-<p>Code：<a
-href="https://github.com/bohanli/BERT-flow">bohanli/BERT-flow:
-TensorFlow implementation of On the Sentence Embeddings from Pre-trained
-Language Models (EMNLP 2020)</a></p>
-<p>核心思想：无监督方法将 Bert
-产生的非平滑各向异性的句子语义空间分布转换为各向同性的高斯分布。</p>
-<span id="more"></span>
+        <p>Paper：<a href="https://arxiv.org/abs/2011.05864" target="_blank" rel="noopener">[2011.05864] On the Sentence Embeddings from Pre-trained Language Models</a></p>
+<p>Code：<a href="https://github.com/bohanli/BERT-flow" target="_blank" rel="noopener">bohanli/BERT-flow: TensorFlow implementation of On the Sentence Embeddings from Pre-trained Language Models (EMNLP 2020)</a></p>
+<p>核心思想：无监督方法将 Bert 产生的非平滑各向异性的句子语义空间分布转换为各向同性的高斯分布。</p>
+<a id="more"></a>
 <h2 id="what">What</h2>
 <h3 id="动机和核心问题">动机和核心问题</h3>
-<p>Bert 取得的成功毋庸置疑，但在 Sentence Embedding
-方面（比如句子相似度）表现却很差，甚至不如
-Glove。针对这个情况，本文主要回答两个问题：</p>
+<p>Bert 取得的成功毋庸置疑，但在 Sentence Embedding 方面（比如句子相似度）表现却很差，甚至不如 Glove。针对这个情况，本文主要回答两个问题：</p>
 <ul>
-<li>为什么 Bert 的 Sentence Embedding
-在语义相似句子召回上效果不好？是没有学习到足够的语义信息，还是仅仅因为语义信息没有被正确利用？</li>
-<li>如果 Bert
-学习到足够的语义信息但是很难被直接使用，有没有什么不需要额外监督训练的方法能让它变得容易些？</li>
+<li>为什么 Bert 的 Sentence Embedding 在语义相似句子召回上效果不好？是没有学习到足够的语义信息，还是仅仅因为语义信息没有被正确利用？</li>
+<li>如果 Bert 学习到足够的语义信息但是很难被直接使用，有没有什么不需要额外监督训练的方法能让它变得容易些？</li>
 </ul>
-<p>本文首先证明了 Bert 的句子嵌入能够反映句子间的语义相似度，也就是说
-Bert 已经学习到了句子的表示。但是之前有研究表明 Bert
-的词嵌入存在各向异性（词嵌入被局限在一个狭窄的圆锥体空间），所以假定句子也有类似问题。进一步的实证研究发现，句子嵌入在语义空间上不平滑，并且在某些区域定义不佳，很难直接用来计算相似度。本文就是通过
-Normalizing Flow（一个可逆网络）将 Bert
-的句子嵌入分布转换为平滑的各向同性的高斯分布，具体而言，就是学习一个基于
-Flow 的生成模型来最大化从一个标准高斯隐变量空间生成 Bert
-句子嵌入的似然函数。训练时，只有 Flow 网络的参数被优化，Bert
-的参数保持不变；学习完成后，该可逆网络就可以用来将 Bert
-的句子嵌入映射到高斯空间。此为 Bert-Flow，其实质乃是一个优化 Bert
-句子嵌入的方法。</p>
-<p>需要注意的是，本文所指的 Sentence Embedding 是指直接从 Bert
-预训练模型得到的，而不是 Fine-Tune 后的。</p>
-<p>Sentence-Bert：Nils Reimers and Iryna Gurevych. 2019. Sentence-BERT:
-Sentence embeddings using siamese BERT-networks. InProceedings of
-EMNLP-IJCNLP.</p>
-<p>Normalizing FLow：Laurent Dinh, David Krueger, and Yoshua
-Bengio.2015. NICE: Non-linear independent componentsestimation.
-InProceedings of ICLR.</p>
+<p>本文首先证明了 Bert 的句子嵌入能够反映句子间的语义相似度，也就是说 Bert 已经学习到了句子的表示。但是之前有研究表明 Bert 的词嵌入存在各向异性（词嵌入被局限在一个狭窄的圆锥体空间），所以假定句子也有类似问题。进一步的实证研究发现，句子嵌入在语义空间上不平滑，并且在某些区域定义不佳，很难直接用来计算相似度。本文就是通过 Normalizing Flow（一个可逆网络）将 Bert 的句子嵌入分布转换为平滑的各向同性的高斯分布，具体而言，就是学习一个基于 Flow 的生成模型来最大化从一个标准高斯隐变量空间生成 Bert 句子嵌入的似然函数。训练时，只有 Flow 网络的参数被优化，Bert 的参数保持不变；学习完成后，该可逆网络就可以用来将 Bert 的句子嵌入映射到高斯空间。此为 Bert-Flow，其实质乃是一个优化 Bert 句子嵌入的方法。</p>
+<p>需要注意的是，本文所指的 Sentence Embedding 是指直接从 Bert 预训练模型得到的，而不是 Fine-Tune 后的。</p>
+<p>Sentence-Bert：Nils  Reimers  and  Iryna  Gurevych.  2019.    Sentence-BERT: Sentence embeddings using siamese BERT-networks. InProceedings of EMNLP-IJCNLP.</p>
+<p>Normalizing FLow：Laurent  Dinh,  David  Krueger,  and  Yoshua  Bengio.2015.   NICE:  Non-linear  independent  componentsestimation. InProceedings of ICLR.</p>
 <h3 id="模型和算法">模型和算法</h3>
 <h3 id="bert-的-sentence-embedding">Bert 的 Sentence Embedding</h3>
 <p>一般而言有两种方式：</p>
 <ul>
-<li>直接用 CLS Token 的 Embedding 作为句子表征，Bert
-下游句子级别的任务基本都是用这个作为标准方法；</li>
+<li>直接用 CLS Token 的 Embedding 作为句子表征，Bert 下游句子级别的任务基本都是用这个作为标准方法；</li>
 <li>最后几层上下文 Embedding 的平均值</li>
 </ul>
-<p>之前（Sentence-Bert, Reimers and Curevych (2019)）有实验表明，Bert
-的句子 Embedding 在相似度方面表现还不如 Glove；另外，平均方法比直接取
-CLS 效果要好。其实，这个是可以理解的， 之前正好写过一篇<a
-href="https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/">文章</a>，其中探讨过这个问题。原因很简单，CLS
-压缩了太多信息，而平均又会损失语义，尤其是对 Self-Attention
-取平均，甚至会弱化本来得到的
-“Attention”。如果非要提升效果，我觉得不如在最后一层基础上加一层
-CNN（卷积+Max Pooling）。</p>
+<p>之前（Sentence-Bert, Reimers and Curevych (2019)）有实验表明，Bert 的句子 Embedding 在相似度方面表现还不如 Glove；另外，平均方法比直接取 CLS 效果要好。其实，这个是可以理解的， 之前正好写过一篇<a href="https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">文章</a>，其中探讨过这个问题。原因很简单，CLS 压缩了太多信息，而平均又会损失语义，尤其是对 Self-Attention 取平均，甚至会弱化本来得到的 “Attention”。如果非要提升效果，我觉得不如在最后一层基础上加一层 CNN（卷积+Max Pooling）。</p>
 <h4 id="语义相似度与-bert">语义相似度与 Bert</h4>
-<p>Sentence Embedding 相似度可以简化为 Context Embedding
-的相似度，但因为 Bert 训练过程中并没有计算两个 Embedding 的点乘（或
-Cosine 相似度），所以需要（想象、假设）替代的方案。 <span
-class="math display">\[
-\text{sim} = h_c^T h_c&#39;
-\]</span></p>
+<p>Sentence Embedding 相似度可以简化为 Context Embedding 的相似度，但因为 Bert 训练过程中并没有计算两个 Embedding 的点乘（或 Cosine 相似度），所以需要（想象、假设）替代的方案。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>sim</mtext><mo>=</mo><msubsup><mi>h</mi><mi>c</mi><mi>T</mi></msubsup><msubsup><mi>h</mi><mi>c</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup></mrow><annotation encoding="application/x-tex">\text{sim} = h_c^T h_c&#x27;
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord text"><span class="mord">sim</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.138331em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8018919999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span></span></span></span></p>
 <ul>
-<li><p>Co-Occurrence Statistics as the Proxy for Semantic Similarity
-<span class="math display">\[
-  \text{sim} = h_c^T w_x \\
-  \]</span> 被用来代替计算 sim，而根据 Yang et al.(2018)
-的研究，该式可以近似分解为下面的式子： <span class="math display">\[
-  h_c^T w_x \approx \log p^*(x|c) + \lambda_c \\
-  = \text{PMI}(x,c) + \log p(x) + \lambda_c \ (1)
-  \]</span> PMI（点间互信息）捕获两个事件共同发生比独立发生高的频率，log
-p(x) 是特定词项，λ 是特定上下文项。PMI
-常用来近似度量词的语义相似，所以（马马虎虎地），计算 Context Embedding
-和 Word Embedding 的点乘也具有语义意义。</p></li>
-<li><p>Higher-Order Co-Occurrence Statistics as Context-Context Semantic
-Similarity</p>
-<p>两个 Context
-的关系可以通过他们与词的连接推断和加强。具体来说，两个不同的 Context
-如果与同一个词共现，那这两个 Context 可能在语义上相似。Context
-和词同时出现，Context 的 Embedding 和 Word Embedding
-也应该接近。预训练时，以词表中的词为中心，Context Embedding
-应该可以学习到彼此之间的语义关联。</p></li>
+<li>
+<p>Co-Occurrence Statistics as the Proxy for Semantic Similarity</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>sim</mtext><mo>=</mo><msubsup><mi>h</mi><mi>c</mi><mi>T</mi></msubsup><msub><mi>w</mi><mi>x</mi></msub><mspace linebreak="newline"></mspace></mrow><annotation encoding="application/x-tex">\text{sim} = h_c^T w_x \\
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.66786em;vertical-align:0em;"></span><span class="mord text"><span class="mord">sim</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.138331em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace newline"></span></span></span></span></p>
+<p>被用来代替计算 sim，而根据 Yang et al.(2018) 的研究，该式可以近似分解为下面的式子：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msubsup><mi>h</mi><mi>c</mi><mi>T</mi></msubsup><msub><mi>w</mi><mi>x</mi></msub><mo>≈</mo><mi>log</mi><mo>⁡</mo><msup><mi>p</mi><mo>∗</mo></msup><mo stretchy="false">(</mo><mi>x</mi><mi mathvariant="normal">∣</mi><mi>c</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>λ</mi><mi>c</mi></msub><mspace linebreak="newline"></mspace><mo>=</mo><mtext>PMI</mtext><mo stretchy="false">(</mo><mi>x</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>+</mo><mi>log</mi><mo>⁡</mo><mi>p</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>+</mo><msub><mi>λ</mi><mi>c</mi></msub><mtext> </mtext><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h_c^T w_x \approx \log p^*(x|c) + \lambda_c \\
+= \text{PMI}(x,c) + \log p(x) + \lambda_c \ (1)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.138331em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913309999999999em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.738696em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mbin mtight">∗</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mord">∣</span><span class="mord mathdefault">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">PMI</span></span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace"> </span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span></span></p>
+<p>PMI（点间互信息）捕获两个事件共同发生比独立发生高的频率，log p(x) 是特定词项，λ 是特定上下文项。PMI 常用来近似度量词的语义相似，所以（马马虎虎地），计算 Context Embedding 和 Word Embedding 的点乘也具有语义意义。</p>
+</li>
+<li>
+<p>Higher-Order Co-Occurrence Statistics as Context-Context Semantic Similarity</p>
+<p>两个 Context 的关系可以通过他们与词的连接推断和加强。具体来说，两个不同的 Context 如果与同一个词共现，那这两个 Context 可能在语义上相似。Context 和词同时出现，Context 的 Embedding 和 Word Embedding 也应该接近。预训练时，以词表中的词为中心，Context Embedding 应该可以学习到彼此之间的语义关联。</p>
+</li>
 </ul>
-<p>这一步的分析主要是确定 Bert 的预训练过程其实已经在 “暗中” “鼓励”
-语义上有意义的上下文嵌入。也就是说，Bert
-预训练其实隐含了上下文语义的训练。</p>
-<p>HcW 分解：Zhilin Yang, Zihang Dai, Ruslan Salakhutdinov, andWilliam W
-Cohen. 2018. Breaking the softmax bottleneck: A high-rank rnn language
-model. InPro-ceedings of ICLR</p>
+<p>这一步的分析主要是确定 Bert 的预训练过程其实已经在 “暗中”  “鼓励”  语义上有意义的上下文嵌入。也就是说，Bert 预训练其实隐含了上下文语义的训练。</p>
+<p>HcW 分解：Zhilin  Yang,  Zihang  Dai,  Ruslan  Salakhutdinov,  andWilliam W Cohen. 2018.  Breaking the softmax bottleneck:  A high-rank rnn language model.   InPro-ceedings of ICLR</p>
 <p>PMI 近似词语义相似度：</p>
 <ul>
-<li>Omer Levy and Yoav Goldberg. 2014. Neural wordembedding as implicit
-matrix factorization. InProceedings of NeurIPS.</li>
-<li>Kawin Ethayarajh, David Duvenaud, and Graeme Hirst.2019. Towards
-understanding linear word analogies. InProceedings of ACL.</li>
+<li>Omer  Levy  and  Yoav  Goldberg.  2014.   Neural  wordembedding as implicit matrix factorization.  InProceedings of NeurIPS.</li>
+<li>Kawin Ethayarajh, David Duvenaud, and Graeme Hirst.2019. Towards understanding linear word analogies. InProceedings of ACL.</li>
 </ul>
-<h4
-id="各向异性嵌入空间导致语义相似度差">各向异性嵌入空间导致语义相似度差</h4>
-<p>既然如此，那为啥 Sentence Embedding 的表现会一般呢？本文用 Word
-Embedding 来分析（因为它和 Context Embedding 在同一空间）。</p>
+<h4 id="各向异性嵌入空间导致语义相似度差">各向异性嵌入空间导致语义相似度差</h4>
+<p>既然如此，那为啥 Sentence Embedding 的表现会一般呢？本文用 Word Embedding 来分析（因为它和 Context Embedding 在同一空间）。</p>
 <ul>
-<li><p>词频导致嵌入空间有偏</p>
-<p>期望 Embedding 的相似度和语义相似度一致，如果 Embedding
-根据频率不同分布在不同区域，那 Embedding
-的相似度其实已经没有意义了。本文的计算结果表明 Word Embedding
-受词频影响，因为词连接了上下文，所以 Context Embedding
-可能被词频信息带歪，进而导致语义信息有损。</p>
+<li>
+<p>词频导致嵌入空间有偏</p>
+<p>期望 Embedding 的相似度和语义相似度一致，如果 Embedding 根据频率不同分布在不同区域，那 Embedding 的相似度其实已经没有意义了。本文的计算结果表明 Word Embedding 受词频影响，因为词连接了上下文，所以 Context Embedding 可能被词频信息带歪，进而导致语义信息有损。</p>
 <blockquote>
-<p>这里的分析感觉有点问题。Word Embedding
-受词频影响不应该是很正常的现象吗，低频词和高频词为什么一定要分布一致？另外，Word
-Embedding
-受词频影响，为什么就能推出上下文语义就会有损呢？这中间的推理基础是什么？</p>
-<p>关于怎么计算距离写的很不清楚，看了依然没有特别清楚到底是怎么做的。Freq
-Rank 的标记有错误。</p>
-</blockquote></li>
-<li><p>低频词稀疏</p>
-<p>低频词与相邻词的距离要比高频词远，因此低频词会导致稀疏，进而导致
-Embedding 空间有很多 “hole”，这些区域的语义表示就不佳（因为 Sentence
-Embedding 是相加的到的）。</p></li>
+<p>这里的分析感觉有点问题。Word Embedding 受词频影响不应该是很正常的现象吗，低频词和高频词为什么一定要分布一致？另外，Word Embedding 受词频影响，为什么就能推出上下文语义就会有损呢？这中间的推理基础是什么？</p>
+<p>关于怎么计算距离写的很不清楚，看了依然没有特别清楚到底是怎么做的。Freq Rank 的标记有错误。</p>
+</blockquote>
+</li>
+<li>
+<p>低频词稀疏</p>
+<p>低频词与相邻词的距离要比高频词远，因此低频词会导致稀疏，进而导致 Embedding 空间有很多 “hole”，这些区域的语义表示就不佳（因为 Sentence Embedding 是相加的到的）。</p>
+</li>
 </ul>
-<p>这部分主要是讲词频会影响 Embedding，进一步影响 Context
-Embedding，并最终会影响 Sentence Embedding。</p>
+<p>这部分主要是讲词频会影响 Embedding，进一步影响 Context Embedding，并最终会影响 Sentence Embedding。</p>
 <p>语言模型各向异性的 Word Embedding：</p>
 <ul>
-<li>Jun Gao, Di He, Xu Tan, Tao Qin, Liwei Wang, and Tie-Yan Liu. 2019.
-Representation degeneration problem in training natural language
-generation models.InProceedings of ICLR.</li>
-<li>Lingxiao Wang, Jing Huang, Kevin Huang, Ziniu Hu,Guangtao Wang, and
-Quanquan Gu. 2020. Improv-ing neural language generation with spectrum
-control. InProceedings of ICLR.</li>
-<li>Kawin Ethayarajh. 2019. How contextual are contextualized word
-representations? comparing the geometry of bert, elmo, and gpt-2
-embeddings. InProceed-ings of EMNLP-IJCNLP.</li>
+<li>Jun Gao, Di He, Xu Tan, Tao Qin, Liwei Wang, and Tie-Yan  Liu.  2019.   Representation  degeneration  problem in training natural language generation models.InProceedings of ICLR.</li>
+<li>Lingxiao Wang, Jing Huang, Kevin Huang, Ziniu Hu,Guangtao Wang, and Quanquan Gu. 2020.  Improv-ing neural language generation with spectrum control. InProceedings of ICLR.</li>
+<li>Kawin Ethayarajh. 2019. How contextual are contextualized word representations?  comparing the geometry of bert, elmo, and gpt-2 embeddings. InProceed-ings of EMNLP-IJCNLP.</li>
 </ul>
 <p>hole 会侵害嵌入空间凸性：</p>
 <ul>
-<li>Danilo Jimenez Rezende and Fabio Viola. 2018. Taming VAEs.arXiv
-preprint arXiv:1810.00597</li>
-<li>Bohan Li, Junxian He, Graham Neubig, Taylor Berg-Kirkpatrick, and
-Yiming Yang. 2019. A surprisingly effective fix for deep latent variable
-modeling of text. InProceedings of EMNLP-IJCNLP.</li>
-<li>Partha Ghosh, Mehdi SM Sajjadi, Antonio Vergari,Michael Black, and
-Bernhard Scholkopf. 2020.From variational to deterministic autoencoders.
-InProceedings of ICLR.</li>
+<li>Danilo Jimenez Rezende and Fabio Viola. 2018.  Taming VAEs.arXiv preprint arXiv:1810.00597</li>
+<li>Bohan Li,  Junxian He,  Graham Neubig,  Taylor Berg-Kirkpatrick, and Yiming Yang. 2019. A surprisingly effective fix for deep latent variable modeling of text. InProceedings of EMNLP-IJCNLP.</li>
+<li>Partha  Ghosh,  Mehdi  SM  Sajjadi,  Antonio  Vergari,Michael   Black,   and   Bernhard   Scholkopf.   2020.From variational to deterministic autoencoders.   InProceedings of ICLR.</li>
 </ul>
 <h3 id="bert-flow">BERT-Flow</h3>
-<p>标准的高斯分布满足各向同性，而且不存在 “hole”
-的区域，所以上面两个问题都能得到缓解。建模如下： <span
-class="math display">\[
-\mathbf{z} \sim p_{\mathcal{Z}}(\mathbf{z}),
-\mathbf{u}=f_{\phi}(\mathbf{z})
-\]</span> z 的分布是先验分布，f
-是从高斯空间到观测空间的映射。观测变量的概率密度函数为： <span
-class="math display">\[
-p_{\mathcal{U}}(\mathbf{u})=p_{\mathcal{Z}}\left(f_{\phi}^{-1}(\mathbf{u})\right)\left|\operatorname{det}
-\frac{\partial f_{\phi}^{-1}(\mathbf{u})}{\partial \mathbf{u}}\right|
-\]</span> 似然函数： <span class="math display">\[
-\begin{array}{l}
-\max _{\phi} \mathbb{E}_{\mathbf{u}=\text { BERT(sentence), sentence }
-\sim \mathcal{D}} \\
-\qquad \log p_{\mathcal{Z}}\left(f_{\phi}^{-1}(\mathbf{u})\right)+\log
-\left|\operatorname{det} \frac{\partial
-f_{\phi}^{-1}(\mathbf{u})}{\partial \mathbf{u}}\right|
+<p>标准的高斯分布满足各向同性，而且不存在 “hole” 的区域，所以上面两个问题都能得到缓解。建模如下：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="bold">z</mi><mo>∼</mo><msub><mi>p</mi><mi mathvariant="script">Z</mi></msub><mo stretchy="false">(</mo><mi mathvariant="bold">z</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi mathvariant="bold">u</mi><mo>=</mo><msub><mi>f</mi><mi>ϕ</mi></msub><mo stretchy="false">(</mo><mi mathvariant="bold">z</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{z} \sim p_{\mathcal{Z}}(\mathbf{z}), \mathbf{u}=f_{\phi}(\mathbf{z})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.44444em;vertical-align:0em;"></span><span class="mord"><span class="mord mathbf">z</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∼</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathcal mtight" style="margin-right:0.07944em;">Z</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">z</span></span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathbf">u</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.036108em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">z</span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>z 的分布是先验分布，f 是从高斯空间到观测空间的映射。观测变量的概率密度函数为：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mi mathvariant="script">U</mi></msub><mo stretchy="false">(</mo><mi mathvariant="bold">u</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>p</mi><mi mathvariant="script">Z</mi></msub><mrow><mo fence="true">(</mo><msubsup><mi>f</mi><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">(</mo><mi mathvariant="bold">u</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mrow><mo fence="true">∣</mo><mi mathvariant="normal">det</mi><mo>⁡</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><msubsup><mi>f</mi><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">(</mo><mi mathvariant="bold">u</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">∂</mi><mi mathvariant="bold">u</mi></mrow></mfrac><mo fence="true">∣</mo></mrow></mrow><annotation encoding="application/x-tex">p_{\mathcal{U}}(\mathbf{u})=p_{\mathcal{Z}}\left(f_{\phi}^{-1}(\mathbf{u})\right)\left|\operatorname{det} \frac{\partial f_{\phi}^{-1}(\mathbf{u})}{\partial \mathbf{u}}\right|
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathcal mtight" style="margin-right:0.09931em;">U</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">u</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.03599em;vertical-align:-1.250025em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathcal mtight" style="margin-right:0.07944em;">Z</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.864108em;"><span style="top:-2.4085610000000006em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4275469999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">u</span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">)</span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.785965em;"><span style="top:-1.355975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-1.956975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.557975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.158975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.184965em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.785965em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.250025em;"><span></span></span></span></span></span></span><span class="mop"><span class="mord mathrm">d</span><span class="mord mathrm">e</span><span class="mord mathrm">t</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6816550000000001em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathbf">u</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.827416em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.3986920000000005em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4374159999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">u</span></span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.785965em;"><span style="top:-1.355975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-1.956975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.557975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.158975em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.184965em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.785965em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.250025em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
+<p>似然函数：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable rowspacing="0.15999999999999992em" columnalign="left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mo><mi>max</mi><mo>⁡</mo></mo><mi>ϕ</mi></msub><msub><mi mathvariant="double-struck">E</mi><mrow><mi mathvariant="bold">u</mi><mo>=</mo><mtext> BERT(sentence), sentence </mtext><mo>∼</mo><mi mathvariant="script">D</mi></mrow></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mspace width="2em"></mspace><mi>log</mi><mo>⁡</mo><msub><mi>p</mi><mi mathvariant="script">Z</mi></msub><mrow><mo fence="true">(</mo><msubsup><mi>f</mi><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">(</mo><mi mathvariant="bold">u</mi><mo stretchy="false">)</mo><mo fence="true">)</mo></mrow><mo>+</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">∣</mo><mi mathvariant="normal">det</mi><mo>⁡</mo><mfrac><mrow><mi mathvariant="normal">∂</mi><msubsup><mi>f</mi><mi>ϕ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msubsup><mo stretchy="false">(</mo><mi mathvariant="bold">u</mi><mo stretchy="false">)</mo></mrow><mrow><mi mathvariant="normal">∂</mi><mi mathvariant="bold">u</mi></mrow></mfrac><mo fence="true">∣</mo></mrow></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{l}
+\max _{\phi} \mathbb{E}_{\mathbf{u}=\text { BERT(sentence), sentence } \sim \mathcal{D}} \\
+\qquad \log p_{\mathcal{Z}}\left(f_{\phi}^{-1}(\mathbf{u})\right)+\log \left|\operatorname{det} \frac{\partial f_{\phi}^{-1}(\mathbf{u})}{\partial \mathbf{u}}\right|
 \end{array}
-\]</span> D 表示句子集合。</p>
-<p>关于基于 Flow 的模型：Ivan Kobyzev, Simon Prince, and Marcus A
-Brubaker.2019. Normalizing flows: Introduction and ideas. arXiv preprint
-arXiv:1908.09257.</p>
-<p>映射函数：Laurent Dinh, David Krueger, and Yoshua Bengio.2015. NICE:
-Non-linear independent componentsestimation. InProceedings of ICLR.</p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.6299900000000003em;vertical-align:-1.5649950000000001em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.064995em;"><span style="top:-4.7049650000000005em;"><span class="pstrut" style="height:3.4799700000000002em;"></span><span class="mord"><span class="mop"><span class="mop">max</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathbb">E</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.34480000000000005em;"><span style="top:-2.5198em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathbf mtight">u</span></span><span class="mrel mtight">=</span><span class="mord text mtight"><span class="mord mtight"> BERT(sentence), sentence </span></span><span class="mrel mtight">∼</span><span class="mord mtight"><span class="mord mathcal mtight" style="margin-right:0.02778em;">D</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3551999999999999em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.864995em;"><span class="pstrut" style="height:3.4799700000000002em;"></span><span class="mord"><span class="mspace" style="margin-right:2em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathcal mtight" style="margin-right:0.07944em;">Z</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.854239em;"><span style="top:-2.3986920000000005em;margin-left:-0.10764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span><span style="top:-3.1031310000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4374159999999999em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathbf">u</span></span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">)</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4799700000000002em;"><span style="top:-1.65598em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.25698em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.85798em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.87897em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.47997em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500199999999999em;"><span></span></span></span></span></span></span><span class="mop"><span class="mord mathrm">d</span><span class="mord mathrm">e</span><span class="mord mathrm">t</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.255525em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathbf mtight">u</span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.631605em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight" style="margin-right:0.05556em;">∂</span><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8913142857142857em;"><span style="top:-2.17945em;margin-left:-0.10764em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">ϕ</span></span></span></span><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4594357142857142em;"><span></span></span></span></span></span></span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathbf mtight">u</span></span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4799700000000002em;"><span style="top:-1.65598em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.25698em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.85798em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-2.87897em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span><span style="top:-3.47997em;"><span class="pstrut" style="height:2.606em;"></span><span class="delimsizinginner delim-size1"><span>∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500199999999999em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.5649950000000001em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p>
+<p>D 表示句子集合。</p>
+<p>关于基于 Flow 的模型：Ivan Kobyzev, Simon Prince, and Marcus A Brubaker.2019.   Normalizing  flows:  Introduction  and  ideas. arXiv preprint arXiv:1908.09257.</p>
+<p>映射函数：Laurent  Dinh,  David  Krueger,  and  Yoshua  Bengio.2015.   NICE:  Non-linear  independent  componentsestimation. InProceedings of ICLR.</p>
 <p>det 设计：</p>
 <ul>
-<li>Durk P Kingma and Prafulla Dhariwal. 2018. Glow:Generative flow with
-invertible 1x1 convolutions. InProceedings of NeurIPS.</li>
-<li>Laurent Dinh, David Krueger, and Yoshua Bengio.2015. NICE:
-Non-linear independent componentsestimation. InProceedings of ICLR.</li>
+<li>Durk P Kingma and Prafulla Dhariwal. 2018.   Glow:Generative flow with invertible 1x1 convolutions. InProceedings of NeurIPS.</li>
+<li>Laurent  Dinh,  David  Krueger,  and  Yoshua  Bengio.2015.   NICE:  Non-linear  independent  componentsestimation. InProceedings of ICLR.</li>
 </ul>
 <h2 id="how">How</h2>
 <p>主要是如何获取 Sentence Embedding 和如何训练。</p>
 <h3 id="sentence-embedding">Sentence Embedding</h3>
-<p>这个比较简单，基本就是对 Bert 的 output 做各种处理。最后的输出都是
-[batch_size, hidden_size] 的大小。CLS 的最简单，直接从 Bert 那里拿到
-Pooled out 即可。下面再介绍两个：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># avg</span></span><br><span class="line">sequence = model.get_sequence_output() <span class="comment"># [batch_size, seq_length, hidden_size]</span></span><br><span class="line">input_mask_ = tf.cast(tf.expand_dims(input_mask, axis=-<span class="number">1</span>), dtype=tf.float32)</span><br><span class="line">pooled = tf.reduce_sum(sequence * input_mask_, axis=<span class="number">1</span>) / tf.reduce_sum(input_mask_, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>这个比较简单，基本就是对 Bert 的 output 做各种处理。最后的输出都是 [batch_size, hidden_size] 的大小。CLS 的最简单，直接从 Bert 那里拿到 Pooled out 即可。下面再介绍两个：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># avg</span></span><br><span class="line">sequence = model.get_sequence_output() <span class="comment"># [batch_size, seq_length, hidden_size]</span></span><br><span class="line">input_mask_ = tf.cast(tf.expand_dims(input_mask, axis=<span class="number">-1</span>), dtype=tf.float32)</span><br><span class="line">pooled = tf.reduce_sum(sequence * input_mask_, axis=<span class="number">1</span>) / tf.reduce_sum(input_mask_, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
 <p>avg 就是对最后一层的输出按照序列取平均。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ave-last-X</span></span><br><span class="line">pooled = <span class="number">0</span></span><br><span class="line">input_mask_ = tf.cast(tf.expand_dims(input_mask, axis=-<span class="number">1</span>), dtype=tf.float32)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(X):</span><br><span class="line">    sequence = model.all_encoder_layers[-i] <span class="comment"># [batch_size, seq_length, hidden_size]</span></span><br><span class="line">    pooled += tf.reduce_sum(sequence * input_mask_, axis=<span class="number">1</span>) / tf.reduce_sum(input_mask_, axis=<span class="number">1</span>)</span><br><span class="line">pooled /= <span class="built_in">float</span>(X)</span><br></pre></td></tr></table></figure>
-<p>"avg-last-X" 是对最后 X 层做平均。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ave-last-X</span></span><br><span class="line">pooled = <span class="number">0</span></span><br><span class="line">input_mask_ = tf.cast(tf.expand_dims(input_mask, axis=<span class="number">-1</span>), dtype=tf.float32)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(X):</span><br><span class="line">    sequence = model.all_encoder_layers[-i] <span class="comment"># [batch_size, seq_length, hidden_size]</span></span><br><span class="line">    pooled += tf.reduce_sum(sequence * input_mask_, axis=<span class="number">1</span>) / tf.reduce_sum(input_mask_, axis=<span class="number">1</span>)</span><br><span class="line">pooled /= float(X)</span><br></pre></td></tr></table></figure>
+<p>“avg-last-X” 是对最后 X 层做平均。</p>
 <h3 id="flow">Flow</h3>
-<p>这里的代码基本是参考了 OpenAI 和 Google 的，相关论文：<a
-href="https://arxiv.org/abs/1807.03039">[1807.03039] Glow: Generative
-Flow with Invertible 1x1 Convolutions</a>，Google 代码：<a
-href="https://github.com/tensorflow/tensor2tensor/tree/master/tensor2tensor/models/research">tensor2tensor/tensor2tensor/models/research
-at master · tensorflow/tensor2tensor</a>。具体细节就不在本文展开了。</p>
+<p>这里的代码基本是参考了 OpenAI 和 Google 的，相关论文：<a href="https://arxiv.org/abs/1807.03039" target="_blank" rel="noopener">[1807.03039] Glow: Generative Flow with Invertible 1x1 Convolutions</a>，Google 代码：<a href="https://github.com/tensorflow/tensor2tensor/tree/master/tensor2tensor/models/research" target="_blank" rel="noopener">tensor2tensor/tensor2tensor/models/research at master · tensorflow/tensor2tensor</a>。具体细节就不在本文展开了。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">flow_model = Glow(flow_model_config)</span><br><span class="line">flow_loss_example = flow_model.body(pooled, is_training))</span><br></pre></td></tr></table></figure>
 <h3 id="数据和实验">数据和实验</h3>
-<p>评估方法：Sentence Embedding 的 Cosine 相似度与标签相似度的 <a
-href="https://www.wikiwand.com/en/Spearman%27s_rank_correlation_coefficient">Spearman
-相关系数</a>。</p>
+<p>评估方法：Sentence Embedding 的 Cosine 相似度与标签相似度的 <a href="https://www.wikiwand.com/en/Spearman%27s_rank_correlation_coefficient" target="_blank" rel="noopener">Spearman 相关系数</a>。</p>
 <p>两种实验设置：</p>
 <ul>
 <li>无监督的 Flow</li>
-<li>先在 SNLI+MNLI 上精调 Bert 然后再训练 Flow</li>
+<li>先在  SNLI+MNLI  上精调 Bert 然后再训练 Flow</li>
 </ul>
 <h4 id="语义相似度">语义相似度</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-1.jpeg" /></p>
-<p>NLI 表示在 NLI（SNLI+MNLI）上训练 Flow，target 表示在所有数据集上训练
-Flow。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-1.jpeg" alt></p>
+<p>NLI 表示在 NLI（SNLI+MNLI）上训练 Flow，target 表示在所有数据集上训练 Flow。</p>
 <h4 id="qa-任务">QA 任务</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-2.jpeg" /></p>
-<p>X-NLI 表示使用 NLI 监督，这个是 Sentence-Bert
-里面的方法，对比需要。这个任务本来是判断 QA 对的 Label 是 “包含” 或
-“不包含”，本文用问题和答案的相似度来表示 Label（1 表示包含，0
-表示不包含）。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-2.jpeg" alt></p>
+<p>X-NLI 表示使用 NLI 监督，这个是 Sentence-Bert 里面的方法，对比需要。这个任务本来是判断 QA 对的 Label 是 “包含” 或 “不包含”，本文用问题和答案的相似度来表示 Label（1 表示包含，0 表示不包含）。</p>
 <h4 id="其他-embedding">其他 Embedding</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-3.jpeg" /></p>
-<p>其中，SN 表示标准归一化，即对 Sentence Embedding Z
-标准化。来自：Sanjeev Arora, Yingyu Liang, and Tengyu Ma. 2017.A simple
-but tough-to-beat baseline for sentence em-beddings. InProceedings of
-ICLR.</p>
-<p>NATSV 表示 Nulling Away Top-k Singular
-Vectors，即通过使顶部的奇异向量无效，可以避免嵌入的各向异性，并可以实现更好的语义相似性。来自：Jiaqi
-Mu, Suma Bhat, and Pramod Viswanath. 2017.All-but-the-top: Simple and
-effective postprocessingfor word representations. InProceedings of
-ICLR.</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-3.jpeg" alt></p>
+<p>其中，SN 表示标准归一化，即对 Sentence Embedding Z 标准化。来自：Sanjeev Arora,  Yingyu Liang,  and Tengyu Ma. 2017.A simple but tough-to-beat baseline for sentence em-beddings. InProceedings of ICLR.</p>
+<p>NATSV 表示 Nulling Away Top-k Singular Vectors，即通过使顶部的奇异向量无效，可以避免嵌入的各向异性，并可以实现更好的语义相似性。来自：Jiaqi  Mu,  Suma  Bhat,  and  Pramod  Viswanath.  2017.All-but-the-top: Simple and effective postprocessingfor word representations. InProceedings of ICLR.</p>
 <h4 id="词汇相似度">词汇相似度</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-4.jpeg" /></p>
-<p>词汇相似度用编辑距离衡量，然后看两个相似度的相关性。标准相关性为
--24.61，Bert 的是 -50.49，Bert-Flow
-的论文没说。论文觉得，很多时候改变一个字都有可能会完全影响语义，但是
-Bert 因为相关性强，所以改变一个或少数几个（主要是编辑距离小于等于 4
-的情况）字，语义可能改变很小。</p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bert-flow-4.jpeg" alt></p>
+<p>词汇相似度用编辑距离衡量，然后看两个相似度的相关性。标准相关性为 -24.61，Bert 的是 -50.49，Bert-Flow 的论文没说。论文觉得，很多时候改变一个字都有可能会完全影响语义，但是 Bert 因为相关性强，所以改变一个或少数几个（主要是编辑距离小于等于 4 的情况）字，语义可能改变很小。</p>
 <h2 id="resource">Resource</h2>
 <ul>
-<li><a href="https://arxiv.org/abs/1908.10084">[1908.10084]
-Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></li>
-<li><a href="https://arxiv.org/abs/1908.09257">[1908.09257] Normalizing
-Flows: An Introduction and Review of Current Methods</a></li>
-<li><a href="https://github.com/openai/glow">openai/glow: Code for
-reproducing results in "Glow: Generative Flow with Invertible 1x1
-Convolutions"</a></li>
-<li><a
-href="https://github.com/tensorflow/tensor2tensor/tree/master/tensor2tensor/models/research">tensor2tensor/tensor2tensor/models/research
-at master · tensorflow/tensor2tensor</a></li>
+<li><a href="https://arxiv.org/abs/1908.10084" target="_blank" rel="noopener">[1908.10084] Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks</a></li>
+<li><a href="https://arxiv.org/abs/1908.09257" target="_blank" rel="noopener">[1908.09257] Normalizing Flows: An Introduction and Review of Current Methods</a></li>
+<li><a href="https://github.com/openai/glow" target="_blank" rel="noopener">openai/glow: Code for reproducing results in “Glow: Generative Flow with Invertible 1x1 Convolutions”</a></li>
+<li><a href="https://github.com/tensorflow/tensor2tensor/tree/master/tensor2tensor/models/research" target="_blank" rel="noopener">tensor2tensor/tensor2tensor/models/research at master · tensorflow/tensor2tensor</a></li>
 </ul>
 
       
@@ -500,21 +395,6 @@ at master · tensorflow/tensor2tensor</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

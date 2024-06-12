@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-markbert-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-markbert-3.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-markbert-4.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.173Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MarkBERT">
 <meta name="twitter:description" content="Paper：[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT 一句话概述：在 Token 中加入你感兴趣的词的边界标记。 摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：">
@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/" data-id="clx98np1x00ldtsbzogcrufs6" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/" data-id="clxbpfs7j00asdlbz90a1snxj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,23 +100,14 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/2203.06378">[2203.06378]
-MarkBERT: Marking Word Boundaries Improves Chinese BERT</a></p>
+        <p>Paper：<a href="https://arxiv.org/abs/2203.06378" target="_blank" rel="noopener">[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT</a></p>
 <p>一句话概述：在 Token 中加入你感兴趣的词的边界标记。</p>
-<p>摘要：MarkBERT 不是基于词的
-BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是
-OOV。另外，MarkBERT
-还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用
-POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER
-任务上取得了 2
-个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。</p>
-<span id="more"></span>
-<p>本文提出一个简单但有效的中文预训练模型 MarkBERT，考虑了词信息但没有
-OOV 问题。具体有以下优势：</p>
+<p>摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用 POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER 任务上取得了 2 个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。</p>
+<a id="more"></a>
+<p>本文提出一个简单但有效的中文预训练模型 MarkBERT，考虑了词信息但没有 OOV 问题。具体有以下优势：</p>
 <ul>
 <li>统一的方式处理常用词和低频词，没有 OOV 问题。</li>
-<li>Marker 的引入允许设计词级别的预训练任务，这是对字级别的 MLM
-和句子级别的 NSP 的补充。</li>
+<li>Marker 的引入允许设计词级别的预训练任务，这是对字级别的 MLM 和句子级别的 NSP 的补充。</li>
 <li>容易扩展加入更多单词语义（词性、词法等）。</li>
 </ul>
 <p>预训练阶段有两个任务：</p>
@@ -127,58 +118,42 @@ OOV 问题。具体有以下优势：</p>
 <h2 id="markbert预训练">MarkBERT预训练</h2>
 <p><strong>MarkBERT</strong></p>
 <p>如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/markbert-1.jpg" /></p>
-<p>首先分词，在词中间插入特殊标记，这些标记也会被当做普通的字符处理。有位置，也会被
-MASK，这样编码时就需要注意词的边界，而不是简单地填充，MASK
-预测任务变得更有挑战（预测需要更好地理解单词边界）。这样，模型依然是字符级别的，但它知道了单词的边界（因为单词的信息是显式给出的）。</p>
+<p><img src="https://qnimg.lovevivian.cn/markbert-1.jpg" alt></p>
+<p>首先分词，在词中间插入特殊标记，这些标记也会被当做普通的字符处理。有位置，也会被 MASK，这样编码时就需要注意词的边界，而不是简单地填充，MASK 预测任务变得更有挑战（预测需要更好地理解单词边界）。这样，模型依然是字符级别的，但它知道了单词的边界（因为单词的信息是显式给出的）。</p>
 <p><strong>替换词检测</strong></p>
-<p>具体而言，当一个词被替换成混淆词，标记应该做出「被替换」的预测，标签为
-False，否则为 True。 <span class="math display">\[
-\mathcal{L}=-\sum_{i}\left[y^{\text {true }} \cdot \log
-\left(x_{y}^{i}\right)+y^{\text {false }} \cdot \log
-\left(x_{y}^{i}\right)\right]
-\]</span> 该损失函数会和 MLM
-的损失函数加在一起作为多任务训练过程。混淆词来自同义词或读音相似的词，通过这个任务，标记可以对上下文中的单词跨度更敏感。使用
-POS 做标记的模型称为 MarkBERT-POS。</p>
+<p>具体而言，当一个词被替换成混淆词，标记应该做出「被替换」的预测，标签为 False，否则为 True。</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">L</mi><mo>=</mo><mo>−</mo><munder><mo>∑</mo><mi>i</mi></munder><mrow><mo fence="true">[</mo><msup><mi>y</mi><mtext>true </mtext></msup><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><msubsup><mi>x</mi><mi>y</mi><mi>i</mi></msubsup><mo fence="true">)</mo></mrow><mo>+</mo><msup><mi>y</mi><mtext>false </mtext></msup><mo>⋅</mo><mi>log</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><msubsup><mi>x</mi><mi>y</mi><mi>i</mi></msubsup><mo fence="true">)</mo></mrow><mo fence="true">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{L}=-\sum_{i}\left[y^{\text {true }} \cdot \log \left(x_{y}^{i}\right)+y^{\text {false }} \cdot \log \left(x_{y}^{i}\right)\right]
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord"><span class="mord mathcal">L</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.327674em;vertical-align:-1.277669em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.0500050000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">[</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.843556em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">true </span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.383108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">false </span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-2.4530000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">y</span></span></span></span><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.383108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">]</span></span></span></span></span></span></span></p>
+<p>该损失函数会和 MLM 的损失函数加在一起作为多任务训练过程。混淆词来自同义词或读音相似的词，通过这个任务，标记可以对上下文中的单词跨度更敏感。使用 POS 做标记的模型称为 MarkBERT-POS。</p>
 <p><strong>预训练</strong></p>
-<p>MASK 的比例依然是 15%，30% 的时间不插入任何标记（原始的 BERT）；50%
-的时间执行 WWM 预测任务；其余时间执行 MLM 预测任务。</p>
-<p>在插入标记中，30%
-的时间将词替换为基于读音的混淆词或基于同义词的混淆词，标记预测读音混淆标记或同义词混淆标记；其他时间标记预测正常单词标记。为了避免不平衡标签，只计算正常标记上
-15% 的损失。</p>
+<p>MASK 的比例依然是 15%，30% 的时间不插入任何标记（原始的 BERT）；50% 的时间执行 WWM 预测任务；其余时间执行 MLM 预测任务。</p>
+<p>在插入标记中，30% 的时间将词替换为基于读音的混淆词或基于同义词的混淆词，标记预测读音混淆标记或同义词混淆标记；其他时间标记预测正常单词标记。为了避免不平衡标签，只计算正常标记上 15% 的损失。</p>
 <h2 id="实验">实验</h2>
 <p>在 NER 任务上的效果如下表所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-2.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-2.jpg" alt></p>
 <p>可以看到，效果提升还是很明显的。</p>
 <p>在三个任务上做了消融实验：</p>
 <ul>
 <li>MarkBERT-MLM：只有 MLM 任务</li>
 <li>MarkBERT-rwd：在替换词检测时，分别移除近音词或同义词</li>
-<li>MarkBERT-w/o：在下游任务微调时去掉 Marker（和原始 BERT
-一样用法）</li>
+<li>MarkBERT-w/o：在下游任务微调时去掉 Marker（和原始 BERT 一样用法）</li>
 </ul>
 <p>结果如下表所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-3.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-3.jpg" alt></p>
 <p>结论如下：</p>
 <ul>
-<li>MarkBERT-MLM 在 NER
-任务中获得显著提升，说明单词边界信息在细粒度任务中很重要。</li>
-<li>不插入标记，MarkBERT-w/o 也达到了和 baseline 相近的效果，说明
-MarkBERT 可以像 BERT 一样使用。</li>
-<li>对 NER 任务来说，插入标记依然重要，表明 MarkBERT
-结构在学习需要这种细粒度表示的任务的单词边界方面是有效的。</li>
+<li>MarkBERT-MLM 在 NER 任务中获得显著提升，说明单词边界信息在细粒度任务中很重要。</li>
+<li>不插入标记，MarkBERT-w/o 也达到了和 baseline 相近的效果，说明 MarkBERT 可以像 BERT 一样使用。</li>
+<li>对 NER 任务来说，插入标记依然重要，表明 MarkBERT 结构在学习需要这种细粒度表示的任务的单词边界方面是有效的。</li>
 </ul>
 <h2 id="讨论">讨论</h2>
 <p>已有的中文 BERT 融入词信息有两个方面的策略：</p>
 <ul>
-<li>在预训练阶段使用词信息，但在下游任务上使用字符序列，如
-Chinese-BERT-WWM，Lattice-BERT。</li>
-<li>在下游任务中使用预训练模型时使用单词信息，如
-WoBERT，AmBERT，Lichee。</li>
+<li>在预训练阶段使用词信息，但在下游任务上使用字符序列，如 Chinese-BERT-WWM，Lattice-BERT。</li>
+<li>在下游任务中使用预训练模型时使用单词信息，如 WoBERT，AmBERT，Lichee。</li>
 </ul>
-<p>另外在与实体相关的 NLU
-任务，特别是关系分类中有探讨插入标记的想法。给定一个主语实体和宾语实体，现有工作注入非类型标记或实体特定标记，并对实体之间的关系做出更好的预测。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-4.jpg" /></p>
+<p>另外在与实体相关的 NLU 任务，特别是关系分类中有探讨插入标记的想法。给定一个主语实体和宾语实体，现有工作注入非类型标记或实体特定标记，并对实体之间的关系做出更好的预测。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-4.jpg" alt></p>
 <p>这篇论文当时刷到时觉得真心不错，方法很简单但很巧妙，一下子解决了中文预训练模型「词」的处理，非常方便地就可以引入词级别的任务，以及丰富的词语义。其实，我们甚至可以只针对「部分感兴趣的词」添加标记，剩下的依然按字处理。</p>
 
       
@@ -337,21 +312,6 @@ WoBERT，AmBERT，Lichee。</li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

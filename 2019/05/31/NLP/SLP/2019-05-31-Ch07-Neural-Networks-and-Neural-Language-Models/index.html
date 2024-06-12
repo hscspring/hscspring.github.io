@@ -14,19 +14,19 @@
   
   <title>Neural Networks and Neural Language Models Note (SLP Ch07) | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Units \[z = w · x + b\] \[y = \sigma(z) = \frac{1}{1+e^{-z}}\] In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: \[y = \frac{e">
-<meta name="keywords" content="AI,NLP,LM,Embeddings,DNN">
+  <meta name="description" content="Units z=w⋅x+bz = w · x + b z=w⋅x+b y=σ(z)=11+e−zy = \sigma(z) = \frac{1}{1+e^{-z}} y=σ(z)=1+e−z1​ In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function">
+<meta name="keywords" content="AI,NLP,LM,DNN,Embeddings">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural Networks and Neural Language Models Note (SLP Ch07)">
 <meta property="og:url" content="https://www.yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Units \[z = w · x + b\] \[y = \sigma(z) = \frac{1}{1+e^{-z}}\] In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: \[y = \frac{e">
+<meta property="og:description" content="Units z=w⋅x+bz = w · x + b z=w⋅x+b y=σ(z)=11+e−zy = \sigma(z) = \frac{1}{1+e^{-z}} y=σ(z)=1+e−z1​ In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.169Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Neural Networks and Neural Language Models Note (SLP Ch07)">
-<meta name="twitter:description" content="Units \[z = w · x + b\] \[y = \sigma(z) = \frac{1}{1+e^{-z}}\] In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function ranges from -1 to 1: \[y = \frac{e">
+<meta name="twitter:description" content="Units z=w⋅x+bz = w · x + b z=w⋅x+b y=σ(z)=11+e−zy = \sigma(z) = \frac{1}{1+e^{-z}} y=σ(z)=1+e−z1​ In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function">
 <meta name="twitter:image" content="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg">
   
   
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="clx98np3u015etsbzjfscignc" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="clxbpfsin01cpdlbzmt6jg2wv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -98,112 +98,72 @@
             <!-- Table of Contents -->
               
         <h2 id="units">Units</h2>
-<p><span class="math display">\[z = w · x + b\]</span></p>
-<p><span class="math display">\[y = \sigma(z) =
-\frac{1}{1+e^{-z}}\]</span></p>
-<p>In practice, the sigmoid is not commonly used as an activation
-function. A better one is <strong>tanh</strong> function ranges from -1
-to 1: <span class="math display">\[y = \frac{e^z - e^{-z}}{e^z +
-e^{-z}}\]</span></p>
-<p>The most commonly used is the rectified linear unit, also called
-<strong>ReLU</strong>: y = max(x, 0)​</p>
-<p>In the sigmoid or tanh functions, very high values of z result in
-values of y that are <strong>saturated</strong>, extremely close to 1,
-which causes problems for learning.</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>z</mi><mo>=</mo><mi>w</mi><mo separator="true">⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">z = w · x + b
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="mpunct">⋅</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">b</span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">y = \sigma(z) = \frac{1}{1+e^{-z}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.09077em;vertical-align:-0.7693300000000001em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.697331em;"><span style="top:-2.989em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.7693300000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>In practice, the sigmoid is not commonly used as an activation function. A better one is <strong>tanh</strong> function ranges from -1 to 1: $$y = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$</p>
+<p>The most commonly used is the rectified linear unit, also called <strong>ReLU</strong>: y = max(x, 0)​</p>
+<p>In the sigmoid or tanh functions, very high values of z result in values of y that are <strong>saturated</strong>, extremely close to 1, which causes problems for learning.</p>
 <ul>
-<li>Rectifiers don’t have this problem, since the output of values close
-to 1 also approaches 1 in a nice gentle linear way.</li>
-<li>By contrast, the tanh function has the nice properties of being
-smoothly differentiable and mapping outlier values toward the mean.</li>
+<li>Rectifiers don’t have this problem, since the output of values close to 1 also approaches 1 in a nice gentle linear way.</li>
+<li>By contrast, the tanh function has the nice properties of being smoothly differentiable and mapping outlier values toward the mean.</li>
 </ul>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="the-xor-problem">The XOR problem</h2>
-<p>It’s not possible to build a <strong>perceptron</strong> to compute
-logical XOR. The intuition behind this important result relies on
-understanding that a perceptron is a linear classifier. XOR is not a
-<strong>linearly separable</strong> function.</p>
+<p>It’s not possible to build a <strong>perceptron</strong> to compute logical XOR. The intuition behind this important result relies on understanding that a perceptron is a linear classifier. XOR is not a <strong>linearly separable</strong> function.</p>
 <h3 id="the-solution-neural-networks">The solution: neural networks</h3>
-<p>The hidden layer is forming a representation for the input. The
-solution need a network with non-linear activation functions.</p>
-<p>A network with simple linear (perceptron) units cannot solve the XOR
-problem, because a network formed by many layers of purely linear units
-can always be reduced (shown to be computationally identical to) a
-single layer of linear units with appropriate weights.</p>
+<p>The hidden layer is forming a representation for the input. The solution need a network with non-linear activation functions.</p>
+<p>A network with simple linear (perceptron) units cannot solve the XOR problem, because a network formed by many layers of purely linear units can always be reduced (shown to be computationally identical to) a single layer of linear units with appropriate weights.</p>
 <h2 id="feed-forward-neural-networks">Feed-Forward Neural Networks</h2>
-<p>A <strong>feed-forward network</strong> is a multilayer network in
-which the units are connected with no cycles.</p>
-<p><span class="math display">\[h = \sigma (W x + b)\]</span></p>
-<p><span class="math display">\[h_{ij} = \sum_{i=1}^{n_x} w_{ij} x_i +
-b_j\]</span></p>
-<p>h forms a representation of the input, out layer is to take this new
-representation to compute a final output.</p>
-<p><strong>Softmax</strong> was exactly what is used to create a
-probability distribution from a vector of real-valued numbers. It is
-called <strong>normalizing</strong>.</p>
+<p>A <strong>feed-forward network</strong> is a multilayer network in which the units are connected with no cycles.</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo>=</mo><mi>σ</mi><mo stretchy="false">(</mo><mi>W</mi><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h = \sigma (W x + b)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault">h</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">σ</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">W</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">b</span><span class="mclose">)</span></span></span></span></span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>n</mi><mi>x</mi></msub></munderover><msub><mi>w</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msub><mi>x</mi><mi>i</mi></msub><mo>+</mo><msub><mi>b</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">h_{ij} = \sum_{i=1}^{n_x} w_{ij} x_i + b_j
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.9401660000000005em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.6624970000000003em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.311105em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285719em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathdefault">b</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span></span></p>
+<p>h forms a representation of the input, out layer is to take this new representation to compute a final output.</p>
+<p><strong>Softmax</strong> was exactly what is used to create a probability distribution from a vector of real-valued numbers. It is called <strong>normalizing</strong>.</p>
 <p>A neural network is like logistic regression, but</p>
 <ul>
-<li>with many layers, a DNN is like layer after layer of LR
-classifiers</li>
+<li>with many layers, a DNN is like layer after layer of LR classifiers</li>
 <li>DNN forming features automatically</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.n</span><br><span class="line">	z[i] = W[i] a[i-<span class="number">1</span>] + b[i]</span><br><span class="line">    a[i] = g[i] (z[i])</span><br><span class="line">y<span class="string">&#x27; =  a[n]</span></span><br></pre></td></tr></table></figure>
-<p>The activation functions g(·) are generally different at the final
-layer.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.n</span><br><span class="line">	z[i] = W[i] a[i<span class="number">-1</span>] + b[i]</span><br><span class="line">    a[i] = g[i] (z[i])</span><br><span class="line">y<span class="string">' =  a[n]</span></span><br></pre></td></tr></table></figure>
+<p>The activation functions g(·) are generally different at the final layer.</p>
 <ul>
-<li>softmax for multinomial classification or sigmoid for binary
-classification</li>
-<li>RELU or tanh might be the activation function at the internal
-layers</li>
+<li>softmax for multinomial classification or sigmoid for binary classification</li>
+<li>RELU or tanh might be the activation function at the internal layers</li>
 </ul>
 <h2 id="training-neural-nets">Training Neural Nets</h2>
-<p>In LR, for each observation we could directly compute the derivative
-of the loss function with respect to an individual w or b. But for NN,
-with millions of parameters in many layers, it's much harder to compute
-the partial derivative of some weight in layer 1 when the loss is
-attached to some much later layer.</p>
-<p>The algorithm we use is called <strong>error
-back-propagation</strong> or <strong>reverse
-differentiation</strong>.</p>
+<p>In LR, for each observation we could directly compute the derivative of the loss function with respect to an individual w or b. But for NN, with millions of parameters in many layers, it’s much harder to compute the partial derivative of some weight in layer 1 when the loss is attached to some much later layer.</p>
+<p>The algorithm we use is called <strong>error back-propagation</strong> or <strong>reverse differentiation</strong>.</p>
 <h3 id="loss-function">Loss function</h3>
-<p>Loss function <a
-href="https://yam.gift/2019/05/08/SLP/2019-05-08-Logistic-Regression/">here</a>
-is being used as a binary classifier, with the sigmoid at the final
-layer.</p>
-<p>The cross-entropy loss is simply the log probability of the correct
-class, called <strong>negative log likelihood loss</strong>:</p>
-<p><span class="math display">\[L_{CE}(\hat y, y) = - \log \hat
-y_i\]</span></p>
+<p>Loss function <a href="https://yam.gift/2019/05/08/SLP/2019-05-08-Logistic-Regression/" target="_blank" rel="noopener">here</a> is being used as a binary classifier, with the sigmoid at the final layer.</p>
+<p>The cross-entropy loss is simply the log probability of the correct class, called <strong>negative log likelihood loss</strong>:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>C</mi><mi>E</mi></mrow></msub><mo stretchy="false">(</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">L_{CE}(\hat y, y) = - \log \hat y_i
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">E</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
 <p>With softmax formula and K classes:</p>
-<p><span class="math display">\[L_{CE}(\hat y, y) = -\log
-\frac{e^{z_i}}{\sum_{j-1}^K e^z_j{}}\]</span></p>
-<h3 id="backward-differentiation-on-computation-graphs">Backward
-differentiation on computation graphs</h3>
-<p>We need to know the derivatives of all the functions in the
-graph:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>C</mi><mi>E</mi></mrow></msub><mo stretchy="false">(</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><mfrac><msup><mi>e</mi><msub><mi>z</mi><mi>i</mi></msub></msup><mrow><munderover><mo>∑</mo><mrow><mi>j</mi><mo>−</mo><mn>1</mn></mrow><mi>K</mi></munderover><msubsup><mi>e</mi><mi>j</mi><mi>z</mi></msubsup><mrow></mrow></mrow></mfrac></mrow><annotation encoding="application/x-tex">L_{CE}(\hat y, y) = -\log \frac{e^{z_i}}{\sum_{j-1}^K e^z_j{}}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">E</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.648441em;vertical-align:-1.3070490000000001em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.341392em;"><span style="top:-2.128769em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.981231em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">K</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.43581800000000004em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.646192em;"><span style="top:-2.4231360000000004em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span><span style="top:-3.0448000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4129719999999999em;"><span></span></span></span></span></span></span><span class="mord"></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.04398em;">z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3280857142857143em;"><span style="top:-2.357em;margin-left:-0.04398em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3070490000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<h3 id="backward-differentiation-on-computation-graphs">Backward differentiation on computation graphs</h3>
+<p>We need to know the derivatives of all the functions in the graph:</p>
 <ul>
-<li>sigmoid: <span class="math display">\[\frac {d\sigma(z)}{dz} =
-\sigma(z) (1-z)\]</span></li>
-<li>tanh: <span class="math display">\[\frac{d \tanh(z)}{dz} = 1 -
-\tanh^2(z)\]</span></li>
-<li>ReLU: <span class="math display">\[\frac{d ReLU(z)}{dz} = 0\ for\
-x&lt;0;\ 1\ for\ x≥0\]</span></li>
+<li>sigmoid: $$\frac {d\sigma(z)}{dz} = \sigma(z) (1-z)$$</li>
+<li>tanh: $$\frac{d \tanh(z)}{dz} = 1 - \tanh^2(z)$$</li>
+<li>ReLU: $$\frac{d ReLU(z)}{dz} = 0\ for\ x&lt;0;\ 1\ for\ x≥0$$</li>
 </ul>
-<p><a
-href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/BackPropagation/Back-Propagation.ipynb">Here</a>
-is a simple example from CS231n.</p>
+<p><a href="https://nbviewer.jupyter.org/github/hscspring/All4NLP/blob/master/BackPropagation/Back-Propagation.ipynb" target="_blank" rel="noopener">Here</a> is a simple example from CS231n.</p>
 <h3 id="more-details-on-learning">More details on learning</h3>
 <ul>
-<li><p>For LR, we can initialize gradient descent with all the weights
-and biases having the value 0. In DNN, we need to initialize the weights
-with small random numbers, also helpful to normalize the input values to
-have 0 mean and unit variance.</p></li>
-<li><p><strong>Dropout</strong> is used to prevent overfitting: randomly
-dropping some units and their connections from the network during
-training.</p></li>
-<li><p><strong>Hyperparameter</strong> tuning includes the learning
-rate, the minibatch size, the model architecture, how to regularize and
-so on. Gradient descent itself also has many architectural variants such
-as Adam.</p></li>
+<li>
+<p>For LR, we can initialize gradient descent with all the weights and biases having the value 0. In DNN, we need to initialize the weights with small random numbers, also helpful to normalize the input values to have 0 mean and unit variance.</p>
+</li>
+<li>
+<p><strong>Dropout</strong> is used to prevent overfitting: randomly dropping some units and their connections from the network during training.</p>
+</li>
+<li>
+<p><strong>Hyperparameter</strong> tuning includes the learning rate, the minibatch size, the model architecture, how to regularize and so on. Gradient descent itself also has many architectural variants such as Adam.</p>
+</li>
 </ul>
 <h2 id="neural-language-models">Neural Language Models</h2>
 <p>Compared with N-gram models:</p>
@@ -213,36 +173,37 @@ as Adam.</p></li>
 <li>underlie many other task models (MT, Dialog, LG)</li>
 </ul>
 <h3 id="embeddings">Embeddings</h3>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg" /></p>
-<h3 id="training-the-neural-language-model">Training the neural language
-model</h3>
-<p>At each word wt, the cross-entropy (negative log likelihood) loss
-is:</p>
-<p><span class="math display">\[L = -\log p(w_t|w_{t-1}, …,
-w_{t-n+1})\]</span></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch7-2.jpeg" alt></p>
+<h3 id="training-the-neural-language-model">Training the neural language model</h3>
+<p>At each word wt, the cross-entropy (negative log likelihood) loss is:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><mi>p</mi><mo stretchy="false">(</mo><msub><mi>w</mi><mi>t</mi></msub><mi mathvariant="normal">∣</mi><msub><mi>w</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>w</mi><mrow><mi>t</mi><mo>−</mo><mi>n</mi><mo>+</mo><mn>1</mn></mrow></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">L = -\log p(w_t|w_{t-1}, …, w_{t-n+1})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.02691em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">−</span><span class="mord mathdefault mtight">n</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
 <p>The gradient is:</p>
-<p><span class="math display">\[\theta_{t+1} = \theta_t -\eta
-\frac{\partial L}{\partial \theta}\]</span></p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>θ</mi><mrow><mi>t</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>=</mo><msub><mi>θ</mi><mi>t</mi></msub><mo>−</mo><mi>η</mi><mfrac><mrow><mi mathvariant="normal">∂</mi><mi>L</mi></mrow><mrow><mi mathvariant="normal">∂</mi><mi>θ</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">\theta_{t+1} = \theta_t -\eta \frac{\partial L}{\partial \theta}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.902771em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.301108em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2805559999999999em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.05744em;vertical-align:-0.686em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">η</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.37144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathdefault" style="margin-right:0.02778em;">θ</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord" style="margin-right:0.05556em;">∂</span><span class="mord mathdefault">L</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
 <h2 id="summary">Summary</h2>
 <ul>
-<li><p>Neural networks are built out of <strong>neural units</strong>,
-originally inspired by human neurons but now simple an abstract
-computational device.</p></li>
-<li><p>In a <strong>fully-connected, feedforward</strong> network, each
-unit in layer i is connected to each unit in layer i+1.</p></li>
-<li><p>The power of neural networks comes from the ability of early
-layers to learn representations that can be utilized by later layers in
-the network.</p></li>
-<li><p>DNN are trained by optimization algorithms like <strong>gradient
-descent</strong>.</p></li>
-<li><p><strong>Error back propagation</strong>, backward differentiation
-on a <strong>computation graph</strong>, is used to compute the
-gradients of the loss function for a network.</p></li>
-<li><p><strong>NLM</strong> use a NN as a probabilistic classifier, to
-compute the probability of the next word given the previous n
-words.</p></li>
-<li><p>NLLM can use pretrained <strong>embeddings</strong>, or can learn
-from scratch in the process of LM.</p></li>
+<li>
+<p>Neural networks are built out of <strong>neural units</strong>, originally inspired by human neurons but now simple an abstract computational device.</p>
+</li>
+<li>
+<p>In a <strong>fully-connected, feedforward</strong> network, each unit in layer i is connected to each unit in layer i+1.</p>
+</li>
+<li>
+<p>The power of neural networks comes from the ability of early layers to learn representations that can be utilized by later layers in the network.</p>
+</li>
+<li>
+<p>DNN are trained by optimization algorithms like <strong>gradient descent</strong>.</p>
+</li>
+<li>
+<p><strong>Error back propagation</strong>, backward differentiation on a <strong>computation graph</strong>, is used to compute the gradients of the loss function for a network.</p>
+</li>
+<li>
+<p><strong>NLM</strong> use a NN as a probabilistic classifier, to compute the probability of the next word given the previous n words.</p>
+</li>
+<li>
+<p>NLLM can use pretrained <strong>embeddings</strong>, or can learn from scratch in the process of LM.</p>
+</li>
 </ul>
 
       
@@ -401,21 +362,6 @@ from scratch in the process of LM.</p></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

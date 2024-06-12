@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Docker 备忘。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.178Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker Memo">
 <meta name="twitter:description" content="Docker 备忘。">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/05/Unix/2021-08-05-Docker/" data-id="clx98np2400mptsbzgqzxdmzi" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/05/Unix/2021-08-05-Docker/" data-id="clxbpfs8i00c0dlbzdcssfqji" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -96,89 +96,61 @@
             <!-- Table of Contents -->
               
         <p>Docker 备忘。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="docker-cmd">Docker CMD</h2>
 <h3 id="base-command">base command</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop $(docker ps -a -q);</span><br><span class="line">$ docker logs -f &lt;contaner name&gt; &amp;&gt; yourlog.log &amp;</span><br><span class="line">$ docker <span class="built_in">cp</span> &lt;container_id&gt;:source_path destination_path</span><br><span class="line">$ sudo su</span><br><span class="line">$ <span class="built_in">chmod</span> -R 777 /path</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ docker stop $(docker ps -a -q);</span><br><span class="line">$ docker logs -f &lt;contaner name&gt; &amp;&gt; yourlog.log &amp;</span><br><span class="line">$ docker cp &lt;container_id&gt;:source_path destination_path</span><br><span class="line">$ sudo su</span><br><span class="line">$ chmod -R 777 /path</span><br></pre></td></tr></table></figure>
 <h3 id="logs">logs</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs --since=2m &lt;container_id&gt; // since last 2 minutes</span><br><span class="line">$ docker logs -f --<span class="built_in">tail</span> 10 &lt;container_name&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="entrypoint-vs.-cmd">entrypoint VS. cmd</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker logs --since=2m &lt;container_id&gt; // since last 2 minutes</span><br><span class="line">$ docker logs -f --tail 10 &lt;container_name&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="entrypoint-vs-cmd">entrypoint VS. cmd</h3>
 <ul>
 <li>至少指定一个</li>
 <li>容器作为可执行文件时应该定义 <code>ENTRYPOINT</code></li>
-<li><code>CMD</code> 应该用作定义 <code>ENTRYPOINT</code>
-命令，或在容器中执行 <code>ad-hoc</code> 命令的默认参数的一种方式</li>
+<li><code>CMD</code> 应该用作定义 <code>ENTRYPOINT</code> 命令，或在容器中执行 <code>ad-hoc</code> 命令的默认参数的一种方式</li>
 <li>使用替代参数运行容器时，<code>CMD</code> 将被覆盖</li>
 <li>默认的entrypoint是<code>/bin/sh -c</code></li>
 </ul>
-<h3 id="expose-vs.-publish">expose VS. publish</h3>
+<h3 id="expose-vs-publish">expose VS. publish</h3>
 <ul>
-<li><code>EXPOSE</code> 是暴露端口，主要用在 Dockerfile
-中，<code>-publish</code> 是映射端口，主要用在 run 时</li>
+<li><code>EXPOSE</code>  是暴露端口，主要用在 Dockerfile 中，<code>-publish</code> 是映射端口，主要用在 run 时</li>
 <li>都没有时，容器里的服务只能在里面访问</li>
-<li>只有 <code>EXPOSE</code>
-时，容器外部无法访问，但其他容器内部可以访问，有利于容器间通信</li>
-<li>只有 <code>-p</code> 时，容器外部可以访问，同时会自动
-<code>EXPOSE</code></li>
+<li>只有 <code>EXPOSE</code> 时，容器外部无法访问，但其他容器内部可以访问，有利于容器间通信</li>
+<li>只有 <code>-p</code> 时，容器外部可以访问，同时会自动 <code>EXPOSE</code></li>
 </ul>
 <h3 id="timezone">timezone</h3>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="language-bash"> <span class="built_in">ln</span> -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ENV</span> TZ=Asia/Shanghai</span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> ln -snf /usr/share/zoneinfo/<span class="variable">$TZ</span> /etc/localtime &amp;&amp; <span class="built_in">echo</span> <span class="variable">$TZ</span> &gt; /etc/timezone</span></span><br></pre></td></tr></table></figure>
 <h3 id="remove">remove</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi $(docker images --filter <span class="string">&quot;dangling=true&quot;</span> -q --no-trunc)</span><br><span class="line">$ docker images | grep none | awk <span class="string">&#x27;&#123; print $3; &#125;&#x27;</span> | xargs docker rmi</span><br><span class="line">$ docker image prune --filter=<span class="string">&quot;dangling=true&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker rmi $(docker images --filter <span class="string">"dangling=true"</span> -q --no-trunc)</span><br><span class="line">$ docker images | grep none | awk <span class="string">'&#123; print $3; &#125;'</span> | xargs docker rmi</span><br><span class="line">$ docker image prune --filter=<span class="string">"dangling=true"</span></span><br></pre></td></tr></table></figure>
 <h3 id="host">host</h3>
-<p>在 <code>docker run</code> 时使用 <code>--net="host"</code>
-后，容器内的 <code>localhost</code> 就是 Docker 的 host。Mac 下可以使用
-<code>host.docker.internal</code>。</p>
+<p>在 <code>docker run</code> 时使用 <code>--net=&quot;host&quot;</code> 后，容器内的 <code>localhost</code> 就是 Docker 的 host。Mac 下可以使用 <code>host.docker.internal</code>。</p>
 <h3 id="enviroment">enviroment</h3>
 <p>Dockerfile：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> TOKEN=$&#123;TOKEN:-<span class="string">&quot;&quot;</span>&#125;</span><br><span class="line"><span class="keyword">ENV</span> TOKEN=$&#123;TOKEN&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> TOKEN=$&#123;TOKEN:-<span class="string">""</span>&#125;</span><br><span class="line"><span class="keyword">ENV</span> TOKEN=$&#123;TOKEN&#125;</span><br></pre></td></tr></table></figure>
 <p>构建命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TOKEN 是环境变量，echo $TOKEN 应显示对应的 token</span></span><br><span class="line">docker build --build-arg TOKEN -t name:latest .</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">docker build --build-arg TOKEN=&lt;<span class="string">&quot;your_token&quot;</span>&gt; -t name:latest .</span><br></pre></td></tr></table></figure>
-<p>这样，<code>TOKEN</code>
-这个变量就会传到容器内部，作为环境变量。或者在运行时添加 <code>-e</code>
-参数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TOKEN 是环境变量，echo $TOKEN 应显示对应的 token</span></span><br><span class="line">docker build --build-arg TOKEN -t name:latest .</span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">docker build --build-arg TOKEN=&lt;<span class="string">"your_token"</span>&gt; -t name:latest .</span><br></pre></td></tr></table></figure>
+<p>这样，<code>TOKEN</code> 这个变量就会传到容器内部，作为环境变量。或者在运行时添加 <code>-e</code> 参数：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -e TOKEN name</span><br></pre></td></tr></table></figure>
 <p>这种情况下，<code>TOKEN</code> 变量也会传到容器内部。</p>
-<p>在 Dockerfile 中定义 build 时指定，适用于比较固定的环境变量（比如
-Token，Host）；运行时传入，适用于需要动态变化的环境变量（比如
-PROFILE）。</p>
+<p>在 Dockerfile 中定义 build 时指定，适用于比较固定的环境变量（比如 Token，Host）；运行时传入，适用于需要动态变化的环境变量（比如 PROFILE）。</p>
 <p>这两种用法也适用于 docker-compose（build 和 run）。</p>
-<h3 id="export-vs.-save">export VS. save</h3>
+<h3 id="export-vs-save">export VS. save</h3>
 <ul>
-<li><code>save</code> 包含所有父层级和版本，<code>export</code>
-只有当前容器。</li>
+<li><code>save</code> 包含所有父层级和版本，<code>export</code> 只有当前容器。</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">export</span> -o export.tar container_id</span><br><span class="line">docker save -o save.tar image_id</span><br><span class="line"></span><br><span class="line">docker import export.tar repository:tag</span><br><span class="line">docker load &lt; save.tar</span><br></pre></td></tr></table></figure>
 <h3 id="proxy">proxy</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build --build-arg HTTP_PROXY=<span class="string">&quot;http://proxy.example.com:3128&quot;</span> .</span><br><span class="line">docker run --<span class="built_in">env</span> HTTP_PROXY=<span class="string">&quot;http://proxy.example.com:3128&quot;</span> redis</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build --build-arg HTTP_PROXY=<span class="string">"http://proxy.example.com:3128"</span> .</span><br><span class="line">docker run --env HTTP_PROXY=<span class="string">"http://proxy.example.com:3128"</span> redis</span><br></pre></td></tr></table></figure>
 <h3 id="net">Net</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Access iptables</span></span><br><span class="line">docker run --cap-add=NET_ADMIN -it ubuntu:16.04</span><br><span class="line"><span class="comment"># In the container</span></span><br><span class="line">apt update -y</span><br><span class="line">apt-get install iptables sudo -y</span><br><span class="line">adduser user1</span><br><span class="line">adduser user1 sudo</span><br><span class="line">su - user1</span><br><span class="line">sudo iptables -L -n</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Access iptables</span></span><br><span class="line">docker run --<span class="built_in">cap</span>-add=NET_ADMIN -it ubuntu:16.04</span><br><span class="line"><span class="comment"># In the container</span></span><br><span class="line">apt update -y</span><br><span class="line">apt-get install iptables sudo -y</span><br><span class="line">adduser user1</span><br><span class="line">adduser user1 sudo</span><br><span class="line">su - user1</span><br><span class="line">sudo iptables -L -n</span><br></pre></td></tr></table></figure>
 <h2 id="reference">Reference</h2>
 <ul>
-<li><a
-href="https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images">Docker
-remove <none> TAG images - Stack Overflow</a></li>
-<li><a
-href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes">date
-- Docker Container time &amp; timezone (will not reflect changes) -
-Server Fault</a></li>
-<li><a
-href="https://stackoverflow.com/questions/22111060/what-is-the-difference-between-expose-and-publish-in-docker">What
-is the difference between "expose" and "publish" in Docker? - Stack
-Overflow</a></li>
-<li><a
-href="https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container">How
-to access host port from docker container - Stack Overflow</a></li>
-<li><a
-href="https://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile">docker
-- What is the difference between CMD and ENTRYPOINT in a Dockerfile? -
-Stack Overflow</a></li>
-<li><a
-href="https://stackoverflow.com/questions/36925261/what-is-the-difference-between-import-and-load-in-docker">What
-is the difference between import and load in Docker? - Stack
-Overflow</a></li>
-<li><a href="https://docs.docker.com/network/proxy/">Configure Docker to
-use a proxy server | Docker Documentation</a></li>
+<li><a href="https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images" target="_blank" rel="noopener">Docker remove <none> TAG images - Stack Overflow</none></a></li>
+<li><a href="https://serverfault.com/questions/683605/docker-container-time-timezone-will-not-reflect-changes" target="_blank" rel="noopener">date - Docker Container time &amp; timezone (will not reflect changes) - Server Fault</a></li>
+<li><a href="https://stackoverflow.com/questions/22111060/what-is-the-difference-between-expose-and-publish-in-docker" target="_blank" rel="noopener">What is the difference between “expose” and “publish” in Docker? - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/31324981/how-to-access-host-port-from-docker-container" target="_blank" rel="noopener">How to access host port from docker container - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/21553353/what-is-the-difference-between-cmd-and-entrypoint-in-a-dockerfile" target="_blank" rel="noopener">docker - What is the difference between CMD and ENTRYPOINT in a Dockerfile? - Stack Overflow</a></li>
+<li><a href="https://stackoverflow.com/questions/36925261/what-is-the-difference-between-import-and-load-in-docker" target="_blank" rel="noopener">What is the difference between import and load in Docker? - Stack Overflow</a></li>
+<li><a href="https://docs.docker.com/network/proxy/" target="_blank" rel="noopener">Configure Docker to use a proxy server | Docker Documentation</a></li>
 </ul>
 
       
@@ -337,21 +309,6 @@ use a proxy server | Docker Documentation</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

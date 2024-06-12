@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-3.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-4.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.165Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LLM中的演绎推理、归纳推理和溯因推理">
 <meta name="twitter:description" content="一篇简单探索少样本上下文学习和指令推理的文章：[2404.03028] An Incomplete Loop: Deductive, Inductive, and Abductive Learning in Large Language Models。">
@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/" data-id="clx98np1f00gxtsbz0kqz6lky" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/" data-id="clxbpfs5r006cdlbzad98q901" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,41 +100,36 @@
       
             <!-- Table of Contents -->
               
-        <p>一篇简单探索少样本上下文学习和指令推理的文章：<a
-href="https://arxiv.org/abs/2404.03028">[2404.03028] An Incomplete Loop:
-Deductive, Inductive, and Abductive Learning in Large Language
-Models</a>。</p>
-<span id="more"></span>
+        <p>一篇简单探索少样本上下文学习和指令推理的文章：<a href="https://arxiv.org/abs/2404.03028" target="_blank" rel="noopener">[2404.03028] An Incomplete Loop: Deductive, Inductive, and Abductive Learning in Large Language Models</a>。</p>
+<a id="more"></a>
 <h2 id="简介">简介</h2>
 <p>语言模型有不同的执行任务的方法：</p>
 <ul>
 <li>指令遵循（instruction following）：用自然语言明确描述目标任务。</li>
-<li>少样本提示（上下文/情境）学习（few-shot
-prompting）：任务通过少量示例隐式指定。</li>
-<li>指令（归纳）推理（instruction
-inference）：LLMs（语言模型）首先呈现上下文示例，然后被要求生成自然语言任务描述，再进行预测。</li>
+<li>少样本提示（上下文/情境）学习（few-shot prompting）：任务通过少量示例隐式指定。</li>
+<li>指令（归纳）推理（instruction inference）：LLMs（语言模型）首先呈现上下文示例，然后被要求生成自然语言任务描述，再进行预测。</li>
 </ul>
 <p>这些方法都可以看成是一种形式的推理：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>方法</th>
 <th>推理</th>
 <th>条件</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>指令遵循</td>
 <td>演绎推理</td>
 <td>显式命令</td>
 </tr>
-<tr class="even">
+<tr>
 <td>少样本提示</td>
 <td>归纳推理</td>
 <td>任务相关示例</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>指令推理</td>
 <td>溯因推理（逆向归纳）</td>
 <td>从示例中生成的命令</td>
@@ -178,43 +173,33 @@ inference）：LLMs（语言模型）首先呈现上下文示例，然后被要�
 <li>卡拉芒语中的词汇+类型特征学习（低资源翻译任务）：h分为词汇和语法。每个语法特征会作为问题被提出，然后让模型根据示例样本给出答案。词汇方法同上。</li>
 </ul>
 <p>示例如下：</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-1.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-1.jpg" alt></p>
 <h2 id="结果">结果</h2>
 <p><strong>Q1：什么时候指令推理优于少样本上下文学习？</strong></p>
-<ol type="1">
+<ol>
 <li>真实指令的有效性</li>
 </ol>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-2.jpg" /></p>
-<p align="center">
-图1
-</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-2.jpg" alt></p>
+<p align="center">图1</p>
 <p>图1中，上面是线性函数推理任务，下面是人工语言学习任务。</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-3.jpg" /></p>
-<p align="center">
-图2
-</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-3.jpg" alt></p>
+<p align="center">图2</p>
 <p>低资源翻译任务，图2中，上下两张图分别表示不同的方向。</p>
 <p>结果显示，真实指令倾向于产生正确的结果，但在低资源（复杂）任务上不明显。</p>
-<ol start="2" type="1">
+<ol start="2">
 <li>回溯指令的有效性</li>
 </ol>
 <p>从图2可以看出，在很多情况下，自生成的指令对性能有所改进，但因任务而异。</p>
 <p><strong>Q2：溯因指令的能力与少样本上下文学习有什么关系？</strong></p>
-<ol type="1">
+<ol>
 <li>模型生成假设前提的准确性</li>
 </ol>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-4.jpg" /></p>
-<p align="center">
-图3
-</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-4.jpg" alt></p>
+<p align="center">图3</p>
 <p>图3是线性函数任务，ABCD分别是GPT-3.5-turbo、GPT-4-turbo、LLaMA2-70b-chat和LLaMA2-7b-chat。GPT预测的系数和实际系数呈正相关，但是LLaMA2模型不是。</p>
 <p>对颜色映射任务，除了GPT-4-turbo，其他模型都倾向于生成不准确的假设。</p>
 <p>到了低资源翻译任务，所有模型在预测语法特征方面的表现都比较差，GPT只有20%多，LLaMA模型为0%。词汇归纳的准确率也很低，大概只有10-20%。</p>
-<ol start="2" type="1">
+<ol start="2">
 <li>指令推理和少样本上下文学习能力的关系</li>
 </ol>
 <p>这里重点关注GPT模型选择的最终假设，因为LLaMA系列生成的假设都是不连贯或格式不正确的。</p>
@@ -383,21 +368,6 @@ src="https://qnimg.lovevivian.cn/paper-dedu-indu-abdu-4.jpg" /></p>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

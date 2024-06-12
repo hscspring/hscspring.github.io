@@ -15,14 +15,14 @@
   <title>关系提取简述 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 SLP 第 18 章的内容，最近在做一个 chatbot 的 NLMLayer 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。 属性一般的形式是（实体，属性，属性值），关系的">
-<meta name="keywords" content="NLP,Relationship Extraction,Knowledge Graph">
+<meta name="keywords" content="NLP,Knowledge Graph,Relationship Extraction">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关系提取简述">
 <meta property="og:url" content="https://www.yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/index.html">
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 SLP 第 18 章的内容，最近在做一个 chatbot 的 NLMLayer 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。 属性一般的形式是（实体，属性，属性值），关系的">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.165Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.538Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关系提取简述">
 <meta name="twitter:description" content="之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 SLP 第 18 章的内容，最近在做一个 chatbot 的 NLMLayer 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。 属性一般的形式是（实体，属性，属性值），关系的">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/" data-id="clx98np3c012etsbzvbry8l3d" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/" data-id="clxbpfsfv015udlbz8pctpjk1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,15 +95,9 @@
       
             <!-- Table of Contents -->
               
-        <p>之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 <a
-href="https://web.stanford.edu/~jurafsky/slp3/">SLP</a> 第 18
-章的内容，最近在做一个 chatbot 的 <a
-href="https://yam.gift/2019/12/02/2019-12-02-NLM/">NLMLayer</a>
-时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的
-output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。</p>
-<p>属性一般的形式是（实体，属性，属性值），关系的一般形式是（实体，关系，实体）。简单来区分的话，关系涉及到两个实体，而属性只有一个实体。属性提取的文章比较少，关系提取方面倒是比较成熟，不过这两者之间其实可以借鉴的。具体的一些方法其实<a
-href="https://yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/">这里</a>已经提到不少了，这里单独提出来再梳理一遍。</p>
-<span id="more"></span>
+        <p>之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 <a href="https://web.stanford.edu/~jurafsky/slp3/" target="_blank" rel="noopener">SLP</a> 第 18 章的内容，最近在做一个 chatbot 的 <a href="https://yam.gift/2019/12/02/2019-12-02-NLM/" target="_blank" rel="noopener">NLMLayer</a> 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。</p>
+<p>属性一般的形式是（实体，属性，属性值），关系的一般形式是（实体，关系，实体）。简单来区分的话，关系涉及到两个实体，而属性只有一个实体。属性提取的文章比较少，关系提取方面倒是比较成熟，不过这两者之间其实可以借鉴的。具体的一些方法其实<a href="https://yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/" target="_blank" rel="noopener">这里</a>已经提到不少了，这里单独提出来再梳理一遍。</p>
+<a id="more"></a>
 <h2 id="关系提取方法">关系提取方法</h2>
 <h3 id="基于模板">基于模板</h3>
 <p>这种方法比较简单，一般都是根据先验知识设计一些模式，然后在语料中匹配这些模式。举几个例子：</p>
@@ -114,9 +108,7 @@ href="https://yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/">这里
 <p>这里的 XX YY 和 ZZ 自然就是前一步识别出来的实体了。</p>
 <p>相关资源包括：</p>
 <ul>
-<li><a
-href="https://meta-guide.com/software-meta-guide/100-best-github-expert-system">100
-Best GitHub: Expert System | Meta-Guide.com</a></li>
+<li><a href="https://meta-guide.com/software-meta-guide/100-best-github-expert-system" target="_blank" rel="noopener">100 Best GitHub: Expert System | Meta-Guide.com</a></li>
 </ul>
 <h3 id="基于句法分析">基于句法分析</h3>
 <p>主要是找到主谓宾，一般都是在句法分析的基础上进行的。举几个例子：</p>
@@ -127,15 +119,9 @@ Best GitHub: Expert System | Meta-Guide.com</a></li>
 <p>其中，SBV 是主谓关系，VOB 是动宾关系，ATT 是定中关系。</p>
 <p>相关资源包括：</p>
 <ul>
-<li><a
-href="https://github.com/lemonhu/open-entity-relation-extraction">lemonhu/open-entity-relation-extraction:
-Knowledge triples extraction and knowledge base construction based on
-dependency syntax for open domain text.</a></li>
-<li><a href="https://github.com/aoldoni/tetre">aoldoni/tetre: TETRE: a
-Toolkit for Exploring Text for Relation Extraction</a></li>
-<li><a
-href="https://github.com/gabrielStanovsky/template-oie">gabrielStanovsky/template-oie:
-Extract templated Open Information Extraction</a></li>
+<li><a href="https://github.com/lemonhu/open-entity-relation-extraction" target="_blank" rel="noopener">lemonhu/open-entity-relation-extraction: Knowledge triples extraction and knowledge base construction based on dependency syntax for open domain text.</a></li>
+<li><a href="https://github.com/aoldoni/tetre" target="_blank" rel="noopener">aoldoni/tetre: TETRE: a Toolkit for Exploring Text for Relation Extraction</a></li>
+<li><a href="https://github.com/gabrielStanovsky/template-oie" target="_blank" rel="noopener">gabrielStanovsky/template-oie: Extract templated Open Information Extraction</a></li>
 </ul>
 <h3 id="基于机器学习">基于机器学习</h3>
 <p>使用基本步骤如下：</p>
@@ -163,33 +149,20 @@ Extract templated Open Information Extraction</a></li>
 <p>之前那篇笔记里涉及的比较全面，而且现在几乎都是结合深度学习模型做了，这块就不再赘述了。</p>
 <p>相关资源：</p>
 <ul>
-<li><a href="https://github.com/machinalis/iepy">machinalis/iepy:
-Information Extraction in Python</a></li>
-<li><a
-href="https://github.com/marcolagi/quantulum">marcolagi/quantulum:
-Python library for information extraction of quantities from
-unstructured text</a></li>
+<li><a href="https://github.com/machinalis/iepy" target="_blank" rel="noopener">machinalis/iepy: Information Extraction in Python</a></li>
+<li><a href="https://github.com/marcolagi/quantulum" target="_blank" rel="noopener">marcolagi/quantulum: Python library for information extraction of quantities from unstructured text</a></li>
 </ul>
 <h3 id="基于深度学习">基于深度学习</h3>
-<p>一般包括两种做法：Pipeline 和 Joint
-model，前者就是把实体识别和关系分类分开；后者一起做。</p>
-<p>特征一般是基于 Word embedding，Position
-embedding，POS，NER，WordNet；模型一般都是基于 CNN，RNN。</p>
+<p>一般包括两种做法：Pipeline 和 Joint model，前者就是把实体识别和关系分类分开；后者一起做。</p>
+<p>特征一般是基于 Word embedding，Position embedding，POS，NER，WordNet；模型一般都是基于 CNN，RNN。</p>
 <ul>
-<li>端到端目前最好的是基于 Bert 的，在此之前，最好的是 Wang et al. 2016
-的 Multi-Attention CNN。</li>
-<li>关系分类最好的是 (Cai et al., 2016) 的 BRCNN（Bidirectional
-Recurrent Convolutional Neural Network）。</li>
+<li>端到端目前最好的是基于 Bert 的，在此之前，最好的是 Wang et al. 2016 的 Multi-Attention CNN。</li>
+<li>关系分类最好的是 (Cai et al., 2016) 的 BRCNN（Bidirectional Recurrent Convolutional Neural Network）。</li>
 </ul>
-<p>从论文的趋势看，端到端相对主流一些，不过对于我们的需求来说，关系分类更适合些。更多相关论文和模型可以进一步阅读
-<a
-href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md">NLP-progress/relationship_extraction</a>，这里就不贴那些论文的东西了。</p>
+<p>从论文的趋势看，端到端相对主流一些，不过对于我们的需求来说，关系分类更适合些。更多相关论文和模型可以进一步阅读 <a href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md" target="_blank" rel="noopener">NLP-progress/relationship_extraction</a>，这里就不贴那些论文的东西了。</p>
 <h3 id="基于半监督">基于半监督</h3>
-<p>半监督是利用少量高精度的 pattern 种子或种子 tuple 来 bootstrap
-一个分类器。具体而言，在大规模语料中查找包含已有 pattern
-实体对的句子，然后提取和归纳实体的上下文来学习新的 pattern。</p>
-<p>还是举个栗子，比如我们有一个种子
-tuple：（Queen，创作了，波西米亚狂想曲），然后可能找到了这些句子：</p>
+<p>半监督是利用少量高精度的 pattern 种子或种子 tuple 来 bootstrap 一个分类器。具体而言，在大规模语料中查找包含已有 pattern 实体对的句子，然后提取和归纳实体的上下文来学习新的 pattern。</p>
+<p>还是举个栗子，比如我们有一个种子 tuple：（Queen，创作了，波西米亚狂想曲），然后可能找到了这些句子：</p>
 <ul>
 <li>波西米亚狂想曲是由 Queen 演唱的歌曲。</li>
 <li>波西米亚狂想曲是 Queen 最伟大的作品之一。</li>
@@ -201,23 +174,12 @@ tuple：（Queen，创作了，波西米亚狂想曲），然后可能找到了�
 <li>（歌曲，是，艺人，作品）</li>
 <li>（艺人，作品，包括）</li>
 </ul>
-<p>这些 pattern 又可以进一步寻找新的
-pattern（把艺人和歌曲替换掉）。最终算法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function BOOTSTRAP(Relation R) returns new relation tuples</span><br><span class="line">	tuples←Gather a <span class="built_in">set</span> of seed tuples that have relation R</span><br><span class="line">	iterate</span><br><span class="line">		sentences←find sentences that contain entities <span class="keyword">in</span> tuples</span><br><span class="line">		patterns←generalize the context between <span class="keyword">and</span> around entities <span class="keyword">in</span> sentences</span><br><span class="line">		newpairs←use patterns to grep <span class="keyword">for</span> more tuples</span><br><span class="line">		newpairs←newpairs <span class="keyword">with</span> high confidence</span><br><span class="line">		tuples←tuples + newpairs</span><br><span class="line">	<span class="keyword">return</span> tuples</span><br></pre></td></tr></table></figure>
-<p>Bootstrapping 系统会给新的 pattern 一个置信度以避免语义飘移。比如
-“在演唱会现场粉丝的要求下，周杰伦不得不演唱了一首网络歌曲《学猫叫》”，（周杰伦，演唱，学猫叫）显然不是我们想要的。关于置信度的计算可以参考上面提到的笔记，对一个
-pattern 主要考量两方面因素：pattern 在现有 tuple 上的 hits 和在整个
-Documents 上的 finds。</p>
+<p>这些 pattern 又可以进一步寻找新的 pattern（把艺人和歌曲替换掉）。最终算法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function BOOTSTRAP(Relation R) returns new relation tuples</span><br><span class="line">	tuples←Gather a set of seed tuples that have relation R</span><br><span class="line">	iterate</span><br><span class="line">		sentences←find sentences that contain entities <span class="keyword">in</span> tuples</span><br><span class="line">		patterns←generalize the context between <span class="keyword">and</span> around entities <span class="keyword">in</span> sentences</span><br><span class="line">		newpairs←use patterns to grep <span class="keyword">for</span> more tuples</span><br><span class="line">		newpairs←newpairs <span class="keyword">with</span> high confidence</span><br><span class="line">		tuples←tuples + newpairs</span><br><span class="line">	<span class="keyword">return</span> tuples</span><br></pre></td></tr></table></figure>
+<p>Bootstrapping 系统会给新的 pattern 一个置信度以避免语义飘移。比如 “在演唱会现场粉丝的要求下，周杰伦不得不演唱了一首网络歌曲《学猫叫》”，（周杰伦，演唱，学猫叫）显然不是我们想要的。关于置信度的计算可以参考上面提到的笔记，对一个 pattern 主要考量两方面因素：pattern 在现有 tuple 上的 hits 和在整个 Documents 上的 finds。</p>
 <h3 id="基于远程监督">基于远程监督</h3>
-<p>远程监督从大规模数据库中获取的大量种子中产生出许多带噪声的 pattern
-features，然后用一个分类器组合这些 pattern。</p>
-<p>举个栗子，比如要学习 “出生地-出生日期”
-关系，半监督的方法中，我们可能只有少量几个启动的种子，但是现在我们可以在
-Wikipedia-based 数据库（比如 DBPedia 或 Freebase） 中获取大量包含
-“出生地-出生日期” 的
-tuple，比如（<code>&lt;Albert Einstein, Ulm&gt;, &lt;Hubble, Marshfield&gt;</code>
-等等）。然后用命名实体工具提取包含两个实体并 match 给定 tuple
-的句子：</p>
+<p>远程监督从大规模数据库中获取的大量种子中产生出许多带噪声的 pattern features，然后用一个分类器组合这些 pattern。</p>
+<p>举个栗子，比如要学习 “出生地-出生日期” 关系，半监督的方法中，我们可能只有少量几个启动的种子，但是现在我们可以在 Wikipedia-based 数据库（比如 DBPedia 或 Freebase） 中获取大量包含 “出生地-出生日期” 的 tuple，比如（<code>&lt;Albert Einstein, Ulm&gt;, &lt;Hubble, Marshfield&gt;</code> 等等）。然后用命名实体工具提取包含两个实体并 match 给定 tuple 的句子：</p>
 <ul>
 <li>Hubble 出生于 Marshfield</li>
 <li>Einstein，生于 1879，Ulm</li>
@@ -229,76 +191,61 @@ tuple，比如（<code>&lt;Albert Einstein, Ulm&gt;, &lt;Hubble, Marshfield&gt;<
 <li><code>&lt;出生地, Albert Einstein, Ulm&gt;</code></li>
 <li><code>&lt;出生日期, Albert Einstein, 1879&gt;</code></li>
 </ul>
-<p>接下来可以用基于特征的分类器或直接使用神经网络分类器（不需要构建特征）。对于前者，可以从多个方面构建特征，比如实体
-label，实体间单词、路径，相邻词等。每个 tuple
-包括多个训练实例的特征，每个实例又可以从多个句子中获取词法和句法特征。最终的算法如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function DISTANT SUPERVISION(Database D, Text T) returns relation classifier C</span><br><span class="line">	foreach relation R</span><br><span class="line">		foreach <span class="built_in">tuple</span> (e1,e2) of entities <span class="keyword">with</span> relation R <span class="keyword">in</span> D</span><br><span class="line">			sentences←Sentences <span class="keyword">in</span> T that contain e1 <span class="keyword">and</span> e2</span><br><span class="line">			f←Frequent features <span class="keyword">in</span> sentences</span><br><span class="line">			observations←observations + new training <span class="built_in">tuple</span> (e1, e2, f, R)</span><br><span class="line">	C←Train supervised classifier on observations</span><br><span class="line">	<span class="keyword">return</span> C</span><br></pre></td></tr></table></figure>
+<p>接下来可以用基于特征的分类器或直接使用神经网络分类器（不需要构建特征）。对于前者，可以从多个方面构建特征，比如实体 label，实体间单词、路径，相邻词等。每个 tuple 包括多个训练实例的特征，每个实例又可以从多个句子中获取词法和句法特征。最终的算法如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function DISTANT SUPERVISION(Database D, Text T) returns relation classifier C</span><br><span class="line">	foreach relation R</span><br><span class="line">		foreach tuple (e1,e2) of entities <span class="keyword">with</span> relation R <span class="keyword">in</span> D</span><br><span class="line">			sentences←Sentences <span class="keyword">in</span> T that contain e1 <span class="keyword">and</span> e2</span><br><span class="line">			f←Frequent features <span class="keyword">in</span> sentences</span><br><span class="line">			observations←observations + new training tuple (e1, e2, f, R)</span><br><span class="line">	C←Train supervised classifier on observations</span><br><span class="line">	<span class="keyword">return</span> C</span><br></pre></td></tr></table></figure>
 <p>最终的分类器将会根据特征发现关系。</p>
 <h3 id="基于无监督">基于无监督</h3>
-<p>无监督关系提取的目的就是在没有标注数据，甚至没有任何关系列表的情况下从
-Web 或大规模语料中提取关系。这个任务一般叫 open information extraction
-或 Open IE，关系通常都是几个单词（常以动词开头）。</p>
-<p><a href="http://reverb.cs.washington.edu/">ReVerb</a>
-系统（类似项目：<a href="https://openie.allenai.org/">Open Information
-Extraction</a>）从一个句子中提取关系一般包括四步：</p>
+<p>无监督关系提取的目的就是在没有标注数据，甚至没有任何关系列表的情况下从 Web 或大规模语料中提取关系。这个任务一般叫 open information extraction 或 Open IE，关系通常都是几个单词（常以动词开头）。</p>
+<p><a href="http://reverb.cs.washington.edu/" target="_blank" rel="noopener">ReVerb</a> 系统（类似项目：<a href="https://openie.allenai.org/" target="_blank" rel="noopener">Open Information Extraction</a>）从一个句子中提取关系一般包括四步：</p>
 <ul>
 <li>在句子上进行 POS 和实体识别。</li>
-<li>对句中每个动词，找到以动词开头并满足句法和词汇约束（合并相邻匹配项）的最长单词序列
-w。</li>
-<li>对每个短语 w，找到最左边的名词短语 x（不是相对代词，wh-单词或
-“there”），在右边找到最近的名词短语 y。</li>
-<li>使用置信度分类器（一个逻辑回归分类器）给关系 r=x, w, y)
-一个置信度。</li>
+<li>对句中每个动词，找到以动词开头并满足句法和词汇约束（合并相邻匹配项）的最长单词序列 w。</li>
+<li>对每个短语 w，找到最左边的名词短语 x（不是相对代词，wh-单词或 “there”），在右边找到最近的名词短语 y。</li>
+<li>使用置信度分类器（一个逻辑回归分类器）给关系 r=x, w, y) 一个置信度。</li>
 </ul>
-<p>分类器是在 1000
-个随机选择的句子上训练所得，首先提取关系，然后人工标注是否正确，最后训练分类器。使用到的一些特征如下（将提取到的关系及周围的词作为特征）：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(x<span class="punctuation">,</span>r<span class="punctuation">,</span>y) covers all words in s</span><br><span class="line">the last preposition in r is for</span><br><span class="line">the last preposition in r is on</span><br><span class="line">len(s) ≤ <span class="number">10</span></span><br><span class="line">there is a coordinating conjunction to the left of r in s</span><br><span class="line">r matches a lone V in the syntactic constraints</span><br><span class="line">there is preposition to the left of x in s</span><br><span class="line">there is an NP to the right of y in s</span><br></pre></td></tr></table></figure>
+<p>分类器是在 1000 个随机选择的句子上训练所得，首先提取关系，然后人工标注是否正确，最后训练分类器。使用到的一些特征如下（将提取到的关系及周围的词作为特征）：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">(x,r,y) covers all words in s</span><br><span class="line">the last preposition in r is for</span><br><span class="line">the last preposition in r is on</span><br><span class="line">len(s) ≤ 10</span><br><span class="line">there is a coordinating conjunction to the left of r in s</span><br><span class="line">r matches a lone V in the syntactic constraints</span><br><span class="line">there is preposition to the left of x in s</span><br><span class="line">there is an NP to the right of y in s</span><br></pre></td></tr></table></figure>
 <h3 id="小结">小结</h3>
 <table>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 34%" />
-<col style="width: 46%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>方法</th>
 <th>优点</th>
 <th>缺点</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>模板</td>
 <td>精准高，领域内可定制</td>
 <td>召回低，耗时耗力</td>
 </tr>
-<tr class="even">
+<tr>
 <td>句法分析</td>
 <td>构建简单</td>
 <td>召回低，与句法结果相关</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>机器学习</td>
 <td>数据相关时精准较高</td>
 <td>特征工程较复杂，数据标注成本较高，训练数据敏感</td>
 </tr>
-<tr class="even">
+<tr>
 <td>深度学习</td>
 <td>数据相关时精准高，泛化能力较好</td>
 <td>数据标注成本很高，训练数据敏感</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>半监督 Bootstrapping</td>
 <td>成本低，可以发现新关系</td>
 <td>对初始种子敏感，语义飘移，准确率低</td>
 </tr>
-<tr class="even">
+<tr>
 <td>远程监督</td>
 <td>精准高，训练数据不敏感，无语义飘移</td>
 <td>依赖已有数据库</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>无监督</td>
 <td>成本很低，容易实现</td>
 <td>需转为权威格式存储，动词为中心的局限性</td>
@@ -306,15 +253,10 @@ w。</li>
 </tbody>
 </table>
 <h2 id="比赛">比赛</h2>
-<p>比赛最有名的大概就是 <a
-href="https://competitions.codalab.org/competitions/17326">SemEval 2018
-Task 10</a> 和 <a
-href="https://www.aclweb.org/anthology/S10-1006.pdf">SemEval-2010 Task
-8</a>
-了。前者是一个二分类任务，目的是识别给定属性能否区分两个给定的概念。</p>
+<p>比赛最有名的大概就是 <a href="https://competitions.codalab.org/competitions/17326" target="_blank" rel="noopener">SemEval 2018 Task 10</a> 和 <a href="https://www.aclweb.org/anthology/S10-1006.pdf" target="_blank" rel="noopener">SemEval-2010 Task 8</a> 了。前者是一个二分类任务，目的是识别给定属性能否区分两个给定的概念。</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Attribute</th>
 <th>concept1</th>
 <th>concept2</th>
@@ -322,31 +264,31 @@ href="https://www.aclweb.org/anthology/S10-1006.pdf">SemEval-2010 Task
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>bookcase</td>
 <td>fridge</td>
 <td>wood</td>
 <td>1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>bucket</td>
 <td>mug</td>
 <td>round</td>
 <td>0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>angle</td>
 <td>curve</td>
 <td>sharp</td>
 <td>1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>pelican</td>
 <td>turtle</td>
 <td>water</td>
 <td>0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>wire</td>
 <td>coil</td>
 <td>metal</td>
@@ -354,88 +296,61 @@ href="https://www.aclweb.org/anthology/S10-1006.pdf">SemEval-2010 Task
 </tr>
 </tbody>
 </table>
-<p>后者是关系分类任务，给定两个标记的
-nominals，预测它们的关系和关系的方向。</p>
+<p>后者是关系分类任务，给定两个标记的 nominals，预测它们的关系和关系的方向。</p>
 <blockquote>
-<p>There were apples, <strong>pears</strong> and oranges in the
-<strong>bowl</strong>.</p>
+<p>There were apples, <strong>pears</strong> and oranges in the <strong>bowl</strong>.</p>
 </blockquote>
 <p><code>(content-container, pears, bowl)</code></p>
 <h2 id="数据集">数据集</h2>
 <p>除了上面的两个比赛的数据集，还有以下一些数据集：</p>
 <ul>
-<li><a href="http://www.zhuhao.me/fewrel/">FewRel: A Large-Scale
-Supervised Few-shot Relation Classification Dataset with
-State-of-the-Art Evaluation</a>
+<li><a href="http://www.zhuhao.me/fewrel/" target="_blank" rel="noopener">FewRel: A Large-Scale Supervised Few-shot Relation Classification Dataset with State-of-the-Art Evaluation</a>
 <ul>
 <li>70K sentences</li>
 <li>100 relations</li>
 <li>Wikipedia corpus</li>
-</ul></li>
-<li><a href="https://catalog.ldc.upenn.edu/LDC2008T19">The New York
-Times Annotated Corpus - Linguistic Data Consortium</a>
+</ul>
+</li>
+<li><a href="https://catalog.ldc.upenn.edu/LDC2008T19" target="_blank" rel="noopener">The New York Times Annotated Corpus - Linguistic Data Consortium</a>
 <ul>
 <li>Stanford NER 提取实体</li>
 <li>自动与 Freebase knowledge base 中的实体关联</li>
 <li>关系也是基于 Freebase knowledge base 中的事实</li>
-</ul></li>
-<li><a href="https://nlp.stanford.edu/projects/tacred/">Stanford TACRED
-Homepage</a>
+</ul>
+</li>
+<li><a href="https://nlp.stanford.edu/projects/tacred/" target="_blank" rel="noopener">Stanford TACRED Homepage</a>
 <ul>
 <li>106,264 examples</li>
-<li>newswire and web text from <a
-href="https://catalog.ldc.upenn.edu/LDC2018T03">TAC KBP Comprehensive
-English Source Corpora 2009-2014 - Linguistic Data Consortium</a></li>
-<li>41 relation types as used in the <a
-href="https://tac.nist.gov/2017/KBP/index.html">TAC KBP
-challenges</a></li>
-</ul></li>
+<li>newswire and web text from <a href="https://catalog.ldc.upenn.edu/LDC2018T03" target="_blank" rel="noopener">TAC KBP Comprehensive English Source Corpora 2009-2014 - Linguistic Data Consortium</a></li>
+<li>41 relation types as used in the <a href="https://tac.nist.gov/2017/KBP/index.html" target="_blank" rel="noopener">TAC KBP challenges</a></li>
+</ul>
+</li>
 </ul>
 <h2 id="评价方法">评价方法</h2>
 <p>评价指标还是以 F1 为主：</p>
 <ul>
 <li>属性判别是二分类任务，直接用 F1 评估。</li>
-<li>关系分类使用 Macro-averaged F1（9 个关系，不包括
-OTHER，考虑关系方向）。</li>
-<li>FewRel 主要是在 5-way-1-shot，5-way-5-shot，10-way-1-shot 和
-10-way-5-shot 几个任务上的准确率。</li>
+<li>关系分类使用 Macro-averaged F1（9 个关系，不包括 OTHER，考虑关系方向）。</li>
+<li>FewRel 主要是在 5-way-1-shot，5-way-5-shot，10-way-1-shot 和 10-way-5-shot 几个任务上的准确率。</li>
 <li>NYT 主要使用 N 个结果的精准率或 PR 图。</li>
 <li>TACRED 使用 Micro-averaged F1（不包括 no_relation type）。</li>
 </ul>
 <h2 id="更多资源">更多资源</h2>
 <p>CrowdTruth Corpus 相关：</p>
 <ul>
-<li><a
-href="https://github.com/CrowdTruth/CrowdTruth-core">CrowdTruth/CrowdTruth-core:
-CrowdTruth framework for crowdsourcing ground truth for training &amp;
-evaluation of AI systems</a></li>
-<li><a
-href="https://github.com/CrowdTruth/Open-Domain-Relation-Extraction">CrowdTruth/Open-Domain-Relation-Extraction:
-Crowdsourced data for open domain relation classification from
-sentences</a></li>
-<li><a
-href="https://github.com/CrowdTruth/Medical-Relation-Extraction">CrowdTruth/Medical-Relation-Extraction:
-Crowdsourced ground truth for medical relation extraction.</a></li>
+<li><a href="https://github.com/CrowdTruth/CrowdTruth-core" target="_blank" rel="noopener">CrowdTruth/CrowdTruth-core: CrowdTruth framework for crowdsourcing ground truth for training &amp; evaluation of AI systems</a></li>
+<li><a href="https://github.com/CrowdTruth/Open-Domain-Relation-Extraction" target="_blank" rel="noopener">CrowdTruth/Open-Domain-Relation-Extraction: Crowdsourced data for open domain relation classification from sentences</a></li>
+<li><a href="https://github.com/CrowdTruth/Medical-Relation-Extraction" target="_blank" rel="noopener">CrowdTruth/Medical-Relation-Extraction: Crowdsourced ground truth for medical relation extraction.</a></li>
 </ul>
 <p>其他资源：</p>
 <ul>
-<li><a
-href="https://github.com/roomylee/awesome-relation-extraction">roomylee/awesome-relation-extraction:
-📖 A curated list of awesome resources dedicated to Relation Extraction,
-one of the most important tasks in Natural Language Processing
-(NLP).</a></li>
-<li><a
-href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md">NLP-progress/relationship_extraction.md
-at master · sebastianruder/NLP-progress</a></li>
+<li><a href="https://github.com/roomylee/awesome-relation-extraction" target="_blank" rel="noopener">roomylee/awesome-relation-extraction: 📖 A curated list of awesome resources dedicated to Relation Extraction, one of the most important tasks in Natural Language Processing (NLP).</a></li>
+<li><a href="https://github.com/sebastianruder/NLP-progress/blob/master/english/relationship_extraction.md" target="_blank" rel="noopener">NLP-progress/relationship_extraction.md at master · sebastianruder/NLP-progress</a></li>
 </ul>
 <p>参考资料：</p>
 <ul>
-<li><a
-href="https://zhuanlan.zhihu.com/p/44772023">知识抽取-实体及关系抽取 -
-知乎</a></li>
-<li><a
-href="https://blog.csdn.net/pelhans/article/details/80020309">知识图谱入门
-(三) 知识抽取 - pelhans 的博客</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/44772023" target="_blank" rel="noopener">知识抽取-实体及关系抽取 - 知乎</a></li>
+<li><a href="https://blog.csdn.net/pelhans/article/details/80020309" target="_blank" rel="noopener">知识图谱入门 (三) 知识抽取 - pelhans 的博客</a></li>
 </ul>
 
       
@@ -594,21 +509,6 @@ href="https://blog.csdn.net/pelhans/article/details/80020309">知识图谱入门
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

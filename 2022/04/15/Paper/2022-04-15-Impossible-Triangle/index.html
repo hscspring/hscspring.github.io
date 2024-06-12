@@ -14,19 +14,19 @@
   
   <title>NLP预训练模型的不可能三角 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Paper：[2204.06130] Impossible Triangle: What&apos;s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
-<meta name="keywords" content="AI,NLP,Impossible-Triangle,PLM">
+  <meta name="description" content="Paper：[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
+<meta name="keywords" content="AI,NLP,PLM,Impossible-Triangle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="NLP预训练模型的不可能三角">
 <meta property="og:url" content="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="Paper：[2204.06130] Impossible Triangle: What&apos;s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
+<meta property="og:description" content="Paper：[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-inmpssible-triangle-1.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.173Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NLP预训练模型的不可能三角">
-<meta name="twitter:description" content="Paper：[2204.06130] Impossible Triangle: What&apos;s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
+<meta name="twitter:description" content="Paper：[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models? 一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。 摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-inmpssible-triangle-1.jpg">
   
   
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" data-id="clx98np1x00l6tsbzr5wc614k" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" data-id="clxbpfs7i00aqdlbz8kxdeu18" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,76 +97,52 @@
       
             <!-- Table of Contents -->
               
-        <p>Paper：<a href="https://arxiv.org/abs/2204.06130">[2204.06130]
-Impossible Triangle: What's Next for Pre-trained Language
-Models?</a></p>
+        <p>Paper：<a href="https://arxiv.org/abs/2204.06130" target="_blank" rel="noopener">[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models?</a></p>
 <p>一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。</p>
-<p>摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA
-few-shot 能力，SOTA 微调能力。目前所有的 PLM
-都缺其中一个或多个。很多注入知识蒸馏、数据增强、Prompt
-的方法用以缓解这些缺失，但却在实际中带来了新的工作量。本文提供了一个未来的研究方向，将任务分解成几个关键阶段来实现不可能三角。</p>
-<span id="more"></span>
-<p>预训练模型已经广为人知，但人们并未在中小模型上发现 few-shot 甚至
-zero-shot
-的能力，大模型上的确有，但由于太大在实际使用时很不方便。而现实是很多时候我们没有过多标注数据，需要这种
-few-shot 的能力。</p>
+<p>摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或多个。很多注入知识蒸馏、数据增强、Prompt 的方法用以缓解这些缺失，但却在实际中带来了新的工作量。本文提供了一个未来的研究方向，将任务分解成几个关键阶段来实现不可能三角。</p>
+<a id="more"></a>
+<p>预训练模型已经广为人知，但人们并未在中小模型上发现 few-shot 甚至 zero-shot 的能力，大模型上的确有，但由于太大在实际使用时很不方便。而现实是很多时候我们没有过多标注数据，需要这种 few-shot 的能力。</p>
 <h3 id="不可能三角">不可能三角</h3>
 <p>如下图所示：</p>
-<p><img
-src="https://qnimg.lovevivian.cn/paper-inmpssible-triangle-1.jpg" /></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-inmpssible-triangle-1.jpg" alt></p>
 <ul>
 <li>P1 用于使用合理的计算资源进行高效部署</li>
 <li>P2 用于没有或少量标注数据场景</li>
 <li>P3 用于相对大量标注数据场景</li>
 </ul>
-<p>一个很好的证据是 Google 最近发表的 PaLM，论文发现，模型规模和
-few/zero-shot 表现之间存在<strong>不连续</strong>的提升。比如说，与 8B
-和 62B 的模型对比，PaLM 的 540B 在很多任务上表现出突破性的提升。</p>
+<p>一个很好的证据是 Google 最近发表的 PaLM，论文发现，模型规模和 few/zero-shot 表现之间存在<strong>不连续</strong>的提升。比如说，与 8B 和 62B 的模型对比，PaLM 的 540B 在很多任务上表现出突破性的提升。</p>
 <p>对于不可能三角，实际的 PLM 往往可以达到 1-2 个：</p>
 <ul>
 <li>中等大小 PLM（1B以下）：P1+P3</li>
-<li>超大规模 PLM：P2。值得注意的是：zero/few-shot
-的效果依然不如有监督；另外大部分微调后也不如中等大小 PLM
-微调后的结果（原因很可能是模型太大）。</li>
+<li>超大规模 PLM：P2。值得注意的是：zero/few-shot 的效果依然不如有监督；另外大部分微调后也不如中等大小 PLM 微调后的结果（原因很可能是模型太大）。</li>
 </ul>
 <h3 id="当前策略">当前策略</h3>
 <p>对模型规模（缺 P1）：</p>
 <ul>
-<li>一般在超大模型显示出极好的 zero/few-shot
-能力和微调后强大的性能时发生。</li>
+<li>一般在超大模型显示出极好的 zero/few-shot 能力和微调后强大的性能时发生。</li>
 <li>常用的方法是「知识蒸馏」。</li>
 <li>有两个问题：学生模型几乎不能达到教师模型的效果；模型太大会阻碍有效推理，使其作为教师模型不方便。</li>
 </ul>
 <p>对较差的 zero/few-shot 能力（缺 P2）：</p>
 <ul>
-<li>这是中等模型较为常见的：可以通过微调达到 SOTA，但 zero/few-shot
-能力相对不足。</li>
+<li>这是中等模型较为常见的：可以通过微调达到 SOTA，但 zero/few-shot 能力相对不足。</li>
 <li>方法是「通过其他模型生成伪标签和样例，或噪声注入扩充数据」。</li>
 <li>不过，伪数据质量的变化和不同任务中数据类型的多样性对普遍适用的解决方案提出了挑战。</li>
 </ul>
 <p>对较差的有监督训练表现（缺 P3）：</p>
 <ul>
 <li>这在超大模型微调时很典型，其中计算资源有限或训练数据量不足以对其进行微调。</li>
-<li>典型的策略是「Prompt
-学习」，可以使用硬提示（离散文本模板）或软提示（连续模板），以便在微调期间仅更新硬提示词或软提示的参数。</li>
-<li>不过，该方法对 Prompt 的选择和训练数据格外敏感，依然不如中等大小 PLM
-+ 有监督。</li>
+<li>典型的策略是「Prompt 学习」，可以使用硬提示（离散文本模板）或软提示（连续模板），以便在微调期间仅更新硬提示词或软提示的参数。</li>
+<li>不过，该方法对 Prompt 的选择和训练数据格外敏感，依然不如中等大小 PLM + 有监督。</li>
 </ul>
 <h3 id="未来方法">未来方法</h3>
 <p>本文提出了一种多阶段的方法。</p>
 <ul>
-<li>阶段
-1：确定目标是实现一些（不可能三角中）需要的属性，改进缺失的属性。比如，SOTA
-有监督的中等模型可以提高 few-shot 学习表现，SOTA few-shot
-能力的大模型压缩到有更好有监督表现的小点的模型。</li>
-<li>阶段 2：实现三个属性的 PLM
-是为少数任务开发的。可以利用目标任务的独特特征，比如表现对训练数据规模依赖性较小，zero/few-shot
-和有监督表现之间的 gap 较小等。</li>
-<li>阶段 3：基于阶段 1 和阶段 2，在一般 NLP
-任务上实现三个属性。可能的方法包括：用大量数据预训练一个中等大小的模型，更好的知识蒸馏，通用的数据增强方法等。</li>
+<li>阶段 1：确定目标是实现一些（不可能三角中）需要的属性，改进缺失的属性。比如，SOTA 有监督的中等模型可以提高 few-shot 学习表现，SOTA few-shot 能力的大模型压缩到有更好有监督表现的小点的模型。</li>
+<li>阶段 2：实现三个属性的 PLM 是为少数任务开发的。可以利用目标任务的独特特征，比如表现对训练数据规模依赖性较小，zero/few-shot 和有监督表现之间的 gap 较小等。</li>
+<li>阶段 3：基于阶段 1 和阶段 2，在一般 NLP 任务上实现三个属性。可能的方法包括：用大量数据预训练一个中等大小的模型，更好的知识蒸馏，通用的数据增强方法等。</li>
 </ul>
-<p>这篇文章虽然篇幅不长，但切入点还挺有意思，也分析了针对各属性的缓解策略：知识蒸馏、数据增强、Prompt
-学习等，并基于此提出了未来的研究方向，其实看起来是很自然的想法。不过这个不可能三角的确有点意思。</p>
+<p>这篇文章虽然篇幅不长，但切入点还挺有意思，也分析了针对各属性的缓解策略：知识蒸馏、数据增强、Prompt 学习等，并基于此提出了未来的研究方向，其实看起来是很自然的想法。不过这个不可能三角的确有点意思。</p>
 
       
     </div><!-- .entry-content -->
@@ -324,21 +300,6 @@ few/zero-shot 表现之间存在<strong>不连续</strong>的提升。比如说�
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

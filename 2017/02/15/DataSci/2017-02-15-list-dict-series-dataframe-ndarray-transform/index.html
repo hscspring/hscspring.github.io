@@ -15,14 +15,14 @@
   <title>List, Dict, Array, Series, DataFrame 相互转换 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="概要  dict to series dict to dataframe list to series list to dataframe list to array array to dataframe series to array dataframe to array dataframe to dict">
-<meta name="keywords" content="Python,Data Science,Data Clearing">
+<meta name="keywords" content="Data Clearing,Python,Data Science">
 <meta property="og:type" content="article">
 <meta property="og:title" content="List, Dict, Array, Series, DataFrame 相互转换">
 <meta property="og:url" content="https://www.yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/index.html">
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="概要  dict to series dict to dataframe list to series list to dataframe list to array array to dataframe series to array dataframe to array dataframe to dict">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.160Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="List, Dict, Array, Series, DataFrame 相互转换">
 <meta name="twitter:description" content="概要  dict to series dict to dataframe list to series list to dataframe list to array array to dataframe series to array dataframe to array dataframe to dict">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/" data-id="clx98np0g001ftsbza8c39rfv" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/" data-id="clxbpfs41001rdlbzbi37bp4c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -107,28 +107,31 @@
 <li>dataframe to array</li>
 <li>dataframe to dict</li>
 </ul>
-<span id="more"></span>
-<h2 id="输入-dict">1. 输入 Dict</h2>
+<a id="more"></a>
+<h2 id="1-输入-dict">1. 输入 Dict</h2>
 <ul>
 <li>dict to series</li>
 <li>dict to dataframe</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict</span></span><br><span class="line">data = &#123; <span class="string">&#x27;state&#x27;</span>: [<span class="string">&#x27;Ohino&#x27;</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="string">&#x27;Nevada&#x27;</span>],</span><br><span class="line">         <span class="string">&#x27;year&#x27;</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>],</span><br><span class="line">         <span class="string">&#x27;pop&#x27;</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>]&#125;  <span class="comment"># type(data) 为 dict</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># dict to series，若不指定 index，data 的 key 充当 Series 的 index</span></span><br><span class="line">ser = Series(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict to dataframe，若不指定 columns，data 的 key 充当 DataFrame 的 columns</span></span><br><span class="line">df = DataFrame(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict</span></span><br><span class="line">data = &#123; <span class="string">'state'</span>: [<span class="string">'Ohino'</span>, <span class="string">'Ohino'</span>, <span class="string">'Ohino'</span>, <span class="string">'Nevada'</span>, <span class="string">'Nevada'</span>],</span><br><span class="line">         <span class="string">'year'</span>: [<span class="number">2000</span>, <span class="number">2001</span>, <span class="number">2002</span>, <span class="number">2001</span>, <span class="number">2002</span>],</span><br><span class="line">         <span class="string">'pop'</span>: [<span class="number">1.5</span>, <span class="number">1.7</span>, <span class="number">3.6</span>, <span class="number">2.4</span>, <span class="number">2.9</span>]&#125;  <span class="comment"># type(data) 为 dict</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># dict to series，若不指定 index，data 的 key 充当 Series 的 index</span></span><br><span class="line">ser = Series(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># dict to dataframe，若不指定 columns，data 的 key 充当 DataFrame 的 columns</span></span><br><span class="line">df = DataFrame(data)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data</span><br></pre></td></tr></table></figure>
-<pre><code>&#123;&#39;pop&#39;: [1.5, 1.7, 3.6, 2.4, 2.9],
- &#39;state&#39;: [&#39;Ohino&#39;, &#39;Ohino&#39;, &#39;Ohino&#39;, &#39;Nevada&#39;, &#39;Nevada&#39;],
- &#39;year&#39;: [2000, 2001, 2002, 2001, 2002]&#125;</code></pre>
+<pre><code>{'pop': [1.5, 1.7, 3.6, 2.4, 2.9],
+ 'state': ['Ohino', 'Ohino', 'Ohino', 'Nevada', 'Nevada'],
+ 'year': [2000, 2001, 2002, 2001, 2002]}
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dict to series，若不指定 index，data 的 key 充当 Series 的 index</span></span><br><span class="line">ser = Series(data)</span><br><span class="line">ser</span><br></pre></td></tr></table></figure>
 <pre><code>pop                  [1.5, 1.7, 3.6, 2.4, 2.9]
 state    [Ohino, Ohino, Ohino, Nevada, Nevada]
 year            [2000, 2001, 2002, 2001, 2002]
-dtype: object</code></pre>
+dtype: object
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ser.shape</span><br></pre></td></tr></table></figure>
-<pre><code>(3,)</code></pre>
+<pre><code>(3,)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dict to dataframe，若不指定 columns，data 的 key 充当 DataFrame 的 columns</span></span><br><span class="line">df = DataFrame(data)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>pop</th>
 <th>state</th>
@@ -136,31 +139,31 @@ dtype: object</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>0</td>
 <td>1.5</td>
 <td>Ohino</td>
 <td>2000</td>
 </tr>
-<tr class="even">
+<tr>
 <td>1</td>
 <td>1.7</td>
 <td>Ohino</td>
 <td>2001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>2</td>
 <td>3.6</td>
 <td>Ohino</td>
 <td>2002</td>
 </tr>
-<tr class="even">
+<tr>
 <td>3</td>
 <td>2.4</td>
 <td>Nevada</td>
 <td>2001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>4</td>
 <td>2.9</td>
 <td>Nevada</td>
@@ -168,36 +171,41 @@ dtype: object</code></pre>
 </tr>
 </tbody>
 </table>
-<h2 id="输入-list">2. 输入 List</h2>
+<h2 id="2-输入-list">2. 输入 List</h2>
 <ul>
 <li>list to series</li>
 <li>list to dataframe</li>
 <li>list to array</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>], columns = [<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;state&#x27;</span>, <span class="string">&#x27;pop&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to array</span></span><br><span class="line">ndarray = np.array(data)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(data)</span><br></pre></td></tr></table></figure>
-<pre><code>list</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">'Ohino'</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Ohino'</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Ohino'</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Nevada'</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Nevada'</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to array</span></span><br><span class="line">ndarray = np.array(data)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(data)</span><br></pre></td></tr></table></figure>
+<pre><code>list
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data</span><br></pre></td></tr></table></figure>
-<pre><code>[[2000, &#39;Ohino&#39;, 1.5],
- [2001, &#39;Ohino&#39;, 1.7],
- [2002, &#39;Ohino&#39;, 3.6],
- [2001, &#39;Nevada&#39;, 2.4],
- [2002, &#39;Nevada, 2.9&#39;]]</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>])</span><br><span class="line">ser</span><br></pre></td></tr></table></figure>
+<pre><code>[[2000, 'Ohino', 1.5],
+ [2001, 'Ohino', 1.7],
+ [2002, 'Ohino', 3.6],
+ [2001, 'Nevada', 2.4],
+ [2002, 'Nevada, 2.9']]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>])</span><br><span class="line">ser</span><br></pre></td></tr></table></figure>
 <pre><code>one       [2000, Ohino, 1.5]
 two       [2001, Ohino, 1.7]
 three     [2002, Ohino, 3.6]
 four     [2001, Nevada, 2.4]
 five     [2002, Nevada, 2.9]
-dtype: object</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(ser)</span><br></pre></td></tr></table></figure>
-<pre><code>pandas.core.series.Series</code></pre>
+dtype: object
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(ser)</span><br></pre></td></tr></table></figure>
+<pre><code>pandas.core.series.Series
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ser.shape</span><br></pre></td></tr></table></figure>
-<pre><code>(5,)</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>], columns = [<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;state&#x27;</span>, <span class="string">&#x27;pop&#x27;</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<pre><code>(5,)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>year</th>
 <th>state</th>
@@ -205,31 +213,31 @@ dtype: object</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>one</strong></td>
 <td>2000</td>
 <td>Ohino</td>
 <td>1.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>two</strong></td>
 <td>2001</td>
 <td>Ohino</td>
 <td>1.7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>three</strong></td>
 <td>2002</td>
 <td>Ohino</td>
 <td>3.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>four</strong></td>
 <td>2001</td>
 <td>Nevada</td>
 <td>2.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>five</strong></td>
 <td>2002</td>
 <td>Nevada</td>
@@ -237,35 +245,40 @@ dtype: object</code></pre>
 </tr>
 </tbody>
 </table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(df)</span><br></pre></td></tr></table></figure>
-<pre><code>pandas.core.frame.DataFrame</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(df)</span><br></pre></td></tr></table></figure>
+<pre><code>pandas.core.frame.DataFrame
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.shape</span><br></pre></td></tr></table></figure>
-<pre><code>(5, 3)</code></pre>
+<pre><code>(5, 3)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># list to ndarray</span></span><br><span class="line">ndarray = np.array(data)</span><br><span class="line">ndarray</span><br></pre></td></tr></table></figure>
-<pre><code>array([[&#39;2000&#39;, &#39;Ohino&#39;, &#39;1.5&#39;],
-       [&#39;2001&#39;, &#39;Ohino&#39;, &#39;1.7&#39;],
-       [&#39;2002&#39;, &#39;Ohino&#39;, &#39;3.6&#39;],
-       [&#39;2001&#39;, &#39;Nevada&#39;, &#39;2.4&#39;],
-       [&#39;2002&#39;, &#39;Nevada&#39;, &#39;2.9&#39;]],
-      dtype=&#39;|S21&#39;)</code></pre>
+<pre><code>array([['2000', 'Ohino', '1.5'],
+       ['2001', 'Ohino', '1.7'],
+       ['2002', 'Ohino', '3.6'],
+       ['2001', 'Nevada', '2.4'],
+       ['2002', 'Nevada', '2.9']],
+      dtype='|S21')
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ndarray.shape</span><br></pre></td></tr></table></figure>
-<pre><code>(5, 3)</code></pre>
-<h2 id="输入-array">3 输入 Array</h2>
+<pre><code>(5, 3)
+</code></pre>
+<h2 id="3-输入-array">3 输入 Array</h2>
 <ul>
 <li>array to dataframe</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to array</span></span><br><span class="line">ndarray = np.array(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># array to dataframe</span></span><br><span class="line">pd = DataFrame(ndarray, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>], columns = [<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;state&#x27;</span>, <span class="string">&#x27;pop&#x27;</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">'Ohino'</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Ohino'</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Ohino'</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Nevada'</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Nevada'</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to array</span></span><br><span class="line">ndarray = np.array(data)</span><br><span class="line"></span><br><span class="line"><span class="comment"># array to dataframe</span></span><br><span class="line">pd = DataFrame(ndarray, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ndarray</span><br><span class="line"><span class="comment"># 注意：array 中所有数据类型均是一样的</span></span><br></pre></td></tr></table></figure>
-<pre><code>array([[&#39;2000&#39;, &#39;Ohino&#39;, &#39;1.5&#39;],
-       [&#39;2001&#39;, &#39;Ohino&#39;, &#39;1.7&#39;],
-       [&#39;2002&#39;, &#39;Ohino&#39;, &#39;3.6&#39;],
-       [&#39;2001&#39;, &#39;Nevada&#39;, &#39;2.4&#39;],
-       [&#39;2002&#39;, &#39;Nevada&#39;, &#39;2.9&#39;]],
-      dtype=&#39;|S21&#39;)</code></pre>
+<pre><code>array([['2000', 'Ohino', '1.5'],
+       ['2001', 'Ohino', '1.7'],
+       ['2002', 'Ohino', '3.6'],
+       ['2001', 'Nevada', '2.4'],
+       ['2002', 'Nevada', '2.9']],
+      dtype='|S21')
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pd</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>year</th>
 <th>state</th>
@@ -273,31 +286,31 @@ dtype: object</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>one</strong></td>
 <td>2000</td>
 <td>Ohino</td>
 <td>1.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>two</strong></td>
 <td>2001</td>
 <td>Ohino</td>
 <td>1.7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>three</strong></td>
 <td>2002</td>
 <td>Ohino</td>
 <td>3.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>four</strong></td>
 <td>2001</td>
 <td>Nevada</td>
 <td>2.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>five</strong></td>
 <td>2002</td>
 <td>Nevada</td>
@@ -305,61 +318,71 @@ dtype: object</code></pre>
 </tr>
 </tbody>
 </table>
-<h2 id="输入-dataframe">4. 输入 DataFrame</h2>
+<h2 id="4-输入-dataframe">4. 输入 DataFrame</h2>
 <ul>
 <li>series to array</li>
 <li>dataframe to array</li>
 <li>dataframe to dict</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Ohino&#x27;</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">&#x27;Nevada&#x27;</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">&#x27;one&#x27;</span>, <span class="string">&#x27;two&#x27;</span>, <span class="string">&#x27;three&#x27;</span>, <span class="string">&#x27;four&#x27;</span>, <span class="string">&#x27;five&#x27;</span>], columns = [<span class="string">&#x27;year&#x27;</span>, <span class="string">&#x27;state&#x27;</span>, <span class="string">&#x27;pop&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># series to array</span></span><br><span class="line">foo = ser.as_matrix()</span><br><span class="line">foo0 = Series.as_matrix(ser)</span><br><span class="line"></span><br><span class="line"><span class="comment"># dataframe to array, foo2 foo3 foo4 结果相同</span></span><br><span class="line">foo1 = DataFrame.as_matrix(df)</span><br><span class="line">foo2 = df.as_matrix()</span><br><span class="line">foo3 = df.values</span><br><span class="line">foo4 = np.array(df)</span><br><span class="line"></span><br><span class="line">foo5 = df.as_matrix([<span class="string">&quot;pop&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># dataframe to dict</span></span><br><span class="line"><span class="comment"># outtype的参数为‘dict’、‘list’、‘series’和‘records’。</span></span><br><span class="line"><span class="comment"># dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df1 = df.to_dict(orient=<span class="string">&#x27;dict&#x27;</span>)</span><br><span class="line">df2 = df.to_dict(orient=<span class="string">&#x27;list&#x27;</span>)</span><br><span class="line">df3 = df.to_dict(orient=<span class="string">&#x27;series&#x27;</span>)</span><br><span class="line">df4 = df.to_dict(orient=<span class="string">&#x27;records&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding:utf-8</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series, DataFrame</span><br><span class="line"></span><br><span class="line"><span class="comment"># list</span></span><br><span class="line">data = [[<span class="number">2000</span>, <span class="string">'Ohino'</span>, <span class="number">1.5</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Ohino'</span>, <span class="number">1.7</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Ohino'</span>, <span class="number">3.6</span>],</span><br><span class="line">        [<span class="number">2001</span>, <span class="string">'Nevada'</span>, <span class="number">2.4</span>],</span><br><span class="line">        [<span class="number">2002</span>, <span class="string">'Nevada'</span>, <span class="number">2.9</span>]]  <span class="comment"># type(data) 为 list</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># list to series</span></span><br><span class="line">ser = Series(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># list to dataframe</span></span><br><span class="line">df = DataFrame(data, index = [<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>, <span class="string">'four'</span>, <span class="string">'five'</span>], columns = [<span class="string">'year'</span>, <span class="string">'state'</span>, <span class="string">'pop'</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># series to array</span></span><br><span class="line">foo = ser.as_matrix()</span><br><span class="line">foo0 = Series.as_matrix(ser)</span><br><span class="line"></span><br><span class="line"><span class="comment"># dataframe to array, foo2 foo3 foo4 结果相同</span></span><br><span class="line">foo1 = DataFrame.as_matrix(df)</span><br><span class="line">foo2 = df.as_matrix()</span><br><span class="line">foo3 = df.values</span><br><span class="line">foo4 = np.array(df)</span><br><span class="line"></span><br><span class="line">foo5 = df.as_matrix([<span class="string">"pop"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># dataframe to dict</span></span><br><span class="line"><span class="comment"># outtype的参数为‘dict’、‘list’、‘series’和‘records’。</span></span><br><span class="line"><span class="comment"># dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df1 = df.to_dict(orient=<span class="string">'dict'</span>)</span><br><span class="line">df2 = df.to_dict(orient=<span class="string">'list'</span>)</span><br><span class="line">df3 = df.to_dict(orient=<span class="string">'series'</span>)</span><br><span class="line">df4 = df.to_dict(orient=<span class="string">'records'</span>)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># series to ndarray</span></span><br><span class="line">foo = ser.as_matrix()</span><br><span class="line">foo0 = Series.as_matrix(ser)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5], [2001, &#39;Ohino&#39;, 1.7], [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4], [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5], [2001, 'Ohino', 1.7], [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4], [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo0</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5], [2001, &#39;Ohino&#39;, 1.7], [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4], [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(foo)</span><br></pre></td></tr></table></figure>
-<pre><code>numpy.ndarray</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5], [2001, 'Ohino', 1.7], [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4], [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(foo)</span><br></pre></td></tr></table></figure>
+<pre><code>numpy.ndarray
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo.shape, foo0.shape</span><br></pre></td></tr></table></figure>
-<pre><code>((5,), (5,))</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to ndarray foo2 foo3 foo4 结果相同</span></span><br><span class="line">foo1 = DataFrame.as_matrix(df)</span><br><span class="line">foo2 = df.as_matrix()</span><br><span class="line">foo3 = df.values</span><br><span class="line">foo4 = np.array(df)</span><br><span class="line"></span><br><span class="line">foo5 = df.as_matrix([<span class="string">&quot;pop&quot;</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>((5,), (5,))
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to ndarray foo2 foo3 foo4 结果相同</span></span><br><span class="line">foo1 = DataFrame.as_matrix(df)</span><br><span class="line">foo2 = df.as_matrix()</span><br><span class="line">foo3 = df.values</span><br><span class="line">foo4 = np.array(df)</span><br><span class="line"></span><br><span class="line">foo5 = df.as_matrix([<span class="string">"pop"</span>])</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo1</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5],
-       [2001, &#39;Ohino&#39;, 1.7],
-       [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4],
-       [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5],
+       [2001, 'Ohino', 1.7],
+       [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4],
+       [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo2</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5],
-       [2001, &#39;Ohino&#39;, 1.7],
-       [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4],
-       [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5],
+       [2001, 'Ohino', 1.7],
+       [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4],
+       [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo3</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5],
-       [2001, &#39;Ohino&#39;, 1.7],
-       [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4],
-       [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5],
+       [2001, 'Ohino', 1.7],
+       [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4],
+       [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo4</span><br></pre></td></tr></table></figure>
-<pre><code>array([[2000, &#39;Ohino&#39;, 1.5],
-       [2001, &#39;Ohino&#39;, 1.7],
-       [2002, &#39;Ohino&#39;, 3.6],
-       [2001, &#39;Nevada&#39;, 2.4],
-       [2002, &#39;Nevada&#39;, 2.9]], dtype=object)</code></pre>
+<pre><code>array([[2000, 'Ohino', 1.5],
+       [2001, 'Ohino', 1.7],
+       [2002, 'Ohino', 3.6],
+       [2001, 'Nevada', 2.4],
+       [2002, 'Nevada', 2.9]], dtype=object)
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo5</span><br></pre></td></tr></table></figure>
 <pre><code>array([[ 1.5],
        [ 1.7],
        [ 3.6],
        [ 2.4],
-       [ 2.9]])</code></pre>
+       [ 2.9]])
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">foo1.shape, foo2.shape, foo3.shape, foo4.shape, foo5.shape</span><br></pre></td></tr></table></figure>
-<pre><code>((5, 3), (5, 3), (5, 3), (5, 3), (5, 1))</code></pre>
+<pre><code>((5, 3), (5, 3), (5, 3), (5, 3), (5, 1))
+</code></pre>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>year</th>
 <th>state</th>
@@ -367,31 +390,31 @@ dtype: object</code></pre>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><strong>one</strong></td>
 <td>2000</td>
 <td>Ohino</td>
 <td>1.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>two</strong></td>
 <td>2001</td>
 <td>Ohino</td>
 <td>1.7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>three</strong></td>
 <td>2002</td>
 <td>Ohino</td>
 <td>3.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>four</strong></td>
 <td>2001</td>
 <td>Nevada</td>
 <td>2.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>five</strong></td>
 <td>2002</td>
 <td>Nevada</td>
@@ -399,173 +422,164 @@ dtype: object</code></pre>
 </tr>
 </tbody>
 </table>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df1 = df.to_dict(orient=<span class="string">&#x27;dict&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df1 = df.to_dict(orient=<span class="string">'dict'</span>)</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df1</span><br></pre></td></tr></table></figure>
-<pre><code>&#123;&#39;pop&#39;: &#123;&#39;five&#39;: 2.9,
-  &#39;four&#39;: 2.4,
-  &#39;one&#39;: 1.5,
-  &#39;three&#39;: 3.6,
-  &#39;two&#39;: 1.7&#125;,
- &#39;state&#39;: &#123;&#39;five&#39;: &#39;Nevada&#39;,
-  &#39;four&#39;: &#39;Nevada&#39;,
-  &#39;one&#39;: &#39;Ohino&#39;,
-  &#39;three&#39;: &#39;Ohino&#39;,
-  &#39;two&#39;: &#39;Ohino&#39;&#125;,
- &#39;year&#39;: &#123;&#39;five&#39;: 2002, &#39;four&#39;: 2001, &#39;one&#39;: 2000, &#39;three&#39;: 2002, &#39;two&#39;: 2001&#125;&#125;</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(df1)</span><br></pre></td></tr></table></figure>
-<pre><code>dict</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df2 = df.to_dict(orient=<span class="string">&#x27;list&#x27;</span>)</span><br><span class="line">df2</span><br></pre></td></tr></table></figure>
-<pre><code>&#123;&#39;pop&#39;: [1.5, 1.7, 3.6, 2.4, 2.9],
- &#39;state&#39;: [&#39;Ohino&#39;, &#39;Ohino&#39;, &#39;Ohino&#39;, &#39;Nevada&#39;, &#39;Nevada&#39;],
- &#39;year&#39;: [2000, 2001, 2002, 2001, 2002]&#125;</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(df2)</span><br></pre></td></tr></table></figure>
-<pre><code>dict</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df3 = df.to_dict(orient=<span class="string">&#x27;series&#x27;</span>)</span><br><span class="line">df3</span><br></pre></td></tr></table></figure>
-<pre><code>&#123;&#39;pop&#39;: one      1.5
+<pre><code>{'pop': {'five': 2.9,
+  'four': 2.4,
+  'one': 1.5,
+  'three': 3.6,
+  'two': 1.7},
+ 'state': {'five': 'Nevada',
+  'four': 'Nevada',
+  'one': 'Ohino',
+  'three': 'Ohino',
+  'two': 'Ohino'},
+ 'year': {'five': 2002, 'four': 2001, 'one': 2000, 'three': 2002, 'two': 2001}}
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(df1)</span><br></pre></td></tr></table></figure>
+<pre><code>dict
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df2 = df.to_dict(orient=<span class="string">'list'</span>)</span><br><span class="line">df2</span><br></pre></td></tr></table></figure>
+<pre><code>{'pop': [1.5, 1.7, 3.6, 2.4, 2.9],
+ 'state': ['Ohino', 'Ohino', 'Ohino', 'Nevada', 'Nevada'],
+ 'year': [2000, 2001, 2002, 2001, 2002]}
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(df2)</span><br></pre></td></tr></table></figure>
+<pre><code>dict
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df3 = df.to_dict(orient=<span class="string">'series'</span>)</span><br><span class="line">df3</span><br></pre></td></tr></table></figure>
+<pre><code>{'pop': one      1.5
  two      1.7
  three    3.6
  four     2.4
  five     2.9
- Name: pop, dtype: float64, &#39;state&#39;: one       Ohino
+ Name: pop, dtype: float64, 'state': one       Ohino
  two       Ohino
  three     Ohino
  four     Nevada
  five     Nevada
- Name: state, dtype: object, &#39;year&#39;: one      2000
+ Name: state, dtype: object, 'year': one      2000
  two      2001
  three    2002
  four     2001
  five     2002
- Name: year, dtype: int64&#125;</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(df3)</span><br></pre></td></tr></table></figure>
-<pre><code>dict</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df4 = df.to_dict(orient=<span class="string">&#x27;records&#x27;</span>)</span><br><span class="line">df4</span><br></pre></td></tr></table></figure>
-<pre><code>[&#123;&#39;pop&#39;: 1.5, &#39;state&#39;: &#39;Ohino&#39;, &#39;year&#39;: 2000&#125;,
- &#123;&#39;pop&#39;: 1.7, &#39;state&#39;: &#39;Ohino&#39;, &#39;year&#39;: 2001&#125;,
- &#123;&#39;pop&#39;: 3.6, &#39;state&#39;: &#39;Ohino&#39;, &#39;year&#39;: 2002&#125;,
- &#123;&#39;pop&#39;: 2.4, &#39;state&#39;: &#39;Nevada&#39;, &#39;year&#39;: 2001&#125;,
- &#123;&#39;pop&#39;: 2.9, &#39;state&#39;: &#39;Nevada&#39;, &#39;year&#39;: 2002&#125;]</code></pre>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>(df4)</span><br></pre></td></tr></table></figure>
-<pre><code>list</code></pre>
-<h2 id="总结list-dict-array-series-dataframe-的区别">4. 总结：List,
-Dict, Array, Series, DataFrame 的区别</h2>
+ Name: year, dtype: int64}
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(df3)</span><br></pre></td></tr></table></figure>
+<pre><code>dict
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dataframe to dict, dict返回的是dict of dict；list返回的是列表的字典；series返回的是序列的字典；records返回的是字典的列表</span></span><br><span class="line">df4 = df.to_dict(orient=<span class="string">'records'</span>)</span><br><span class="line">df4</span><br></pre></td></tr></table></figure>
+<pre><code>[{'pop': 1.5, 'state': 'Ohino', 'year': 2000},
+ {'pop': 1.7, 'state': 'Ohino', 'year': 2001},
+ {'pop': 3.6, 'state': 'Ohino', 'year': 2002},
+ {'pop': 2.4, 'state': 'Nevada', 'year': 2001},
+ {'pop': 2.9, 'state': 'Nevada', 'year': 2002}]
+</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type(df4)</span><br></pre></td></tr></table></figure>
+<pre><code>list
+</code></pre>
+<h2 id="4-总结：list-dict-array-series-dataframe-的区别">4. 总结：List, Dict, Array, Series, DataFrame 的区别</h2>
 <ul>
 <li>List 和 Dict 是 Python 的基本数据结构</li>
 <li>Series 和 DataFrame 是 Pandas 的基本数据结构</li>
 <li>Array 是 Numpy 的数据结构</li>
 </ul>
-<h3 id="pandas-中的数据结构">4.1 Pandas 中的数据结构</h3>
-<h4 id="series">4.1.1 Series</h4>
+<h3 id="4-1-pandas-中的数据结构">4.1 Pandas 中的数据结构</h3>
+<h4 id="4-1-1-series">4.1.1 Series</h4>
 <ul>
-<li>Series 是一个一维的类似的数组对象，包含一个数组的数据（任何 NumPy
-的数据类型）和一个与数组关联的数据标签，被叫做<strong>索引</strong>。最简单的Series是由一个数组的数据构成。</li>
+<li>Series 是一个一维的类似的数组对象，包含一个数组的数据（任何 NumPy 的数据类型）和一个与数组关联的数据标签，被叫做<strong>索引</strong>。最简单的Series是由一个数组的数据构成。</li>
 <li>Series 是一个定长的，有序的字典，因为它把索引和值映射起来了。</li>
-<li>Series 与 Numpy 中的一维 array 类似。二者与 Python 基本的数据结构
-List 也很相近。其区别是：List 中的元素可以是不同的数据类型，而 Array 和
-Series
-中则只允许存储相同的数据类型，这样可以更有效的使用内存，提高运算效率。</li>
+<li>Series 与 Numpy 中的一维 array 类似。二者与 Python 基本的数据结构 List 也很相近。其区别是：List 中的元素可以是不同的数据类型，而 Array 和 Series 中则只允许存储相同的数据类型，这样可以更有效的使用内存，提高运算效率。</li>
 <li>Time-Series：以时间为索引的 Series。</li>
 </ul>
-<h4 id="dataframe">4.1.2 DataFrame</h4>
+<h4 id="4-1-2-dataframe">4.1.2 DataFrame</h4>
 <ul>
-<li>DataFrame：<strong>二维</strong>的表格型数据结构。很多功能与 R 中的
-data.frame 类似。可以将 DataFrame 理解为 Series 的容器。</li>
-<li>有很多方法来构建一个
-DataFrame，但最常用的一个是用一个相等长度列表的字典或 NumPy 数组。</li>
-<li>像 Series 一样， DataFrame 的 values 属性返回一个包含在 DataFrame
-中的数据的二维 ndarray。</li>
+<li>DataFrame：<strong>二维</strong>的表格型数据结构。很多功能与 R 中的 data.frame 类似。可以将 DataFrame 理解为 Series 的容器。</li>
+<li>有很多方法来构建一个 DataFrame，但最常用的一个是用一个相等长度列表的字典或 NumPy 数组。</li>
+<li>像 Series 一样， DataFrame 的 values 属性返回一个包含在 DataFrame 中的数据的二维 ndarray。</li>
 <li>Panel ：三维的数组，可以理解为 DataFrame 的容器。</li>
 </ul>
 <p><strong>可能的传递到DataFrame的构造器</strong></p>
 <table>
-<colgroup>
-<col style="width: 26%" />
-<col style="width: 73%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>构造器</th>
 <th>说明</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>二维ndarray</td>
 <td>一个数据矩阵，有可选的行标和列标</td>
 </tr>
-<tr class="even">
+<tr>
 <td>数组，列表或元组的字典</td>
 <td>每一个序列成为DataFrame中的一列。所有的序列必须有相同的长度。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>NumPy的结构/记录数组</td>
 <td>和“数组字典”一样处理</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Series的字典</td>
 <td>每一个值成为一列。如果没有明显的传递索引，将结合每一个Series的索引来形成结果的行索引。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>字典的字典</td>
 <td>每一个内部的字典成为一列。和“Series的字典”一样，结合键值来形成行索引。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>字典或Series的列表</td>
 <td>每一项成为DataFrame中的一列。结合字典键或Series索引形成DataFrame的列标。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>列表或元组的列表</td>
 <td>和“二维ndarray”一样处理</td>
 </tr>
-<tr class="even">
+<tr>
 <td>另一个DataFrame</td>
 <td>DataFrame的索引将被使用，除非传递另外一个</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>NumPy伪装数组（MaskedArray）</td>
 <td>除了蒙蔽值在DataFrame中成为NA/丢失数据之外，其它的和“二维ndarray”一样</td>
 </tr>
 </tbody>
 </table>
-<h3 id="numpy-操作">4.2 Numpy 操作</h3>
+<h3 id="4-2-numpy-操作">4.2 Numpy 操作</h3>
 <ul>
-<li><p>基本操作</p>
+<li>
+<p>基本操作</p>
 <ul>
-<li>np.array 创建数组，调用 astype
-总是会创建一个新的数组（原数据的拷贝），即使是新的 dtype 和原来的 dtype
-相同。</li>
-<li>索引，切片等详见：http://pda.readthedocs.io/en/latest/chp4.html</li>
-</ul></li>
-<li><p>通用函数</p></li>
-<li><p>数据处理</p>
+<li>np.array 创建数组，调用 astype 总是会创建一个新的数组（原数据的拷贝），即使是新的 dtype 和原来的 dtype 相同。</li>
+<li>索引，切片等详见：<a href="http://pda.readthedocs.io/en/latest/chp4.html" target="_blank" rel="noopener">http://pda.readthedocs.io/en/latest/chp4.html</a></li>
+</ul>
+</li>
+<li>
+<p>通用函数</p>
+</li>
+<li>
+<p>数据处理</p>
 <ul>
-<li>np.meshgrid
-函数接受两个一维数组并产生两个二维矩阵，其值对于两个数组的所有 (x, y)
-对。</li>
-<li>函数 numpy.where 是三元表达式 x if condition else y
-的矢量化版本。</li>
-<li>mean 和 sun 函数可以有一个可选的 axis
-参数，它对给定坐标轴进行统计，结果数组将会减少一个维度。</li>
-<li>有两个额外的方法， any 和 all ，对布尔数组尤其有用。 any
-用来测试一个数组中是否有一个或更多的 True ，而 all
-用来测试所有的值是否为 True。</li>
-<li>顶层的 np.sort
-函数返回一个经过排序后的数组拷贝，而不是就地修改。</li>
-<li>Numpy 有一些基本的针对一维 ndarrays 的集合操作。最常使用的一个可能是
-np.unique ，它返回一个数组的经过排序的 unique 值。</li>
-</ul></li>
-<li><p>线性代数</p>
+<li>np.meshgrid 函数接受两个一维数组并产生两个二维矩阵，其值对于两个数组的所有 (x, y) 对。</li>
+<li>函数 numpy.where 是三元表达式 x if condition else y 的矢量化版本。</li>
+<li>mean 和 sun 函数可以有一个可选的 axis 参数，它对给定坐标轴进行统计，结果数组将会减少一个维度。</li>
+<li>有两个额外的方法， any 和 all ，对布尔数组尤其有用。 any 用来测试一个数组中是否有一个或更多的 True ，而 all 用来测试所有的值是否为 True。</li>
+<li>顶层的 np.sort 函数返回一个经过排序后的数组拷贝，而不是就地修改。</li>
+<li>Numpy 有一些基本的针对一维 ndarrays 的集合操作。最常使用的一个可能是 np.unique ，它返回一个数组的经过排序的 unique 值。</li>
+</ul>
+</li>
+<li>
+<p>线性代数</p>
 <ul>
-<li>numpy.linalg
-有一个关于矩阵分解和像转置和行列式等的一个标准集合。</li>
-</ul></li>
+<li>numpy.linalg 有一个关于矩阵分解和像转置和行列式等的一个标准集合。</li>
+</ul>
+</li>
 </ul>
 <h2 id="参考网站">参考网站</h2>
 <ul>
-<li><a href="http://pda.readthedocs.io/en/latest/chp5.html">Pandas
-入门</a></li>
-<li>整理自：<a
-href="http://www.lining0806.com/numpy%E7%9A%84ndarray%E4%B8%8Epandas%E7%9A%84series%E5%92%8Cdataframe%E4%B9%8B%E9%97%B4%E4%BA%92%E8%BD%AC/">宁哥的小站</a></li>
+<li><a href="http://pda.readthedocs.io/en/latest/chp5.html" target="_blank" rel="noopener">Pandas 入门</a></li>
+<li>整理自：<a href="http://www.lining0806.com/numpy%E7%9A%84ndarray%E4%B8%8Epandas%E7%9A%84series%E5%92%8Cdataframe%E4%B9%8B%E9%97%B4%E4%BA%92%E8%BD%AC/" target="_blank" rel="noopener">宁哥的小站</a></li>
 </ul>
 
       
@@ -724,21 +738,6 @@ href="http://www.lining0806.com/numpy%E7%9A%84ndarray%E4%B8%8Epandas%E7%9A%84ser
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="第十一章：概率语法 基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.167Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.540Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自然语言计算机形式分析的理论与方法笔记(Ch11)">
 <meta name="twitter:description" content="第十一章：概率语法 基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/03/01/NLP/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" data-id="clx98np3j013ltsbz83b7jjhn" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/03/01/NLP/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" data-id="clxbpfsgk016vdlbz5vcme5wk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,40 +95,23 @@
       
             <!-- Table of Contents -->
               
-        <h1 id="第十一章概率语法">第十一章：概率语法</h1>
-<p>基于规则的句法剖析主要使用 Chomsky
-的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为
-“概率语法”。</p>
-<span id="more"></span>
-<h2
-id="概率上下文无关语法与句子的歧义">概率上下文无关语法与句子的歧义</h2>
-<p>上下文无关语法（CFG）定义为四元组：G={N, Σ, P, S}，N
-是非终极符号集合，Σ 是终极符号集合，S 是初始符号，P
-是重写规则。规则形式为 A→β，A 是单独的非终极符号，β
-可以由终极符号组成，也可以由非终极符号组成。</p>
+        <h1>第十一章：概率语法</h1>
+<p>基于规则的句法剖析主要使用 Chomsky 的上下文无关语法。之前的自顶向下、自底向上、左角、CYK、Earley、线图分析法等都对歧义无能为力，于是有了新的改进：一方面是给上下文无关语法的规则加上概率，另一方面是除了加上概率外，还考虑规则的中心词对于规则概率的影响。这些称为 “概率语法”。</p>
+<a id="more"></a>
+<h2 id="概率上下文无关语法与句子的歧义">概率上下文无关语法与句子的歧义</h2>
+<p>上下文无关语法（CFG）定义为四元组：G={N, Σ, P, S}，N 是非终极符号集合，Σ 是终极符号集合，S 是初始符号，P 是重写规则。规则形式为 A→β，A 是单独的非终极符号，β 可以由终极符号组成，也可以由非终极符号组成。</p>
 <p>在句法分析时，由于词的词性和词义的多样性会导致歧义，于是学者们试图通过基于统计的方法，计算上下文无关语法重写规则的使用概率。</p>
 <h2 id="概率上下文无关语法的基本原理">概率上下文无关语法的基本原理</h2>
-<p>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由
-Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率
-p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D
-是给每一个规则指派概率 p 的函数。这个函数表示某个非终极符号 A 重写为符号
-β 时的概率 p。规则可写为：p(A→β) 或 p(A→β|A)，从 A 写为 β
-时应考虑所有情况且其概率和为 1。</p>
-<p>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T
-的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积：</p>
-<p><span class="math display">\[P(T) = \prod_{n \in T}
-p(r(n))\]</span></p>
-<p>其中，n 表示非终极符号的结点，r
-表示由该非终极符号扩充的规则，小写字母 p 表示规则 r 的概率，P
-表示整个树形图 T 的概率。从句子 S 的若干个树形图中选出最好的 T(S) = arg
-max P(T)。</p>
-<p>用于 CYK 算法叫作 “概率 CYK 算法”，同样也有 Earley
-算法、概率线图分析法等。</p>
+<p>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由 Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率 p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D 是给每一个规则指派概率 p 的函数。这个函数表示某个非终极符号 A 重写为符号 β 时的概率 p。规则可写为：p(A→β) 或 p(A→β|A)，从 A 写为 β 时应考虑所有情况且其概率和为 1。</p>
+<p>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T 的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>T</mi><mo stretchy="false">)</mo><mo>=</mo><munder><mo>∏</mo><mrow><mi>n</mi><mo>∈</mo><mi>T</mi></mrow></munder><mi>p</mi><mo stretchy="false">(</mo><mi>r</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">P(T) = \prod_{n \in T} p(r(n))
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.3717110000000003em;vertical-align:-1.321706em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.8556639999999998em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span><span class="mrel mtight">∈</span><span class="mord mathdefault mtight" style="margin-right:0.13889em;">T</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∏</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.321706em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">p</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mclose">)</span><span class="mclose">)</span></span></span></span></span></p>
+<p>其中，n 表示非终极符号的结点，r 表示由该非终极符号扩充的规则，小写字母 p 表示规则 r 的概率，P 表示整个树形图 T 的概率。从句子 S 的若干个树形图中选出最好的 T(S) = arg max P(T)。</p>
+<p>用于 CYK 算法叫作 “概率 CYK 算法”，同样也有 Earley 算法、概率线图分析法等。</p>
 <p>如何获取概率？</p>
 <ul>
 <li>使用句子已经的到剖析的语料库：树库，对其中的树形图进行统计</li>
-<li>通过未加工的语料库自动学习语法规则，采用 “向内向外算法”（Baker 1979
-年提出）</li>
+<li>通过未加工的语料库自动学习语法规则，采用 “向内向外算法”（Baker 1979 年提出）</li>
 </ul>
 <h2 id="概率上下文无关语法的三个假设">概率上下文无关语法的三个假设</h2>
 <ul>
@@ -143,24 +126,21 @@ max P(T)。</p>
 <li>并列结构的歧义</li>
 </ul>
 <h2 id="概率词汇化上下文无关语法">概率词汇化上下文无关语法</h2>
-<p>Charniak 1997
-年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</p>
+<p>Charniak 1997 年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</p>
 <p>除此之外，还有一些附加条件，以及各种回退和平滑算法。还有一些剖析器包括更多的因素，比如，区分论元成分与附属成分，对于树形图中那些比较接近的词汇依存关系比那些比较疏远的词汇依存关系给以更大的权重，考虑在给定成分中的三个最左的词类，考虑一般的结构依存关系等等。</p>
 <h2 id="小结">小结</h2>
 <ul>
 <li>概率上下文无关语法与句子的歧义
 <ul>
 <li>基于统计的方法，计算上下文无关语法重写规则的使用概率。</li>
-</ul></li>
+</ul>
+</li>
 <li>概率上下文无关语法的基本原理
 <ul>
-<li>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由
-Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率
-p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D
-是给每一个规则指派概率 p 的函数。</li>
-<li>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T
-的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积。</li>
-</ul></li>
+<li>概率上下文无关语法（Probabilistic Context-Free Grammar，PGFG）由 Booth 1967 年最早提出。在每一个重写规则 A→β 上增加一个条件概率 p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, S, D}，D 是给每一个规则指派概率 p 的函数。</li>
+<li>如果句子有歧义，每一个树形图都会有一个概率，一个树形图 T 的概率等于从每一个非终极符号的结点 n 扩充的规则 r 的概率的乘积。</li>
+</ul>
+</li>
 <li>概率上下文无关语法的三个假设
 <ul>
 <li>三个假设：
@@ -168,19 +148,22 @@ p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, 
 <li>位置无关</li>
 <li>上下文无关</li>
 <li>祖先结点无关</li>
-</ul></li>
+</ul>
+</li>
 <li>问题：
 <ul>
 <li>结点上规则的转写与节点在树形图中的位置是有关的（如代词）</li>
 <li>PP 附着（PP 可以做 VP 的状语，或它前面 NP 的修饰语）问题</li>
 <li>并列结构的歧义</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>概率词汇化上下文无关语法
 <ul>
-<li>Charniak 1997
-年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</li>
-</ul></li>
+<li>Charniak 1997 年提出，剖析树的每一个结点要标上该结点的中心词，因此规则数目比概率上下文无关语法多很多，因为结点上除了语法标记还有词汇，也就是说统计的时候不是统计树库某一类标记的概率，而是某个具体的词的概率。</li>
+</ul>
+</li>
 </ul>
 <p>这章内容非常简单，其思想与隐马尔科夫有些类似，不过后面的改进都没有提到基于贝叶斯的推理。可能是个不错的改进方向。</p>
 
@@ -340,21 +323,6 @@ p：A→β[p]，于是上下文无关语法可定义为五元组：G={N, Σ, P, 
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="本系列主要介绍Rust与AI的那些天作之合（开源项目），我们会以开源项目代码阅读的方式推进，以Rust为主，同时科普AI相关知识，目的是让更多非算法、非Rust的程序员进一步学习Rust和AI相关知识。当然，很显然地，我们也希望Rust程序员和AI算法工程师能从中有所收获。前者可以关注AI算法的设计和优化，后者可以关注Rust如何助力AI算法。 本篇是系列第一篇，主要介绍Rust和AI各自的特点与">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.178Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Rust与AI】概览和方向">
 <meta name="twitter:description" content="本系列主要介绍Rust与AI的那些天作之合（开源项目），我们会以开源项目代码阅读的方式推进，以Rust为主，同时科普AI相关知识，目的是让更多非算法、非Rust的程序员进一步学习Rust和AI相关知识。当然，很显然地，我们也希望Rust程序员和AI算法工程师能从中有所收获。前者可以关注AI算法的设计和优化，后者可以关注Rust如何助力AI算法。 本篇是系列第一篇，主要介绍Rust和AI各自的特点与">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" data-id="clx98np4t01f0tsbz0b4qfa3y" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" data-id="clxbpfsj501dndlbz14q35uov" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,7 +97,7 @@
               
         <p>本系列主要介绍Rust与AI的那些天作之合（开源项目），我们会以开源项目代码阅读的方式推进，以Rust为主，同时科普AI相关知识，目的是让更多非算法、非Rust的程序员进一步学习Rust和AI相关知识。当然，很显然地，我们也希望Rust程序员和AI算法工程师能从中有所收获。前者可以关注AI算法的设计和优化，后者可以关注Rust如何助力AI算法。</p>
 <p>本篇是系列第一篇，主要介绍Rust和AI各自的特点与发展近况，以及它俩的遇见会碰撞出怎样的火花。我们热爱AI，我们喜欢Rust语言，仅此而已。</p>
-<span id="more"></span>
+<a id="more"></a>
 <h2 id="当前发展">当前发展</h2>
 <h3 id="ai与llm">AI与LLM</h3>
 <p>随着ChatGPT的发展浪潮，AI又一次迎来了发展良机，很多应用、服务都在基于大模型重新设计。同时，由于大模型的超能力，应用的开发门槛进一步下降，一些新的创意产品在不断涌现。总的来说，在AI应用领域呈现出了一片欣欣向荣、百家争鸣的景象。</p>
@@ -121,20 +121,8 @@
 <p>端侧，尤其是以RISC-V为基础架构的智能终端是Rust一直以来深耕的领域。更令人振奋的是前不久Vivo发布的用Rust全新构建的BlueOS，主打的就是新一代AI操作系统。我们相信Rust在智能终端有着非常广阔的前景。</p>
 <p>前面已经提到了LLM时代的特点是模型很大，推理很慢，需要性能提升。而且随着LLM的进一步发展，性能必定会变得更加重要，Rust由于其优秀的语言特性，正好接到这一棒。我们笃信Rust+AI大模型是最适合的搭档组合。</p>
 <h3 id="中间件">中间件</h3>
-<p>再下来是中间件。准确来说是和AI大模型相关的中间件，首当其冲的是向量检索相关库，这就不得不提大名鼎鼎的<a
-href="https://github.com/qdrant/qdrant">Qdrant</a>了，性能优秀，而且非常容易使用。顺带提一下对标全文检索框架ElasticSearch的<a
-href="https://github.com/meilisearch/meilisearch">melisearch</a>，经过多年的发展已经是比较成熟的框架了，这个领域还有很多其他框架，比如<a
-href="https://github.com/quickwit-oss/tantivy">tantivy</a>、<a
-href="https://github.com/toshi-search/Toshi">Toshi</a>、<a
-href="https://github.com/lnx-search/lnx">lnx</a>、<a
-href="https://github.com/neon-mmd/websurfx">websurfx</a>等。</p>
-<p>另外值得一提的是将全文检索、语义检索融合到SQL搜索的<a
-href="https://github.com/paradedb/paradedb">paradedb</a>，这个项目的设计思路可以给我们很多启发。此外还有处理表格的<a
-href="https://github.com/pola-rs/polars">polars</a>、可视化pipeline的<a
-href="https://github.com/vectordotdev/vector">vector</a>、文档图数据库<a
-href="https://github.com/surrealdb/surrealdb">surrealdb</a>、时序数据库<a
-href="https://github.com/CeresDB/horaedb">ceresdb</a>等等。当下火热的Agent也不是没有，比如<a
-href="https://github.com/Cormanz/smartgpt">smartgpt</a>。</p>
+<p>再下来是中间件。准确来说是和AI大模型相关的中间件，首当其冲的是向量检索相关库，这就不得不提大名鼎鼎的<a href="https://github.com/qdrant/qdrant" target="_blank" rel="noopener">Qdrant</a>了，性能优秀，而且非常容易使用。顺带提一下对标全文检索框架ElasticSearch的<a href="https://github.com/meilisearch/meilisearch" target="_blank" rel="noopener">melisearch</a>，经过多年的发展已经是比较成熟的框架了，这个领域还有很多其他框架，比如<a href="https://github.com/quickwit-oss/tantivy" target="_blank" rel="noopener">tantivy</a>、<a href="https://github.com/toshi-search/Toshi" target="_blank" rel="noopener">Toshi</a>、<a href="https://github.com/lnx-search/lnx" target="_blank" rel="noopener">lnx</a>、<a href="https://github.com/neon-mmd/websurfx" target="_blank" rel="noopener">websurfx</a>等。</p>
+<p>另外值得一提的是将全文检索、语义检索融合到SQL搜索的<a href="https://github.com/paradedb/paradedb" target="_blank" rel="noopener">paradedb</a>，这个项目的设计思路可以给我们很多启发。此外还有处理表格的<a href="https://github.com/pola-rs/polars" target="_blank" rel="noopener">polars</a>、可视化pipeline的<a href="https://github.com/vectordotdev/vector" target="_blank" rel="noopener">vector</a>、文档图数据库<a href="https://github.com/surrealdb/surrealdb" target="_blank" rel="noopener">surrealdb</a>、时序数据库<a href="https://github.com/CeresDB/horaedb" target="_blank" rel="noopener">ceresdb</a>等等。当下火热的Agent也不是没有，比如<a href="https://github.com/Cormanz/smartgpt" target="_blank" rel="noopener">smartgpt</a>。</p>
 <p>这块范围其实是非常广泛的，除了基础组件，可以想象的内容还很多，比如记忆模块、任务调度、资源池、任务定义、流程设计等等。这些组件几乎都是围绕着LLM使用的，我们相信LLM带来的远不止这些，而且随着应用层的不断丰富和发展，还会衍生出更多的需求。</p>
 <h3 id="训练">训练</h3>
 <p>最后说一下训练。Rust开始做推理，自然有人把它放到训练侧，不过目前看起来这块还处于尝试和起步阶段。我们比较看好它在相对稳定的工程领域使用，但不看好在算法领域的普及。</p>
@@ -142,91 +130,49 @@ href="https://github.com/Cormanz/smartgpt">smartgpt</a>。</p>
 <h3 id="其他">其他</h3>
 <p>前面说的是正向的，这里简单谈一下可能面临的冲击。</p>
 <p>首先依然是C和C++，它们当下是主流，谁能说未来不能继续是主流呢，而且对使用者来说，反正上面是方便的Python，谁会管下面怎么实现的。</p>
-<p>再就是其他新语言，比如专为AI而生的<a
-href="https://www.modular.com/mojo">Mojo</a>，它的定位是Python的易用性+C语言的性能。虽然Mojo目前还处于极其早期阶段，但这至少是个苗头：在AI主导的未来，指不定会有更AI的语言设计出来。那会不会有专门为大模型设计的语言呢？</p>
+<p>再就是其他新语言，比如专为AI而生的<a href="https://www.modular.com/mojo" target="_blank" rel="noopener">Mojo</a>，它的定位是Python的易用性+C语言的性能。虽然Mojo目前还处于极其早期阶段，但这至少是个苗头：在AI主导的未来，指不定会有更AI的语言设计出来。那会不会有专门为大模型设计的语言呢？</p>
 <p>不过，总的来说，我们先关注Rust吧。</p>
 <h2 id="开源项目">开源项目</h2>
 <p>下面我们列举一些Rust相关的AI项目，囿于笔者知识范围，所列内容不一定全面，如果读者有更好的开源项目推荐，尤其是大模型相关的，欢迎随时推荐。这些资源也是系列后续阅读的项目。</p>
 <h3 id="llm推理">LLM推理</h3>
 <ul>
-<li><a href="https://github.com/rustformers/llm">rustformers/llm: An
-ecosystem of Rust libraries for working with large language
-models</a></li>
-<li><a href="https://github.com/Noeda/rllama">Noeda/rllama:
-Rust+OpenCL+AVX2 implementation of LLaMA inference code</a></li>
-<li><a href="https://github.com/srush/llama2.rs">srush/llama2.rs: A fast
-llama2 decoder in pure Rust.</a></li>
-<li><a href="https://github.com/leo-du/llama2.rs">leo-du/llama2.rs:
-Inference Llama 2 in one file of zero-dependency, zero-unsafe
-Rust</a></li>
-<li><a
-href="https://github.com/gaxler/llama2.rs/tree/llama2-rs">gaxler/llama2.rs:
-Inference Llama 2 in one file of pure Rust 🦀</a></li>
-<li><a
-href="https://github.com/rahoua/pecca-rs/tree/main">rahoua/pecca-rs</a></li>
-<li><a
-href="https://github.com/huggingface/text-generation-inference">huggingface/text-generation-inference:
-Large Language Model Text Generation Inference</a></li>
+<li><a href="https://github.com/rustformers/llm" target="_blank" rel="noopener">rustformers/llm: An ecosystem of Rust libraries for working with large language models</a></li>
+<li><a href="https://github.com/Noeda/rllama" target="_blank" rel="noopener">Noeda/rllama: Rust+OpenCL+AVX2 implementation of LLaMA inference code</a></li>
+<li><a href="https://github.com/srush/llama2.rs" target="_blank" rel="noopener">srush/llama2.rs: A fast llama2 decoder in pure Rust.</a></li>
+<li><a href="https://github.com/leo-du/llama2.rs" target="_blank" rel="noopener">leo-du/llama2.rs: Inference Llama 2 in one file of zero-dependency, zero-unsafe Rust</a></li>
+<li><a href="https://github.com/gaxler/llama2.rs/tree/llama2-rs" target="_blank" rel="noopener">gaxler/llama2.rs: Inference Llama 2 in one file of pure Rust 🦀</a></li>
+<li><a href="https://github.com/rahoua/pecca-rs/tree/main" target="_blank" rel="noopener">rahoua/pecca-rs</a></li>
+<li><a href="https://github.com/huggingface/text-generation-inference" target="_blank" rel="noopener">huggingface/text-generation-inference: Large Language Model Text Generation Inference</a></li>
 </ul>
 <h3 id="agent">Agent</h3>
 <ul>
-<li><a href="https://github.com/Cormanz/smartgpt">Cormanz/smartgpt: A
-program that provides LLMs with the ability to complete complex tasks
-using plugins.</a></li>
+<li><a href="https://github.com/Cormanz/smartgpt" target="_blank" rel="noopener">Cormanz/smartgpt: A program that provides LLMs with the ability to complete complex tasks using plugins.</a></li>
 </ul>
 <h3 id="nlp">NLP</h3>
 <ul>
-<li><a
-href="https://github.com/huggingface/tokenizers">huggingface/tokenizers:
-💥 Fast State-of-the-Art Tokenizers optimized for Research and
-Production</a></li>
-<li><a
-href="https://github.com/guillaume-be/rust-bert">guillaume-be/rust-bert:
-Rust native ready-to-use NLP pipelines and transformer-based models
-(BERT, DistilBERT, GPT2,...)</a></li>
+<li><a href="https://github.com/huggingface/tokenizers" target="_blank" rel="noopener">huggingface/tokenizers: 💥 Fast State-of-the-Art Tokenizers optimized for Research and Production</a></li>
+<li><a href="https://github.com/guillaume-be/rust-bert" target="_blank" rel="noopener">guillaume-be/rust-bert: Rust native ready-to-use NLP pipelines and transformer-based models (BERT, DistilBERT, GPT2,…)</a></li>
 </ul>
 <h3 id="图像">图像</h3>
 <ul>
-<li><a
-href="https://github.com/LaurentMazare/diffusers-rs">LaurentMazare/diffusers-rs:
-An implementation of the diffusers api in Rust</a></li>
-<li><a
-href="https://github.com/twistedfall/opencv-rust">twistedfall/opencv-rust:
-Rust bindings for OpenCV 3 &amp; 4</a></li>
+<li><a href="https://github.com/LaurentMazare/diffusers-rs" target="_blank" rel="noopener">LaurentMazare/diffusers-rs: An implementation of the diffusers api in Rust</a></li>
+<li><a href="https://github.com/twistedfall/opencv-rust" target="_blank" rel="noopener">twistedfall/opencv-rust: Rust bindings for OpenCV 3 &amp; 4</a></li>
 </ul>
 <h3 id="code">Code</h3>
 <ul>
-<li><a href="https://github.com/huggingface/llm-ls">huggingface/llm-ls:
-LSP server leveraging LLMs for code completion (and more?)</a></li>
+<li><a href="https://github.com/huggingface/llm-ls" target="_blank" rel="noopener">huggingface/llm-ls: LSP server leveraging LLMs for code completion (and more?)</a></li>
 </ul>
 <h3 id="framework">Framework</h3>
 <ul>
-<li><a href="https://github.com/huggingface/candle">huggingface/candle:
-Minimalist ML framework for Rust</a></li>
-<li><a href="https://github.com/coreylowman/dfdx">coreylowman/dfdx: Deep
-learning in Rust, with shape checked tensors and neural
-networks</a></li>
-<li><a href="https://github.com/tracel-ai/burn">tracel-ai/burn: Burn is
-a new comprehensive dynamic Deep Learning Framework built using Rust
-with extreme flexibility, compute efficiency and portability as its
-primary goals.</a></li>
-<li><a href="https://github.com/spearow/juice">spearow/juice: The
-Hacker's Machine Learning Engine</a></li>
-<li><a href="https://github.com/rust-ml/linfa">rust-ml/linfa: A Rust
-machine learning framework.</a></li>
-<li><a href="https://github.com/tensorflow/rust">tensorflow/rust: Rust
-language bindings for TensorFlow</a></li>
-<li><a href="https://github.com/sonos/tract">sonos/tract: Tiny,
-no-nonsense, self-contained, Tensorflow and ONNX inference</a></li>
-<li><a
-href="https://github.com/smartcorelib/smartcore">smartcorelib/smartcore:
-A comprehensive library for machine learning and numerical computing.
-The library provides a set of tools for linear algebra, numerical
-computing, optimization, and enables a generic, powerful yet still
-efficient approach to machine learning.</a></li>
-<li><a
-href="https://github.com/neuronika/neuronika">neuronika/neuronika:
-Tensors and dynamic neural networks in pure Rust.</a></li>
+<li><a href="https://github.com/huggingface/candle" target="_blank" rel="noopener">huggingface/candle: Minimalist ML framework for Rust</a></li>
+<li><a href="https://github.com/coreylowman/dfdx" target="_blank" rel="noopener">coreylowman/dfdx: Deep learning in Rust, with shape checked tensors and neural networks</a></li>
+<li><a href="https://github.com/tracel-ai/burn" target="_blank" rel="noopener">tracel-ai/burn: Burn is a new comprehensive dynamic Deep Learning Framework built using Rust with extreme flexibility, compute efficiency and portability as its primary goals.</a></li>
+<li><a href="https://github.com/spearow/juice" target="_blank" rel="noopener">spearow/juice: The Hacker’s Machine Learning Engine</a></li>
+<li><a href="https://github.com/rust-ml/linfa" target="_blank" rel="noopener">rust-ml/linfa: A Rust machine learning framework.</a></li>
+<li><a href="https://github.com/tensorflow/rust" target="_blank" rel="noopener">tensorflow/rust: Rust language bindings for TensorFlow</a></li>
+<li><a href="https://github.com/sonos/tract" target="_blank" rel="noopener">sonos/tract: Tiny, no-nonsense, self-contained, Tensorflow and ONNX inference</a></li>
+<li><a href="https://github.com/smartcorelib/smartcore" target="_blank" rel="noopener">smartcorelib/smartcore: A comprehensive library for machine learning and numerical computing. The library provides a set of tools for linear algebra, numerical computing, optimization, and enables a generic, powerful yet still efficient approach to machine learning.</a></li>
+<li><a href="https://github.com/neuronika/neuronika" target="_blank" rel="noopener">neuronika/neuronika: Tensors and dynamic neural networks in pure Rust.</a></li>
 </ul>
 
       
@@ -385,21 +331,6 @@ Tensors and dynamic neural networks in pure Rust.</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

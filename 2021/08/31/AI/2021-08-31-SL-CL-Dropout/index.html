@@ -23,7 +23,7 @@
 <meta property="og:description" content="一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop 也能够起到一定效果，但太简单的模型（类似 TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout 最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC 等层的后面。  如果只想看结论，到这里就可以结束啦。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/lab-simcse-rdrop-2.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.156Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在 TextCNN 上实验 Dropout 和对比学习">
 <meta name="twitter:description" content="一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop 也能够起到一定效果，但太简单的模型（类似 TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout 最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC 等层的后面。  如果只想看结论，到这里就可以结束啦。">
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" data-id="clx98np0d000gtsbzkrbuplwm" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" data-id="clxbpfs3o000tdlbzibkb9i79" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,53 +97,32 @@
       
             <!-- Table of Contents -->
               
-        <p>一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop
-也能够起到一定效果，但太简单的模型（类似
-TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout
-最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC
-等层的后面。</p>
+        <p>一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop 也能够起到一定效果，但太简单的模型（类似 TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout 最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC 等层的后面。</p>
 <blockquote>
 <p>如果只想看结论，到这里就可以结束啦。</p>
 </blockquote>
-<span id="more"></span>
-<p>前一阵子 Dropout 突然成为了对比学习的新宠，简直到了「遇事不决
-Dropout」 的程度，其中最具代表性的两篇文章是 SimCSE 和
-RDrop。两者的共同点是都对同一个样例跑了两次（因为 Dropout
-是随机的，所以可以看成是两个子模型），拿到同一个输入的不同输出做后续处理。不同的是前者使用两次输出特征向量的相似度作为
-logits，损失函数为交叉熵，而后者则以输出概率的分布计算 KL
-散度作为损失函数。关键是，它们都真的取得了很不错的效果。</p>
-<p>两篇论文对这样的现象都做了一些解释甚至证明（也许作者在实验前也没想到会效果好？）。SimCSE
-从表征的对齐性（align）和均匀性（uniform）角度进行了比较深入的探讨，结果表明：</p>
+<a id="more"></a>
+<p>前一阵子 Dropout 突然成为了对比学习的新宠，简直到了「遇事不决 Dropout」 的程度，其中最具代表性的两篇文章是 SimCSE 和 RDrop。两者的共同点是都对同一个样例跑了两次（因为 Dropout 是随机的，所以可以看成是两个子模型），拿到同一个输入的不同输出做后续处理。不同的是前者使用两次输出特征向量的相似度作为 logits，损失函数为交叉熵，而后者则以输出概率的分布计算 KL 散度作为损失函数。关键是，它们都真的取得了很不错的效果。</p>
+<p>两篇论文对这样的现象都做了一些解释甚至证明（也许作者在实验前也没想到会效果好？）。SimCSE 从表征的对齐性（align）和均匀性（uniform）角度进行了比较深入的探讨，结果表明：</p>
 <ul>
 <li>无监督 SimCSE 改善了无监督的均匀同时保持良好的对齐</li>
 <li>在 SimCSE 中加入监督数据进一步修正了对齐</li>
 <li>SimCSE 可以有效地「扁平化」预训练嵌入的奇异值分布</li>
 </ul>
-<p>R-Drop 则是从正则化的角度出发，使用 KL 散度损失函数对传统 Dropout
-做了补充，降低了模型参数的自由度，进而降低了模型的空间复杂度，增强了泛化能力。</p>
-<p>不过两种方法都是在 Transformer
-架构的模型上做的，很早就冒出过念头，想在简单模型上试试效果，于是就有了这次的实验，纯粹是为了满足好奇心。模型有多简单呢？我们直接用了
-TextCNN（当然，主要的原因是没有 GPU，其他模型等不起）。</p>
+<p>R-Drop 则是从正则化的角度出发，使用 KL 散度损失函数对传统 Dropout 做了补充，降低了模型参数的自由度，进而降低了模型的空间复杂度，增强了泛化能力。</p>
+<p>不过两种方法都是在 Transformer 架构的模型上做的，很早就冒出过念头，想在简单模型上试试效果，于是就有了这次的实验，纯粹是为了满足好奇心。模型有多简单呢？我们直接用了 TextCNN（当然，主要的原因是没有 GPU，其他模型等不起）。</p>
 <h2 id="背景简介">背景简介</h2>
 <p>本节主要简要介绍 Dropout 相关知识点。</p>
 <p><strong>什么是 Dropout？</strong></p>
-<p>Dropout
-简单来说就是在神经网络执行过程中，对得到的隐向量随机丢弃一部分比例（设为0），并对剩余值进行缩放（缩放比例为
-1/(1 - rate)），以减少过拟合，提高泛化能力的方法。</p>
-<p>需要注意的是，无论哪种学习框架，一般都会带有 <code>Training</code>
-参数，用于控制是否启用
-<code>Dropout</code>，一般在训练时设置为启用，推理时则不启用，否则每次预测都会得到不同结果的输出。</p>
+<p>Dropout 简单来说就是在神经网络执行过程中，对得到的隐向量随机丢弃一部分比例（设为0），并对剩余值进行缩放（缩放比例为 1/(1 - rate)），以减少过拟合，提高泛化能力的方法。</p>
+<p>需要注意的是，无论哪种学习框架，一般都会带有 <code>Training</code> 参数，用于控制是否启用 <code>Dropout</code>，一般在训练时设置为启用，推理时则不启用，否则每次预测都会得到不同结果的输出。</p>
 <p><strong>API</strong></p>
 <p>以 Tensorflow 为例，API 为：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tf.keras.layers.Dropout(</span><br><span class="line">    rate, noise_shape=<span class="literal">None</span>, seed=<span class="literal">None</span>, **kwargs</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>其中：</p>
 <ul>
 <li>rate：Dropout 的比例</li>
-<li>noise_shape：一维整数张量，表示将与输入相乘的二进制 Dropout
-掩码的形状，比如输入的 shape 为
-<code>(batch_size, timesteps, features)</code>，如果想要在每一个
-timestep 都 drop 相同的位置，可以将此参数设置为
-<code>(batch_size, 1, features)</code></li>
+<li>noise_shape：一维整数张量，表示将与输入相乘的二进制 Dropout 掩码的形状，比如输入的 shape 为 <code>(batch_size, timesteps, features)</code>，如果想要在每一个 timestep 都 drop 相同的位置，可以将此参数设置为 <code>(batch_size, 1, features)</code></li>
 </ul>
 <p>调用的时候则包含两个参数：</p>
 <ul>
@@ -152,26 +131,17 @@ timestep 都 drop 相同的位置，可以将此参数设置为
 </ul>
 <p><strong>示例</strong></p>
 <p>以官方例子来说明：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From: https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout</span></span><br><span class="line">tf.random.set_seed(<span class="number">0</span>)</span><br><span class="line">layer = tf.keras.layers.Dropout(<span class="number">.2</span>, input_shape=(<span class="number">2</span>,))</span><br><span class="line">data = np.arange(<span class="number">10</span>).reshape(<span class="number">5</span>, <span class="number">2</span>).astype(np.float32)</span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line">outputs = layer(data, training=<span class="literal">True</span>)</span><br><span class="line"><span class="built_in">print</span>(outputs)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[[0. 1.]</span></span><br><span class="line"><span class="string"> [2. 3.]</span></span><br><span class="line"><span class="string"> [4. 5.]</span></span><br><span class="line"><span class="string"> [6. 7.]</span></span><br><span class="line"><span class="string"> [8. 9.]]</span></span><br><span class="line"><span class="string">tf.Tensor(</span></span><br><span class="line"><span class="string">[[ 0.    1.25]</span></span><br><span class="line"><span class="string"> [ 2.5   3.75]</span></span><br><span class="line"><span class="string"> [ 5.    6.25]</span></span><br><span class="line"><span class="string"> [ 7.5   8.75]</span></span><br><span class="line"><span class="string"> [10.    0.  ]], shape=(5, 2), dtype=float32)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>源码</strong> Tensorflow Keras 的代码最后调用了
-<code>nn.dropout</code>，我们直接看这个源码，简化后如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From https://github.com/tensorflow/tensorflow/blob/v2.6.0/tensorflow/python/ops/nn_ops.py#L5232-L5364</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">dropout</span>(<span class="params">x, rate, noise_shape=<span class="literal">None</span>, seed=<span class="literal">None</span>, name=<span class="literal">None</span></span>):</span><br><span class="line">    keep_prob = <span class="number">1</span> - rate</span><br><span class="line">    scale = <span class="number">1</span> / keep_prob</span><br><span class="line">    scale = ops.convert_to_tensor(scale, dtype=x_dtype)</span><br><span class="line">    <span class="comment"># x * scale</span></span><br><span class="line">    ret = gen_math_ops.mul(x, scale)</span><br><span class="line">    </span><br><span class="line">    noise_shape = _get_noise_shape(x, noise_shape)</span><br><span class="line">    <span class="comment"># 0-1 均匀分布</span></span><br><span class="line">    random_tensor = random_ops.random_uniform(</span><br><span class="line">        noise_shape, seed=seed, dtype=x_dtype)</span><br><span class="line">    <span class="comment"># mask 掉值为 0 的位置</span></span><br><span class="line">    keep_mask = random_tensor &gt;= rate</span><br><span class="line">    ret = gen_math_ops.mul(ret, gen_math_ops.cast(keep_mask, x_dtype))</span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From: https://www.tensorflow.org/api_docs/python/tf/keras/layers/Dropout</span></span><br><span class="line">tf.random.set_seed(<span class="number">0</span>)</span><br><span class="line">layer = tf.keras.layers.Dropout(<span class="number">.2</span>, input_shape=(<span class="number">2</span>,))</span><br><span class="line">data = np.arange(<span class="number">10</span>).reshape(<span class="number">5</span>, <span class="number">2</span>).astype(np.float32)</span><br><span class="line">print(data)</span><br><span class="line">outputs = layer(data, training=<span class="literal">True</span>)</span><br><span class="line">print(outputs)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[0. 1.]</span></span><br><span class="line"><span class="string"> [2. 3.]</span></span><br><span class="line"><span class="string"> [4. 5.]</span></span><br><span class="line"><span class="string"> [6. 7.]</span></span><br><span class="line"><span class="string"> [8. 9.]]</span></span><br><span class="line"><span class="string">tf.Tensor(</span></span><br><span class="line"><span class="string">[[ 0.    1.25]</span></span><br><span class="line"><span class="string"> [ 2.5   3.75]</span></span><br><span class="line"><span class="string"> [ 5.    6.25]</span></span><br><span class="line"><span class="string"> [ 7.5   8.75]</span></span><br><span class="line"><span class="string"> [10.    0.  ]], shape=(5, 2), dtype=float32)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p><strong>源码</strong><br>
+Tensorflow Keras 的代码最后调用了 <code>nn.dropout</code>，我们直接看这个源码，简化后如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From https://github.com/tensorflow/tensorflow/blob/v2.6.0/tensorflow/python/ops/nn_ops.py#L5232-L5364</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout</span><span class="params">(x, rate, noise_shape=None, seed=None, name=None)</span>:</span></span><br><span class="line">    keep_prob = <span class="number">1</span> - rate</span><br><span class="line">    scale = <span class="number">1</span> / keep_prob</span><br><span class="line">    scale = ops.convert_to_tensor(scale, dtype=x_dtype)</span><br><span class="line">    <span class="comment"># x * scale</span></span><br><span class="line">    ret = gen_math_ops.mul(x, scale)</span><br><span class="line">    </span><br><span class="line">    noise_shape = _get_noise_shape(x, noise_shape)</span><br><span class="line">    <span class="comment"># 0-1 均匀分布</span></span><br><span class="line">    random_tensor = random_ops.random_uniform(</span><br><span class="line">        noise_shape, seed=seed, dtype=x_dtype)</span><br><span class="line">    <span class="comment"># mask 掉值为 0 的位置</span></span><br><span class="line">    keep_mask = random_tensor &gt;= rate</span><br><span class="line">    ret = gen_math_ops.mul(ret, gen_math_ops.cast(keep_mask, x_dtype))</span><br><span class="line">    <span class="keyword">return</span> ret</span><br></pre></td></tr></table></figure>
 <p>可以看到大致分成了两步：缩放、Mask。</p>
 <p><strong>有什么作用？</strong></p>
-<p>主要目的就是提高模型泛化能力，增加鲁棒性。从直觉上来看，你看这神经网络它又大又宽，啊有点乱入。总之，稠密复杂的网络容易导致过拟合，Dropout
-通过极其简单粗暴的方法——丢弃一部分值缩放剩余值，其实等价于抑制某些神经元而强化另外的神经元，来避免过度拟合。从这个角度一看，LSTM
-的丢弃门（就是普通门，不是那种门）、残差连接都是类似的套路，甚至 CNN
-都可以看作是强行用「几个」神经元去提取特征，不就等于
-<code>noise_shape</code> 参数启用时的效果么。这可能也说明了 Dropout
-为什么在 Self-Attention 中特别重要。</p>
+<p>主要目的就是提高模型泛化能力，增加鲁棒性。从直觉上来看，你看这神经网络它又大又宽，啊有点乱入。总之，稠密复杂的网络容易导致过拟合，Dropout 通过极其简单粗暴的方法——丢弃一部分值缩放剩余值，其实等价于抑制某些神经元而强化另外的神经元，来避免过度拟合。从这个角度一看，LSTM 的丢弃门（就是普通门，不是那种门）、残差连接都是类似的套路，甚至 CNN 都可以看作是强行用「几个」神经元去提取特征，不就等于 <code>noise_shape</code> 参数启用时的效果么。这可能也说明了 Dropout 为什么在 Self-Attention 中特别重要。</p>
 <p><strong>为什么有效？</strong></p>
-<p>最为常见的是从集成学习角度进行解释：即 Dropout
-等价于使用多个弱分类器，从而能够有效降低偏差。这当然是没有问题的，其实从根本上说
-Dropout
-就是让整个模型能够尽量使用「更少」的参数来表征出「更好」的效果，是一种泛化模型的手段。</p>
+<p>最为常见的是从集成学习角度进行解释：即 Dropout 等价于使用多个弱分类器，从而能够有效降低偏差。这当然是没有问题的，其实从根本上说 Dropout 就是让整个模型能够尽量使用「更少」的参数来表征出「更好」的效果，是一种泛化模型的手段。</p>
 <p><strong>一般用在哪里？</strong></p>
-<p>通过上面的分析探讨，这个问题应该是显而易见的：Dropout
-一般应用于「稠密」输出后面，比如：</p>
+<p>通过上面的分析探讨，这个问题应该是显而易见的：Dropout 一般应用于「稠密」输出后面，比如：</p>
 <ul>
 <li>WordEmbedding 输出后</li>
 <li>Concat 输出后</li>
@@ -179,20 +149,17 @@ Dropout
 <li>FC 层输出后</li>
 <li>Bert 等得到的 Pool 输出后</li>
 </ul>
-<p>Dropout 不应该使用在 CNN 的卷积层、Pooling
-层后面，因为它们本身已经进行了很大程度的「抽象」，叠加起来效果可能会下降。</p>
+<p>Dropout 不应该使用在 CNN 的卷积层、Pooling 层后面，因为它们本身已经进行了很大程度的「抽象」，叠加起来效果可能会下降。</p>
 <h2 id="实验设置">实验设置</h2>
 <p><strong>实验任务</strong></p>
-<p>使用 TNEWS 数据集（详见：<a
-href="https://github.com/CLUEbenchmark/CLUE">CLUE</a>），多分类模型。数据集概览如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据量：训练集 (12,133)，验证集 (2,599)，测试集 (2,600)</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">&quot;label&quot;</span>: <span class="string">&quot;110&quot;</span>, <span class="string">&quot;label_des&quot;</span>: <span class="string">&quot;社区超市&quot;</span>, <span class="string">&quot;sentence&quot;</span>: <span class="string">&quot;朴朴快送超市创立于 2016 年，专注于打造移动端 30 分钟即时配送一站式购物平台，商品品类包含水果、蔬菜、肉禽蛋奶、海鲜水产、粮油调味、酒水饮料、休闲食品、日用品、外卖等。朴朴公司希望能以全新的商业模式，更高效快捷的仓储配送模式，致力于成为更快、更好、更多、更省的在线零售平台，带给消费者更好的消费体验，同时推动中国食品安全进程，成为一家让社会尊敬的互联网公司。, 朴朴一下，又好又快，1. 配送时间提示更加清晰友好 2. 保障用户隐私的一些优化 3. 其他提高使用体验的调整 4. 修复了一些已知 bug&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 TNEWS 数据集（详见：<a href="https://github.com/CLUEbenchmark/CLUE" target="_blank" rel="noopener">CLUE</a>），多分类模型。数据集概览如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 数据量：训练集 (12,133)，验证集 (2,599)，测试集 (2,600)</span></span><br><span class="line"></span><br><span class="line">&#123;<span class="string">"label"</span>: <span class="string">"110"</span>, <span class="string">"label_des"</span>: <span class="string">"社区超市"</span>, <span class="string">"sentence"</span>: <span class="string">"朴朴快送超市创立于 2016 年，专注于打造移动端 30 分钟即时配送一站式购物平台，商品品类包含水果、蔬菜、肉禽蛋奶、海鲜水产、粮油调味、酒水饮料、休闲食品、日用品、外卖等。朴朴公司希望能以全新的商业模式，更高效快捷的仓储配送模式，致力于成为更快、更好、更多、更省的在线零售平台，带给消费者更好的消费体验，同时推动中国食品安全进程，成为一家让社会尊敬的互联网公司。, 朴朴一下，又好又快，1. 配送时间提示更加清晰友好 2. 保障用户隐私的一些优化 3. 其他提高使用体验的调整 4. 修复了一些已知 bug"</span>&#125;</span><br></pre></td></tr></table></figure>
 <p>共 15 个类别，分别为如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;100&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_story&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;101&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_culture&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;102&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_entertainment&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;103&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_sports&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;104&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_finance&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;106&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_house&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;107&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_car&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;108&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_edu&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;109&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_tech&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;110&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_military&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;112&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_travel&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;113&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_world&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;114&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_stock&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;115&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_agriculture&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;116&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;label_desc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;news_game&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>由于测试集本身不带
-label，因此我们使用训练集进行训练和验证，使用验证集作为测试集。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"100"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_story"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"101"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_culture"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"102"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_entertainment"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"103"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_sports"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"104"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_finance"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"106"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_house"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"107"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_car"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"108"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_edu"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"109"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_tech"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"110"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_military"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"112"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_travel"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"113"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_world"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"114"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_stock"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"115"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_agriculture"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"label"</span>: <span class="string">"116"</span>, <span class="attr">"label_desc"</span>: <span class="string">"news_game"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>由于测试集本身不带 label，因此我们使用训练集进行训练和验证，使用验证集作为测试集。</p>
 <p><strong>参数配置</strong></p>
 <p>模型：TextCNN，默认参数如下：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;vocab_size&quot;</span><span class="punctuation">:</span> <span class="number">8021</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;num_oov_buckets&quot;</span><span class="punctuation">:</span> <span class="number">99</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;embed_size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;256&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;filters&quot;</span><span class="punctuation">:</span> <span class="number">64</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;filter_size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2,3,4&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;dropout&quot;</span><span class="punctuation">:</span> <span class="number">0.1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;max_seq_len&quot;</span><span class="punctuation">:</span> <span class="number">128</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;num_labels&quot;</span><span class="punctuation">:</span> <span class="number">15</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"vocab_size"</span>: <span class="number">8021</span>,</span><br><span class="line">    <span class="attr">"num_oov_buckets"</span>: <span class="number">99</span>,</span><br><span class="line">    <span class="attr">"embed_size"</span>: <span class="string">"256"</span>,</span><br><span class="line">    <span class="attr">"filters"</span>: <span class="number">64</span>,</span><br><span class="line">    <span class="attr">"filter_size"</span>: <span class="string">"2,3,4"</span>,</span><br><span class="line">    <span class="attr">"dropout"</span>: <span class="number">0.1</span>,</span><br><span class="line">    <span class="attr">"max_seq_len"</span>: <span class="number">128</span>,</span><br><span class="line">    <span class="attr">"num_labels"</span>: <span class="number">15</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>分别从以下角度进行了实验：</p>
 <ul>
 <li>Dropout 的位置</li>
@@ -205,87 +172,69 @@ label，因此我们使用训练集进行训练和验证，使用验证集作为
 <p>用到的一些其他配置如下：</p>
 <ul>
 <li>优化算法：Adam（LR=0.1），没有 WarmUp 或 LR Decay</li>
-<li>BatchSize 64，初始 50 个 Epoch，连续 3 个 Epoch
-效果没有提升则提前终止</li>
+<li>BatchSize  64，初始 50 个 Epoch，连续 3 个 Epoch 效果没有提升则提前终止</li>
 </ul>
 <p><strong>损失函数代码</strong></p>
 <p>代码均参考苏神的实现（个人感觉比官方实现更简洁易懂）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From: https://github.com/bojone/SimCSE</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">simcse_loss</span>(<span class="params">y_true, y_pred</span>):</span><br><span class="line">    K = tfk.backend</span><br><span class="line">    idxs = K.arange(<span class="number">0</span>, K.shape(y_pred)[<span class="number">0</span>])</span><br><span class="line">    idxs_1 = idxs[<span class="literal">None</span>, :]</span><br><span class="line">    idxs_2 = (idxs + <span class="number">1</span> - idxs % <span class="number">2</span> * <span class="number">2</span>)[:, <span class="literal">None</span>]</span><br><span class="line">    y_true = K.equal(idxs_1, idxs_2)</span><br><span class="line">    y_true = K.cast(y_true, K.floatx())</span><br><span class="line"></span><br><span class="line">    y_pred = K.l2_normalize(y_pred, axis=<span class="number">1</span>)</span><br><span class="line">    similarities = K.dot(y_pred, K.transpose(y_pred))</span><br><span class="line">    similarities = similarities - tf.eye(K.shape(y_pred)[<span class="number">0</span>]) * <span class="number">1e12</span></span><br><span class="line">    similarities = similarities * <span class="number">20</span></span><br><span class="line">    loss = K.categorical_crossentropy(y_true, similarities, from_logits=<span class="literal">True</span>)</span><br><span class="line">    res = K.mean(loss)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="comment"># From: https://github.com/bojone/r-drop</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">rdrop_loss</span>(<span class="params">y_true, y_pred</span>):</span><br><span class="line">    loss = kld(y_pred[::<span class="number">2</span>], y_pred[<span class="number">1</span>::<span class="number">2</span>]) + kld(y_pred[<span class="number">1</span>::<span class="number">2</span>], y_pred[::<span class="number">2</span>])</span><br><span class="line">    res = K.mean(loss)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From: https://github.com/bojone/SimCSE</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">simcse_loss</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">    K = tfk.backend</span><br><span class="line">    idxs = K.arange(<span class="number">0</span>, K.shape(y_pred)[<span class="number">0</span>])</span><br><span class="line">    idxs_1 = idxs[<span class="literal">None</span>, :]</span><br><span class="line">    idxs_2 = (idxs + <span class="number">1</span> - idxs % <span class="number">2</span> * <span class="number">2</span>)[:, <span class="literal">None</span>]</span><br><span class="line">    y_true = K.equal(idxs_1, idxs_2)</span><br><span class="line">    y_true = K.cast(y_true, K.floatx())</span><br><span class="line"></span><br><span class="line">    y_pred = K.l2_normalize(y_pred, axis=<span class="number">1</span>)</span><br><span class="line">    similarities = K.dot(y_pred, K.transpose(y_pred))</span><br><span class="line">    similarities = similarities - tf.eye(K.shape(y_pred)[<span class="number">0</span>]) * <span class="number">1e12</span></span><br><span class="line">    similarities = similarities * <span class="number">20</span></span><br><span class="line">    loss = K.categorical_crossentropy(y_true, similarities, from_logits=<span class="literal">True</span>)</span><br><span class="line">    res = K.mean(loss)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="comment"># From: https://github.com/bojone/r-drop</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rdrop_loss</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">    loss = kld(y_pred[::<span class="number">2</span>], y_pred[<span class="number">1</span>::<span class="number">2</span>]) + kld(y_pred[<span class="number">1</span>::<span class="number">2</span>], y_pred[::<span class="number">2</span>])</span><br><span class="line">    res = K.mean(loss)</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
 <p>编译时指定 loss 权重：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">model.<span class="built_in">compile</span>(</span><br><span class="line">    optimizer=tfk.optimizers.Adam(learning_rate=<span class="number">1e-3</span>),</span><br><span class="line">    loss=[</span><br><span class="line">        tfk.losses. SparseCategoricalCrossentropy(from_logits=<span class="literal">False</span>), </span><br><span class="line">        rdrop_loss,</span><br><span class="line">        simcse_loss</span><br><span class="line">    ],</span><br><span class="line">    metrics=[</span><br><span class="line">        [tfk.metrics.SparseCategoricalAccuracy(name=<span class="string">&quot;class&quot;</span>)],</span><br><span class="line">        [<span class="literal">None</span>],</span><br><span class="line">        [<span class="literal">None</span>]</span><br><span class="line">    ],</span><br><span class="line">    loss_weights=[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">1.0</span>],</span><br><span class="line">    weighted_metrics=<span class="literal">None</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">model.compile(</span><br><span class="line">    optimizer=tfk.optimizers.Adam(learning_rate=<span class="number">1e-3</span>),</span><br><span class="line">    loss=[</span><br><span class="line">        tfk.losses. SparseCategoricalCrossentropy(from_logits=<span class="literal">False</span>), </span><br><span class="line">        rdrop_loss,</span><br><span class="line">        simcse_loss</span><br><span class="line">    ],</span><br><span class="line">    metrics=[</span><br><span class="line">        [tfk.metrics.SparseCategoricalAccuracy(name=<span class="string">"class"</span>)],</span><br><span class="line">        [<span class="literal">None</span>],</span><br><span class="line">        [<span class="literal">None</span>]</span><br><span class="line">    ],</span><br><span class="line">    loss_weights=[<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">1.0</span>],</span><br><span class="line">    weighted_metrics=<span class="literal">None</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <p>当然，直接把所有的 loss 在一个 function 里计算好应该是一样的。</p>
 <h2 id="实验结果">实验结果</h2>
 <p>我们一共做了 33 组实验，结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/lab-simcse-rdrop-2.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/lab-simcse-rdrop-2.jpg" alt></p>
 <p>由此可以得出以下可能的结论（及可能的解释）：</p>
 <ul>
-<li>在类似 CNN 这样自带一定程度的 Dropout 的模型上使用 Dropout
-效果不明显（可能模型过于简单，表征本身就不会过拟合）
+<li>在类似 CNN 这样自带一定程度的 Dropout 的模型上使用 Dropout 效果不明显（可能模型过于简单，表征本身就不会过拟合）
 <ul>
 <li>简单模型可以不用 Dropout（在 CNN 上尤其如此）</li>
-</ul></li>
-<li>单使用交叉熵损失 + Dropout 可以取得最好的效果（Dropout
-即使在简单模型下依然有效果）
+</ul>
+</li>
+<li>单使用交叉熵损失 + Dropout 可以取得最好的效果（Dropout 即使在简单模型下依然有效果）
 <ul>
-<li>Dropout 应加在 concat
-后面（拼接后特征可能有冗余），同时在多个地方使用效果反而会下降（可能模型过于简单）</li>
+<li>Dropout 应加在 concat 后面（拼接后特征可能有冗余），同时在多个地方使用效果反而会下降（可能模型过于简单）</li>
 <li>Dropout 比例不能太高（可能因为模型本身太简单）</li>
-</ul></li>
+</ul>
+</li>
 <li>加入 SimCSE 后效果提升不明显（可能 SimCSE 更加侧重相似）
 <ul>
-<li>每个位置都加时验证 Acc
-最高，对比单使用交叉熵也有所提高（说明可能确实提高了泛化能力）</li>
-<li>只在 Conv 后面添加时训练 Acc 最高，但测试 Acc 很低（说明 Conv
-可能是关键特征所在，这里 Dropout 再加上 SimCSE
-可能导致过拟合，不过也在一定程度上说明 SimCSE 确实有一定效果）</li>
-</ul></li>
+<li>每个位置都加时验证 Acc 最高，对比单使用交叉熵也有所提高（说明可能确实提高了泛化能力）</li>
+<li>只在 Conv 后面添加时训练 Acc 最高，但测试 Acc 很低（说明 Conv 可能是关键特征所在，这里 Dropout  再加上 SimCSE 可能导致过拟合，不过也在一定程度上说明 SimCSE 确实有一定效果）</li>
+</ul>
+</li>
 <li>加入 RDrop 后测试效果明显（可能因为它更加关注输出特征表征）
 <ul>
-<li>在 hidden（CNN 中即 Concat 后的向量）处使用 RDrop，测试 Acc
-在所有实验中最高（可能有强化 hidden 的作用，使其泛化能力较好）</li>
-<li>增加卷积核数量可以提升训练 Acc，但没有明显提升测试
-Acc（说明表征可能已达到模型上限）；</li>
-<li>在 logits 处和 softmax 处效果差不多，后者略差，两者都比 hidden
-处差（至少说明简单模型下 RDrop
-可能并不一定用在最终的概率分布上，也可以用在内部表征上）</li>
-<li>越靠近 softmax 处，RDrop 的权重越大效果越好（可能 RDrop
-需要努力影响结果）</li>
-</ul></li>
-<li>同时加入 SimCSE 和 RDrop
-后效果反而不如单个使用（可能模型本身太简单）
+<li>在 hidden（CNN 中即 Concat 后的向量）处使用 RDrop，测试 Acc 在所有实验中最高（可能有强化 hidden 的作用，使其泛化能力较好）</li>
+<li>增加卷积核数量可以提升训练 Acc，但没有明显提升测试 Acc（说明表征可能已达到模型上限）；</li>
+<li>在 logits 处和 softmax 处效果差不多，后者略差，两者都比 hidden 处差（至少说明简单模型下 RDrop 可能并不一定用在最终的概率分布上，也可以用在内部表征上）</li>
+<li>越靠近 softmax 处，RDrop 的权重越大效果越好（可能 RDrop 需要努力影响结果）</li>
+</ul>
+</li>
+<li>同时加入 SimCSE 和 RDrop 后效果反而不如单个使用（可能模型本身太简单）
 <ul>
-<li>RDrop 权重较高（此处为 2）时效果最好，再高或低都不太好（可能因为
-RDrop 和 SimCSE 达到了某种平衡）</li>
-<li>增加更多的 Dropout 效果下降严重（可能因为 Dropout 过多，再加上
-SimCSE 和 RDrop 的限制，导致表征能力不足）</li>
-</ul></li>
-<li>增加 embed size
-效果不增反降，可能说明表征空间维度太高导致模型更难以很好地控制。</li>
+<li>RDrop 权重较高（此处为 2）时效果最好，再高或低都不太好（可能因为 RDrop 和 SimCSE 达到了某种平衡）</li>
+<li>增加更多的 Dropout 效果下降严重（可能因为 Dropout 过多，再加上 SimCSE 和 RDrop 的限制，导致表征能力不足）</li>
+</ul>
+</li>
+<li>增加 embed size 效果不增反降，可能说明表征空间维度太高导致模型更难以很好地控制。</li>
 </ul>
 <p>以上，如有不当之处，恳请予以指正，一起探讨。</p>
 <h2 id="分析讨论">分析讨论</h2>
-<p>通过实验我们可以发现 SimCSE 和 R-Drop
-的确有效，即便只是在简单模型和少量数据下。</p>
+<p>通过实验我们可以发现 SimCSE 和 R-Drop 的确有效，即便只是在简单模型和少量数据下。</p>
 <p>由于种种原因，本次实验依然有许多不足之处，包括：</p>
 <ul>
-<li>未能尝试更多稍复杂的模型。比如至少还可以尝试 LSTM 或
-LSTM+SelfAttention 这样的小模型。</li>
+<li>未能尝试更多稍复杂的模型。比如至少还可以尝试 LSTM 或 LSTM+SelfAttention 这样的小模型。</li>
 <li>未能尝试更多任务。比如增加相似任务、Token 标注任务等。</li>
-<li>未能尝试更多参数。比如没有使用 Warmup、Decay
-等策略，没有尝试不同的学习率等。</li>
+<li>未能尝试更多参数。比如没有使用 Warmup、Decay 等策略，没有尝试不同的学习率等。</li>
 </ul>
 <p>不过通过这个简单的实验，我们还是能够发现不少问题的，简单汇总来说：</p>
 <ul>
-<li>如果是简单模型，什么策略不策略的问题不大，Dropout
-一些特殊位置即可</li>
-<li>如果是复杂模型（尤其是 BERT 时代），SimCSE、RDrop
-什么的都可以上，它们本身其实也是可以互补的</li>
+<li>如果是简单模型，什么策略不策略的问题不大，Dropout 一些特殊位置即可</li>
+<li>如果是复杂模型（尤其是 BERT 时代），SimCSE、RDrop 什么的都可以上，它们本身其实也是可以互补的</li>
 </ul>
 <h2 id="reference">Reference</h2>
 <ul>
-<li><a
-href="https://www.jiqizhixin.com/articles/2019-01-24-5">文本分类有哪些论文中很少提及却对性能有重要影响的
-tricks？ | 机器之心</a></li>
+<li><a href="https://www.jiqizhixin.com/articles/2019-01-24-5" target="_blank" rel="noopener">文本分类有哪些论文中很少提及却对性能有重要影响的 tricks？ | 机器之心</a></li>
 </ul>
 
       
@@ -444,21 +393,6 @@ tricks？ | 机器之心</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

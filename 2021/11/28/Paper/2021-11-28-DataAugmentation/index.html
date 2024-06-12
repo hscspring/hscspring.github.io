@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-3.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-5.jpg">
 <meta property="og:image" content="http://qnimg.lovevivian.cn/paper-da-6.jpg">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.173Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Data Augmentation Approaches in Natural Language Processing：A Survey">
 <meta name="twitter:description" content="论文：[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey Code：无 一句话概述：全面和结构化的数据增强文献综述。 摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高">
@@ -94,7 +94,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/" data-id="clx98np1v00kltsbzahw8zmzf" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/" data-id="clxbpfs7f00addlbzcuo43g3k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -102,61 +102,49 @@
       
             <!-- Table of Contents -->
               
-        <p>论文：<a href="https://arxiv.org/abs/2110.01852">[2110.01852] Data
-Augmentation Approaches in Natural Language Processing: A Survey</a></p>
+        <p>论文：<a href="https://arxiv.org/abs/2110.01852" target="_blank" rel="noopener">[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey</a></p>
 <p>Code：无</p>
 <p>一句话概述：全面和结构化的数据增强文献综述。</p>
-<p>摘要：DA
-缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到
-NLP
-领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高模型泛化能力。本文将
-DA
-方法基于增强数据的多样性分成三类：释义、噪声和采样，分别进行详细分析，另外也介绍了它们在
-NLP 任务中的应用和挑战。</p>
-<span id="more"></span>
+<p>摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高模型泛化能力。本文将 DA 方法基于增强数据的多样性分成三类：释义、噪声和采样，分别进行详细分析，另外也介绍了它们在 NLP 任务中的应用和挑战。</p>
+<a id="more"></a>
 <h2 id="简介">简介</h2>
-<p>数据增强指通过对已有数据添加微小改动或从已有数据新创建合成数据，以增加数据量的方法。因为
-NLP 的离散型，所以应用起来相对较难。</p>
+<p>数据增强指通过对已有数据添加微小改动或从已有数据新创建合成数据，以增加数据量的方法。因为 NLP 的离散型，所以应用起来相对较难。</p>
 <ul>
-<li>paraphrasing-based
-方法：生成原始数据的释义作为增强数据。有限的语义不同，与原始数据很相近。</li>
-<li>noise-based
-方法：保证结果有效的前提下对原始数据增加噪声。提升模型鲁棒性。</li>
-<li>sample-based
-方法：掌握原始数据的分布，采样新数据作为增强数据。基于人工启发式和训练模型输出更多样化的数据并满足下游任务的更多需求。</li>
+<li>paraphrasing-based 方法：生成原始数据的释义作为增强数据。有限的语义不同，与原始数据很相近。</li>
+<li>noise-based 方法：保证结果有效的前提下对原始数据增加噪声。提升模型鲁棒性。</li>
+<li>sample-based 方法：掌握原始数据的分布，采样新数据作为增强数据。基于人工启发式和训练模型输出更多样化的数据并满足下游任务的更多需求。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-1.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-1.jpg" alt></p>
 <h2 id="nlp中的数据增强方法">NLP中的数据增强方法</h2>
 <h3 id="基于释义的方法">基于释义的方法</h3>
 <p>释义的重点是使增强数据的语义尽可能与原始数据相似。可能出现在多个层次：词汇、短语和句子。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-2.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-2.jpg" alt></p>
 <ul>
 <li>同义词：
 <ul>
-<li>做法一：对每个句子获取所有可替换的词，并随机选择 r
-个进行替换，与原始词越像越有可能被选择。</li>
-<li>做法二：EDA，随机选择 n
-个非停用词，随机选择每个词的同义词进行替换。</li>
+<li>做法一：对每个句子获取所有可替换的词，并随机选择 r 个进行替换，与原始词越像越有可能被选择。</li>
+<li>做法二：EDA，随机选择 n 个非停用词，随机选择每个词的同义词进行替换。</li>
 <li>做法三：使用上位词替换原始词，按照难度从高到低的顺序推荐了可用作词替换的候选词类型：副词、形容词、名词和动词。</li>
-</ul></li>
+</ul>
+</li>
 <li>语义嵌入
 <ul>
-<li>做法一：使用预训练的词向量找近义词：Glove、Word2Vec、FastText
-等。</li>
+<li>做法一：使用预训练的词向量找近义词：Glove、Word2Vec、FastText 等。</li>
 <li>做法二：同时使用词向量和语义帧向量。</li>
-</ul></li>
+</ul>
+</li>
 <li>语言模型
 <ul>
-<li>做法一：将词 Token
-化成词片段，如果片段不是完整的词，使用词向量构建候选集，否则使用MLM，然后按
-0.4 的概率决定每个片段是否被候选集中一个随机词替换。</li>
+<li>做法一：将词 Token 化成词片段，如果片段不是完整的词，使用词向量构建候选集，否则使用MLM，然后按 0.4 的概率决定每个片段是否被候选集中一个随机词替换。</li>
 <li>做法二：Mask 多个词然后用模型预测生成，有时候也会用 RNN 生成。</li>
-</ul></li>
+</ul>
+</li>
 <li>语法规则
 <ul>
 <li>做法一：使用现有的词典或固定的启发式方法来生成词级和短语级的释义，如缩写、动词、情态动词和否定词的原型等。</li>
 <li>做法二：用一些规则为原始句子生成句子级的释义，如依存关系树。也就是句子结构变了但语义不变（类似把字句改成被字句）。</li>
-</ul></li>
+</ul>
+</li>
 <li>机器翻译
 <ul>
 <li>做法一：回译。
@@ -164,255 +152,257 @@ NLP 的离散型，所以应用起来相对较难。</p>
 <li>回译+系列 softmax 温度设置，以确保多样性，同时保留语义。</li>
 <li>回译+对抗训练，通过有机地集成多个转换来合成多样化和信息丰富的增强数据。</li>
 <li>回译+鉴别器过滤反向翻译结果中的句子，提升了增强数据的质量。</li>
-</ul></li>
+</ul>
+</li>
 <li>做法二：单向翻译，常用在多语场景。</li>
-</ul></li>
+</ul>
+</li>
 <li>模型生成
 <ul>
-<li>做法一：将去词法化的输入话语和指定的不同等级 k 作为输入提供给
-Seq2Seq 模型以生成新的话语。</li>
-<li>做法二：通过 L
-层转换器对连接的多个输入话语进行编码，使用重复感知注意力和面向多样化的正则化来生成更多样的句子。</li>
-<li>做法三：掩码原始句子及其标签序列用于训练模型
-M，该模型将掩码片段重建为增强数据。</li>
+<li>做法一：将去词法化的输入话语和指定的不同等级 k 作为输入提供给 Seq2Seq 模型以生成新的话语。</li>
+<li>做法二：通过 L 层转换器对连接的多个输入话语进行编码，使用重复感知注意力和面向多样化的正则化来生成更多样的句子。</li>
+<li>做法三：掩码原始句子及其标签序列用于训练模型 M，该模型将掩码片段重建为增强数据。</li>
 <li>做法四：使用 GAN 生成增强数据。</li>
-<li>做法五：采用预训练模型来共享问题嵌入和所提出的基于 Transformer
-的模型的指导。然后，所提出的模型可以生成与上下文相关的可回答问题和不可回答的问题。</li>
-</ul></li>
+<li>做法五：采用预训练模型来共享问题嵌入和所提出的基于 Transformer 的模型的指导。然后，所提出的模型可以生成与上下文相关的可回答问题和不可回答的问题。</li>
+</ul>
+</li>
 </ul>
 <h3 id="基于噪声的方法">基于噪声的方法</h3>
 <p>基于噪声的方法添加了不严重影响语义的微弱噪声，使其适当偏离原始数据。人类可以通过对语言现象和先验知识的掌握，大大降低弱噪声对语义理解的影响，但这种噪声可能会给模型带来挑战。因此，该方法不仅扩大了训练数据量，而且提高了模型的鲁棒性。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-4.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-4.jpg" alt></p>
 <ul>
-<li>交换
+<li>
+<p>交换</p>
 <ul>
 <li>做法一：随机选择两个词交换位置，重复 n 次，n 与句子长度成比例。</li>
-<li>做法二：将 token 根据 label 切成段，随机选择一些段，对其中的 token
-进行 shuffle。</li>
+<li>做法二：将 token 根据 label 切成段，随机选择一些段，对其中的 token 进行 shuffle。</li>
 <li>做法三：实例和句子级别交换。
 <ul>
-<li>将句子分成两部分，对同一个 label
-的句子集，随机组合第一部分和第二部分。</li>
+<li>将句子分成两部分，对同一个 label 的句子集，随机组合第一部分和第二部分。</li>
 <li>随机 shuffle doc 中的句子。</li>
-</ul></li>
-</ul></li>
-<li>删除
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>删除</p>
 <ul>
-<li>词级别：根据概率 p
-随机删除句子中的词。对话理解中删除槽值来增加输入对话行为以获得更多组合。</li>
+<li>词级别：根据概率 p 随机删除句子中的词。对话理解中删除槽值来增加输入对话行为以获得更多组合。</li>
 <li>句级别：同词级别，删除的是句子。</li>
 <li>二者结合：将注意力机制用于词级和句子级随机删除。</li>
-</ul></li>
-<li>插入
+</ul>
+</li>
+<li>
+<p>插入</p>
 <ul>
-<li>词级别：选择一个句子中非停用词的随机词的一个随机近义词，插入句子的随机位置。重复
-n 次。对话理解中，通过插入槽值来增加输入对话行为以获得更多组合。</li>
+<li>词级别：选择一个句子中非停用词的随机词的一个随机近义词，插入句子的随机位置。重复 n 次。对话理解中，通过插入槽值来增加输入对话行为以获得更多组合。</li>
 <li>句级别：从其他文件（防止句子过于相似）中随机选择具有相同标签的句子来获得增强数据。</li>
 <li>避免噪声改变标签的技巧：
 <ul>
 <li>在词级使用标签独立的外部资源。</li>
 </ul>
-<ol start="2" type="1">
+<ol start="2">
 <li>在句子层面使用与原始数据具有相同标签的其他样本。</li>
-</ol></li>
-</ul></li>
-<li>替换：通常避免使用语义上与原始数据相似的字符串。
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>替换：通常避免使用语义上与原始数据相似的字符串。</p>
 <ul>
-<li>做法一：使用已有的外部资源
+<li>
+<p>做法一：使用已有的外部资源</p>
 <ul>
 <li>拼写错误的词生成包含拼写错误的增强数据。</li>
 <li>使用占位符<code>_</code> 随机替换词表示该位置为空。</li>
 <li>使用伪 IND 并行语料库嵌入来创建字典并生成增强数据。</li>
-</ul></li>
-<li>做法二：使用任务相关资源或生成随机字符
+</ul>
+</li>
+<li>
+<p>做法二：使用任务相关资源或生成随机字符</p>
 <ul>
-<li>用词表中的其他词替换原始词。分别使用 TF-IDF 值和 unigram
-频率从词表中选择词。</li>
+<li>用词表中的其他词替换原始词。分别使用 TF-IDF 值和 unigram 频率从词表中选择词。</li>
 <li>将输入和目标句子中的单词随机替换为词汇表中的其他单词。</li>
 <li>NER 中，用训练集中具有相同标签的随机 Token 替换原始 Token。</li>
 <li>用其他语言的词替换源语言中的原始词。</li>
-</ul></li>
-<li>做法三：面向任务的对话中，随机替换是生成增强数据的有用方法。
+</ul>
+</li>
+<li>
+<p>做法三：面向任务的对话中，随机替换是生成增强数据的有用方法。</p>
 <ul>
 <li>通过替换槽值来增强输入对话行为，以获得更多的口语理解组合。</li>
 <li>根据插槽标签进行插槽替换。</li>
 <li>通过复制用户话语并用生成的随机字符串替换相应的真实槽值，来增加对话状态跟踪的训练数据。</li>
-</ul></li>
-</ul></li>
-<li>混合
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>混合</p>
 <ul>
-<li>第一个称为 word Mixup：在词嵌入空间中进行样本插值。第二个称为 sen
-Mixup：对句子编码器的隐藏状态进行插值。详见下式。</li>
-<li>首先构建对抗样本，然后应用两种名为 Padv 和 Paut 的 Mixup
-策略：前者在对抗样本之间进行插值，后者在两个对应的原始样本之间进行插值。</li>
+<li>第一个称为 word Mixup：在词嵌入空间中进行样本插值。第二个称为 sen Mixup：对句子编码器的隐藏状态进行插值。详见下式。</li>
+<li>首先构建对抗样本，然后应用两种名为 Padv 和 Paut 的 Mixup 策略：前者在对抗样本之间进行插值，后者在两个对应的原始样本之间进行插值。</li>
 <li>将 Mixup 与机遇 transformer 的预训练架构相结合。</li>
 <li>将 Mixup 引入 NER的 Intra-LADA 和 Inter-LADA</li>
-<li>Mixup
-引入了连续噪声而不是离散噪声，它可以在不同标签之间生成增强数据。与上述基于噪声的方法相比，该方法的可解释性较差且难度更大。</li>
-</ul></li>
+<li>Mixup 引入了连续噪声而不是离散噪声，它可以在不同标签之间生成增强数据。与上述基于噪声的方法相比，该方法的可解释性较差且难度更大。</li>
 </ul>
-<p><span class="math display">\[
-\begin{array}{c}
+</li>
+</ul>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable rowspacing="0.15999999999999992em" columnalign="center" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msubsup><mover accent="true"><mi>B</mi><mo stretchy="true">~</mo></mover><mi>t</mi><mrow><mi>i</mi><mi>j</mi></mrow></msubsup><mo>=</mo><mi>λ</mi><msubsup><mi>B</mi><mi>t</mi><mi>i</mi></msubsup><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo stretchy="false">)</mo><msubsup><mi>B</mi><mi>t</mi><mi>j</mi></msubsup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msubsup><mover accent="true"><mi>B</mi><mo stretchy="true">~</mo></mover><mrow><mo stretchy="false">{</mo><mi>k</mi><mo stretchy="false">}</mo></mrow><mrow><mi>i</mi><mi>j</mi></mrow></msubsup><mo>=</mo><mi>λ</mi><mi>f</mi><msub><mrow><mo fence="true">(</mo><msup><mi>B</mi><mi>i</mi></msup><mo fence="true">)</mo></mrow><mrow><mo stretchy="false">{</mo><mi>k</mi><mo stretchy="false">}</mo></mrow></msub><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo stretchy="false">)</mo><mi>f</mi><msub><mrow><mo fence="true">(</mo><msup><mi>B</mi><mi>j</mi></msup><mo fence="true">)</mo></mrow><mrow><mo stretchy="false">{</mo><mi>k</mi><mo stretchy="false">}</mo></mrow></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msup><mover accent="true"><mi>y</mi><mo stretchy="true">~</mo></mover><mrow><mi>i</mi><mi>j</mi></mrow></msup><mo>=</mo><mi>λ</mi><msup><mi>y</mi><mi>i</mi></msup><mo>+</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>λ</mi><mo stretchy="false">)</mo><msup><mi>y</mi><mi>j</mi></msup></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{c}
 \widetilde{B}_{t}^{i j}=\lambda B_{t}^{i}+(1-\lambda) B_{t}^{j} \\
-\widetilde{B}_{\{k\}}^{i j}=\lambda
-f\left(B^{i}\right)_{\{k\}}+(1-\lambda) f\left(B^{j}\right)_{\{k\}} \\
+\widetilde{B}_{\{k\}}^{i j}=\lambda f\left(B^{i}\right)_{\{k\}}+(1-\lambda) f\left(B^{j}\right)_{\{k\}} \\
 \widetilde{y}^{i j}=\lambda y^{i}+(1-\lambda) y^{j} \\
 \end{array}
-\]</span></p>
-<p>Bti Btj 表示两个原始句子的第 t 个词，f(Bi) f(Bj) 表示隐层句子表示，yi
-yj 表示相应的原始标签。</p>
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:4.021370000000001em;vertical-align:-1.760685em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-c"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.2606850000000005em;"><span style="top:-4.317355000000001em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.94333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg width="100%" height="0.26em" viewbox="0 0 600 260" preserveaspectratio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.942572em;"><span style="top:-2.454244em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span style="top:-3.1809080000000005em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24575599999999995em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">λ</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-2.4530000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.942572em;"><span style="top:-2.454244em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">t</span></span></span></span><span style="top:-3.1809080000000005em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24575599999999995em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.014025em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.94333em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span></span></span><span class="svg-align" style="width:calc(100% - 0.16668em);margin-left:0.16668em;top:-3.6833299999999998em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg width="100%" height="0.26em" viewbox="0 0 600 260" preserveaspectratio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.942572em;"><span style="top:-2.3598em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">{</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">}</span></span></span></span><span style="top:-3.1809080000000005em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5151999999999999em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">λ</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1252899999999999em;"><span style="top:-2.30029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">{</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">}</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.57471em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size1">(</span></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size1">)</span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1252899999999999em;"><span style="top:-2.30029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">{</span><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mclose mtight">}</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.57471em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.599315em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6905600000000001em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span><span class="svg-align" style="width:calc(100% - 0.11112em);margin-left:0.11112em;top:-3.43056em;"><span class="pstrut" style="height:3em;"></span><span style="height:0.26em;"><svg width="100%" height="0.26em" viewbox="0 0 600 260" preserveaspectratio="none"><path d="M200 55.538c-77 0-168 73.953-177 73.953-3 0-7
+-2.175-9-5.437L2 97c-1-2-2-4-2-6 0-4 2-7 5-9l20-12C116 12 171 0 207 0c86 0
+ 114 68 191 68 78 0 168-68 177-68 4 0 7 2 9 5l12 19c1 2.175 2 4.35 2 6.525 0
+ 4.35-2 7.613-5 9.788l-19 13.05c-92 63.077-116.937 75.308-183 76.128
+-68.267.847-113-73.952-191-73.952z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord mathdefault">λ</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">λ</span><span class="mclose">)</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.760685em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p>
+<p>Bti Btj 表示两个原始句子的第 t 个词，f(Bi) f(Bj) 表示隐层句子表示，yi yj 表示相应的原始标签。</p>
 <h3 id="基于采样的方法">基于采样的方法</h3>
 <p>与基于释义的模型类似，它们也涉及规则和已训练的模型来生成增强数据。不同之处在于基于采样的方法是特定于任务的，需要任务信息，如标签和数据格式。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-3.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-3.jpg" alt></p>
 <ul>
 <li>规则：与释义方法不同，不保证结果与原始数据相似（甚至不同标签）
 <ul>
 <li>做法一：交换主宾，将谓语动词转为被动形式，新样本的标签取决于规则。</li>
 <li>做法二：公式变换（数学问题）。</li>
-<li>做法三：前 n 个对话对作为对话历史进行洗牌，并将第 n + 1
-个问题作为需要回答的问题。</li>
-<li>做法四：NLI
-中，应用外部资源构造新句子，然后根据规则将新句子与原始句子组合为增广对。</li>
-<li>做法五：定义一些规则来使用形容词 - 名词和名词 - 名词
-复合词来构建正负对。</li>
+<li>做法三：前 n 个对话对作为对话历史进行洗牌，并将第 n + 1 个问题作为需要回答的问题。</li>
+<li>做法四：NLI 中，应用外部资源构造新句子，然后根据规则将新句子与原始句子组合为增广对。</li>
+<li>做法五：定义一些规则来使用形容词 - 名词和名词 - 名词 复合词来构建正负对。</li>
 <li>做法六：通过三个属性（包括自反性、对称性和传递性）构建释义注释和非释义注释。</li>
-<li>做法七：使用对称一致性和传递一致性两种规则，以及逻辑引导的 DA
-方法来生成 DA 样本。</li>
-</ul></li>
+<li>做法七：使用对称一致性和传递一致性两种规则，以及逻辑引导的 DA 方法来生成 DA 样本。</li>
+</ul>
+</li>
 <li>Seq2Seq 模型
 <ul>
 <li>做法一：先训练一个翻译模型，然后用它翻译目标语料生成对应的译文。</li>
 <li>做法二：每个标签训练一个模型，对给定句子生成对应的新数据。</li>
-<li>做法三：采用 Transformer 架构，将 “重写话语→请求话语”
-映射视为机器翻译过程。</li>
-<li>做法四：使用 Transformer
-作为编码器，将知识从语法错误纠正转移到形式风格转移。</li>
+<li>做法三：采用 Transformer 架构，将 “重写话语→请求话语” 映射视为机器翻译过程。</li>
+<li>做法四：使用 Transformer 作为编码器，将知识从语法错误纠正转移到形式风格转移。</li>
 <li>做法五：Edit-transformer，一个基于 Transformer 的跨域模型。</li>
 <li>做法六：使用 VAE 模型来输出语义槽序列和给定话语的意图标签。</li>
-</ul></li>
+</ul>
+</li>
 <li>语言模型
 <ul>
-<li>做法一：LAMBDA，使用在训练集上预先进行了微调的 GPT-2
-生成标注的增强句子，然后通过分类器过滤增强的句子以确保数据质量。</li>
-<li>做法二：使用 MLM
-构建毁坏的模型和重建模型。给定输入数据点，最初使用损坏模型生成远离原始数据流形的数据。然后重建模型用于将数据点拉回原始数据流形作为最终的增强数据。</li>
+<li>做法一：LAMBDA，使用在训练集上预先进行了微调的 GPT-2 生成标注的增强句子，然后通过分类器过滤增强的句子以确保数据质量。</li>
+<li>做法二：使用 MLM 构建毁坏的模型和重建模型。给定输入数据点，最初使用损坏模型生成远离原始数据流形的数据。然后重建模型用于将数据点拉回原始数据流形作为最终的增强数据。</li>
 <li>做法三：采用自回归模型获得增强数据。
 <ul>
 <li>使用预训练的 SC-GPT 和 SC-GPT-NLP 分别生成话语和对话行为。</li>
 <li>在原始句子上微调 DistilBERT 以生成合成句子。</li>
 <li>使用条件标签 GPT-2 生成增强数据。</li>
-<li>使用 GPT-2 生成增强数据并将它们重新 Token
-化为统计派生的子词，以避免在形态丰富的语言中词汇爆炸。</li>
+<li>使用 GPT-2 生成增强数据并将它们重新 Token 化为统计派生的子词，以避免在形态丰富的语言中词汇爆炸。</li>
 <li>使用 GPT-2 在极端多标签分类中生成大量多样化的增强数据。</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>自训练：自标注。
 <ul>
 <li>做法一：在 gold 数据集上训练模型来预测未标注数据的标签。
 <ul>
-<li>在 gold 数据上微调 BERT，然后使用微调的 BERT
-标注未标注的句子对。</li>
+<li>在 gold 数据上微调 BERT，然后使用微调的 BERT 标注未标注的句子对。</li>
 <li>将数据蒸馏引入自训练过程，通过迭代更新的教师模型输出未标注数据的标签。</li>
 <li>基于交叉注意力的教师模型用于确定每个 QA 对的标签。</li>
 <li>从标注数据中计算特定于任务的查询嵌入，以从网络爬取的数十亿个未标注的句子中检索句子。</li>
-</ul></li>
+</ul>
+</li>
 <li>做法二：直接从其他任务中转移现有模型来生成伪并行语料库。
 <ul>
 <li>使用斯坦福 OpenIE 包来提取给定维基百科句子的三元组。</li>
 <li>直接使用微调的 BERT 来预测 OP 和 OA 样本的标签。</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p><strong>优缺点对比</strong></p>
 <table>
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 44%" />
-<col style="width: 44%" />
-</colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th>方法</th>
 <th>优点</th>
 <th>不足</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>释义：同义词</td>
 <td>1. 易于使用。</td>
-<td>1. 替换词的范围和词性是有限的。<br/>2. 不能解决二义性问题。<br/>3.
-替换过多可能会影响句子语义。</td>
+<td>1. 替换词的范围和词性是有限的。<br>2. 不能解决二义性问题。<br>3. 替换过多可能会影响句子语义。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>释义：语义嵌入</td>
-<td>1. 易于使用。<br/>2. 更换命中率更高，更换范围更广。</td>
-<td>1. 不能解决二义性问题。<br/>2. 替换过多可能会影响句子语义。</td>
+<td>1. 易于使用。<br>2. 更换命中率更高，更换范围更广。</td>
+<td>1. 不能解决二义性问题。<br>2. 替换过多可能会影响句子语义。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>释义：语言模型</td>
-<td>1. 缓解了歧义的问题。<br/>2. 考虑了上下文语义。</td>
-<td>1. 还是限于词语级别。<br/>2. 替换过多可能会影响句子语义。</td>
+<td>1. 缓解了歧义的问题。<br>2. 考虑了上下文语义。</td>
+<td>1. 还是限于词语级别。<br>2. 替换过多可能会影响句子语义。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>释义：语法规则</td>
-<td>1. 使用方便。<br/>2. 保留了原始句子语义。</td>
-<td>1. 需要人工启发式。<br/>2. 覆盖率低，变化有限。</td>
+<td>1. 使用方便。<br>2. 保留了原始句子语义。</td>
+<td>1. 需要人工启发式。<br>2. 覆盖率低，变化有限。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>释义：机器翻译</td>
-<td>1. 使用方便。<br/>2. 适用性强。<br/>3.
-保证了正确的语法和不变的语义。</td>
+<td>1. 使用方便。<br>2. 适用性强。<br>3. 保证了正确的语法和不变的语义。</td>
 <td>1. 机器翻译模型固定，可控性差，多样性有限。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>释义：模型生成</td>
-<td>1. 多样性强。<br/>2. 应用性强。</td>
-<td>1. 需要训练数据。<br/>2. 训练难度大。</td>
+<td>1. 多样性强。<br>2. 应用性强。</td>
+<td>1. 需要训练数据。<br>2. 训练难度大。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>噪声：所有</td>
-<td>1. 提高了模型的鲁棒性。<br/>2. 易于使用（在大多数情况下）。</td>
-<td>1. 扭曲的语法和语义。<br/>2. 每种方法的多样性有限。</td>
+<td>1. 提高了模型的鲁棒性。<br>2. 易于使用（在大多数情况下）。</td>
+<td>1. 扭曲的语法和语义。<br>2. 每种方法的多样性有限。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>采样：规则</td>
 <td>1. 易于使用。</td>
-<td>1. 这种方法需要人工启发式。<br/>2. 覆盖率低，变化有限。</td>
+<td>1. 这种方法需要人工启发式。<br>2. 覆盖率低，变化有限。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>采样：Seq2Seq</td>
-<td>1. 多样性强。<br/>2. 应用性强。</td>
-<td>1. 需要训练数据。<br/>2. 训练难度大。</td>
+<td>1. 多样性强。<br>2. 应用性强。</td>
+<td>1. 需要训练数据。<br>2. 训练难度大。</td>
 </tr>
-<tr class="even">
+<tr>
 <td>采样：语言模型</td>
 <td>1. 应用性强。</td>
 <td>1. 需要训练数据。</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>采样：自训练</td>
-<td>1. 比生成模型更容易。<br/>2. 适用于数据稀疏的场景。</td>
-<td>1. 需要未标注的数据。<br/>2. 应用不佳。</td>
+<td>1. 比生成模型更容易。<br>2. 适用于数据稀疏的场景。</td>
+<td>1. 需要未标注的数据。<br>2. 应用不佳。</td>
 </tr>
 </tbody>
 </table>
 <h3 id="分析">分析</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-5.jpg" /></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-5.jpg" alt></p>
 <ul>
 <li>可学习的方法常常更加复杂，因此基于采样的方法可以生成更加多样和流畅的数据。</li>
-<li>Mixup
-是唯一的在线学习方法，就是说增强数据的生成不依赖下游任务训练。因此，Mixup
-是唯一一种从增强数据中输出交叉标签和离散嵌入的方法。</li>
+<li>Mixup 是唯一的在线学习方法，就是说增强数据的生成不依赖下游任务训练。因此，Mixup 是唯一一种从增强数据中输出交叉标签和离散嵌入的方法。</li>
 <li>大多数不可学习的方法需要超出原始数据集和任务定义的外部知识资源。</li>
 <li>除了外部资源之外，预训练或非预训练模型被广泛用作 DA 方法。</li>
 <li>在释义和噪声两大类中，几乎所有方法都与任务无关。它们可以仅在没有标签或任务定义的情况下生成原始数据的增强数据。但是，所有采样方法都是与任务相关的，因为它们采用启发式和模型训练来满足特定任务的需求。</li>
-<li>基于释义的方法处于文本级别。基于噪声的方法（除了
-Mixup，因为它改变了嵌入和标签）也是如此。
-所有基于采样的方法都在文本和标签级别，因为在增强过程中也会考虑和构建标签。</li>
-<li>几乎所有不可学习的方法都可以用于词级和短语级的
-DA，但所有可学习的方法都只能用于句子级的
-DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是，它们不适用于文档增强，因为它们对文档的处理能力较弱。因此，文档增强仍然依赖于简单的不可学习的方法，这也是观察到的现状。</li>
+<li>基于释义的方法处于文本级别。基于噪声的方法（除了 Mixup，因为它改变了嵌入和标签）也是如此。 所有基于采样的方法都在文本和标签级别，因为在增强过程中也会考虑和构建标签。</li>
+<li>几乎所有不可学习的方法都可以用于词级和短语级的 DA，但所有可学习的方法都只能用于句子级的 DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是，它们不适用于文档增强，因为它们对文档的处理能力较弱。因此，文档增强仍然依赖于简单的不可学习的方法，这也是观察到的现状。</li>
 </ul>
 <h2 id="策略和技巧">策略和技巧</h2>
 <h3 id="方法融合">方法融合</h3>
@@ -422,18 +412,21 @@ DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是
 <li>组合不同的基于释义的方法获取不同的释义。</li>
 <li>组合使用多种基于噪声的方法。</li>
 <li>还有使用不同的资源。</li>
-</ul></li>
+</ul>
+</li>
 <li>无监督方法：
 <ul>
 <li>EDA：同义词替换+随机插入+随机交换+随机删除。</li>
 <li>UDA：回译+基于噪声的无监督方法。</li>
-</ul></li>
+</ul>
+</li>
 <li>多粒度：
 <ul>
 <li>词向量+语义帧向量。</li>
 <li>词+句级别的 Mixup。</li>
 <li>一系列词+句级别基于噪声的方法。</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <h3 id="最优化">最优化</h3>
 <ul>
@@ -441,7 +434,8 @@ DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是
 <ul>
 <li>质量角度：如果质量不高，可以使用增强数据对模型进行预训练；否则可直接用于模型训练。</li>
 <li>数量角度：如果增广数据量远高于原始数据，通常不会直接将它们一起用于模型训练。相反，一些常见的做法包括（1）在训练模型之前对原始数据过采样；（2）使用增强数据预训练模型并在原始数据上微调。</li>
-</ul></li>
+</ul>
+</li>
 <li>超参数：见下图（图12）。</li>
 <li>训练策略
 <ul>
@@ -449,15 +443,17 @@ DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是
 <li>预训练转为优化问题最大化生成输出的有用性。</li>
 <li>使用预训练模型生成增强数据，并将这些进展转化为强化学习。</li>
 <li>采用生成对抗网络的想法来生成具有挑战性的增强数据。</li>
-</ul></li>
+</ul>
+</li>
 <li>训练目标
 <ul>
 <li>一系列 softmax 温度设置，以确保多样性，同时保留语义。</li>
 <li>使用重复感知注意力和面向多样化的正则化来生成更多样化的句子。</li>
 <li>采用课程学习来鼓励模型专注于困难的训练示例。</li>
-</ul></li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-6.jpg" /></p>
+</li>
+</ul>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-6.jpg" alt></p>
 <h3 id="过滤">过滤</h3>
 <ul>
 <li>在初始阶段过滤一些输入数据，以避免不适当的输入影响增强效果。典型的例子是句子长度——过滤掉太短的句子。</li>
@@ -465,14 +461,11 @@ DA。尽管可学习的方法能生成高质量的增强句子，但不幸的是
 </ul>
 <h2 id="在nlp任务上的应用">在NLP任务上的应用</h2>
 <ul>
-<li>DA 方法在文本分类中的应用更广泛。每个单独的 DA
-方法都可以应用于文本分类。</li>
+<li>DA 方法在文本分类中的应用更广泛。每个单独的 DA 方法都可以应用于文本分类。</li>
 <li>文本生成更喜欢基于采样的方法，可以带来更多的语义多样性。</li>
 <li>结构化预测更喜欢基于释义的方法，因为它对数据格式很敏感。因此对数据的有效性提出了更高的要求。</li>
 </ul>
-<p>简单有效的无监督方法，包括机器翻译、基于词库（同义词）的释义和随机替换，都非常流行。此外，诸如
-Seq2Seq
-释义模型、预训练模型和自训练等可学习方法也因其多样性和有效性而受到广泛关注。</p>
+<p>简单有效的无监督方法，包括机器翻译、基于词库（同义词）的释义和随机替换，都非常流行。此外，诸如 Seq2Seq 释义模型、预训练模型和自训练等可学习方法也因其多样性和有效性而受到广泛关注。</p>
 <h2 id="相关主题">相关主题</h2>
 <ul>
 <li>预训练模型：虽然预训练模型能够为下游任务带去训练数据，但对主题外的特定任务可能仍需要任务相关的数据增强方法。</li>
@@ -483,26 +476,14 @@ Seq2Seq
 </ul>
 <h2 id="挑战和机会">挑战和机会</h2>
 <ul>
-<li>理论分析：大部分工作都提出了新的方法或证明了 DA
-方法在下游任务上的有效性，但没有探索其背后的原因和规律，例如从数学的角度。</li>
-<li>在 PLM 上更多的探索：现有使用 PLM 做
-DA，大部分仅限于<code>[MASK]</code> 补全、微调后直接生成或自训练。DA
-在预训练语言模型时代还有帮助吗？如何进一步利用预训练模型中的信息，以更低的成本生成更多样、高质量的数据？</li>
-<li>更通用的 NLP 方法：与图像不同，目前没有一种 DA 方法可以对所有 NLP
-任务都有效。这意味着不同 NLP 任务之间的 DA
-方法仍然存在差距。随着预训练模型的发展，这似乎有一些可能性，特别是 T5 和
-GPT3 的提出，以及 promote
-学习的出现，进一步验证了自然语言中任务的形式化可以独立于传统的类别，通过统一任务定义可以得到更通用的模型。</li>
+<li>理论分析：大部分工作都提出了新的方法或证明了 DA 方法在下游任务上的有效性，但没有探索其背后的原因和规律，例如从数学的角度。</li>
+<li>在 PLM 上更多的探索：现有使用 PLM 做 DA，大部分仅限于<code> [MASK]</code> 补全、微调后直接生成或自训练。DA 在预训练语言模型时代还有帮助吗？如何进一步利用预训练模型中的信息，以更低的成本生成更多样、高质量的数据？</li>
+<li>更通用的 NLP 方法：与图像不同，目前没有一种 DA 方法可以对所有 NLP 任务都有效。这意味着不同 NLP 任务之间的 DA 方法仍然存在差距。随着预训练模型的发展，这似乎有一些可能性，特别是 T5 和 GPT3 的提出，以及 promote 学习的出现，进一步验证了自然语言中任务的形式化可以独立于传统的类别，通过统一任务定义可以得到更通用的模型。</li>
 <li>长文本和低资源语言。</li>
 </ul>
-<p>对于第三点，可以参考 FaceBook 最新的 Meta Learning：<a
-href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/">MetaICL：Learning
-to Learn In Context | Yam</a></p>
+<p>对于第三点，可以参考 FaceBook 最新的 Meta Learning：<a href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/" target="_blank" rel="noopener">MetaICL：Learning to Learn In Context | Yam</a></p>
 <h2 id="结论">结论</h2>
-<p>本文对 NLP 数据增强进行了全面和结构化的综述，根据增强数据的多样性将
-DA 方法分成三类：释义、噪声和采样。还介绍了 DA 方法在 NLP
-任务中的应用，并通过时间线对其进行了分析。此外还介绍了一些技巧和策略，以便研究人员和从业人员可以参考以获得更好的模型性能。最后，将
-DA 与一些相关主题区分开来，并概述了当前的挑战以及未来研究的机会。</p>
+<p>本文对 NLP 数据增强进行了全面和结构化的综述，根据增强数据的多样性将 DA 方法分成三类：释义、噪声和采样。还介绍了 DA 方法在 NLP 任务中的应用，并通过时间线对其进行了分析。此外还介绍了一些技巧和策略，以便研究人员和从业人员可以参考以获得更好的模型性能。最后，将 DA 与一些相关主题区分开来，并概述了当前的挑战以及未来研究的机会。</p>
 
       
     </div><!-- .entry-content -->
@@ -660,21 +641,6 @@ DA 与一些相关主题区分开来，并概述了当前的挑战以及未来�
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

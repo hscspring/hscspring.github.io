@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="这几天在阅读一段源代码时，突然看到了这样的写法： 12class A:    host: Text = ... 当时一愣——这三个点是个什么玩意儿，好像只在 numpy 中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：  Numpy Slice：表示「其他维度的所有值」 类型提示：表示「不指定、可变的、任意的」参数类型 占位符：表示">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-10T16:23:44.175Z">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python Ellipsis">
 <meta name="twitter:description" content="这几天在阅读一段源代码时，突然看到了这样的写法： 12class A:    host: Text = ... 当时一愣——这三个点是个什么玩意儿，好像只在 numpy 中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：  Numpy Slice：表示「其他维度的所有值」 类型提示：表示「不指定、可变的、任意的」参数类型 占位符：表示">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/" data-id="clx98np2600natsbzxnccdyqk" class="leave-reply bdsharebuttonbox" data-cmd="more">undefined</a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2021/11/13/Python/2021-11-13-Ellipsis/" data-id="clxbpfs54004hdlbzguoddcuu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -96,9 +96,8 @@
             <!-- Table of Contents -->
               
         <p>这几天在阅读一段源代码时，突然看到了这样的写法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>:</span><br><span class="line">    host: Text = ...</span><br></pre></td></tr></table></figure>
-<p>当时一愣——这三个点是个什么玩意儿，好像只在 <code>numpy</code>
-中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>:</span></span><br><span class="line">    host: Text = ...</span><br></pre></td></tr></table></figure>
+<p>当时一愣——这三个点是个什么玩意儿，好像只在 <code>numpy</code> 中切片时用过，怎么突然出现在这里？嗯，于是就有了这篇小文，记录下这个有意思的玩意儿。总的来说，主要有以下几种用法：</p>
 <ul>
 <li>Numpy Slice：表示「其他维度的所有值」</li>
 <li>类型提示：表示「不指定、可变的、任意的」参数类型</li>
@@ -106,66 +105,43 @@
 <li>循环引用：表示一个循环引用，而不是满屏幕打印</li>
 <li>特殊标记：表示一个特殊的位置，比如结束、开始等</li>
 </ul>
-<span id="more"></span>
-<p>首先，这三个点有个学名，叫「Ellipsis」，我们在 Python
-中简单执行下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># Ellipsis</span></span><br><span class="line"><span class="built_in">type</span>(...)  <span class="comment"># == type(Ellipsis)</span></span><br><span class="line"><span class="comment"># ellipsis</span></span><br></pre></td></tr></table></figure>
-<p><code>...</code> 在 Python 中就等价于 <code>Ellipsis</code>，类型是
-<code>ellipsis</code>。根据在 <code>CPython</code>
-源码中的定义，可知它是一个单例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Ellipsis</span>(Constant, metaclass=_ABC):</span><br><span class="line">    _fields = ()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__new__</span>(<span class="params">cls, *args, **kwargs</span>):</span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">is</span> <span class="literal">Ellipsis</span>:</span><br><span class="line">            <span class="keyword">return</span> Constant(..., *args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> Constant.__new__(cls, *args, **kwargs)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>首先，这三个点有个学名，叫「Ellipsis」，我们在 Python 中简单执行下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment"># Ellipsis</span></span><br><span class="line">type(...)  <span class="comment"># == type(Ellipsis)</span></span><br><span class="line"><span class="comment"># ellipsis</span></span><br></pre></td></tr></table></figure>
+<p><code>...</code> 在 Python 中就等价于 <code>Ellipsis</code>，类型是 <code>ellipsis</code>。根据在 <code>CPython</code> 源码中的定义，可知它是一个单例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Ellipsis</span><span class="params">(Constant, metaclass=_ABC)</span>:</span></span><br><span class="line">    _fields = ()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> cls <span class="keyword">is</span> <span class="built_in">Ellipsis</span>:</span><br><span class="line">            <span class="keyword">return</span> Constant(..., *args, **kwargs)</span><br><span class="line">        <span class="keyword">return</span> Constant.__new__(cls, *args, **kwargs)</span><br></pre></td></tr></table></figure>
 <p>接下来就看它常用在哪些地方。</p>
 <p><strong>Numpy切片</strong></p>
-<p>这个应该是比较熟悉的了，在索引时，<code>...</code>
-往往表示「其他所有维度的值」。先随机生成一个多维矩阵：</p>
+<p>这个应该是比较熟悉的了，在索引时，<code>...</code> 往往表示「其他所有维度的值」。先随机生成一个多维矩阵：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">rng = np.random.default_rng(seed=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">rng = np.random.default_rng(seed=<span class="number">42</span>)</span><br><span class="line">arr = rng.integers(<span class="number">0</span>, <span class="number">10</span>, (<span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
 <p>然后进行切片：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[...] == arr</span><br><span class="line">arr[<span class="number">0</span>, ...] == arr[<span class="number">0</span>,:,:]</span><br><span class="line">arr[<span class="number">0</span>, ..., <span class="number">0</span>] == arr[<span class="number">0</span>,:,<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
 <p>使用起来非常方便简洁。</p>
 <p><strong>类型提示</strong></p>
-<p>类型提示是 Python3.5
-开始有的新功能，借鉴自静态语言，主要是对函数或类的参数和返回值类型进行标记，便于代码阅读。<code>...</code>
-在其中主要表达「可变或动态提示」，下面用一个例子来说明。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">demo</span>(<span class="params"></span></span><br><span class="line"><span class="params">    func1: <span class="type">Callable</span>[[<span class="built_in">int</span>], <span class="built_in">int</span>], </span></span><br><span class="line"><span class="params">    func2: <span class="type">Callable</span>[..., <span class="built_in">str</span>], </span></span><br><span class="line"><span class="params">    *args: <span class="type">Tuple</span>[<span class="built_in">int</span>, ...], </span></span><br><span class="line"><span class="params">    <span class="built_in">id</span>: ..., </span></span><br><span class="line"><span class="params">    name: <span class="built_in">str</span> = ...,</span></span><br><span class="line"><span class="params">    addr: <span class="built_in">str</span> = <span class="literal">None</span>,</span></span><br><span class="line"><span class="params"></span>) -&gt; ...:</span><br><span class="line">    <span class="built_in">print</span>(args, <span class="built_in">id</span>, name, addr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># demo(func, func, 2, &quot;3&quot;, 4.2, id=1, name=&quot;hello&quot;)</span></span><br></pre></td></tr></table></figure>
-<p><code>Callable</code>
-提示中第一个表示输入的参数类型，第二个是返回值的类型。</p>
+<p>类型提示是 Python3.5 开始有的新功能，借鉴自静态语言，主要是对函数或类的参数和返回值类型进行标记，便于代码阅读。<code>...</code> 在其中主要表达「可变或动态提示」，下面用一个例子来说明。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">demo</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    func1: Callable[[int], int], </span></span></span><br><span class="line"><span class="function"><span class="params">    func2: Callable[..., str], </span></span></span><br><span class="line"><span class="function"><span class="params">    *args: Tuple[int, ...], </span></span></span><br><span class="line"><span class="function"><span class="params">    id: ..., </span></span></span><br><span class="line"><span class="function"><span class="params">    name: str = ...,</span></span></span><br><span class="line"><span class="function"><span class="params">    addr: str = None,</span></span></span><br><span class="line"><span class="function"><span class="params">)</span> -&gt; ...:</span></span><br><span class="line">    print(args, id, name, addr)</span><br><span class="line"></span><br><span class="line"><span class="comment"># demo(func, func, 2, "3", 4.2, id=1, name="hello")</span></span><br></pre></td></tr></table></figure>
+<p><code>Callable</code> 提示中第一个表示输入的参数类型，第二个是返回值的类型。</p>
 <ul>
-<li>如果 <code>Callable</code> 「参数提示」使用
-<code>...</code>，则表示不指定输入的参数类型</li>
-<li>如果「参数类型」使用
-<code>[type, ...]</code>，则表示参数是变长的，这个经常会用在
-<code>Tuple</code> 里</li>
-<li>如果「参数或返回值的类型提示」使用
-<code>...</code>，则表示该参数或返回值是任意类型的，与 <code>Any</code>
-等价</li>
-<li>如果「参数的默认值」使用 <code>...</code>，则表示该参数默认值为
-<code>Ellipsis</code>，当想区分不传入值或传入 <code>None</code>
-时比较有用</li>
+<li>如果 <code>Callable</code> 「参数提示」使用 <code>...</code>，则表示不指定输入的参数类型</li>
+<li>如果「参数类型」使用 <code>[type, ...]</code>，则表示参数是变长的，这个经常会用在 <code>Tuple</code> 里</li>
+<li>如果「参数或返回值的类型提示」使用 <code>...</code>，则表示该参数或返回值是任意类型的，与 <code>Any</code> 等价</li>
+<li>如果「参数的默认值」使用 <code>...</code>，则表示该参数默认值为 <code>Ellipsis</code>，当想区分不传入值或传入 <code>None</code> 时比较有用</li>
 </ul>
 <p><strong>占位符</strong></p>
-<p>与 <code>pass</code>
-一样的功能，当我们在不关心实现细节，快速搭建代码框架时经常会用到：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">run</span>():</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test</span>():</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>与 <code>pass</code> 一样的功能，当我们在不关心实现细节，快速搭建代码框架时经常会用到：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test</span><span class="params">()</span>:</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 <p><strong>循环引用</strong></p>
-<p>当创建一个循环引用时，Python 会使用 <code>...</code>
-显示无限循环，注意，这并不是真的替换了引用。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">a[<span class="number">0</span>] = a</span><br><span class="line"></span><br><span class="line">a == a[<span class="number">0</span>] == a[<span class="number">0</span>][<span class="number">0</span>] == a[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line">x = a[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>):</span><br><span class="line">    <span class="built_in">print</span>(x)</span><br><span class="line">    x = x[<span class="number">0</span>]</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<p>当创建一个循环引用时，Python 会使用 <code>...</code> 显示无限循环，注意，这并不是真的替换了引用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">a[<span class="number">0</span>] = a</span><br><span class="line"></span><br><span class="line">a == a[<span class="number">0</span>] == a[<span class="number">0</span>][<span class="number">0</span>] == a[<span class="number">0</span>][<span class="number">0</span>][<span class="number">0</span>]  <span class="comment"># True</span></span><br><span class="line"></span><br><span class="line">x = a[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    print(x)</span><br><span class="line">    x = x[<span class="number">0</span>]</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">[[...], 1]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
 <p><strong>特殊标记</strong></p>
 <p>有时候会用来当做队列结束的标记，比如：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">q = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, ...]</span><br></pre></td></tr></table></figure>
-<p>这很容易理解，因为我们既不需要新建一个对象专门作为标记，<code>...</code>
-又足够特殊，一般队列的值不会是它。</p>
+<p>这很容易理解，因为我们既不需要新建一个对象专门作为标记，<code>...</code> 又足够特殊，一般队列的值不会是它。</p>
 <p><strong>参考资料</strong></p>
 <ul>
-<li><a
-href="https://www.geeksforgeeks.org/what-is-three-dots-or-ellipsis-in-python3/">What
-is Three dots(...) or Ellipsis in Python3 - GeeksforGeeks</a></li>
-<li><a
-href="https://medium.com/techtofreedom/3-uses-of-the-ellipsis-in-python-25795aac723d">3
-Uses of the Ellipsis in Python. The cutest syntax sugar in Python | by
-Yang Zhou | TechToFreedom | Medium</a></li>
-<li><a href="https://python.land/python-ellipsis">Python Ellipsis
-(triple dots): What is it, How to Use • Python Land Blog</a></li>
+<li><a href="https://www.geeksforgeeks.org/what-is-three-dots-or-ellipsis-in-python3/" target="_blank" rel="noopener">What is Three dots(…) or Ellipsis in Python3 - GeeksforGeeks</a></li>
+<li><a href="https://medium.com/techtofreedom/3-uses-of-the-ellipsis-in-python-25795aac723d" target="_blank" rel="noopener">3 Uses of the Ellipsis in Python. The cutest syntax sugar in Python | by Yang Zhou | TechToFreedom | Medium</a></li>
+<li><a href="https://python.land/python-ellipsis" target="_blank" rel="noopener">Python Ellipsis (triple dots): What is it, How to Use • Python Land Blog</a></li>
 </ul>
 
       
@@ -324,21 +300,6 @@ Yang Zhou | TechToFreedom | Medium</a></li>
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
