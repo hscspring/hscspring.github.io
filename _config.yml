@@ -79,34 +79,80 @@ tag_generator:
 ## Themes: https://hexo.io/themes/
 theme: cyanstyle
 
-
-markdown:
-  preset: 'default'
-  render:
+markdown_it_plus:
+    highlight: true
     html: true
-    xhtmlOut: false
-    langPrefix: 'language-'
+    xhtmlOut: true
     breaks: true
+    langPrefix:
     linkify: true
-    typographer: true
-    quotes: '“”‘’'
-  enable_rules:
-  disable_rules:
-  plugins:
-  anchors:
-    level: 2
-    collisionSuffix: ''
-    permalink: false
-    permalinkClass: 'header-anchor'
-    permalinkSide: 'left'
-    permalinkSymbol: '¶'
-    case: 0
-    separator: '-'
-  images:
-    lazyload: false
-    prepend_root: false
-    post_asset: false
-  inline: false  # https://markdown-it.github.io/markdown-it/#MarkdownIt.renderInline
+    typographer:
+    quotes: “”‘’
+    pre_class: highlight
+    plugins:
+        - plugin:
+            name: markdown-it-mark
+            enable: true
+        - plugin:
+            name: markdown-it-toc-and-anchor
+            enable: true
+            options:
+                toc: true
+                tocClassName: 'markdownIt-TOC'
+                tocFirstLevel: 2
+                tocLastLevel: 6
+                tocCallback:
+                anchorLink: true
+                anchorLinkSymbol: ''
+                anchorFirstLevel: 2
+                anchorLastLevel: 6
+                anchorLinkSpace: true
+                anchorLinkSymbolClassName:
+                anchorLinkBefore: true
+                anchorClassName: 'markdownIt-Anchor'
+                resetIds: true
+
+# markdown:
+#   preset: 'default'
+#   render:
+#     html: true
+#     xhtmlOut: false
+#     langPrefix: 'language-'
+#     breaks: true
+#     linkify: true
+#     typographer: true
+#     quotes: '“”‘’'
+#   enable_rules:
+#   disable_rules:
+#   plugins:
+#     - '@renbaoshuo/markdown-it-katex'
+#     options:
+#       skipDelimitersCheck: true
+#   anchors:
+#     level: 2
+#     collisionSuffix: ''
+#     permalink: false
+#     permalinkClass: 'header-anchor'
+#     permalinkSide: 'left'
+#     permalinkSymbol: '¶'
+#     case: 0
+#     separator: '-'
+#   images:
+#     lazyload: false
+#     prepend_root: false
+#     post_asset: false
+#   inline: false  # https://markdown-it.github.io/markdown-it/#MarkdownIt.renderInline
+
+
+# https://zhuanlan.zhihu.com/p/105986034
+# markdown:
+#   plugins:
+#     - markdown-it-footnote
+#     - markdown-it-sup
+#     - markdown-it-sub
+#     - markdown-it-abbr
+#     - markdown-it-emoji
+#     - hexo-math
 
 # mathjax:
 #     enable: true
