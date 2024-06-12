@@ -76,139 +76,6 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Paper/2020-10-27-WideDeepLearning4RecSys" class="post-Paper/2020-10-27-WideDeepLearning4RecSys post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/">Wide and Deep Learning for Recommender System 论文笔记</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" data-id="clx98np1s00jutsbzq0y5h1hw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>推荐系统可以看作是一个搜索排序系统，其中 input
-是一组用户和上下文信息，output
-是排好序的商品列表。推荐系统的一个挑战就是同时达到
-memorization（记忆化）和 generalization（泛化）。</p>
-<ul>
-<li>memorization：
-<ul>
-<li>大致可定义为学习特征或商品的频繁共现关系并探索相关性</li>
-<li>与用户已经执行操作的商品直接相关</li>
-<li>可以通过使用稀疏特征上的交叉乘积变换（cross-product
-transformation）有效地实现，如
-<code>AND(installed_app=netfix, impression_app=pandora)</code></li>
-</ul></li>
-<li>generalization：
-<ul>
-<li>基于相关性的传递性探索之前很少出现或没出现过的新特征组合</li>
-<li>倾向于提高推荐结果的多样性</li>
-<li>可以通过使用不太精细的特征增加泛化，如
-<code>AND(installed_category=video, impression_category=music)</code>，一般需要人工进行特征处理</li>
-</ul></li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/">
-    <time datetime="2020-10-27T15:00:00.000Z" class="entry-date">
-        2020-10-27
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Deep/" rel="tag">Deep</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recommendation/" rel="tag">Recommendation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Wide/" rel="tag">Wide</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-RecSys/2020-10-24-MF" class="post-RecSys/2020-10-24-MF post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2020/10/24/RecSys/2020-10-24-MF/">矩阵分解</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/10/24/RecSys/2020-10-24-MF/" data-id="clx98np1j00hgtsbz4iu2trln" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>本文主要介绍推荐系统中的矩阵分解技术。之前在<a
-href="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/">协同过滤
-|
-Yam</a>中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实正是
-2-8
-定律和马太效应，再往深了想，从客观角度看是因为信息不对称，主观角度看则是因为羊群效应。所以，很自然的想法就是将稀疏表征稠密化。稠密化表示也就意味着特征的多元化，直观来看自然是表征能力和泛化能力更强。矩阵分解正是这样的技术。</p>
-        
-          <p class="article-more-link">
-            <a href="/2020/10/24/RecSys/2020-10-24-MF/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2020/10/24/RecSys/2020-10-24-MF/">
-    <time datetime="2020-10-24T15:00:00.000Z" class="entry-date">
-        2020-10-24
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Funk-MF/" rel="tag">Funk MF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MF/" rel="tag">MF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matrix-Factorization/" rel="tag">Matrix Factorization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Recommendation/" rel="tag">Recommendation</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVD/" rel="tag">SVD++</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-RecSys/2020-10-22-CollaborativeFiltering" class="post-RecSys/2020-10-22-CollaborativeFiltering post type-post status-publish format-standard hentry">
     <!---->
 
@@ -681,6 +548,120 @@ Analysis）是数据分析和挖掘的第一步，主要是对数据集进行了
 
 
   
+    <article id="post-Paper/2020-09-13-PEGASUS" class="post-Paper/2020-09-13-PEGASUS post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2020/09/13/Paper/2020-09-13-PEGASUS/">PEGASUS 论文笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" data-id="clx98np1q00j6tsbz2rp2459t" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/1912.08777">[1912.08777]
+PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive
+Summarization</a></p>
+<p>Code：<a
+href="https://github.com/google-research/pegasus">google-research/pegasus</a></p>
+<p>核心思想：基于 GSG 的 Transformer 在文本摘要上的应用。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/13/Paper/2020-09-13-PEGASUS/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2020/09/13/Paper/2020-09-13-PEGASUS/">
+    <time datetime="2020-09-13T04:00:00.000Z" class="entry-date">
+        2020-09-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GSG/" rel="tag">GSG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PEGASUS/" rel="tag">PEGASUS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Summarization/" rel="tag">Summarization</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/" rel="tag">Transformer</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-ML/2020-09-09-Kernel-SMO" class="post-ML/2020-09-09-Kernel-SMO post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2020/09/09/ML/2020-09-09-Kernel-SMO/">核方法 和 SMO</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" data-id="clx98np0n003ptsbzqcr2404i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><a
+href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/">上一部分</a>介绍了硬间隔和软间隔支持向量机，本部分介绍非线性支持向量机（核方法）和序列最小最优化算法。</p>
+        
+          <p class="article-more-link">
+            <a href="/2020/09/09/ML/2020-09-09-Kernel-SMO/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2020/09/09/ML/2020-09-09-Kernel-SMO/">
+    <time datetime="2020-09-09T04:00:00.000Z" class="entry-date">
+        2020-09-09
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Coordinate-Ascent/" rel="tag">Coordinate Ascent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel/" rel="tag">Kernel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel-Function/" rel="tag">Kernel Function</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Kernel-Method/" rel="tag">Kernel Method</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/" rel="tag">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SMO/" rel="tag">SMO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SVM/" rel="tag">SVM</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -721,14 +702,6 @@ Analysis）是数据分析和挖掘的第一步，主要是对数据集进行了
       <ul>
         
           <li>
-            <a href="/2024/06/11/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/">自然语言计算机形式分析的理论与方法笔记(Ch17)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/06/11/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/">自然语言计算机形式分析的理论与方法笔记(Ch16)</a>
-          </li>
-        
-          <li>
             <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">Tiny LLM Continual Pre-training：RHO-1</a>
           </li>
         
@@ -738,6 +711,14 @@ Analysis）是数据分析和挖掘的第一步，主要是对数据集进行了
         
           <li>
             <a href="/2024/04/06/NLP/2024-04-06-Deductive-Inductive-Abductive/">LLM中的演绎推理、归纳推理和溯因推理</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/16/AI/2024-03-16-LLM-Basic/">LLM极简科普</a>
+          </li>
+        
+          <li>
+            <a href="/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/">Programming Language Environment Cheat Sheet</a>
           </li>
         
       </ul>
@@ -786,21 +767,6 @@ Analysis）是数据分析和挖掘的第一步，主要是对数据集进行了
 
 <div id="bg"></div>
 
-  </div>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>
