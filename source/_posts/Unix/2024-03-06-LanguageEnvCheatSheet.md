@@ -53,6 +53,18 @@ trusted-host = mirror.baidu.com
                pypi.ngc.nvidia.com
 ```
 
+## Cuda
+
+```bash
+sudo rpm -i cuda-repo-rhel8-12-2-local-12.2.2_535.104.05-1.x86_64.rpm
+sudo dnf -y module install nvidia-driver:535-dkms
+sudo dnf -y install cuda-12-2
+```
+
+- https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#driver-installation
+- https://developer.nvidia.com/cuda-12-2-2-download-archive?target_os=Linux&target_arch=x86_64&Distribution=RHEL&target_version=8&target_type=rpm_local
+- https://www.dell.com/support/kbdoc/en-us/000216077/how-to-install-nvidia-driver-in-rhel
+
 ## Rust
 
 ```bash
