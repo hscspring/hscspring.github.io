@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="Docker 备忘。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2024-06-12T02:06:43.553Z">
+<meta property="og:updated_time" content="2024-09-21T01:45:19.868Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker Memo">
 <meta name="twitter:description" content="Docker 备忘。">
@@ -142,6 +142,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build --build-arg HTTP_PROXY=<span class="string">"http://proxy.example.com:3128"</span> .</span><br><span class="line">docker run --env HTTP_PROXY=<span class="string">"http://proxy.example.com:3128"</span> redis</span><br></pre></td></tr></table></figure>
 <h3 id="net">Net</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Access iptables</span></span><br><span class="line">docker run --<span class="built_in">cap</span>-add=NET_ADMIN -it ubuntu:16.04</span><br><span class="line"><span class="comment"># In the container</span></span><br><span class="line">apt update -y</span><br><span class="line">apt-get install iptables sudo -y</span><br><span class="line">adduser user1</span><br><span class="line">adduser user1 sudo</span><br><span class="line">su - user1</span><br><span class="line">sudo iptables -L -n</span><br></pre></td></tr></table></figure>
+<h3 id="mirror">mirror</h3>
+<ul>
+<li><a href="https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6" target="_blank" rel="noopener">https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6</a></li>
+<li><a href="https://dockerproxy.cn/" target="_blank" rel="noopener">https://dockerproxy.cn/</a></li>
+</ul>
 <h2 id="reference">Reference</h2>
 <ul>
 <li><a href="https://stackoverflow.com/questions/33913020/docker-remove-none-tag-images" target="_blank" rel="noopener">Docker remove <none> TAG images - Stack Overflow</none></a></li>
