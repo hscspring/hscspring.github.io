@@ -76,17 +76,18 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - `20231125` 苏州 GDG：[2023 苏州 Devfest AI 专场预告 - 程序猿媛们在 LLM 浪潮中的新机遇](https://mp.weixin.qq.com/s/MudtoqKhASsU-80axnNiCQ)
     - `20231216` 讯飞星火 AI 开发者 TALK：[携手知名开发者社区，畅谈大模型实际应用 | AI 开发者 TALK](https://mp.weixin.qq.com/s/-ix8xXSm421QfmfD7lVTLg)
     - `20231223` 早早聊：[前端搞 AI | Datawhale X 早早聊喊你来玩转 AI 开发啦](https://www.zaozao.run/conf/c76)
+    - `20240817` OpenAIGC 第二届开发者大赛评委：[顶峰相见，OPENAIGC开发者大赛8月17日上海决赛开启！](https://mp.weixin.qq.com/s/CE7NTPi_M6JYdu-1oPMSzA)
 
 
 ## 学术研究
 
-- ChatGPT原理与应用开发
+- 《ChatGPT原理与应用开发》
     - [《Datawhale蝴蝶书》出版了！](https://mp.weixin.qq.com/s/cIn3-hL9DSOJf2S2_MihNw)
     - GitHub：[datawhalechina/hugging-llm: HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
-- Interactive NLP
+- 《Interactive NLP》
     - 负责部分内容。
     - Paper：[[2305.13246] Interactive Natural Language Processing](https://arxiv.org/abs/2305.13246)
     - GitHub：[Paper List for a new paradigm of NLP: Interactive NLP](https://github.com/InteractiveNLP-Team/awesome-InteractiveNLP-papers)
-- ChineseFLAN
+- 《ChineseFLAN》
     - 负责部分数据集。
     - 地址：[BAAI/COIG-PC · Datasets at Hugging Face](https://huggingface.co/datasets/BAAI/COIG-PC)
