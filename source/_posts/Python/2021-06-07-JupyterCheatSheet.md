@@ -126,6 +126,8 @@ $ rm /usr/local/bin/jupyter*
 $ pip install notebook==6.0.0 # 建议6.0.0以上版本
 $ pip install jupyter
 $ pip install jupyter_contrib_nbextensions==0.7.0 # 最新版本，后面没维护了
+
+$ jupyter-notebook --NotebookApp.token="" --NotebookApp.password="" # no pwd and token
 ```
 
 然后就可以畅游旧版本了，错误全部忽略不管。
