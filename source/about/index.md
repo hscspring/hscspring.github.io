@@ -46,10 +46,8 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
 - Datawhale《LLM Deploy》项目负责人
     - 项目：[datawhalechina/llm-deploy: 大模型/LLM推理和部署理论与实践](https://github.com/datawhalechina/llm-deploy)
-
 - Datawhale《hands-on-llama》项目负责人
     - [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama)
-
 - Datawhale《HuggingLLM（大语言模型应用开发指南）》项目负责人。
     - 项目：[HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
     - 视频：[Datawhale 的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092)
@@ -93,7 +91,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - 简单易用的LLM微调工具
     - 按需维护
 - [hscspring/nlm: Memory for Knowledge Graph, using Neo4j. 知识图谱存储与查询。](https://github.com/hscspring/nlm)
-    - 基于Neo4j的知识图谱自动查、改、删
+    - 基于Neo4j的知识图谱自动查、改、删，刚转行不久写的
     - 按需维护
 - [hscspring/bytepiece-rs: The Bytepiece Tokenizer Implemented in Rust.](https://github.com/hscspring/bytepiece-rs)
     - Rust+Python版本的 Bytepiece Tokenizer
