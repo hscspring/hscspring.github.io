@@ -44,6 +44,12 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - Rust 中文社区日报编辑、专栏作者。
     - Rust 日报：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=%E9%95%BF%E7%90%B4)
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
+- Datawhale《LLM Deploy》项目负责人
+    - 项目：[datawhalechina/llm-deploy: 大模型/LLM推理和部署理论与实践](https://github.com/datawhalechina/llm-deploy)
+
+- Datawhale《hands-on-llama》项目负责人
+    - [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama)
+
 - Datawhale《HuggingLLM（大语言模型应用开发指南）》项目负责人。
     - 项目：[HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
     - 视频：[Datawhale 的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092)
@@ -78,6 +84,32 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - `20231223` 早早聊：[前端搞 AI | Datawhale X 早早聊喊你来玩转 AI 开发啦](https://www.zaozao.run/conf/c76)
     - `20240817` OpenAIGC 第二届开发者大赛评委：[顶峰相见，OPENAIGC开发者大赛8月17日上海决赛开启！](https://mp.weixin.qq.com/s/CE7NTPi_M6JYdu-1oPMSzA)
 
+## 开源项目
+
+- [hscspring/pnlp: NLP预/后处理工具。](https://github.com/hscspring/pnlp)
+    - 常用的NLP处理工具
+    - 长期维护，经久耐用
+- [hscspring/hcgf: Humanable Chat Generative-model Fine-tuning | LLM微调](https://github.com/hscspring/hcgf)
+    - 简单易用的LLM微调工具
+    - 按需维护
+- [hscspring/nlm: Memory for Knowledge Graph, using Neo4j. 知识图谱存储与查询。](https://github.com/hscspring/nlm)
+    - 基于Neo4j的知识图谱自动查、改、删
+    - 按需维护
+- [hscspring/bytepiece-rs: The Bytepiece Tokenizer Implemented in Rust.](https://github.com/hscspring/bytepiece-rs)
+    - Rust+Python版本的 Bytepiece Tokenizer
+    - 按需维护
+- [hscspring/llama.np: Inference Llama/Llama2/Llama3 Modes in NumPy](https://github.com/hscspring/llama.np)
+    - LLaMA推理纯NumPy实现
+    - 按需维护
+- [hscspring/SuitJOB: A Simple Job Recommendation App. Also a Micro-Web-Full-Stack Practice for Beginners.](https://github.com/hscspring/SuitJOB)
+    - 简单的Job推荐系统
+    - 已存档
+- [hscspring/backup-github-repo: backup a github repo.](https://github.com/hscspring/backup-github-repo)
+    - 备份GitHub Repo
+    - 已存档
+- [hscspring/hnlp: Humanly DeepLearning for NLP, on top of Transformers.](https://github.com/hscspring/hnlp)
+    - 一个易用的、开发中的传统NLP训练框架
+    - 已存档
 
 ## 学术研究
 

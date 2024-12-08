@@ -56,9 +56,15 @@ trusted-host = mirror.baidu.com
 ## Cuda
 
 ```bash
+# Centos8
 sudo rpm -i cuda-repo-rhel8-12-2-local-12.2.2_535.104.05-1.x86_64.rpm
 sudo dnf -y module install nvidia-driver:535-dkms
 sudo dnf -y install cuda-12-2
+
+# Ubuntu
+cat /usr/include/x86_64-linux-gnu/cudnn_v*.h | grep CUDNN_MAJOR -A 2
+# Centos8
+cat /usr/include/cudnn_version.h | grep CUDNN_MAJOR -A 2
 ```
 
 - https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html#driver-installation

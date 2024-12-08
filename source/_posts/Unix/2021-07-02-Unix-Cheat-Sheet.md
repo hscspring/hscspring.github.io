@@ -79,6 +79,7 @@ id [xxx] # 查看id
 Owner/OwnerGroup/Other # 三级权限
 chown # 改变文件的 Owner 和 OwnerGroup
 chmod # 改变文件权限标志；444 表示三类用户权限；4读取 2写入 1执行，求和
+setfacl -m u:username:rwx myfolder # 给某个用户权限
 # 删除某个日期之前的
 find . ! -newermt "2020-05-29 00:00:00" | xargs rm -rf
 # 删除某个日期之后的
@@ -89,6 +90,8 @@ sudo fuser -k 5000/tcp
 # 隧道
 ssh -N -f -L localhost:3307:192.168.1.51:3306 username@host -i file
 ```
+
+- [Give specific user permission to write to a folder using +w notation - Ask Ubuntu](https://askubuntu.com/questions/487527/give-specific-user-permission-to-write-to-a-folder-using-w-notation)
 
 ### 防火墙
 
