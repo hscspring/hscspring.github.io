@@ -67,6 +67,7 @@ date: 2019-07-13 20:00:00
 - [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
 - [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
 - [NLP 与 AI](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
+- [关于AI前沿的思考 | Yam](https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/)
 
 ### 哲学
 
@@ -135,6 +136,8 @@ date: 2019-07-13 20:00:00
 
 ### 论文
 
+- [【Paper速览】2024年11月 | Yam](https://yam.gift/2024/12/01/Paper/2024-12-01-Paper/)
+- [【Paper速览】2024年10月 | Yam](https://yam.gift/2024/11/01/Paper/2024-11-01-Paper/)
 - [2024 MIO](https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/)
 - [2024 LLM中的演绎推理、归纳推理和溯因推理](https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/)
 - [2022 LM Cascades](https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/)

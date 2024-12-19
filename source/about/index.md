@@ -38,30 +38,35 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - 偏爱古典、史诗、摇滚、后摇、纯音。
 - 跑步、健身、太极，各类球如足球、羽毛球、壁球、篮球、桌球、乒乓球，各类棋，各类牌。
 
+
+## 开源项目
+
+| 项目                                                         | 简介                                                         | 备注     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
+| [datawhalechina/llm-deploy](https://github.com/datawhalechina/llm-deploy) | 大模型/LLM推理和部署理论与实践                               | 负责人   |
+| [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama) | 以LLaMA为例基于NumPy介绍LLM推理相关知识                      | 负责人   |
+| [datawhalechina/HuggingLLM](https://github.com/datawhalechina/hugging-llm) | 蝴蝶书《ChatGPT原理与应用开发》[视频](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092) | 负责人   |
+| [datawhalechina/巨硬的 NumPy](https://github.com/datawhalechina/powerful-numpy) | NumPy教程，[视频：巨硬的 Numpy：从小白到入门]( https://www.bilibili.com/video/BV1Ym4y1U7at?share_source=copy_web&vd_source=cea86f777e9ba73f1a486c90773fcb03) | 负责人   |
+| [datawhalechina/sweetalk-design-pattern](https://github.com/datawhalechina/sweetalk-design-pattern) | 基于《大话设计模式》对设计原则和设计模式进行解读             | 负责人   |
+| [datawhalechina/llm-tutorial](https://github.com/datawhalechina/prompt-engineering-for-developers) | 面向开发者的 LLM 入门教程，吴恩达大模型系列课程中文版        | 发起人   |
+| [datawhalechina/daily-interview](https://github.com/datawhalechina/daily-interview) | 面经，包括机器学习，CV，NLP，推荐，开发等                    | 贡献者   |
+| [hscspring/pnlp](https://github.com/hscspring/pnlp)          | 常用的NLP处理工具                                            | 独立开发 |
+| [hscspring/hcgf](https://github.com/hscspring/hcgf)          | 简单易用的LLM微调工具                                        | 独立开发 |
+| [hscspring/bytepiece-rs](https://github.com/hscspring/bytepiece-rs) | Rust+Python版本的 Bytepiece Tokenizer                        | 独立开发 |
+| [hscspring/llama.np](https://github.com/hscspring/llama.np)  | LLaMA推理纯NumPy实现                                         | 独立开发 |
+| [hscspring/hnlp](https://github.com/hscspring/hnlp)          | 一个易用的、开发中的传统NLP训练框架                          | 独立开发 |
+| [hscspring/SuitJOB](https://github.com/hscspring/SuitJOB)    | 简单的Job推荐系统                                            | 独立开发 |
+
 ## 开源社群
 
 - 知乎专栏（不怎么更新的）：[NLP 点滴 - 知乎](https://www.zhihu.com/column/lovenlp)
 - Rust 中文社区日报编辑、专栏作者。
     - Rust 日报：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=%E9%95%BF%E7%90%B4)
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
-- Datawhale《LLM Deploy》项目负责人
-    - 项目：[datawhalechina/llm-deploy: 大模型/LLM推理和部署理论与实践](https://github.com/datawhalechina/llm-deploy)
-- Datawhale《hands-on-llama》项目负责人
-    - [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama)
-- Datawhale《HuggingLLM（大语言模型应用开发指南）》项目负责人。
-    - 项目：[HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
-    - 视频：[Datawhale 的个人空间_哔哩哔哩_bilibili](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092)
-- Datawhale《Powerful NumPy》项目负责人。
-    - 项目：[【巨硬的 NumPy】](https://github.com/datawhalechina/powerful-numpy)
-    - 视频：[【巨硬的 Numpy：从小白到入门】]( https://www.bilibili.com/video/BV1Ym4y1U7at?share_source=copy_web&vd_source=cea86f777e9ba73f1a486c90773fcb03)
-- Datawhale《Sweetalk Design Pattern》项目负责人。
-    - 项目：[datawhalechina/sweetalk-design-pattern: 基于《大话设计模式》对设计原则和设计模式进行解读。](https://github.com/datawhalechina/sweetalk-design-pattern)
 - 阿里云天池《数据科学》NumPy 课程 负责人。
     - 视频：[数据科学一级 -AI 学习 - 阿里云天池](https://tianchi.aliyun.com/course/1069)
 - 百度《大模型应用开发课程》第二课 负责人。
     - 视频：[大模型应用开发技巧与实战 - 飞桨 AI Studio](https://aistudio.baidu.com/course/introduce/28611)
-- Datawhale《面向开发者的 LLM 入门教程》项目发起人、贡献者。
-    - 项目：[面向开发者的 LLM 入门教程，吴恩达大模型系列课程中文版](https://github.com/datawhalechina/prompt-engineering-for-developers)
 - Datawhale x 魔搭社区《Sora原理与技术实战》Transformers 技术解析+实战(LLM) 负责人。
     - 项目：[datawhalechina/sora-tutorial](https://github.com/datawhalechina/sora-tutorial)
     - 视频：[【AI+X组队学习】Sora原理与技术实战：Transformers技术解析+手写LLM实战_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV17Z421a71d/?vd_source=25267fdf6ac60f2b1937c53c36aa5ee7)
@@ -70,9 +75,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - 视频：[LMDeploy 大模型量化部署实践_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1iW4y1A77P/?vd_source=25267fdf6ac60f2b1937c53c36aa5ee7)
 - Datawhale × 开放原子基金会《开源大模型入门》大模型应用开发范式 负责人。
     - 项目/视频：https://www.devedu.net/goods/show/46
-- Datawhale《面经项目》贡献者。
-    - 项目：[Datawhale 成员整理的面经，包括机器学习，CV，NLP，推荐，开发等](https://github.com/datawhalechina/daily-interview)
-- Datawhale Paper 分享人。
+- Datawhale Paper 分享者。
     - 视频：[Paper 分享](https://www.bilibili.com/medialist/detail/ml1760686270)
 - LLM 相关技术活动主讲嘉宾/评委。
     - `20231024` 1024 浙江程序员节：[【工作动态】2023 浙江程序员节活动预告](https://mp.weixin.qq.com/s/hL9ZqL1fs3Fc-EZi2JfE_Q)
@@ -81,33 +84,6 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
     - `20231216` 讯飞星火 AI 开发者 TALK：[携手知名开发者社区，畅谈大模型实际应用 | AI 开发者 TALK](https://mp.weixin.qq.com/s/-ix8xXSm421QfmfD7lVTLg)
     - `20231223` 早早聊：[前端搞 AI | Datawhale X 早早聊喊你来玩转 AI 开发啦](https://www.zaozao.run/conf/c76)
     - `20240817` OpenAIGC 第二届开发者大赛评委：[顶峰相见，OPENAIGC开发者大赛8月17日上海决赛开启！](https://mp.weixin.qq.com/s/CE7NTPi_M6JYdu-1oPMSzA)
-
-## 开源项目
-
-- [hscspring/pnlp: NLP预/后处理工具。](https://github.com/hscspring/pnlp)
-    - 常用的NLP处理工具
-    - 长期维护，经久耐用
-- [hscspring/hcgf: Humanable Chat Generative-model Fine-tuning | LLM微调](https://github.com/hscspring/hcgf)
-    - 简单易用的LLM微调工具
-    - 按需维护
-- [hscspring/nlm: Memory for Knowledge Graph, using Neo4j. 知识图谱存储与查询。](https://github.com/hscspring/nlm)
-    - 基于Neo4j的知识图谱自动查、改、删，刚转行不久写的
-    - 按需维护
-- [hscspring/bytepiece-rs: The Bytepiece Tokenizer Implemented in Rust.](https://github.com/hscspring/bytepiece-rs)
-    - Rust+Python版本的 Bytepiece Tokenizer
-    - 按需维护
-- [hscspring/llama.np: Inference Llama/Llama2/Llama3 Modes in NumPy](https://github.com/hscspring/llama.np)
-    - LLaMA推理纯NumPy实现
-    - 按需维护
-- [hscspring/SuitJOB: A Simple Job Recommendation App. Also a Micro-Web-Full-Stack Practice for Beginners.](https://github.com/hscspring/SuitJOB)
-    - 简单的Job推荐系统
-    - 已存档
-- [hscspring/backup-github-repo: backup a github repo.](https://github.com/hscspring/backup-github-repo)
-    - 备份GitHub Repo
-    - 已存档
-- [hscspring/hnlp: Humanly DeepLearning for NLP, on top of Transformers.](https://github.com/hscspring/hnlp)
-    - 一个易用的、开发中的传统NLP训练框架
-    - 已存档
 
 ## 学术研究
 
