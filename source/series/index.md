@@ -122,6 +122,7 @@ date: 2019-07-13 20:00:00
 
 ### LMM论文笔记
 
+- [2024 MIO](https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/)
 - [2024 BigCodec](https://yam.gift/2024/12/26/Paper/TTS/2024-12-26-BigCodec/)
 - [2024 TS3-Codec](https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/)
 - [2023 DAC](https://yam.gift/2024/12/30/Paper/TTS/2024-12-30-DAC/)
@@ -162,7 +163,6 @@ date: 2019-07-13 20:00:00
 
 ### NLP论文笔记
 
-- [2024 MIO](https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/)
 - [2024 LLM中的演绎推理、归纳推理和溯因推理](https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/)
 - [2022 LM Cascades](https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/)
 - [2022 Put Human in NLP Loop](https://yam.gift/2023/01/21/Paper/2023-01-21-Human-in-Loop/)
