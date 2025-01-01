@@ -27,6 +27,13 @@ date: 2018-04-07 22:29:12
 
 AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 成员、[Rust语言中文社区](https://rustcc.cn/)成员、哲学爱好者、过期薪酬核算主管、和君商学院学员、经济学硕士/学士。
 
+目前感兴趣的方向：
+
+- LLM：上下文压缩、超长上下文、指令跟随、模型架构、继续训练、可控生成、各类应用。
+- 多模态：对齐、融合、语音、视频。
+- 强化学习：在LLM、Embodied上的应用。
+- 推理部署：蒸馏、量化、解码、异构、端侧。
+
 对深入研究和理解算法原理乐此不疲，并作为终生追求。业余时间正在做的自认为很酷的事儿:
 
 - 写能帮助普通大众提升效率的软件。
@@ -88,6 +95,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 ## 学术研究
 
 - 《ChatGPT原理与应用开发》
+    - [2024年度影响力新书奖+2024年度影响力作者奖](https://mp.weixin.qq.com/s/wuEMOMU7JzqVilpCrld1Cg)
     - [《Datawhale蝴蝶书》出版了！](https://mp.weixin.qq.com/s/cIn3-hL9DSOJf2S2_MihNw)
     - GitHub：[datawhalechina/hugging-llm: HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
 - 《Interactive NLP》
