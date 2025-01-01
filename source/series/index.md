@@ -17,17 +17,17 @@ date: 2019-07-13 20:00:00
   - [ChatGPT/LLM](#chatgptllm)
   - [LLM继续训练、预训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83%E9%A2%84%E8%AE%AD%E7%BB%83)
   - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
-  - [论文速览](#%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
+  - [LLM论文速览](#llm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
 - [LMM系列](#lmm%E7%B3%BB%E5%88%97)
-  - [论文速览](#%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88-1)
-  - [论文笔记](#%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
+  - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
+  - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
 - [NLP系列](#nlp%E7%B3%BB%E5%88%97)
   - [基础](#%E5%9F%BA%E7%A1%80)
   - [思考](#%E6%80%9D%E8%80%83-1)
   - [语言](#%E8%AF%AD%E8%A8%80)
   - [设计](#%E8%AE%BE%E8%AE%A1)
   - [图谱](#%E5%9B%BE%E8%B0%B1)
-  - [论文笔记](#%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0-1)
+  - [NLP论文笔记](#nlp%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
   - [SLP](#slp)
   - [冯志伟《自然语言计算机形式分析的理论与方法》](#%E5%86%AF%E5%BF%97%E4%BC%9F%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BD%A2%E5%BC%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95)
 - [推荐广告Recommendation](#%E6%8E%A8%E8%8D%90%E5%B9%BF%E5%91%8Arecommendation)
@@ -105,7 +105,7 @@ date: 2019-07-13 20:00:00
 - [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
 - [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
 
-### 论文速览
+### LLM论文速览
 
 - [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following/)
 - [LLM解码论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Decoding/)
@@ -114,13 +114,13 @@ date: 2019-07-13 20:00:00
 
 ## LMM系列
 
-### 论文速览
+### LMM论文速览
 
 - [OMNI论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI/)
 - [SLM论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM/)
 - [音频Codec论文速览](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec/)
 
-### 论文笔记
+### LMM论文笔记
 
 - [2024 BigCodec](https://yam.gift/2024/12/26/Paper/TTS/2024-12-26-BigCodec/)
 - [2024 TS3-Codec](https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/)
@@ -160,7 +160,7 @@ date: 2019-07-13 20:00:00
 - [关系提取简述](https://yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/)
 - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/)
 
-### 论文笔记
+### NLP论文笔记
 
 - [2024 MIO](https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/)
 - [2024 LLM中的演绎推理、归纳推理和溯因推理](https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/)
