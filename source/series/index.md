@@ -101,6 +101,28 @@ date: 2019-07-13 20:00:00
 - [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
 - [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
 
+### 论文速览
+
+- [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following/)
+- [LLM解码论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Decoding/)
+- [LLM提示词、上下文论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Prompt/)
+- [LLM应用论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Application/)
+
+## LMM系列
+
+### 论文速览
+
+- [OMNI论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI/)
+- [SLM论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM/)
+- [音频Codec论文速览](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec/)
+
+### 论文笔记
+
+- [2024 BigCodec](https://yam.gift/2024/12/26/Paper/TTS/2024-12-26-BigCodec/)
+- [2024 TS3-Codec](https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/)
+- [2023 DAC](https://yam.gift/2024/12/30/Paper/TTS/2024-12-30-DAC/)
+- [2023 XTTS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-XTTS/)
+- [2021 VITS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/)
 
 ## NLP系列
 
@@ -134,10 +156,8 @@ date: 2019-07-13 20:00:00
 - [关系提取简述](https://yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/)
 - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/)
 
-### 论文
+### 论文笔记
 
-- [【Paper速览】2024年11月 | Yam](https://yam.gift/2024/12/01/Paper/2024-12-01-Paper/)
-- [【Paper速览】2024年10月 | Yam](https://yam.gift/2024/11/01/Paper/2024-11-01-Paper/)
 - [2024 MIO](https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/)
 - [2024 LLM中的演绎推理、归纳推理和溯因推理](https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/)
 - [2022 LM Cascades](https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/)
