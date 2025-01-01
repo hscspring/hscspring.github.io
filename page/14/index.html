@@ -72,7 +72,7 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Unix/2019-12-09-AINLP-GPU-Guide" class="post-Unix/2019-12-09-AINLP-GPU-Guide post type-post status-publish format-standard hentry">
+    <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -80,208 +80,34 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/">AINLP GPU 使用体验指南</a>
+      <a class="article-title" href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/">The Rust Programming Language Brief Note (Vol1-Basic)</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/" data-id="clxbpfs8e00bydlbz0helcese" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/" data-id="clxbpfskx01imdlbze4gnclu6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p><a href="https://gpu.ainlp.cn/home" target="_blank" rel="noopener">AINLP-DBC GPU</a> 是一个 GPU 算力服务平台，采用 DBC TOKEN 进行结算。在这里可以租用 GPU，也可以将自己的 GPU 出租出去。</p>
-<h2 id="注册">注册</h2>
-<p>第一步：<a href="https://gpu.ainlp.cn/gpu/myWallet" target="_blank" rel="noopener">创建钱包</a></p>
-<p>这里需要输入密码，之后会产生一个加密后的私钥文件，下载继续后会产生你真正的私钥。一定要记住你的密码并在物理介质上保存好加密后的私钥文件以及你的私钥。只有通过密码+加密的私钥文件，或者私钥才能打开你的钱包，如果都丢了，就等于你的钱包没了。</p>
-<p>第二步：充值 DBC</p>
-<p>点击 “如何购买 DBC” 链接，选择自己喜欢的方式充值即可，推荐使用支付宝，点击 “继续” 后，充值一定金额（比如 1块或者 0.1 块）就好了。这步其实就是给你的钱包地址充值一定数额的 DBC。大概等个几十秒就能在 “我的钱包” 里看到你购买金额对应的 DBC 数量了。</p>
-<p>第三步：<a href="https://gpu.ainlp.cn/gpu/myMachineUnlock" target="_blank" rel="noopener">绑定邮箱</a></p>
-<p>点击 “绑定邮箱” 后，输入邮箱地址，会给你发送一个类似 <code>请输入如下数量dbc:0.7311,验证有效期为30分钟</code> 内容的邮件，将对应的额度（比如这里的 0.7311）输入 “验证的 DBC 数量” 框即可完成绑定。</p>
-<p>第四步：<a href="https://gpu.ainlp.cn/gpu/list" target="_blank" rel="noopener">选择机器</a></p>
-<p>在列表中选择一台符合自己要求的机器，点击 “租用” 后，填写租用时长（最短 1 小时），等待大约 1 分钟左右（验证机器环境），确认支付后就可以正式使用了。</p>
+        <div class="toc"><ul class="toc-item"><li><span><a href="#1-Getting-Started" data-toc-modified-id="1-Getting-Started-1">1 Getting Started</a></span></li><li><span><a href="#3-Common-Concepts" data-toc-modified-id="3-Common-Concepts-2">3 Common Concepts</a></span><ul class="toc-item"><li><span><a href="#3-1-Variables-and-Mutability" data-toc-modified-id="3-1-Variables-and-Mutability-2.1">3-1 Variables and Mutability</a></span><ul class="toc-item"><li><span><a href="#3-1-1-Variables-and-Constants" data-toc-modified-id="3-1-1-Variables-and-Constants-2.1.1">3-1-1 Variables and Constants</a></span></li><li><span><a href="#3-1-2-Shadowing" data-toc-modified-id="3-1-2-Shadowing-2.1.2">3-1-2 Shadowing</a></span></li></ul></li><li><span><a href="#3-2-Data-Types" data-toc-modified-id="3-2-Data-Types-2.2">3-2 Data Types</a></span><ul class="toc-item"><li><span><a href="#3-2-1-Scalar" data-toc-modified-id="3-2-1-Scalar-2.2.1">3-2-1 Scalar</a></span><ul class="toc-item"><li><span><a href="#3-2-1-1-Integer" data-toc-modified-id="3-2-1-1-Integer-2.2.1.1">3-2-1-1 Integer</a></span></li><li><span><a href="#3-2-1-2-Numeric" data-toc-modified-id="3-2-1-2-Numeric-2.2.1.2">3-2-1-2 Numeric</a></span></li><li><span><a href="#3-2-1-3-Boolean" data-toc-modified-id="3-2-1-3-Boolean-2.2.1.3">3-2-1-3 Boolean</a></span></li><li><span><a href="#3-2-1-4-Character" data-toc-modified-id="3-2-1-4-Character-2.2.1.4">3-2-1-4 Character</a></span></li></ul></li><li><span><a href="#3-2-2-Compound-Types" data-toc-modified-id="3-2-2-Compound-Types-2.2.2">3-2-2 Compound Types</a></span><ul class="toc-item"><li><span><a href="#3-2-2-1-Tuple" data-toc-modified-id="3-2-2-1-Tuple-2.2.2.1">3-2-2-1 Tuple</a></span></li><li><span><a href="#3-2-2-2-Array" data-toc-modified-id="3-2-2-2-Array-2.2.2.2">3-2-2-2 Array</a></span></li></ul></li></ul></li><li><span><a href="#3-3-Functions" data-toc-modified-id="3-3-Functions-2.3">3-3 Functions</a></span><ul class="toc-item"><li><span><a href="#3-3-1-Parameters" data-toc-modified-id="3-3-1-Parameters-2.3.1">3-3-1 Parameters</a></span></li><li><span><a href="#3-3-2-Statements-and-Expressions" data-toc-modified-id="3-3-2-Statements-and-Expressions-2.3.2">3-3-2 Statements and Expressions</a></span></li><li><span><a href="#3-3-3-Return-Values" data-toc-modified-id="3-3-3-Return-Values-2.3.3">3-3-3 Return Values</a></span></li></ul></li><li><span><a href="#3-4-Control-Flow" data-toc-modified-id="3-4-Control-Flow-2.4">3-4 Control Flow</a></span><ul class="toc-item"><li><span><a href="#3.4.1-if" data-toc-modified-id="3.4.1-if-2.4.1">3.4.1 if</a></span></li><li><span><a href="#3-4-2-Repetition" data-toc-modified-id="3-4-2-Repetition-2.4.2">3-4-2 Repetition</a></span><ul class="toc-item"><li><span><a href="#3-4-2-1-loop" data-toc-modified-id="3-4-2-1-loop-2.4.2.1">3-4-2-1 loop</a></span></li><li><span><a href="#3-4-2-2-while" data-toc-modified-id="3-4-2-2-while-2.4.2.2">3-4-2-2 while</a></span></li><li><span><a href="#3-4-2-3-for" data-toc-modified-id="3-4-2-3-for-2.4.2.3">3-4-2-3 for</a></span></li></ul></li></ul></li></ul></li><li><span><a href="#4-Understanding-Ownership" data-toc-modified-id="4-Understanding-Ownership-3">4 Understanding Ownership</a></span><ul class="toc-item"><li><span><a href="#4-1-What-Is-Ownership?" data-toc-modified-id="4-1-What-Is-Ownership?-3.1">4-1 What Is Ownership?</a></span><ul class="toc-item"><li><span><a href="#4-1-1-Ownership-Rules" data-toc-modified-id="4-1-1-Ownership-Rules-3.1.1">4-1-1 Ownership Rules</a></span></li><li><span><a href="#4-1-2-Variable-Scope" data-toc-modified-id="4-1-2-Variable-Scope-3.1.2">4-1-2 Variable Scope</a></span></li><li><span><a href="#4-1-3-The-String-Type" data-toc-modified-id="4-1-3-The-String-Type-3.1.3">4-1-3 The String Type</a></span></li><li><span><a href="#4-1-4-Memory-and-Allocation" data-toc-modified-id="4-1-4-Memory-and-Allocation-3.1.4">4-1-4 Memory and Allocation</a></span><ul class="toc-item"><li><span><a href="#4-1-4-1-Move" data-toc-modified-id="4-1-4-1-Move-3.1.4.1">4-1-4-1 Move</a></span></li><li><span><a href="#4-1-4-2-Clone" data-toc-modified-id="4-1-4-2-Clone-3.1.4.2">4-1-4-2 Clone</a></span></li><li><span><a href="#4-1-4-3-Copy" data-toc-modified-id="4-1-4-3-Copy-3.1.4.3">4-1-4-3 Copy</a></span></li></ul></li><li><span><a href="#4-1-5-Ownership-and-Functions" data-toc-modified-id="4-1-5-Ownership-and-Functions-3.1.5">4-1-5 Ownership and Functions</a></span></li><li><span><a href="#4-1-6-Return-Values-and-Scope" data-toc-modified-id="4-1-6-Return-Values-and-Scope-3.1.6">4-1-6 Return Values and Scope</a></span></li></ul></li><li><span><a href="#4-2-References-and-Borrowing" data-toc-modified-id="4-2-References-and-Borrowing-3.2">4-2 References and Borrowing</a></span><ul class="toc-item"><li><span><a href="#4-2-1-Mutable-References" data-toc-modified-id="4-2-1-Mutable-References-3.2.1">4-2-1 Mutable References</a></span></li><li><span><a href="#4-2-2-Dangling-References" data-toc-modified-id="4-2-2-Dangling-References-3.2.2">4-2-2 Dangling References</a></span></li></ul></li><li><span><a href="#4-3-The-Slice-Type" data-toc-modified-id="4-3-The-Slice-Type-3.3">4-3 The Slice Type</a></span><ul class="toc-item"><li><span><a href="#4-3-1-String-Slices" data-toc-modified-id="4-3-1-String-Slices-3.3.1">4-3-1 String Slices</a></span><ul class="toc-item"><li><span><a href="#4-3-1-1-String-Literals-Are-Slices" data-toc-modified-id="4-3-1-1-String-Literals-Are-Slices-3.3.1.1">4-3-1-1 String Literals Are Slices</a></span></li><li><span><a href="#4-3-1-2-String-Slices-as-Parameters" data-toc-modified-id="4-3-1-2-String-Slices-as-Parameters-3.3.1.2">4-3-1-2 String Slices as Parameters</a></span></li></ul></li><li><span><a href="#4-3-2-Other-Slices" data-toc-modified-id="4-3-2-Other-Slices-3.3.2">4-3-2 Other Slices</a></span></li></ul></li></ul></li><li><span><a href="#5-Using-Structs-to-Structure-Related-Data" data-toc-modified-id="5-Using-Structs-to-Structure-Related-Data-4">5 Using Structs to Structure Related Data</a></span><ul class="toc-item"><li><span><a href="#5-1-Defining-and-Instantiating-Structs" data-toc-modified-id="5-1-Defining-and-Instantiating-Structs-4.1">5-1 Defining and Instantiating Structs</a></span><ul class="toc-item"><li><span><a href="#5-1-1-Using-the-Field-Init-Shorthand-When-Variables-and-Fields-Have-the-Same-Name" data-toc-modified-id="5-1-1-Using-the-Field-Init-Shorthand-When-Variables-and-Fields-Have-the-Same-Name-4.1.1">5-1-1 Using the Field Init Shorthand When Variables and Fields Have the Same Name</a></span></li><li><span><a href="#5-1-2-Creating-Instances-From-Other-Instances-With-Struct-Update-Syntax" data-toc-modified-id="5-1-2-Creating-Instances-From-Other-Instances-With-Struct-Update-Syntax-4.1.2">5-1-2 Creating Instances From Other Instances With Struct Update Syntax</a></span></li><li><span><a href="#5-1-3-Using-Tuple-Structs-without-Named-Fields-to-Create-Different-Types" data-toc-modified-id="5-1-3-Using-Tuple-Structs-without-Named-Fields-to-Create-Different-Types-4.1.3">5-1-3 Using Tuple Structs without Named Fields to Create Different Types</a></span></li><li><span><a href="#5-1-4-Unit-Like-Structs-Without-Any-Fields" data-toc-modified-id="5-1-4-Unit-Like-Structs-Without-Any-Fields-4.1.4">5-1-4 Unit-Like Structs Without Any Fields</a></span></li><li><span><a href="#5-1-5-Ownership-of-Struct-Data" data-toc-modified-id="5-1-5-Ownership-of-Struct-Data-4.1.5">5-1-5 Ownership of Struct Data</a></span></li></ul></li><li><span><a href="#5-2-An-Example-Program-Using-Structs" data-toc-modified-id="5-2-An-Example-Program-Using-Structs-4.2">5-2 An Example Program Using Structs</a></span><ul class="toc-item"><li><span><a href="#5-2-1-Refactoring-with-Tuples" data-toc-modified-id="5-2-1-Refactoring-with-Tuples-4.2.1">5-2-1 Refactoring with Tuples</a></span></li><li><span><a href="#5-2-2-Refactoring-with-Structs-Adding-More-Meaning" data-toc-modified-id="5-2-2-Refactoring-with-Structs-Adding-More-Meaning-4.2.2">5-2-2 Refactoring with Structs Adding More Meaning</a></span></li><li><span><a href="#5-2-3-Adding-Useful-Functionality-with-Derived-Traits" data-toc-modified-id="5-2-3-Adding-Useful-Functionality-with-Derived-Traits-4.2.3">5-2-3 Adding Useful Functionality with Derived Traits</a></span></li></ul></li><li><span><a href="#5-3-Method-Syntax" data-toc-modified-id="5-3-Method-Syntax-4.3">5-3 Method Syntax</a></span><ul class="toc-item"><li><span><a href="#5-3-1-Defining-Methods" data-toc-modified-id="5-3-1-Defining-Methods-4.3.1">5-3-1 Defining Methods</a></span></li><li><span><a href="#5-3-2-Methods-with-More-Parameters" data-toc-modified-id="5-3-2-Methods-with-More-Parameters-4.3.2">5-3-2 Methods with More Parameters</a></span></li><li><span><a href="#5-3-3-Associated-Functions" data-toc-modified-id="5-3-3-Associated-Functions-4.3.3">5-3-3 Associated Functions</a></span></li><li><span><a href="#5-3-4-Multiple-impl-Blocks" data-toc-modified-id="5-3-4-Multiple-impl-Blocks-4.3.4">5-3-4 Multiple impl Blocks</a></span></li></ul></li></ul></li><li><span><a href="#6-Enums-and-Pattern-Matching" data-toc-modified-id="6-Enums-and-Pattern-Matching-5">6 Enums and Pattern Matching</a></span><ul class="toc-item"><li><span><a href="#6-1-Defining-an-Enum" data-toc-modified-id="6-1-Defining-an-Enum-5.1">6-1 Defining an Enum</a></span><ul class="toc-item"><li><span><a href="#6-1-1-Enum-Values" data-toc-modified-id="6-1-1-Enum-Values-5.1.1">6-1-1 Enum Values</a></span></li><li><span><a href="#6-1-2-The-Option-Enum-and-Its-Advantages-Over-Null-Vlues" data-toc-modified-id="6-1-2-The-Option-Enum-and-Its-Advantages-Over-Null-Vlues-5.1.2">6-1-2 The Option Enum and Its Advantages Over Null Vlues</a></span></li></ul></li><li><span><a href="#6-2-The-match-Control-Flow-Operator" data-toc-modified-id="6-2-The-match-Control-Flow-Operator-5.2">6-2 The match Control Flow Operator</a></span><ul class="toc-item"><li><span><a href="#6-2-1-Patterns-that-Bind-to-Values" data-toc-modified-id="6-2-1-Patterns-that-Bind-to-Values-5.2.1">6-2-1 Patterns that Bind to Values</a></span></li><li><span><a href="#6-2-2-Matching-with-Option<T>" data-toc-modified-id="6-2-2-Matching-with-Option<T>-5.2.2">6-2-2 Matching with <code>Option&lt;T&gt;</code></a></span></li><li><span><a href="#6-2-3-Matches-Are-Exhaustive" data-toc-modified-id="6-2-3-Matches-Are-Exhaustive-5.2.3">6-2-3 Matches Are Exhaustive</a></span></li><li><span><a href="#6-2-4-The-_-Placeholder" data-toc-modified-id="6-2-4-The-_-Placeholder-5.2.4">6-2-4 The <code>_</code> Placeholder</a></span></li></ul></li><li><span><a href="#6-3-Concise-Control-Flow-with-if-let" data-toc-modified-id="6-3-Concise-Control-Flow-with-if-let-5.3">6-3 Concise Control Flow with if let</a></span></li></ul></li><li><span><a href="#8-Common-Collections" data-toc-modified-id="8-Common-Collections-6">8 Common Collections</a></span><ul class="toc-item"><li><span><a href="#8-1-Storing-Lists-of-Values-with-Vectors" data-toc-modified-id="8-1-Storing-Lists-of-Values-with-Vectors-6.1">8-1 Storing Lists of Values with Vectors</a></span><ul class="toc-item"><li><span><a href="#8-1-1-Create-a-New-Vector" data-toc-modified-id="8-1-1-Create-a-New-Vector-6.1.1">8-1-1 Create a New Vector</a></span></li><li><span><a href="#8-1-2-Updating-a-Vector" data-toc-modified-id="8-1-2-Updating-a-Vector-6.1.2">8-1-2 Updating a Vector</a></span></li><li><span><a href="#8-1-3-Dropping-a-Vector-Drops-Its-Elements" data-toc-modified-id="8-1-3-Dropping-a-Vector-Drops-Its-Elements-6.1.3">8-1-3 Dropping a Vector Drops Its Elements</a></span></li><li><span><a href="#8-1-4-Reading-Elements-of-Vectors" data-toc-modified-id="8-1-4-Reading-Elements-of-Vectors-6.1.4">8-1-4 Reading Elements of Vectors</a></span></li><li><span><a href="#8-1-5-Iterating-over-the-Values-in-a-Vector" data-toc-modified-id="8-1-5-Iterating-over-the-Values-in-a-Vector-6.1.5">8-1-5 Iterating over the Values in a Vector</a></span></li><li><span><a href="#8-1-6-Using-an-Enum-to-Store-Multiple-Types" data-toc-modified-id="8-1-6-Using-an-Enum-to-Store-Multiple-Types-6.1.6">8-1-6 Using an Enum to Store Multiple Types</a></span></li></ul></li><li><span><a href="#8-2-Storing-UTF-8-Encoded-Text-with-Strings" data-toc-modified-id="8-2-Storing-UTF-8-Encoded-Text-with-Strings-6.2">8-2 Storing UTF-8 Encoded Text with Strings</a></span><ul class="toc-item"><li><span><a href="#8-2-1-What-Is-a-String?" data-toc-modified-id="8-2-1-What-Is-a-String?-6.2.1">8-2-1 What Is a String?</a></span></li><li><span><a href="#8-2-2-Creating-a-New-String" data-toc-modified-id="8-2-2-Creating-a-New-String-6.2.2">8-2-2 Creating a New String</a></span></li><li><span><a href="#8-2-3-Updating-a-String" data-toc-modified-id="8-2-3-Updating-a-String-6.2.3">8-2-3 Updating a String</a></span><ul class="toc-item"><li><span><a href="#8-2-3-1-Appending-to-a-String-with-push_str-and-push" data-toc-modified-id="8-2-3-1-Appending-to-a-String-with-push_str-and-push-6.2.3.1">8-2-3-1 Appending to a String with <code>push_str</code> and <code>push</code></a></span></li><li><span><a href="#8-2-3-2-Concatenation-with-the-+-Operator-or-the-format!-Macro" data-toc-modified-id="8-2-3-2-Concatenation-with-the-+-Operator-or-the-format!-Macro-6.2.3.2">8-2-3-2 Concatenation with the <code>+</code> Operator or the <code>format!</code> Macro</a></span></li></ul></li><li><span><a href="#8-2-4-Indexing-into-Strings" data-toc-modified-id="8-2-4-Indexing-into-Strings-6.2.4">8-2-4 Indexing into Strings</a></span><ul class="toc-item"><li><span><a href="#8-2-4-1-Internal-Representation" data-toc-modified-id="8-2-4-1-Internal-Representation-6.2.4.1">8-2-4-1 Internal Representation</a></span></li><li><span><a href="#8-2-4-2-Bytes-and-Scalar-Values-and-Grapheme-Clusters" data-toc-modified-id="8-2-4-2-Bytes-and-Scalar-Values-and-Grapheme-Clusters-6.2.4.2">8-2-4-2 Bytes and Scalar Values and Grapheme Clusters</a></span></li></ul></li><li><span><a href="#8-2-5-Slicing-Strings" data-toc-modified-id="8-2-5-Slicing-Strings-6.2.5">8-2-5 Slicing Strings</a></span></li><li><span><a href="#8-2-6-Methods-for-Iterating-Over-Strings" data-toc-modified-id="8-2-6-Methods-for-Iterating-Over-Strings-6.2.6">8-2-6 Methods for Iterating Over Strings</a></span></li><li><span><a href="#8-2-7-Exercise" data-toc-modified-id="8-2-7-Exercise-6.2.7">8-2-7 Exercise</a></span></li></ul></li><li><span><a href="#8-3-Storing-Keys-with-Associated-Values-in-Hash-Maps" data-toc-modified-id="8-3-Storing-Keys-with-Associated-Values-in-Hash-Maps-6.3">8-3 Storing Keys with Associated Values in Hash Maps</a></span><ul class="toc-item"><li><span><a href="#8-3-1-Creating-a-New-Hash-Map" data-toc-modified-id="8-3-1-Creating-a-New-Hash-Map-6.3.1">8-3-1 Creating a New Hash Map</a></span></li><li><span><a href="#8-3-2-Hash-Maps-and-Ownership" data-toc-modified-id="8-3-2-Hash-Maps-and-Ownership-6.3.2">8-3-2 Hash Maps and Ownership</a></span></li><li><span><a href="#8-3-3-Accessing-Values-in-a-Hash-Map" data-toc-modified-id="8-3-3-Accessing-Values-in-a-Hash-Map-6.3.3">8-3-3 Accessing Values in a Hash Map</a></span></li><li><span><a href="#8-3-4-Updating-a-Hash-Map" data-toc-modified-id="8-3-4-Updating-a-Hash-Map-6.3.4">8-3-4 Updating a Hash Map</a></span><ul class="toc-item"><li><span><a href="#8-3-4-1-Overwriting-a-Value" data-toc-modified-id="8-3-4-1-Overwriting-a-Value-6.3.4.1">8-3-4-1 Overwriting a Value</a></span></li><li><span><a href="#8-3-4-2-Only-Inserting-a-Value-If-the-Key-Has-No-Value" data-toc-modified-id="8-3-4-2-Only-Inserting-a-Value-If-the-Key-Has-No-Value-6.3.4.2">8-3-4-2 Only Inserting a Value If the Key Has No Value</a></span></li><li><span><a href="#8-3-4-3-Updating-a-Value-Based-on-the-Old-Value" data-toc-modified-id="8-3-4-3-Updating-a-Value-Based-on-the-Old-Value-6.3.4.3">8-3-4-3 Updating a Value Based on the Old Value</a></span></li></ul></li><li><span><a href="#8-3-5-Hashing-Functions" data-toc-modified-id="8-3-5-Hashing-Functions-6.3.5">8-3-5 Hashing Functions</a></span></li></ul></li></ul></li><li><span><a href="#9-Error-Handling" data-toc-modified-id="9-Error-Handling-7">9 Error Handling</a></span><ul class="toc-item"><li><span><a href="#9-1-Unrecoverable-Errors-with-panic!" data-toc-modified-id="9-1-Unrecoverable-Errors-with-panic!-7.1">9-1 Unrecoverable Errors with <code>panic!</code></a></span><ul class="toc-item"><li><span><a href="#9-1-1-Using-a-panic!-Backtrace" data-toc-modified-id="9-1-1-Using-a-panic!-Backtrace-7.1.1">9-1-1 Using a <code>panic!</code> Backtrace</a></span></li></ul></li><li><span><a href="#9-2-Recoverable-Errors-with-Result" data-toc-modified-id="9-2-Recoverable-Errors-with-Result-7.2">9-2 Recoverable Errors with Result</a></span><ul class="toc-item"><li><span><a href="#9-2-1-Matching-on-Different-Errors" data-toc-modified-id="9-2-1-Matching-on-Different-Errors-7.2.1">9-2-1 Matching on Different Errors</a></span></li><li><span><a href="#9-2-2-Shortcuts-for-Panic-on-Error-unwrap-and-expect" data-toc-modified-id="9-2-2-Shortcuts-for-Panic-on-Error-unwrap-and-expect-7.2.2">9-2-2 Shortcuts for Panic on Error <code>unwrap</code> and <code>expect</code></a></span></li><li><span><a href="#9-2-3-Propagating-Errors" data-toc-modified-id="9-2-3-Propagating-Errors-7.2.3">9-2-3 Propagating Errors</a></span></li><li><span><a href="#9-2-4-A-Shortcut-for-Propagating-Errors-the-?-Operator" data-toc-modified-id="9-2-4-A-Shortcut-for-Propagating-Errors-the-?-Operator-7.2.4">9-2-4 A Shortcut for Propagating Errors the <code>?</code> Operator</a></span></li><li><span><a href="#9-2-5-The-?-Operator-Can-Only-Be-Used-in-Functions-That-Return-Result" data-toc-modified-id="9-2-5-The-?-Operator-Can-Only-Be-Used-in-Functions-That-Return-Result-7.2.5">9-2-5 The <code>?</code> Operator Can Only Be Used in Functions That Return <code>Result</code></a></span></li></ul></li><li><span><a href="#9-3-To-panic!-or-Not-to-panic!" data-toc-modified-id="9-3-To-panic!-or-Not-to-panic!-7.3">9-3 To <code>panic!</code> or Not to <code>panic!</code></a></span><ul class="toc-item"><li><span><a href="#9-3-1-Examples-Prototype-Code-and-Tests" data-toc-modified-id="9-3-1-Examples-Prototype-Code-and-Tests-7.3.1">9-3-1 Examples Prototype Code and Tests</a></span></li><li><span><a href="#9-3-2-Cases-in-Which-You-Have-More-Information-Than-the-Compiler" data-toc-modified-id="9-3-2-Cases-in-Which-You-Have-More-Information-Than-the-Compiler-7.3.2">9-3-2 Cases in Which You Have More Information Than the Compiler</a></span></li><li><span><a href="#9-3-3-Guidelines-for-Error-Handling" data-toc-modified-id="9-3-3-Guidelines-for-Error-Handling-7.3.3">9-3-3 Guidelines for Error Handling</a></span></li><li><span><a href="#9-3-4-Creating-Custom-Types-for-Validation" data-toc-modified-id="9-3-4-Creating-Custom-Types-for-Validation-7.3.4">9-3-4 Creating Custom Types for Validation</a></span></li></ul></li></ul></li><li><span><a href="#10-Generic-Types,-Traits,-and-Lifetimes" data-toc-modified-id="10-Generic-Types,-Traits,-and-Lifetimes-8">10 Generic Types, Traits, and Lifetimes</a></span><ul class="toc-item"><li><span><a href="#10-1-Generic-Data-Types" data-toc-modified-id="10-1-Generic-Data-Types-8.1">10-1 Generic Data Types</a></span><ul class="toc-item"><li><span><a href="#10-1-1-In-Function-Definitions" data-toc-modified-id="10-1-1-In-Function-Definitions-8.1.1">10-1-1 In Function Definitions</a></span></li><li><span><a href="#10-1-2-In-Struct-Definitions" data-toc-modified-id="10-1-2-In-Struct-Definitions-8.1.2">10-1-2 In Struct Definitions</a></span></li><li><span><a href="#10-1-3-In-Enum-Definitions" data-toc-modified-id="10-1-3-In-Enum-Definitions-8.1.3">10-1-3 In Enum Definitions</a></span></li><li><span><a href="#10-1-4-In-Method-Definitions" data-toc-modified-id="10-1-4-In-Method-Definitions-8.1.4">10-1-4 In Method Definitions</a></span></li><li><span><a href="#10-1-5-Performance-of-Code-Using-Generics" data-toc-modified-id="10-1-5-Performance-of-Code-Using-Generics-8.1.5">10-1-5 Performance of Code Using Generics</a></span></li></ul></li><li><span><a href="#10-2-Traits-Defining-Shared-Behavior" data-toc-modified-id="10-2-Traits-Defining-Shared-Behavior-8.2">10-2 Traits Defining Shared Behavior</a></span><ul class="toc-item"><li><span><a href="#10-2-1-Defining-a-Trait" data-toc-modified-id="10-2-1-Defining-a-Trait-8.2.1">10-2-1 Defining a Trait</a></span></li><li><span><a href="#10-2-2-Implementing-a-Trait-on-a-Type" data-toc-modified-id="10-2-2-Implementing-a-Trait-on-a-Type-8.2.2">10-2-2 Implementing a Trait on a Type</a></span></li><li><span><a href="#10-2-3-Default-Implementations" data-toc-modified-id="10-2-3-Default-Implementations-8.2.3">10-2-3 Default Implementations</a></span></li><li><span><a href="#10-2-4-Traits-as-Parameters" data-toc-modified-id="10-2-4-Traits-as-Parameters-8.2.4">10-2-4 Traits as Parameters</a></span><ul class="toc-item"><li><span><a href="#10-2-4-1-Trait-Bound-Syntax" data-toc-modified-id="10-2-4-1-Trait-Bound-Syntax-8.2.4.1">10-2-4-1 Trait Bound Syntax</a></span></li><li><span><a href="#10-2-4-2-Specifying-Multiple-Trait-Bounds-with-+-Syntax" data-toc-modified-id="10-2-4-2-Specifying-Multiple-Trait-Bounds-with-+-Syntax-8.2.4.2">10-2-4-2 Specifying Multiple Trait Bounds with <code>+</code> Syntax</a></span></li><li><span><a href="#10-2-4-3-Clearer-Trait-Bounds-with-where-Clauses" data-toc-modified-id="10-2-4-3-Clearer-Trait-Bounds-with-where-Clauses-8.2.4.3">10-2-4-3 Clearer Trait Bounds with <code>where</code> Clauses</a></span></li></ul></li><li><span><a href="#10-2-5-Returning-Types-that-Implement-Traits" data-toc-modified-id="10-2-5-Returning-Types-that-Implement-Traits-8.2.5">10-2-5 Returning Types that Implement Traits</a></span></li><li><span><a href="#10-2-6-Fixing-the-largest-Function-with-Trait-Bounds" data-toc-modified-id="10-2-6-Fixing-the-largest-Function-with-Trait-Bounds-8.2.6">10-2-6 Fixing the <code>largest</code> Function with Trait Bounds</a></span></li><li><span><a href="#10-2-7-Using-Trait-Bounds-to-Conditionally-Implement-Methods" data-toc-modified-id="10-2-7-Using-Trait-Bounds-to-Conditionally-Implement-Methods-8.2.7">10-2-7 Using Trait Bounds to Conditionally Implement Methods</a></span></li></ul></li><li><span><a href="#10-3-Validating-References-with-Lifetimes" data-toc-modified-id="10-3-Validating-References-with-Lifetimes-8.3">10-3 Validating References with Lifetimes</a></span><ul class="toc-item"><li><span><a href="#10-3-1-Preventing-Dangling-References-with-Lifetimes" data-toc-modified-id="10-3-1-Preventing-Dangling-References-with-Lifetimes-8.3.1">10-3-1 Preventing Dangling References with Lifetimes</a></span></li><li><span><a href="#10-3-2-The-Borrow-Checker" data-toc-modified-id="10-3-2-The-Borrow-Checker-8.3.2">10-3-2 The Borrow Checker</a></span></li><li><span><a href="#10-3-3-Generic-Lifetimes-in-Functions" data-toc-modified-id="10-3-3-Generic-Lifetimes-in-Functions-8.3.3">10-3-3 Generic Lifetimes in Functions</a></span></li><li><span><a href="#10-3-4-Lifetime-Annotation-Syntax" data-toc-modified-id="10-3-4-Lifetime-Annotation-Syntax-8.3.4">10-3-4 Lifetime Annotation Syntax</a></span></li><li><span><a href="#10-3-5-Lifetime-Annotations-in-Function-Signatures" data-toc-modified-id="10-3-5-Lifetime-Annotations-in-Function-Signatures-8.3.5">10-3-5 Lifetime Annotations in Function Signatures</a></span></li><li><span><a href="#10-3-6-Thinking-in-Terms-of-Lifetimes" data-toc-modified-id="10-3-6-Thinking-in-Terms-of-Lifetimes-8.3.6">10-3-6 Thinking in Terms of Lifetimes</a></span></li><li><span><a href="#10-3-7-Lifetime-Annotations-in-Struct-Definitions" data-toc-modified-id="10-3-7-Lifetime-Annotations-in-Struct-Definitions-8.3.7">10-3-7 Lifetime Annotations in Struct Definitions</a></span></li><li><span><a href="#10-3-8-Lifetime-Elision" data-toc-modified-id="10-3-8-Lifetime-Elision-8.3.8">10-3-8 Lifetime Elision</a></span></li><li><span><a href="#10-3-9-Lifetime-Annotations-in-Method-Definitions" data-toc-modified-id="10-3-9-Lifetime-Annotations-in-Method-Definitions-8.3.9">10-3-9 Lifetime Annotations in Method Definitions</a></span></li><li><span><a href="#10-3-10-The-Static-Lifetime" data-toc-modified-id="10-3-10-The-Static-Lifetime-8.3.10">10-3-10 The Static Lifetime</a></span></li></ul></li><li><span><a href="#10-4-Generic-Type-Parameters-Trait-Bounds-and-Lifetimes-Together" data-toc-modified-id="10-4-Generic-Type-Parameters-Trait-Bounds-and-Lifetimes-Together-8.4">10-4 Generic Type Parameters Trait Bounds and Lifetimes Together</a></span></li></ul></li><li><span><a href="#11-Writing-Automated-Tests" data-toc-modified-id="11-Writing-Automated-Tests-9">11 Writing Automated Tests</a></span><ul class="toc-item"><li><span><a href="#11-1-How-to-Write-Tests" data-toc-modified-id="11-1-How-to-Write-Tests-9.1">11-1 How to Write Tests</a></span><ul class="toc-item"><li><span><a href="#11-1-1-The-Anatomy-of-a-Test-Function" data-toc-modified-id="11-1-1-The-Anatomy-of-a-Test-Function-9.1.1">11-1-1 The Anatomy of a Test Function</a></span></li><li><span><a href="#11-1-2-Checking-Results-with-the-assert!-Macro" data-toc-modified-id="11-1-2-Checking-Results-with-the-assert!-Macro-9.1.2">11-1-2 Checking Results with the <code>assert!</code> Macro</a></span></li><li><span><a href="#11-1-3-Testing-Equality-with-the-assert_eq!-and-assert_ne!-Macros" data-toc-modified-id="11-1-3-Testing-Equality-with-the-assert_eq!-and-assert_ne!-Macros-9.1.3">11-1-3 Testing Equality with the <code>assert_eq!</code> and <code>assert_ne!</code> Macros</a></span></li><li><span><a href="#11-1-4-Adding-Custom-Failure-Messages" data-toc-modified-id="11-1-4-Adding-Custom-Failure-Messages-9.1.4">11-1-4 Adding Custom Failure Messages</a></span></li><li><span><a href="#11-1-5-Checking-for-Panics-with-should_panic" data-toc-modified-id="11-1-5-Checking-for-Panics-with-should_panic-9.1.5">11-1-5 Checking for Panics with <code>should_panic</code></a></span></li><li><span><a href="#11-1-6-Using-Result<T,-E>-in-Tests" data-toc-modified-id="11-1-6-Using-Result<T,-E>-in-Tests-9.1.6">11-1-6 Using <code>Result&lt;T, E&gt;</code> in Tests</a></span></li></ul></li><li><span><a href="#11-2-Controlling-How-Tests-Are-Run" data-toc-modified-id="11-2-Controlling-How-Tests-Are-Run-9.2">11-2 Controlling How Tests Are Run</a></span><ul class="toc-item"><li><span><a href="#11-2-1-Running-Tests-in-Parallel-or-Consecutively" data-toc-modified-id="11-2-1-Running-Tests-in-Parallel-or-Consecutively-9.2.1">11-2-1 Running Tests in Parallel or Consecutively</a></span></li><li><span><a href="#11-2-2-Showing-Function-Output" data-toc-modified-id="11-2-2-Showing-Function-Output-9.2.2">11-2-2 Showing Function Output</a></span></li><li><span><a href="#11-2-3-Running-a-Subset-of-Tests-by-Name" data-toc-modified-id="11-2-3-Running-a-Subset-of-Tests-by-Name-9.2.3">11-2-3 Running a Subset of Tests by Name</a></span></li><li><span><a href="#11-2-4-Ignoring-Some-Tests-Unless-Specifically-Requested" data-toc-modified-id="11-2-4-Ignoring-Some-Tests-Unless-Specifically-Requested-9.2.4">11-2-4 Ignoring Some Tests Unless Specifically Requested</a></span></li></ul></li><li><span><a href="#11-3-Test-Organization" data-toc-modified-id="11-3-Test-Organization-9.3">11-3 Test Organization</a></span><ul class="toc-item"><li><span><a href="#11-3-1-Unit-Tests" data-toc-modified-id="11-3-1-Unit-Tests-9.3.1">11-3-1 Unit Tests</a></span><ul class="toc-item"><li><span><a href="#11-3-1-1-The-Tests-Module-and-#[cfg(test)]" data-toc-modified-id="11-3-1-1-The-Tests-Module-and-#[cfg(test)]-9.3.1.1">11-3-1-1 The Tests Module and <code>#[cfg(test)]</code></a></span></li><li><span><a href="#11-3-1-2-Testing-Private-Functions" data-toc-modified-id="11-3-1-2-Testing-Private-Functions-9.3.1.2">11-3-1-2 Testing Private Functions</a></span></li></ul></li><li><span><a href="#11-3-2-Integration-Tests" data-toc-modified-id="11-3-2-Integration-Tests-9.3.2">11-3-2 Integration Tests</a></span><ul class="toc-item"><li><span><a href="#11-3-2-1-The-tests-Directory" data-toc-modified-id="11-3-2-1-The-tests-Directory-9.3.2.1">11-3-2-1 The tests Directory</a></span></li><li><span><a href="#11-3-2-2-Submodules-in-Integration-Tests" data-toc-modified-id="11-3-2-2-Submodules-in-Integration-Tests-9.3.2.2">11-3-2-2 Submodules in Integration Tests</a></span></li><li><span><a href="#11-3-2-3-Integration-Tests-for-Binary-Crates" data-toc-modified-id="11-3-2-3-Integration-Tests-for-Binary-Crates-9.3.2.3">11-3-2-3 Integration Tests for Binary Crates</a></span></li></ul></li></ul></li></ul></li><li><span><a href="#18-Patterns-and-Matching" data-toc-modified-id="18-Patterns-and-Matching-10">18 Patterns and Matching</a></span><ul class="toc-item"><li><span><a href="#18-1-All-the-Places-Patterns-Can-Be-Used" data-toc-modified-id="18-1-All-the-Places-Patterns-Can-Be-Used-10.1">18-1 All the Places Patterns Can Be Used</a></span><ul class="toc-item"><li><span><a href="#18-1-1-match-Arms" data-toc-modified-id="18-1-1-match-Arms-10.1.1">18-1-1 <code>match</code> Arms</a></span></li><li><span><a href="#18-1-2-Conditional-if-let-Expressions" data-toc-modified-id="18-1-2-Conditional-if-let-Expressions-10.1.2">18-1-2 Conditional <code>if let</code> Expressions</a></span></li><li><span><a href="#18-1-3-while-let-Conditional-Loops" data-toc-modified-id="18-1-3-while-let-Conditional-Loops-10.1.3">18-1-3 <code>while let</code> Conditional Loops</a></span></li><li><span><a href="#18-1-4-for-Loops" data-toc-modified-id="18-1-4-for-Loops-10.1.4">18-1-4 <code>for</code> Loops</a></span></li><li><span><a href="#18-1-5-let-Statements" data-toc-modified-id="18-1-5-let-Statements-10.1.5">18-1-5 <code>let</code> Statements</a></span></li><li><span><a href="#18-1-6-Function-Parameters" data-toc-modified-id="18-1-6-Function-Parameters-10.1.6">18-1-6 Function Parameters</a></span></li></ul></li><li><span><a href="#18-2-Refutability-Whether-a-Pattern-Might-Fail-to-Match" data-toc-modified-id="18-2-Refutability-Whether-a-Pattern-Might-Fail-to-Match-10.2">18-2 Refutability Whether a Pattern Might Fail to Match</a></span></li><li><span><a href="#18-3-Pattern-Syntax" data-toc-modified-id="18-3-Pattern-Syntax-10.3">18-3 Pattern Syntax</a></span><ul class="toc-item"><li><span><a href="#18-3-1-Matching-Literals" data-toc-modified-id="18-3-1-Matching-Literals-10.3.1">18-3-1 Matching Literals</a></span></li><li><span><a href="#18-3-2-Matching-Named-Variables" data-toc-modified-id="18-3-2-Matching-Named-Variables-10.3.2">18-3-2 Matching Named Variables</a></span></li><li><span><a href="#18-3-3-Multiple-Patterns" data-toc-modified-id="18-3-3-Multiple-Patterns-10.3.3">18-3-3 Multiple Patterns</a></span></li><li><span><a href="#18-3-4-Matching-Ranges-of-Values-with-..=" data-toc-modified-id="18-3-4-Matching-Ranges-of-Values-with-..=-10.3.4">18-3-4 Matching Ranges of Values with <code>..=</code></a></span></li><li><span><a href="#18-3-5-Destructuring-to-Break-Apart-Values" data-toc-modified-id="18-3-5-Destructuring-to-Break-Apart-Values-10.3.5">18-3-5 Destructuring to Break Apart Values</a></span><ul class="toc-item"><li><span><a href="#18-3-5-1-Destructuring-Structs" data-toc-modified-id="18-3-5-1-Destructuring-Structs-10.3.5.1">18-3-5-1 Destructuring Structs</a></span></li><li><span><a href="#18-3-5-2-Destructuring-Enums" data-toc-modified-id="18-3-5-2-Destructuring-Enums-10.3.5.2">18-3-5-2 Destructuring Enums</a></span></li><li><span><a href="#18-3-5-3-Destructuring-Nested-Structs-and-Enums" data-toc-modified-id="18-3-5-3-Destructuring-Nested-Structs-and-Enums-10.3.5.3">18-3-5-3 Destructuring Nested Structs and Enums</a></span></li><li><span><a href="#18-3-5-4-Destructuring-Structs-and-Tuples" data-toc-modified-id="18-3-5-4-Destructuring-Structs-and-Tuples-10.3.5.4">18-3-5-4 Destructuring Structs and Tuples</a></span></li></ul></li><li><span><a href="#18-3-6-Ignoring-Values-in-a-Pattern" data-toc-modified-id="18-3-6-Ignoring-Values-in-a-Pattern-10.3.6">18-3-6 Ignoring Values in a Pattern</a></span><ul class="toc-item"><li><span><a href="#18-3-6-1-Ignoring-an-Entire-Value-with-_" data-toc-modified-id="18-3-6-1-Ignoring-an-Entire-Value-with-_-10.3.6.1">18-3-6-1 Ignoring an Entire Value with <code>_</code></a></span></li><li><span><a href="#18-3-6-2-Ignoring-Parts-of-a-Value-with-a-Nested-_" data-toc-modified-id="18-3-6-2-Ignoring-Parts-of-a-Value-with-a-Nested-_-10.3.6.2">18-3-6-2 Ignoring Parts of a Value with a Nested <code>_</code></a></span></li><li><span><a href="#18-3-6-3-Ignoring-an-Unused-Variable-by-Starting-Its-Name-with-_" data-toc-modified-id="18-3-6-3-Ignoring-an-Unused-Variable-by-Starting-Its-Name-with-_-10.3.6.3">18-3-6-3 Ignoring an Unused Variable by Starting Its Name with <code>_</code></a></span></li><li><span><a href="#18-3-6-4-Ignoring-Remaining-Parts-of-a-Value-with-.." data-toc-modified-id="18-3-6-4-Ignoring-Remaining-Parts-of-a-Value-with-..-10.3.6.4">18-3-6-4 Ignoring Remaining Parts of a Value with <code>..</code></a></span></li></ul></li><li><span><a href="#18-3-7-Extra-Conditionals-with-Match-Guards" data-toc-modified-id="18-3-7-Extra-Conditionals-with-Match-Guards-10.3.7">18-3-7 Extra Conditionals with Match Guards</a></span></li><li><span><a href="#18-3-8-@-Bindings" data-toc-modified-id="18-3-8-@-Bindings-10.3.8">18-3-8 <code>@</code> Bindings</a></span></li></ul></li></ul></li></ul></div>
+## 1 Getting Started
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ cargo new proj</span><br><span class="line"></span><br><span class="line">// build</span><br><span class="line">$ cargo build //dev</span><br><span class="line">$ cargo check</span><br><span class="line">// build result</span><br><span class="line">$ ./target/debug/proj</span><br><span class="line">// build + run</span><br><span class="line">$ cargo run	</span><br><span class="line"></span><br><span class="line">$ cargo build --release  //prod</span><br></pre></td></tr></table></figure>
         
           <p class="article-more-link">
-            <a href="/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/">
-    <time datetime="2019-12-09T13:00:00.000Z" class="entry-date">
-        2019-12-09
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Computer/">Computer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GPU/">GPU</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ssh/">ssh</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Paper/2019-12-08-ELECTRA-Paper" class="post-Paper/2019-12-08-ELECTRA-Paper post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/">ELECTRA 论文笔记</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/" data-id="clxbpfs6b007idlbzul8a39ez" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>Paper: <a href="https://openreview.net/pdf?id=r1xMH1BtvB" target="_blank" rel="noopener">ELECTRA: PRE-TRAINING TEXT ENCODERS AS DISCRIMINATORS RATHER THAN GENERATORS</a></p>
-<p>本来代码还没出来不想看的，不过前段时间确实太火了，先偷偷瞄一眼，看看到底是什么个情况。</p>
-<p>核心思想：Replaced token detection Task + Transformer。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/">
-    <time datetime="2019-12-08T14:00:00.000Z" class="entry-date">
-        2019-12-08
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Electra/">Electra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pre-training/">Pre-training</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/">Transformer</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">The Rust Programming Language Brief Note (Vol5-Project)</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/" data-id="clxbpfsj401dkdlbz48h41uqr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <div class="toc"><ul class="toc-item"><li><span><a href="#2-Programming-Guess" data-toc-modified-id="2-Programming-Guess-1">2 Programming Guess</a></span></li><li><span><a href="#12-An-I/O-Project:-Building-a-Command-Line-Program" data-toc-modified-id="12-An-I/O-Project:-Building-a-Command-Line-Program-2">12 An I/O Project: Building a Command Line Program</a></span></li><li><span><a href="#20-Final-Project,-Building-a-Multithreaded-Web-Server" data-toc-modified-id="20-Final-Project,-Building-a-Multithreaded-Web-Server-3">20 Final Project, Building a Multithreaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-Building-a-Single-Threaded-Web-Server" data-toc-modified-id="20-1-Building-a-Single-Threaded-Web-Server-3.1">20-1 Building a Single-Threaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-1-Listening-to-the-Tcp-Connection" data-toc-modified-id="20-1-1-Listening-to-the-Tcp-Connection-3.1.1">20-1-1 Listening to the Tcp Connection</a></span></li><li><span><a href="#20-1-2-Reading-the-Request" data-toc-modified-id="20-1-2-Reading-the-Request-3.1.2">20-1-2 Reading the Request</a></span></li><li><span><a href="#20-1-3-Writing-a-Response" data-toc-modified-id="20-1-3-Writing-a-Response-3.1.3">20-1-3 Writing a Response</a></span></li><li><span><a href="#20-1-4-Returning-Real-HTML" data-toc-modified-id="20-1-4-Returning-Real-HTML-3.1.4">20-1-4 Returning Real HTML</a></span></li><li><span><a href="#20-1-5-Validating-the-Request-and-Selectively-Responding" data-toc-modified-id="20-1-5-Validating-the-Request-and-Selectively-Responding-3.1.5">20-1-5 Validating the Request and Selectively Responding</a></span></li><li><span><a href="#20-1-6-A-Touch-of-Refactoring" data-toc-modified-id="20-1-6-A-Touch-of-Refactoring-3.1.6">20-1-6 A Touch of Refactoring</a></span></li></ul></li><li><span><a href="#20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server" data-toc-modified-id="20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server-3.2">20-2 Turning Our Single-Threaded Server into a Multithreaded Server</a></span><ul class="toc-item"><li><span><a href="#20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation" data-toc-modified-id="20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation-3.2.1">20-2-1 Simulating a Slow Request in the Current Server Implementation</a></span></li><li><span><a href="#20-2-2-Improving-Throughput-with-a-Thread-Pool" data-toc-modified-id="20-2-2-Improving-Throughput-with-a-Thread-Pool-3.2.2">20-2-2 Improving Throughput with a Thread Pool</a></span><ul class="toc-item"><li><span><a href="#20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request" data-toc-modified-id="20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request-3.2.2.1">20-2-2-1 Code Structure If We Could Spawn a Thread for Each Request</a></span></li><li><span><a href="#20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads" data-toc-modified-id="20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads-3.2.2.2">20-2-2-2 Creating a Similar Interface for a Finite Number of Threads</a></span></li><li><span><a href="#20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development" data-toc-modified-id="20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development-3.2.2.3">20-2-2-3 Building the <code>ThreadPool</code> Struct Using Compiler Driven Development</a></span></li><li><span><a href="#20-2-2-4-Validating-the-Number-of-Threads-in-new" data-toc-modified-id="20-2-2-4-Validating-the-Number-of-Threads-in-new-3.2.2.4">20-2-2-4 Validating the Number of Threads in <code>new</code></a></span></li><li><span><a href="#20-2-2-5-Creating-Space-to-Store-the-Threads" data-toc-modified-id="20-2-2-5-Creating-Space-to-Store-the-Threads-3.2.2.5">20-2-2-5 Creating Space to Store the Threads</a></span></li><li><span><a href="#20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread" data-toc-modified-id="20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread-3.2.2.6">20-2-2-6 A <code>Worker</code> Struct Responsible for Sending Code from the <code>ThreadPool</code> to a Thread</a></span></li><li><span><a href="#20-2-2-7-Sending-Requests-to-Threads-via-Channels" data-toc-modified-id="20-2-2-7-Sending-Requests-to-Threads-via-Channels-3.2.2.7">20-2-2-7 Sending Requests to Threads via Channels</a></span></li><li><span><a href="#20-2-2-8-Implementing-the-execute-Method" data-toc-modified-id="20-2-2-8-Implementing-the-execute-Method-3.2.2.8">20-2-2-8 Implementing the <code>execute</code> Method</a></span></li></ul></li></ul></li><li><span><a href="#20-3-Graceful-Shutdown-and-Cleanup" data-toc-modified-id="20-3-Graceful-Shutdown-and-Cleanup-3.3">20-3 Graceful Shutdown and Cleanup</a></span><ul class="toc-item"><li><span><a href="#20-3-1-Implementing-the-Drop-Trait-on-ThreadPool" data-toc-modified-id="20-3-1-Implementing-the-Drop-Trait-on-ThreadPool-3.3.1">20-3-1 Implementing the <code>Drop</code> Trait on <code>ThreadPool</code></a></span></li><li><span><a href="#20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs" data-toc-modified-id="20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs-3.3.2">20-3-2 Signaling to the Threads to Stop Listening for Jobs</a></span></li></ul></li></ul></li></ul></div>
-<h2 id="2-programming-guess">2 Programming Guess</h2>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="number">5</span>; <span class="comment">// immutable </span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> bar = <span class="number">5</span>; <span class="comment">// mutable</span></span><br><span class="line"></span><br><span class="line">io::stdin().read_line(&amp;<span class="keyword">mut</span> guess) </span><br><span class="line">    .expect(<span class="string">"Failed to read line"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> guess: <span class="built_in">u32</span> = guess.trim().parse()</span><br><span class="line">	.expect(<span class="string">"input a number"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> guess: <span class="built_in">u32</span> = <span class="keyword">match</span> guess.trim().parse() &#123;</span><br><span class="line">     <span class="literal">Ok</span>(num) =&gt; num,</span><br><span class="line">     <span class="literal">Err</span>(_) =&gt; <span class="keyword">continue</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">match</span> guess.cmp(&amp;secret_number) &#123; </span><br><span class="line">     Ordering::Less =&gt; <span class="built_in">println!</span>(<span class="string">"Too small!"</span>), </span><br><span class="line">     Ordering::Greater =&gt; <span class="built_in">println!</span>(<span class="string">"Too big!"</span>), </span><br><span class="line">     Ordering::Equal =&gt; &#123;</span><br><span class="line">     	<span class="built_in">println!</span>(<span class="string">"You win!"</span>);</span><br><span class="line">    	<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo doc --open // documents</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">
-    <time datetime="2019-12-03T04:00:00.000Z" class="entry-date">
-        2019-12-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graceful-Shutdown/">Graceful Shutdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Server-Multithreaded-Server/">Web Server Multithreaded Server</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style" class="post-Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/03/Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style/">The Rust Programming Language Brief Note (Vol3-Style)</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/03/Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style/" data-id="clxbpfsj701drdlbzzvtdbw3v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <div class="toc"><ul class="toc-item"><li><span><a href="#13-Functional-Language-Features-Iterators-and-Closures" data-toc-modified-id="13-Functional-Language-Features-Iterators-and-Closures-1">13 Functional Language Features Iterators and Closures</a></span><ul class="toc-item"><li><span><a href="#13-1-Closures-Anonymous-Functions" data-toc-modified-id="13-1-Closures-Anonymous-Functions-1.1">13-1 Closures Anonymous Functions</a></span><ul class="toc-item"><li><span><a href="#13-1-1-Creating-an-Abstraction-of-Behavior-with-Closures" data-toc-modified-id="13-1-1-Creating-an-Abstraction-of-Behavior-with-Closures-1.1.1">13-1-1 Creating an Abstraction of Behavior with Closures</a></span></li><li><span><a href="#13-1-2-Closure-Type-Inference-and-Annotation" data-toc-modified-id="13-1-2-Closure-Type-Inference-and-Annotation-1.1.2">13-1-2 Closure Type Inference and Annotation</a></span></li><li><span><a href="#13-1-3-Storing-Closures-Using-Generic-Parameters-and-the-Fn-Traits" data-toc-modified-id="13-1-3-Storing-Closures-Using-Generic-Parameters-and-the-Fn-Traits-1.1.3">13-1-3 Storing Closures Using Generic Parameters and the <code>Fn</code> Traits</a></span></li><li><span><a href="#13-1-4-Limitations-of-the-Cacher-Implementation" data-toc-modified-id="13-1-4-Limitations-of-the-Cacher-Implementation-1.1.4">13-1-4 Limitations of the <code>Cacher</code> Implementation</a></span></li><li><span><a href="#13-1-5-Capturing-the-Environment-with-Closures" data-toc-modified-id="13-1-5-Capturing-the-Environment-with-Closures-1.1.5">13-1-5 Capturing the Environment with Closures</a></span></li></ul></li><li><span><a href="#13-2-Processing-a-Series-of-Items-with-Iterators" data-toc-modified-id="13-2-Processing-a-Series-of-Items-with-Iterators-1.2">13-2 Processing a Series of Items with Iterators</a></span><ul class="toc-item"><li><span><a href="#13-2-1-The-Iterator-Trait-and-the-Next-Method" data-toc-modified-id="13-2-1-The-Iterator-Trait-and-the-Next-Method-1.2.1">13-2-1 The <code>Iterator</code> Trait and the <code>Next</code> Method</a></span></li><li><span><a href="#13-2-2-Methods-that-Consume-the-Iterator" data-toc-modified-id="13-2-2-Methods-that-Consume-the-Iterator-1.2.2">13-2-2 Methods that Consume the Iterator</a></span></li><li><span><a href="#13-2-3-Methods-that-Produce-Other-Iterators" data-toc-modified-id="13-2-3-Methods-that-Produce-Other-Iterators-1.2.3">13-2-3 Methods that Produce Other Iterators</a></span></li><li><span><a href="#13-2-4-Using-Closures-that-Capture-Their-Environment" data-toc-modified-id="13-2-4-Using-Closures-that-Capture-Their-Environment-1.2.4">13-2-4 Using Closures that Capture Their Environment</a></span></li><li><span><a href="#13-2-5-Creating-Our-Own-Iterators-with-the-Iterator-Trait" data-toc-modified-id="13-2-5-Creating-Our-Own-Iterators-with-the-Iterator-Trait-1.2.5">13-2-5 Creating Our Own Iterators with the <code>Iterator</code> Trait</a></span><ul class="toc-item"><li><span><a href="#13-2-5-1-Using-Our-Counter-Iterator's-next-method" data-toc-modified-id="13-2-5-1-Using-Our-Counter-Iterator's-next-method-1.2.5.1">13-2-5-1 Using Our <code>Counter</code> Iterator's <code>next</code> method</a></span></li><li><span><a href="#13-2-5-2-Using-Other-Iterator-Trait-Methods" data-toc-modified-id="13-2-5-2-Using-Other-Iterator-Trait-Methods-1.2.5.2">13-2-5-2 Using Other <code>Iterator</code> Trait Methods</a></span></li></ul></li></ul></li><li><span><a href="#13-3-Improving-Our-IO-Project" data-toc-modified-id="13-3-Improving-Our-IO-Project-1.3">13-3 Improving Our IO Project</a></span><ul class="toc-item"><li><span><a href="#13-3-1-Removing-a-clone-Using-an-Iterator" data-toc-modified-id="13-3-1-Removing-a-clone-Using-an-Iterator-1.3.1">13-3-1 Removing a <code>clone</code> Using an Iterator</a></span><ul class="toc-item"><li><span><a href="#13-3-1-1-Using-the-Returned-Iterator-Directly" data-toc-modified-id="13-3-1-1-Using-the-Returned-Iterator-Directly-1.3.1.1">13-3-1-1 Using the Returned Iterator Directly</a></span></li><li><span><a href="#13-3-1-2-Using-Iterator-Trait-Methods-Instead-of-Indexing" data-toc-modified-id="13-3-1-2-Using-Iterator-Trait-Methods-Instead-of-Indexing-1.3.1.2">13-3-1-2 Using <code>Iterator</code> Trait Methods Instead of Indexing</a></span></li></ul></li><li><span><a href="#13-3-2-Making-Code-Clearer-with-Iterator-Adaptors" data-toc-modified-id="13-3-2-Making-Code-Clearer-with-Iterator-Adaptors-1.3.2">13-3-2 Making Code Clearer with Iterator Adaptors</a></span></li></ul></li><li><span><a href="#13.4-Comparing-Performance:-Loop-vs.-Iterators" data-toc-modified-id="13.4-Comparing-Performance:-Loop-vs.-Iterators-1.4">13.4 Comparing Performance: Loop vs. Iterators</a></span></li></ul></li><li><span><a href="#17-Object-Oriented-Programming-Features-of-Rust" data-toc-modified-id="17-Object-Oriented-Programming-Features-of-Rust-2">17 Object Oriented Programming Features of Rust</a></span><ul class="toc-item"><li><span><a href="#17-1-Characteristics-of-Object-Oriented-Languages" data-toc-modified-id="17-1-Characteristics-of-Object-Oriented-Languages-2.1">17-1 Characteristics of Object-Oriented Languages</a></span><ul class="toc-item"><li><span><a href="#17-1-1-Objects-Contain-Data-and-Behavior" data-toc-modified-id="17-1-1-Objects-Contain-Data-and-Behavior-2.1.1">17-1-1 Objects Contain Data and Behavior</a></span></li><li><span><a href="#17-1-2-Encapsulation-that-Hides-Implementation-Details" data-toc-modified-id="17-1-2-Encapsulation-that-Hides-Implementation-Details-2.1.2">17-1-2 Encapsulation that Hides Implementation Details</a></span></li><li><span><a href="#17-1-3-Inheritance-as-a-Type-System-and-as-Code-Sharing" data-toc-modified-id="17-1-3-Inheritance-as-a-Type-System-and-as-Code-Sharing-2.1.3">17-1-3 Inheritance as a Type System and as Code Sharing</a></span></li></ul></li><li><span><a href="#17-2-Using-Trait-Objects-That-Allows-for-Values-of-Different-Types" data-toc-modified-id="17-2-Using-Trait-Objects-That-Allows-for-Values-of-Different-Types-2.2">17-2 Using Trait Objects That Allows for Values of Different Types</a></span><ul class="toc-item"><li><span><a href="#17-2-1-Defining-a-Trait-for-Common-Behavior" data-toc-modified-id="17-2-1-Defining-a-Trait-for-Common-Behavior-2.2.1">17-2-1 Defining a Trait for Common Behavior</a></span></li><li><span><a href="#17-2-2-Implementing-the-Trait" data-toc-modified-id="17-2-2-Implementing-the-Trait-2.2.2">17-2-2 Implementing the Trait</a></span></li><li><span><a href="#17-2-3-Trait-Objects-Perform-Dynamic-Dispatch" data-toc-modified-id="17-2-3-Trait-Objects-Perform-Dynamic-Dispatch-2.2.3">17-2-3 Trait Objects Perform Dynamic Dispatch</a></span></li><li><span><a href="#17-2-4-Object-Safety-Is-Required-for-Trait-Objects" data-toc-modified-id="17-2-4-Object-Safety-Is-Required-for-Trait-Objects-2.2.4">17-2-4 Object Safety Is Required for Trait Objects</a></span></li></ul></li><li><span><a href="#17-3-Implementing-an-Object-Oriented-Design-Pattern" data-toc-modified-id="17-3-Implementing-an-Object-Oriented-Design-Pattern-2.3">17-3 Implementing an Object-Oriented Design Pattern</a></span><ul class="toc-item"><li><span><a href="#17-3-1-Defining-Post-and-Creating-a-New-Instance-in-the-Draft-State" data-toc-modified-id="17-3-1-Defining-Post-and-Creating-a-New-Instance-in-the-Draft-State-2.3.1">17-3-1 Defining <code>Post</code> and Creating a New Instance in the Draft State</a></span></li><li><span><a href="#17-3-2-Storing-the-Text-of-the-Post-Content" data-toc-modified-id="17-3-2-Storing-the-Text-of-the-Post-Content-2.3.2">17-3-2 Storing the Text of the Post Content</a></span></li><li><span><a href="#17-3-3-Ensuring-the-Content-of-a-Draft-Post-Is-Empty" data-toc-modified-id="17-3-3-Ensuring-the-Content-of-a-Draft-Post-Is-Empty-2.3.3">17-3-3 Ensuring the Content of a Draft Post Is Empty</a></span></li><li><span><a href="#17-3-4-Requesting-a-Review-of-the-Post-Changes-Its-State" data-toc-modified-id="17-3-4-Requesting-a-Review-of-the-Post-Changes-Its-State-2.3.4">17-3-4 Requesting a Review of the Post Changes Its State</a></span></li><li><span><a href="#17-3-5-Adding-the-approve-Method-that-Changes-the-Behavior-of-content" data-toc-modified-id="17-3-5-Adding-the-approve-Method-that-Changes-the-Behavior-of-content-2.3.5">17-3-5 Adding the <code>approve</code> Method that Changes the Behavior of <code>content</code></a></span></li><li><span><a href="#17-3-6-Trade-offs-of-the-State-Pattern" data-toc-modified-id="17-3-6-Trade-offs-of-the-State-Pattern-2.3.6">17-3-6 Trade-offs of the State Pattern</a></span><ul class="toc-item"><li><span><a href="#17-3-6-1-Encoding-States-and-Behavior-as-Types" data-toc-modified-id="17-3-6-1-Encoding-States-and-Behavior-as-Types-2.3.6.1">17-3-6-1 Encoding States and Behavior as Types</a></span></li><li><span><a href="#17-3-6-2-Implementing-Transitions-as-Transformations-into-Different-Types" data-toc-modified-id="17-3-6-2-Implementing-Transitions-as-Transformations-into-Different-Types-2.3.6.2">17-3-6-2 Implementing Transitions as Transformations into Different Types</a></span></li></ul></li></ul></li></ul></li></ul></div>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/03/Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/03/Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style/">
-    <time datetime="2019-12-03T04:00:00.000Z" class="entry-date">
-        2019-12-03
+    <a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/">
+    <time datetime="2019-12-31T04:00:00.000Z" class="entry-date">
+        2019-12-31
     </time>
 </a>
     
@@ -302,7 +128,7 @@
 
 
   
-    <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance post type-post status-publish format-standard hentry">
+    <article id="post-Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper" class="post-Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -310,40 +136,98 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/">The Rust Programming Language Brief Note (Vol4-Advance)</a>
+      <a class="article-title" href="/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/">Neural Architectures for Named Entity Recognition 论文笔记</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/" data-id="clxbpfsks01ibdlbz1hh3yxao" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/" data-id="clxbpfs6d007sdlbzziri4zg3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <div class="toc"><ul class="toc-item"><li><span><a href="#15-Smart-Pointers" data-toc-modified-id="15-Smart-Pointers-1">15 Smart Pointers</a></span><ul class="toc-item"><li><span><a href="#15-1-Using-Box-to-Point-to-Data-on-the-Heap" data-toc-modified-id="15-1-Using-Box-to-Point-to-Data-on-the-Heap-1.1">15-1 Using Box to Point to Data on the Heap</a></span><ul class="toc-item"><li><span><a href="#15-1-1-Using-a-Box<T>-to-Store-Data-on-the-Heap" data-toc-modified-id="15-1-1-Using-a-Box<T>-to-Store-Data-on-the-Heap-1.1.1">15-1-1 Using a <code>Box&lt;T&gt;</code> to Store Data on the Heap</a></span></li><li><span><a href="#15-1-2-Enabling-Recursive-Types-with-Boxes" data-toc-modified-id="15-1-2-Enabling-Recursive-Types-with-Boxes-1.1.2">15-1-2 Enabling Recursive Types with Boxes</a></span><ul class="toc-item"><li><span><a href="#15-1-2-1-More-Information-About-the-Cons-List" data-toc-modified-id="15-1-2-1-More-Information-About-the-Cons-List-1.1.2.1">15-1-2-1 More Information About the Cons List</a></span></li><li><span><a href="#15-1-2-2-Computing-the-Size-of-a-Non-Recursive-Type" data-toc-modified-id="15-1-2-2-Computing-the-Size-of-a-Non-Recursive-Type-1.1.2.2">15-1-2-2 Computing the Size of a Non-Recursive Type</a></span></li><li><span><a href="#15-1-2-3-Using-Box<T>-to-Get-a-Recursive-Type-with-a-Known-Size" data-toc-modified-id="15-1-2-3-Using-Box<T>-to-Get-a-Recursive-Type-with-a-Known-Size-1.1.2.3">15-1-2-3 Using <code>Box&lt;T&gt;</code> to Get a Recursive Type with a Known Size</a></span></li></ul></li></ul></li><li><span><a href="#15-2-Treating-Smart-Pointers-Like-Regular-References-with-the-Deref-Trait" data-toc-modified-id="15-2-Treating-Smart-Pointers-Like-Regular-References-with-the-Deref-Trait-1.2">15-2 Treating Smart Pointers Like Regular References with the <code>Deref</code> Trait</a></span><ul class="toc-item"><li><span><a href="#15-2-1-Following-the-Pointer-to-the-Value-with-the-Dereference-Operator" data-toc-modified-id="15-2-1-Following-the-Pointer-to-the-Value-with-the-Dereference-Operator-1.2.1">15-2-1 Following the Pointer to the Value with the Dereference Operator</a></span></li><li><span><a href="#15-2-2-Using-Box<T>-Like-a-Reference" data-toc-modified-id="15-2-2-Using-Box<T>-Like-a-Reference-1.2.2">15-2-2 Using <code>Box&lt;T&gt;</code> Like a Reference</a></span></li><li><span><a href="#15-2-3-Defining-Our-Own-Smart-Pointer" data-toc-modified-id="15-2-3-Defining-Our-Own-Smart-Pointer-1.2.3">15-2-3 Defining Our Own Smart Pointer</a></span></li><li><span><a href="#15-2-4-Treating-a-Type-Like-a-Reference-by-Implementing-the-Deref-Trait" data-toc-modified-id="15-2-4-Treating-a-Type-Like-a-Reference-by-Implementing-the-Deref-Trait-1.2.4">15-2-4 Treating a Type Like a Reference by Implementing the <code>Deref</code> Trait</a></span></li><li><span><a href="#15-2-5-Implicit-Deref-Coercions-with-Functions-and-Methods" data-toc-modified-id="15-2-5-Implicit-Deref-Coercions-with-Functions-and-Methods-1.2.5">15-2-5 Implicit Deref Coercions with Functions and Methods</a></span></li><li><span><a href="#15-2-6-How-Deref-Coercion-Interacts-with-Mutability" data-toc-modified-id="15-2-6-How-Deref-Coercion-Interacts-with-Mutability-1.2.6">15-2-6 How Deref Coercion Interacts with Mutability</a></span></li></ul></li><li><span><a href="#15-3-Running-Code-on-Cleanup-with-the-Drop-Trait" data-toc-modified-id="15-3-Running-Code-on-Cleanup-with-the-Drop-Trait-1.3">15-3 Running Code on Cleanup with the <code>Drop</code> Trait</a></span><ul class="toc-item"><li><span><a href="#15-3-1-Dropping-a-Value-Early-with-std::mem::drop" data-toc-modified-id="15-3-1-Dropping-a-Value-Early-with-std::mem::drop-1.3.1">15-3-1 Dropping a Value Early with <code>std::mem::drop</code></a></span></li></ul></li><li><span><a href="#15-4-Rc<T>-the-Reference-Counted-Smart-Pointer" data-toc-modified-id="15-4-Rc<T>-the-Reference-Counted-Smart-Pointer-1.4">15-4 <code>Rc&lt;T&gt;</code> the Reference Counted Smart Pointer</a></span><ul class="toc-item"><li><span><a href="#15-4-1-Using-Rc<T>-to-Share-Data" data-toc-modified-id="15-4-1-Using-Rc<T>-to-Share-Data-1.4.1">15-4-1 Using <code>Rc&lt;T&gt;</code> to Share Data</a></span></li><li><span><a href="#15-4-2-Cloning-an-Rc<T>-Increases-the-Reference-Count" data-toc-modified-id="15-4-2-Cloning-an-Rc<T>-Increases-the-Reference-Count-1.4.2">15-4-2 Cloning an <code>Rc&lt;T&gt;</code> Increases the Reference Count</a></span></li></ul></li><li><span><a href="#15-5-RefCell<T>-and-the-Interior-Mutability-Pattern" data-toc-modified-id="15-5-RefCell<T>-and-the-Interior-Mutability-Pattern-1.5">15-5 <code>RefCell&lt;T&gt;</code> and the Interior Mutability Pattern</a></span><ul class="toc-item"><li><span><a href="#15-5-1-Enforcing-Borrowing-Rules-at-Runtime-with-RefCell<T>" data-toc-modified-id="15-5-1-Enforcing-Borrowing-Rules-at-Runtime-with-RefCell<T>-1.5.1">15-5-1 Enforcing Borrowing Rules at Runtime with <code>RefCell&lt;T&gt;</code></a></span></li><li><span><a href="#15-5-2-Interior-Mutability,-A-Mutable-Borrow-to-an-Immutable-Value" data-toc-modified-id="15-5-2-Interior-Mutability,-A-Mutable-Borrow-to-an-Immutable-Value-1.5.2">15-5-2 Interior Mutability, A Mutable Borrow to an Immutable Value</a></span><ul class="toc-item"><li><span><a href="#15-5-2-1-A-Use-Case-for-interior-Mutability,-Mock-Objects" data-toc-modified-id="15-5-2-1-A-Use-Case-for-interior-Mutability,-Mock-Objects-1.5.2.1">15-5-2-1 A Use Case for interior Mutability, Mock Objects</a></span></li><li><span><a href="#15-5-2-2-Keeping-Track-of-Borrows-at-Runtime-with-RefCell<T>" data-toc-modified-id="15-5-2-2-Keeping-Track-of-Borrows-at-Runtime-with-RefCell<T>-1.5.2.2">15-5-2-2 Keeping Track of Borrows at Runtime with <code>RefCell&lt;T&gt;</code></a></span></li></ul></li><li><span><a href="#15-5-3-Having-Multiple-Owners-of-Mutable-Data-by-Combing-Rc<T>-and-RefCell<T>" data-toc-modified-id="15-5-3-Having-Multiple-Owners-of-Mutable-Data-by-Combing-Rc<T>-and-RefCell<T>-1.5.3">15-5-3 Having Multiple Owners of Mutable Data by Combing <code>Rc&lt;T&gt;</code> and <code>RefCell&lt;T&gt;</code></a></span></li></ul></li><li><span><a href="#15-6-Reference-Cycles-Can-Leak-Memory" data-toc-modified-id="15-6-Reference-Cycles-Can-Leak-Memory-1.6">15-6 Reference Cycles Can Leak Memory</a></span><ul class="toc-item"><li><span><a href="#15-6-1-Creating-a-Reference-Cycle" data-toc-modified-id="15-6-1-Creating-a-Reference-Cycle-1.6.1">15-6-1 Creating a Reference Cycle</a></span></li><li><span><a href="#15-6-2-Preventing-Reference-Cycles,-Turning-an-Rc<T>-into-a-Weak<T>" data-toc-modified-id="15-6-2-Preventing-Reference-Cycles,-Turning-an-Rc<T>-into-a-Weak<T>-1.6.2">15-6-2 Preventing Reference Cycles, Turning an <code>Rc&lt;T&gt;</code> into a <code>Weak&lt;T&gt;</code></a></span><ul class="toc-item"><li><span><a href="#15-6-2-1-Creating-a-Tree-Data-Structure,-a-Node-with-Child-Nodes" data-toc-modified-id="15-6-2-1-Creating-a-Tree-Data-Structure,-a-Node-with-Child-Nodes-1.6.2.1">15-6-2-1 Creating a Tree Data Structure, a Node with Child Nodes</a></span></li><li><span><a href="#15-6-2-2-Adding-a-Reference-from-a-Child-to-Its-Parent" data-toc-modified-id="15-6-2-2-Adding-a-Reference-from-a-Child-to-Its-Parent-1.6.2.2">15-6-2-2 Adding a Reference from a Child to Its Parent</a></span></li><li><span><a href="#15-6-2-3-Visualizing-Changes-to-strong_count-and-weak_count" data-toc-modified-id="15-6-2-3-Visualizing-Changes-to-strong_count-and-weak_count-1.6.2.3">15-6-2-3 Visualizing Changes to <code>strong_count</code> and <code>weak_count</code></a></span></li></ul></li></ul></li></ul></li><li><span><a href="#16-Fearless-Concurrency" data-toc-modified-id="16-Fearless-Concurrency-2">16 Fearless Concurrency</a></span><ul class="toc-item"><li><span><a href="#16-1-Using-Threads-to-Run-Code-Simultaneously" data-toc-modified-id="16-1-Using-Threads-to-Run-Code-Simultaneously-2.1">16-1 Using Threads to Run Code Simultaneously</a></span><ul class="toc-item"><li><span><a href="#16-1-1-Creating-a-New-Thread-with-spawn" data-toc-modified-id="16-1-1-Creating-a-New-Thread-with-spawn-2.1.1">16-1-1 Creating a New Thread with <code>spawn</code></a></span></li><li><span><a href="#16-1-2-Waiting-for-All-Threads-to-Finish-Using-join-Handles" data-toc-modified-id="16-1-2-Waiting-for-All-Threads-to-Finish-Using-join-Handles-2.1.2">16-1-2 Waiting for All Threads to Finish Using <code>join</code> Handles</a></span></li><li><span><a href="#16-1-3-Using-move-Closures-with-Threads" data-toc-modified-id="16-1-3-Using-move-Closures-with-Threads-2.1.3">16-1-3 Using <code>move</code> Closures with Threads</a></span></li></ul></li><li><span><a href="#16-2-Using-Message-Passing-to-Transfer-Data-Between-Threads" data-toc-modified-id="16-2-Using-Message-Passing-to-Transfer-Data-Between-Threads-2.2">16-2 Using Message Passing to Transfer Data Between Threads</a></span><ul class="toc-item"><li><span><a href="#16-2-1-Channels-and-Ownership-Transference" data-toc-modified-id="16-2-1-Channels-and-Ownership-Transference-2.2.1">16-2-1 Channels and Ownership Transference</a></span></li><li><span><a href="#16-2-2-Sending-Multiple-Values-and-Seeing-the-Receiver-Waiting" data-toc-modified-id="16-2-2-Sending-Multiple-Values-and-Seeing-the-Receiver-Waiting-2.2.2">16-2-2 Sending Multiple Values and Seeing the Receiver Waiting</a></span></li><li><span><a href="#16-2-3-Creating-Multiple-Producers-by-Cloning-the-Transmitter" data-toc-modified-id="16-2-3-Creating-Multiple-Producers-by-Cloning-the-Transmitter-2.2.3">16-2-3 Creating Multiple Producers by Cloning the Transmitter</a></span></li></ul></li><li><span><a href="#16-3-Shared-State-Concurrency" data-toc-modified-id="16-3-Shared-State-Concurrency-2.3">16-3 Shared-State Concurrency</a></span><ul class="toc-item"><li><span><a href="#16-3-1-Using-Mutexes-to-Allow-Access-to-Data-from-One-Thread-at-a-Time" data-toc-modified-id="16-3-1-Using-Mutexes-to-Allow-Access-to-Data-from-One-Thread-at-a-Time-2.3.1">16-3-1 Using Mutexes to Allow Access to Data from One Thread at a Time</a></span><ul class="toc-item"><li><span><a href="#16-3-1-1-The-API-of-Mutex<T>" data-toc-modified-id="16-3-1-1-The-API-of-Mutex<T>-2.3.1.1">16-3-1-1 The API of <code>Mutex&lt;T&gt;</code></a></span></li><li><span><a href="#16-3-1-2-Sharing-a-Mutex<T>-Between-Multiple-Threads" data-toc-modified-id="16-3-1-2-Sharing-a-Mutex<T>-Between-Multiple-Threads-2.3.1.2">16-3-1-2 Sharing a <code>Mutex&lt;T&gt;</code> Between Multiple Threads</a></span></li><li><span><a href="#16-3-1-3-Multiple-Ownership-with-Multiple-Threads" data-toc-modified-id="16-3-1-3-Multiple-Ownership-with-Multiple-Threads-2.3.1.3">16-3-1-3 Multiple Ownership with Multiple Threads</a></span></li><li><span><a href="#16-3-1-4-Atomic-Reference-Counting-with-Arc<T>" data-toc-modified-id="16-3-1-4-Atomic-Reference-Counting-with-Arc<T>-2.3.1.4">16-3-1-4 Atomic Reference Counting with <code>Arc&lt;T&gt;</code></a></span></li></ul></li><li><span><a href="#16-3-2-Similarities-Between-RefCell<T>/Rc<T>-and-Mutex<T>/Arc<T>" data-toc-modified-id="16-3-2-Similarities-Between-RefCell<T>/Rc<T>-and-Mutex<T>/Arc<T>-2.3.2">16-3-2 Similarities Between <code>RefCell&lt;T&gt;/Rc&lt;T&gt;</code> and <code>Mutex&lt;T&gt;/Arc&lt;T&gt;</code></a></span></li></ul></li><li><span><a href="#16-4-Extensible-Concurrency-with-the-Sync-and-Send-Traits" data-toc-modified-id="16-4-Extensible-Concurrency-with-the-Sync-and-Send-Traits-2.4">16-4 Extensible Concurrency with the <code>Sync</code> and <code>Send</code> Traits</a></span><ul class="toc-item"><li><span><a href="#16-4-1-Allowing-Transference-of-Ownership-Between-Threads-with-Send" data-toc-modified-id="16-4-1-Allowing-Transference-of-Ownership-Between-Threads-with-Send-2.4.1">16-4-1 Allowing Transference of Ownership Between Threads with <code>Send</code></a></span></li><li><span><a href="#16-4-2-Allowing-Access-from-Multiple-Threads-with-Sync" data-toc-modified-id="16-4-2-Allowing-Access-from-Multiple-Threads-with-Sync-2.4.2">16-4-2 Allowing Access from Multiple Threads with <code>Sync</code></a></span></li><li><span><a href="#16-4-3-Implementing-Send-and-Sync-Manually-Is-Unsafe" data-toc-modified-id="16-4-3-Implementing-Send-and-Sync-Manually-Is-Unsafe-2.4.3">16-4-3 Implementing <code>Send</code> and <code>Sync</code> Manually Is Unsafe</a></span></li></ul></li></ul></li><li><span><a href="#19-Advanced-Features" data-toc-modified-id="19-Advanced-Features-3">19 Advanced Features</a></span><ul class="toc-item"><li><span><a href="#19-1-Unsafe-Rust" data-toc-modified-id="19-1-Unsafe-Rust-3.1">19-1 Unsafe Rust</a></span><ul class="toc-item"><li><span><a href="#19-1-1-Unsafe-Superpowers" data-toc-modified-id="19-1-1-Unsafe-Superpowers-3.1.1">19-1-1 Unsafe Superpowers</a></span></li><li><span><a href="#19-1-2-Dereferencing-a-Raw-Pointer" data-toc-modified-id="19-1-2-Dereferencing-a-Raw-Pointer-3.1.2">19-1-2 Dereferencing a Raw Pointer</a></span></li><li><span><a href="#19-1-3-Calling-an-Unsafe-Function-or-Method" data-toc-modified-id="19-1-3-Calling-an-Unsafe-Function-or-Method-3.1.3">19-1-3 Calling an Unsafe Function or Method</a></span><ul class="toc-item"><li><span><a href="#19-1-3-1-Creating-a-Safe-Abstraction-over-Unsafe-Code" data-toc-modified-id="19-1-3-1-Creating-a-Safe-Abstraction-over-Unsafe-Code-3.1.3.1">19-1-3-1 Creating a Safe Abstraction over Unsafe Code</a></span></li><li><span><a href="#19-1-3-2-Using-extern-Functions-to-Call-External-Code" data-toc-modified-id="19-1-3-2-Using-extern-Functions-to-Call-External-Code-3.1.3.2">19-1-3-2 Using <code>extern</code> Functions to Call External Code</a></span></li></ul></li><li><span><a href="#19-1-4-Accessing-or-Modifying-a-Mutable-Static-Variable" data-toc-modified-id="19-1-4-Accessing-or-Modifying-a-Mutable-Static-Variable-3.1.4">19-1-4 Accessing or Modifying a Mutable Static Variable</a></span></li><li><span><a href="#19-1-5-Implementing-an-Unsafe-Trait" data-toc-modified-id="19-1-5-Implementing-an-Unsafe-Trait-3.1.5">19-1-5 Implementing an Unsafe Trait</a></span></li></ul></li><li><span><a href="#19-2-Advanced-Traits" data-toc-modified-id="19-2-Advanced-Traits-3.2">19-2 Advanced Traits</a></span><ul class="toc-item"><li><span><a href="#19-2-1-Specifying-Placeholder-Types-in-Trait-Definitions-with-Associated-Types" data-toc-modified-id="19-2-1-Specifying-Placeholder-Types-in-Trait-Definitions-with-Associated-Types-3.2.1">19-2-1 Specifying Placeholder Types in Trait Definitions with Associated Types</a></span></li><li><span><a href="#19-2-2-Default-Generic-Type--Parameters-and-Operator-Overloading" data-toc-modified-id="19-2-2-Default-Generic-Type--Parameters-and-Operator-Overloading-3.2.2">19-2-2 Default Generic Type  Parameters and Operator Overloading</a></span></li><li><span><a href="#19-2-3-Fully-Qualified-Syntax-for-Disambiguation,-Calling-Methods-with-the-Same-Name" data-toc-modified-id="19-2-3-Fully-Qualified-Syntax-for-Disambiguation,-Calling-Methods-with-the-Same-Name-3.2.3">19-2-3 Fully Qualified Syntax for Disambiguation, Calling Methods with the Same Name</a></span></li><li><span><a href="#19-2-4-Using-Supertraits-to-Require-One-Trait's-Functionality-Within-Another-Trait" data-toc-modified-id="19-2-4-Using-Supertraits-to-Require-One-Trait's-Functionality-Within-Another-Trait-3.2.4">19-2-4 Using Supertraits to Require One Trait's Functionality Within Another Trait</a></span></li><li><span><a href="#19-2-5-Using-the-Newtype-Pattern-to-Implement-External-Traits-on-External-Types" data-toc-modified-id="19-2-5-Using-the-Newtype-Pattern-to-Implement-External-Traits-on-External-Types-3.2.5">19-2-5 Using the Newtype Pattern to Implement External Traits on External Types</a></span></li></ul></li><li><span><a href="#19-3-Advanced-Types" data-toc-modified-id="19-3-Advanced-Types-3.3">19-3 Advanced Types</a></span><ul class="toc-item"><li><span><a href="#19-3-1-Using-the-Newtype-Pattern-for-Type-Safety-and-Abstraction" data-toc-modified-id="19-3-1-Using-the-Newtype-Pattern-for-Type-Safety-and-Abstraction-3.3.1">19-3-1 Using the Newtype Pattern for Type Safety and Abstraction</a></span></li><li><span><a href="#19-3-2-Creating-Type-Synonyms-with-Type-Aliases" data-toc-modified-id="19-3-2-Creating-Type-Synonyms-with-Type-Aliases-3.3.2">19-3-2 Creating Type Synonyms with Type Aliases</a></span></li><li><span><a href="#19-3-3-The-Never-Type-that-Never-Returns" data-toc-modified-id="19-3-3-The-Never-Type-that-Never-Returns-3.3.3">19-3-3 The Never Type that Never Returns</a></span></li><li><span><a href="#19-3-4-Dynamically-Sized-Types-and-the-Sized-Trait" data-toc-modified-id="19-3-4-Dynamically-Sized-Types-and-the-Sized-Trait-3.3.4">19-3-4 Dynamically Sized Types and the <code>Sized</code> Trait</a></span></li></ul></li><li><span><a href="#19-4-Advanced-Functions-and-Closures" data-toc-modified-id="19-4-Advanced-Functions-and-Closures-3.4">19-4 Advanced Functions and Closures</a></span><ul class="toc-item"><li><span><a href="#19-4-1-Function-Pointers" data-toc-modified-id="19-4-1-Function-Pointers-3.4.1">19-4-1 Function Pointers</a></span></li><li><span><a href="#19-4-2-Returning-Closures" data-toc-modified-id="19-4-2-Returning-Closures-3.4.2">19-4-2 Returning Closures</a></span></li></ul></li><li><span><a href="#19-5-Macros" data-toc-modified-id="19-5-Macros-3.5">19-5 Macros</a></span><ul class="toc-item"><li><span><a href="#19-5-1-The-Difference-Between-Macros-and-Functions" data-toc-modified-id="19-5-1-The-Difference-Between-Macros-and-Functions-3.5.1">19-5-1 The Difference Between Macros and Functions</a></span></li><li><span><a href="#19-5-2-Declarative-Macros-with-macro_rules!-for-General-Metaprogramming" data-toc-modified-id="19-5-2-Declarative-Macros-with-macro_rules!-for-General-Metaprogramming-3.5.2">19-5-2 Declarative Macros with <code>macro_rules!</code> for General Metaprogramming</a></span></li><li><span><a href="#19-5-3-Procedural-Macros-for-Generating-Code-from-Attributes" data-toc-modified-id="19-5-3-Procedural-Macros-for-Generating-Code-from-Attributes-3.5.3">19-5-3 Procedural Macros for Generating Code from Attributes</a></span></li><li><span><a href="#19-5-4-How-to-Write-a-Custom-derive-Macro" data-toc-modified-id="19-5-4-How-to-Write-a-Custom-derive-Macro-3.5.4">19-5-4 How to Write a Custom <code>derive</code> Macro</a></span></li><li><span><a href="#19-5-5-Attribute-like-macros" data-toc-modified-id="19-5-5-Attribute-like-macros-3.5.5">19-5-5 Attribute-like macros</a></span></li><li><span><a href="#19-5-6-Function-like-macros" data-toc-modified-id="19-5-6-Function-like-macros-3.5.6">19-5-6 Function-like macros</a></span></li></ul></li></ul></li></ul></div>
-<h2 id="15-smart-pointers">15 Smart Pointers</h2>
-<p>Reference counting smart pointer enables you to have multiple owners of data by keeping track of the number of owners and, when no owners remain, cleaning up the data.</p>
-<p>References are pointers that only borrow data; in contrast, in many cases, smart pointers <em>own</em> the data they point to.</p>
-<p>Smart pointers are usually implemented using structs. The characteristic that distinguishes a smart pointer from an ordinary struct is that smart pointers implement the <code>Deref</code> and <code>Drop</code> traits.</p>
+        <p>Paper: <a href="https://arxiv.org/pdf/1603.01360.pdf" target="_blank" rel="noopener">1603.01360.pdf</a></p>
+<p>code:</p>
 <ul>
-<li>The <code>Deref</code> trait allows an instance of the smart pointer struct to behave like a reference so you can write code that works with either references or smart pointers.</li>
-<li>The <code>Drop</code> trait allows you to customize the code that is run when an instance of the smart pointer goes out of scope.</li>
+<li>
+<p><a href="https://github.com/clab/stack-lstm-ner" target="_blank" rel="noopener">clab/stack-lstm-ner: NER system based on stack LSTMs</a></p>
+</li>
+<li>
+<p><a href="https://github.com/glample/tagger" target="_blank" rel="noopener">glample/tagger: Named Entity Recognition Tool</a></p>
+</li>
 </ul>
+<p>核心思想：pretrained + character-based 词表示分别学习形态和拼写，Bi-LSTM + CRF 和基于转移的模型均可以对输出标签的依赖关系建模。</p>
+<p>看了 Related Work 后发现很多想法其实早就冒出来了，不同的论文在不同点上使用了不同的方法，本篇恰好用这样的方法取得了最好的效果。其实，我觉得更加有意思的是基于转移的模型，它构建了一个 action 的时间序列，感觉更加抽象，想法更加精妙。</p>
         
           <p class="article-more-link">
-            <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/">
-    <time datetime="2019-12-03T04:00:00.000Z" class="entry-date">
-        2019-12-03
+    <a href="/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/">
+    <time datetime="2019-12-28T09:00:00.000Z" class="entry-date">
+        2019-12-28
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bi-LSTM/">Bi-LSTM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRF/">CRF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Embedding/">Embedding</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Rust/2019-12-21-Rust-Tutorial" class="post-Rust/2019-12-21-Rust-Tutorial post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/21/Rust/2019-12-21-Rust-Tutorial/">Rust Tutorial</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" data-id="clxbpfs8k00c7dlbzvpazifyh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <h2 id="the-rust-programming-language">The Rust Programming Language</h2>
+<p>Recently, I have read <a href="https://doc.rust-lang.org/book/" target="_blank" rel="noopener">The Rust Programming Language</a> book which is really a comprehensive combination. I prefer to write some brief note when I am reading a book, just for times of reviews in the future. Here is the same.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/21/Rust/2019-12-21-Rust-Tutorial/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/21/Rust/2019-12-21-Rust-Tutorial/">
+    <time datetime="2019-12-21T12:00:00.000Z" class="entry-date">
+        2019-12-21
     </time>
 </a>
     
@@ -364,7 +248,7 @@
 
 
   
-    <article id="post-NLP/KG/2019-12-02-NLM" class="post-NLP/KG/2019-12-02-NLM post type-post status-publish format-standard hentry">
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch4" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch4 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -372,90 +256,48 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/02/NLP/KG/2019-12-02-NLM/">自然语言记忆模块（NLM）</a>
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/">剑指 Offer2（Python 版）解析（Ch4）</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/" data-id="clxbpfsft015ndlbzkbw12vrn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/" data-id="clxbpfsej013tdlbzc13c0eku" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>本文主要介绍自然语言的记忆（存储与查询）模块，初衷是作为 chatbot 的 Layer 之一，主要功能是记忆（存储）从对话或训练数据学到的 “知识”，然后在需要时唤起（查询） 。目前成熟的方法是以图数据库作为载体，将知识存储为一系列的 ”节点“ 和 ”关系“。之后再基于这些存储的 ”节点“ 和 ”关系“ 进行相关查询。也可以理解为构建 Data Model 的问题。</p>
-<p>项目地址：<a href="https://github.com/hscspring/NLM" target="_blank" rel="noopener">https://github.com/hscspring/NLM</a></p>
-<h2 id="设计思想">设计思想</h2>
-<p>图数据库的典型代表是 <a href="http://neo4j.com/" target="_blank" rel="noopener">Neo4j</a>，Neo4j 中有几个很重要的概念：标签、节点和关系。标签是一类节点，可以看作是节点的类别，节点一般是某一个实体；关系存在于两个实体间，可以有多种不同的关系。节点和关系可以有多个属性。实践来看，Python 语言可以使用社区的 <a href="https://github.com/technige/py2neo" target="_blank" rel="noopener">technige/py2neo</a>，当然还可以使用官方的 <a href="https://github.com/neo4j/neo4j-python-driver" target="_blank" rel="noopener">neo4j/neo4j-python-driver: Neo4j Bolt driver for Python</a>，两者的目的都是将数据 import 进 database 并进行相应的查询。</p>
-<p>Neo4j 的特点要求导入的数据尽量是结构化的，也就是我们要事先有实体和它的类别（实体的属性可有可无），实体与实体间的关系（关系的属性可有可无）。我们期待能从对话或无监督的语料中自动提取实体和关系，然后自动 import 进 Neo4j。为了避免导入数据的混乱，自然最好能有先验的 “类别”，比如节点类别 Person，Movie 等，关系类别 LOVES，ACTS 等。所以，对于文本输入，我们需要一个信息提取器，将文本中的符合先验类别的节点和关系提取出来。如果输入是 NLU 模块输出的 ”意图和实体“ ，则需要一个分类器，将意图分类到对应的 Relation 类别，将实体分类到 Node 类别。</p>
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第四章：解决面试题的思路" data-toc-modified-id="第四章：解决面试题的思路-1">第四章：解决面试题的思路</a></span><ul class="toc-item"><li><span><a href="#面试题-27：二叉树的镜像" data-toc-modified-id="面试题-27：二叉树的镜像-1.1">面试题 27：二叉树的镜像</a></span></li><li><span><a href="#面试题-28：对称的二叉树" data-toc-modified-id="面试题-28：对称的二叉树-1.2">面试题 28：对称的二叉树</a></span></li><li><span><a href="#面试题-29：顺时针打印矩阵" data-toc-modified-id="面试题-29：顺时针打印矩阵-1.3">面试题 29：顺时针打印矩阵</a></span></li><li><span><a href="#面试题-30：包含-min-函数的栈" data-toc-modified-id="面试题-30：包含-min-函数的栈-1.4">面试题 30：包含 min 函数的栈</a></span></li><li><span><a href="#面试题-31：栈的压入、弹出序列" data-toc-modified-id="面试题-31：栈的压入、弹出序列-1.5">面试题 31：栈的压入、弹出序列</a></span></li><li><span><a href="#面试题-32（一）：不分行从上往下打印二叉树" data-toc-modified-id="面试题-32（一）：不分行从上往下打印二叉树-1.6">面试题 32（一）：不分行从上往下打印二叉树</a></span></li><li><span><a href="#面试题-32（二）：分行从上到下打印二叉树" data-toc-modified-id="面试题-32（二）：分行从上到下打印二叉树-1.7">面试题 32（二）：分行从上到下打印二叉树</a></span></li><li><span><a href="#面试题-32（三）：之字形打印二叉树" data-toc-modified-id="面试题-32（三）：之字形打印二叉树-1.8">面试题 32（三）：之字形打印二叉树</a></span></li><li><span><a href="#面试题-33：二叉搜索树的后序遍历序列" data-toc-modified-id="面试题-33：二叉搜索树的后序遍历序列-1.9">面试题 33：二叉搜索树的后序遍历序列</a></span></li><li><span><a href="#面试题-34：二叉树中和为某一值的路径" data-toc-modified-id="面试题-34：二叉树中和为某一值的路径-1.10">面试题 34：二叉树中和为某一值的路径</a></span></li><li><span><a href="#面试题-35：复杂链表的复制" data-toc-modified-id="面试题-35：复杂链表的复制-1.11">面试题 35：复杂链表的复制</a></span></li><li><span><a href="#面试题-36：二叉搜索树与双向链表" data-toc-modified-id="面试题-36：二叉搜索树与双向链表-1.12">面试题 36：二叉搜索树与双向链表</a></span></li><li><span><a href="#面试题-37：序列化二叉树" data-toc-modified-id="面试题-37：序列化二叉树-1.13">面试题 37：序列化二叉树</a></span></li><li><span><a href="#面试题-38：字符串的排列" data-toc-modified-id="面试题-38：字符串的排列-1.14">面试题 38：字符串的排列</a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python" target="_blank" rel="noopener">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
         
           <p class="article-more-link">
-            <a href="/2019/12/02/NLP/KG/2019-12-02-NLM/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/12/02/NLP/KG/2019-12-02-NLM/">
-    <time datetime="2019-12-02T14:00:00.000Z" class="entry-date">
-        2019-12-02
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLM/">NLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Neo4j/">Neo4j</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-DSA/2019-11-03-Multiway-Tree-Sort" class="post-DSA/2019-11-03-Multiway-Tree-Sort post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/">Sort Based on Multiway Tree</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/" data-id="clxbpfs480025dlbz48j3fodu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>Several weeks ago, we met a sort problem in our program of web app. We tried kinds of methods and finally have gotten a nearly 10 times performance improvement. The problem is very interesting and worth recording.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/">
-    <time datetime="2019-11-03T15:00:00.000Z" class="entry-date">
-        2019-11-03
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
     </time>
 </a>
     
@@ -466,7 +308,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elixir/">Elixir</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Multiway-Tree/">Multiway Tree</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sort/">Sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tree/">Tree</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
 </article>
@@ -476,7 +318,7 @@
 
 
   
-    <article id="post-Python/Py4F/2019-10-10-Python-for-Freshman-Ch03" class="post-Python/Py4F/2019-10-10-Python-for-Freshman-Ch03 post type-post status-publish format-standard hentry">
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch2" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch2 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -484,32 +326,48 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/">Python 小白快速从入门到放弃：使用框架</a>
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/">剑指 Offer2（Python 版）解析（Ch2）</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" data-id="clxbpfsfs015jdlbz74jyi7aj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/" data-id="clxbpfsem013udlbzivzf9brc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>随着学习的不断深入，我们肯定会越来越不满足只在 Jupyter Notebook 中写一些小任务。我们可能会希望做一个 Web 应用，或者一个小程序，甚至是一个 APP。对于这种系统性的工程项目，框架就必不可少了，它可以极大地提高我们的效率。这节课我们就以 Python 的 Django 框架为例来开发一个小的 Web 应用程序。</p>
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第一章：面试的流程" data-toc-modified-id="第一章：面试的流程-1">第一章：面试的流程 </a></span></li><li><span><a href="#第二章：面试需要的基础知识" data-toc-modified-id="第二章：面试需要的基础知识-2">第二章：面试需要的基础知识 </a></span><ul class="toc-item"><li><span><a href="#面试题-2：实现-Singleton-模式" data-toc-modified-id="面试题-2：实现-Singleton-模式-2.1">面试题 2：实现 Singleton 模式 </a></span></li><li><span><a href="#面试题-3（一）：找出数组中重复的数字" data-toc-modified-id="面试题-3（一）：找出数组中重复的数字-2.2">面试题 3（一）：找出数组中重复的数字 </a></span></li><li><span><a href="#面试题-3（二）：不修改数组找出重复的数字" data-toc-modified-id="面试题-3（二）：不修改数组找出重复的数字-2.3">面试题 3（二）：不修改数组找出重复的数字 </a></span></li><li><span><a href="#面试题-4：二维数组中的查找" data-toc-modified-id="面试题-4：二维数组中的查找-2.4">面试题 4：二维数组中的查找 </a></span></li><li><span><a href="#面试题-5：替换空格" data-toc-modified-id="面试题-5：替换空格-2.5">面试题 5：替换空格 </a></span></li><li><span><a href="#面试题-6：从尾到头打印链表" data-toc-modified-id="面试题-6：从尾到头打印链表-2.6">面试题 6：从尾到头打印链表 </a></span></li><li><span><a href="#面试题-7：重建二叉树" data-toc-modified-id="面试题-7：重建二叉树-2.7">面试题 7：重建二叉树 </a></span></li><li><span><a href="#面试题-8：二叉树的下一个节点" data-toc-modified-id="面试题-8：二叉树的下一个节点-2.8">面试题 8：二叉树的下一个节点 </a></span></li><li><span><a href="#面试题-9：用两个栈实现队列" data-toc-modified-id="面试题-9：用两个栈实现队列-2.9">面试题 9：用两个栈实现队列 </a></span></li><li><span><a href="#面试题-10：斐波那契数列" data-toc-modified-id="面试题-10：斐波那契数列-2.10">面试题 10：斐波那契数列 </a></span></li><li><span><a href="#面试题-11：旋转数组的最小数字" data-toc-modified-id="面试题-11：旋转数组的最小数字-2.11">面试题 11：旋转数组的最小数字 </a></span></li><li><span><a href="#面试题-12：矩阵中的路径" data-toc-modified-id="面试题-12：矩阵中的路径-2.12">面试题 12：矩阵中的路径 </a></span></li><li><span><a href="#面试题-13：机器人的运动范围" data-toc-modified-id="面试题-13：机器人的运动范围-2.13">面试题 13：机器人的运动范围 </a></span></li><li><span><a href="#面试题-14：剪绳子" data-toc-modified-id="面试题-14：剪绳子-2.14">面试题 14：剪绳子 </a></span></li><li><span><a href="#面试题-15：二进制中-1-的个数" data-toc-modified-id="面试题-15：二进制中-1-的个数-2.15">面试题 15：二进制中 1 的个数 </a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python" target="_blank" rel="noopener">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
         
           <p class="article-more-link">
-            <a href="/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/">
-    <time datetime="2019-10-10T15:00:00.000Z" class="entry-date">
-        2019-10-10
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
     </time>
 </a>
     
@@ -520,7 +378,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Django/">Django</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
 </article>
@@ -530,7 +388,7 @@
 
 
   
-    <article id="post-Python/Py4F/2019-10-07-Python-for-Freshman-Ch05" class="post-Python/Py4F/2019-10-07-Python-for-Freshman-Ch05 post type-post status-publish format-standard hentry">
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch3" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch3 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -538,32 +396,48 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/">Python 小白快速从入门到放弃：在结束后</a>
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/">剑指 Offer2（Python 版）解析（Ch3）</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" data-id="clxbpfsfr015ddlbz0escgxi7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/" data-id="clxbpfsep013xdlbzqwk2lefz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>这个系列的课程的目标在《在开始前》已经说得很清楚了：解决重复劳动或自己做好玩儿的小项目；尝试新的思维方式。这短短的几节课要想把 Python 的相关知识面面俱到是不可能的，但我觉得已经给出了一个全图景，大家只要围绕这个做，达到目标应该是不成问题的。我想说的还是一直提倡的：Just do it，在实践中不断成长。</p>
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第三章：高质量的代码" data-toc-modified-id="第三章：高质量的代码-1">第三章：高质量的代码</a></span><ul class="toc-item"><li><span><a href="#面试题-16：数值的整数次方" data-toc-modified-id="面试题-16：数值的整数次方-1.1">面试题 16：数值的整数次方</a></span></li><li><span><a href="#面试题-17：打印-1-到最大的-n-位数" data-toc-modified-id="面试题-17：打印-1-到最大的-n-位数-1.2">面试题 17：打印 1 到最大的 n 位数</a></span></li><li><span><a href="#面试题-18（一）：在-O-(1)-时间删除链表节点" data-toc-modified-id="面试题-18（一）：在-O-(1)-时间删除链表节点-1.3">面试题 18（一）：在 O (1) 时间删除链表节点</a></span></li><li><span><a href="#面试题-18（二）：删除链表中重复的节点" data-toc-modified-id="面试题-18（二）：删除链表中重复的节点-1.4">面试题 18（二）：删除链表中重复的节点</a></span></li><li><span><a href="#面试题-19：正则表达式匹配" data-toc-modified-id="面试题-19：正则表达式匹配-1.5">面试题 19：正则表达式匹配</a></span></li><li><span><a href="#面试题-20：表示数值的字符串" data-toc-modified-id="面试题-20：表示数值的字符串-1.6">面试题 20：表示数值的字符串</a></span></li><li><span><a href="#面试题-21：调整数组顺序使奇数位于偶数前面" data-toc-modified-id="面试题-21：调整数组顺序使奇数位于偶数前面-1.7">面试题 21：调整数组顺序使奇数位于偶数前面</a></span></li><li><span><a href="#面试题-22：链表中倒数第-k-个节点" data-toc-modified-id="面试题-22：链表中倒数第-k-个节点-1.8">面试题 22：链表中倒数第 k 个节点</a></span></li><li><span><a href="#面试题-23：链表中环的入口节点" data-toc-modified-id="面试题-23：链表中环的入口节点-1.9">面试题 23：链表中环的入口节点</a></span></li><li><span><a href="#面试题-24：反转链表" data-toc-modified-id="面试题-24：反转链表-1.10">面试题 24：反转链表</a></span></li><li><span><a href="#面试题-25：合并两个排序的链表" data-toc-modified-id="面试题-25：合并两个排序的链表-1.11">面试题 25：合并两个排序的链表</a></span></li><li><span><a href="#面试题-26：树的子结构" data-toc-modified-id="面试题-26：树的子结构-1.12">面试题 26：树的子结构</a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python" target="_blank" rel="noopener">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
         
           <p class="article-more-link">
-            <a href="/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/">
-    <time datetime="2019-10-07T12:00:00.000Z" class="entry-date">
-        2019-10-07
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
     </time>
 </a>
     
@@ -574,7 +448,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
 </article>
@@ -584,7 +458,7 @@
 
 
   
-    <article id="post-Python/Py4F/2019-10-06-Python-for-Freshman-Ch04" class="post-Python/Py4F/2019-10-06-Python-for-Freshman-Ch04 post type-post status-publish format-standard hentry">
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch5" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch5 post type-post status-publish format-standard hentry">
     <!---->
 
       <header class="entry-header">
@@ -592,32 +466,48 @@
         
   
     <h1 class="entry-title">
-      <a class="article-title" href="/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/">Python 小白快速从入门到放弃：阅读源码</a>
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/">剑指 Offer2（Python 版）解析（Ch5）</a>
     </h1>
   
 
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" data-id="clxbpfsfs015gdlbz86f51c5u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/" data-id="clxbpfseq013zdlbzj7kge5lc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
     <div class="entry-content">
       
-        <p>学编程最重要的就是写代码、读代码。上节提到了要阅读大神的或优秀的代码，之前也一直在强调要动手实践，这节咱们关注下如何阅读源代码。好的源代码不仅能让我们学到关于编程的知识，而且还有如何思考问题、抽象业务、设计架构等等方面知识。</p>
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第五章：优化时间和空间效率" data-toc-modified-id="第五章：优化时间和空间效率-1">第五章：优化时间和空间效率</a></span><ul class="toc-item"><li><span><a href="#面试题-39：数组中出现次数超过一半的数字" data-toc-modified-id="面试题-39：数组中出现次数超过一半的数字-1.1">面试题 39：数组中出现次数超过一半的数字</a></span></li><li><span><a href="#面试题-40：最小的-k-个数" data-toc-modified-id="面试题-40：最小的-k-个数-1.2">面试题 40：最小的 k 个数</a></span></li><li><span><a href="#面试题-41：数据流中的中位数" data-toc-modified-id="面试题-41：数据流中的中位数-1.3">面试题 41：数据流中的中位数</a></span></li><li><span><a href="#面试题-42：连续子数组的最大和" data-toc-modified-id="面试题-42：连续子数组的最大和-1.4">面试题 42：连续子数组的最大和</a></span></li><li><span><a href="#面试题-43：从-1-到-n-整数中-1-出现的次数" data-toc-modified-id="面试题-43：从-1-到-n-整数中-1-出现的次数-1.5">面试题 43：从 1 到 n 整数中 1 出现的次数</a></span></li><li><span><a href="#面试题-44：数字序列中某一位的数字" data-toc-modified-id="面试题-44：数字序列中某一位的数字-1.6">面试题 44：数字序列中某一位的数字</a></span></li><li><span><a href="#面试题-45：把数组排成最小的数" data-toc-modified-id="面试题-45：把数组排成最小的数-1.7">面试题 45：把数组排成最小的数</a></span></li><li><span><a href="#面试题-46：把数字翻译成字符串" data-toc-modified-id="面试题-46：把数字翻译成字符串-1.8">面试题 46：把数字翻译成字符串</a></span></li><li><span><a href="#面试题-47：礼物的最大价值" data-toc-modified-id="面试题-47：礼物的最大价值-1.9">面试题 47：礼物的最大价值</a></span></li><li><span><a href="#面试题-48：最长不含重复字符的子字符串" data-toc-modified-id="面试题-48：最长不含重复字符的子字符串-1.10">面试题 48：最长不含重复字符的子字符串</a></span></li><li><span><a href="#面试题-49：丑数" data-toc-modified-id="面试题-49：丑数-1.11">面试题 49：丑数</a></span></li><li><span><a href="#面试题-50（一）：字符串中第一个只出现一次的字符" data-toc-modified-id="面试题-50（一）：字符串中第一个只出现一次的字符-1.12">面试题 50（一）：字符串中第一个只出现一次的字符</a></span></li><li><span><a href="#面试题-50（二）：字符流中第一个只出现一次的字符" data-toc-modified-id="面试题-50（二）：字符流中第一个只出现一次的字符-1.13">面试题 50（二）：字符流中第一个只出现一次的字符</a></span></li><li><span><a href="#面试题-51：数组中的逆序对" data-toc-modified-id="面试题-51：数组中的逆序对-1.14">面试题 51：数组中的逆序对</a></span></li><li><span><a href="#面试题-52：两个链表的第一个公共节点" data-toc-modified-id="面试题-52：两个链表的第一个公共节点-1.15">面试题 52：两个链表的第一个公共节点</a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python" target="_blank" rel="noopener">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
         
           <p class="article-more-link">
-            <a href="/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/#more" class="more-link">More <span class="meta-nav">→</span></a>
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/#more" class="more-link">More <span class="meta-nav">→</span></a>
           </p>
         
       
     </div><!-- .entry-content -->
 
     <footer class="entry-meta">
-    <a href="/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/">
-    <time datetime="2019-10-06T15:00:00.000Z" class="entry-date">
-        2019-10-06
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
     </time>
 </a>
     
@@ -628,7 +518,189 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/">Database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch6" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch6 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/">剑指 Offer2（Python 版）解析（Ch6）</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/" data-id="clxbpfser0144dlbzdq6nq70o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第六章：面试中的各项能力" data-toc-modified-id="第六章：面试中的各项能力-1">第六章：面试中的各项能力</a></span><ul class="toc-item"><li><span><a href="#面试题-53（一）：数字在排序数组中出现的次数" data-toc-modified-id="面试题-53（一）：数字在排序数组中出现的次数-1.1">面试题 53（一）：数字在排序数组中出现的次数</a></span></li><li><span><a href="#面试题-53（二）：0-到-n-1-中缺失的数字" data-toc-modified-id="面试题-53（二）：0-到-n-1-中缺失的数字-1.2">面试题 53（二）：0 到 n-1 中缺失的数字</a></span></li><li><span><a href="#面试题-53（三）：数组中数值和下标相等的元素" data-toc-modified-id="面试题-53（三）：数组中数值和下标相等的元素-1.3">面试题 53（三）：数组中数值和下标相等的元素</a></span></li><li><span><a href="#面试题-53（四）：数组中数值只出现一次的数" data-toc-modified-id="面试题-53（四）：数组中数值只出现一次的数-1.4">面试题 53（四）：数组中数值只出现一次的数</a></span></li><li><span><a href="#面试题-54：二叉搜索树的第-k-大节点" data-toc-modified-id="面试题-54：二叉搜索树的第-k-大节点-1.5">面试题 54：二叉搜索树的第 k 大节点</a></span></li><li><span><a href="#面试题-55（一）：二叉树的深度" data-toc-modified-id="面试题-55（一）：二叉树的深度-1.6">面试题 55（一）：二叉树的深度</a></span></li><li><span><a href="#面试题-55（二）：平衡二叉树" data-toc-modified-id="面试题-55（二）：平衡二叉树-1.7">面试题 55（二）：平衡二叉树</a></span></li><li><span><a href="#面试题-56（一）：数组中只出现一次的两个数字" data-toc-modified-id="面试题-56（一）：数组中只出现一次的两个数字-1.8">面试题 56（一）：数组中只出现一次的两个数字</a></span></li><li><span><a href="#面试题-56（二）：数组中唯一只出现一次的数字" data-toc-modified-id="面试题-56（二）：数组中唯一只出现一次的数字-1.9">面试题 56（二）：数组中唯一只出现一次的数字</a></span></li><li><span><a href="#面试题-57（一）：和为-s-的两个数字" data-toc-modified-id="面试题-57（一）：和为-s-的两个数字-1.10">面试题 57（一）：和为 s 的两个数字</a></span></li><li><span><a href="#面试题-57（二）：和为-s-的连续正数序列" data-toc-modified-id="面试题-57（二）：和为-s-的连续正数序列-1.11">面试题 57（二）：和为 s 的连续正数序列</a></span></li><li><span><a href="#面试题-58（一）：翻转单词顺序" data-toc-modified-id="面试题-58（一）：翻转单词顺序-1.12">面试题 58（一）：翻转单词顺序</a></span></li><li><span><a href="#面试题-58（二）：左旋转字符串" data-toc-modified-id="面试题-58（二）：左旋转字符串-1.13">面试题 58（二）：左旋转字符串</a></span></li><li><span><a href="#面试题-59（一）：滑动窗口的最大值" data-toc-modified-id="面试题-59（一）：滑动窗口的最大值-1.14">面试题 59（一）：滑动窗口的最大值</a></span></li><li><span><a href="#面试题-59（二）：队列的最大值" data-toc-modified-id="面试题-59（二）：队列的最大值-1.15">面试题 59（二）：队列的最大值</a></span></li><li><span><a href="#面试题-60：n-个骰子的点数" data-toc-modified-id="面试题-60：n-个骰子的点数-1.16">面试题 60：n 个骰子的点数</a></span></li><li><span><a href="#面试题-61：扑克牌的顺子" data-toc-modified-id="面试题-61：扑克牌的顺子-1.17">面试题 61：扑克牌的顺子</a></span></li><li><span><a href="#面试题-62：圆圈中最后剩下的数字" data-toc-modified-id="面试题-62：圆圈中最后剩下的数字-1.18">面试题 62：圆圈中最后剩下的数字</a></span></li><li><span><a href="#面试题-63：股票的最大利润" data-toc-modified-id="面试题-63：股票的最大利润-1.19">面试题 63：股票的最大利润</a></span></li><li><span><a href="#面试题-64：求-1-到-n-之和" data-toc-modified-id="面试题-64：求-1-到-n-之和-1.20">面试题 64：求 1 到 n 之和</a></span></li><li><span><a href="#面试题-65：不用加减乘除做加法" data-toc-modified-id="面试题-65：不用加减乘除做加法-1.21">面试题 65：不用加减乘除做加法</a></span></li><li><span><a href="#面试题-66：构建乘积数组" data-toc-modified-id="面试题-66：构建乘积数组-1.22">面试题 66：构建乘积数组</a></span></li></ul></li><li><span><a href="#面试案例" data-toc-modified-id="面试案例-2">面试案例</a></span><ul class="toc-item"><li><span><a href="#面试题-67：把字符串转换成整数" data-toc-modified-id="面试题-67：把字符串转换成整数-2.1">面试题 67：把字符串转换成整数</a></span></li><li><span><a href="#面试题-68：树中两个节点的最低公共祖先" data-toc-modified-id="面试题-68：树中两个节点的最低公共祖先-2.2">面试题 68：树中两个节点的最低公共祖先</a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python" target="_blank" rel="noopener">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2019-12-15-Label-Attributes-Representation-Paper" class="post-Paper/2019-12-15-Label-Attributes-Representation-Paper post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/">Few-Shot Charge Prediction with Discriminative Legal Attributes 论文笔记</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/" data-id="clxbpfs6c007pdlbz3p025xdx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper: <a href="http://nlp.csai.tsinghua.edu.cn/~tcc/publications/coling2018_attribute.pdf" target="_blank" rel="noopener">coling2018_attribute.pdf</a></p>
+<p>code: <a href="https://github.com/thunlp/attribute_charge" target="_blank" rel="noopener">thunlp/attribute_charge</a></p>
+<p>核心思想：基于类别属性的注意力机制共同学习属性感知和无属性的文本表示。</p>
+<p>这是 COLING2018 上的一篇老论文了，最近因为一些事情正好遇上，当时大概看了一下就发现这篇文章正好解决了我之前在做多分类<a href="https://github.com/hscspring/Multi-Label-Text-Classification-for-Chinese#others" target="_blank" rel="noopener">任务</a>时没有解决的问题。所以拿来记录一下，顺便研究下代码。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/15/Paper/2019-12-15-Label-Attributes-Representation-Paper/">
+    <time datetime="2019-12-15T11:00:00.000Z" class="entry-date">
+        2019-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Confusing-Labels/">Confusing Labels</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Few-Shot/">Few-Shot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Imbalance-Data/">Imbalance Data</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-NLP/KG/2019-12-11-Relationship-Extraction" class="post-NLP/KG/2019-12-11-Relationship-Extraction post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/">关系提取简述</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/" data-id="clxbpfsfv015udlbz8pctpjk1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 <a href="https://web.stanford.edu/~jurafsky/slp3/" target="_blank" rel="noopener">SLP</a> 第 18 章的内容，最近在做一个 chatbot 的 <a href="https://yam.gift/2019/12/02/2019-12-02-NLM/" target="_blank" rel="noopener">NLMLayer</a> 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。</p>
+<p>属性一般的形式是（实体，属性，属性值），关系的一般形式是（实体，关系，实体）。简单来区分的话，关系涉及到两个实体，而属性只有一个实体。属性提取的文章比较少，关系提取方面倒是比较成熟，不过这两者之间其实可以借鉴的。具体的一些方法其实<a href="https://yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/" target="_blank" rel="noopener">这里</a>已经提到不少了，这里单独提出来再梳理一遍。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/">
+    <time datetime="2019-12-11T15:00:00.000Z" class="entry-date">
+        2019-12-11
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Knowledge-Graph/">Knowledge Graph</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Relationship-Extraction/">Relationship Extraction</a></li></ul>
 
     </footer>
 </article>
@@ -641,7 +713,7 @@
   
     <nav id="pagination">
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/13/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/15/">Next &raquo;</a>
       </nav>
     </nav>
   
@@ -652,7 +724,7 @@
   <aside class="widget">
     <h3 class="widget-title">Categories</h3>
     <div class="widget-content">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">120</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">32</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">130</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">32</span></li></ul>
     </div>
   </aside>
 
@@ -678,23 +750,23 @@
       <ul>
         
           <li>
-            <a href="/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/">关于AI前沿的思考</a>
+            <a href="/2024/12/31/Paper/LLM/2024-12-31-Application/">LLM应用论文速览</a>
           </li>
         
           <li>
-            <a href="/2024/12/01/Paper/2024-12-01-Paper/">【Paper速览】2024年11月</a>
+            <a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following/">LLM指令跟随论文速览</a>
           </li>
         
           <li>
-            <a href="/2024/11/01/Paper/2024-11-01-Paper/">【Paper速览】2024年10月</a>
+            <a href="/2024/12/31/Paper/LLM/2024-12-31-Decoding/">LLM解码论文速览</a>
           </li>
         
           <li>
-            <a href="/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/">《真希望父母读过这本书》读书笔记</a>
+            <a href="/2024/12/31/Paper/MM/2024-12-31-OMNI/">OMNI论文速览</a>
           </li>
         
           <li>
-            <a href="/2024/09/30/Diary/2024-09-30-Work-Design/">基础和取舍</a>
+            <a href="/2024/12/31/Paper/MM/2024-12-31-SLM/">SLM论文速览</a>
           </li>
         
       </ul>
@@ -706,7 +778,7 @@
   <aside class="widget">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget-content tagcloud">
-      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.29px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.71px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 12.86px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.14px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.43px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.71px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.71px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/Binary-Search/" style="font-size: 11.43px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.14px;">Business</a> <a href="/tags/C/" style="font-size: 10.71px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.71px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.71px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 10.71px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.71px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.14px;">Computer Science</a> <a href="/tags/Conflicting-Context/" style="font-size: 10px;">Conflicting Context</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.71px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.71px;">Continual Pretraining</a> <a href="/tags/Continuous-Speech-Tokenizer/" style="font-size: 10px;">Continuous Speech Tokenizer</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.71px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DB/" style="font-size: 10.71px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DST/" style="font-size: 10px;">DST</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.29px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.71px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.71px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 14.29px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dream/" style="font-size: 10px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.71px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.71px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.43px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.71px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.71px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.71px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.43px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.43px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Duplex/" style="font-size: 10px;">Full-Duplex</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.71px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.71px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.71px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 11.43px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.71px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.71px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.71px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 11.43px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.71px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.86px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.14px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.71px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12.14px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.71px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Align/" style="font-size: 10px;">MM Align</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MM-Representation/" style="font-size: 10px;">MM Representation</a> <a href="/tags/MTL/" style="font-size: 11.43px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.29px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.43px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.71px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Meta-Prompt/" style="font-size: 10px;">Meta Prompt</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/MoLE-Llama/" style="font-size: 10px;">MoLE-Llama</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.29px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.43px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.71px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.43px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/NeuGPT/" style="font-size: 10px;">NeuGPT</a> <a href="/tags/Ngram/" style="font-size: 10.71px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 10px;">OMNI</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.71px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.71px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.71px;">Pandas</a> <a href="/tags/Paper/" style="font-size: 10.71px;">Paper</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.71px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.71px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.14px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.71px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.71px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.57px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.71px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.57px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.71px;">R-Drop</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.71px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.86px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.71px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.71px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.71px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SSL/" style="font-size: 10px;">SSL</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.71px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.71px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.43px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.71px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.71px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.71px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.43px;">Span</a> <a href="/tags/Speech-Discrete-Representation/" style="font-size: 10px;">Speech Discrete Representation</a> <a href="/tags/Speech-Foundation-Model/" style="font-size: 10px;">Speech Foundation Model</a> <a href="/tags/Speech-Understanding/" style="font-size: 10px;">Speech Understanding</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.71px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.71px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.71px;">System</a> <a href="/tags/System-Prompt/" style="font-size: 10px;">System Prompt</a> <a href="/tags/T5/" style="font-size: 10.71px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.43px;">THW</a> <a href="/tags/TTS/" style="font-size: 10.71px;">TTS</a> <a href="/tags/TTS-LLaMA/" style="font-size: 10px;">TTS-LLaMA</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.71px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.71px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.14px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.71px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.43px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.43px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.71px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.29px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.71px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Algorithm/" style="font-size: 12.86px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.14px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.43px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.71px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.71px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.43px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.14px;">Business</a> <a href="/tags/C/" style="font-size: 10.71px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.71px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.71px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12.14px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.71px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.14px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context/" style="font-size: 10px;">Context</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 10.71px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.71px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.71px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DB/" style="font-size: 10.71px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14.29px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.71px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 11.43px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.14px;">DeepLearning</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 14.29px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dream/" style="font-size: 10px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.71px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.71px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.43px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.71px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.71px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.71px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.43px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.43px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.71px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.71px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.71px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 11.43px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.71px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.71px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.71px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10.71px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.71px;">Knowledge Graph</a> <a href="/tags/LLM/" style="font-size: 17.86px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.14px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.71px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12.14px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.71px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.43px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14.29px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.43px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.71px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14.29px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.43px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.71px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.43px;">NNW</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.71px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 10px;">OMNI</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.71px;">One-Shot</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.71px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.71px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.71px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Postgres/" style="font-size: 10.71px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 12.14px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.71px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.71px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 13.57px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.71px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.57px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.71px;">R-Drop</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.71px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.86px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.71px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.71px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.71px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.71px;">SVM</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.71px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.43px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.71px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.71px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.71px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.43px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.71px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.71px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.71px;">System</a> <a href="/tags/T5/" style="font-size: 10.71px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.43px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTS/" style="font-size: 13.57px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.71px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.71px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.14px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.71px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.43px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.43px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.71px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
     </div>
   </aside>
 
@@ -714,7 +786,7 @@
 </div>
       </div>
       <footer id="colophon" role="contentinfo">
-    <p>&copy; 2024 hscspring
+    <p>&copy; 2025 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
     
