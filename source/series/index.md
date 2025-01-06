@@ -19,6 +19,7 @@ date: 2019-07-13 20:00:00
   - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
   - [LLM论文速览](#llm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
 - [LMM系列](#lmm%E7%B3%BB%E5%88%97)
+  - [VoiceAgent](#voiceagent)
   - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
   - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
 - [NLP系列](#nlp%E7%B3%BB%E5%88%97)
@@ -107,18 +108,19 @@ date: 2019-07-13 20:00:00
 
 ### LLM论文速览
 
-- [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following/)
-- [LLM解码论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Decoding/)
-- [LLM提示词、上下文论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Prompt/)
-- [LLM应用论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Application/)
+- [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/)
 
 ## LMM系列
 
+### VoiceAgent
+
+- [实时语音交互场景下RAG的机遇和挑战 | Yam](https://yam.gift/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/)
+
 ### LMM论文速览
 
-- [OMNI论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI/)
-- [SLM论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM/)
-- [音频Codec论文速览](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec/)
+- [OMNI论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers/)
+- [SLM论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/)
+- [音频Codec论文速览](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/)
 
 ### LMM论文笔记
 
