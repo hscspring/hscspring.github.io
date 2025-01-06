@@ -102,7 +102,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 ## 学术研究
 
 - 《ChatGPT原理与应用开发》
-    - [2024年度影响力新书奖+2024年度影响力作者奖](https://mp.weixin.qq.com/s/wuEMOMU7JzqVilpCrld1Cg)
+    - [2024年度影响力新书奖+2024年度影响力作者奖](https://mp.weixin.qq.com/s/wuEMOMU7JzqVilpCrld1Cg)、[2024年度影响力新书奖重磅出炉!](https://mp.weixin.qq.com/s/FAMs0Ojh7Dgdn89MHYZ4Jg)、[人工智能畅销图书TOP10](https://mp.weixin.qq.com/s/vGaRszquaL_bEpukBPyXRQ)
     - [《Datawhale蝴蝶书》出版了！](https://mp.weixin.qq.com/s/cIn3-hL9DSOJf2S2_MihNw)
     - GitHub：[datawhalechina/hugging-llm: HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
 - 《Interactive NLP》
