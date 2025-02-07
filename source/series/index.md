@@ -94,6 +94,7 @@ date: 2019-07-13 20:00:00
 - [ChatGPT 开发指南：Hugging LLM Hugging Future](https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/)
 - [关于大语言模型的思考](https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/)
 - [OpenAIGC 大赛小结](https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/)
+- [ChatGPT 影响冲击：职业、行业与产业](https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/)
 
 ### LLM继续训练、预训练
 
@@ -429,6 +430,7 @@ date: 2019-07-13 20:00:00
 
 ## 杂文随笔Essay
 
+- [我为什么做开源？ | Yam](https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/)
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
 - [《舞狮少年》观后 —— 信念、文化与希望 | Yam](https://yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/)
