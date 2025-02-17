@@ -14,13 +14,13 @@
   
   <title>DeepSeek R1及相关研究介绍 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文是《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，DeepSeek-R1">
+  <meta name="description" content="本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，D">
 <meta name="keywords" content="AI,LLM,NLP,Pre-training,Continual Pre-training,Post-training,R1,R1-Zero,oat-zero,DeepScaleR,LIMO,s1,Inference Scaling">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepSeek R1及相关研究介绍">
 <meta property="og:url" content="https://www.yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="本文是《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，DeepSeek-R1">
+<meta property="og:description" content="本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，D">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepseek-r1-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepseek-r1-2.jpg">
@@ -30,10 +30,10 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-yarz-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-yarz-3.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-yarz-4.jpg">
-<meta property="og:updated_time" content="2025-02-17T00:32:03.531Z">
+<meta property="og:updated_time" content="2025-02-17T01:37:48.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeepSeek R1及相关研究介绍">
-<meta name="twitter:description" content="本文是《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，DeepSeek-R1">
+<meta name="twitter:description" content="本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，D">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-deepseek-r1-1.jpg">
   
   
@@ -105,7 +105,7 @@
             <!-- Table of Contents -->
               
         <blockquote>
-<p>本文是《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在<a href="https://github.com/datawhalechina/hugging-llm/tree/main/resources" target="_blank" rel="noopener">这里</a>找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。</p>
+<p>本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在<a href="https://github.com/datawhalechina/hugging-llm/tree/main/resources" target="_blank" rel="noopener">这里</a>找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。</p>
 </blockquote>
 <p>距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，DeepSeek-R1就将LLM真正推向了深度思考时代。</p>
 <p>两年多的高速发展，前所未有的按周迭代，如今想来都一阵恍惚。2023年是LLM最快速发展的一年，被称为LLM元年，新的开发范式出现（感兴趣的读者可以关注<a href="https://github.com/datawhalechina/hugging-llm" target="_blank" rel="noopener">HuggingLLM</a>），全民AI浪潮涌现。2024年，基于LLM的应用已经开始成熟，Agent百花齐放，进入元年，各种应用层出不穷，一个人公司成为可能。</p>
