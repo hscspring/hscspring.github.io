@@ -14,6 +14,7 @@ date: 2019-07-13 20:00:00
   - [思考](#%E6%80%9D%E8%80%83)
   - [哲学](#%E5%93%B2%E5%AD%A6)
 - [LLM系列](#llm%E7%B3%BB%E5%88%97)
+  - [R1相关](#r1%E7%9B%B8%E5%85%B3)
   - [ChatGPT/LLM](#chatgptllm)
   - [LLM继续训练、预训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83%E9%A2%84%E8%AE%AD%E7%BB%83)
   - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
@@ -80,8 +81,15 @@ date: 2019-07-13 20:00:00
 - [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
 - [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
 
-
 ## LLM系列
+
+### R1相关
+
+- [DeepSeek R1：新范式、新纪元 | Yam](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)
+- [R1相关：少量高质量数据SFT激活LLM推理能力 | Yam](https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/)
+- [R1相关：RL数据选择与Scaling | Yam](https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/)
+- [R1相关：DPO数据选择与DPO等RL算法 | Yam](https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/)
+- [LLM、强化、蒸馏讨论 | Yam](https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/)
 
 ### ChatGPT/LLM
 
@@ -96,7 +104,12 @@ date: 2019-07-13 20:00:00
 - [OpenAIGC 大赛小结](https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/)
 - [ChatGPT 影响冲击：职业、行业与产业](https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/)
 
-### LLM继续训练、预训练
+### LLM预训练
+
+- [预训练：无处安放的躁动之心 | Yam](https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/)
+- [预训练：NTP和Scaling Law | Yam](https://yam.gift/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/)
+
+### LLM继续训练
 
 - [Tiny LLM Continual Pre-training：RHO-1 | Yam](https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/)
 - [LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam](https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/)
