@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yam.gift/"/>
-  <updated>2025-03-02T14:31:21.470Z</updated>
+  <updated>2025-03-15T03:18:57.856Z</updated>
   <id>https://www.yam.gift/</id>
   
   <author>
@@ -17,11 +17,101 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>DeepSeek R1后LLM新范式</title>
+    <link href="https://www.yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/"/>
+    <id>https://www.yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</id>
+    <published>2025-03-15T03:00:00.000Z</published>
+    <updated>2025-03-15T03:18:57.856Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文通过10篇R1相关的研究，介绍R1后LLM的新范式。其核心就是如何进一步增强LLM的能力。&lt;/p&gt;
+&lt;h2 id=&quot;基本框架&quot;&gt;基本框架&lt;/h2&gt;
+&lt;p&gt;首先是整体的框架，如下所示。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Base+SFT
+&lt;ul&gt;
+&lt;li&gt;R1冷启动&lt;/li&gt;
+&lt;li&gt;LIMO (817 Data Selection)&lt;/li&gt;
+&lt;li&gt;s1 (1000)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Base+RL
+&lt;ul&gt;
+&lt;li&gt;GRPO: R1-Zero&lt;/li&gt;
+&lt;li&gt;GRPO: oat-zero (Base can Aha、RL  enhance）&lt;/li&gt;
+&lt;li&gt;PPO: LIMR (Data Selection)&lt;/li&gt;
+&lt;li&gt;PPO: orz (Scaling quality, diversity)&lt;/li&gt;
+&lt;li&gt;DPO: Online-DPO-R1 (Different RL Algo)&lt;/li&gt;
+&lt;li&gt;DPO: LIMD (Data Selection)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;SFT+RL
+&lt;ul&gt;
+&lt;li&gt;R1蒸馏&lt;/li&gt;
+&lt;li&gt;DeepScaleR (Length Scaling)&lt;/li&gt;
+&lt;li&gt;Self-rewarding correction (LLM can reward itself, explicit Aha)、L1（LCPO）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我将其分成3个部分，前两个部分是Base模型的基础上使用SFT或RL提升效果，最后是SFT结合RL进一步提升效果。每个部分的第一个都是R1论文中的内容，上面没有R1本身，是因为R1本身是一个比较综合的过程。&lt;/p&gt;
+&lt;p&gt;值得说明的是，关于R1相关的研究肯定不止这些，列出这些一方面是因为我自己精力有限，只仔细阅读了这些；另一方面是逐步整理的过程中感觉到框架基本趋于完善。因此，本文也算是一个阶段性整理的输出。&lt;/p&gt;
+&lt;p&gt;本文内容相对比较通俗，如果对相关内容感兴趣，可以移步到对应的解读文章。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://www.yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://www.yam.gift/tags/NLP/"/>
+    
+      <category term="Pre-training" scheme="https://www.yam.gift/tags/Pre-training/"/>
+    
+      <category term="Continual Pre-training" scheme="https://www.yam.gift/tags/Continual-Pre-training/"/>
+    
+      <category term="TTS" scheme="https://www.yam.gift/tags/TTS/"/>
+    
+      <category term="Post-training" scheme="https://www.yam.gift/tags/Post-training/"/>
+    
+      <category term="R1" scheme="https://www.yam.gift/tags/R1/"/>
+    
+      <category term="R1-Zero" scheme="https://www.yam.gift/tags/R1-Zero/"/>
+    
+      <category term="oat-zero" scheme="https://www.yam.gift/tags/oat-zero/"/>
+    
+      <category term="DeepScaleR" scheme="https://www.yam.gift/tags/DeepScaleR/"/>
+    
+      <category term="LIMO" scheme="https://www.yam.gift/tags/LIMO/"/>
+    
+      <category term="s1" scheme="https://www.yam.gift/tags/s1/"/>
+    
+      <category term="Inference Scaling" scheme="https://www.yam.gift/tags/Inference-Scaling/"/>
+    
+      <category term="LIMR" scheme="https://www.yam.gift/tags/LIMR/"/>
+    
+      <category term="LIMD" scheme="https://www.yam.gift/tags/LIMD/"/>
+    
+      <category term="Online-DPO-R1" scheme="https://www.yam.gift/tags/Online-DPO-R1/"/>
+    
+      <category term="orz" scheme="https://www.yam.gift/tags/orz/"/>
+    
+      <category term="L1" scheme="https://www.yam.gift/tags/L1/"/>
+    
+      <category term="LCPO" scheme="https://www.yam.gift/tags/LCPO/"/>
+    
+  </entry>
+  
+  <entry>
     <title>R1相关：DPO数据选择与DPO等RL算法</title>
     <link href="https://www.yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/"/>
     <id>https://www.yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/</id>
     <published>2025-03-02T03:00:00.000Z</published>
-    <updated>2025-03-02T14:31:21.470Z</updated>
+    <updated>2025-03-11T00:06:05.272Z</updated>
     
     <summary type="html">
     
@@ -58,7 +148,7 @@
     <link href="https://www.yam.gift/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/"/>
     <id>https://www.yam.gift/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/</id>
     <published>2025-02-28T00:00:00.000Z</published>
-    <updated>2025-02-28T01:08:42.011Z</updated>
+    <updated>2025-03-03T00:30:16.221Z</updated>
     
     <summary type="html">
     
@@ -200,7 +290,7 @@
     <link href="https://www.yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/"/>
     <id>https://www.yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/</id>
     <published>2025-02-17T00:00:00.000Z</published>
-    <updated>2025-02-22T01:53:46.386Z</updated>
+    <updated>2025-03-15T03:17:22.519Z</updated>
     
     <summary type="html">
     
@@ -214,7 +304,7 @@
     </summary>
     
     
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+      <category term="Thinking" scheme="https://www.yam.gift/categories/Thinking/"/>
     
     
       <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
@@ -361,29 +451,6 @@
   </entry>
   
   <entry>
-    <title>OMNI论文速览</title>
-    <link href="https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers/"/>
-    <id>https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers/</id>
-    <published>2024-12-31T15:00:00.000Z</published>
-    <updated>2025-01-01T00:15:48.535Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;OMNI相关论文。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
-    
-      <category term="OMNI" scheme="https://www.yam.gift/tags/OMNI/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SLM论文速览</title>
     <link href="https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/"/>
     <id>https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/</id>
@@ -484,6 +551,29 @@
       <category term="TTS" scheme="https://www.yam.gift/tags/TTS/"/>
     
       <category term="XTTS" scheme="https://www.yam.gift/tags/XTTS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OMNI论文速览（2024）</title>
+    <link href="https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/"/>
+    <id>https://www.yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/</id>
+    <published>2024-12-31T15:00:00.000Z</published>
+    <updated>2025-03-06T12:40:38.101Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;OMNI相关论文。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://www.yam.gift/tags/AI/"/>
+    
+      <category term="OMNI" scheme="https://www.yam.gift/tags/OMNI/"/>
     
   </entry>
   
@@ -596,31 +686,6 @@
       <category term="Multi-Modal" scheme="https://www.yam.gift/tags/Multi-Modal/"/>
     
       <category term="Embodied AI" scheme="https://www.yam.gift/tags/Embodied-AI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>《真希望父母读过这本书》读书笔记</title>
-    <link href="https://www.yam.gift/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/"/>
-    <id>https://www.yam.gift/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/</id>
-    <published>2024-09-30T14:00:00.000Z</published>
-    <updated>2024-10-08T05:01:50.599Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;周六下午和爱人一起去了天目里，散步、聊天、看风景、喝茉酸奶、吃烧鸟、去鸟屋书店读书、去饸饹面馆吃面。这是我们第二次去这里了，主要是那家面馆的面很符合我们口味，但也不能打车过去就吃个面，所以每次都要看一两个小时书。这本书就是这天我读的两本书之一，还剩最后一章没读完，我觉得问题不大，得赶紧把读过的记下来。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://www.yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Diary" scheme="https://www.yam.gift/tags/Diary/"/>
-    
-      <category term="Life" scheme="https://www.yam.gift/tags/Life/"/>
-    
-      <category term="BabyGrow" scheme="https://www.yam.gift/tags/BabyGrow/"/>
     
   </entry>
   
