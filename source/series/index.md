@@ -85,6 +85,7 @@ date: 2019-07-13 20:00:00
 
 ### R1相关
 
+- [DeepSeek R1后LLM新范式 | Yam](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/)
 - [DeepSeek R1：新范式、新纪元 | Yam](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)
 - [R1相关：少量高质量数据SFT激活LLM推理能力 | Yam](https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/)
 - [R1相关：RL数据选择与Scaling | Yam](https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/)
