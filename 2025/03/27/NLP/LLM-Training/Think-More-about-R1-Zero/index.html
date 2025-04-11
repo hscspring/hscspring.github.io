@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+
+  
+  
+  
+  
+  
+  <title>Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yam">
+<meta property="og:url" content="https://www.yam.gift/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-simplerlzoo-2.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-simplerlzoo-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-simplerlzoo-3.jpg">
+<meta property="og:updated_time" content="2025-04-11T00:38:18.880Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yam">
+<meta name="twitter:description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-simplerlzoo-2.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLP/LLM-Training/Think-More-about-R1-Zero" class="post-NLP/LLM-Training/Think-More-about-R1-Zero post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/" data-id="cm9c26pq400007pbzg76as3or" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <h2 id="tl-dr">TL;DR</h2>
+<p>本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：</p>
+<ul>
+<li>Base模型是核心，RL在激活能力
+<ul>
+<li>强模型需高难度数据充分激活能力，弱模型需渐进引导。</li>
+<li>强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。</li>
+<li>自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度思考”，复杂问题感知简化。</li>
+</ul>
+</li>
+<li>LLM学习模式的关键发现
+<ul>
+<li>反思能力在预训练早期即显现，随训练逐步提升。</li>
+<li>LLM依赖模式记忆而非数学规则。</li>
+<li>预训练知识获取分三阶段：统计学习→平台期（记忆回路形成）→个体知识获取。数据调度策略（如“热身训练”）可加速知识获取，微调易导致幻觉与知识损坏。</li>
+</ul>
+</li>
+<li>RL算法
+<ul>
+<li>算法改进：DAPO、Dr GRPO。</li>
+<li>强化已有正确推理行为（非注入新知识），领域预训练可显著提升上限。</li>
+<li>分阶段扩展上下文窗口（短→长任务），按难度课程式学习匹配模型能力。</li>
+</ul>
+</li>
+<li>工程实践关键
+<ul>
+<li>Base模型优先同系列大模型，小模型需更多探索，慎用SFT冷启动（可能限制RL潜力）。</li>
+<li>数据应覆盖多领域、多难度、多样化回答，避免固定格式限制（弱模型尤其敏感）。</li>
+<li>弱Base没做过LongCoT的可以先LongCoT。遵循课程式数据设计和训练策略：从短任务逐步过渡到长难题。</li>
+</ul>
+</li>
+</ul>
+<p>总之，Base模型是核心，Base不行先继续训练或LongCoT。RL是激活手段，需结合数据难度与模型能力动态适配。工程上分阶段、重数据质量与课程设计，避免过度依赖微调。</p>
+<a id="more"></a>
+<h2 id="研究速览">研究速览</h2>
+<p>近期三篇继续探索、改进R1-Zero本身范式的工作，比较有意思，统一记录一下。</p>
+<h3 id="simplerl-zoo">SimpleRL-Zoo</h3>
+<p>Paper：<a href="http://arxiv.org/abs/2503.18892" target="_blank" rel="noopener">http://arxiv.org/abs/2503.18892</a></p>
+<p>GitHub：<a href="https://github.com/hkust-nlp/simpleRL-reason" target="_blank" rel="noopener">https://github.com/hkust-nlp/simpleRL-reason</a></p>
+<p>HKUST的工作，最有意思的发现是非Qwen系列模型也可以Aha，这在之前的研究中是没有的，比如<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">oat-zero</a>、<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/" target="_blank" rel="noopener">Online-DPO-R1</a>都没有在LLaMA3中观察到Aha。</p>
+<p>其实很多结论差不多已经成为共识了。罗列一下关键发现：</p>
+<ul>
+<li>
+<p>响应长度的增加并不总是意味着Aha。也就是说响应长度增加，自我反思频率并不一定增加。这点和其他研究的观察一致，长度的增加本来就和自我反思没有绝对的因果关系，顶多说观察到一定的相关性。</p>
+</li>
+<li>
+<p>在Llama3-8B和DeepSeek-Math-7B上观察到特定认知推理行为（如验证）的频率提升。这就是本文所谓的Qwen外模型Aha了，其关键是使用了“适当难度”的数据引导“不同能力”的Base。与此相关的一个发现就是：训练数据的难度必须与Base模型的内在探索能力相匹配，否则训练会失败。这与“核心在Base”本质上是一致的但更加清晰，因为本质就是在“激活”Base。如下图所示，随着数据难度增加，Mistral-7B 的性能逐渐下降；而Qwen-2.5-7B的表现则相反，随着数据集难度的降低，模型的平均准确率和响应长度都呈下降趋势。这不但说明Qwen-2.5-7B本身备较强的推理能力，也再次说明这就是在“激活”Base，<strong>难度太小的数据反而无法激活能力强的模型</strong>。这也是之前<a href="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" target="_blank" rel="noopener">LIMO</a>、<a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/" target="_blank" rel="noopener">LIMR</a>、<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/" target="_blank" rel="noopener">LIMD</a>都在强调数据选择重要性的原因所在。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-2.jpg" alt></p>
+</li>
+<li>
+<p>强制使用固定格式的奖励机制（比如用框圈住答案）严重抑制模型的探索能力。对一开始就难以执行指令的Base模型影响更大。如下图所示，Llama3-8B相差巨大。格式居然会限制模型性能上限，这一点也比较新颖。不过可能还和Base模型能力有关，Base能力差，外在的“限制”更加会影响其“激活”。这里的核心还是“激活”而非真正的SFT，Base模型没见过这种格式，能力弱的Base可能直接就被干懵了。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-1.jpg" alt></p>
+</li>
+<li>
+<p>冷启动可以迅速提升Base模型性能，但会极大限制模型在强化学习阶段自由探索的能力。这种限制会削弱模型的最终性能，并抑制高级推理能力的涌现。如下图所示，最后性能最好的反而是没SFT的Base模型。这点看起来好像和我们之前的认识不太一样，因为SFT+RL一般会被认为能提升性能。个人猜测可能和论文中SFT的数据选择有关，SFT的数据质量要求非常高（数量并不重要）；另外可能也和模型选择有关（Mistral 24B），不知道换成Qwen2.5会怎样。不过我们认知的SFT+RL中的SFT做的其实是LongCoT，并不是激活，也就是我们在<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" target="_blank" rel="noopener">DeepSeek R1后LLM新范式 | Yam</a>中提到的R1-R模式。所以，这里挑战的其实是R1的冷启动+RL模式。在那篇文章里我们也同时提到过：TTS让Base模型把“<strong>比较好的那条路径</strong>”给展示了出来；而SFT则是展示出来一条“<strong>相对还可以的固定路径</strong>”（因为激活的数据是确定的）。所以，SFT数据质量不同，激活的Base模型的推理能力就不同。而DPO正好介于SFT和其他RL之间，它展示出来的是一条“<strong>相_比较_还可以的固定路径</strong>”。是不是因为SFT后将模型“锁定”（尤其是能力弱的模型，可能更容易被锁定）在某条路径上导致后续RL效果打了折扣？</p>
+<blockquote>
+<p>说到这里，突然想起之前<a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/" target="_blank" rel="noopener">LIMR</a>还有个有意思的结论：“RL 可能更有效地增强数据稀疏场景中的推理能力，<strong>尤其对小模型来说，可能比SFT更有效</strong>”。是不是意味着RL探索范围更广，对小模型更加“友好”；而SFT相对固定，所以需要Base模型本身能力强。</p>
+</blockquote>
+<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-3.jpg" alt></p>
+</li>
+</ul>
+<h3 id="understanding-r1-zero-like-training">Understanding R1-Zero-Like Training</h3>
+<p>Paper：<a href="http://arxiv.org/abs/2503.20783" target="_blank" rel="noopener">http://arxiv.org/abs/2503.20783</a></p>
+<p>GitHub：<a href="https://github.com/sail-sg/understand-r1-zero" target="_blank" rel="noopener">https://github.com/sail-sg/understand-r1-zero</a></p>
+<p>这个就是<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">oat-zero</a>同一个团队的最新成果。这篇文章涉及两个主题：Base和RL，RL主要是Dr. GRPO，Dr. GRPO感觉比较有意思，单独写了一篇：<a href="https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" target="_blank" rel="noopener">异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam</a>，此处不再详细展开。</p>
+<p>关于Base模型（Qwen2.5-Math-1.5B, Qwen2.5-Math-7B, Qwen2.5-7B,  Llama-3.1-8B, DeepSeek-Math-7B 和DeepSeek-V3-Base-685B）的发现：</p>
+<ul>
+<li>本意是检查Base模型是否有QA能力（是否回答问题）。
+<ul>
+<li>Llama 和 DeepSeek 模型通过使用合适的模板（R1模板）提高了回答能力。然而，Qwen2.5 模型在<strong>不使用模板</strong>时表现最佳。</li>
+<li>未使用模板时最低的回答率表明 DeepSeek-V3-Base 是一个几乎纯粹的基础模型。</li>
+<li>所有测试过的模型都是探索性的（因此适合用于RL），其中 Qwen2.5 模型表现最佳。指标用不同采样温度下的 pass@8 准确率，可以作为基础策略探索能力的标志。</li>
+<li>结论：模板非常重要，所有Base已经具备了数学能力。</li>
+</ul>
+</li>
+<li>考察Qwen2.5系列模型。在数学任务上，因此主要还是Math模型。
+<ul>
+<li>Qwen2.5 Math即使不使用模板，相比4-shot也能有60%的性能提升，推测可能在预训练时使用了拼接的问答对。</li>
+<li>使用Qwen2.5复现R1-Zero时应谨慎，因为Base本身在没有模板的情况下就已经具备类似SFT的特性。</li>
+</ul>
+</li>
+<li>考察Base模型的Aha。
+<ul>
+<li>和其他Base模型一样，DeepSeek-V3-Base本来就会Aha。</li>
+<li>虽然在 R1-Zero 中自我反思行为更为频繁，但这些行为并不一定意味着更高的准确率。</li>
+</ul>
+</li>
+</ul>
+<p>关于RL的发现：</p>
+<ul>
+<li>Dr.GRPO优化GRPO两个偏差。
+<ul>
+<li>响应级别长度偏差：对积极的advantage，这种偏差导致<strong>较短的响应获得更大的梯度更新</strong>，从而使策略倾向于在正确答案中<strong>优先选择更简洁的表达</strong>。相反，对于消极的advantage，由于较长的响应具有更大的 |oi|，因此它们受到的惩罚较小，这导致策略在错误答案中倾向于选择<strong>较长的响应</strong>。</li>
+<li>问题难度级别偏差：标准差较低的问题（例如，太简单或太困难的问题，结果奖励几乎全为 1 或 0）在策略更新时会被赋予更高的权重。<strong>问题级归一化</strong>导致不同问题在目标函数中的权重不同，从而在优化过程中产生了<strong>难度偏差</strong>。</li>
+</ul>
+</li>
+<li>模板与数据覆盖对RL影响
+<ul>
+<li>Qwen2.5-Math-1.5B Base已经具备强大数学能力，添加模板反而会破坏其原有能力，RL 训练过程相当于重建这一能力。</li>
+<li>当基础模型与提示模板不匹配时，模型的提升主要依赖于 RL 调优，因此<strong>问题集的覆盖范围至关重要</strong>。但如果<strong>选择了合适的模板，即使问题集很小且完全 o.o.d.，RL 仍然可以有效强化推理能力</strong>。</li>
+<li>说明，<strong>关键在于强化正确的推理行为，而不是向模型注入新知识。</strong></li>
+</ul>
+</li>
+<li>领域（数学）预训练提升RL上限
+<ul>
+<li>RL可以改善原始的Llama基础模型，但提升较小。</li>
+<li>加入数学知识后，RL性能提升显著。</li>
+</ul>
+</li>
+</ul>
+<h3 id="fastcurl">FastCuRL</h3>
+<ul>
+<li>Paper：<a href="http://arxiv.org/abs/2503.17287" target="_blank" rel="noopener">http://arxiv.org/abs/2503.17287</a></li>
+<li>GitHub：<a href="https://github.com/nick7nlp/FastCuRL" target="_blank" rel="noopener">https://github.com/nick7nlp/FastCuRL</a></li>
+</ul>
+<p>来自腾讯混元的FastCuRL，可以看作<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">DeepScaleR</a>的升级一点点版，比DeepScaleR提升了0.5个点，但只用了一半训练步骤。</p>
+<ul>
+<li>按Prompt长度切分数据：3个等级。
+<ul>
+<li>出发点是回答过长的两类问题：本身较难和包含大量条件（需要不断验证条件）。这两种情况都可能在 8K 上下文窗口内降低模型的训练效率。</li>
+<li>同时，DeepScaleR在训练初期的裁剪率（clip ratio）较高。刚开始学习太难、回复太长的问题可能效率不高。</li>
+<li>因此，依据特定特征（如响应长度）对训练数据进行分段处理，可能缓解因上下文限制导致的截断问题，提升训练效率。</li>
+</ul>
+</li>
+<li>不断增加上下文窗口长度进行训练。
+<ul>
+<li>出发点是要取得长上下文和计算资源的权衡。</li>
+<li>采用课程学习，逐步扩展上下文窗口进行训练。</li>
+<li>包括四步：
+<ul>
+<li>先学习简单任务（short）：8k上下文。</li>
+<li>然后学习混合任务（long+short）：16k上下文。</li>
+<li>接着学习困难任务（long）。</li>
+<li>最后整体复习所有任务（short+long）。</li>
+</ul>
+</li>
+<li>每个阶段最多在相应数据集上进行一次迭代。整个完成后相当于做了3次迭代。</li>
+</ul>
+</li>
+</ul>
+<h2 id="整体视角">整体视角</h2>
+<p>前面是从论文角度分别介绍各自观点，我们现在从整体角度梳理一下。</p>
+<h3 id="base的关键作用">Base的关键作用</h3>
+<p>首先就是Base模型的关键作用，可以说它就是核心，决定了后续的方向。因为无论SFT还是RL都是在“激活”能力，所以不同能力的Base在激活的选择和效果上就表现出非常大的不同。</p>
+<ul>
+<li>能力激活机制：
+<ul>
+<li>数据难度匹配：训练数据的难度必须与Base模型的内在探索能力相匹配。
+<ul>
+<li>强模型激活时相对比较“随意”，相对不太挑方法和数据，但不同难度的数据激活的能力大小不同。一般能力越强激活需要的数据难度越高，简单数据反而无法充分激活其能力。SFT+RL可能获得最好的效果。</li>
+<li>弱模型需要选择适当的数据SFT或RL，否则可能会激活失败。高难度数据容易导致性能退化，需逐步引导探索。</li>
+</ul>
+</li>
+<li>模板适应性：强制使用固定格式的奖励机制抑制模型的探索能力。
+<ul>
+<li>强模型格式限制会对性能有一定影响（模板不匹配时，RL等于重学已有能力，效率低）。无需格式也可以，甚至有更高性能。</li>
+<li>弱模型格式限制会严重影响性能，抑制探索。但是使用合适的模板也能提高性能。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Aha现象的普适性：
+<ul>
+<li>非Qwen模型亦可涌现，Base模型也有。</li>
+<li>Aha与性能的非必然关联：自我反思频率提升未必带来准确率提升，需结合数据质量分析。</li>
+</ul>
+</li>
+<li>SFT/冷启动的争议：
+<ul>
+<li>潜在副作用：虽快速提升初始性能，但可能锁定模型路径，限制后续RL探索空间，导致最终性能低于纯RL训练（尤其在弱模型上）。</li>
+<li>与数据质量强相关：若SFT数据质量高（如覆盖关键推理路径），可能正向引导；低质量数据则固化错误模式。</li>
+</ul>
+</li>
+</ul>
+<h3 id="llm学习模式">LLM学习模式</h3>
+<p>这部分内容是对上一部分的额外补充。</p>
+<p>关于Base模型的反思能力，近期有一篇论文：<a href="https://arxiv.org/abs/2504.04022" target="_blank" rel="noopener">Rethinking Reflection in Pre-Training</a> 对其进行了研究，结果发现，反思能力实际上在模型的预训练阶段就已开始显现。论文在CoT中故意引入错误，并测试模型能否识别和纠正这些错误并得出正确答案。结果是，这种自我纠错能力在预训练早期就已出现，并会随着训练的推进而不断提升。</p>
+<p>关于Aha，也有一篇细致研究的论文：<a href="https://arxiv.org/abs/2504.02956" target="_blank" rel="noopener">Understanding Aha Moments: from External Observations to Internal Mechanisms</a>，非常有意思，值得大力推荐。该论文证明，“顿悟时刻”的外部表现为更频繁地使用拟人化的语气进行自我反思，并根据问题难度自适应地调整不确定性。这一过程有助于模型完成推理而不会陷入“推理崩溃”。在内部则表现为拟人化特征与纯粹推理之间的分离，即在处理更困难的问题时，拟人化的语气会增强。此外，论文还发现“顿悟时刻”通过改变模型对问题难度的感知帮助其解决复杂问题。随着模型层数的增加，简单的问题往往被认为更复杂（过度思考），而更困难的问题则显得更简单。</p>
+<p>说到学习模式，还有两篇非常有意思的论文。</p>
+<p>第一篇是：<a href="https://arxiv.org/abs/2504.05262" target="_blank" rel="noopener">Do PhD-level LLMs Truly Grasp Elementary Addition? Probing Rule Learning vs. Memorization in Large Language Models</a> 这篇论文探讨了一个关键问题：LLM是学习数学原理还是仅仅记忆模式？有意思的是，他们并没有设计复杂的基准测试，而是使用基本的两个整数加法，探究两个核心属性：交换律和组合泛化。结果发现，LLM的算术处理与人类定义的原则不一致，这表明LLM依赖于记忆模式而非真正的规则学习。</p>
+<p>还有这篇 <a href="https://arxiv.org/abs/2503.21676" target="_blank" rel="noopener">How do language models learn facts? Dynamics, curricula and hallucinations</a> 则探讨了LLM预训练阶段知识获取的动态机制。本文通过一个合成的事实召回（回忆）任务研究此问题，数据集包含N个随机抽样的个体（合成传记数据集）。结论如下：</p>
+<ul>
+<li>语言模型的学习分为三个阶段：首先学习整体分布统计，然后表现趋于平稳（性能平台期，对应支持记忆召回的基于注意力机制的回路的形成），最后获取个体特定知识。</li>
+<li>不平衡分布加速了通过中间平稳阶段的过渡，但导致了过拟合。数据调度策略能够利用这种加速转变，同时减轻过拟合。论文采用了一种“热身”策略：模型最初在一小部分个体上进行固定步数的训练，然后再对所有个体进行训练。从一小部分个体开始应该能缩短平台期，而随后的均匀分布则在回忆回路建立良好的情况下最大化知识获取。</li>
+<li>微调在模型中融入新知识的效果不佳。这源于两个相关因素：首先，一旦模型获得了个体特定知识，就会产生幻觉（对未见过的个体的过度自信预测）。其次，当在新个体上进行训练时，存储在前馈层中的联想记忆会迅速损坏。</li>
+</ul>
+<p>这几篇论文都比较有意思，有时间再细读。</p>
+<h3 id="rl的优化方向">RL的优化方向</h3>
+<p>然后是关于RL的一些认知和优化，可以说RL是当下最佳激活算法并不为过。</p>
+<ul>
+<li>RL算法优化：
+<ul>
+<li>Dr GRPO：修正响应长度偏差和问题难度偏差。</li>
+<li>DAPO：从提高上限（Clip-Higher）、动态采样（Dynamic Sampling）、Token 级策略梯度损失和过长奖励塑造四个方面进行优化，对应clip、数据采样、损失计算和最大长度设计。</li>
+</ul>
+</li>
+<li>RL与知识注入：
+<ul>
+<li>RL关键不在于“增加知识”，而是强化“已有正确的推理行为”。即核心是引导Base，而非学习知识。</li>
+<li>领域预训练能显著提升RL上限，概因为Base模型能力得到提升。</li>
+</ul>
+</li>
+<li>RL训练策略：
+<ul>
+<li>通过响应长度划分数据，分阶段扩展上下文窗口，优先学习短响应问题，逐步过渡到长难题，平衡效率与效果。其实质是在匹配模型不同阶段的能力水平，课程式数据设计比“大锅乱炖”更有效率。</li>
+<li>按问题复杂度划分训练集，减少初期高截断率对长答案的干扰。按难度等级逐步激活会有更高的效率，但其最终效果应该和精挑细选的高质量数据集相差不大。最终效果的上限决定于Base模型。</li>
+</ul>
+</li>
+</ul>
+<h3 id="工程实践">工程实践</h3>
+<p>最后，我们从实践角度梳理一些关键点。</p>
+<ul>
+<li>一个合适的Base：
+<ul>
+<li>不同系列的Base模型特点不同，需根据任务选择合适的Base模型，或者做继续训练。</li>
+<li>同系列模型，Size小的需要更多的探索，Size大的模型更容易成功。在数据稀疏或小模型场景中，RL可能比SFT更有效。</li>
+</ul>
+</li>
+<li>高质量的数据：
+<ul>
+<li>数据的覆盖范围、回答的多样性、不同的难度等级（可以按响应长度或其他方法划分）。激活的数据数量不重要。</li>
+<li>尝试不限制格式，选择适当的模板。</li>
+</ul>
+</li>
+<li>分阶段训练：
+<ul>
+<li>弱Base慎用SFT激活，如果Base没做过LongCoT的，可以先做SFT，再RL。当然，也可以先做预训练，然后激活。</li>
+<li>课程式数据设计和学习节奏比“大锅乱炖”更有效率：从短任务逐步到长任务，遵循能力递增的课程学习路线来“激活”。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/">
+    <time datetime="2025-03-27T15:08:54.073Z" class="entry-date">
+        2025-03-27
+    </time>
+</a>
+    
+    
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" rel="prev"><span class="meta-nav">←</span> 异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！</a></span>
+    
+    
+        <span class="nav-next"><a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" rel="next">DAPO：为GRPO的锦上加四点花 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">72</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">138</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">36</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">R1相关：R1-Zero的进一步理解和探索</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/">异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO：为GRPO的锦上加四点花</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/15/AI/2025-03-15-LLM-App-Develop/">DeepSeek R1后应用、职业与行业影响——2025年梳理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.29px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.71px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Aha/" style="font-size: 10px;">Aha</a> <a href="/tags/Algorithm/" style="font-size: 12.86px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12.14px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.43px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.71px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.71px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.43px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12.14px;">Business</a> <a href="/tags/C/" style="font-size: 10.71px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.71px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.71px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12.14px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.71px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12.14px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 13.57px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.71px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.71px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DAPO/" style="font-size: 11.43px;">DAPO</a> <a href="/tags/DB/" style="font-size: 10.71px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DPO/" style="font-size: 10px;">DPO</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 13.57px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.71px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.71px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12.14px;">DeepLearning</a> <a href="/tags/DeepScaleR/" style="font-size: 10.71px;">DeepScaleR</a> <a href="/tags/DeepSeek/" style="font-size: 10px;">DeepSeek</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 14.29px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10.71px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dr-GRPO/" style="font-size: 10px;">Dr GRPO</a> <a href="/tags/DrDAPO/" style="font-size: 10px;">DrDAPO</a> <a href="/tags/Dream/" style="font-size: 10.71px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.71px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.71px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.43px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.71px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 10.71px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.71px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/FastCuRL/" style="font-size: 10px;">FastCuRL</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.43px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.43px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.71px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRPO/" style="font-size: 10.71px;">GRPO</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.71px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.71px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 12.14px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.71px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.71px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Inference-Scaling/" style="font-size: 11.43px;">Inference Scaling</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.71px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 10.71px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KL/" style="font-size: 10px;">KL</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.71px;">Knowledge Graph</a> <a href="/tags/L1/" style="font-size: 10px;">L1</a> <a href="/tags/LCPO/" style="font-size: 10px;">LCPO</a> <a href="/tags/LIMD/" style="font-size: 10.71px;">LIMD</a> <a href="/tags/LIMO/" style="font-size: 11.43px;">LIMO</a> <a href="/tags/LIMR/" style="font-size: 10.71px;">LIMR</a> <a href="/tags/LLM/" style="font-size: 18.57px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12.14px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.71px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12.14px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.71px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.43px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 13.57px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.43px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.71px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 13.57px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.43px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.71px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.43px;">NNW</a> <a href="/tags/NTP/" style="font-size: 10px;">NTP</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.71px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 10.71px;">OMNI</a> <a href="/tags/ORZ/" style="font-size: 10px;">ORZ</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.71px;">One-Shot</a> <a href="/tags/Online-DPO-R1/" style="font-size: 10.71px;">Online-DPO-R1</a> <a href="/tags/OpenSource/" style="font-size: 10px;">OpenSource</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.71px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.71px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.71px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Post-training/" style="font-size: 14.29px;">Post-training</a> <a href="/tags/Postgres/" style="font-size: 10.71px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 14.29px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.71px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.71px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 12.86px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.71px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 17.86px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/R-Drop/" style="font-size: 10.71px;">R-Drop</a> <a href="/tags/R1/" style="font-size: 10.71px;">R1</a> <a href="/tags/R1-Zero/" style="font-size: 11.43px;">R1-Zero</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RL/" style="font-size: 11.43px;">RL</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.71px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.86px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.71px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.71px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 15.71px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.71px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.71px;">SVM</a> <a href="/tags/Scaling/" style="font-size: 10px;">Scaling</a> <a href="/tags/Scaling-Law/" style="font-size: 10px;">Scaling Law</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.71px;">Search</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.43px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.71px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simple-Zoo/" style="font-size: 10px;">Simple-Zoo</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.71px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.71px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.43px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.71px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.71px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.71px;">System</a> <a href="/tags/T5/" style="font-size: 10.71px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.43px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTS/" style="font-size: 13.57px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.71px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.71px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.14px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.71px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/VoiceAgent/" style="font-size: 10px;">VoiceAgent</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.43px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.43px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.71px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/oat-zero/" style="font-size: 10.71px;">oat-zero</a> <a href="/tags/orz/" style="font-size: 10px;">orz</a> <a href="/tags/s1/" style="font-size: 11.43px;">s1</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2025 hscspring
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
