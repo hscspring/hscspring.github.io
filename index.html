@@ -212,76 +212,6 @@
 
 
   
-    <article id="post-NLP/LLM-Training/Think-More-about-R1-Zero" class="post-NLP/LLM-Training/Think-More-about-R1-Zero post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/" data-id="cm9c26pq400007pbzg76as3or" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <h2 id="tl-dr">TL;DR</h2>
-<p>本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：</p>
-<ul>
-<li>Base模型是核心，RL在激活能力
-<ul>
-<li>强模型需高难度数据充分激活能力，弱模型需渐进引导。</li>
-<li>强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。</li>
-<li>自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度思考”，复杂问题感知简化。</li>
-</ul>
-</li>
-<li>LLM学习模式的关键发现
-<ul>
-<li>反思能力在预训练早期即显现，随训练逐步提升。</li>
-<li>LLM依赖模式记忆而非数学规则。</li>
-<li>预训练知识获取分三阶段：统计学习→平台期（记忆回路形成）→个体知识获取。数据调度策略（如“热身训练”）可加速知识获取，微调易导致幻觉与知识损坏。</li>
-</ul>
-</li>
-<li>RL算法
-<ul>
-<li>算法改进：DAPO、Dr GRPO。</li>
-<li>强化已有正确推理行为（非注入新知识），领域预训练可显著提升上限。</li>
-<li>分阶段扩展上下文窗口（短→长任务），按难度课程式学习匹配模型能力。</li>
-</ul>
-</li>
-<li>工程实践关键
-<ul>
-<li>Base模型优先同系列大模型，小模型需更多探索，慎用SFT冷启动（可能限制RL潜力）。</li>
-<li>数据应覆盖多领域、多难度、多样化回答，避免固定格式限制（弱模型尤其敏感）。</li>
-<li>弱Base没做过LongCoT的可以先LongCoT。遵循课程式数据设计和训练策略：从短任务逐步过渡到长难题。</li>
-</ul>
-</li>
-</ul>
-<p>总之，Base模型是核心，Base不行先继续训练或LongCoT。RL是激活手段，需结合数据难度与模型能力动态适配。工程上分阶段、重数据质量与课程设计，避免过度依赖微调。</p>
-        
-          <p class="article-more-link">
-            <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/">
-    <time datetime="2025-03-27T15:08:54.073Z" class="entry-date">
-        2025-03-27
-    </time>
-</a>
-    
-    
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO" class="post-NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO post type-post status-publish format-standard hentry">
     <!---->
 
@@ -729,6 +659,60 @@
 
 
   
+    <article id="post-NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data" class="post-NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">R1相关：RL数据选择与Scaling</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://www.yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/" data-id="cm7r3enkt000045bz8gta1nv5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>本文介绍两篇对RL Scaling进一步探索的论文，都是关于数据方面的，结论有一定互补性。</p>
+        
+          <p class="article-more-link">
+            <a href="/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">
+    <time datetime="2025-02-27T15:00:00.000Z" class="entry-date">
+        2025-02-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Continual-Pre-training/">Continual Pre-training</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KL/">KL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LIMR/">LIMR</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ORZ/">ORZ</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Post-training/">Post-training</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RL/">RL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Scaling/">Scaling</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -777,15 +761,15 @@
           </li>
         
           <li>
-            <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO：为GRPO的锦上加四点花</a>
           </li>
         
           <li>
             <a href="/2025/03/15/AI/2025-03-15-LLM-App-Develop/">DeepSeek R1后应用、职业与行业影响——2025年梳理</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式</a>
           </li>
         
       </ul>

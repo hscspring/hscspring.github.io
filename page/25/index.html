@@ -72,104 +72,6 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions" class="post-Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/">Ubuntu16.04 安装 VirtualBox &amp; Vagrant 管理 VirtualBox 各种问题总结</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://www.yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/" data-id="cm5jp90f300bpvmbzvvqypmlg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-            <!-- Table of Contents -->
-              
-        <h2 id="ubuntu-下安装-virtualbox">Ubuntu 下安装 VirtualBox</h2>
-<ul>
-<li><a href="http://blog.csdn.net/flm2003/article/details/8168628" target="_blank" rel="noopener">Ubuntu下轻松安装virtualbox</a></li>
-</ul>
-<p>注意：</p>
-<ul>
-<li>务必要仔细查看用户手册上对系统和必要环境的依赖。</li>
-<li>如果 kernel header 不一致，需要更新 kernel：
-<ul>
-<li><code>sudo apt-get install linux-headers-generic</code> 或者</li>
-<li><code>sudo apt-get install linux-headers-$(uname -r)</code><br>
-<code>uname -r</code> 等于你的版本内核，比如我的：<code>4.4.0-21-generic</code></li>
-</ul>
-</li>
-<li>如果不能<a href="http://askubuntu.com/questions/762136/cannot-reinstall-virtualbox-on-ubuntu-16-04" target="_blank" rel="noopener">重装VBox</a>，需要修改BIOS设置：
-<ul>
-<li>Security 中的 Secure Boot 设置为“Disabled&quot; （一般设置这个就可以了吧）</li>
-<li>Startup中的 UEFI/Legacy Boot 选 Both</li>
-<li>Priority 选 Legacy First，CSM Support 选 Yes<br>
-包括类似 Surface Pro，都可以这样操作。<br>
-另外，由于现在的主板很多都带有 UEFI Secure Boot 功能，可能导致使用USB设备启动不了系统。用此方法也可以搞定。<br>
-参考至： <a href="http://blog.csdn.net/tanaya/article/details/8846779" target="_blank" rel="noopener">电脑无法从USB启动可能是 UEFI Secure Boot 在捣鬼！</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="使用-vagrant-管理-virtualbox">使用 Vagrant 管理 VirtualBox</h2>
-<ul>
-<li><a href="http://wp.fungo.me/linux/vagrant-for-programmer-ch1.html" target="_blank" rel="noopener">Vagrant：程序员的VirtualBox</a></li>
-</ul>
-<p>注意：</p>
-<ul>
-<li>如果在 <code>vagrant up</code> 时碰到<a href="https://github.com/lynnaloo/xtuple-vagrant/issues/13" target="_blank" rel="noopener">VirtualBox is complaining that the kernel module is not loaded</a>，可能需要这个命令：
-<ul>
-<li><code>sudo /usr/lib/virtualbox/vboxdrv.sh setup</code><br>
-注意此命令支持Ubuntu15.0，16.0，其他版本不一定支持。</li>
-<li>或者 <code>sudo /etc/init.d/vboxdrv setup</code><br>
-参见：<a href="https://gist.github.com/geraldvillorente/977d16624e079ba12741" target="_blank" rel="noopener">vagrant-virtualbox-failed</a></li>
-</ul>
-</li>
-<li>如果输入在 <code>vagrant up</code> 时出现以下错误，可能需要重新安装  vagrant，地址在这里：<a href="http://www.vagrantup.com/downloads.html" target="_blank" rel="noopener">vagrantup</a></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ vagrant package</span><br><span class="line">No usable default provider could be found for your system.  </span><br><span class="line"></span><br><span class="line">$ vagrant package --base vagrant-ubuntu64</span><br><span class="line">Vagrant has detected that you have a version of VirtualBox installed that is not supported by this version of Vagrant.   </span><br><span class="line">Please install one of the supported versions listed below to use Vagrant: 4.0, 4.1, 4.2, 4.3, 5.0</span><br></pre></td></tr></table></figure>
-<p>可参考这两个地方：</p>
-<ul>
-<li><a href="http://stackoverflow.com/questions/29450437/unable-to-vagrant-up-how-to-set-providers" target="_blank" rel="noopener">Unable to vagrant up - how to set “providers”</a></li>
-<li><a href="https://github.com/mitchellh/vagrant/issues/7578" target="_blank" rel="noopener">Make Virtualbox 5.1 final version compatible</a></li>
-</ul>
-
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/">
-    <time datetime="2016-09-04T12:59:08.000Z" class="entry-date">
-        2016-09-04
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vagrant/">Vagrant</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VirtualBox/">VirtualBox</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-Math/2016-09-03-Simpson-Paradox" class="post-Math/2016-09-03-Simpson-Paradox post type-post status-publish format-standard hentry">
     <!---->
 
@@ -601,15 +503,15 @@ B员工出勤10次，迟到9次，每次<strong>2小时</strong>。<br>
           </li>
         
           <li>
-            <a href="/2025/03/27/NLP/LLM-Training/Think-More-about-R1-Zero/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO：为GRPO的锦上加四点花</a>
           </li>
         
           <li>
             <a href="/2025/03/15/AI/2025-03-15-LLM-App-Develop/">DeepSeek R1后应用、职业与行业影响——2025年梳理</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式</a>
           </li>
         
       </ul>
