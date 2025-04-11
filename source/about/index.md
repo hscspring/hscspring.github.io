@@ -19,6 +19,8 @@ date: 2018-04-07 22:29:12
 
 ## 关于博主
 
+知乎：[长琴](https://www.zhihu.com/people/haosc)，公众号：[技术与人](https://mp.weixin.qq.com/s/10zLlVRF6NZ4EgD-enJqIg)。
+
 相信使命和生命同样重要。
 
 致力于用算法改善世界，用认知提升思维。
@@ -73,7 +75,9 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 
 ## 开源社群
 
-- 知乎专栏（不怎么更新的）：[NLP 点滴 - 知乎](https://www.zhihu.com/column/lovenlp)
+- 知乎专栏（不怎么更新的）：
+    - [NLP 点滴 - 知乎](https://www.zhihu.com/column/lovenlp)
+    - [多模态点滴 - 知乎](https://www.zhihu.com/column/c_1857730227255504896)
 - Rust 中文社区日报编辑、专栏作者。
     - Rust 日报：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=%E9%95%BF%E7%90%B4)
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
