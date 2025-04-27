@@ -85,7 +85,9 @@ date: 2019-07-13 20:00:00
 
 ### R1相关
 
+- [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
+- [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 - [异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/)
 - [DAPO：为GRPO的锦上加四点花 | Yam](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/)
 - [DeepSeek R1后LLM新范式 | Yam](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/)
