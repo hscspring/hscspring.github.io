@@ -85,6 +85,7 @@ date: 2019-07-13 20:00:00
 
 ### R1相关
 
+- [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
