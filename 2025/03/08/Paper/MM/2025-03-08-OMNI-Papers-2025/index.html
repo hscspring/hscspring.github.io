@@ -22,12 +22,13 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="OMNI相关论文。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-llama-omni2-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-phi-4-mini-1.jpg">
-<meta property="og:updated_time" content="2025-03-17T23:07:16.713Z">
+<meta property="og:updated_time" content="2025-05-09T02:56:15.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OMNI论文速览（2025）">
 <meta name="twitter:description" content="OMNI相关论文。">
-<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-phi-4-mini-1.jpg">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-llama-omni2-1.jpg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -99,6 +100,42 @@
               
         <p>OMNI相关论文。</p>
 <a id="more"></a>
+<h3 id="202505-llama-omni-2-ict-cas">202505 <code>LLaMA-Omni 2</code> ICT/CAS</h3>
+<p><img src="https://qnimg.lovevivian.cn/paper-llama-omni2-1.jpg" alt></p>
+<p>基于Qwen2.5 + CosyVoice2 + Whisper。</p>
+<ul>
+<li>Speech Tokenizer：单码本、25Hz、6561大小，来自Cosyvoice2。</li>
+<li><strong>Text-to-Speech Language Model</strong>：
+<ul>
+<li>LLM的输出（Token+hidden_states）给M_TTS。</li>
+<li>两层FFN将hidden_states（上下文信息）映射到给TTS的Embedding，同时根据Token得到Text Embedding（TTS的Embedding Layer）。</li>
+<li>使用gate fusion融合两个Embedding，然后传给M_TTS。</li>
+<li>流式：每读取 R 个融合表示就生成W个语音Token。当所有融合表示读取完毕后，模型会继续生成剩余的语音Token，直到完成为止。</li>
+</ul>
+</li>
+<li>Flow Matching Model：来自CosyVoice 2。</li>
+</ul>
+<p>数据：200K 多轮speech-to-speech数据。</p>
+<ul>
+<li>根据InstructS2S-200K，使用InstructS2S-200K生成多轮（1-5轮）文本。</li>
+<li>使用fish1.5生成随机音色，然后用CosyVoice2 ZeroShot合成对应的Instruction Speech（输入音色多样化）。输出1个固定音色。</li>
+</ul>
+<p>两阶段训练：</p>
+<ul>
+<li>Stage1：分开训练S2T、T2S。gate fusion不训练，只有Text Embedding输入到M_TTS.。
+<ul>
+<li>speech-to-text：固定speech encoder训练speech adapter 和LLM。</li>
+<li>text-to-speech：训LLM。</li>
+</ul>
+</li>
+<li>Stage2：训speech-tospeech多轮对话。固定speech encoder、speech adapter和LLM，只训练gate fusion module 和M_TTS。</li>
+</ul>
+<p>推理：</p>
+<ul>
+<li>基于语音Instruction生成文本。</li>
+<li>生成的Text Token和hidden_states进入gate fusion module 和M_TTS，生成Speech Token。</li>
+<li>Speech Token传给flow matching和vocoder生成音频。</li>
+</ul>
 <h3 id="202503-phi-4-mini-microsoft-☆">202503 <code>Phi-4-Mini</code> Microsoft ☆</h3>
 <p>3.8B+高质量数据+模态级Lora达到SLM的SOTA。</p>
 <p><strong>模型架构</strong></p>

@@ -24,15 +24,15 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-glm4-voice-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-glm4-voice-2.jpg">
-<meta property="og:image" content="https://arxiv.org/html/2411.00774v1/x1.png">
-<meta property="og:image" content="https://arxiv.org/html/2411.00774v1/x2.png">
-<meta property="og:image" content="https://arxiv.org/html/2411.00774v1/x3.png">
-<meta property="og:image" content="https://arxiv.org/html/2411.18138v1/x2.png">
-<meta property="og:image" content="https://arxiv.org/html/2410.17799v1/x1.png">
-<meta property="og:image" content="https://arxiv.org/html/2410.17799v1/x2.png">
-<meta property="og:image" content="https://arxiv.org/html/2410.17799v1/x3.png">
-<meta property="og:image" content="https://arxiv.org/html/2410.17799v1/x4.png">
-<meta property="og:updated_time" content="2025-03-06T12:40:38.101Z">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-freeze-omni-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-freeze-omni-2.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-freeze-omni-3.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-salmonn-omni-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-omniflatten-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-omniflatten-2.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-omniflatten-4.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-omniflatten-3.jpg">
+<meta property="og:updated_time" content="2025-05-09T03:10:42.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OMNI论文速览（2024）">
 <meta name="twitter:description" content="OMNI相关论文。">
@@ -108,7 +108,7 @@
               
         <p>OMNI相关论文。</p>
 <a id="more"></a>
-<h3 id="202412-glm-4-voice-zhipu-☆">202412 <code>GLM-4-Voice</code> Zhipu ☆</h3>
+<h3 id="202412-glm-4-voice-zhipu-开源推理☆">202412 <code>GLM-4-Voice</code> Zhipu 开源推理☆</h3>
 <p><a href="https://arxiv.org/abs/2412.02612" target="_blank" rel="noopener">GLM-4-Voice: Towards Intelligent and Human-Like End-to-End Spoken Chatbot</a></p>
 <p>单码本（CosyVoice）12.5Hz，两阶段（1Trillion Token预训练+SFT），Text-Audio交叉。</p>
 <p>LLaMA-OMNI和mini-omni缺乏拟人性，因为没有专门的语音预训练。</p>
@@ -164,19 +164,19 @@
 <li>使用Text-Speech数据对训练基于自回归的Speech Decoder，输出Codec，使用LLM的hidden state将Speech Decoder的输出转移到LLM的输出文本空间，达到TextInput -&gt; SpeechOut。</li>
 <li>基于Chunk的Speech-Speech微调。</li>
 </ul>
-<p><img src="https://arxiv.org/html/2411.00774v1/x1.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-1.jpg" alt></p>
 <p>阶段1 Speech Encoder：</p>
 <ul>
 <li>基于Chunk，Speech到连续特征再到LLM的Embedding空间。</li>
 <li>三阶段训练：ASR（Encoder）、ASR（LLM Adapter）、QA（Prompt Embedding）。</li>
 </ul>
-<p><img src="https://arxiv.org/html/2411.00774v1/x2.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-2.jpg" alt></p>
 <p>阶段2 Speech Decoder：</p>
 <ul>
 <li>NAR + AR + Codec。</li>
 <li>三阶段训练：单码本Codec训练、NAR+AR、NAR Prefix Decoder（用于将语音解码器与 LLM 的输出紧密耦合）。</li>
 </ul>
-<p><img src="https://arxiv.org/html/2411.00774v1/x3.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-3.jpg" alt></p>
 <p>阶段3 Duplex：</p>
 <ul>
 <li>VAD然后Chunk by Chunk给到OMNI。</li>
@@ -192,7 +192,7 @@
 <li>同时处理输入输出流</li>
 <li>处理自然对话中的复杂动态，如对话轮次切换、打断、重叠语音、其他声音等</li>
 </ul>
-<p><img src="https://arxiv.org/html/2411.18138v1/x2.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-salmonn-omni-1.jpg" alt></p>
 <p>具体做法：</p>
 <ul>
 <li>有”说话“和”没说话“两个状态，用<code>start_speak</code>和<code>end_speak</code>两个特殊Token标记。</li>
@@ -204,7 +204,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="202410-omniflatten-ali-☆">202410 <code>OmniFlatten</code> Ali ☆</h3>
+<h3 id="202410-omniflatten-ali-未开源☆">202410 <code>OmniFlatten</code> Ali 未开源☆</h3>
 <p><a href="https://arxiv.org/abs/2410.17799" target="_blank" rel="noopener">OmniFlatten: An End-to-end GPT Model for Seamless Voice Conversation</a></p>
 <p>双工，三阶段：模态对齐、单工、双工。挑战：低延时、自然交互。</p>
 <p><a href="https://github.com/gpt-omni/mini-omni" target="_blank" rel="noopener">mini-omni</a> 和 <a href="https://github.com/ictnlp/LLaMA-Omni/tree/main" target="_blank" rel="noopener">LLaMA-Omni</a> 是单工的。</p>
@@ -218,7 +218,7 @@
 <li>移除用户输入文本流，对剩下的三个流进行细粒度分块和对齐，展平这些块，并继续使用结果展平的三个流数据训练模型。</li>
 <li>构建由只包含输入和输出语音的展平的两个流数据，并继续训练模型专注于语音生成。</li>
 </ul>
-<p><img src="https://arxiv.org/html/2410.17799v1/x1.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-1.jpg" alt></p>
 <p>交互打平输出：先输出固定chunk大小的文本Token，然后是固定chunk大小的语音Token。</p>
 <p>Audio 编码：CosyVoice；解码：OT-CFM到Mel，HifiGAN到Audio。</p>
 <p>模态对齐：</p>
@@ -227,11 +227,11 @@
 <li>TTS: <code>[T⁢T⁢S]⁢[S⁢O⁢T]⁢T_seq⁢[E⁢O⁢T]⁢[S⁢O⁢S]⁢S_seq⁢[E⁢O⁢S]</code></li>
 </ul>
 <p>半双工训练：</p>
-<p><img src="https://arxiv.org/html/2410.17799v1/x2.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-2.jpg" alt></p>
 <p>全双工三流训练：Chunking+Speech-Text基于Chunk对齐，固定大小，2Token文本对应10Token语音。</p>
-<p><img src="https://arxiv.org/html/2410.17799v1/x3.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-4.jpg" alt></p>
 <p>全双工双流训练：</p>
-<p><img src="https://arxiv.org/html/2410.17799v1/x4.png" alt></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-3.jpg" alt></p>
 
       
     </div><!-- .entry-content -->
