@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-rmr1-5.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ttrl-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ttrl-2.jpg">
-<meta property="og:updated_time" content="2025-06-09T23:31:19.203Z">
+<meta property="og:updated_time" content="2025-06-09T23:36:02.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reward Model建模">
 <meta name="twitter:description" content="本文介绍几篇关于Reward的文章，Reward经历了RLHF的scalar，到LLM-as-Judge，以及DeepSeek-R1的Rule，很自然地逐渐转移到通用领域——如何针对非推理（无标准答案）Query，给出模型响应的Reward。只要解决好这个问题，R1-Zero的方法就可以很自然地扩展到通用领域。而这也可以和之前在DeepSeek R1深度技术解析及其影响 | Yam[1]中提到的强">
@@ -109,6 +109,7 @@
             <!-- Table of Contents -->
               
         <p>本文介绍几篇关于Reward的文章，Reward经历了RLHF的scalar，到LLM-as-Judge，以及DeepSeek-R1的Rule，很自然地逐渐转移到通用领域——如何针对非推理（无标准答案）Query，给出模型响应的Reward。只要解决好这个问题，R1-Zero的方法就可以很自然地扩展到通用领域。而这也可以和之前在<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">DeepSeek R1深度技术解析及其影响 | Yam</a><sup>[1]</sup>中提到的强化学习执念很好地融合在一起。</p>
+<a id="more"></a>
 <h2 id="deepseek-grm">DeepSeek-GRM</h2>
 <p><a href="https://arxiv.org/abs/2504.02495" target="_blank" rel="noopener">DeepSeek-GRM</a><sup>[2]</sup>（以下简称DS-GRM）就是针对通用领域奖励建模进行优化的一个工作，主要关注：</p>
 <ul>
