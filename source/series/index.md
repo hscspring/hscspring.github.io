@@ -85,6 +85,7 @@ date: 2019-07-13 20:00:00
 
 ### R1相关
 
+- [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 - [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
@@ -135,11 +136,13 @@ date: 2019-07-13 20:00:00
 
 ### VoiceAgent
 
+- [从Voila看语音端到端发展 | Yam](https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/)
 - [实时语音交互场景下RAG的机遇和挑战 | Yam](https://yam.gift/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/)
 
 ### LMM论文速览
 
-- [OMNI论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers/)
+- [OMNI论文速览（2025） | Yam](https://yam.gift/2025/03/08/Paper/MM/2025-03-08-OMNI-Papers-2025/)
+- [OMNI论文速览（2024） | Yam](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/)
 - [SLM论文速览](https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/)
 - [音频Codec论文速览](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/)
 
