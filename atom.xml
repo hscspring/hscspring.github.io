@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-06-09T23:36:02.148Z</updated>
+  <updated>2025-06-20T00:25:13.111Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>GRPO优化在继续——CISPO和熵</title>
+    <link href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/"/>
+    <id>https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/</id>
+    <published>2025-06-19T15:00:00.000Z</published>
+    <updated>2025-06-20T00:25:13.111Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;来自&lt;a href=&quot;https://arxiv.org/abs/2506.13585&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MiniMax-M1: Scaling Test-Time Compute Efficiently with Lightning Attention&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;中的一个发现。其实R1-Zero后，关于GRPO的优化和研究已经有相当不少的文章了，光笔者自己都梳理过不少，如下。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/&quot;&gt;VAPO：基于价值方法的新突破 | Yam&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/&quot;&gt;异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/&quot;&gt;DAPO：为GRPO的锦上加四点花 | Yam&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/&quot;&gt;R1相关：RL数据选择与Scaling | Yam&lt;/a&gt;&lt;sup&gt;[5]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/&quot;&gt;R1相关：DPO数据选择与DPO等RL算法 | Yam&lt;/a&gt;&lt;sup&gt;[6]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/&quot;&gt;R1相关：R1-Zero的进一步理解和探索 | Yam&lt;/a&gt;&lt;sup&gt;[7]&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;没想到还能继续出新。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="Entropy" scheme="https://yam.gift/tags/Entropy/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="DAPO" scheme="https://yam.gift/tags/DAPO/"/>
+    
+      <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
+    
+  </entry>
   
   <entry>
     <title>Reward Model建模</title>
@@ -780,38 +824,6 @@
       <category term="RAG" scheme="https://yam.gift/tags/RAG/"/>
     
       <category term="VoiceAgent" scheme="https://yam.gift/tags/VoiceAgent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>预训练：无处安放的躁动之心</title>
-    <link href="https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/"/>
-    <id>https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/</id>
-    <published>2025-01-05T15:00:00.000Z</published>
-    <updated>2025-02-28T00:47:30.706Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;这个系列打算开始做一个预训练小模型，Size暂定在1.5B。这个念头源于和几个朋友的一次聚餐，当时聊到了Scale Law，以及小模型，有两个观点促使了笔者做这个决定。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;小模型，在智能和一些大模型相媲美的时候是有意义的。&lt;/li&gt;
-&lt;li&gt;Scale Law不光表现在模型层面，也表现在数据层面。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="Pre-training" scheme="https://yam.gift/tags/Pre-training/"/>
     
   </entry>
   
