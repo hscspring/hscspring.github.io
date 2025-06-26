@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ask_fail_repeat-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-structflow-1.jpg">
-<meta property="og:updated_time" content="2025-06-26T00:38:34.637Z">
+<meta property="og:updated_time" content="2025-06-26T00:49:20.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="指令跟随近期工作梳理（2025年上半年）">
 <meta name="twitter:description" content="Table of Contents  generated with DocToc  Benchmark  多轮场景 真实场景 任务能力 代码相关 小结   分解验证  小结   模型诱导  小结   偏好优化  小结   上下文信息  小结   总结 References   由于工作需要和个人兴趣，最近看了一些指令跟随（Instruction Following）相关的文章，特整理如下。其实">
@@ -137,7 +137,7 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <p>由于工作需要和个人兴趣，最近看了一些指令跟随（Instruction Following）相关的文章，特整理如下。其实自从LLM表现出强大的能力后，指令跟随自然而然就是一个非常重要的方向了。</p>
 <p>关于指令跟随，最重要（也最简单）的策略就是调整提示词了，由此甚至诞生了Prompt Engineer这个行当。不过这个笔者早就提过了（比如这里：<a href="https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/">ChatGPT 影响冲击：职业、行业与产业 | Yam</a><sup>[1]</sup>），一定会过时，倒不是说提示词工程会过时，而是说它应该会变成一种通用技能，就像Office办公软件一样，现在没有人会把Office作为自己的技能写到简历上了吧。</p>
-<p>关于提示词工程，笔者应该是国内比较早写过文章的（23年1月发表的：<a href="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/">ChatGPT Prompt工程：设计、实践与思考 | Yam</a><sup>[2]</sup>），后面就再没写过了，实在是觉得这东西没多少好说的，就是trial-and-error，或者trial-and-improve。提示词其实本质上是沟通能力，你描述的清楚效果就好。而且，随着模型不断变强，提示词的作用相对弱化（但你还是要把话说清楚，这是基本）。以上观点至今未变。</p>
+<p>关于提示词工程，笔者应该是国内比较早写过文章的（23年1月发表的：<a href="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/">ChatGPT Prompt工程：设计、实践与思考 | Yam</a><sup>[2]</sup>），后面就再没写过了，实在是觉得这东西没多少好说的，就是trial-and-error，或者trial-and-improve。提示词其实本质上是沟通能力，你描述得清楚效果就好。而且，随着模型不断变强，提示词的作用相对弱化（但你还是要把话说清楚，这是基本）。以上观点至今未变。</p>
 <p>但是指令跟随却很重要，因为我们最终是要用LLM去完成某项任务的，虽说指令大部分情况下都需要写的比较清楚（比如”按Json格式输出“），但也有一些隐藏的指令（比如”应特别注意用户提到XX产品信息“），或者比较复杂的指令（比如实际生产环境，三五千字的系统提示词太常见了）。本文就来简单梳理一下近期相关研究（只记录了笔者觉得比较有新意的地方）。</p>
 <a id="more"></a>
 <h2 id="benchmark">Benchmark</h2>
