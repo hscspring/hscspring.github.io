@@ -85,6 +85,7 @@ date: 2019-07-13 20:00:00
 
 ### R1相关
 
+- [GRPO优化在继续——CISPO和熵 | Yam](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/)
 - [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 - [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
@@ -128,8 +129,9 @@ date: 2019-07-13 20:00:00
 - [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
 - [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
 
-### LLM论文速览
+### LLM指令跟随
 
+- [指令跟随近期工作梳理（2025年上半年） | Yam](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/)
 - [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/)
 
 ## LMM系列
@@ -281,8 +283,8 @@ date: 2019-07-13 20:00:00
 - [第十三章：N 元语法和数据平滑](https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/)
 - [第十四章：隐 Markov 模型](https://yam.gift/2019/03/22/NLP/NLPFA/2019-03-22-Ch14-HMM/)
 - [第十五章：语音自动处理的形式模型](https://yam.gift/2019/03/29/NLP/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/)
-- [第十六章：统计机器翻译中的形式模型](https://yam.gift/2018/09/05/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/)
-- [第十七章：自然语言处理系统评测](https://yam.gift/2018/09/05/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/)
+- [自然语言计算机形式分析的理论与方法笔记(Ch16) | Yam](https://yam.gift/2019/04/04/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/)
+- [第十七章：自然语言处理系统评测](https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/)
 - [第十八章：自然语言处理中的理性主义与经验主义](https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/)
 
 
@@ -453,6 +455,7 @@ date: 2019-07-13 20:00:00
 
 ## 杂文随笔Essay
 
+- [60小时备考高架擦边过经验 | Yam](https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/)
 - [我为什么做开源？ | Yam](https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/)
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)
 - [随笔：命运 | Yam](https://yam.gift/2019/07/15/Diary/2019-07-15-diary/)
