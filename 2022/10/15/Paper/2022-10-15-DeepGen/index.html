@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+
+  
+  
+  
+  
+  
+  <title>DeepGen：Diverse Search Ad Generation and Real-Time Customization | Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Paper：[2208.03438] DeepGen: Diverse Search Ad Generation and Real-Time Customization Code：无 一句话概述：端到端广告文本生成方案。 摘要：DeepGen 是一个 Web 部署的用于为 Bing 广告客户自动生成搜索广告的系统。它使用最新的 NLG 模型从广告商的网页生成流畅的广告，并解决一些实际问题（真实性、">
+<meta name="keywords" content="AI,NLP,NLG,DeepGen">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DeepGen：Diverse Search Ad Generation and Real-Time Customization">
+<meta property="og:url" content="https://yam.gift/2022/10/15/Paper/2022-10-15-DeepGen/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="Paper：[2208.03438] DeepGen: Diverse Search Ad Generation and Real-Time Customization Code：无 一句话概述：端到端广告文本生成方案。 摘要：DeepGen 是一个 Web 部署的用于为 Bing 广告客户自动生成搜索广告的系统。它使用最新的 NLG 模型从广告商的网页生成流畅的广告，并解决一些实际问题（真实性、">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepgen-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepgen-2.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepgen-3.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepgen-4.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepgen-5.jpg">
+<meta property="og:updated_time" content="2024-06-12T02:06:43.548Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DeepGen：Diverse Search Ad Generation and Real-Time Customization">
+<meta name="twitter:description" content="Paper：[2208.03438] DeepGen: Diverse Search Ad Generation and Real-Time Customization Code：无 一句话概述：端到端广告文本生成方案。 摘要：DeepGen 是一个 Web 部署的用于为 Bing 广告客户自动生成搜索广告的系统。它使用最新的 NLG 模型从广告商的网页生成流畅的广告，并解决一些实际问题（真实性、">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-deepgen-1.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2022-10-15-DeepGen" class="post-Paper/2022-10-15-DeepGen post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      DeepGen：Diverse Search Ad Generation and Real-Time Customization
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/10/15/Paper/2022-10-15-DeepGen/" data-id="cm5jp90el00atvmbz7pry1373" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>Paper：<a href="https://arxiv.org/abs/2208.03438" target="_blank" rel="noopener">[2208.03438] DeepGen: Diverse Search Ad Generation and Real-Time Customization</a></p>
+<p>Code：无</p>
+<p>一句话概述：端到端广告文本生成方案。</p>
+<p>摘要：DeepGen 是一个 Web 部署的用于为 Bing 广告客户自动生成搜索广告的系统。它使用最新的 NLG 模型从广告商的网页生成流畅的广告，并解决一些实际问题（真实性、推理速度）。系统会根据用户的搜索查询实时创建定制化广告，从而根据用户「正在寻找的内容」突出显示同一产品的不同方面。为了实现此目标，系统提前生成各种可选择的小广告片段素材，查询时选择最相关的拼接到完整广告中。通过训练可控 NLG 模型为同一网页生成多个广告，突出不同卖点，从而提高生成的多样性。更进一步，通过首先运行使用不同目标训练的生成模型集合，然后使用多样性采样算法选择不同生成结果子集进行在线选择，进一步横向提升了多样性。实验结果验证了系统设计的有效性，目前已部署生产环境，提供了必应投放的大约 4% 的全球广告。</p>
+<a id="more"></a>
+<h2 id="背景">背景</h2>
+<p>搜索广告是一个很大的市场，传统方法是广告商人工编写为自己的页面编写广告。但这对微小企业和有数百万商品的大企业来说就不那么友好了。传统生成方法基于抽取的规则（比如关键短语、标题等），不过这种方法在生成很长的广告描述时不太行。本文主要聚焦在两个方面改进广告：真实性（Factuality）和定制化（Customization）。相比基于规则抽取的系统有 13.28% 的 CTR 提升，目前在生产环境提供 Bing 搜索 4% 的全球广告。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-1.jpg" alt></p>
+<h2 id="广告生成系统">广告生成系统</h2>
+<p>一个端到端的系统，步骤如下：</p>
+<ul>
+<li>广告商提供域名和页面定位规则（每个规则都有出价），搜索索引爬取所有该域名下匹配目标规则的页面，并执行 DU（Document Understanding）Pipeline 提取文本信息。</li>
+<li>同时执行多个 NLG 模型，生成广告素材资源或完整的广告文案，后者会被简单切分为广告素材。对每个 URL，将获取到一些生成的标题和描述素材。</li>
+</ul>
+<h3 id="baseline">Baseline</h3>
+<p><strong>一个基于抽取的系统</strong></p>
+<p>这是 Bing 用了超过十年的线上系统，提取的部分信息如下：</p>
+<ul>
+<li>页面标题</li>
+<li>视觉标题</li>
+<li>顶端/最佳正文片段（基于 Bling【1】）</li>
+</ul>
+<p><strong>抽象生成基准</strong></p>
+<p>使用直接在广告客户书面广告文案上 Finetuned 的模型（UniLMv2）作为抽象生成（Abstractive generation）方法的基准。此类模型称为 AdCopy 模型，因为它们为每个源文本生成一个广告副本。</p>
+<p>生产中会部署多个 AdCopy 模型，一些最佳实践如下：</p>
+<ul>
+<li>广告客户编写的广告具有非常倾斜的分布，有些广告商有数百万个模板生成的广告。因此，从每个广告客户域名在过去一年中展示最多的 3000 个 URL 中进行抽样，获得 3M-5M 的训练样本。</li>
+<li>从训练集中随机拆分验证集和测试集效果不佳；应该从不在训练集中的广告商构建，避免过拟合。</li>
+</ul>
+<p>一些数据和参数如下：</p>
+<ul>
+<li>验证集 300-500K，测试集 30-50K，验证集上使用 ROUGE1-F1 来选择最佳的 checkpoint。</li>
+<li>预测的 Beam Search 大小为 5，并在交叉注意阶段使用 Einsum 算子避免编码器缓存复制（根据 FastSeq【2】）。</li>
+</ul>
+<h3 id="真实性改进">真实性改进</h3>
+<p>评估质量主要靠人工，数据抽样方式如下：对每个域名最多 50 个示例进行抽样，每个人工评估任务抽取 500-1000 个样例。主要评估四个方面：</p>
+<ul>
+<li>文本质量（Text Quality）：语法和风格，分为好、一般、差、不可评分。</li>
+<li>是否像人类写的（Human Like）：是、否。</li>
+<li>真实性（Factuality）：生成的信息是否被页面内容支持，包括是、否。</li>
+<li>相关性（Relevance）：生成的文本是否与广告商的业务相关，包括是、否。</li>
+</ul>
+<p>如果一个广告文本文本质量好或一般、像人类写的、真实、相关，那就是「整体上好（Overall Good）」。结果如下：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-2.jpg" alt></p>
+<p>虽然基线模型和广告商编写的广告在质量上没有显著差异，但是总体良好率都因为<strong>较低的事实性分数</strong>而较低。比如一些打折信息，但是页面里其实并没有。为了缓解这个问题，本文使用了基于短语的交叉检查过滤，类似于基于实体的过滤【3】。</p>
+<p>一些交叉检查的例子包括：</p>
+<ul>
+<li>短语检查：敏感或可能具有误导性的短语列表。</li>
+<li>品牌检查：从搜索引擎知识图谱获取的品牌列表。</li>
+<li>域名检查：检查页面 URL 检查「<a href="http://xyc.com" target="_blank" rel="noopener">xyc.com</a>」这样的模式。</li>
+</ul>
+<p>在两个阶段添加检查规则：</p>
+<ul>
+<li>在训练前过滤训练数据（train x-check）。</li>
+<li>在预测后过滤生成的文本（infer x-check）。</li>
+</ul>
+<h3 id="素材级别的可控文本生成">素材级别的可控文本生成</h3>
+<p>为了明确建模多样性，本文构建了一个可控的 NLG 模型来为同一源文本序列生成多个广告素材。具体通过控制代码（CTRL【4】）、代表所需输出属性的分类变量【5】来实现。这类模型被称为 Guided 模型。</p>
+<p>假设每个页面可以针对不同的卖点进行 12 个类别的广告（分类），比如产品或服务、广告商名称、品牌、位置等，主要从广告商门户网站说明中借用的。然后人工对大约 6500 条不同的广告商撰写的素材进行分类。使用 BERT-base 做分类任务，达到约 80% 的精度。</p>
+<p>接着预测每个广告片段的类别，然后将类别控制代码添加到源文本开始位置，获得一个包含 6M 个广告素材（包括标题和描述）数据集，用于训练 Guided Model。结果如下：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-3.jpg" alt></p>
+<p>Guided 模型和广告商的质量没有明显区别，抽取式的比它们要好。广告商的描述素材比模型要好，模型的优势在于能够明确地捕获标题和描述的不同广告类别。抽取式无法生成好的广告描述。</p>
+<h2 id="服务和定制化">服务和定制化</h2>
+<h3 id="多样性选择">多样性选择</h3>
+<p>主要是从 T 和标题素材和 D 和描述素材中选择一个语义多样的子集（针对每个 URL），然后给到线上服务组件，目的是减少系统负载，并提高文本多样性。</p>
+<p>本文使用了 CDSSM【6】，使用搜索日志训练，将每个素材表征为向量，然后使用 k-DPP 最大后验推理算法【7】对 CDSSM 空间中点的不同子集进行采样。</p>
+<p>同时，使用 PairwiseBLEU【8】、SelfBLEU【9】和 Distinct N-gram【10】来评估标题素材在 k-DPP 前后的多样性。从 50 个域名随机采样了 2000 个 URL 进行计算，结果如下：</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-4.jpg" alt></p>
+<p>生成的标题素材比广告商提供的更加多样化，k-DPP 可以进一步增加素材多样性。另外，Guided 模型本身可以生成与多个 AdCopy 模型组合生成的标题素材数量相似且多样性相似的标题素材。</p>
+<h3 id="实时拼接">实时拼接</h3>
+<p>在 query 时，将定制的广告文案拼接在一起，优化拍卖中标率（选择最佳的广告文案）。这里使用 LR 对每个素材位置进行打分，特征来自广告拍卖日志，比如素材文本中的字符串哈希、长度、素材的 Ngram 等，同时还将这些与查询文本进行交叉，得到每个位置的稀疏特征（大约 4B），LR 学习赢得给定广告副本拍卖的概率。每天持续使用前一天日志中的约 10B 数据进行训练。</p>
+<p>这里还包括一个探索机制，允许向用户添加新的素材并消除模型偏差。由于拼接过程的顺序性，将探索过程建模为一个序列上下文老虎机问题（Sequential Contextual Bandit Problem），在每个素材位置，CB 使用 LR 分数和 LR 特征的梯度和作为试验计数的启发式方法【11】，使用 Thompson 采样策略【12】选择素材。</p>
+<h2 id="ab测试">AB测试</h2>
+<p>首先是两个关键业务指标：</p>
+<ul>
+<li>Revenue Per Mille（RPM）：每千次搜索结果页面浏览量（Search Result Page Views，SRPV）收入。由印象收益（Impression Yield，显示的广告数/SRPV）和点击率（CTR，点击数/显示的广告总数）驱动。</li>
+<li>Quick Back Rate（QBR）：用户点击广告后点击返回按钮的比例。</li>
+</ul>
+<p>一共有两个实验：</p>
+<ul>
+<li>实验一：对比 DeepGen 和抽取式系统（对照组），可以看到明显的 RPM 收益，意味着 DeepGen 生成的个性化广告文案更有可能赢得拍卖并被用户点击。</li>
+<li>实验二：消融实验（针对实时定制），将实时拼接替换为预先计算的拼接作为对照组。具体做法是，建立一个单独的模型离线将素材拼接到多个广告副本中，并仅在查询（在线）期间对预先拼接的广告文本进行排名。RPM 依然明显，因为主要由 IY 驱动而不是 CTR。结果表明，在线拼接比离线拼接覆盖的排列空间更大，更有可能赢得拍卖。但是对于赢得拍卖的广告文本，无论在线还是离线对用户的吸引力都是相似的。</li>
+</ul>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-5.jpg" alt></p>
+<h2 id="小结">小结</h2>
+<p>本文提出了一个自动的端到端搜索广告文本生成解决方案，使用 NLG 模型生成广告内容和多样化选择，利用实时 LR 排名器进行内容拼接。生成技术提供了丰富的高质量广告内容来源，比人类表现更加出色。通过语义嵌入进一步应用多样化选择，超越人类的多样性，同时确保系统的可扩展性。最后，使用实时排名来拼接有吸引力、根据用户查询和搜索意图为其真正定制的广告。这种自动广告生成方案展示了比抽取系统基线显著的 CTR 增益。</p>
+<p>总而言之，是一篇很不错的工业论文，里面涉及到多个组件和多个模型，整体构成了一整套解决方案和线上系统，非常值得参考。</p>
+<h2 id="参考论文">参考论文</h2>
+<ul>
+<li>【1】<a href="https://www.microsoft.com/en-us/research/publication/open-domain-web-keyphrase-extraction-beyond-language-modeling/" target="_blank" rel="noopener">Open Domain Web Keyphrase Extraction Beyond Language Modeling - Microsoft Research</a></li>
+<li>【2】<a href="https://aclanthology.org/2021.acl-demo.26/" target="_blank" rel="noopener">FastSeq: Make Sequence Generation Faster - ACL Anthology</a></li>
+<li>【3】<a href="https://aclanthology.org/2021.eacl-main.235/" target="_blank" rel="noopener">Entity-level Factual Consistency of Abstractive Text Summarization - ACL Anthology</a></li>
+<li>【4】<a href="https://arxiv.org/abs/1909.05858" target="_blank" rel="noopener">[1909.05858] CTRL: A Conditional Transformer Language Model for Controllable Generation</a></li>
+<li>【5】<a href="https://arxiv.org/abs/1707.02633" target="_blank" rel="noopener">[1707.02633] Controlling Linguistic Style Aspects in Neural Language Generation</a></li>
+<li>【6】<a href="https://dl.acm.org/doi/10.1145/2661829.2661935" target="_blank" rel="noopener">A Latent Semantic Model with Convolutional-Pooling Structure for Information Retrieval | Proceedings of the 23rd ACM International Conference on Conference on Information and Knowledge Management</a></li>
+<li>【7】<a href="https://arxiv.org/abs/1709.05135" target="_blank" rel="noopener">[1709.05135] Fast Greedy MAP Inference for Determinantal Point Process to Improve Recommendation Diversity</a></li>
+<li>【8】<a href="https://arxiv.org/abs/1902.07816" target="_blank" rel="noopener">[1902.07816] Mixture Models for Diverse Machine Translation: Tricks of the Trade</a></li>
+<li>【9】<a href="https://arxiv.org/abs/1802.01886" target="_blank" rel="noopener">[1802.01886] Texygen: A Benchmarking Platform for Text Generation Models</a></li>
+<li>【10】<a href="https://aclanthology.org/D18-1428/" target="_blank" rel="noopener">Diversity-Promoting GAN: A Cross-Entropy Based Generative Adversarial Network for Diversified Text Generation - ACL Anthology</a></li>
+<li>【11】<a href="https://dl.acm.org/doi/10.1145/2487575.2488200" target="_blank" rel="noopener">Ad click prediction | Proceedings of the 19th ACM SIGKDD international conference on Knowledge discovery and data mining</a></li>
+<li>【12】<a href="https://dl.acm.org/doi/10.1145/3088510" target="_blank" rel="noopener">Near-Optimal Regret Bounds for Thompson Sampling | Journal of the ACM</a></li>
+</ul>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/10/15/Paper/2022-10-15-DeepGen/">
+    <time datetime="2022-10-15T15:00:00.000Z" class="entry-date">
+        2022-10-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DeepGen/">DeepGen</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLG/">NLG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2022/10/16/Paper/2022-10-16-GlobalPointer/" rel="prev"><span class="meta-nav">←</span> Global Pointer：Novel Efficient Span-based Approach for NER</a></span>
+    
+    
+        <span class="nav-next"><a href="/2022/09/11/Diary/2022-09-11-Passion/" rel="next">只如初见的不只爱情 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">73</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">145</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">37</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/">激活诱导LLM指令跟随</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/">60小时备考高架擦边过经验</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/">指令跟随近期工作梳理（2025年上半年）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.33px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.67px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Activation-Steering/" style="font-size: 10px;">Activation Steering</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Aha/" style="font-size: 10px;">Aha</a> <a href="/tags/Algorithm/" style="font-size: 12.67px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.67px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.67px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.33px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12px;">Business</a> <a href="/tags/C/" style="font-size: 10.67px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.67px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CISPO/" style="font-size: 10px;">CISPO</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15.33px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.67px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.67px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 14px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.67px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.67px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DAPO/" style="font-size: 12.67px;">DAPO</a> <a href="/tags/DB/" style="font-size: 10.67px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DPO/" style="font-size: 10px;">DPO</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15.33px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.67px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.67px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12px;">DeepLearning</a> <a href="/tags/DeepScaleR/" style="font-size: 10.67px;">DeepScaleR</a> <a href="/tags/DeepSeek/" style="font-size: 10px;">DeepSeek</a> <a href="/tags/DeepSeek-GRM/" style="font-size: 10px;">DeepSeek-GRM</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 15.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10.67px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dr-GRPO/" style="font-size: 10px;">Dr GRPO</a> <a href="/tags/DrDAPO/" style="font-size: 10px;">DrDAPO</a> <a href="/tags/Dream/" style="font-size: 10.67px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.67px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.67px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.33px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.67px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 11.33px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.67px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/Exam/" style="font-size: 10px;">Exam</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/FastCuRL/" style="font-size: 10px;">FastCuRL</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.33px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.33px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GAE/" style="font-size: 10px;">GAE</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.67px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRM/" style="font-size: 10px;">GRM</a> <a href="/tags/GRPO/" style="font-size: 12.67px;">GRPO</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.67px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.67px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 12.67px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.67px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.67px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Inference-Scaling/" style="font-size: 11.33px;">Inference Scaling</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.67px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 12px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KL/" style="font-size: 10px;">KL</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.67px;">Knowledge Graph</a> <a href="/tags/L1/" style="font-size: 10px;">L1</a> <a href="/tags/LCPO/" style="font-size: 10px;">LCPO</a> <a href="/tags/LIMD/" style="font-size: 10.67px;">LIMD</a> <a href="/tags/LIMO/" style="font-size: 11.33px;">LIMO</a> <a href="/tags/LIMR/" style="font-size: 10.67px;">LIMR</a> <a href="/tags/LLM/" style="font-size: 18.67px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.67px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.67px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.33px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.33px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.33px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.67px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.33px;">NNW</a> <a href="/tags/NTP/" style="font-size: 10px;">NTP</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.67px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 11.33px;">OMNI</a> <a href="/tags/ORZ/" style="font-size: 10px;">ORZ</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.67px;">One-Shot</a> <a href="/tags/Online-DPO-R1/" style="font-size: 10.67px;">Online-DPO-R1</a> <a href="/tags/OpenSource/" style="font-size: 10px;">OpenSource</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.67px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.67px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Post-training/" style="font-size: 16px;">Post-training</a> <a href="/tags/Postgres/" style="font-size: 10.67px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 14.67px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.67px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.67px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 12.67px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.67px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/Qwen3/" style="font-size: 10px;">Qwen3</a> <a href="/tags/R-Drop/" style="font-size: 10.67px;">R-Drop</a> <a href="/tags/R1/" style="font-size: 11.33px;">R1</a> <a href="/tags/R1-Zero/" style="font-size: 13.33px;">R1-Zero</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RL/" style="font-size: 12.67px;">RL</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RM/" style="font-size: 10px;">RM</a> <a href="/tags/RM-R1/" style="font-size: 10px;">RM-R1</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.67px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.67px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.67px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 16px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10.67px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.67px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.67px;">SVM</a> <a href="/tags/Scaling/" style="font-size: 10px;">Scaling</a> <a href="/tags/Scaling-Law/" style="font-size: 10px;">Scaling Law</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.67px;">Search</a> <a href="/tags/Seed-Thinking/" style="font-size: 10px;">Seed-Thinking</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.33px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.67px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simple-Zoo/" style="font-size: 10px;">Simple-Zoo</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.67px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.67px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.33px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.67px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.67px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.67px;">System</a> <a href="/tags/T5/" style="font-size: 10.67px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.33px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTRL/" style="font-size: 10px;">TTRL</a> <a href="/tags/TTS/" style="font-size: 14px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.67px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.67px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.33px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VAPO/" style="font-size: 10px;">VAPO</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.67px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/VoiceAgent/" style="font-size: 10px;">VoiceAgent</a> <a href="/tags/Voila/" style="font-size: 10px;">Voila</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.33px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.33px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.67px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/oat-zero/" style="font-size: 10.67px;">oat-zero</a> <a href="/tags/orz/" style="font-size: 10px;">orz</a> <a href="/tags/s1/" style="font-size: 11.33px;">s1</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2025 hscspring
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>

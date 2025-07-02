@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+
+  
+  
+  
+  
+  
+  <title>Yam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yam">
+<meta property="og:url" content="https://yam.gift/page/8/index.html">
+<meta property="og:site_name" content="Yam">
+<meta property="og:description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yam">
+<meta name="twitter:description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="Yam" rel="home">Yam</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">Feeling, Coding, Thinking</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main">
+  
+    <article id="post-Paper/2022-06-11-W2NER" class="post-Paper/2022-06-11-W2NER post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/06/11/Paper/2022-06-11-W2NER/">统一NER为词词关系分类</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/" data-id="cm5jp90eb00ajvmbzvicnrs48" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2112.10070" target="_blank" rel="noopener">[2112.10070] Unified Named Entity Recognition as Word-Word Relation Classification</a></p>
+<p>一句话概述：基于词-词关系分类、可同时解决平铺、重叠和不连续 NER 的统一框架。</p>
+<p>摘要：NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：<code>NNW</code>（<code>Next-Neighboring-Word</code>）和 <code>THW-*</code>（<code>Tail-Head-Word-*</code>）。具体而言，构造一个 2D 的词词关系网格，然后使用多粒度 2D 卷积，以更好地细化网格表示。最后，使用一个共同预测器来推理词-词关系。效果自然是最新的 STOA。</p>
+<p>关于本文代码部分，可参考：<a href="https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/" target="_blank" rel="noopener">W2NER 代码</a>。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/06/11/Paper/2022-06-11-W2NER/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/06/11/Paper/2022-06-11-W2NER/">
+    <time datetime="2022-06-11T15:00:00.000Z" class="entry-date">
+        2022-06-11
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BIO/">BIO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BIOHD/">BIOHD</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NNW/">NNW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Span/">Span</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/THW/">THW</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/W2NER/">W2NER</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-04-23-MarkBERT" class="post-Paper/2022-04-23-MarkBERT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/" data-id="cm5jp90e700abvmbzpqo36cef" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2203.06378" target="_blank" rel="noopener">[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT</a></p>
+<p>一句话概述：在 Token 中加入你感兴趣的词的边界标记。</p>
+<p>摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用 POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER 任务上取得了 2 个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">
+    <time datetime="2022-04-23T15:00:00.000Z" class="entry-date">
+        2022-04-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MarkBERT/">MarkBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RWD/">RWD</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-04-23-Pretrained-for-Rank" class="post-Paper/2022-04-23-Pretrained-for-Rank post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">预训练模型与传统方法在排序上有啥不同？</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" data-id="cm5jp90ea00ahvmbz7c0j3viu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2204.07233" target="_blank" rel="noopener">[2204.07233] How Different are Pre-trained Transformers for Text Ranking?</a></p>
+<p>一句话概述：BM25 粗排+CE 精排，你值得拥有。</p>
+<p>摘要：近年来与传统的检索模型和反馈方法相比，大规模预训练的效果有了显著提高。不过这些结果主要是基于 <a href="https://github.com/microsoft/MSMARCO-Passage-Ranking" target="_blank" rel="noopener">MS Macro/ TREC</a> 设置，非常特殊，我们对模型为什么好的理解是分散的。本文在文档检索任务上分析了 BERT 的交叉编码器与传统的 BM25 ，研究两个问题：第一，它们的相似之处在哪里？深度学习方法在多大程度上包含了 BM25 的能力，性能的提升是否由于相同文档的排名更高。第二，它们的不同之处是什么？深度学习方法能否检索 BM25 漏掉的文档。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">
+    <time datetime="2022-04-23T15:00:00.000Z" class="entry-date">
+        2022-04-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BM25/">BM25</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CE-BERT/">CE BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pretrain/">Pretrain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rank/">Rank</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-04-15-Quantifying-Memorization-NLM" class="post-Paper/2022-04-15-Quantifying-Memorization-NLM post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">量化NLM模型的记忆力</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/" data-id="cm5jp90e300a7vmbzvppxo6oo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2202.07646" target="_blank" rel="noopener">[2202.07646] Quantifying Memorization Across Neural Language Models</a></p>
+<p>一句话概述：更大的模型更可能学到重复数据的特性，去重是缓解模型记忆危害的不错策略。</p>
+<p>摘要：语言模型能够记住一些训练数据，如果经过合适地提示引导，可能会生成记住的数据。这肯定不太合适，因为可能会侵犯隐私、降低效用（重复的容易记住的词往往质量比较低），并且有失公平（有些文本被记住而有些没有）。本文描述了三个对数线性关系，量化了 LM 生成记忆数据的程度。记忆会显著增加，如果增大：（1）模型的容量，（2）样本的重复次数，（3）提示文的 Token 数量。总的来说，LM 的记忆比之前认识到的更普遍，并随着模型不断增大可能变得更糟。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">
+    <time datetime="2022-04-15T15:00:00.000Z" class="entry-date">
+        2022-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLM/">NLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PLM/">PLM</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-04-15-Impossible-Triangle" class="post-Paper/2022-04-15-Impossible-Triangle post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">NLP预训练模型的不可能三角</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" data-id="cm5jp90e200a4vmbzv49hyl5g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2204.06130" target="_blank" rel="noopener">[2204.06130] Impossible Triangle: What’s Next for Pre-trained Language Models?</a></p>
+<p>一句话概述：提出 NLP 模型的不可能三角并基于此提出未来的研究方向。</p>
+<p>摘要：本文主要描述了 PLM 的不可能三角：中等模型大小（1B以下），SOTA few-shot 能力，SOTA 微调能力。目前所有的 PLM 都缺其中一个或多个。很多注入知识蒸馏、数据增强、Prompt 的方法用以缓解这些缺失，但却在实际中带来了新的工作量。本文提供了一个未来的研究方向，将任务分解成几个关键阶段来实现不可能三角。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/">
+    <time datetime="2022-04-15T03:00:00.000Z" class="entry-date">
+        2022-04-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Impossible-Triangle/">Impossible-Triangle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/PLM/">PLM</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-04-05-Retrieving-From-Training-Data" class="post-Paper/2022-04-05-Retrieving-From-Training-Data post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/">Training Data is More Valuable than You Think</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/" data-id="cm5jp90dr009uvmbzrfehwk93" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>论文：<a href="https://arxiv.org/abs/2203.08773" target="_blank" rel="noopener">[2203.08773] Training Data is More Valuable than You Think: A Simple and Effective Method by Retrieving from Training Data</a></p>
+<p>Code：<a href="https://github.com/microsoft/REINA" target="_blank" rel="noopener">microsoft/REINA</a></p>
+<p>一句话概述：在检索任务中训练数据在推理时也大有用处。</p>
+<p>摘要：从大规模数据中检索通常比较耗时，仅从训练数据中也能有巨大收益。具体做法是检索与输入文本最相似的训练样例，拼接后作为输入喂入模型，然后生成结果。结果在摘要、翻译、语言模型和QA上都取得了不错的效果。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/">
+    <time datetime="2022-04-05T15:00:00.000Z" class="entry-date">
+        2022-04-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/QA/">QA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Retrieving/">Retrieving</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Summarization/">Summarization</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-NLP/2022-03-27-Sentence-Representation-Summarization" class="post-NLP/2022-03-27-Sentence-Representation-Summarization post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/">句子表征综述</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/" data-id="cm5jp90bc004xvmbzhh7ro0xr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>早上收到从 Google Scholar 推送的宗成庆老师团队 2019 年的一篇 Paper：《Towards Sentence-Level Brain Decoding with Distributed Representations》，看这个题目觉得挺有趣就翻开读了读。这篇 Paper 研究的核心是：从大脑激活的模式解码整个句子，即构建解码器，通过分布式表示将大脑活动与句子刺激联系起来。并比较了句子表示与高级认知功能相关的不同大脑区域的对应关系，发现<strong>有监督的结构化表示模型最准确地探索了人类大脑的语言图谱</strong>。句子的表征 NLPer 们应该都很熟悉，那大脑的激活又是怎么弄呢？作者使用了 Nature 的一篇论文《Toward a universal decoder of linguistic meaning from brain activation》【1】中的研究成果，这篇论文主要研究从图像数据中解码语言（单词和句子）意义，结果表明，解码表示甚至可以区分语义相似的句子，并捕捉到句子之间意义关系的相似结构。这就是说，我们在看到不同的单词和句子时，大脑内部显示出不同的状态，这种状态甚至在很相似的句子之间也表现的不同。关于项目的详细情况可以查阅【2】（我没细看 :D）。</p>
+<p>宗老师这篇 Paper 正好涉及到两个我个人比较感兴趣的点：认知科学和句子表征，关于这两个方面，我之前的几篇小文都涉及过，比如：</p>
+<ul>
+<li><a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">NLP 与 AI | Yam</a></li>
+<li><a href="https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/" target="_blank" rel="noopener">语言、AI、情感 | Yam</a></li>
+<li><a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">NLP 表征的历史与未来 | Yam</a></li>
+</ul>
+<p>抛开认知部分不谈，句子表征也是一个很有意思的方向，因为相比「词」，「句子」才是基本的『语义单位』。恰巧这篇 Paper 中也提到了不少句子表征的方法，正好一起来个梳理，顺便表达一点自己的脑洞。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/">
+    <time datetime="2022-03-27T15:30:00.000Z" class="entry-date">
+        2022-03-27
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sentence-Representation/">Sentence Representation</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-03-05-T5" class="post-Paper/2022-03-05-T5 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/03/05/Paper/2022-03-05-T5/">T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/05/Paper/2022-03-05-T5/" data-id="cm5jp90ds00a1vmbzvedcanez" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>论文：<a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="noopener">[1910.10683] Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer</a></p>
+<p>Code：<a href="https://github.com/google-research/text-to-text-transfer-transformer" target="_blank" rel="noopener">google-research/text-to-text-transfer-transformer: Code for the paper “Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer”</a></p>
+<p>一句话概述：把所有 NLP 任务统一成 Text-to-Text 格式使用 Transformer 统一处理。</p>
+<p>摘要：迁移学习在 NLP 领域已经是最有效的方法，本文引入了统一的文本处理框架——将所有文本问题统一成 Text-to-Text 的格式。为了验证效果，构建了 C4 数据集（Colossal Clean Crawled Cropus），结果发现取得了很好的效果。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/03/05/Paper/2022-03-05-T5/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/03/05/Paper/2022-03-05-T5/">
+    <time datetime="2022-03-05T15:00:00.000Z" class="entry-date">
+        2022-03-05
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C4/">C4</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MTL/">MTL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/T5/">T5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transformer/">Transformer</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Paper/2022-02-19-ExT5" class="post-Paper/2022-02-19-ExT5 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/02/19/Paper/2022-02-19-ExT5/">ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/02/19/Paper/2022-02-19-ExT5/" data-id="cm5jp90dr009yvmbzy147c84y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>论文：<a href="https://arxiv.org/abs/2111.10952" target="_blank" rel="noopener">[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning</a></p>
+<p>Code：T5</p>
+<p>一句话概述：任务数量很多时，不妨试试 MTL 预训练。</p>
+<p>摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督任务的跨领域大规模任务集合。并借此研究了迄今为止最大规模的多任务预训练效果，分析常见任务族之间的协同训练迁移。结果显示，为多任务预训练手动策划一组理想的任务并不简单，而且多任务扩展本身可以极大地改进模型。最后，提出 ExT5：使用自监督跨度去噪和监督 ExMIX 的多任务目标预训练模型，在多个数据集上超过了 T5。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/02/19/Paper/2022-02-19-ExT5/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/02/19/Paper/2022-02-19-ExT5/">
+    <time datetime="2022-02-19T15:00:00.000Z" class="entry-date">
+        2022-02-19
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ExT5/">ExT5</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MTL/">MTL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/T5/">T5</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+    <article id="post-Diary/2021-12-25-Lion-Dance" class="post-Diary/2021-12-25-Lion-Dance post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2021/12/26/Diary/2021-12-25-Lion-Dance/">《舞狮少年》观后——信念、文化与希望</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/12/26/Diary/2021-12-25-Lion-Dance/" data-id="cm5jp90aa001ovmbztc5v9lid" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>疫情一波又一波，感觉已经很久没有出去过了，周六晚上舒璇说明天一起出去看个电影吧，好久没有活动了，最近正好上映了一部口碑很不错的片子。我好奇一问：“啥电影啊？”答：“舞狮少年”。我一想，哎，这不是昨晚看某个 UP 主提到过的影片么，说看起来像是鸡汤片。对鸡汤我一向是不喜欢的，可能是以前喝太多了，有点腻上头了。不过最后，当然是毫无异议地来到了电影院，我其实有点担心自己会睡着。</p>
+        
+          <p class="article-more-link">
+            <a href="/2021/12/26/Diary/2021-12-25-Lion-Dance/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/12/26/Diary/2021-12-25-Lion-Dance/">
+    <time datetime="2021-12-26T15:00:00.000Z" class="entry-date">
+        2021-12-26
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Culture/">Culture</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Diary/">Diary</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Faith/">Faith</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hope/">Hope</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
+  
+    <nav id="pagination">
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      </nav>
+    </nav>
+  
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">73</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">145</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">37</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/">激活诱导LLM指令跟随</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/">60小时备考高架擦边过经验</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/">指令跟随近期工作梳理（2025年上半年）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵</a>
+          </li>
+        
+          <li>
+            <a href="/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AI/" style="font-size: 19.33px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.67px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Activation-Steering/" style="font-size: 10px;">Activation Steering</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Aha/" style="font-size: 10px;">Aha</a> <a href="/tags/Algorithm/" style="font-size: 12.67px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 16.67px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.67px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.67px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.33px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12px;">Business</a> <a href="/tags/C/" style="font-size: 10.67px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.67px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CISPO/" style="font-size: 10px;">CISPO</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15.33px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.67px;">Classification</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.67px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 14px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.67px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.67px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DAPO/" style="font-size: 12.67px;">DAPO</a> <a href="/tags/DB/" style="font-size: 10.67px;">DB</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DPO/" style="font-size: 10px;">DPO</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15.33px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.67px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.67px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12px;">DeepLearning</a> <a href="/tags/DeepScaleR/" style="font-size: 10.67px;">DeepScaleR</a> <a href="/tags/DeepSeek/" style="font-size: 10px;">DeepSeek</a> <a href="/tags/DeepSeek-GRM/" style="font-size: 10px;">DeepSeek-GRM</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 15.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10.67px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dr-GRPO/" style="font-size: 10px;">Dr GRPO</a> <a href="/tags/DrDAPO/" style="font-size: 10px;">DrDAPO</a> <a href="/tags/Dream/" style="font-size: 10.67px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.67px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.67px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.33px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.67px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 11.33px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.67px;">Evaluation</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/Exam/" style="font-size: 10px;">Exam</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/FastCuRL/" style="font-size: 10px;">FastCuRL</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.33px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.33px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GAE/" style="font-size: 10px;">GAE</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.67px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRM/" style="font-size: 10px;">GRM</a> <a href="/tags/GRPO/" style="font-size: 12.67px;">GRPO</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.67px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.67px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 12.67px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.67px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.67px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Inference-Scaling/" style="font-size: 11.33px;">Inference Scaling</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.67px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 12px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KL/" style="font-size: 10px;">KL</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.67px;">Knowledge Graph</a> <a href="/tags/L1/" style="font-size: 10px;">L1</a> <a href="/tags/LCPO/" style="font-size: 10px;">LCPO</a> <a href="/tags/LIMD/" style="font-size: 10.67px;">LIMD</a> <a href="/tags/LIMO/" style="font-size: 11.33px;">LIMO</a> <a href="/tags/LIMR/" style="font-size: 10.67px;">LIMR</a> <a href="/tags/LLM/" style="font-size: 18.67px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.67px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.67px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.33px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.33px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.33px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.67px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.33px;">NNW</a> <a href="/tags/NTP/" style="font-size: 10px;">NTP</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.67px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 11.33px;">OMNI</a> <a href="/tags/ORZ/" style="font-size: 10px;">ORZ</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.67px;">One-Shot</a> <a href="/tags/Online-DPO-R1/" style="font-size: 10.67px;">Online-DPO-R1</a> <a href="/tags/OpenSource/" style="font-size: 10px;">OpenSource</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.67px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.67px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Post-training/" style="font-size: 16px;">Post-training</a> <a href="/tags/Postgres/" style="font-size: 10.67px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 14.67px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.67px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.67px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 12.67px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.67px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/Qwen3/" style="font-size: 10px;">Qwen3</a> <a href="/tags/R-Drop/" style="font-size: 10.67px;">R-Drop</a> <a href="/tags/R1/" style="font-size: 11.33px;">R1</a> <a href="/tags/R1-Zero/" style="font-size: 13.33px;">R1-Zero</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RL/" style="font-size: 12.67px;">RL</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RM/" style="font-size: 10px;">RM</a> <a href="/tags/RM-R1/" style="font-size: 10px;">RM-R1</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.67px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.67px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.67px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 16px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10.67px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.67px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.67px;">SVM</a> <a href="/tags/Scaling/" style="font-size: 10px;">Scaling</a> <a href="/tags/Scaling-Law/" style="font-size: 10px;">Scaling Law</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.67px;">Search</a> <a href="/tags/Seed-Thinking/" style="font-size: 10px;">Seed-Thinking</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.33px;">Self-Attention</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.67px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simple-Zoo/" style="font-size: 10px;">Simple-Zoo</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.67px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.67px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.33px;">Span</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.67px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.67px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.67px;">System</a> <a href="/tags/T5/" style="font-size: 10.67px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.33px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTRL/" style="font-size: 10px;">TTRL</a> <a href="/tags/TTS/" style="font-size: 14px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.67px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.67px;">Thought</a> <a href="/tags/Transformer/" style="font-size: 17.33px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VAPO/" style="font-size: 10px;">VAPO</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.67px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/VoiceAgent/" style="font-size: 10px;">VoiceAgent</a> <a href="/tags/Voila/" style="font-size: 10px;">Voila</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.33px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.33px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.67px;">Ziya</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/oat-zero/" style="font-size: 10.67px;">oat-zero</a> <a href="/tags/orz/" style="font-size: 10px;">orz</a> <a href="/tags/s1/" style="font-size: 11.33px;">s1</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2025 hscspring
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
