@@ -12,15 +12,15 @@
   
   
   
-  <title>Reward Datal建模 | Yam</title>
+  <title>解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Skywork-Reward-V2 Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy[2] 这篇算是工程示范，大部分算法同学应该都做过类似的工作。 背景 现有RM的问题：">
+  <meta name="description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
 <meta name="keywords" content="AI,LLM,NLP,RM,Reward,Skywork Reward,Spurious Reward,Unsupervised Elicitation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reward Datal建模">
+<meta property="og:title" content="解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略">
 <meta property="og:url" content="https://yam.gift/2025/06/13/NLP/LLM-Training/2025-07-13-RM-Data/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Skywork-Reward-V2 Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy[2] 这篇算是工程示范，大部分算法同学应该都做过类似的工作。 背景 现有RM的问题：">
+<meta property="og:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-skywork-reward2-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-1.jpg">
@@ -32,10 +32,10 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-9.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-10.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-11.jpg">
-<meta property="og:updated_time" content="2025-07-14T00:45:02.979Z">
+<meta property="og:updated_time" content="2025-07-14T00:58:41.422Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reward Datal建模">
-<meta name="twitter:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Skywork-Reward-V2 Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy[2] 这篇算是工程示范，大部分算法同学应该都做过类似的工作。 背景 现有RM的问题：">
+<meta name="twitter:title" content="解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略">
+<meta name="twitter:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-skywork-reward2-1.jpg">
   
   
@@ -91,7 +91,7 @@
         
   
     <h1 class="entry-title article-title">
-      Reward Datal建模
+      解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略
     </h1>
   
 
@@ -107,6 +107,7 @@
             <!-- Table of Contents -->
               
         <p>上篇<a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模 | Yam</a><sup>[1]</sup>我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。</p>
+<p>Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基座模型预训练习得的优势推理策略（如代码推理）；Anthropic ICM 则利用模型内部一致性实现无监督引导。这昭示着 Reward 建模的新方向：深刻理解基座模型的“潜能图谱”，并设计机制（协同标注、激活信号、一致性约束）将其高效释放，最终迈向规则驱动的“演绎式”智能。</p>
 <h2 id="skywork-reward-v2">Skywork-Reward-V2</h2>
 <p><a href="https://arxiv.org/abs/2507.01352" target="_blank" rel="noopener">Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy</a><sup>[2]</sup></p>
 <p>这篇算是工程示范，大部分算法同学应该都做过类似的工作。</p>
@@ -711,7 +712,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
           </li>
         
           <li>
-            <a href="/2025/06/13/NLP/LLM-Training/2025-07-13-RM-Data/">Reward Datal建模</a>
+            <a href="/2025/06/13/NLP/LLM-Training/2025-07-13-RM-Data/">解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略</a>
           </li>
         
       </ul>
