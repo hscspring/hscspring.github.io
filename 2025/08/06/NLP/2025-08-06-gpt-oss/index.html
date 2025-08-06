@@ -14,19 +14,19 @@
   
   <title>关于gpt-oss那些值得关注的点 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。   Blog：Introducing gpt-oss | OpenAI[1]   GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-we">
+  <meta name="description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。  Blog：Introducing gpt-oss | OpenAI[1] GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weigh">
 <meta name="keywords" content="AI,LLM,gpt-oss,OpenAI,harmony format,bias,off-by-one attention,attention sink,Sparse Attention">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于gpt-oss那些值得关注的点">
 <meta property="og:url" content="https://yam.gift/2025/08/06/NLP/2025-08-06-gpt-oss/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。   Blog：Introducing gpt-oss | OpenAI[1]   GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-we">
+<meta property="og:description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。  Blog：Introducing gpt-oss | OpenAI[1] GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weigh">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-gpt-oss-5.jpg">
-<meta property="og:updated_time" content="2025-08-06T19:06:25.654Z">
+<meta property="og:updated_time" content="2025-08-06T19:07:40.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于gpt-oss那些值得关注的点">
-<meta name="twitter:description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。   Blog：Introducing gpt-oss | OpenAI[1]   GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-we">
+<meta name="twitter:description" content="OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。  Blog：Introducing gpt-oss | OpenAI[1] GitHub：openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weigh">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-gpt-oss-5.jpg">
   
   
@@ -99,21 +99,11 @@
               
         <p>OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。</p>
 <ul>
-<li>
-<p>Blog：<a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss | OpenAI</a><sup>[1]</sup></p>
-</li>
-<li>
-<p>GitHub：<a href="https://github.com/openai/gpt-oss/tree/main" target="_blank" rel="noopener">openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI</a><sup>[2]</sup></p>
-</li>
-<li>
-<p>技术报告：<a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf" target="_blank" rel="noopener">oai_gpt-oss_model_card.pdf</a><sup>[3]</sup></p>
-</li>
-<li>
-<p>HuggingFace：<a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4" target="_blank" rel="noopener">gpt-oss - a openai Collection</a><sup>[4]</sup></p>
-</li>
-<li>
-<p>Demo：<a href="https://gpt-oss.com/" target="_blank" rel="noopener">gpt-oss</a><sup>[5]</sup></p>
-</li>
+<li>Blog：<a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss | OpenAI</a><sup>[1]</sup></li>
+<li>GitHub：<a href="https://github.com/openai/gpt-oss/tree/main" target="_blank" rel="noopener">openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI</a><sup>[2]</sup></li>
+<li>技术报告：<a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf" target="_blank" rel="noopener">oai_gpt-oss_model_card.pdf</a><sup>[3]</sup></li>
+<li>HuggingFace：<a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4" target="_blank" rel="noopener">gpt-oss - a openai Collection</a><sup>[4]</sup></li>
+<li>Demo：<a href="https://gpt-oss.com/" target="_blank" rel="noopener">gpt-oss</a><sup>[5]</sup></li>
 </ul>
 <a id="more"></a>
 <h2 id="模型架构">模型架构</h2>
