@@ -93,238 +93,29 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
         <p>OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。</p>
 <ul>
-<li>Blog：<a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss | OpenAI</a><sup>[1]</sup></li>
-<li>GitHub：<a href="https://github.com/openai/gpt-oss/tree/main" target="_blank" rel="noopener">openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI</a><sup>[2]</sup></li>
-<li>技术报告：<a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf" target="_blank" rel="noopener">oai_gpt-oss_model_card.pdf</a><sup>[3]</sup></li>
-<li>HuggingFace：<a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4" target="_blank" rel="noopener">gpt-oss - a openai Collection</a><sup>[4]</sup></li>
-<li>Demo：<a href="https://gpt-oss.com/" target="_blank" rel="noopener">gpt-oss</a><sup>[5]</sup></li>
+<li>
+<p>Blog：<a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">Introducing gpt-oss | OpenAI</a><sup>[1]</sup></p>
+</li>
+<li>
+<p>GitHub：<a href="https://github.com/openai/gpt-oss/tree/main" target="_blank" rel="noopener">openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI</a><sup>[2]</sup></p>
+</li>
+<li>
+<p>技术报告：<a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf" target="_blank" rel="noopener">oai_gpt-oss_model_card.pdf</a><sup>[3]</sup></p>
+</li>
+<li>
+<p>HuggingFace：<a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4" target="_blank" rel="noopener">gpt-oss - a openai Collection</a><sup>[4]</sup></p>
+</li>
+<li>
+<p>Demo：<a href="https://gpt-oss.com/" target="_blank" rel="noopener">gpt-oss</a><sup>[5]</sup></p>
+</li>
 </ul>
-<h2 id="模型架构">模型架构</h2>
-<p>总体来看是MoE，不过在配置上有所不同，主要聊下面两点吧。</p>
-<h3 id="bias">Bias</h3>
-<p>首先是Bias，记得貌似Attention和FFN去掉bias好像已经有一段时间了，没想到在gpt-oss里居然又看到了。关于bias的作用，一般的说法是打破对称性、提升表达能力，更加灵活、容易学习之类。之前看过苏神<a href="https://spaces.ac.cn/archives/9577" target="_blank" rel="noopener">Bias项的神奇作用：RoPE + Bias = 更好的长度外推性 - 科学空间|Scientific Spaces</a><sup>[6]</sup>的介绍，又有了新的认识，其主要观点是：“Bias项确实不怎么影响训练效果（512长度），但却在长度外推性上面明显拉开了差距。”当然，更多的研究还没看过，纵观各开源模型，bias神出鬼没，有时有，有时又没。大概都是实际实验结果相差不大，可有可无，所以就导致了这种情况。尤其是模型越来越大，都是在学分布，wx也不是不能替代wx+b。不过我记得在经济学中bias还是很重要的。有机会可以深挖一下这个点。</p>
-<p>除了这两个地方，每个注意力头在 softmax 的分母中也有一个可学习的bias，类似于 off-by-one attention 和 attention sinks 的机制。这种设计使得注意力机制可以实现“对所有 token 都不关注”的效果。关于这个有两篇参考文献：</p>
-<ul>
-<li><a href="https://www.evanmiller.org/attention-is-off-by-one.html" target="_blank" rel="noopener">Attention Is Off By One – Evan Miller</a><sup>[7]</sup></li>
-<li><a href="https://arxiv.org/abs/2309.17453" target="_blank" rel="noopener">Efficient Streaming Language Models with Attention Sinks</a><sup>[8]</sup></li>
-</ul>
-<p>这是个很有意思的现象。第一个文献主要是说原始 softmax 函数强制每个注意力头参与加权，即使该头没有实际有用信息要贡献。也就是说，softmax让Attention必须做出选择，即使有时候其实不需要选择或者说没有选择，这导致许多无意义的噪声出现。修复方案是在softmax的分母上加1，这样当所有的x都非常小时，整个输出可以趋向于0，从而允许注意力“保持沉默”，不贡献任何无意义的信息。当然，正常情况下和原始的softmax差不多。</p>
-<p>第二个文献说的是Attention Sink现象：模型将极大比例的注意力权重集中在序列的第一个 token（通常是 <code>&lt;bos&gt;</code> 开始 token），即使它对下文语义并不重要。其原因当然也和softmax有关，即使当前 token 与前面的其他 token 并无关联，模型仍需要分配“冗余”的注意力分数。此时，最容易被“牺牲”的位置就是第一个 token，因为它对所有后续 token 都可见，容易被训练为 attention sink。关于这点，相信只要大家做过Attention分析就应该深有体会，无论哪一层，attention分数最大的几乎都是首Token（正好前几天刚分析过一个Case）。</p>
-<p>现在说回gpt-oss里的这个bias了，它就是在每个attention head上学习一个标量偏置项b，和前面的加1是类似的，只不过是可学习的，而不是固定不变。从Attention Sink的角度看，这个bias为 head 提供了另一种“逃逸”路径，即如果不想关注这些 sink token，也可以将注意力分散成零，而不是被迫向 sink token 投注注意力。</p>
-<p>目测这个可能应该会成为标配。</p>
-<h3 id="head-dim和hidden-size">head_dim和hidden_size</h3>
-<p>关于head_dim=64和hidden_size=intermediate_size的说法可以参考<a href="https://zhuanlan.zhihu.com/p/1934722616544954132" target="_blank" rel="noopener">这篇知乎文章</a><sup>[9]</sup>，基本上说的比较清楚，这里再补充一点点。</p>
-<p>一个是关于Sparse Attention（来自OpenAI，<a href="https://arxiv.org/abs/1904.10509" target="_blank" rel="noopener">Generating Long Sequences with Sparse Transformers</a><sup>[10]</sup>，GPT-3用了类似结构），模型中每一层的 attention pattern 在“局部窗口注意力”和“全连接注意力”之间交替进行，gpt-sso里这个窗口大小为128。代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.sliding_window = config.sliding_window <span class="keyword">if</span> layer_idx % <span class="number">2</span> == <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>sliding_window=0时就是没有局部（滑动）窗口。</p>
-<p>注意，这里指的不是SWA（Sliding Window Attention，来自<a href="https://arxiv.org/abs/2310.06825" target="_blank" rel="noopener">Mistral</a><sup>[11]</sup>）。SWA的主要原理是逐层扩展Attention，突破单层注意力窗口大小W的限制，从而获得更远距离的信息。具体来说，第k层的第i个位置上的隐藏状态，只会关注上一层中从i-W到i的那些位置的隐藏状态，通过递归堆叠多层（每一层都看 W 个前面的 token），第k层的某个位置最多可以访问输入序列中距离当前位置最多 W×k 个token之前的信息。也就是说，没往上多一层，注意力跨度就多了W个token。</p>
-<p>其实，关于Attention还有很多有意思的设计，比如DeepSeek的NSA、月之暗面的MoBA、YoloV12的Area Attention（A2），后面专门来一篇吧。</p>
-<p>另一个是FFN先扩大维度再压缩回来。这里先不谈扩大的比例（比如GPT的4、LLaMA的8/3），简单谈一下为啥要先扩大再缩小。一般的说法是增加模型容量和非线性表示能力，因为激活函数是非线性的，而且很多是稀疏的，如果不升维，很多中间表示在非线性后变成了0，导致信息损失。升维等于为网络提供更多“通道”去编码和处理不同的语义/模式。而且FFN不像Attention那样token之间有信息交互，它必须尽可能在 token 内部增加维度来增加表达能力。升维后，线性层能创建更丰富的 feature 组合。其实，从数学拟合角度看也类似，模型变宽意味着更多的变量（只增加层数对FFN没太多意义），从而可以逼近更复杂的函数。感兴趣的读者可以阅读《<a href="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/">AI 小课堂：Activation Function | Yam</a><sup>[12]</sup>》。这个的思想和机器学习算法里的核方法类似。</p>
-<p>这个点感觉也有很多有意思的话题，以后看情况聊吧。</p>
-<h2 id="harmony-format">harmony format</h2>
-<p>讲真，这算是一个重大变化了。前几天才刚写了《<a href="https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/">重识LLM法则：上下文工程与数据进化 | Yam</a><sup>[13]</sup>》，我觉得这个某种意义上也可以算是一种“上下文工程”。相关文献如下：</p>
-<ul>
-<li><a href="https://cookbook.openai.com/articles/openai-harmony" target="_blank" rel="noopener">OpenAI Harmony Response Format</a><sup>[14]</sup></li>
-<li><a href="https://github.com/openai/harmony" target="_blank" rel="noopener">openai/harmony: Renderer for the harmony response format to be used with gpt-oss</a><sup>[15]</sup></li>
-</ul>
-<h3 id="角色">角色</h3>
-<p>首先是多了一个大家之前没见过的develop角色（其实就是原来的system），具体如下表所示。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Role</th>
-<th style="text-align:left">作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>system</code></td>
-<td style="text-align:left">用于指定推理努力的程度，提供元信息（如知识截止时间、内置工具等）</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>developer</code></td>
-<td style="text-align:left">用于向模型提供指令相关信息（通常被视为“系统提示”）以及可用的函数工具</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>user</code></td>
-<td style="text-align:left">模型的输入</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>assistant</code></td>
-<td style="text-align:left">模型输出的内容，可能是函数调用，也可能是文本消息。输出还可以带一个“频道”以标识消息的意图</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>tool</code></td>
-<td style="text-align:left">工具调用的输出，消息中使用具体的工具名作为角色</td>
-</tr>
-</tbody>
-</table>
-<p>存在指令冲突时模型遵循的信息优先级为：System &gt; Developer &gt; User &gt; Assistant &gt; Tool。</p>
-<h3 id="频道">频道</h3>
-<p>Assistant消息可以输出到三个不同的“频道（channels）”，用于区分面向用户的响应和内部推理内容。</p>
-<ul>
-<li><code>analysis</code>：用于展示 CoT（思维链）token，analysis 频道中的消息不遵守与 final 相同的安全标准，应避免展示给用户。</li>
-<li><code>commentary</code>：用于函数调用过程中的注释信息，通常函数工具调用会在该频道触发。内置工具一般在 analysis 频道触发，但有时也会输出到 commentary。此外，该频道也可能用于模型在调用多个函数前生成“前言”内容（告知用户它即将调用的工具）。</li>
-<li><code>final</code>：表示展示给用户的最终答案。</li>
-</ul>
-<h3 id="特殊token">特殊Token</h3>
-<p>如果使用 tiktoken，这些Token将采用 o200k_harmony 编码。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Special token</th>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">Token ID</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>&lt;|start|&gt;</code></td>
-<td style="text-align:left">表示一条消息的开始，后面紧跟以角色开头的消息“头部”信息。</td>
-<td style="text-align:left"><code>200006</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|end|&gt;</code></td>
-<td style="text-align:left">表示一条消息的结束。</td>
-<td style="text-align:left"><code>200007</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|message|&gt;</code></td>
-<td style="text-align:left">表示从消息“头部”过渡到实际内容。</td>
-<td style="text-align:left"><code>200008</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|channel|&gt;</code></td>
-<td style="text-align:left">表示进入头部中的频道信息部分。</td>
-<td style="text-align:left"><code>200005</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|constrain|&gt;</code></td>
-<td style="text-align:left">表示在工具调用中进入数据类型定义部分。</td>
-<td style="text-align:left"><code>200003</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|return|&gt;</code></td>
-<td style="text-align:left">表示模型已完成响应消息的采样。是一个有效的“停止标记”，用于指示应停止推理。</td>
-<td style="text-align:left"><code>200002</code></td>
-</tr>
-<tr>
-<td style="text-align:left"><code>&lt;|call|&gt;</code></td>
-<td style="text-align:left">表示模型希望调用一个工具。是一个有效的“停止标记”，用于指示应停止推理。</td>
-<td style="text-align:left"><code>200012</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="消息示例">消息示例</h2>
-<p>均来自<a href="https://cookbook.openai.com/articles/openai-harmony" target="_blank" rel="noopener">OpenAI Harmony Response Format</a><sup>[14]</sup>，稍微简化了一下。</p>
-<h3 id="chat-conversation">Chat Conversation</h3>
-<p>输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;user&lt;|message|&gt;What is 2 + 2?&lt;|end|&gt;</span><br><span class="line">&lt;|start|&gt;assistant</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;|channel|&gt;analysis&lt;|message|&gt;User asks: &quot;What is 2 + 2?&quot; Simple arithmetic. Provide answer.&lt;|end|&gt;</span><br><span class="line">&lt;|start|&gt;assistant&lt;|channel|&gt;final&lt;|message|&gt;2 + 2 = 4.&lt;|return|&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="system-message">System Message</h3>
-<p>使用系统消息来定义以下内容：</p>
-<ul>
-<li><strong>模型身份</strong> — 应始终保持为 “You are ChatGPT, a large language model trained by OpenAI.”。如果想更改模型身份，请使用<code>developer</code>消息中的指令。</li>
-<li><strong>元数据</strong> — 具体包括知识截止日期（Knowledge cutoff）和当前日期（Current date）。</li>
-<li><strong>推理努力程度</strong> — 按照<code>high</code>、<code>medium</code>、<code>low</code>等级别进行指定。</li>
-<li><strong>可用频道</strong> — 为了获得最佳性能，应映射到 <code>analysis</code>、<code>commentary</code> 和 <code>final</code> 三个频道。</li>
-<li><strong>内置工具</strong> — 模型已训练支持 <code>python</code> 和<code>browser</code>。</li>
-<li><strong>函数定义</strong> — 如果定义了函数，还应注明所有函数工具调用必须发送到 <code>commentary</code> 频道。</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;system&lt;|message|&gt;You are ChatGPT, a large language model trained by OpenAI.</span><br><span class="line">Knowledge cutoff: 2024-06</span><br><span class="line">Current date: 2025-06-28</span><br><span class="line"></span><br><span class="line">Reasoning: high</span><br><span class="line"></span><br><span class="line"># Valid channels: analysis, commentary, final. Channel must be included for every message.</span><br><span class="line">Calls to these tools must go to the commentary channel: &apos;functions&apos;.&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>另外把developer message的示例也放在这里，它其实就是之前我们认识的system message。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;developer&lt;|message|&gt;# Instructions</span><br><span class="line"></span><br><span class="line">&#123;instructions&#125;&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="reasoning">Reasoning</h3>
-<p>gpt-oss的模型是推理模型，默认是 <code>medium</code> 级别。执行推理任务时建议改成 <code>high</code>。</p>
-<p>模型会将原始的思路（CoT）作为辅助信息输出到<code>analysis</code> channel，而最终的响应将作为最终结果输出。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;|channel|&gt;analysis&lt;|message|&gt;User asks: &quot;What is 2 + 2?&quot; Simple arithmetic. Provide answer.&lt;|end|&gt;</span><br><span class="line">&lt;|start|&gt;assistant&lt;|channel|&gt;final&lt;|message|&gt;2 + 2 = 4.&lt;|return|&gt;</span><br></pre></td></tr></table></figure>
-<p>一般来说，如果assistant的回答以发送到<code>final</code> channel的消息结束，那么在后续采样时应丢弃之前的任何链式思考（CoT）内容。也就是说，多轮时，之前消息的CoT部分不要。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;user&lt;|message|&gt;What is 2 + 2?&lt;|end|&gt;</span><br><span class="line">&lt;|start|&gt;assistant&lt;|channel|&gt;final&lt;|message|&gt;2 + 2 = 4.&lt;|return|&gt;</span><br><span class="line">&lt;|start|&gt;user&lt;|message|&gt;What about 9 / 2?&lt;|end|&gt;</span><br><span class="line">&lt;|start|&gt;assistant</span><br></pre></td></tr></table></figure>
-<p>例外的情况是工具/函数调用。模型能够将工具调用作为其思路链的一部分，因此，应该将之前的思路链作为后续采样的输入传递回去。</p>
-<h3 id="function-calling">Function Calling</h3>
-<p><strong>定义可用工具</strong></p>
-<p>所有模型可用的函数都应在 <code>developer</code> 消息中的专门 <code>Tool</code> 部分定义。</p>
-<p>定义函数时，使用类似 TypeScript 的类型语法，并将函数包裹在专门的 <code>functions</code> 命名空间中。严格遵守此格式对于提高函数调用的准确性非常重要。</p>
-<p>以下是一些通用的格式规范：</p>
-<ul>
-<li>如果函数不接收任何参数，定义为 <code>type {function_name} = () =&gt; any</code>。</li>
-<li>对于带参数的函数，参数命名为 <code>_</code>，并将类型定义内联写出。</li>
-<li>在字段定义上一行添加注释，作为描述。</li>
-<li>返回类型始终使用 <code>any</code>。</li>
-<li>每个函数定义后保留一个空行。</li>
-<li>将所有函数包裹在一个命名空间内，通常使用 <code>functions</code> 作为命名空间名称，以避免与模型可能训练过的其他工具冲突。</li>
-</ul>
-<p>示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;system&lt;|message|&gt;You are ChatGPT, a large language model trained by OpenAI.</span><br><span class="line">Knowledge cutoff: 2024-06</span><br><span class="line">Current date: 2025-06-28</span><br><span class="line"></span><br><span class="line">Reasoning: high</span><br><span class="line"></span><br><span class="line"># Valid channels: analysis, commentary, final. Channel must be included for every message.</span><br><span class="line">Calls to these tools must go to the commentary channel: &apos;functions&apos;.&lt;|end|&gt;&lt;|start|&gt;developer&lt;|message|&gt;# Instructions</span><br><span class="line"></span><br><span class="line">Use a friendly tone.</span><br><span class="line"></span><br><span class="line"># Tools</span><br><span class="line"></span><br><span class="line">## functions</span><br><span class="line"></span><br><span class="line">namespace functions &#123;</span><br><span class="line"></span><br><span class="line">// Gets the location of the user.</span><br><span class="line">type get_location = () =&gt; any;</span><br><span class="line"></span><br><span class="line">// Gets the current weather in the provided location.</span><br><span class="line">type get_current_weather = (_: &#123;</span><br><span class="line">// The city and state, e.g. San Francisco, CA</span><br><span class="line">location: string,</span><br><span class="line">format?: &quot;celsius&quot; | &quot;fahrenheit&quot;, // default: celsius</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">// Gets the current weather in the provided list of locations.</span><br><span class="line">type get_multiple_weathers = (_: &#123;</span><br><span class="line">// List of city and state, e.g. [&quot;San Francisco, CA&quot;, &quot;New York, NY&quot;]</span><br><span class="line">locations: string[],</span><br><span class="line">format?: &quot;celsius&quot; | &quot;fahrenheit&quot;, // default: celsius</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">&#125; // namespace functions&lt;|end|&gt;&lt;|start|&gt;user&lt;|message|&gt;What is the weather like in SF?&lt;|end|&gt;&lt;|start|&gt;assistant</span><br></pre></td></tr></table></figure>
-<p><strong>接收工具调用</strong></p>
-<p>如果模型决定调用一个工具，它会在消息头部使用 <code>to={name}</code> 的格式定义一个 <code>recipient</code>（接收者），并按照规定将频道设置为 <code>commentary</code>。</p>
-<p>模型还可能使用 <code>&lt;|constrain|&gt;</code> 标记来指示工具调用输入的类型。在这种情况下，由于传入的是 JSON，<code>&lt;|constrain|&gt;</code> 会被设置为 <code>json</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;|channel|&gt;analysis&lt;|message|&gt;Need to use function get_weather.&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;commentary to=functions.get_weather &lt;|constrain|&gt;json&lt;|message|&gt;&#123;&quot;location&quot;:&quot;San Francisco&quot;&#125;&lt;|call|&gt;</span><br></pre></td></tr></table></figure>
-<p><strong>处理工具调用</strong></p>
-<p>处理完函数调用后，需要通过在调用消息后指定一个包含输出的新工具消息，将输出返回给模型。</p>
-<p>工具消息示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;&#123;toolname&#125; to=assistant&lt;|channel|&gt;commentary&lt;|message|&gt;&#123;output&#125;&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;functions.get_weather to=assistant&lt;|channel|&gt;commentary&lt;|message|&gt;&#123;&quot;sunny&quot;: true, &quot;temperature&quot;: 20&#125;&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>一旦收集了工具调用的输出，就可以使用完整内容运行推理：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;system&lt;|message|&gt;You are ChatGPT, a large language model trained by OpenAI.</span><br><span class="line">Knowledge cutoff: 2024-06</span><br><span class="line">Current date: 2025-06-28</span><br><span class="line"></span><br><span class="line">Reasoning: high</span><br><span class="line"></span><br><span class="line"># Valid channels: analysis, commentary, final. Channel must be included for every message.</span><br><span class="line">Calls to these tools must go to the commentary channel: &apos;functions&apos;.&lt;|end|&gt;&lt;|start|&gt;developer&lt;|message|&gt;# Instructions</span><br><span class="line"></span><br><span class="line">Use a friendly tone.</span><br><span class="line"></span><br><span class="line"># Tools</span><br><span class="line"></span><br><span class="line">## functions</span><br><span class="line"></span><br><span class="line">namespace functions &#123;</span><br><span class="line"></span><br><span class="line">// Gets the location of the user.</span><br><span class="line">type get_location = () =&gt; any;</span><br><span class="line"></span><br><span class="line">// Gets the current weather in the provided location.</span><br><span class="line">type get_current_weather = (_: &#123;</span><br><span class="line">// The city and state, e.g. San Francisco, CA</span><br><span class="line">location: string,</span><br><span class="line">format?: &quot;celsius&quot; | &quot;fahrenheit&quot;, // default: celsius</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">// Gets the current weather in the provided list of locations.</span><br><span class="line">type get_multiple_weathers = (_: &#123;</span><br><span class="line">// List of city and state, e.g. [&quot;San Francisco, CA&quot;, &quot;New York, NY&quot;]</span><br><span class="line">locations: string[],</span><br><span class="line">format?: &quot;celsius&quot; | &quot;fahrenheit&quot;, // default: celsius</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">&#125; // namespace functions&lt;|end|&gt;&lt;|start|&gt;user&lt;|message|&gt;What is the weather like in SF?&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;analysis&lt;|message|&gt;Need to use function get_weather.&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;commentary to=functions.get_weather &lt;|constrain|&gt;json&lt;|message|&gt;&#123;&quot;location&quot;:&quot;San Francisco&quot;&#125;&lt;|call|&gt;&lt;|start|&gt;functions.get_weather to=assistant&lt;|channel|&gt;commentary&lt;|message|&gt;&#123;&quot;sunny&quot;: true, &quot;temperature&quot;: 20&#125;&lt;|end|&gt;&lt;|start|&gt;assistant</span><br></pre></td></tr></table></figure>
-<p><strong>序言</strong></p>
-<p>模型可能会选择生成“序言”，告知用户即将调用的工具。例如，当它计划调用多个工具时。在这种情况下，它会在 <code>commentary</code> 频道上生成一条辅助消息，与思路链不同，这条消息旨在向最终用户显示。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;|channel|&gt;analysis&lt;|message|&gt;&#123;long chain of thought&#125;&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;commentary&lt;|message|&gt;**Action plan**:</span><br><span class="line">1. Generate an HTML file</span><br><span class="line">2. Generate a JavaScript for the Node.js server</span><br><span class="line">3. Start the server</span><br><span class="line">---</span><br><span class="line">Will start executing the plan step by step&lt;|end|&gt;&lt;|start|&gt;assistant&lt;|channel|&gt;commentary to=functions.generate_file&lt;|constrain|&gt;json&lt;|message|&gt;&#123;&quot;template&quot;: &quot;basic_html&quot;, &quot;path&quot;: &quot;index.html&quot;&#125;&lt;|call|&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="structured-output">Structured output</h3>
-<p>为了控制模型的输出行为，可以在<code>developer</code>消息的末尾定义一个响应格式，其结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Response Formats</span><br><span class="line"></span><br><span class="line">## &#123;format name&#125;</span><br><span class="line"></span><br><span class="line">// &#123;description or context&#125;</span><br><span class="line">&#123;schema&#125;&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>示例如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;developer&lt;|message|&gt;# Instructions</span><br><span class="line"></span><br><span class="line">You are a helpful shopping assistant</span><br><span class="line"></span><br><span class="line"># Response Formats</span><br><span class="line"></span><br><span class="line">## shopping_list</span><br><span class="line"></span><br><span class="line">&#123;&quot;properties&quot;:&#123;&quot;items&quot;:&#123;&quot;type&quot;:&quot;array&quot;,&quot;description&quot;:&quot;entries on the shopping list&quot;,&quot;items&quot;:&#123;&quot;type&quot;:&quot;string&quot;&#125;&#125;&#125;,&quot;type&quot;:&quot;object&quot;&#125;&lt;|end|&gt;&lt;|start|&gt;user&lt;|message|&gt;I need to buy coffee, soda and eggs&lt;|end|&gt;&lt;|start|&gt;assistant</span><br></pre></td></tr></table></figure>
-<h3 id="built-in-tools">Built-in Tools</h3>
-<p>包括 <code>python</code> 和 <code>browser</code>，这些工具应该在 <code>system</code> 消息中定义而非 <code>developer</code> 消息，具体做法是添加一个 <code># Tool</code> 部分。</p>
-<p><strong>Browser Tool</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;system&lt;|message|&gt;You are ChatGPT, a large language model trained by OpenAI.</span><br><span class="line">Knowledge cutoff: 2024-06</span><br><span class="line">Current date: 2025-06-28</span><br><span class="line"></span><br><span class="line">Reasoning: high</span><br><span class="line"></span><br><span class="line"># Tools</span><br><span class="line"></span><br><span class="line">## browser</span><br><span class="line"></span><br><span class="line">// Tool for browsing.</span><br><span class="line">// The `cursor` appears in brackets before each browsing display: `[&#123;cursor&#125;]`.</span><br><span class="line">// Cite information from the tool using the following format:</span><br><span class="line">// `【&#123;cursor&#125;†L&#123;line_start&#125;(-L&#123;line_end&#125;)?】`, for example: `【6†L9-L11】` or `【8†L3】`.</span><br><span class="line">// Do not quote more than 10 words directly from the tool output.</span><br><span class="line">// sources=web (default: web)</span><br><span class="line">namespace browser &#123;</span><br><span class="line"></span><br><span class="line">// Searches for information related to `query` and displays `topn` results.</span><br><span class="line">type search = (_: &#123;</span><br><span class="line">query: string,</span><br><span class="line">topn?: number, // default: 10</span><br><span class="line">source?: string,</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">// Opens the link `id` from the page indicated by `cursor` starting at line number `loc`, showing `num_lines` lines.</span><br><span class="line">// Valid link ids are displayed with the formatting: `【&#123;id&#125;†.*】`.</span><br><span class="line">// If `cursor` is not provided, the most recent page is implied.</span><br><span class="line">// If `id` is a string, it is treated as a fully qualified URL associated with `source`.</span><br><span class="line">// If `loc` is not provided, the viewport will be positioned at the beginning of the document or centered on the most relevant passage, if available.</span><br><span class="line">// Use this function without `id` to scroll to a new location of an opened page.</span><br><span class="line">type open = (_: &#123;</span><br><span class="line">id?: number | string, // default: -1</span><br><span class="line">cursor?: number, // default: -1</span><br><span class="line">loc?: number, // default: -1</span><br><span class="line">num_lines?: number, // default: -1</span><br><span class="line">view_source?: boolean, // default: false</span><br><span class="line">source?: string,</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">// Finds exact matches of `pattern` in the current page, or the page given by `cursor`.</span><br><span class="line">type find = (_: &#123;</span><br><span class="line">pattern: string,</span><br><span class="line">cursor?: number, // default: -1</span><br><span class="line">&#125;) =&gt; any;</span><br><span class="line"></span><br><span class="line">&#125; // namespace browser</span><br><span class="line"></span><br><span class="line"># Valid channels: analysis, commentary, final. Channel must be included for every message.&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>如果模型决定在浏览器中调用操作，它将使用与 Function Call 相同的格式，但有两个例外：</p>
-<ul>
-<li>请求将发送到 <code>analysis</code> 通道。</li>
-<li>接收方分别为 <code>browser.search</code>、<code>browser.open</code> 和 <code>browser.find</code>。</li>
-</ul>
-<p><strong>Python Tool</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;|start|&gt;system&lt;|message|&gt;You are ChatGPT, a large language model trained by OpenAI.</span><br><span class="line">Knowledge cutoff: 2024-06</span><br><span class="line">Current date: 2025-06-28</span><br><span class="line"></span><br><span class="line">Reasoning: high</span><br><span class="line"></span><br><span class="line"># Tools</span><br><span class="line"></span><br><span class="line">## python</span><br><span class="line"></span><br><span class="line">Use this tool to execute Python code in your chain of thought. The code will not be shown to the user. This tool should be used for internal reasoning, but not for code that is intended to be visible to the user (e.g. when creating plots, tables, or files).</span><br><span class="line"></span><br><span class="line">When you send a message containing Python code to python, it will be executed in a stateful Jupyter notebook environment. python will respond with the output of the execution or time out after 120.0 seconds. The drive at &apos;/mnt/data&apos; can be used to save and persist user files. Internet access for this session is UNKNOWN. Depends on the cluster.</span><br><span class="line"></span><br><span class="line"># Valid channels: analysis, commentary, final. Channel must be included for every message.&lt;|end|&gt;</span><br></pre></td></tr></table></figure>
-<p>如果模型决定执行Python代码，它将使用与 Function Call 相同的格式，但也有两个例外：</p>
-<ul>
-<li>请求将发送到 <code>analysis</code> 通道。</li>
-<li>接收方永远是 <code>python</code>。</li>
-</ul>
-<h2 id="其他">其他</h2>
-<h3 id="安全">安全</h3>
-<p>这里指的并非传统意义上的安全对齐，而是报告最后一部分的《<a href="https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf" target="_blank" rel="noopener">Preparedness Framework</a><sup>[16]</sup>》。</p>
-<p>“前沿能力防范框架”是 OpenAI 用于追踪和应对可能带来重大风险的前沿模型能力的方法。该框架承诺将持续追踪并减轻严重危害的风险，包括通过实施足够有效的安全措施，以降低高能力模型带来的风险。</p>
-<p>也就是说，不光要模型安全，还要模型“放出去也安全”。感觉还挺有意思的，后面专门聊吧。</p>
-<h3 id="量化">量化</h3>
-<p>主要是对MoE权重使用 MXFP4 格式进行量化，每个参数被量化为 4.25 比特。MoE 权重占据了模型总参数量的 90% 以上，量化后，120b模型能够在单块 80GB 的 GPU 上运行，而20b模型则可以在仅有 16GB 内存的系统上运行。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt-oss-5.jpg" alt></p>
-<h2 id="小结">小结</h2>
-<p>本文主要介绍了gpt-oss的一些“不一样”的地方，我们可以深刻感受到OpenAI在“各个方向”上的规划。要做好一个LLM越来越不容易了，涉及到方方面面的设计。我们当然无法知晓GPT-4或GPT-5内部到底是怎么做的，但至少开源出来的模型还是有不少值得借鉴的地方。另外值得一提的是，开源的不只是模型，还有一整套配套。总之，不管怎么说，OpenAI的open总归是业界幸事吧（大家说close-ai应该也是调侃，毕竟商业公司close也是正常选择）。</p>
-<h2 id="references">References</h2>
-<p><code>[1]</code> Introducing gpt-oss | OpenAI: <em><a href="https://openai.com/index/introducing-gpt-oss/" target="_blank" rel="noopener">https://openai.com/index/introducing-gpt-oss/</a></em><br>
-<code>[2]</code> openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI: <em><a href="https://github.com/openai/gpt-oss/tree/main" target="_blank" rel="noopener">https://github.com/openai/gpt-oss/tree/main</a></em><br>
-<code>[3]</code> oai_gpt-oss_model_card.pdf: <em><a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf" target="_blank" rel="noopener">https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf</a></em><br>
-<code>[4]</code> gpt-oss - a openai Collection: <em><a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4" target="_blank" rel="noopener">https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4</a></em><br>
-<code>[5]</code> gpt-oss: <em><a href="https://gpt-oss.com/" target="_blank" rel="noopener">https://gpt-oss.com/</a></em><br>
-<code>[6]</code> Bias项的神奇作用：RoPE + Bias = 更好的长度外推性 - 科学空间|Scientific Spaces: <em><a href="https://spaces.ac.cn/archives/9577" target="_blank" rel="noopener">https://spaces.ac.cn/archives/9577</a></em><br>
-<code>[7]</code> Attention Is Off By One – Evan Miller: <em><a href="https://www.evanmiller.org/attention-is-off-by-one.html" target="_blank" rel="noopener">https://www.evanmiller.org/attention-is-off-by-one.html</a></em><br>
-<code>[8]</code> Efficient Streaming Language Models with Attention Sinks: <em><a href="https://arxiv.org/abs/2309.17453" target="_blank" rel="noopener">https://arxiv.org/abs/2309.17453</a></em><br>
-<code>[9]</code> 这篇知乎文章: <em><a href="https://zhuanlan.zhihu.com/p/1934722616544954132" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/1934722616544954132</a></em><br>
-<code>[10]</code> Generating Long Sequences with Sparse Transformers: <em><a href="https://arxiv.org/abs/1904.10509" target="_blank" rel="noopener">https://arxiv.org/abs/1904.10509</a></em><br>
-<code>[11]</code> Mistral: <em><a href="https://arxiv.org/abs/2310.06825" target="_blank" rel="noopener">https://arxiv.org/abs/2310.06825</a></em><br>
-<code>[12]</code> AI 小课堂：Activation Function | Yam: <em><a href="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/">https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/</a></em><br>
-<code>[13]</code> 重识LLM法则：上下文工程与数据进化 | Yam: <em><a href="https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/">https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/</a></em><br>
-<code>[14]</code> OpenAI Harmony Response Format: <em><a href="https://cookbook.openai.com/articles/openai-harmony" target="_blank" rel="noopener">https://cookbook.openai.com/articles/openai-harmony</a></em><br>
-<code>[15]</code> openai/harmony: Renderer for the harmony response format to be used with gpt-oss: <em><a href="https://github.com/openai/harmony" target="_blank" rel="noopener">https://github.com/openai/harmony</a></em><br>
-<code>[16]</code> Preparedness Framework: <em><a href="https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf" target="_blank" rel="noopener">https://cdn.openai.com/pdf/18a02b5d-6b67-4cec-ab64-68cdfbddebcd/preparedness-framework-v2.pdf</a></em></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2025/08/06/NLP/2025-08-06-gpt-oss/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
       
     </div><!-- .entry-content -->
 
