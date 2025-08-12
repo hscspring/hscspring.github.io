@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="8号一大早出门团建，赶路过程中看到群里X哥来了句“5感觉有点难评”，H哥来了句“感觉有点失望”。X哥接着补充“我感觉o系列有点打乱openai本来的节奏，我理解本来5应该预想是全模态模型”。是的，没错，今天凌晨GPT-5发布，反响不一，但总体来看好像并没有达到大家的预期。至于大家的预期是什么，那肯定不一而足，不过就发布的内容来看——一个正常的LLM、一个推理模型和一个动态router，这显然是不能">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2025-08-12T01:16:44.908Z">
+<meta property="og:updated_time" content="2025-08-12T01:39:22.324Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考">
 <meta name="twitter:description" content="8号一大早出门团建，赶路过程中看到群里X哥来了句“5感觉有点难评”，H哥来了句“感觉有点失望”。X哥接着补充“我感觉o系列有点打乱openai本来的节奏，我理解本来5应该预想是全模态模型”。是的，没错，今天凌晨GPT-5发布，反响不一，但总体来看好像并没有达到大家的预期。至于大家的预期是什么，那肯定不一而足，不过就发布的内容来看——一个正常的LLM、一个推理模型和一个动态router，这显然是不能">
@@ -96,6 +96,9 @@
             <!-- Table of Contents -->
               
         <p>8号一大早出门团建，赶路过程中看到群里X哥来了句“5感觉有点难评”，H哥来了句“感觉有点失望”。X哥接着补充“我感觉o系列有点打乱openai本来的节奏，我理解本来5应该预想是全模态模型”。是的，没错，今天凌晨GPT-5发布，反响不一，但总体来看好像并没有达到大家的预期。至于大家的预期是什么，那肯定不一而足，不过就发布的内容来看——一个正常的LLM、一个推理模型和一个动态router，这显然是不能让绝大部分人满意的。</p>
+<blockquote>
+<p>注意！注意！注意！本文观点一家之言，如有不当之处，恳请读者批评指正！</p>
+</blockquote>
 <a id="more"></a>
 <h2 id="全模态">全模态</h2>
 <p>接下来自然围绕着这个话题在群里展开了讨论，X哥说预想是全模态模型，H哥也是这样想的，恰好我在之前也是这样预想过。不过由于2024年搞了一年语音多模态，之后就很清晰地认识到——端到端多模态太难搞了（最近的一篇是《<a href="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/">从Voila看语音端到端发展 | Yam</a><sup>[1]</sup>》）。这个难主要是多模态在同一语义下可能的表示太多。拿语音举例，虽然有时候同一文本在不同语境下语音可能不同（比如有某种情绪），但大多数文本在大多数情况下其实在语义上是一致的，但是不同的人说出来就有不同的特征，这就导致语音端到端“效率”不高（相比文本）。</p>
@@ -111,7 +114,7 @@
 <p>X哥说，世界模型现在感觉都还有点虚，他还是比较期待在小模型上探一探全模态，或者说小模型的发展。确实如此，个人心目中的世界模型不只是对世界知识进行建模（现有LLM已经一定程度上有了），更重要的是知道自己“知道或不知道”（这样才能真正自我决定是否需要推理）。后者多少有点自我意识的意思了，个人感觉两个方向应该会同时前进。前段时间OpenAI的模型在IMO上拿下金牌时不是“坦率”地说自己不会第三题么（<a href="https://x.com/alexwei_/status/1947461238512095718" target="_blank" rel="noopener">出处</a><sup>[5]</sup>在这里），恰好之前有Anthropic的这么个研究：<a href="https://arxiv.org/abs/2207.05221" target="_blank" rel="noopener">Language Models (Mostly) Know What They Know</a><sup>[6]</sup>。虽然效果还没有那么理想，但至少这是个很好的开始，目测LLM会朝这个方向继续深入优化。</p>
 <p>正好，X哥接着补充：“这个我觉得其实通过强化还好，设计一个拒识字符，强化上面反复用评价模型对回复幻觉之类进行设计。其实这东西当初我们用sft也能激活，就是sft很难控制拒识范围”。仔细想想确实如此，这本质上是“learning from data”，从机器学习开始（我记得是一本书）就一直有效。</p>
 <p>值得一提的是，这里所说的世界模型并不是带Agent环境的那种具身智能的“世界模型”，而是能够接收各种来源的输入，并对这些输入有一个比较全面、基本的认知，知道哪些是“对的”，哪些是“不对”的，对或不对的判断依据是模型已有的认知。另外，虽然世界模型看起来应该是多模态的，但其实核心是”理解“——对接收到的输入的理解——不仅仅是语境上下文理解，还包括基于整个认知的理解——就像人类一样。恰好Anthropic还有一篇<a href="https://www.anthropic.com/research/influence-functions" target="_blank" rel="noopener">Tracing Model Outputs to the Training Data</a><sup>[7]</sup>，主要结论是：“小模型依赖具体词句，大模型则展现出更抽象的理解能力”。“抽象”不正是“智能”的表现吗！</p>
-<p>总的来说，虽然现在的大模型通过大量数据貌似已经构建出一个“世界模型”，但个人觉得这个方向还不够，或者说大家没有去“刻意设计”，目前的”世界模型“更像是LLM训练完成后自然而然产生的，我们对其内部究竟如何还没有完全理解。Anthropic在这方面做了蛮多工作，刚兴趣的读者可以阅读<a href="https://www.anthropic.com/research#interpretability" target="_blank" rel="noopener">Research</a><sup>[8]</sup>，而且他们还开源了一个工具：<a href="https://github.com/safety-research/circuit-tracer" target="_blank" rel="noopener">safety-research/circuit-tracer</a><sup>[9]</sup>，用于分析模型内部机理。</p>
+<p>总的来说，虽然现在的大模型通过大量数据貌似已经构建出一个“世界模型”，但个人觉得这个方向还不够，或者说大家没有去“刻意设计”，目前的”世界模型“更像是LLM训练完成后自然而然产生的，我们对其内部究竟如何还没有完全理解。Anthropic在这方面做了蛮多工作，感兴趣的读者可以阅读<a href="https://www.anthropic.com/research#interpretability" target="_blank" rel="noopener">Research</a><sup>[8]</sup>，而且他们还开源了一个工具：<a href="https://github.com/safety-research/circuit-tracer" target="_blank" rel="noopener">safety-research/circuit-tracer</a><sup>[9]</sup>，用于分析模型内部机理。</p>
 <h2 id="实时学习">实时学习</h2>
 <p>”世界模型“搞定后，接下来要解决的是实时学习的问题。按照人类学习的思路，就是根据新的信息不停地构建自己的认知，调整对不同知识的信念（经验主义+贝叶斯主义）。X哥同样觉得在线学习是一个大点，RJ提问：“之前听到个说法，目前的模型没有loop，很难通过内部的反馈学习，你们怎么看？”X哥表示：“感觉更多是每次单样本调整范围不知道，我们希望单样本只调整其对应的知识部分，但实际可能大动。另一个是对错误样本拒识能力也一般。本质上是现在的反向传播对于每次梯度迭代的大小其实已经是启发式的了。不是通过对单样本充分学习而是希望通过大数据近似逼近，这就导致全量训练其实还行，在线学习就很难”。</p>
 <p>对X哥的观点我深表认同，并分享了强化学习之父的一个分享：<a href="https://www.youtube.com/watch?v=75jr5E4OzEE" target="_blank" rel="noopener">Dynamic Deep Learning | Richard Sutton - YouTube</a><sup>[10]</sup>（中文文字版：<a href="https://mp.weixin.qq.com/s/Zfqh8XC1xIo5EMqv-5WPEQ" target="_blank" rel="noopener">强化学习之父 Rich Sutton 最新演讲：用「去中心化神经网络」应对深度学习局限性</a><sup>[11]</sup>），里面提到了一个“去中心化神经网络”的概念，核心理念是赋予每个神经元独立的目标。同时，还提出了一个持续反向传播算法——通过在每轮反向传播中，根据神经元的活跃度选择性地重新初始化部分神经元，从而提升模型的灵活性和学习效果。这个是我目前看到最有可能做到实时学习的设计，当然我自己对“在线学习”了解不太多，不知道是不是还有其他更好的方案。说到这里，顺便提一个之前看到的另一个有意思的研究，来自前达摩院、前DeepSeek的罗福莉大佬的：<a href="https://zhuanlan.zhihu.com/p/428263027" target="_blank" rel="noopener">极简单但贼有效的Fine-tuning算法，几行代码最高涨点8% - 知乎</a><sup>[12]</sup>。主要思想是：在Fine-tuning过程中仅更新预训练模型中部分网络的参数（根据伯努利分布随机mask掉一部分grad不更新）。虽然这个针对的是Bert年代的预训练模型，但想法很是精妙，和这一part也有点关系，顺带记一下。</p>
