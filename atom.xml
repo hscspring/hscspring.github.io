@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-08-14T16:18:06.116Z</updated>
+  <updated>2025-08-30T15:26:18.543Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -17,11 +17,40 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走</title>
+    <link href="https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/"/>
+    <id>https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/</id>
+    <published>2025-08-30T15:30:00.000Z</published>
+    <updated>2025-08-30T15:26:18.543Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;上一篇 &lt;a href=&quot;https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/&quot;&gt;GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | Yam&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt; 中，我们重点分析了 GSPO 和 GMPO 这两个非常相似的与 token 级别有关的优化算法，它们瞄准的是重要性比率。本文要介绍的 GTPO 和 GTPO（哈哈，两个撞名了）则是瞄准了 token 粒度有关的的梯度和优势/奖励，而且两者都重点关注了“熵”的作用。值得注意的是，虽然瞄准的是梯度和优势/奖励，但与&lt;a href=&quot;https://arxiv.org/abs/2505.23585&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;OPO&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt; 和 &lt;a href=&quot;https://arxiv.org/abs/2505.14264&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AAPO&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;、&lt;a href=&quot;https://arxiv.org/abs/2506.02864&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;BNPO&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt; 不同，关注到 token 粒度。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="GTPO" scheme="https://yam.gift/tags/GTPO/"/>
+    
+      <category term="GTPO-S" scheme="https://yam.gift/tags/GTPO-S/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归</title>
     <link href="https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/"/>
     <id>https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/</id>
     <published>2025-08-14T15:30:00.000Z</published>
-    <updated>2025-08-14T16:18:06.116Z</updated>
+    <updated>2025-08-14T16:44:24.698Z</updated>
     
     <summary type="html">
     
@@ -32,7 +61,7 @@
     </summary>
     
     
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
     
     
       <category term="AI" scheme="https://yam.gift/tags/AI/"/>
@@ -757,96 +786,6 @@
       <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
     
       <category term="Agent" scheme="https://yam.gift/tags/Agent/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DeepSeek R1后LLM新范式</title>
-    <link href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/"/>
-    <id>https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</id>
-    <published>2025-03-15T03:00:00.000Z</published>
-    <updated>2025-03-15T03:18:57.856Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文通过10篇R1相关的研究，介绍R1后LLM的新范式。其核心就是如何进一步增强LLM的能力。&lt;/p&gt;
-&lt;h2 id=&quot;基本框架&quot;&gt;基本框架&lt;/h2&gt;
-&lt;p&gt;首先是整体的框架，如下所示。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Base+SFT
-&lt;ul&gt;
-&lt;li&gt;R1冷启动&lt;/li&gt;
-&lt;li&gt;LIMO (817 Data Selection)&lt;/li&gt;
-&lt;li&gt;s1 (1000)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Base+RL
-&lt;ul&gt;
-&lt;li&gt;GRPO: R1-Zero&lt;/li&gt;
-&lt;li&gt;GRPO: oat-zero (Base can Aha、RL  enhance）&lt;/li&gt;
-&lt;li&gt;PPO: LIMR (Data Selection)&lt;/li&gt;
-&lt;li&gt;PPO: orz (Scaling quality, diversity)&lt;/li&gt;
-&lt;li&gt;DPO: Online-DPO-R1 (Different RL Algo)&lt;/li&gt;
-&lt;li&gt;DPO: LIMD (Data Selection)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;SFT+RL
-&lt;ul&gt;
-&lt;li&gt;R1蒸馏&lt;/li&gt;
-&lt;li&gt;DeepScaleR (Length Scaling)&lt;/li&gt;
-&lt;li&gt;Self-rewarding correction (LLM can reward itself, explicit Aha)、L1（LCPO）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我将其分成3个部分，前两个部分是Base模型的基础上使用SFT或RL提升效果，最后是SFT结合RL进一步提升效果。每个部分的第一个都是R1论文中的内容，上面没有R1本身，是因为R1本身是一个比较综合的过程。&lt;/p&gt;
-&lt;p&gt;值得说明的是，关于R1相关的研究肯定不止这些，列出这些一方面是因为我自己精力有限，只仔细阅读了这些；另一方面是逐步整理的过程中感觉到框架基本趋于完善。因此，本文也算是一个阶段性整理的输出。&lt;/p&gt;
-&lt;p&gt;本文内容相对比较通俗，如果对相关内容感兴趣，可以移步到对应的解读文章。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="Pre-training" scheme="https://yam.gift/tags/Pre-training/"/>
-    
-      <category term="Continual Pre-training" scheme="https://yam.gift/tags/Continual-Pre-training/"/>
-    
-      <category term="TTS" scheme="https://yam.gift/tags/TTS/"/>
-    
-      <category term="Post-training" scheme="https://yam.gift/tags/Post-training/"/>
-    
-      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
-    
-      <category term="R1-Zero" scheme="https://yam.gift/tags/R1-Zero/"/>
-    
-      <category term="oat-zero" scheme="https://yam.gift/tags/oat-zero/"/>
-    
-      <category term="DeepScaleR" scheme="https://yam.gift/tags/DeepScaleR/"/>
-    
-      <category term="LIMO" scheme="https://yam.gift/tags/LIMO/"/>
-    
-      <category term="s1" scheme="https://yam.gift/tags/s1/"/>
-    
-      <category term="Inference Scaling" scheme="https://yam.gift/tags/Inference-Scaling/"/>
-    
-      <category term="LIMR" scheme="https://yam.gift/tags/LIMR/"/>
-    
-      <category term="LIMD" scheme="https://yam.gift/tags/LIMD/"/>
-    
-      <category term="Online-DPO-R1" scheme="https://yam.gift/tags/Online-DPO-R1/"/>
-    
-      <category term="orz" scheme="https://yam.gift/tags/orz/"/>
-    
-      <category term="L1" scheme="https://yam.gift/tags/L1/"/>
-    
-      <category term="LCPO" scheme="https://yam.gift/tags/LCPO/"/>
     
   </entry>
   
