@@ -14,18 +14,18 @@
   
   <title>记一次诡异的 FD 泄露：躲在暗处的猴子补丁 | Yam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1] 引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发它">
+  <meta name="description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
 <meta name="keywords" content="Python,FD Leak,Monkey Patch,Eventlet,Sentry">
 <meta property="og:type" content="article">
 <meta property="og:title" content="记一次诡异的 FD 泄露：躲在暗处的猴子补丁">
 <meta property="og:url" content="https://yam.gift/2025/09/21/Python/2025-09-21-FD-Leak/index.html">
 <meta property="og:site_name" content="Yam">
-<meta property="og:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1] 引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发它">
+<meta property="og:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2025-09-25T00:25:09.898Z">
+<meta property="og:updated_time" content="2025-09-25T00:35:09.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次诡异的 FD 泄露：躲在暗处的猴子补丁">
-<meta name="twitter:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1] 引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发它">
+<meta name="twitter:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -96,7 +96,9 @@
             <!-- Table of Contents -->
               
         <p>本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：<a href="https://github.com/hscspring/fd_leak" target="_blank" rel="noopener">hscspring/fd_leak: fd leak caused by monkey patch.</a><sup>[1]</sup></p>
+<blockquote>
 <p>引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的<strong>猴子补丁（Monkey Patch）</strong>，而触发它作案的，则是一两行看似人畜无害的<strong>导入语句</strong>。</p>
+</blockquote>
 <a id="more"></a>
 <h2 id="问题背景">问题背景</h2>
 <p>某天，报警系统突然出现下面的错误日志：</p>
@@ -176,7 +178,12 @@
 <p>我先把上面的这个现象丢给了 ChatGPT 老师，它给我了一些解释，并建议给我一个不用 FastAPI 的最小 Demo。其实也很简单，就只要两个包的导入和一个后台（新线程）触发请求的逻辑。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># why/mini.py</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sentry_sdk</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_log</span><span class="params">()</span>:</span></span><br><span class="line">    requests.get(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">    print(<span class="string">"send_log done"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_fds</span><span class="params">()</span>:</span></span><br><span class="line">    pid = os.getpid()</span><br><span class="line">    cmd = <span class="string">f"lsof -p <span class="subst">&#123;pid&#125;</span> | awk '&#123;&#123;print $5&#125;&#125;' | sort | uniq -c | sort -nr"</span></span><br><span class="line">    out = subprocess.check_output(cmd, shell=<span class="literal">True</span>)</span><br><span class="line">    print(out.decode())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    print(<span class="string">"初始 FD："</span>)</span><br><span class="line">    show_fds()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 多线程触发</span></span><br><span class="line">    threads = [threading.Thread(target=send_log) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">5</span>)]</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> threads:</span><br><span class="line">        t.start()</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> threads:</span><br><span class="line">        t.join()</span><br><span class="line"></span><br><span class="line">    time.sleep(<span class="number">1</span>)</span><br><span class="line">    print(<span class="string">"\n触发请求后 FD："</span>)</span><br><span class="line">    show_fds()</span><br></pre></td></tr></table></figure>
 <p>这样执行后就很容易看出 <code>a_inode</code> 在增加了。ChatGPT 老师给出的解释是：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">这个现象其实是 Python 库导入时的 side effect（副作用）+ requests/urllib3/sentry_sdk 对 epollfd 的使用方式组合 造成的，看似“a_inode 泄漏”，其实是因为依赖初始化顺序导致文件描述符（epoll、eventfd 等）被不同地持有。</span><br><span class="line"></span><br><span class="line">每次 requests + urllib3 在多线程下第一次用到时，可能会触发 urllib3 的 连接池管理器 创建后台 selector（用 selectors.EpollSelector），这会新建一个 epoll fd。</span><br><span class="line"></span><br><span class="line">同时，sentry_sdk 导入时如果它先 monkey-patch 了一些库（比如 threading 或 requests），就会改变 什么时候 初始化这些 selector/fd。</span><br><span class="line"></span><br><span class="line">sentry_sdk import 的时候，它会 import/patch requests 相关模块。这导致当你在子线程里首次调用 requests 时，每个线程可能各自触发 urllib3 的连接池初始化，开多个 epollfd。所以随着请求次数增加，fd 数量上升。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这个现象其实是 Python 库导入时的 side effect（副作用）+ requests/urllib3/sentry_sdk 对 epollfd 的使用方式组合 造成的，看似“a_inode 泄漏”，其实是因为依赖初始化顺序导致文件描述符（epoll、eventfd 等）被不同地持有。</p>
+<p>每次 requests + urllib3 在多线程下第一次用到时，可能会触发 urllib3 的 连接池管理器 创建后台 selector（用 selectors.EpollSelector），这会新建一个 epoll fd。</p>
+<p>同时，sentry_sdk 导入时如果它先 monkey-patch 了一些库（比如 threading 或 requests），就会改变 什么时候 初始化这些 selector/fd。</p>
+<p>sentry_sdk import 的时候，它会 import/patch requests 相关模块。这导致当你在子线程里首次调用 requests 时，每个线程可能各自触发 urllib3 的连接池初始化，开多个 epollfd。所以随着请求次数增加，fd 数量上升。</p>
+</blockquote>
 <p>那既然如此的话，用 <code>urllib3</code> 替换 <code>requests</code> 应该也是一样的，试了一下果然如此。注意，ChatGPT 老师说的不一定都对哦，要仔细甄别和判断。</p>
 <p>再回想我们前面的《问题定位》，当时推断：</p>
 <p>「很可能是因为 <code>eventlet</code>（eventlet==0.36.1）的猴子补丁改变了线程和协程的行为，导致 Sentry 内部上下文追踪、线程同步等机制异常，从而引发资源泄漏」。</p>
@@ -187,7 +194,14 @@
 <p>不用请求百度了，只要发起请求就行。同理，这两个导入换个顺序也是正常的。其实到这里我们感觉 ChatGPT 老师说的应该是八九不离十的。</p>
 <p>另外，升级了一下 <code>sentry_sdk</code> 到最新版，发现这个地方还是在的，想想应该也是可以理解的，毕竟这不是它的问题。那 <code>eventlet</code> 升级到最新版呢？从 <code>0.36.1</code> 升级到 <code>0.40.3</code> 后发现依然一样。其实也可以理解，站在 <code>eventlet</code> 的角度它也没错。好吧，你们都没错，错的是我……我在导入时忽视了 side effect。这里需要说明一下，实际的代码不可能这么简单，只能说确实是包含 <code>sentry_sdk</code> 的 Python 文件先导入，然后导入了写日志的文件。</p>
 <p>继续把新的情况丢给 ChatGPT 老师，显然，这一次的回复看起来更加接近真相。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. **eventlet 通过 monkey-patch 把标准库（socket、threading、ssl、select 等）替换成“绿色”实现（green）**，从而使阻塞操作可被 eventlet 的协作调度处理。</span><br><span class="line">2. **很多网络库（requests / urllib3 / httplib / ssl / selectors）在第一次导入时会绑定/缓存底层实现**（例如：socket.create_connection、SSLContext、selector 模块的实现等）。如果它们在 monkey_patch 之前被导入，就会绑定到“原生阻塞”的实现；如果在 monkey_patch 之后导入，就会绑定到 eventlet 的 green 实现。</span><br><span class="line">3. 当库的内部使用到某些 I/O 框架（例如 selectors/epoll）或在 N 个线程间创建资源时，**不同实现混用会导致资源（如 epoll fd / eventfd / timerfd / socket fd）没有正确被释放**。这通常表现为“每次发请求后 epollfd 数量上升但不回收”。</span><br><span class="line">4. 因此**导入顺序改变了哪个实现被绑定**，从而影响到是否会产生（或回收）这些底层 FDs。你观察到“把 requests 放在 eventlet 之前就没有泄露”正是这一点的直接体现（但这不是最稳健的修复 —— 正确的是先 monkey_patch，再导入其他库）。</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ol>
+<li><strong>eventlet 通过 monkey-patch 把标准库（socket、threading、ssl、select 等）替换成“绿色”实现（green）</strong>，从而使阻塞操作可被 eventlet 的协作调度处理。</li>
+<li><strong>很多网络库（requests / urllib3 / httplib / ssl / selectors）在第一次导入时会绑定/缓存底层实现</strong>（例如：socket.create_connection、SSLContext、selector 模块的实现等）。如果它们在 monkey_patch 之前被导入，就会绑定到“原生阻塞”的实现；如果在 monkey_patch 之后导入，就会绑定到 eventlet 的 green 实现。</li>
+<li>当库的内部使用到某些 I/O 框架（例如 selectors/epoll）或在 N 个线程间创建资源时，<strong>不同实现混用会导致资源（如 epoll fd / eventfd / timerfd / socket fd）没有正确被释放</strong>。这通常表现为“每次发请求后 epollfd 数量上升但不回收”。</li>
+<li>因此<strong>导入顺序改变了哪个实现被绑定</strong>，从而影响到是否会产生（或回收）这些底层 FDs。你观察到“把 requests 放在 eventlet 之前就没有泄露”正是这一点的直接体现（但这不是最稳健的修复 —— 正确的是先 monkey_patch，再导入其他库）。</li>
+</ol>
+</blockquote>
 <p>关于 ChatGPT 老师的回复，我们还是秉承一样的理念：提供思路+怀疑精神。</p>
 <p>先来看看 <code>eventlet</code> 这个包，经过逐个对下面一系列文件进行排查：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># from eventlet.patcher import is_monkey_patched</span></span><br><span class="line"><span class="comment"># from eventlet import convenience</span></span><br><span class="line"><span class="comment"># from eventlet.green import socket</span></span><br><span class="line"><span class="comment"># from eventlet.support import greendns</span></span><br><span class="line"><span class="comment"># from eventlet import greenio</span></span><br><span class="line"><span class="comment"># from eventlet import patcher</span></span><br></pre></td></tr></table></figure>
@@ -212,7 +226,9 @@
 <p>可以看到，此时 <code>urllib3</code> 使用的是原生的 <code>socket</code>，此时新开线程（上下文）执行后 FD 自然会被顺利关闭。</p>
 <p>所以，归根结底，直接原因是 <code>eventlet</code> 在 <code>monkey_patch</code> 时处理了 <code>socket</code> 和 <code>dns</code>，而 <code>dns</code> 又依赖 <code>urllib3</code>（实际是 <code>requests</code>，一样的），导致其底层使用了 patch 之后的 <code>socket</code>。</p>
 <p>这也是 <code>eventlet</code> 官方文档中强调的，一定要在一开始调用 <code>eventlet.monkey_patch()</code>。描述如下：</p>
+<blockquote>
 <p>It is important to call <a href="https://eventlet.readthedocs.io/en/latest/reference/api/eventlet.html#eventlet.patcher.monkey_patch" target="_blank" rel="noopener"><code>monkey_patch()</code></a><sup>[2]</sup> as early in the lifetime of the application as possible. Try to do it as one of the first lines in the main module. The reason for this is that sometimes there is a class that inherits from a class that needs to be greened – e.g. a class that inherits from socket.socket – and inheritance is done at import time, so therefore the monkeypatching should happen before the derived class is defined. It’s safe to call monkey_patch multiple times.</p>
+</blockquote>
 <p>至于导入顺序这种方式其实并不是好的实践，也不建议。还是建议在最一开始执行 <code>monkey_patch()</code></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> eventlet</span><br><span class="line">eventlet.monkey_patch()</span><br></pre></td></tr></table></figure>
 <p>当然，在这次的案例中，其实我们只需要 patch 掉 <code>thread</code> 就行：</p>
@@ -250,6 +266,7 @@
 <p>总结一下，这是一次由 <code>sentry_sdk</code> 导致的 FD 泄露故障，我们从 <code>eventlet</code> 猴子补丁导致的副作用开始，找到 <code>dns</code> 继而找到 <code>requests</code>，并确认此时底层的 <code>select</code> 已经被绿化，而新开的线程却不是绿色版本（原生线程），从而导致上下文不一致，资源回收失败，表现就是 <code>eventpoll</code> 不断增加。</p>
 <h2 id="后续">后续——</h2>
 <p>在 GitHub 上发了个 Issue 记录了一下，得到了回复，<code>eventlet</code> 即将从最新的 SDK 中移除，<code>eventlet</code> 本身也即将退役。如官方文档公告（<a href="https://eventlet.readthedocs.io/en/latest/%EF%BC%89%E6%89%80%E5%86%99%EF%BC%9A" target="_blank" rel="noopener">https://eventlet.readthedocs.io/en/latest/）所写：</a></p>
+<blockquote>
 <p><strong>新的 Eventlet 使用现已被强烈不推荐！请阅读以下内容。</strong></p>
 <p>Eventlet 创建于将近 18 年前，当时 CPython 标准库中还没有异步功能。随着时间推移，Eventlet 和 CPython 都在不断演进，但近几年 Eventlet 的维护活动逐渐减少，导致它与 CPython 实现之间的差距越来越大。</p>
 <p>这种差距已经过大，可能会在你的应用程序中引发意想不到的副作用和 bug。</p>
@@ -263,6 +280,7 @@
 <p>如果你正在寻找一个用于管理异步网络编程的库，并且尚未使用 Eventlet，我们强烈推荐你使用 <strong>asyncio</strong> ——它是 CPython 标准库官方支持的异步库。</p>
 <p>如果你已经在使用 Eventlet，我们希望能在某些使用场景下帮助你迁移到 asyncio；请参考 <em>Migrating off of Eventlet</em>。未来仅会接受与迁移方案相关的新特性。</p>
 <p>如果你对维护目标或迁移有任何疑问，请随时开启一个新 issue，我们会乐意回答你的问题。</p>
+</blockquote>
 <h2 id="references">References</h2>
 <p><code>[1]</code> hscspring/fd_leak: fd leak caused by monkey patch.: <em><a href="https://github.com/hscspring/fd_leak" target="_blank" rel="noopener">https://github.com/hscspring/fd_leak</a></em><br>
 <code>[2]</code> <code>monkey_patch()</code>: <em><a href="https://eventlet.readthedocs.io/en/latest/reference/api/eventlet.html#eventlet.patcher.monkey_patch" target="_blank" rel="noopener">https://eventlet.readthedocs.io/en/latest/reference/api/eventlet.html#eventlet.patcher.monkey_patch</a></em></p>
