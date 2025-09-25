@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2025-09-22T15:09:17.505Z">
+<meta property="og:updated_time" content="2025-09-25T00:18:19.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次诡异的 FD 泄露：躲在暗处的猴子补丁">
 <meta name="twitter:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
@@ -268,8 +268,8 @@
 <h2 id="简单小结">简单小结</h2>
 <p>一个小小的 Bug 居然整出来这么多玩意儿，而且，刚刚才说过，其实现在还没有完全分析完（还可以继续下到 <code>select</code>、 <code>epoll</code> 操作系统交互这一层看看具体泄露情况）。不过本文实在已经很长了，实际上大家看到的已经是整理后的结果，完整的 Debug 过程更繁琐。另外，由于平时比较忙，很难有大片空闲时间，导致这个过程持续了一两周时间，确实有点点影响了其他事情……</p>
 <p>总结一下，这是一次由 <code>sentry_sdk</code> 导致的 FD 泄露故障，我们从 <code>eventlet</code> 猴子补丁导致的副作用开始，找到 <code>dns</code> 继而找到 <code>requests</code>，并确认此时底层的 <code>select</code> 已经被绿化，而新开的线程却不是绿色版本（原生线程），从而导致上下文不一致，资源回收失败，表现就是 <code>eventpoll</code> 不断增加。</p>
-<blockquote>
-<p>后续——在 GitHub 上发了个 Issue 记录了一下，得到了回复，<code>eventlet</code> 即将从最新的 SDK 中移除，<code>eventlet</code> 本身也即将退役。如官方文档公告（<a href="https://eventlet.readthedocs.io/en/latest/%EF%BC%89%E6%89%80%E5%86%99%EF%BC%9A" target="_blank" rel="noopener">https://eventlet.readthedocs.io/en/latest/）所写：</a></p>
+<h2 id="后续">后续——</h2>
+<p>在 GitHub 上发了个 Issue 记录了一下，得到了回复，<code>eventlet</code> 即将从最新的 SDK 中移除，<code>eventlet</code> 本身也即将退役。如官方文档公告（<a href="https://eventlet.readthedocs.io/en/latest/%EF%BC%89%E6%89%80%E5%86%99%EF%BC%9A" target="_blank" rel="noopener">https://eventlet.readthedocs.io/en/latest/）所写：</a></p>
 <p><strong>新的 Eventlet 使用现已被强烈不推荐！请阅读以下内容。</strong></p>
 <p>Eventlet 创建于将近 18 年前，当时 CPython 标准库中还没有异步功能。随着时间推移，Eventlet 和 CPython 都在不断演进，但近几年 Eventlet 的维护活动逐渐减少，导致它与 CPython 实现之间的差距越来越大。</p>
 <p>这种差距已经过大，可能会在你的应用程序中引发意想不到的副作用和 bug。</p>
@@ -283,7 +283,6 @@
 <p>如果你正在寻找一个用于管理异步网络编程的库，并且尚未使用 Eventlet，我们强烈推荐你使用 <strong>asyncio</strong> ——它是 CPython 标准库官方支持的异步库。</p>
 <p>如果你已经在使用 Eventlet，我们希望能在某些使用场景下帮助你迁移到 asyncio；请参考 <em>Migrating off of Eventlet</em>。未来仅会接受与迁移方案相关的新特性。</p>
 <p>如果你对维护目标或迁移有任何疑问，请随时开启一个新 issue，我们会乐意回答你的问题。</p>
-</blockquote>
 <h2 id="references">References</h2>
 <p><code>[1]</code> hscspring/fd_leak: fd leak caused by monkey patch.: <em><a href="https://github.com/hscspring/fd_leak" target="_blank" rel="noopener">https://github.com/hscspring/fd_leak</a></em><br>
 <code>[2]</code> <code>monkey_patch()</code>: <em><a href="https://eventlet.readthedocs.io/en/latest/reference/api/eventlet.html#eventlet.patcher.monkey_patch" target="_blank" rel="noopener">https://eventlet.readthedocs.io/en/latest/reference/api/eventlet.html#eventlet.patcher.monkey_patch</a></em></p>
