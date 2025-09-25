@@ -14,11 +14,13 @@ date: 2019-07-13 20:00:00
   - [思考](#%E6%80%9D%E8%80%83)
   - [哲学](#%E5%93%B2%E5%AD%A6)
 - [LLM系列](#llm%E7%B3%BB%E5%88%97)
-  - [R1相关](#r1%E7%9B%B8%E5%85%B3)
+  - [Reward](#reward)
+  - [R1/RL相关](#r1rl%E7%9B%B8%E5%85%B3)
   - [ChatGPT/LLM](#chatgptllm)
-  - [LLM继续训练、预训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83%E9%A2%84%E8%AE%AD%E7%BB%83)
+  - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
+  - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
   - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
-  - [LLM论文速览](#llm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
+  - [LLM指令跟随](#llm%E6%8C%87%E4%BB%A4%E8%B7%9F%E9%9A%8F)
 - [LMM系列](#lmm%E7%B3%BB%E5%88%97)
   - [VoiceAgent](#voiceagent)
   - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
@@ -83,16 +85,25 @@ date: 2019-07-13 20:00:00
 
 ## LLM系列
 
-### R1相关
+### Reward
 
-- [GRPO优化在继续——CISPO和熵 | Yam](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/)
+- [解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
 - [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
+
+### R1/RL相关
+
+- [GRPO“又一背锅侠”：Clip的各种拉扯 | Yam](https://yam.gift/2025/09/12/NLP/LLM-Training/2025-09-12-GRPO-Clip/)
+- [GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走 | Yam](https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/)
+- [GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | Yam](https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/)
+- [GiGPO：双层级优势函数驱动的Agent强化学习新范式 | Yam](https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/)
+- [GRPO优化在继续——CISPO和熵 | Yam](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/)
 - [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 - [异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/)
 - [DAPO：为GRPO的锦上加四点花 | Yam](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/)
+- [DeepSeek R1后应用、职业与行业影响——2025年梳理 | Yam](https://yam.gift/2025/03/15/AI/2025-03-15-LLM-App-Develop/)
 - [DeepSeek R1后LLM新范式 | Yam](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/)
 - [DeepSeek R1：新范式、新纪元 | Yam](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)
 - [R1相关：少量高质量数据SFT激活LLM推理能力 | Yam](https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/)
@@ -102,6 +113,9 @@ date: 2019-07-13 20:00:00
 
 ### ChatGPT/LLM
 
+- [群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考 | Yam](https://yam.gift/2025/08/11/AI/2025-08-11-AI-Develop/)
+- [关于gpt-oss那些值得关注的点 | Yam](https://yam.gift/2025/08/06/NLP/2025-08-06-gpt-oss/)
+- [重识LLM法则：上下文工程与数据进化 | Yam](https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/)
 - [LLM极简科普](https://yam.gift/2024/03/16/AI/2024-03-16-LLM-Basic/)
 - [LLM打街霸](https://yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/)
 - [ChatGPT 基础科普：知其一点所以然](https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/)
@@ -131,6 +145,7 @@ date: 2019-07-13 20:00:00
 
 ### LLM指令跟随
 
+- [激活诱导LLM指令跟随 | Yam](https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/)
 - [指令跟随近期工作梳理（2025年上半年） | Yam](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/)
 - [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/)
 
@@ -375,6 +390,7 @@ date: 2019-07-13 20:00:00
 
 ### Python
 
+- [记一次诡异的 FD 泄露：躲在暗处的猴子补丁 | Yam](https://yam.gift/2025/09/21/Python/2025-09-21-FD-Leak/)
 - [Python 编码笔记整理 | Yam](https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/)
 - [Jupyter Notebook Cheat Sheet | Yam](https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/)
 - [Python 调用 Java](https://yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/)
