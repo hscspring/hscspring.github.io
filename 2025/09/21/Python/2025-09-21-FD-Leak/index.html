@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Yam">
 <meta property="og:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2025-09-25T00:35:09.169Z">
+<meta property="og:updated_time" content="2025-09-25T00:56:39.667Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记一次诡异的 FD 泄露：躲在暗处的猴子补丁">
 <meta name="twitter:description" content="本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：hscspring/fd_leak: fd leak caused by monkey patch.[1]  引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的猴子补丁（Monkey Patch），而触发">
@@ -186,7 +186,9 @@
 </blockquote>
 <p>那既然如此的话，用 <code>urllib3</code> 替换 <code>requests</code> 应该也是一样的，试了一下果然如此。注意，ChatGPT 老师说的不一定都对哦，要仔细甄别和判断。</p>
 <p>再回想我们前面的《问题定位》，当时推断：</p>
-<p>「很可能是因为 <code>eventlet</code>（eventlet==0.36.1）的猴子补丁改变了线程和协程的行为，导致 Sentry 内部上下文追踪、线程同步等机制异常，从而引发资源泄漏」。</p>
+<blockquote>
+<p>很可能是因为 <code>eventlet</code>（eventlet==0.36.1）的猴子补丁改变了线程和协程的行为，导致 Sentry 内部上下文追踪、线程同步等机制异常，从而引发资源泄漏。</p>
+</blockquote>
 <p>我们把 <code>sentry_sdk</code> 直接替换为 <code>eventlet</code> 导入的那一句试试。好吧，不出所料，问题就在这里！也就是说，出问题的是 <code>sentry_sdk</code> 中的 <code>eventlet</code>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> eventlet.patcher <span class="keyword">import</span> is_monkey_patched</span><br></pre></td></tr></table></figure>
 <p><code>sentry_sdk</code> 本身并无问题。换句话说，可以把导入的地方更换一下也是可以复现的：</p>
