@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-09-26T00:51:21.080Z</updated>
+  <updated>2025-10-24T15:36:17.994Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -17,11 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Reinforce++与它的KL Loss选择</title>
+    <link href="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/"/>
+    <id>https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/</id>
+    <published>2025-10-24T15:30:00.000Z</published>
+    <updated>2025-10-24T15:36:17.994Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="Reinforce++" scheme="https://yam.gift/tags/Reinforce/"/>
+    
+      <category term="PPO" scheme="https://yam.gift/tags/PPO/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hybrid LLM 之 Gated Attention</title>
     <link href="https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/"/>
     <id>https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/</id>
     <published>2025-09-25T15:30:00.000Z</published>
-    <updated>2025-09-26T00:51:21.080Z</updated>
+    <updated>2025-10-24T01:48:05.837Z</updated>
     
     <summary type="html">
     
@@ -31,7 +63,7 @@
     </summary>
     
     
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
     
     
       <category term="AI" scheme="https://yam.gift/tags/AI/"/>
@@ -691,77 +723,6 @@
       <category term="VAPO" scheme="https://yam.gift/tags/VAPO/"/>
     
       <category term="GAE" scheme="https://yam.gift/tags/GAE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>R1相关：R1-Zero的进一步理解和探索</title>
-    <link href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/"/>
-    <id>https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/</id>
-    <published>2025-04-10T15:00:00.000Z</published>
-    <updated>2025-04-11T00:33:13.822Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;tl-dr&quot;&gt;TL;DR&lt;/h2&gt;
-&lt;p&gt;本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Base模型是核心，RL在激活能力
-&lt;ul&gt;
-&lt;li&gt;强模型需高难度数据充分激活能力，弱模型需渐进引导。&lt;/li&gt;
-&lt;li&gt;强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。&lt;/li&gt;
-&lt;li&gt;自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度思考”，复杂问题感知简化。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;LLM学习模式的关键发现
-&lt;ul&gt;
-&lt;li&gt;反思能力在预训练早期即显现，随训练逐步提升。&lt;/li&gt;
-&lt;li&gt;LLM依赖模式记忆而非数学规则。&lt;/li&gt;
-&lt;li&gt;预训练知识获取分三阶段：统计学习→平台期（记忆回路形成）→个体知识获取。数据调度策略（如“热身训练”）可加速知识获取，微调易导致幻觉与知识损坏。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;RL算法
-&lt;ul&gt;
-&lt;li&gt;算法改进：DAPO、Dr GRPO。&lt;/li&gt;
-&lt;li&gt;强化已有正确推理行为（非注入新知识），领域预训练可显著提升上限。&lt;/li&gt;
-&lt;li&gt;分阶段扩展上下文窗口（短→长任务），按难度课程式学习匹配模型能力。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;工程实践关键
-&lt;ul&gt;
-&lt;li&gt;Base模型优先同系列大模型，小模型需更多探索，慎用SFT冷启动（可能限制RL潜力）。&lt;/li&gt;
-&lt;li&gt;数据应覆盖多领域、多难度、多样化回答，避免固定格式限制（弱模型尤其敏感）。&lt;/li&gt;
-&lt;li&gt;弱Base没做过LongCoT的可以先LongCoT。遵循课程式数据设计和训练策略：从短任务逐步过渡到长难题。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;总之，Base模型是核心，Base不行先继续训练或LongCoT。RL是激活手段，需结合数据难度与模型能力动态适配。工程上分阶段、重数据质量与课程设计，避免过度依赖微调。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="Post-training" scheme="https://yam.gift/tags/Post-training/"/>
-    
-      <category term="R1-Zero" scheme="https://yam.gift/tags/R1-Zero/"/>
-    
-      <category term="DAPO" scheme="https://yam.gift/tags/DAPO/"/>
-    
-      <category term="Simple-Zoo" scheme="https://yam.gift/tags/Simple-Zoo/"/>
-    
-      <category term="FastCuRL" scheme="https://yam.gift/tags/FastCuRL/"/>
-    
-      <category term="Dr GRPO" scheme="https://yam.gift/tags/Dr-GRPO/"/>
-    
-      <category term="Aha" scheme="https://yam.gift/tags/Aha/"/>
     
   </entry>
   
