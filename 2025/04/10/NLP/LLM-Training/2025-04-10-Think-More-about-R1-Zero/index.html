@@ -12,14 +12,14 @@
   
   
   
-  <title>R1相关：R1-Zero的进一步理解和探索 | Yam</title>
+  <title>R1相关：R1-Zero的进一步理解和探索 | 长琴（知乎同名）| 公众：技术与人</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
 <meta name="keywords" content="AI,LLM,NLP,Post-training,R1-Zero,DAPO,Simple-Zoo,FastCuRL,Dr GRPO,Aha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="R1相关：R1-Zero的进一步理解和探索">
 <meta property="og:url" content="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/index.html">
-<meta property="og:site_name" content="Yam">
+<meta property="og:site_name" content="长琴（知乎同名）| 公众：技术与人">
 <meta property="og:description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-simplerlzoo-2.jpg">
@@ -39,14 +39,14 @@
 
   
   <!-- baidu webmaster push -->
-<link rel="alternate" href="/atom.xml" title="Yam" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="长琴（知乎同名）| 公众：技术与人" type="application/atom+xml">
 <link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
 <body class="home blog custom-background custom-font-enabled single-author">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
     <hgroup>
       <h1 class="site-title">
-        <a href="/" title="Yam" rel="home">Yam</a>
+        <a href="/" title="长琴（知乎同名）| 公众：技术与人" rel="home">长琴（知乎同名）| 公众：技术与人</a>
       </h1>
       
         <h2 class="site-description">
