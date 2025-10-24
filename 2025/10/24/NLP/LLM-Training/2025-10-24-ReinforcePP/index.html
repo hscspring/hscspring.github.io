@@ -12,21 +12,21 @@
   
   
   
-  <title>Reinforce++与它的KL Loss选择 | 长琴</title>
+  <title>Reinforce++和它的KL Loss选择 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
 <meta name="keywords" content="AI,LLM,KL,GRPO,Reinforce++,PPO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Reinforce++与它的KL Loss选择">
+<meta property="og:title" content="Reinforce++和它的KL Loss选择">
 <meta property="og:url" content="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/index.html">
 <meta property="og:site_name" content="长琴">
 <meta property="og:description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-reinforcepp-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg">
-<meta property="og:updated_time" content="2025-10-24T15:55:29.596Z">
+<meta property="og:updated_time" content="2025-10-24T16:00:24.847Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Reinforce++与它的KL Loss选择">
+<meta name="twitter:title" content="Reinforce++和它的KL Loss选择">
 <meta name="twitter:description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-reinforcepp-1.jpg">
   
@@ -83,7 +83,7 @@
         
   
     <h1 class="entry-title article-title">
-      Reinforce++与它的KL Loss选择
+      Reinforce++和它的KL Loss选择
     </h1>
   
 
@@ -397,7 +397,7 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
       <ul>
         
           <li>
-            <a href="/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/">Reinforce++与它的KL Loss选择</a>
+            <a href="/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/">Reinforce++和它的KL Loss选择</a>
           </li>
         
           <li>
