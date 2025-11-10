@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-10-27T09:07:02.396Z</updated>
+  <updated>2025-11-10T23:46:59.529Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Reward建模新范式：无验证器RL与Reference的妙用</title>
+    <link href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/"/>
+    <id>https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/</id>
+    <published>2025-11-11T00:00:00.000Z</published>
+    <updated>2025-11-10T23:46:59.529Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;R1 之后，GRPO 等强化学习框架的成功让我们相信“反馈”是提升推理力的关键。&lt;br&gt;
+然而，当任务无法被规则验证时，这一框架就不太好用了。&lt;br&gt;
+本文介绍一种“无验证器”新范式，让模型用 Reference 自我强化，重新定义奖励建模。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;传统 RLHF 依赖验证器或 RM 打分，但很多开放任务无法简单验证。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NOVER：&lt;/strong&gt; 基于 PPL 设计奖励，引入策略代理同步与效率奖励，稳定训练。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reinforcing General Reasoning：&lt;/strong&gt; 直接最大化参考答案概率，以“正确答案的似然”替代验证器。方差更低，与 RLOO、PPO 等技术兼容。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;逆向激励：&lt;/strong&gt; 先生成答案，再生成自评得分，无需标准答案。适合创意、写作等难以客观评判的任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reference 进一步妙用：&lt;/strong&gt; 帮助模型思考“为什么这是答案”，可用于生成高质量数据。也可与逆向激励结合。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
+    
+      <category term="NOVER" scheme="https://yam.gift/tags/NOVER/"/>
+    
+      <category term="RGR" scheme="https://yam.gift/tags/RGR/"/>
+    
+      <category term="RAVR" scheme="https://yam.gift/tags/RAVR/"/>
+    
+      <category term="REER" scheme="https://yam.gift/tags/REER/"/>
+    
+  </entry>
   
   <entry>
     <title>子非我，安知我不知鱼之乐——AI、人类与意识的边界</title>
@@ -677,46 +730,6 @@
       <category term="Seed-Thinking" scheme="https://yam.gift/tags/Seed-Thinking/"/>
     
       <category term="Qwen3" scheme="https://yam.gift/tags/Qwen3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Yarz-Logic：R1-Zero相关实验报告</title>
-    <link href="https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/"/>
-    <id>https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/</id>
-    <published>2025-04-26T15:00:00.000Z</published>
-    <updated>2025-04-27T00:11:39.023Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;过完年上班后开始关注R1，然后就开始尝试做一些实验，2月底到3月中旬陆陆续续做了不少实验，一直没时间整理，终于抽出点空来简单整理一下，做个记录。&lt;/p&gt;
-&lt;p&gt;首先，项目是基于&lt;a href=&quot;https://github.com/Unakar/Logic-RL&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Logic-RL&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;，之所以选择这个项目有几个主要原因：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;当时这个复现感觉相对比较规范，飞书文档上记录了一些过程和评测结果（当时其实已经有不少复现了，但很多都没有评测，这种一概略过了）。&lt;/li&gt;
-&lt;li&gt;实在不想看数学的英文，一个是数学本来也不太好，另一个是很多公式在代码里就没法看，不好看Case。这个是逻辑题目，以自然语言文本为主。&lt;/li&gt;
-&lt;li&gt;这个项目基于&lt;a href=&quot;https://github.com/volcengine/verl&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;verl&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;和&lt;a href=&quot;https://github.com/Jiayi-Pan/TinyZero&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TinyZero&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;，仅做了很少的改动，而verl和TinyZero我之前都了解过，相对比较熟悉。这样上手就比较方便。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;所以，R1-Zero相关的实验就都基于这个项目了。因为我的关注点和原项目不同，我更加想验证一些自己的想法（原项目未涉及），所以就另外起了个名字：Yarz-Logic，Yarz就是Yet Another R1-Zero。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="Post-training" scheme="https://yam.gift/tags/Post-training/"/>
-    
-      <category term="R1-Zero" scheme="https://yam.gift/tags/R1-Zero/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
     
   </entry>
   
