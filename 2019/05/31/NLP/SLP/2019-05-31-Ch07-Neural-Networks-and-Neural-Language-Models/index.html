@@ -15,7 +15,7 @@
   <title>Neural Networks and Neural Language Models Note (SLP Ch07) | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Units z=w⋅x+bz = w · x + b z=w⋅x+b y=σ(z)=11+e−zy = \sigma(z) = \frac{1}{1+e^{-z}} y=σ(z)=1+e−z1​ In practice, the sigmoid is not commonly used as an activation function. A better one is tanh function">
-<meta name="keywords" content="AI,NLP,LM,DNN,Embeddings">
+<meta name="keywords" content="AI,NLP,LM,Embeddings,DNN">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Neural Networks and Neural Language Models Note (SLP Ch07)">
 <meta property="og:url" content="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/index.html">
@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="cm5jp90mx018gvmbzbicf9spr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="cmhu0lriy01agazbzvyz5qd36" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -138,7 +138,7 @@
 <p>In LR, for each observation we could directly compute the derivative of the loss function with respect to an individual w or b. But for NN, with millions of parameters in many layers, it’s much harder to compute the partial derivative of some weight in layer 1 when the loss is attached to some much later layer.</p>
 <p>The algorithm we use is called <strong>error back-propagation</strong> or <strong>reverse differentiation</strong>.</p>
 <h3 id="loss-function">Loss function</h3>
-<p>Loss function <a href="https://yam.gift/2019/05/08/SLP/2019-05-08-Logistic-Regression/" target="_blank" rel="noopener">here</a> is being used as a binary classifier, with the sigmoid at the final layer.</p>
+<p>Loss function <a href="https://yam.gift/2019/05/08/SLP/2019-05-08-Logistic-Regression/">here</a> is being used as a binary classifier, with the sigmoid at the final layer.</p>
 <p>The cross-entropy loss is simply the log probability of the correct class, called <strong>negative log likelihood loss</strong>:</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>L</mi><mrow><mi>C</mi><mi>E</mi></mrow></msub><mo stretchy="false">(</mo><mover accent="true"><mi>y</mi><mo>^</mo></mover><mo separator="true">,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><msub><mover accent="true"><mi>y</mi><mo>^</mo></mover><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">L_{CE}(\hat y, y) = - \log \hat y_i
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.07153em;">C</span><span class="mord mathdefault mtight" style="margin-right:0.05764em;">E</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.69444em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.19444em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.19444em;"><span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span></p>
@@ -252,9 +252,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

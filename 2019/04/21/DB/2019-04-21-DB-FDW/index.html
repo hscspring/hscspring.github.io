@@ -15,7 +15,7 @@
   <title>DataBase Foreign Data Wrapper | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="有时候我们需要将多个数据源的 DataBase 放在一个地方，最 Naive 的方法就是把其他 DataBase 的数据备份出来，再全部导入到一个 DataBase，但是这样比较麻烦，而且当数据库很大时也会比较耗时。这时候使用 FDW 就非常方便了。FDW 全称 Foreign Data Wrapper，这里有一些基本的介绍：Foreign data wrappers - PostgreSQL w">
-<meta name="keywords" content="DB,Postgres,SQL,FDW,Materialized Views">
+<meta name="keywords" content="DB,FDW,Materialized Views,Postgres,SQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DataBase Foreign Data Wrapper">
 <meta property="og:url" content="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/index.html">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="cm5jp90a30015vmbze9bwkbc6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="cmhu0lr1q001kazbzyumk1u6w" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -124,7 +124,7 @@
 <li>有读写权限的用户操作从其他源 DB 映射过来的 schema 时，源 DB 的数据也会发生变化，安全起见建议创建一个只读账号。</li>
 <li>如果在目标 DB 中创建了只读用户，默认只有 public 的权限，需要注意给你想要给的 schema 的权限（就是你想读取的从其他 DB 映射过来的 schema）</li>
 </ul>
-<p>关于如何创建只读用户以及如何给不同的 schema 权限赋权，可以参考下这篇<a href="https://yam.gift/2019/06/15/2019-06-15-Common-DB-Related/" target="_blank" rel="noopener">文章</a>。</p>
+<p>关于如何创建只读用户以及如何给不同的 schema 权限赋权，可以参考下这篇<a href="https://yam.gift/2019/06/15/2019-06-15-Common-DB-Related/">文章</a>。</p>
 <p>Step4: Create new schema to access source DB</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">SCHEMA</span> <span class="keyword">IF</span> <span class="keyword">EXISTS</span> tg_schema; <span class="comment"># prevent duplicated</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">SCHEMA</span> tg_schema;</span><br></pre></td></tr></table></figure>
 <p>Step5: Import schema of source DB</p>
@@ -247,9 +247,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

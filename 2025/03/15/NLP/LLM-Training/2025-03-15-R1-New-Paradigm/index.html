@@ -15,7 +15,7 @@
   <title>DeepSeek R1后LLM新范式 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文通过10篇R1相关的研究，介绍R1后LLM的新范式。其核心就是如何进一步增强LLM的能力。 基本框架 首先是整体的框架，如下所示。  Base+SFT  R1冷启动 LIMO (817 Data Selection) s1 (1000)   Base+RL  GRPO: R1-Zero GRPO: oat-zero (Base can Aha、RL  enhance） PPO: LIMR (D">
-<meta name="keywords" content="AI,LLM,NLP,Pre-training,Continual Pre-training,TTS,Post-training,R1,R1-Zero,oat-zero,DeepScaleR,LIMO,s1,Inference Scaling,LIMR,LIMD,Online-DPO-R1,orz,L1,LCPO">
+<meta name="keywords" content="AI,LLM,NLP,Pre-training,Continual Pre-training,Post-training,LIMO,s1,Inference Scaling,R1,R1-Zero,oat-zero,DeepScaleR,LIMD,Online-DPO-R1,LIMR,orz,L1,LCPO,TTS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepSeek R1后LLM新范式">
 <meta property="og:url" content="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/index.html">
@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" data-id="cm89n1yhb0000izbz95jtvjul" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" data-id="cmhu0lrfe017aazbzap4f1azl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -134,7 +134,7 @@
 <p>首先是R1-Zero。它本身过程比较简单，就是在Pretrain的基础上接RL算法，Pretrain论文用的是DeepSeek-V3-Base，RL则是GRPO。GRPO是DeepSeek在<a href="https://arxiv.org/abs/2402.03300" target="_blank" rel="noopener">DeepSeek-Math</a>引入的研究成果，它去掉了PPO的Critic模型，而是采用一组输出的统计指标（Z分数）计算Advantage，比PPO更加简单（当然，计算量可能更大，毕竟需要多个输出）。</p>
 <p>第二个要说的是纯规则的奖励。我们知道RL一般需要一个Reward模型，常见的比如ORM、PRM等都是基于深度学习建模的，R1-Zero算是第一个把纯规则的奖励引入LLM。这想想其实还挺神奇，给定一个输入，然后一个简单的规则（R1-Zero是格式和最终答案正确），模型就会自动探索路径，直到找到最终答案。</p>
 <p>第三个是Aha Moment，它是说模型在推理过程中会对已经生成的内容进行自我反思和验证。具体表现就是会输出类似re-check、verify、summary、suppose等词，然后当然答案得对。与这种能力相关的一个词是推理时缩放（Test-Time Scaling），又是另一个比较有意思的主题。</p>
-<p>最后就是两个比较明显的问题：语言混合和可读性相对较差。我觉得这两个问题其实不算太大的问题，只要最后的答案正确，中间过程其实对人类是否友好并不重要。其实人工智能（AI）这个词多少也有点“拟人化”的，如果AI真的有意识，他未必愿意叫这个名字doge。这中间其实涉及到AI史中著名的IA与AI之争，我之前写过类似<a href="https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/" target="_blank" rel="noopener">文章</a>，感兴趣的读者可以一读。</p>
+<p>最后就是两个比较明显的问题：语言混合和可读性相对较差。我觉得这两个问题其实不算太大的问题，只要最后的答案正确，中间过程其实对人类是否友好并不重要。其实人工智能（AI）这个词多少也有点“拟人化”的，如果AI真的有意识，他未必愿意叫这个名字doge。这中间其实涉及到AI史中著名的IA与AI之争，我之前写过类似<a href="https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/">文章</a>，感兴趣的读者可以一读。</p>
 <p>不管怎么说，R1-Zero都是非常了不起的发现，它为我们打开了新的大门——RL可以与LLM如此亲密合作，这点我本人是非常振奋的。其实我在17、18年那会就像把纯规则的强化学习用在NLP上，当时做了很多尝试都没有成功。说个实际的例子，那会儿搞NLP的多少可能还会看一点语言学相关的知识（比如大家基本都知道齐夫定律），搞计算语言学也是一个方向。我们当时想做的方向是让生成的文本更加简洁（或者具备某种风格），就想把“<a href="https://book.douban.com/subject/26859079/" target="_blank" rel="noopener">最省力法则</a>”（人在这个表达的时候，会尽量省力，用尽可能的简单、节省心智的词汇）作为一条规则用进去。为什么呢？就是当时观察到人类的语言都有“简化”的趋势（可阅读平克的<a href="https://book.douban.com/subject/26380736//%EF%BC%89" target="_blank" rel="noopener">语言本能</a>）。但是没成功，其实还有很多类似的规则，当时除了RL方法，也用GAN做，不过并没有做出什么突破的成果。</p>
 <h3 id="r1">R1</h3>
 <p>接下来是这篇论文的核心：R1。他其实是个综合过程，先搞数据，然后用这些数据SFT和对齐。简单概括如下：</p>
@@ -143,17 +143,17 @@
 <li>后训练：用生成数据和SFT监督数据微调Base（SFT）+RL（对齐）。</li>
 </ul>
 <p>R1我觉得是LLM得到了再次进化，他变得更加像人。原来我们可能觉得LLM已经很聪明了，就是他能够理解你说的话、你的指令，你说的很多上下文他都能够理解，然后做出相应的回复。现在的话，他可能更进一步了，就是理解的更加好，那这个好体现在哪里，我们可以理解体现在这个“思考”的过程。</p>
-<p>很多人现在知道这里涉及到卡尼曼《思考·快与慢》中的慢思考，即系统2思考。这本书认为大脑有快慢两种运作方式，常用的无意识的系统1依赖情感、经验和记忆快速做出判断；而有意识的系统2则通过分析来解决问题，它深思熟虑、比较慢，不容易出错。前者是人类数千万年来进化的本能，比如以前人类遇到危险了，第一反应是大家赶紧跑，而不是站在那里先思考判断一番，当然，肯定有这样的人类，只不过他们的基因没有传下来，所以人类有从众效应是很正常的。其实认知心理学领域处理《思考·快与慢》，还有很多有意思的书，比如《怪诞行为学》系列、《<a href="https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/" target="_blank" rel="noopener">自私的基因</a>》、《<a href="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" target="_blank" rel="noopener">清醒思考的艺术</a>》、《判断与决策心理学》、《对伪心理学说不》等等。那会儿看了很多类似的书，不过很多都还没整理出来。当时的老板也算是国内本领域比较有名的大牛了，感兴趣的读者可以搜索<a href="https://mp.weixin.qq.com/s/W-jSRRL6XCANb3YFyiL6Tg" target="_blank" rel="noopener">心智工具箱</a>公众号进行关注。</p>
+<p>很多人现在知道这里涉及到卡尼曼《思考·快与慢》中的慢思考，即系统2思考。这本书认为大脑有快慢两种运作方式，常用的无意识的系统1依赖情感、经验和记忆快速做出判断；而有意识的系统2则通过分析来解决问题，它深思熟虑、比较慢，不容易出错。前者是人类数千万年来进化的本能，比如以前人类遇到危险了，第一反应是大家赶紧跑，而不是站在那里先思考判断一番，当然，肯定有这样的人类，只不过他们的基因没有传下来，所以人类有从众效应是很正常的。其实认知心理学领域处理《思考·快与慢》，还有很多有意思的书，比如《怪诞行为学》系列、《<a href="https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/">自私的基因</a>》、《<a href="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/">清醒思考的艺术</a>》、《判断与决策心理学》、《对伪心理学说不》等等。那会儿看了很多类似的书，不过很多都还没整理出来。当时的老板也算是国内本领域比较有名的大牛了，感兴趣的读者可以搜索<a href="https://mp.weixin.qq.com/s/W-jSRRL6XCANb3YFyiL6Tg" target="_blank" rel="noopener">心智工具箱</a>公众号进行关注。</p>
 <p>说回R1，他的第一阶段和R1-Zero有两个区别：</p>
 <ul>
 <li>冷启动：在RL前用少量数据SFT可以进一步提升性能。</li>
 <li>奖励：引入“语言一致性”奖励。毕竟这回生成的数据是要拿来训练后面模型的。</li>
 </ul>
 <p>第二个阶段其实和之前LLM的后训练比较类似，也是两个步骤：SFT和强化对齐。这一阶段用了600k的Reasoning数据（数学、代码、逻辑等）和200k的通用数据，数据都是经过第一阶段输出的答案，就是带思考过程的回复。当然，对于很简单的问题，会跳过思考过程，直接回复。</p>
-<p>SFT就是用这800k数据进行训练，后面的对齐也是，只不过对齐时Reward信号是综合的：对于Reasoning数据，还是和R1-Zero一样，用纯规则；对通用数据则和之前的LLM一样，用偏好模型。原因是很明显的：人类的偏好是不那么容易规则化的，很多时候只是个“偏好”，没有“对错”。比如拿OpenAI提出的有帮助、真实性和无害性来说，其实很多Case都处在边界位置，即便有非常清晰的规范，也很难做到标注人员100%对齐，感兴趣的读者可以阅读<a href="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" target="_blank" rel="noopener">ChatGPT 标注指南：任务、数据与规范</a>。其实从通俗的角度来看也是可以理解的，小孩子看电视总喜欢把某个人归为好人还是坏人，但成年人就知道大家无非立场不同。站在更高角度，所谓人类觉得有害的（无论是文本内容还是物种），对其他物种未必，对地球、宇宙就更加不是了。</p>
+<p>SFT就是用这800k数据进行训练，后面的对齐也是，只不过对齐时Reward信号是综合的：对于Reasoning数据，还是和R1-Zero一样，用纯规则；对通用数据则和之前的LLM一样，用偏好模型。原因是很明显的：人类的偏好是不那么容易规则化的，很多时候只是个“偏好”，没有“对错”。比如拿OpenAI提出的有帮助、真实性和无害性来说，其实很多Case都处在边界位置，即便有非常清晰的规范，也很难做到标注人员100%对齐，感兴趣的读者可以阅读<a href="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/">ChatGPT 标注指南：任务、数据与规范</a>。其实从通俗的角度来看也是可以理解的，小孩子看电视总喜欢把某个人归为好人还是坏人，但成年人就知道大家无非立场不同。站在更高角度，所谓人类觉得有害的（无论是文本内容还是物种），对其他物种未必，对地球、宇宙就更加不是了。</p>
 <h3 id="蒸馏">蒸馏</h3>
 <p>这部分内容论文说的比较少，看起来不复杂，就是利用前面得到的800k数据直接在一个小模型（比如7B、32B等，Base和Instruct均可）上进行SFT。这一类的蒸馏也叫数据蒸馏，准确来说其实就是SFT，算不上“蒸馏”。一般蒸馏包括黑盒和白盒蒸馏，涉及教师和学生模型。对于前者，教师模型是黑盒，我们只能给它输入然后得到输出；对于后者，我们可以拿到模型参数，以及每次生成的过程数据和最后输出的概率分布。关于这部分内容，感兴趣的读者不妨关注<a href="https://github.com/datawhalechina/llm-deploy" target="_blank" rel="noopener">LLM Deploy</a>的第二章内容。</p>
-<p>蒸馏要保证效果，最难的是对齐分布，<a href="https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/" target="_blank" rel="noopener">《LLM、强化、蒸馏讨论 | Yam》</a>一文中对此问题进行了讨论，一些观点包括：</p>
+<p>蒸馏要保证效果，最难的是对齐分布，<a href="https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/">《LLM、强化、蒸馏讨论 | Yam》</a>一文中对此问题进行了讨论，一些观点包括：</p>
 <ul>
 <li>让学生模型复述教师模型输出，缓解遗忘问题。就是尽量落在在学生模型的分布上，缓解静态分布采样可能造成的性能损失。</li>
 <li>使用中间桥接模型加速蒸馏过程。即用一个比学生模型更大的但同系列模型进行转述，然后让学生模型对齐这个分布。</li>
@@ -166,7 +166,7 @@
 <p>这里涉及到两篇论文：<a href="https://arxiv.org/abs/2502.03387" target="_blank" rel="noopener">LIMO</a>和<a href="https://arxiv.org/abs/2501.19393" target="_blank" rel="noopener">s1</a>，它们的共同点是都用很少的数据（817和1000条）在Base模型上SFT，然后模型就突然效果变的很好。光就这一点其实已经违反了我们一直以来的认知：SFT需要比较多的数据，尤其在比较难的任务上更是如此。没想到现在居然只要几百条数据就可以SFT了。当然了，虽然数量少了，但质量却相当高。也就是说，多样化的高质量数据比大量数据更有效。第二个被挑战的假设是：SFT侧重记忆，就是说，SFT更多的是在“记住知识”。但是现在发现，这样经过少量高质量SFT后的模型它还具备不错的泛化能力。</p>
 <p>那我们知道，这个核心其实应该在Base模型，因为Base模型具备了各种能力，SFT才有可能“激活”这种能力。既然激活的是“能力”，自然也就具备泛化性。我个人觉得其实也不能说完全否定了原来的假设，只能说条件变了，此时的SFT主要起引导作用。既然如此，如何选择那些具备更高效率激活的数据就成为核心问题。两篇文章都重点介绍了数据筛选和获取过程，尤其是LIMO，把数据分成“问题”和“回答”两部分，分别根据不同标准得到高质量数据。其中，问题的高质量包括：问题解决方法的多样性、挑战模型能力的适当难度级别以及所涵盖知识领域的广度等因素；回答的高质量包括：教学价值（比如由易到难，逐步推导）、逻辑一致性和方法论严谨性等方面。问题主要是从已有数据集中选出来的；答案则使用多种方法构建。</p>
 <p>除了上面提到的这些，s1还提出了一种Budget forcing的采样方法，它算是一种串行或序列Scaling，主要有两个关键动作：提前结束思考和增加更多思考。前者是我现在不想让模型思考了，那就直接添加一个结束的Token强制模型停止思考，然后自然就开始生成答案了；后者则是给它一些类似wait、go on等让模型继续生成（思考）的Token，鼓励模型更多探索。这种方法其实有点工程Trick或设计，另外论文也提到它在Scaling时会慢慢没效果，还需要并行采样方法配合。</p>
-<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" target="_blank" rel="noopener">《R1相关：少量高质量数据SFT激活LLM推理能力 | Yam》</a>。</p>
+<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/">《R1相关：少量高质量数据SFT激活LLM推理能力 | Yam》</a>。</p>
 <h3 id="base-rl">Base+RL</h3>
 <p>这部分涉及到五篇相关研究，都是在Base模型上用RL算法激活并提升模型能力的，一篇GRPO、两篇PPO和两篇DPO。</p>
 <p>首先来看<a href="https://oatllm.notion.site/oat-zero" target="_blank" rel="noopener">oat-zero</a>，它有三个核心发现：</p>
@@ -175,13 +175,13 @@
 <li>Base模型的回答中存在表面自我反思，但RL可以将其转化为有效的自我反思。换句话说，RL能够提升反思能力。</li>
 <li>回答长度的增加和自我反思可能不相关，可能只是RL规则设计的结果。就是他们发现很多错误的回答长度很长，反过来，回答长度变短时，也能观察到奖励增加。也就说，长度增加只是必要条件，不是说你奖励长度效果就能变好。</li>
 </ul>
-<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">《DeepSeek R1深度技术解析及其影响 | Yam》</a>oat-zero部分。</p>
+<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">《DeepSeek R1深度技术解析及其影响 | Yam》</a>oat-zero部分。</p>
 <p>接下来我们看<a href="https://arxiv.org/abs/2502.11886" target="_blank" rel="noopener">LIMR</a>和<a href="https://github.com/Open-Reasoner-Zero/Open-Reasoner-Zero/tree/main" target="_blank" rel="noopener">ORZ</a>，两者虽然都用的PPO，但侧重点不一样。LIMR关注数据选择，而ORZ则关注Scaling，并进一步简化了训练。</p>
 <p>截止目前，我们已经知道，高质量数据对SFT非常重要。LIMR告诉我们，RL算法上高质量数据也非常重要。Base后面接RL需要多少数据，这个之前大家可能确实也没想过（毕竟R1出来也没多久）。LIMR和LIMO一样，也是上海AI Lab的，而且就在LIMO发表后几天匆匆发表，它的想法和LIMO是非常像的。也挑战假设“扩展RL训练数据本质上可以提高性能”，他们发现，1389个样本效果要优于8523个（训练集大小）样本。<strong>要“选择”数据，而不是扩充数据</strong>。LIMR提出自动定量方法LIM（Learning Impact Measurement）用于评估 RL 训练样本潜在价值，这里需要奖励模型打分。</p>
 <p>另外，LIMO和s1是在Qwen32B上做的实验，但是类似的结论在7B上不行，LIMR在7B上效果更好。因此，<strong>对小模型来说，RL可能比SFT更有效</strong>。其实这个发现挺有意思，它说明RL在激活方面比SFT更好，有可能RL不仅在激活，同时也能提升（增强）模型性能。而这个有意思的发现貌似和oat-zero的结论也能呼应上。事情逐渐变得明朗。</p>
 <p>ORZ主要Focus在Scaling上，具体来说是Base模型+RL的Scaling。Scaling的结论是：最显著的性能改进来自训练数据、模型大小和训练迭代（即计算）的Scaling，而不是算法设计的复杂性。这个观点和LLM的Scaling一致，但我们看了LIMR知道数据并不一定。顺便说一下，Scaling其实在很多场景下都不一定有效，比如音频编码器，更多的数据效果反而不如更少但多样化的高质量数据。</p>
 <p>其实ORZ最有意思的是简化了奖励函数设计，只看答案对不对，格式不奖励。同时，去掉了KL惩罚。对于后者，我自己也做了验证，不过是在GRPO中去掉了KL损失，结果和带KL损失几乎一致，无论是奖励、回复长度还是精度。本文还对PPO的GAE参数进行了实验，结果发现λ=1.0、γ=1.0时最理想。γ 是折扣因子，用来考虑未来回报的重要性。λ 用来平衡偏差与方差。 γ=1.0意味着未来所有的奖励都被同等对待，不会衰减。表示考虑整个未来回报，而不是更看重短期奖励。 λ=1.0时，GAE 退化为蒙特卡罗方法，即完全依赖未来真实奖励来估计优势值。这种方式虽然无偏，但可能有较大的方差。这种设置意味着：完全依赖最终回报计算优势。适用于环境较稳定、奖励延迟较长的任务，例如推理任务或策略规划任务；在短期奖励信息不可靠的情况下可能更稳定。ORZ的这个发现可能意味着LLM本身已经比较稳定，KL作用没那么大。</p>
-<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/" target="_blank" rel="noopener">《R1相关：RL数据选择与Scaling | Yam》</a>。</p>
+<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">《R1相关：RL数据选择与Scaling | Yam》</a>。</p>
 <p>最后我们看两篇关于DPO的，<a href="https://efficient-unicorn-451.notion.site/Online-DPO-R1-Unlocking-Effective-Reasoning-Without-the-PPO-Overhead-1908b9a70e7b80c3bc83f4cf04b2f175" target="_blank" rel="noopener">Online-DPO-R1</a>和<a href="https://arxiv.org/abs/2502.14560" target="_blank" rel="noopener">LIMD</a>，LIMD是我给它起的名字，原文标题就是《Less is More: Improving LLM Alignment via Preference Data Selection》，不过我想D既能代表数据，又可以表示DPO算法，就起了个LIMD，感觉还是比较贴切的。</p>
 <p>LIMD是从“数据选择”方向改进DPO的，由于DPO算法需要一个chosen和rejected数据对，所以它提出一个最大化间隔原则（突然就SVM了有没有）。为了准确估计间隔，提出了<strong>同时考虑外部奖励间隔和DPO内部隐式奖励间隔</strong>的双间隔引导（dual-margin guided）方法。具体做法包括两步：计算内外部奖励、融合奖励。外部奖励是利用一个外部奖励模型，本文用的是截止当时RewardBench Leaderboard最好的模型：Skywork-Reward-Llama-3.1-8B-v0.2。隐式奖励则是借助一个专门训练的policy模型（Llama-3.2-3B SFT+2000条随机数据）作为Reference模型来计算目标policy模型的奖励。融合方法包括相加和相乘。相加比较简单，直接求和就行，这种方法比较宽松，任何一个间隔大都可以。相乘稍微复杂了些，需要先简单做一个线性变换再进行融合，相乘是任何一个奖励间隔小就表示样本没价值，言下之意要减轻异常值（尤其是某一个间隔非常小的情况）的不利影响。</p>
 <p>好了，DPO也要数据选择，LIMO、LIMR、LIMD，SFT、PPO、DPO，数据选择都是相当之重要，更少的精心挑选的数据一样能达到很多数据的结果，甚至效果更好！反过来说，如果数据达不到多样性和高质量的要求，数量再多效果也可能不理想。另外，LIMD的消融发现，数据筛选对其他模型（Mistral）、其他DPO变体算法（IPO、KTO、SLiC）、不同超参数（β、LR）均有效。好吧，一言蔽之，LLM后的RL只需少量多样化的高质量数据即可！</p>
@@ -199,7 +199,7 @@
 <li>自我反思就在Qwen2.5-MATH-7B-Base中。</li>
 <li>DPO和PPO都不会增加自我反思的频率。</li>
 </ul>
-<p>事情进一步变得明朗。如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/" target="_blank" rel="noopener">《R1相关：DPO数据选择与DPO等RL算法 | Yam》</a>。</p>
+<p>事情进一步变得明朗。如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">《R1相关：DPO数据选择与DPO等RL算法 | Yam》</a>。</p>
 <h3 id="sft-rl">SFT+RL</h3>
 <p>这里的SFT也包括了R1中提到的蒸馏。其实R1中的蒸馏比较简单，其核心在数据，前面已经有过介绍，这里不再赘述。SFT之后效果一般就不错了，但R1也提到，后面接RL可以进一步提升效果，只不过他们志不在此，留给社区。原文如下：</p>
 <blockquote>
@@ -208,11 +208,11 @@
 <p>于是就有了<a href="https://pretty-radio-b75.notion.site/DeepScaleR-Surpassing-O1-Preview-with-a-1-5B-Model-by-Scaling-RL-19681902c1468005bed8ca303013a4e2" target="_blank" rel="noopener">DeepScaleR</a>，它的做法是直接从<code>Deepseek-R1-Distilled-Qwen-1.5B</code>强化微调（用高质量40K Math数据），得到的模型在AIME2024和MATH500上超过了<code>o1-preview</code>。规则设计也比较简单：答案对得1分，其他情况0分。</p>
 <p>本文额外做了一个交互式的上下文长度增加设计，也就是先训练回复短的，再训练回复长的。内涵一种先易后难的思想。具体做法是分两步走：8k→16k和24k。第一步在8k上实现更有效的推理和高效的训练；接下来扩展上下文长度，以便模型可以解决更复杂的问题。论文也给出了这么做的理由：在训练前评估模型时，发现错误响应的长度是正确响应的3倍。这表明较长的响应通常会导致不正确的结果，直接用长上下文窗口进行训练可能效率低下，因为大多数Token实际上都被浪费了。这个发现挺有价值的，我们之前已经说过，回复长度最多只是必要条件，有时候甚至必要条件都算不上，如果处理不好这个问题，效果肯定会打折扣。</p>
 <p>DeepScaleR的结论非常清晰：单独的 SFT 和 RL 都不够；相反，通过将<strong>高质量的 SFT 蒸馏与RL缩放相结合</strong>，可以真正释放 LLM 的推理潜力。 同时，迭代扩展长度能够实现更有效的长度缩放，比直接训练更加高效。另外，注意本文用的数据，40k，其实也不算特别多。</p>
-<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">《DeepSeek R1深度技术解析及其影响 | Yam》</a>。</p>
+<p>如果读者对论文细节感兴趣，可以进一步阅读<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">《DeepSeek R1深度技术解析及其影响 | Yam》</a>。</p>
 <p>再后面呢，按X哥的说法，一个很关键的问题：long2short，我的理解是模型会自动选择思考（包括长思考和短思考）或不思考。R1其实做了这方面工作，我们前面也提到过，那200k的通用数据，并不是每一个回复都是带思考过程的，对于很简单的问题，会跳过思考过程，直接给出回复。关于这方面的研究现在应该说刚刚起步，这里我们再简单介绍两篇相关Paper。</p>
 <p>第一篇是《基本框架》提到的<a href="https://arxiv.org/abs/2502.19613" target="_blank" rel="noopener">Self-rewarding correction for mathematical reasoning</a>，它认为这个反思呢是 Base 模型具备的，对吧，并不是强化学习搞出来的，当然强化学习能够提升这个能力，那我能不能让模型本身就具备这种能力呢？本文提出新的方法，将generative reward model融入推理过程，让模型自己判断回复质量，并决定是否self-correction，是否停止思考输出答案。具体做法是：把自我奖励和反思过程融入到数据里面去，然后SFT+RL。简单来说，就是进一步扩充R1的带思考数据，将verify这个过程也放进去。比如说我先思考一下，然后再验证自己对不对，以及后续是否需要继续思考还是直接输出答案。又一次重新定义了“数据”！这篇文章也证明了<strong>模型自己作为奖励模型</strong>的能力主要来自第一阶段的数据和SFT，RL则是寻找一个最优的两个类别准确率的 trade-off。</p>
 <p>另一篇是最新看到的<a href="https://arxiv.org/abs/2503.04697" target="_blank" rel="noopener">L1: Controlling How Long A Reasoning Model Thinks With Reinforcement Learning</a>，这篇文章通过标题就可以看出来，它目的就是控制模型的思考长度。论文引入了一种新的强化学习算法：LCPO（Length Controlled Policy Optimization）为模型提供精确和自适应的长度控制。它有两个训练目标：最终输出的正确性，以及生成满足提示词中指定长度约束的推理序列。具体做法也不复杂，在输入x后面加一句“Think for n tokens”的长度控制指令。算法使用GRPO，奖励函数包括两项：正确奖励和长度惩罚。这个设计其实隐含两个思想：第一，它鼓励模型生成正确的答案，同时在<strong>要求更短的输出时</strong>隐含地支持简洁的推理轨迹；第二，始终激励模型<strong>匹配规定的目标长度</strong>，即使可以使用更少的Token生成正确答案。长度方案有两种：精确长度（L1-Exact）和最大长度（L1-Max），后者在前者基础上修改奖励函数后进一步微调得到；后者效果更好一些。</p>
-<p>说到这里，自然就出现了一个新的范式：预训练+LongCoT+Long2short，我们后面展开讨论，感兴趣的读者也可以进一步阅读<a href="https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/" target="_blank" rel="noopener">《LLM、强化、蒸馏讨论 | Yam》</a>中的讨论细节。几乎可以确信，Long2short这个方向的研究会成为一个热门子方向，因为它不仅有趣，而且有意义。理想状态下，我们期望模型能够自动<strong>根据不同上下文选择思考长度</strong>（从0到很长）。这样，在使用时，模型不仅看起来更聪明，而且也能节省成本，提高用户体验（我想没有哪个用户希望回复“你好”都要思考几秒钟）。</p>
+<p>说到这里，自然就出现了一个新的范式：预训练+LongCoT+Long2short，我们后面展开讨论，感兴趣的读者也可以进一步阅读<a href="https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/">《LLM、强化、蒸馏讨论 | Yam》</a>中的讨论细节。几乎可以确信，Long2short这个方向的研究会成为一个热门子方向，因为它不仅有趣，而且有意义。理想状态下，我们期望模型能够自动<strong>根据不同上下文选择思考长度</strong>（从0到很长）。这样，在使用时，模型不仅看起来更聪明，而且也能节省成本，提高用户体验（我想没有哪个用户希望回复“你好”都要思考几秒钟）。</p>
 <h2 id="整体视角">整体视角</h2>
 <p>相信看了这一系列相关研究后，大家对R1及其带来的改变已经有了相当的common sense，也能够对标题《R1后LLM新范式》有更深的理解，这部分我们就从整体视角整理一下上面的内容。</p>
 <h3 id="数据筛选">数据筛选</h3>
@@ -327,7 +327,7 @@
 <p>需要说明的是，上面这样分类是为了梳理方便，实际使用时往往是多种范式融合，比如R1-2中的LongCoT就可以用R1-R代替。具体使用时应根据资源和目标灵活调整。</p>
 <h2 id="总结">总结</h2>
 <p>本文首先介绍了R1论文相关内容，接下来通过10篇相关论文梳理了R1对整个行业的启发，我们看到这个趋势还在继续。最后，我们从整体视角总结整合了前面的内容，期望能给读者带来更多思考。</p>
-<p>诚如我在<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">《DeepSeek R1深度技术解析及其影响 | Yam》</a>中所言，R1对整个行业的贡献巨大，其作用不亚于ChatGPT的发布。其范式影响了所有LLM，提升了LLM的整体能力，使LLM进入深度思考时代。此前，本以为LLM已经快到尽头了，没想到突然就上了一个新的台阶。我相信在R1开启的新时代影响下，LLM还会继续发展、AI还会继续进步。</p>
+<p>诚如我在<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">《DeepSeek R1深度技术解析及其影响 | Yam》</a>中所言，R1对整个行业的贡献巨大，其作用不亚于ChatGPT的发布。其范式影响了所有LLM，提升了LLM的整体能力，使LLM进入深度思考时代。此前，本以为LLM已经快到尽头了，没想到突然就上了一个新的台阶。我相信在R1开启的新时代影响下，LLM还会继续发展、AI还会继续进步。</p>
 
       
     </div><!-- .entry-content -->
@@ -375,9 +375,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

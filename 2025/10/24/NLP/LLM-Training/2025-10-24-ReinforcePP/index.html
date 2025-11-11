@@ -15,7 +15,7 @@
   <title>Reinforce++和它的KL Loss选择 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
-<meta name="keywords" content="AI,LLM,KL,GRPO,Reinforce++,PPO">
+<meta name="keywords" content="AI,LLM,GRPO,KL,Reinforce++,PPO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforce++和它的KL Loss选择">
 <meta property="og:url" content="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/index.html">
@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-reinforcepp-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg">
-<meta property="og:updated_time" content="2025-10-27T01:59:35.398Z">
+<meta property="og:updated_time" content="2025-11-07T00:15:00.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reinforce++和它的KL Loss选择">
 <meta name="twitter:description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
@@ -90,7 +90,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" data-id="cmh50kayb000062bz3g2sfr8w" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" data-id="cmhu0lrh5018lazbzcyvhfoik" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -349,9 +349,11 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

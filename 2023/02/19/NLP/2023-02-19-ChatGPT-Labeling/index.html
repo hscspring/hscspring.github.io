@@ -94,7 +94,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" data-id="cm5jp90bi005avmbzn5rnd4eg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" data-id="cmhu0lr310067azbz80enb00a" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -142,7 +142,7 @@
 <p>Plain：确保任务有足够的多样性的情况下，随便想任务。</p>
 </li>
 <li>
-<p>Few-Shot：给出一个 Instruction，编写多个 <code>(query, response)</code> 对。比如给定 Instruction 为：Give the sentiment for a tweet，query 就是一条真实的 tweet，response 是 “Positive” 或 “Negative”。假设写了 K 条，前 K-1 对就是上下文。这个格式在 GPT3 论文【相关文献3】里有提及，也可以参考：<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/" target="_blank" rel="noopener">GPT3 和它的 In-Context Learning | Yam</a>。</p>
+<p>Few-Shot：给出一个 Instruction，编写多个 <code>(query, response)</code> 对。比如给定 Instruction 为：Give the sentiment for a tweet，query 就是一条真实的 tweet，response 是 “Positive” 或 “Negative”。假设写了 K 条，前 K-1 对就是上下文。这个格式在 GPT3 论文【相关文献3】里有提及，也可以参考：<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/">GPT3 和它的 In-Context Learning | Yam</a>。</p>
 </li>
 <li>
 <p>User-based：OpenAI API 的候补名单中有很多用例，编写这些用例相对应的 Prompt。这一步应该是考虑到用例不够规范，需要标注人员重新编写 Prompt。用例的分布和示例如下：</p>
@@ -344,7 +344,7 @@
 <li>发表意见（是/否）。</li>
 <li>表达道德判断（是/否）。</li>
 </ul>
-<p>以上是对模型输出的标注，后面大部分和 Instruction 的标注对应。这里关于 Instruction 和 Prompt 这两个名词需要澄清一下，大部分时候可以把它们当做同义词看待。从广义上来说，Instruction 比 Prompt 涵盖的范围更大一些。Prompt 更像是针对不同任务的一种引导提示，它的目的是把不同任务的输入统一掉，广泛应用于之前的 GPT-3，T5、FLAN 等（虽然他们之间的 Prompt 也有区别，具体可参见：<a href="https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/" target="_blank" rel="noopener">FLAN：Fine-tuned Language Models are Zero-Shot Learners | Yam</a>）。而 Instruction 是一种指令，既包括几个词构成的简单句（和任务没关系），也包括包含 Prompt 等信息的复杂文本。换句话说，我们给 ChatGPT 的输入都可以算作 Instruction，但要想更好地利用模型进行输出，则需要设计 Prompt（具体可参见：<a href="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" target="_blank" rel="noopener">ChatGPT Prompt 工程：设计、实践与思考 | Yam</a>）。当然，狭义来说，可以把输入分成 Instruction + Prompt，Instruction 就是要求做某事，而 Prompt 则是做这件事的原材料（比如文本摘要的原始文本）。</p>
+<p>以上是对模型输出的标注，后面大部分和 Instruction 的标注对应。这里关于 Instruction 和 Prompt 这两个名词需要澄清一下，大部分时候可以把它们当做同义词看待。从广义上来说，Instruction 比 Prompt 涵盖的范围更大一些。Prompt 更像是针对不同任务的一种引导提示，它的目的是把不同任务的输入统一掉，广泛应用于之前的 GPT-3，T5、FLAN 等（虽然他们之间的 Prompt 也有区别，具体可参见：<a href="https://yam.gift/2022/08/28/Paper/2022-08-28-FLAN/">FLAN：Fine-tuned Language Models are Zero-Shot Learners | Yam</a>）。而 Instruction 是一种指令，既包括几个词构成的简单句（和任务没关系），也包括包含 Prompt 等信息的复杂文本。换句话说，我们给 ChatGPT 的输入都可以算作 Instruction，但要想更好地利用模型进行输出，则需要设计 Prompt（具体可参见：<a href="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/">ChatGPT Prompt 工程：设计、实践与思考 | Yam</a>）。当然，狭义来说，可以把输入分成 Instruction + Prompt，Instruction 就是要求做某事，而 Prompt 则是做这件事的原材料（比如文本摘要的原始文本）。</p>
 <p><strong>输出排序标注</strong></p>
 <p>将模型的所有输出按最好到最差排名（可以并列）。这部分规则就是《关键指标》中介绍的内容，据此进行排序即可。另外，也可能涉及到有毒输出，这需要参考下面小节的内容。需要说明的是，如果所有输出都是输入的合理延续，排名时应优先考虑毒性差异，而不是连续性差异。</p>
 <p><strong>有毒输出标注</strong></p>
@@ -447,9 +447,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

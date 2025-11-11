@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/" data-id="cm7o22gkf0000yobzme1ilnvv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/" data-id="cmhu0lrf3016tazbzipbuuhar" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -104,7 +104,7 @@
 <a id="more"></a>
 <p>这两点以前不是不知道，但这次随着DeepSeek3的发布，用更低的成本预训练好像变成一个很重要的议题。晚上回家上网看到了这篇文章：<a href="https://zhuanlan.zhihu.com/p/906819356" target="_blank" rel="noopener">如何从头训练大语言模型: A simple technical report</a>，发现预训练里其实很多细节自己都不知道。之前都是看Paper，觉得要做这做那的，但没想到其实还是有不少细节的。这下好了，无名邪火蹭就窜起来了，怎么压都压不住，晚上半天睡不着，满脑子想的都是”我一定要做预训练“，”一定要从头到尾做一个小的预训练模型“。</p>
 <p>第二天一大早上网大概搜了一下国内从头做预训练的个人项目，怎么说呢，只能说大部分都不太令人满意，基本都是在”复现“。这个不能说没意义，只能说价值不大。而且绝大部分项目没有评估对比，要么完全没有，要么就自己手动试几个Case，这在笔者看来是不够的。当然也有少数做得不错的，比如上面的那个项目，以及<a href="https://github.com/zhanshijinwat/steel-LLM" target="_blank" rel="noopener">steel-LLM</a>等项目，虽然是学生做的，也是在”复现“，但整体做的还比较完整。</p>
-<p>除了个人项目，其实比较正式的项目也是有不少的，笔者之前其实关注过这方面，比如这篇文章：<a href="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" target="_blank" rel="noopener">LLM Tiny Pretrain：H2O-Danube and Stable LM</a>，再搜了一下发现还有很多类似的项目，这类项目做的就完整多了。随便列出一些（前面的是开始时间）。</p>
+<p>除了个人项目，其实比较正式的项目也是有不少的，笔者之前其实关注过这方面，比如这篇文章：<a href="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/">LLM Tiny Pretrain：H2O-Danube and Stable LM</a>，再搜了一下发现还有很多类似的项目，这类项目做的就完整多了。随便列出一些（前面的是开始时间）。</p>
 <ul>
 <li><code>2025</code><a href="https://github.com/RUC-GSAI/YuLan-Mini" target="_blank" rel="noopener">RUC-GSAI/YuLan-Mini: A highly capable 2.4B lightweight LLM using only 1T pre-training data with all details.</a></li>
 <li><code>2024</code><a href="https://github.com/OpenBMB/MiniCPM" target="_blank" rel="noopener">OpenBMB/MiniCPM: MiniCPM3-4B: An edge-side LLM that surpasses GPT-3.5-Turbo.</a></li>
@@ -129,7 +129,7 @@
 <p>然后是第二点，实践感受这个过程，并验证一些观点和设想。笔者相信每一个做AI的都有AGI的梦想，LLM是迄今为止最接近的一次，没有哪个AI工程师想要放弃这样的参与。另外，最重要的，每个AI工程师也一定有自己的一些思考，想要在某个方面对已有方案做出一些尝试性的改进。</p>
 <p><strong>所以这个系列总的来说还是偏实验性质，通过在1.5B这个Size尺寸上进行各种实验尝试，看看距离这个Size的SOTA差距有多大。</strong></p>
 <p>说点题外话，这件事其实早该做的，但一直拖到今天，主要还是这么几个原因。</p>
-<p>第一，LLM太强了，预训练的职位太少了，之前算法能做的工作，现在大部分非算法的工程师通过LLM也能做。这是笔者23年的观点，在多篇文章中提到过，比如<a href="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" target="_blank" rel="noopener">ChatGPT 开发指南：Hugging LLM Hugging Future</a>。现在看起来这个趋势依然没变。当时是压根看不上这些小B弱智模型啊，脑子里就两个小人，一个说要去讯飞、一言之类的地方做预训练，但觉得自己没戏；另一个说，赶紧的，让暴风雨来的更猛烈些吧，直接AGI躺平算逑。那会儿第二个小人他厉害啊。</p>
+<p>第一，LLM太强了，预训练的职位太少了，之前算法能做的工作，现在大部分非算法的工程师通过LLM也能做。这是笔者23年的观点，在多篇文章中提到过，比如<a href="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/">ChatGPT 开发指南：Hugging LLM Hugging Future</a>。现在看起来这个趋势依然没变。当时是压根看不上这些小B弱智模型啊，脑子里就两个小人，一个说要去讯飞、一言之类的地方做预训练，但觉得自己没戏；另一个说，赶紧的，让暴风雨来的更猛烈些吧，直接AGI躺平算逑。那会儿第二个小人他厉害啊。</p>
 <p>第二，当时对技术的深度理解不够，也没想到后面会出现如此多的创新。彼时，随着LLM架构的逐渐统一，大家都开始搞数据，换谁都觉得没劲。不过没想到仅仅一年时间，就有如此多的新东西，技术的不断创新给了所有人机会。作为多年的NLP工程师，感觉自己又有希望继续”专业“了。</p>
 <p>第三，一直对多模态有不小的兴趣，2024年初正好有个机会，然后就去做了一年多模态。多模态和LLM还是有不小差别的，但底层的很多算法还是能彼此借鉴、甚至通用的，每次遇到这种情况都感觉无比舒爽。</p>
 <h2 id="规划">规划</h2>
@@ -180,7 +180,7 @@
         <span class="nav-previous"><a href="/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/" rel="prev"><span class="meta-nav">←</span> 实时语音交互场景下RAG的机遇和挑战</a></span>
     
     
-        <span class="nav-next"><a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="next">LLM指令跟随论文速览（2024-2025） <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" rel="next">SLM论文速览（2024） <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -196,9 +196,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

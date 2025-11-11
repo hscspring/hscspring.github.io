@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" data-id="cm5jp90b3004avmbzizfik409" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" data-id="cmhu0lr2m004qazbzl757gkpl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -133,7 +133,7 @@
 <p>结果看起来是没什么问题，但我们的思维可能还是觉得有点奇怪，感觉不直观、难以理解，我觉得这是因为上面这种分析过程只是到了表层，并没有深入背后的本质，所以让我们感到有些困惑。本文接下来就尝试从理解本质的角度去分析这个问题。为了分析方便，我假设有四个门（道理是一样的，因为三门剩下的那个就是有奖品的，可能会引起一些理解上的误会和偏差），其他条件不变，也就是在主持人打开门后，你要坚持选择第一次的还是在剩余的两扇门中选择一扇。</p>
 <p>在分析具体问题之前，我们需要先了解 “信息熵” 的概念，它来源于<a href="%5Bhttps://zh.wikipedia.org/wiki/%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%AC%AC%E4%BA%8C%E5%AE%9A%E5%BE%8B%5D(https://zh.wikipedia.org/wiki/%E7%83%AD%E5%8A%9B%E5%AD%A6%E7%AC%AC%E4%BA%8C%E5%AE%9A%E5%BE%8B)">热力学第二定律</a>：孤立系统自发地朝着热力学平衡方向──最大熵状态──演化，它描述的是一个系统的混乱（稳定）程度，一个系统处于稳定时就是其熵值最大的时候。香农将此概念引入信息论，用它来度量信息量的大小。熵值越大，不确定性越大，此时可能获得的信息量最大。提到熵就不得不提另一个重要的概念：自信息，这里不列公式了。总之自信息满足三个条件（非常符合我们的直觉）：条件一，非常可能发生的事件信息量要少；条件二，较不可能发生的事件具有更高的信息量；条件三，独立事件应具有增量的信息。而熵也就是自信息的期望：当事件等概率时，熵就等于自信息（因为概率相等，所以整个的不确定性也就等于单个的不确定性），当事件概率不相等时，熵降低（不确定性降低了，因为有的结果概率高了，可能性大了）。这里就是反直觉和令人迷惑的地方。举个例子容易理解些，比如有个地方天气变化非常反复无常，简单起见假设有 “晴天、雨天” 两种，每天两种天气出现的概率分别是 50%，这时候天气预报的作用就非常大，也就是带给你的信息量非常大；相反如果一个地方几乎天天是晴天，我们假设晴天、雨天的概率分别是 99% 和 1%，那这时候天气预报带给你的信息量非常小（简直无关紧要啊）。对于前一种情况，不确定性大，熵值大（事实上由于是均匀分布，不确定性和熵值均为最大），此时可预测性很小，额外获得的信息（在这里是天气预报）的信息量就很大；后一种情况正好相反。也就是说，在面临不确定性时，我们应该利用已知的信息（有些东西已经是确定的）让选择等可能性（不确定性最大）。这就是熵的思维。</p>
 <blockquote>
-<p>关于其在排序算法中的应用可以阅读刘未鹏大神的精彩文章：<a href="http://mindhacks.cn/2008/06/13/why-is-quicksort-so-quick/" target="_blank" rel="noopener">数学之美番外篇：快排为什么那样快 – 刘未鹏 | Mind Hacks</a> 和拙作：<a href="https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/" target="_blank" rel="noopener">数据结构与算法浅思：思考排序 | Yam</a>。</p>
+<p>关于其在排序算法中的应用可以阅读刘未鹏大神的精彩文章：<a href="http://mindhacks.cn/2008/06/13/why-is-quicksort-so-quick/" target="_blank" rel="noopener">数学之美番外篇：快排为什么那样快 – 刘未鹏 | Mind Hacks</a> 和拙作：<a href="https://yam.gift/2018/12/31/DS/2018-12-31-Ch02-Thinking-Sort/">数据结构与算法浅思：思考排序 | Yam</a>。</p>
 </blockquote>
 <p>我觉得反直觉的地方就在这里，我们总是有一种直觉，就是确定的东西信息量比较大，不确定的好像没啥信息。出现这个问题的原因我理解是把 “信息” 和  “知识” 这两个概念（自然而然地）混淆了，我们一般说一个东西信息量很大，总感觉这个东西内容很多、很有用；但其实却正好相反，我们真正有用的（知识或模型）都是信息量小、稳定的、可预测性大的，事实上智能的本质就是减熵，也就是降低不确定性。如果举一些具体的例子，机器学习的目的也是减少熵，希望自己的预测比较确定，熵正好可以用来衡量这个置信度；贝叶斯学习中，我们经常假设一个先验分布具有较宽广的概率密度函数，这反映了随机变量在观测之前的不确定性，当数据来了以后，熵会减小，并且让后验分布在最可能的参数值周围形成峰值。所以，也许应该把信息量叫作 “混乱度” 比较好。这里还有个好玩儿的是 “小概率事件”，因为发生的概率小，所以该事件本身（不是整个系统）具有很高的信息量，熵值很大（熵是自信息的期望，事件本身来说发生的概率为 1）。也就是这类事件因为发生概率比较低所以熵也比较低，虽然它本身的熵比较高，但是一旦这类事件正好（发生概率达到 100%）发生了，它具有的高熵和高信息量对整个系统带来的影响往往非常严重。这也就是所谓的 “黑天鹅” 事件。</p>
 <p>现在让我们用上面的思维来重新思考三门问题（我以四门为例）。当主持人打开一扇空门后，我们的第二次选择应该怎么选，是继续坚持第一次的选择，还是换一扇门？回想一下熵的思维：让选择等可能性。如果我们继续坚持第一次的选择，那意味着我们给第一次的那个选择更高的概率；而等可能性意味着我们第二次应该在剩下的两扇门中等可能性地选择一扇。注意，这里其实我们有两次 “等可能性”。所以，三门问题之所以在第二次应该换门，其背后的本质思想就在这里。而这个问题之所以具有迷惑性和反直觉，我觉得原因可能有以下两点：</p>
@@ -194,9 +194,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

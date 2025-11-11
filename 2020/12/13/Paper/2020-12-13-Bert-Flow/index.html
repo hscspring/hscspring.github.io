@@ -92,7 +92,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cm5jp90cz008mvmbzmrf56y3i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cmhu0lr7p00ntazbzva4kq5y8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -122,7 +122,7 @@
 <li>直接用 CLS Token 的 Embedding 作为句子表征，Bert 下游句子级别的任务基本都是用这个作为标准方法；</li>
 <li>最后几层上下文 Embedding 的平均值</li>
 </ul>
-<p>之前（Sentence-Bert, Reimers and Curevych (2019)）有实验表明，Bert 的句子 Embedding 在相似度方面表现还不如 Glove；另外，平均方法比直接取 CLS 效果要好。其实，这个是可以理解的， 之前正好写过一篇<a href="https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">文章</a>，其中探讨过这个问题。原因很简单，CLS 压缩了太多信息，而平均又会损失语义，尤其是对 Self-Attention 取平均，甚至会弱化本来得到的 “Attention”。如果非要提升效果，我觉得不如在最后一层基础上加一层 CNN（卷积+Max Pooling）。</p>
+<p>之前（Sentence-Bert, Reimers and Curevych (2019)）有实验表明，Bert 的句子 Embedding 在相似度方面表现还不如 Glove；另外，平均方法比直接取 CLS 效果要好。其实，这个是可以理解的， 之前正好写过一篇<a href="https://yam.gift/2020/12/12/2020-12-12-NLP-Representation-History-Future/">文章</a>，其中探讨过这个问题。原因很简单，CLS 压缩了太多信息，而平均又会损失语义，尤其是对 Self-Attention 取平均，甚至会弱化本来得到的 “Attention”。如果非要提升效果，我觉得不如在最后一层基础上加一层 CNN（卷积+Max Pooling）。</p>
 <h4 id="语义相似度与-bert">语义相似度与 Bert</h4>
 <p>Sentence Embedding 相似度可以简化为 Context Embedding 的相似度，但因为 Bert 训练过程中并没有计算两个 Embedding 的点乘（或 Cosine 相似度），所以需要（想象、假设）替代的方案。</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>sim</mtext><mo>=</mo><msubsup><mi>h</mi><mi>c</mi><mi>T</mi></msubsup><msubsup><mi>h</mi><mi>c</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup></mrow><annotation encoding="application/x-tex">\text{sim} = h_c^T h_c&#x27;
@@ -285,9 +285,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/" data-id="cm5jp90l7014tvmbzdgvx4ect" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/" data-id="cmhu0lrdv014uazbz41t4v6p9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -287,7 +287,7 @@
 <p>又是一道 DP 题，好像类似这种往前滚动的（或者说有递推关系的？）都可以用 DP 来搞一搞。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">max_not_duplicate_substring</span><span class="params">(s)</span>:</span></span><br><span class="line">    lenth = len(s)</span><br><span class="line">    dp = [<span class="number">1</span>] + [<span class="number">0</span>] * (lenth - <span class="number">1</span>)</span><br><span class="line">    tmp = s[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, lenth):</span><br><span class="line">        <span class="keyword">if</span> s[i] <span class="keyword">not</span> <span class="keyword">in</span> tmp:</span><br><span class="line">            dp[i] = <span class="number">1</span> + dp[i<span class="number">-1</span>]</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 找到重复的位置</span></span><br><span class="line">            preindex = len(tmp) - tmp[::<span class="number">-1</span>].index(s[i]) - <span class="number">1</span></span><br><span class="line">            <span class="comment"># 重复字符之间的距离</span></span><br><span class="line">            d = i - preindex</span><br><span class="line">            <span class="comment"># 如果重复字符之间的距离比上个长度小</span></span><br><span class="line">            <span class="keyword">if</span> d &lt;= dp[i<span class="number">-1</span>]:</span><br><span class="line">                dp[i] = d</span><br><span class="line">            <span class="comment"># 否则就是上面的那个 if</span></span><br><span class="line">        tmp.append(s[i])</span><br><span class="line">    <span class="keyword">return</span> max(dp)</span><br></pre></td></tr></table></figure>
 <p>特别需要注意的是，在找 <code>s[i]</code> 在 <code>tmp</code> 中的位置时，不能简单地用 <code>tmp.index</code>，因为这样会默认给出第一个位置，而我们要的是最后一个位置。当某个元素重复次数大于 2 时，就会有这个问题。</p>
-<p>还有一种我觉得很巧妙的方法就是使用滑块，之前在做 LeetCode 时用过：<a href="https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" target="_blank" rel="noopener">Longest Substring Without Repeating Characters (LeetCode 3) | Yam</a>，基本思想是维护一个滑块，遍历序列时，将不在滑块中的元素添加到滑块，同时计算长度；如果某个元素在滑块中，则从滑块中删除该元素。这里还有个需要注意的是，同时要维护两个指针 i 和 j，都从 0 开始，每添加一个元素到滑块，i 加 1；遇到之前出现过的元素，删除滑块中第 j（从 0 开始）个元素，j 加 1。</p>
+<p>还有一种我觉得很巧妙的方法就是使用滑块，之前在做 LeetCode 时用过：<a href="https://yam.gift/2019/07/13/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/">Longest Substring Without Repeating Characters (LeetCode 3) | Yam</a>，基本思想是维护一个滑块，遍历序列时，将不在滑块中的元素添加到滑块，同时计算长度；如果某个元素在滑块中，则从滑块中删除该元素。这里还有个需要注意的是，同时要维护两个指针 i 和 j，都从 0 开始，每添加一个元素到滑块，i 加 1；遇到之前出现过的元素，删除滑块中第 j（从 0 开始）个元素，j 加 1。</p>
 <p>具体实现和测试代码可参考：<a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python/48_LongestSubstringWithoutDup" target="_blank" rel="noopener">48_LongestSubstringWithoutDup</a></p>
 <h3 id="面试题-49：丑数">面试题 49：丑数</h3>
 <blockquote>
@@ -355,10 +355,10 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/" rel="prev"><span class="meta-nav">←</span> 剑指 Offer2（Python 版）解析（Ch2）</a></span>
+        <span class="nav-previous"><a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/" rel="prev"><span class="meta-nav">←</span> 剑指 Offer2（Python 版）解析（Ch4）</a></span>
     
     
-        <span class="nav-next"><a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/" rel="next">剑指 Offer2（Python 版）解析（Ch3） <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/" rel="next">剑指 Offer2（Python 版）解析（Ch6） <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -374,9 +374,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

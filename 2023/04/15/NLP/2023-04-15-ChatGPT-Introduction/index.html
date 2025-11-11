@@ -100,7 +100,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cm5jp90bu005uvmbzac01t85s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cmhu0lr35006kazbz0w1nzlxo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -198,7 +198,7 @@
 <p>除了刚刚的Trick，这篇<a href="https://arxiv.org/pdf/1805.04833.pdf" target="_blank" rel="noopener">论文</a>在2018年介绍了一种新的采样方案，很简单但实际很有效果，就是GPT-2里使用到的Top-K采样。简单来说，就是在选择下一个Token时，在Top-K个里面选（Top-K=0时就是所有词表范围）。这个方法不错，不过还有个小问题，就是Top-K个其实是一种硬截断，根本不管第K个概率是高还是低。极端情况下，如果某个词的概率到了0.99，K稍微大一点就必然会囊括进来一些很低概率的词。这会导致不连贯。</p>
 <p>于是，2020年的这篇<a href="https://arxiv.org/pdf/1904.09751.pdf" target="_blank" rel="noopener">论文</a>提出了另外一种采样方案：Top-P，GPT-2里也有这个策略。这种策略是在累计概率超过P的词里进行选择。这样，对于概率分布比较均匀的情况，可选的词就会多一些（可能要几十个词的概率和才会超过P）；对于概率分布不均匀的情况，可选的词就少一些（可能2-3个词的概率就超过了P）。</p>
 <p>Top-P看起来更加优雅一些，两者也可以结合使用，不过大部分时候当我们需要调的时候，调一个就好，包括前面的tempreture参数。如果要调多个，请确保理解每个参数的作用。最后，需要说明的是，任何一种采样策略都不能100%保证每一次生成的效果都很好，也没办法避免生成重复的话（可以考虑使用类似后处理的方法缓解）。也没有一种策略是在任何场景下都适用的，需要根据实际情况灵活选择。</p>
-<p>GPT-3是2020年7月发表的，在当时也是个大新闻，因为它的参数量已经达到了其他任何模型在当时望尘莫及的量级：175B，是GPT-2的100多倍。而且，没有开源。伸手党有点尴尬。GPT-3是觉得既然有Zero-Shot能力，那能不能不微调呢，碰到一个任务就微调这多麻烦。你看看人类，只要几个例子（Few-Shot）和一些简单的说明就可以处理任务了是不是。怎么办？GPT-2不是进一步确认了Zero-Shot能力了吗，上，继续上，加大参数量，于是就有了175B的GPT-3。也就是说，各种任务来吧，我不调参数，顶多就要几个例子（下一步连这个也不要了），我就能给你搞定它。其实现在回头看，这篇论文是具有里程碑意义的，因为它从根本上触动了原有的范式，而且是革命式地触动。关于这点，我之前写过一篇文章：<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/" target="_blank" rel="noopener">GPT3 和它的 In-Context Learning | Yam</a>，感兴趣的读者可以进一步阅读。可惜当时没读出来，现在回忆，还是因为175B在当时看起来太大了，而且也太贵了（几百万美元呢），效果再好又能咋样，玩儿不起啊。这不光是小部分人没意识到，可能是除了OpenAI团队之外的整个世界都没意识到。先看下面这个图：</p>
+<p>GPT-3是2020年7月发表的，在当时也是个大新闻，因为它的参数量已经达到了其他任何模型在当时望尘莫及的量级：175B，是GPT-2的100多倍。而且，没有开源。伸手党有点尴尬。GPT-3是觉得既然有Zero-Shot能力，那能不能不微调呢，碰到一个任务就微调这多麻烦。你看看人类，只要几个例子（Few-Shot）和一些简单的说明就可以处理任务了是不是。怎么办？GPT-2不是进一步确认了Zero-Shot能力了吗，上，继续上，加大参数量，于是就有了175B的GPT-3。也就是说，各种任务来吧，我不调参数，顶多就要几个例子（下一步连这个也不要了），我就能给你搞定它。其实现在回头看，这篇论文是具有里程碑意义的，因为它从根本上触动了原有的范式，而且是革命式地触动。关于这点，我之前写过一篇文章：<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/">GPT3 和它的 In-Context Learning | Yam</a>，感兴趣的读者可以进一步阅读。可惜当时没读出来，现在回忆，还是因为175B在当时看起来太大了，而且也太贵了（几百万美元呢），效果再好又能咋样，玩儿不起啊。这不光是小部分人没意识到，可能是除了OpenAI团队之外的整个世界都没意识到。先看下面这个图：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg" alt></p>
 <p>（图9：X-Shot在不同参数量级的表现，来自GPT-3论文）</p>
 <p>这张图可以提供几个信息：</p>
@@ -239,7 +239,7 @@
 </blockquote>
 <p>InstructGPT使用了人类反馈直接作为「规则」，也就是把这种「规则」给隐式化，当做黑盒。我们只管结果好坏，至于中间有什么规则，有多少种规则，怎么起作用，统统不关心。这是和深度学习类似的思路，相比而言，自己之前的想法可能有些Naive了，毕竟语言学本身也是有不少争议没有搞清楚，比如语言能力是不是人生来具有的能力？InstructGPT的做法更加简单、直接，而且有效。</p>
 <p>剩下要解决的就是怎么衡量「好坏」，毕竟最终总是要个结果的，既然要结果就要有标准。读者不妨思考一下，如果换做你，会如何设计一些指标来衡量两段输出内容的好坏。这一步看似容易，其实特别不容易，因为指标的设计会影响到模型的学习方向，最终就会影响到效果。因为这个输出的好坏衡量标准就太多了，虽然看起来是对给出的几个结果进行排序（上面的第二步），但其实这个过程中间隐藏了大量人类的认知，<strong>模型训练过程其实就是和第二步这个衡量过程对齐的过程</strong>。所以，如果第二步指标没设计好，第三步就是白费力气。尤其是对于InstructGPT这样针对几乎所有任务的设计，衡量就更加不容易。试举一例，比如一个摘要任务，我们可能最关注的是能否准确概括原文信息，而一个生成任务可能就关注流畅性和前后逻辑一致性。InstructGPT里面有10种任务，要分别针对每种任务去搞指标那就比较麻烦了，而且效果还不一定好，因为这些指标并不一定都是一个方向。还有就是，万一又有了一个新任务，难道要再去设计一套指标，全部重新训练一遍模型？</p>
-<p>我们看看InstructGPT是怎么设计衡量指标的，我觉得这是InstructGPT这篇论文最宝贵的地方，也是最值得我们思考和实践的地方。为此，笔者早早就专门花时间仔细研读了相关的资料，并写了一篇专门介绍其标注的文章：<a href="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" target="_blank" rel="noopener">ChatGPT 标注指南：任务、数据与规范 | Yam</a>，感兴趣的读者可以进一步阅读。不过这方面的报道和研究好像比较少。</p>
+<p>我们看看InstructGPT是怎么设计衡量指标的，我觉得这是InstructGPT这篇论文最宝贵的地方，也是最值得我们思考和实践的地方。为此，笔者早早就专门花时间仔细研读了相关的资料，并写了一篇专门介绍其标注的文章：<a href="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/">ChatGPT 标注指南：任务、数据与规范 | Yam</a>，感兴趣的读者可以进一步阅读。不过这方面的报道和研究好像比较少。</p>
 <p>不多说了，我们继续。首先，InstructGPT用了三个大的通用指标：有帮助、真实性和无害性，有点类似阿西莫夫的机器人三定律。也就是说，我不管你是什么任务，你都得朝着这三个方向靠。这个想法真值得点赞。现在我们看到这个结果了，自然感觉好像没什么，但要是事先不知道要去设计出来，大部分人还是很容易陷入被任务影响的境地。其实OpenAI团队在In-Context Learning上的坚持也是一样，这个我们前面在讲GPT一节时已经提到过了。别人告诉你那个结果时，你可能觉得好像不觉得有什么，甚至很多研究机构、研究人员都有想过。但在有效果之前，笃信一条罕有人走的路，且一直坚定不移地走下去，这是很不容易的。</p>
 <p>有了刚刚的三大指导方针，接下来就是细化，使其具有可操作性。比如，对于第一条有帮助性，InstructGPT给了下面一些属于「有帮助」行为的示例：</p>
 <ul>
@@ -309,9 +309,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

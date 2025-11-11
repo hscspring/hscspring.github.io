@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cma5lz0ys00015tbznj4k9k5j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cmhu0lrfx017oazbz8t59zjkl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -100,7 +100,7 @@
         <p>本文介绍两个R1后新范式最佳实践的模型（系列）：Seed-Thinking-v1.5和Qwen3，感受一下R1后新范式的实践情况。</p>
 <a id="more"></a>
 <h2 id="seed-thinking-v1-5">Seed-Thinking-v1.5</h2>
-<p>在<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" target="_blank" rel="noopener">DeepSeek R1后LLM新范式 | Yam</a><sup>[1]</sup>中，我们提到了R1带来的一些新范式。Seed-Thinking-v1.5就是其中经典的范式：SFT+RL。Seed-Thinking-v1.5采用MoE，总参数200B，激活20B。我们重点关注它的数据、SFT和RL相关部分。</p>
+<p>在<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a><sup>[1]</sup>中，我们提到了R1带来的一些新范式。Seed-Thinking-v1.5就是其中经典的范式：SFT+RL。Seed-Thinking-v1.5采用MoE，总参数200B，激活20B。我们重点关注它的数据、SFT和RL相关部分。</p>
 <h3 id="data">Data</h3>
 <p>数据可以分为两大类：有确定并可验证答案的问题和没有确定答案的问题。这两类其实对应的就是推理类数据和非推理类数据，推理能力主要来自第一部分。</p>
 <h4 id="可验证问题">可验证问题</h4>
@@ -177,7 +177,7 @@
 <li>通用数据。由对齐人类偏好的奖励模型进行评分。</li>
 <li>混合数据。同时使用验证器和奖励模型。</li>
 </ul>
-<p>算法结合了之前的<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" target="_blank" rel="noopener">DAPO</a><sup>[2]</sup>和<a href="https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/" target="_blank" rel="noopener">VAPO</a><sup>[3]</sup>，具体包括：</p>
+<p>算法结合了之前的<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO</a><sup>[2]</sup>和<a href="https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/">VAPO</a><sup>[3]</sup>，具体包括：</p>
 <ul>
 <li>Value-Pretraining：通过MC回报提供无偏奖励信号，避免自举导致的偏差累积（尤其在长序列中），为后续RL阶段提供一个高质量的价值函数初始化（价值和策略对齐），减少训练不稳定。</li>
 <li>Decoupled-GAE：policy和value模型使用不同λ，价值模型能够以无偏的方式更新，策略模型也可以独立调节自身的偏差与方差。</li>
@@ -214,7 +214,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># enable_thinking=True + /no_think</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?/no_think&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n"</span></span><br><span class="line">bot_msg = <span class="string">"&lt;think&gt;\n\n&lt;/think&gt;\n\n我是AI助手，你可以随意和我交流。有什么问题或需要帮助吗？"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable_thinking=True + /think</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?/think&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n"</span></span><br><span class="line">bot_msg = <span class="string">"&lt;think&gt;\n好的，我现在需要处理用户的问题“你是谁？”。首先，我要确定用户的需求是什么。用户可能想了解我的身份，或者他们可能对我的能力感兴趣。作为AI助手，我需要提供准确且友好的回答，同时保持自然的对话方式。\n\n接下来，我应该考虑如何回答这个问题。通常，我会简要介绍自己，说明我是由人工智能系统生成的，但也要保持一定的专业性和亲切感。可能需要提到我具备多样的功能，比如回答问题、提供帮助等。\n\n另外，用户可能没有明确表达出来，但可能想测试我的反应或者了解更多信息。因此，回答时要保持开放，鼓励用户继续提问，同时确保信息准确无误。\n\n还要注意用户的身份和背景，可能他们是在使用我的功能，或者需要帮助。因此，回答时要避免过于技术性的术语，确保用户容易理解。\n\n最后，检查回答是否符合所有要求，包括清晰、准确和友好，确保没有遗漏任何关键点，并且保持对话的连贯性和自然。\n&lt;/think&gt;\n\n我是由人工智能系统生成的助手，可以回答问题、提供帮助或分享知识。如果您有任何问题，欢迎随时问我！ 😊"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable_thinking=True</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n"</span></span><br><span class="line">bot_msg = <span class="string">"&lt;think&gt;\n嗯，用户问我是谁。首先，我需要确定回答的意图。用户可能是在测试我的反应，或者想了解我的背景。作为AI助手，我应该保持专业和友好的态度，同时提供有用的信息。\n\n接下来，我应该回忆一下之前的对话记录，确保回答内容准确。同时，考虑到用户可能对我的身份感兴趣，可以简要介绍我的功能和用途，比如帮助解决问题、提供信息等。但要注意不要过于冗长，保持简洁明了。\n\n另外，用户可能希望得到一些个性化的回应，比如询问他们的需求，或者提供其他帮助。因此，在回答中可以加入开放式的结尾，鼓励用户提供更多信息，这样可以促进进一步的互动。\n\n最后，检查回答是否符合中文表达习惯，确保没有语法错误，并且语气自然，不会显得生硬或突兀。\n&lt;/think&gt;\n\n我是你的AI助手，帮助你解答问题、提供支持或提供信息。如果你有任何问题或需要帮助，请随时告诉我！有什么我可以帮你的吗？"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable_thinking=False</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n&lt;think&gt;\n\n&lt;/think&gt;\n\n"</span></span><br><span class="line">bot_msg = <span class="string">"我是AI助手，我不会说“我是谁”，但可以帮你解决问题或提供帮助。如果你有任何问题或需要帮助，请随时告诉我！"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable_thinking=False + /no_think</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?/no_think&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n&lt;think&gt;\n\n&lt;/think&gt;\n\n"</span></span><br><span class="line">bot_msg = <span class="string">"我是一个AI助手，专注于帮助用户解决问题和提供支持。如果您有任何问题或需要帮助，请随时告诉我！"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># enable_thinking=False + /think</span></span><br><span class="line">user_msg = <span class="string">"&lt;|im_start|&gt;user\n你是谁?/think&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant\n&lt;think&gt;\n\n&lt;/think&gt;\n\n"</span></span><br><span class="line">bot_msg = <span class="string">"我是你的智能助手，我的名字是小智。我是一台基于人工智能技术的虚拟助手，能够帮助你解答各种问题，提供各种服务，与你交流，帮助你解决问题。如果你有任何问题或需要帮助，随时告诉我，我将尽力为你服务。"</span></span><br></pre></td></tr></table></figure>
 <p>通过<code>user_msg</code>可以很明显发现，<code>enable_thinking=False</code> 时会在 <code>assistant</code>开始时直接结束思考（<code>&lt;/think&gt;</code>），提示词自然就不生效了。硬切换没啥好说的，软切换应该是SFT时融合进去的指令，相对稍微有意思一些。但总的来说还没有做到自动控制思考长度，以及自动根据上下文确定是否需要思考等功能。</p>
 <h3 id="训练">训练</h3>
-<p>整个训练遵循R1后的常见做法，我们在<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">DeepSeek R1深度技术解析及其影响 | Yam</a><sup>[5]</sup>和<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" target="_blank" rel="noopener">DeepSeek R1后LLM新范式 | Yam</a><sup>[1]</sup>中均有提及。</p>
+<p>整个训练遵循R1后的常见做法，我们在<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">DeepSeek R1深度技术解析及其影响 | Yam</a><sup>[5]</sup>和<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a><sup>[1]</sup>中均有提及。</p>
 <p>首先看预训练，分3个阶段：</p>
 <ul>
 <li>S1：30万亿Token，4k长度预训练，学习基本的语言技能和通用知识。</li>
@@ -247,11 +247,11 @@
 <p>Qwen3的重点感觉是数据，数据量更多（预训练几乎是Qwen2.5的两倍）、质量更高、多样性也更丰富。比如直观能看到的：推理类数据、Agent工具数据、多语言数据等。但不管怎么说，能整合最前沿技术并将模型做出来，而且目前看起来效果还不错，那都是非常不容易的。</p>
 <p>总的来看，Seed-Thinking和Qwen3都给我们实践新范式提供了指导，个人认为可称其为最佳实践。</p>
 <h2 id="references">References</h2>
-<p><code>[1]</code> DeepSeek R1后LLM新范式 | Yam: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" target="_blank" rel="noopener">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em><br>
-<code>[2]</code> DAPO: <em><a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" target="_blank" rel="noopener">https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/</a></em><br>
-<code>[3]</code> VAPO: <em><a href="https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/" target="_blank" rel="noopener">https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/</a></em><br>
+<p><code>[1]</code> DeepSeek R1后LLM新范式 | Yam: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em><br>
+<code>[2]</code> DAPO: <em><a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/</a></em><br>
+<code>[3]</code> VAPO: <em><a href="https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/">https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/</a></em><br>
 <code>[4]</code> Qwen3: Think Deeper, Act Faster | Qwen: <em><a href="https://qwenlm.github.io/blog/qwen3/" target="_blank" rel="noopener">https://qwenlm.github.io/blog/qwen3/</a></em><br>
-<code>[5]</code> DeepSeek R1深度技术解析及其影响 | Yam: <em><a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/</a></em><br>
+<code>[5]</code> DeepSeek R1深度技术解析及其影响 | Yam: <em><a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/</a></em><br>
 <code>[6]</code> Scaling Vision Transformers to 22 Billion Parameters: <em><a href="https://arxiv.org/abs/2302.05442" target="_blank" rel="noopener">https://arxiv.org/abs/2302.05442</a></em><br>
 <code>[7]</code> OLMo 2: <em><a href="http://arxiv.org/abs/2501.00656" target="_blank" rel="noopener">http://arxiv.org/abs/2501.00656</a></em><br>
 <code>[8]</code> Query-Key Normalization for Transformers: <em><a href="https://arxiv.org/abs/2010.04245" target="_blank" rel="noopener">https://arxiv.org/abs/2010.04245</a></em><br>
@@ -303,9 +303,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

@@ -90,7 +90,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" data-id="cm5jp90ly015yvmbze36wd0sz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" data-id="cmhu0lre6015pazbznnl7tinz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -216,13 +216,13 @@
 </ul>
 </li>
 </ul>
-<p>相关代码实现在<a href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/string/string.c" target="_blank" rel="noopener">这里</a>。另外，<code>string.h</code> 里面有很多字符串的操作已经实现。关于字符串的一些笔记也可参考：<a href="https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/" target="_blank" rel="noopener">浙大翁恺老师《程序设计入门 ——C 语言》笔记 | Yam</a></p>
+<p>相关代码实现在<a href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/string/string.c" target="_blank" rel="noopener">这里</a>。另外，<code>string.h</code> 里面有很多字符串的操作已经实现。关于字符串的一些笔记也可参考：<a href="https://yam.gift/2018/06/20/C/2018-06-20-C-Weng-ZhejiangUniversity/">浙大翁恺老师《程序设计入门 ——C 语言》笔记 | Yam</a></p>
 <h2 id="数组">数组</h2>
 <p>数组的元素可以是某种具有相同结构的数据，可看作线性表的扩充。一维数组可以看成一个线性表，二维数组可以看成数据元素是一维数组的一维数组。由于数组具有固定的格式和元素数量，因此在数组上一般不做插入、删除元素的操作，对数组的操作通常包括：取值、赋值操作。容易看出，数组采用顺序存储较为合适。一维数组比较简单，我们主要讨论二维数组。</p>
 <p>二维数组一般有两种存储方式：以行序为主或以列序为主。以行序为例，Loc(Aij) = Loc(A00) + (i × n + j) × L，其中 n 为每行元素个数，L 为每个元素占据的地址单元。</p>
 <p>如果二维数组中的元素均为数字，这时候该二维数组又叫矩阵，在机器学习中经常会遇到稀疏矩阵，即大多数的元素都是零，此时如果依然按照顺序存储将会浪费大量空间，所以对于稀疏矩阵一般只存储非零元素，即将每一个非零元素存储为 (i, j, v) 的三元组，i 和 j 表示位置，v 表示非零元素。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1024</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">elem</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> i; </span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">&#125; *Mae;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">matrix</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> m; <span class="comment">// 行数</span></span><br><span class="line">    <span class="keyword">int</span> n; <span class="comment">// 列数</span></span><br><span class="line">    <span class="keyword">int</span> k; <span class="comment">// 非零元素个数</span></span><br><span class="line">    Mae data[MAX] </span><br><span class="line">&#125; * Spm;</span><br></pre></td></tr></table></figure>
-<p>我们分别将元素和矩阵定义为两个指向结构体的指针，关于 struct 的定义可以参考：<a href="https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/" target="_blank" rel="noopener">浙大翁恺老师《C 语言程序设计进阶》笔记 | Yam</a>。</p>
+<p>我们分别将元素和矩阵定义为两个指向结构体的指针，关于 struct 的定义可以参考：<a href="https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/">浙大翁恺老师《C 语言程序设计进阶》笔记 | Yam</a>。</p>
 <p>我们接下来重点讨论一下矩阵（稀疏矩阵）的转置。由于稀疏矩阵的存储采用上面定义的方式，转置会稍微麻烦一些，我们可以把原矩阵 data 中存储的每一个 elem 的 i 和 j 分别赋给新矩阵的 j 和 i，但这样有个问题：新的矩阵不一定和原始矩阵一个顺序（事实上基本不可能一个顺序）。举个例子：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原矩阵 data</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">0</span></span><br><span class="line"><span class="comment">// 转置后</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">-1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">0</span></span><br><span class="line"><span class="comment">// 我们想要的（按行序）</span></span><br><span class="line">i	j	v</span><br><span class="line"><span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span></span><br><span class="line"><span class="number">1</span>	<span class="number">2</span>	<span class="number">0</span></span><br><span class="line"><span class="number">2</span>	<span class="number">1</span>	<span class="number">-1</span></span><br></pre></td></tr></table></figure>
 <p>我们当然可以依次按照列（转置后的行）从 0 到列数扫描一遍 data 的每个元素，按照顺序放到位置上（比如<a href="https://github.com/hscspring/Note_Coding/blob/master/Data_Structure_C/Ch3/array/array2.c" target="_blank" rel="noopener">这里</a>的实现）：</p>
@@ -409,9 +409,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

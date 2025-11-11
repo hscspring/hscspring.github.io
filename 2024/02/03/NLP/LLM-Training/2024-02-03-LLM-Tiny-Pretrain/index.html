@@ -91,7 +91,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" data-id="cm5jp90m3016fvmbzh4mzhcrg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" data-id="cmhu0lroj01taazbznfbrhoxj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -207,7 +207,7 @@
 <p>那我们是否有必要关注小模型呢？笔者觉得，如果从业务使用的角度来看，只要有效的方法就是好方法，这自然包括小模型。至于业务场景，常见的依然是自然语言生成方面的任务，比如文字创作、文本续写、润色修改、生成式摘要、对话、问答等。</p>
 <p>那为什么在大模型时代之前，自然语言生成的效果比较差呢。笔者觉得主要有两个方面原因。第一，原来的模型并没有做现在这样的指令对齐操作，这就导致模型不能理解指令。从使用者的角度来看，能理解指令自然感觉上“聪明”一些，谁会去关心它为什么聪明或不聪明呢。第二，原来的模型更没有偏好对齐操作，也就是说，生成的内容层次不齐（从那个时代过来的、做过生成式任务的读者应该深有感触），这就使得它很难在产品中大量使用。所以，当时可控生成这个领域很火，是一个专门的主题。经过偏好对齐后，模型基本上都能生成还不错的内容，还是从使用者的角度看，就会从直觉上感觉这模型不错。这里面有一点需要特别说明，其实小模型即使经过 SFT 和 DPO 之后，在某些方面依然不行，但它在训练过的数据上还行。而训练数据涵盖的比较全面，这就导致了一般人使用时都会觉得不错，因为一般人能想到的范围都已经被模型数据覆盖了。感兴趣的读者不妨挑一个 7B 的模型在私有数据上进行测试，你会发现它在很多时候都不尽如人意。</p>
 <p>这也是为什么现在越来越多的研究和模型在关注 SFT 数据的准备，甚至为了让其具备推理能力而增加很多带推理步骤的数据。虽然在笔者看来，SFT 其实没有什么新意，但它确实能最直接的产生效果。有监督训练嘛，数据质量决定模型上限，rubbish 进 rubbish 出。这也就是咱们刚刚提到的，用户并不关心你怎么做到的，他们只关心你做到了什么。</p>
-<p>从笔者的角度看，大模型最值得关注的就是两个方面。第一个就是涌现现象，它不仅仅是一个现象，更与语言、思维、认知有关，它是大模型之所以如此火的根本所在。第二个就是笔者一直关注强调的强化学习的应用，比如这篇几年前写的文章：<a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">NLP与AI</a>。强化学习本质是在学习规则，而我们的语言（包括整个世界）中就有很多内在的规则，这些规则就像经络一样，看不见但却在底层默默发挥着作用。除此之外，另外比较好玩儿和有意思的方向是量化推理部署，这个大多是工程实践，但能看到非常多精妙的优化。</p>
+<p>从笔者的角度看，大模型最值得关注的就是两个方面。第一个就是涌现现象，它不仅仅是一个现象，更与语言、思维、认知有关，它是大模型之所以如此火的根本所在。第二个就是笔者一直关注强调的强化学习的应用，比如这篇几年前写的文章：<a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/">NLP与AI</a>。强化学习本质是在学习规则，而我们的语言（包括整个世界）中就有很多内在的规则，这些规则就像经络一样，看不见但却在底层默默发挥着作用。除此之外，另外比较好玩儿和有意思的方向是量化推理部署，这个大多是工程实践，但能看到非常多精妙的优化。</p>
 <h3 id="小结">小结</h3>
 <p>本文对两个代表的小模型进行了梳理对比，虽然之前没怎么关注过这个方面，但结果和预期的基本差不多，小模型还是更趋向于业务实际应用。有没有前途？有的！主要从两个角度考虑：第一，端侧推理的需要，尤其是没有网络的环境，“小”（动词）模型几乎是必经之路；第二，多 Agent 智能，多个能完成简单功能的小模型组合成复杂的系统。其实第二个笔者觉得更值得去探索，从多个组合到复杂系统，这中间有相当多值得探索的地方。不过笔者觉得这个方向会更加关注 “组合”，而不是 “小模型”，“小模型” 只是方法，有机 “组合” 才是目的。</p>
 
@@ -257,9 +257,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

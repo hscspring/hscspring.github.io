@@ -15,7 +15,7 @@
   <title>DeepSeek R1深度技术解析及其影响 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，D">
-<meta name="keywords" content="AI,LLM,NLP,Pre-training,Continual Pre-training,Post-training,R1,R1-Zero,oat-zero,DeepScaleR,LIMO,s1,Inference Scaling">
+<meta name="keywords" content="AI,LLM,NLP,Pre-training,Continual Pre-training,Post-training,LIMO,s1,Inference Scaling,R1,R1-Zero,oat-zero,DeepScaleR">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DeepSeek R1深度技术解析及其影响">
 <meta property="og:url" content="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/index.html">
@@ -96,7 +96,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" data-id="cm78b7n980000stbzpu0q9eyt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" data-id="cmhu0lrf4016wazbzizbd3z75" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -109,7 +109,7 @@
 </blockquote>
 <p>距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，DeepSeek-R1就将LLM真正推向了深度思考时代。</p>
 <p>两年多的高速发展，前所未有的按周迭代，如今想来都一阵恍惚。2023年是LLM最快速发展的一年，被称为LLM元年，新的开发范式出现（感兴趣的读者可以关注<a href="https://github.com/datawhalechina/hugging-llm" target="_blank" rel="noopener">HuggingLLM</a>），全民AI浪潮涌现。2024年，基于LLM的应用已经开始成熟，Agent百花齐放，进入元年，各种应用层出不穷，一个人公司成为可能。</p>
-<p>当我们以为LLM基本就这样按部就班向”应用“时，R1出现了，它发迹于OpenAI-o1，但超越了o1。关于o1，我的观点和OpenAI前首席研究官Bob的观点一致：它的目标是解决复杂问题，大多数人日常工作中并不会遇到需要o1的需求（可以参考<a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/" target="_blank" rel="noopener">关于AI前沿的思考</a>）。但是R1提升了LLM的整体能力，让模型真正在推理时进行自我反思和验证，这当然适用于复杂问题，但日常工作很多场景也能受益，AI更加像人。我觉得这是R1对整个行业的贡献，其作用不亚于ChatGPT的发布。</p>
+<p>当我们以为LLM基本就这样按部就班向”应用“时，R1出现了，它发迹于OpenAI-o1，但超越了o1。关于o1，我的观点和OpenAI前首席研究官Bob的观点一致：它的目标是解决复杂问题，大多数人日常工作中并不会遇到需要o1的需求（可以参考<a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/">关于AI前沿的思考</a>）。但是R1提升了LLM的整体能力，让模型真正在推理时进行自我反思和验证，这当然适用于复杂问题，但日常工作很多场景也能受益，AI更加像人。我觉得这是R1对整个行业的贡献，其作用不亚于ChatGPT的发布。</p>
 <a id="more"></a>
 <h2 id="deepseek-r1：llm进入深度思考时代">DeepSeek-R1：LLM进入深度思考时代</h2>
 <p>首先，我们来解读R1的论文，这篇论文本身不复杂，条理很清晰。论文核心内容可以概括为三个部分：R1-Zero、R1和蒸馏。各部分都可以简单概括为一句话。</p>
@@ -366,7 +366,7 @@
 <p>除此之外，后面两步的SFT和对齐，虽然步骤和已有的后训练一样，但过程也大不一样。最大的区别是，R1在每个阶段都需同时考虑推理类数据和通用数据，这里有几个方面是比较值得进一步探索的。第一，推理数据和通用数据的比例是3:1，如果这个比例发生变化会怎么样？第二，对一些简单问题（比如打招呼），R1没有使用CoT（长链推理）回复，如何鉴定这里的“简单”？能否针对不同的上下文（用于区分用户的背景知识）给出不同的回复？第三，在对齐阶段R1同时使用了针对推理问题的纯规则Reward和针对人类偏好的RM，这是比较直观的方法。能否找到更好的RM？能否将其他一些规则也一并融入，然后训练出各种风格的LLM，就像人一样，成为他们天生的“性格”？我觉得这几个点都蛮有意思的。</p>
 <p>上面提到这三点，算不算是新的训练范式？答案可能见仁见智，但我想R1的创新和贡献应该毋庸置疑吧，说他不亚于ChatGPT的发布也不算过分吧。</p>
 <h3 id="推理">推理</h3>
-<p>R1的主要创新点其实体现在刚刚说的后训练阶段，推理中的某些特点是R1或o1这类模型的自然表现。关于o1，我在《<a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/" target="_blank" rel="noopener">关于AI前沿的思考</a>》这篇文章中有提到：</p>
+<p>R1的主要创新点其实体现在刚刚说的后训练阶段，推理中的某些特点是R1或o1这类模型的自然表现。关于o1，我在《<a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/">关于AI前沿的思考</a>》这篇文章中有提到：</p>
 <blockquote>
 <p>我一直认为o1仅适用于有限的场景，因为它的目标是解决复杂的问题。事实上，Bob（OpenAI前首席研究官）也是这样认为的，他说除了程序员，大多数人日常工作中并不会遇到需要o1的需求。</p>
 <p>但我没有想到推理方向（可能也和自己没有真正用过o1有关）。Bob提到GPT-4o有几秒钟的思考时间，o1是30秒到几分钟，甚至延伸到几小时或几天。这种被他称作“扩展”的变化，其实是把“学习”后置，我们可以把这个过程看成是模型自己补充上下文的过程。这又和奥特曼在此前一次访谈（诞生于<a href="https://github.com/datawhalechina/hugging-llm" target="_blank" rel="noopener">HuggingLLM</a>的蝴蝶书《ChatGPT原理与应用开发》第一章最后也提到了这次访谈）中说提示词会消亡的看法一致。o1的价值就在其扩展性，它开始会更多地“思考”，而不是“记忆”。它和强化学习的结合应该会是一个不被很多人重视（或看到），但很有可能带来下一次革命的组合。</p>
@@ -386,7 +386,7 @@
 <p>我们不知道o1是怎么做的，社区都猜测是MCTS，至少用了MCTS，但具体不得而知。但是R1我们是知道的，也是第一个将纯规则的RL成功应用于LLM。更为重要的是，他思考的还很快（相较o1）。更更为重要的是，他还将任务从复杂任务延展到所有任务。这一点是最牛逼的地方。**o1针对复杂任务，很慢，所以看起来使用场景比较狭窄；R1针对所有任务，很快，直接将LLM提升到了另一个维度。**而且，R1开源了。</p>
 <p>总的来说，R1给LLM在推理方面带来了极大的变革，这是他在后训练上创新体现出来的结果，这种边推理边思考边优化的方式使得LLM离“人”更近了一步。R1之前，LLM有人的能力，但用的时候还是个模型；R1之后，LLM不但有人的能力，用起来也更像人。</p>
 <h3 id="其他影响">其他影响</h3>
-<p>最后简单谈谈对从业者和行业的影响。我在《<a href="https://www.ptpress.com.cn/shopping/buy?bookId=123a6119-b309-4842-bb25-a3fddfb29319" target="_blank" rel="noopener">ChatGPT原理与应用开发</a>》、《<a href="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" target="_blank" rel="noopener">ChatGPT 开发指南：Hugging LLM Hugging Future | Yam</a>》、《<a href="https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/" target="_blank" rel="noopener">ChatGPT 影响冲击：职业、行业与产业 | Yam</a>》等等文章以及很多<a href="https://github.com/datawhalechina/hugging-llm/tree/main/resources" target="_blank" rel="noopener">分享</a>中多次提到过相关内容。对于整个开发范式，确实影响不大，甚至会进一步深化，毕竟LLM能力进一步得到了提升。对于NLP算法这个职位也依然是类似观点，但稍微有点不一样了，主要是R1这波给的太多了，给算法指明了新的路径。其实现在的所谓LLM工程师基本来自两波：一大波之前的NLP算法工程师，LLM新技术出现后跟进的；一大波转行或新加入的。不过真正搞算法底层研发的职位注定会越来越少，大部分人还是得老老实实搞应用，包括我本人。但是搞应用的门槛慢慢降下来了，没办法，太火了，人太多了，相关的研究、工具如雨后春笋，虽然质量参差不齐，但行业整体确实欣欣向荣，大浪淘沙，自然而然会有优质内容慢慢浮现。对算法工程师，尤其是LLM相关的算法工程师来说，只懂算法怕是难以应付以后得局面；退一步说，算法工程师你不也得先是个工程师么。LLM以前，只懂一点算法，能跑个模型还可以吃到红利，LLM之后这样的红利怕是会逐步消失殆尽。既是坏事，也是好事，看你怎么理解了。</p>
+<p>最后简单谈谈对从业者和行业的影响。我在《<a href="https://www.ptpress.com.cn/shopping/buy?bookId=123a6119-b309-4842-bb25-a3fddfb29319" target="_blank" rel="noopener">ChatGPT原理与应用开发</a>》、《<a href="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/">ChatGPT 开发指南：Hugging LLM Hugging Future | Yam</a>》、《<a href="https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/">ChatGPT 影响冲击：职业、行业与产业 | Yam</a>》等等文章以及很多<a href="https://github.com/datawhalechina/hugging-llm/tree/main/resources" target="_blank" rel="noopener">分享</a>中多次提到过相关内容。对于整个开发范式，确实影响不大，甚至会进一步深化，毕竟LLM能力进一步得到了提升。对于NLP算法这个职位也依然是类似观点，但稍微有点不一样了，主要是R1这波给的太多了，给算法指明了新的路径。其实现在的所谓LLM工程师基本来自两波：一大波之前的NLP算法工程师，LLM新技术出现后跟进的；一大波转行或新加入的。不过真正搞算法底层研发的职位注定会越来越少，大部分人还是得老老实实搞应用，包括我本人。但是搞应用的门槛慢慢降下来了，没办法，太火了，人太多了，相关的研究、工具如雨后春笋，虽然质量参差不齐，但行业整体确实欣欣向荣，大浪淘沙，自然而然会有优质内容慢慢浮现。对算法工程师，尤其是LLM相关的算法工程师来说，只懂算法怕是难以应付以后得局面；退一步说，算法工程师你不也得先是个工程师么。LLM以前，只懂一点算法，能跑个模型还可以吃到红利，LLM之后这样的红利怕是会逐步消失殆尽。既是坏事，也是好事，看你怎么理解了。</p>
 <h2 id="总结">总结</h2>
 <p>本文比较详细地介绍了DeepSeek R1及其相关的技术，我们深刻感受到了RL的力量和魅力，更深刻感受到了R1的创新和强大。也难怪ai.com会把链接指向DeepSeek，人家不光有详细的技术报告，还把模型都开源出去了。真的很了不起。</p>
 <p>说起来，本文还有个背景，最近偶尔在网上看到有一些行外人士说R1是蒸馏的ChatGPT，还煞有介事的做了LLM的科普视频。看完之后发现视频做的不错，但其中很多观点其实是错误的。令人意外的是，评论区大部分人都是无脑追捧，居然说是全网最好的科普。当然也不乏部分行业人士评论作者的偏颇之处，不过压根没人理会。无论是尬吹还是尬黑，我个人都比较反感。所以本文既是一篇R1相关的技术总结文章，也姑且可以算是一篇（稍有难度的）科普文章。我相信即便有读者无法读懂全部内容，但至少一部分内容还是可以看明白的，我想这就够了。当然，个人能力所限，文章也可能有不准确、不完善的地方，也欢迎读者指正。</p>
@@ -395,15 +395,15 @@
 <h3 id="附录1">附录1</h3>
 <p>笔者层提到强化学习的相关文章，有些内容可能很幼稚甚至不对，还望读者海涵。</p>
 <ul>
-<li><code>2024</code><a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/" target="_blank" rel="noopener">关于AI前沿的思考 | Yam</a></li>
-<li><code>2024</code><a href="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" target="_blank" rel="noopener">LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam</a></li>
-<li><code>2023</code><a href="https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/" target="_blank" rel="noopener">关于大语言模型的思考 | Yam</a></li>
-<li><code>2023</code><a href="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" target="_blank" rel="noopener">ChatGPT 基础科普：知其一点所以然 | Yam</a> 或《ChatGPT原理与应用开发》第一章</li>
-<li><code>2020</code><a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">NLP 表征的历史与未来 | Yam</a></li>
-<li><code>2020</code><a href="https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" target="_blank" rel="noopener">RoBERTa 论文+代码笔记 | Yam</a></li>
-<li><code>2020</code><a href="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/" target="_blank" rel="noopener">Bart 论文+代码笔记 | Yam</a></li>
-<li><code>2018</code><a href="https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/" target="_blank" rel="noopener">西蒙《人工科学》读书笔记 | Yam</a></li>
-<li><code>2018</code><a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/" target="_blank" rel="noopener">NLP 与 AI | Yam</a></li>
+<li><code>2024</code><a href="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/">关于AI前沿的思考 | Yam</a></li>
+<li><code>2024</code><a href="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/">LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam</a></li>
+<li><code>2023</code><a href="https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/">关于大语言模型的思考 | Yam</a></li>
+<li><code>2023</code><a href="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/">ChatGPT 基础科普：知其一点所以然 | Yam</a> 或《ChatGPT原理与应用开发》第一章</li>
+<li><code>2020</code><a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/">NLP 表征的历史与未来 | Yam</a></li>
+<li><code>2020</code><a href="https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/">RoBERTa 论文+代码笔记 | Yam</a></li>
+<li><code>2020</code><a href="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/">Bart 论文+代码笔记 | Yam</a></li>
+<li><code>2018</code><a href="https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/">西蒙《人工科学》读书笔记 | Yam</a></li>
+<li><code>2018</code><a href="https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/">NLP 与 AI | Yam</a></li>
 </ul>
 
       
@@ -452,9 +452,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

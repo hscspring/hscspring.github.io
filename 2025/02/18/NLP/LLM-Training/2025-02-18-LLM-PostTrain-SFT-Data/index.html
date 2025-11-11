@@ -93,7 +93,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" data-id="cm7njcemo0000evbz3qqn7p4s" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" data-id="cmhu0lrf1016pazbzgjk3rj04" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -255,7 +255,7 @@
 <p>但其实BF本质上是一种Trick，虽然长度增加是一种和Best-of-N、树搜索等Parallel Scaling对应的Sequential Scaling，但BF增加长度的方法有点粗暴——直接硬控输出过程。不过它倒是不失为一种工程推理方案，毕竟很多问题不需要思考那么久。</p>
 <h2 id="小结">小结</h2>
 <p>这两篇论文都验证了少量高质量数据SFT可以激活LLM的推理能力。但是我们开头也说了，这前提是LLM具备推理能力。这里的做法其实和R1的冷启动有异曲同工之妙，不过R1数据筛选可能没这么细，但它有后续的RL弥补。</p>
-<p>也就是说，从本文角度看，RL并不是必须的，我们可以把<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">R1</a>范式重新简化为：预训练—少量高质量数据SFT—收集数据—SFT—对齐，当然冷启动后再加RL能进一步提升性能（<a href="https://pretty-radio-b75.notion.site/DeepScaleR-Surpassing-O1-Preview-with-a-1-5B-Model-by-Scaling-RL-19681902c1468005bed8ca303013a4e2" target="_blank" rel="noopener">DeepScaleR</a>）。</p>
+<p>也就是说，从本文角度看，RL并不是必须的，我们可以把<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">R1</a>范式重新简化为：预训练—少量高质量数据SFT—收集数据—SFT—对齐，当然冷启动后再加RL能进一步提升性能（<a href="https://pretty-radio-b75.notion.site/DeepScaleR-Surpassing-O1-Preview-with-a-1-5B-Model-by-Scaling-RL-19681902c1468005bed8ca303013a4e2" target="_blank" rel="noopener">DeepScaleR</a>）。</p>
 <p>此外，LIMO的数据筛选过程更加精细，值得借鉴。而s1提出的Budget forcing则可以用在推理工程上，提升推理效率。</p>
 
       
@@ -304,9 +304,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

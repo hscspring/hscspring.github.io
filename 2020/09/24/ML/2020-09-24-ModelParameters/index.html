@@ -89,7 +89,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="cm5jp90an0039vmbzd76bdlxi" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="cmhu0lr2d003yazbzob5t96vu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -97,7 +97,7 @@
       
             <!-- Table of Contents -->
               
-        <p>通过前面的 <a href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" target="_blank" rel="noopener">EDA</a> 和<a href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/" target="_blank" rel="noopener">特征工程</a>探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。</p>
+        <p>通过前面的 <a href="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/">EDA</a> 和<a href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/">特征工程</a>探索，想必应该已经对数据有了比较深入的了解，那么接下来就是利用之前所学来建模看看实战效果了。因为之前是系统性学习，所以并不一定所有的技术都要用到，而且建模应该是个结合对数据已有了解的基础上进行重新思考的过程。</p>
 <p>本文分为以下几个部分：</p>
 <ul>
 <li>重新思考梳理 Pipeline 流程</li>
@@ -187,7 +187,7 @@
 <li>决策树</li>
 </ul>
 <p><strong>逻辑回归</strong></p>
-<p>通俗来说，逻辑回归就是线性变换加一个非线性的类似 Sigmoid 的激活，关于激活函数可以看<a href="https://yam.gift/2020/07/05/AIBK/2020-07-05-Activation/" target="_blank" rel="noopener">这里</a>，具体而言就是每个特征一个系数，乘以每一项对应的数据后，所得的结果被归一化到 0-1 之间，一般以 0.5 做区分。</p>
+<p>通俗来说，逻辑回归就是线性变换加一个非线性的类似 Sigmoid 的激活，关于激活函数可以看<a href="https://yam.gift/2020/07/05/AIBK/2020-07-05-Activation/">这里</a>，具体而言就是每个特征一个系数，乘以每一项对应的数据后，所得的结果被归一化到 0-1 之间，一般以 0.5 做区分。</p>
 <p>形式上，逻辑回归满足下面的概率分布：</p>
 <p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>1</mn><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac><mspace linebreak="newline"></mspace><mi>P</mi><mo stretchy="false">(</mo><mi>Y</mi><mo>=</mo><mn>0</mn><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mn>1</mn><mo>+</mo><mi>exp</mi><mo>⁡</mo><mo stretchy="false">(</mo><mi>w</mi><mo>⋅</mo><mi>x</mi><mo>+</mo><mi>b</mi><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">P(Y=1|x) = \frac{\exp(w \cdot x + b)}{1 + \exp(w \cdot x + b)} \\
 P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)} 
@@ -214,8 +214,8 @@ P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)}
 <p><strong>SVM 支持向量机</strong></p>
 <p>在深度学习之前的时代，支持向量机是最强大的分类器，它形式优美严谨，而且可以通过核方法解决非线性问题，模型收敛速度也比较高效，是工业界的标配。SVM 通过最大化数据间隔来获得分割数据的超平面，通过应用拉格朗日对偶性将原始优化问题转为对偶问题进行优化求解（更容易求解，并很自然地引入核函数进而推广到非线性分类问题）。详细可以参照下面两篇文章：</p>
 <ul>
-<li><a href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/" target="_blank" rel="noopener">Hard-SVM, Soft-SVM 和 KKT | Yam</a></li>
-<li><a href="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" target="_blank" rel="noopener">核方法 和 SMO | Yam</a></li>
+<li><a href="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/">Hard-SVM, Soft-SVM 和 KKT | Yam</a></li>
+<li><a href="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/">核方法 和 SMO | Yam</a></li>
 </ul>
 <p>SVM 的特点如下：</p>
 <ul>
@@ -292,7 +292,7 @@ P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)}
 <li>数据量小且可以有效划分时采用留一法</li>
 </ul>
 <p><strong>模型评价</strong></p>
-<p>一般使用 AUC 或 F1-Score 作为评价指标，具体可参考：<a href="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/" target="_blank" rel="noopener">Metrics | Yam</a>。</p>
+<p>一般使用 AUC 或 F1-Score 作为评价指标，具体可参考：<a href="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/">Metrics | Yam</a>。</p>
 <h2 id="调参">调参</h2>
 <p>常见的有三种方法：</p>
 <ul>
@@ -372,9 +372,11 @@ P(Y=0|x) = \frac{1}{1 + \exp(w \cdot x + b)}
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

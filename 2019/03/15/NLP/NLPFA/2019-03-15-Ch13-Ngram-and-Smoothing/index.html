@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cm5jp90mf017avmbz7npzyd33" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cmhu0lrie019hazbztf463ecy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -123,7 +123,7 @@
 <li>给取出来的二元语法的计数全部加一，即：(ci + 1)/(N+V)，V 是词表大小，因为每个都加一，所以分母加 V，$$p*(w_n|w_{n-1}) = \frac {C(w_{n-1}w_n) + 1}{C(w_{n-1}) + V}$$。</li>
 <li>一个很大的问题是，每个二元语法计数加一，对应的一元语法加 V，如果某个一元语法本来出现的次数很少的话，会使其概率发生急剧变化。比如：“蝴蝶 吃饭”，我们假设它在语料中出现了 1 次，“蝴蝶” 出现了 2 次，本来的概率是 1/2=0.5，如果词表大小是 1000，概率就会变成 2/(1000+2)。当然，如果 “蝴蝶 吃饭” 没有出现在语料中，那这样的概率是可以接受的。问题就在于那些出现概率本身不高的词。</li>
 <li>同样的问题也表现在未登录词上，会给较高的概率，尤其词表非常大的时候。这相当于人为稀释了所有在训练数据中词的概率（意味着提高了未登录词的概率）。根本原因还是数据太稀疏。</li>
-<li>除了上面介绍的加一，还可以加 α（一个比较小的数），大同小异，可以参考：<a href="https://yam.gift/2017/10/14/SLP/2017-10-14-Language-Model/" target="_blank" rel="noopener">LM</a></li>
+<li>除了上面介绍的加一，还可以加 α（一个比较小的数），大同小异，可以参考：<a href="https://yam.gift/2017/10/14/SLP/2017-10-14-Language-Model/">LM</a></li>
 </ul>
 </li>
 <li>
@@ -790,9 +790,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

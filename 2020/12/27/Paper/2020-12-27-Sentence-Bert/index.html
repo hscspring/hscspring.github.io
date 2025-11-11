@@ -93,7 +93,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cm5jp90cy008kvmbzsdulltkl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cmhu0lr7q00nwazbzos9dv4g9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -101,14 +101,14 @@
       
             <!-- Table of Contents -->
               
-        <p>在之前那篇 <a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" target="_blank" rel="noopener">NLP 表征的历史与未来 | Yam</a> 里，我们几乎从头到尾都在提及句子表征，也提出过一个很重要的概念：“句子” 才是语义理解的最小单位。不过当时并没有太过深入细节，直到做到文本相似度任务时才发现早已经有人将其 BERT 化了。这就是本文要提到的一篇很重要但又很顺其自然的一篇论文——Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks。其实说到相似度，大家多少都会想到大名鼎鼎的 Siamese Recurrent Networks，他们当时（2016 年）用的是 LSTM 对句子表征，那是因为那时候 LSTM 效果是最好的。Sentence-BERT 其实就是将 LSTM 替换为 BERT。</p>
+        <p>在之前那篇 <a href="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/">NLP 表征的历史与未来 | Yam</a> 里，我们几乎从头到尾都在提及句子表征，也提出过一个很重要的概念：“句子” 才是语义理解的最小单位。不过当时并没有太过深入细节，直到做到文本相似度任务时才发现早已经有人将其 BERT 化了。这就是本文要提到的一篇很重要但又很顺其自然的一篇论文——Sentence-BERT: Sentence Embeddings using Siamese BERT-Networks。其实说到相似度，大家多少都会想到大名鼎鼎的 Siamese Recurrent Networks，他们当时（2016 年）用的是 LSTM 对句子表征，那是因为那时候 LSTM 效果是最好的。Sentence-BERT 其实就是将 LSTM 替换为 BERT。</p>
 <a id="more"></a>
 <h3 id="背景问题">背景问题</h3>
 <ul>
 <li>针对句子对任务性能太差。这是因为原生 BERT 是通过将两个句子拼接后输出 Label 的，给定一组句子，要想找到相似度最高的句子对，需要二次方的复杂度。</li>
 <li>使用 CLS Token 作为句子表征效果太差，甚至不如 Glove。</li>
 </ul>
-<p>作为一个求知欲满满的好奇之人，自然很想知道——为神马。先按捺下自己躁动的心，看看本篇论文是怎么做的。对于第一个问题，其实就是 Siamese Network 的改版，专门用来做相似度计算。对于第二个问题，则尝试了三种不同的 Pooling 方法，分别是 <code>CLS</code>，MAX 和 AVERAGE。它之后的 <a href="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" target="_blank" rel="noopener">Bert-Flow</a> 又增加了 AVERAGE 后两层（Bert 后两个 block）的方法。</p>
+<p>作为一个求知欲满满的好奇之人，自然很想知道——为神马。先按捺下自己躁动的心，看看本篇论文是怎么做的。对于第一个问题，其实就是 Siamese Network 的改版，专门用来做相似度计算。对于第二个问题，则尝试了三种不同的 Pooling 方法，分别是 <code>CLS</code>，MAX 和 AVERAGE。它之后的 <a href="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/">Bert-Flow</a> 又增加了 AVERAGE 后两层（Bert 后两个 block）的方法。</p>
 <h3 id="句子表征">句子表征</h3>
 <p>先看看文章 Related Work 提到哪些关于句子表征的研究：</p>
 <ul>
@@ -230,9 +230,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',

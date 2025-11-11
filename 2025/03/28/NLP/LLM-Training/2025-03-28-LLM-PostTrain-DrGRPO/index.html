@@ -95,7 +95,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" data-id="cm8tvf0fl0000k1bzrj10656g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" data-id="cmhu0lrfa0177azbz2xplua6j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -103,7 +103,7 @@
       
             <!-- Table of Contents -->
               
-        <p>DrGRPO来自<a href="https://arxiv.org/abs/2503.20783" target="_blank" rel="noopener">Understanding R1-Zero-Like Training: A Critical Perspective</a>，是<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/" target="_blank" rel="noopener">oat-zero</a>同一个团队的最新成果。没错，这虽然是一篇综合分析Base和RL的文章，但我们这里重点关注其中的RL部分，尤其是针对GRPO两个偏差的优化。它的发布时间就在<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" target="_blank" rel="noopener">DAPO</a>发布一周后。</p>
+        <p>DrGRPO来自<a href="https://arxiv.org/abs/2503.20783" target="_blank" rel="noopener">Understanding R1-Zero-Like Training: A Critical Perspective</a>，是<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">oat-zero</a>同一个团队的最新成果。没错，这虽然是一篇综合分析Base和RL的文章，但我们这里重点关注其中的RL部分，尤其是针对GRPO两个偏差的优化。它的发布时间就在<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO</a>发布一周后。</p>
 <a id="more"></a>
 <h2 id="rl分析">RL分析</h2>
 <p>首先是对GRPO的两个偏差的分析。</p>
@@ -123,7 +123,7 @@
 </li>
 </ul>
 <p>这就意味着<strong>短的响应和长的响应的 advantage 数值大小是一样的</strong>，但是短的响应的每个 token <strong>都能获得更强的梯度更新</strong>，因为它的 token 数量少，梯度不会被均摊太多。反过来，短的错误答案被惩罚更严重，梯度更新大，模型更快地减少生成这种错误答案的概率；长的错误答案因为梯度更新小，惩罚力度不够，导致模型不太容易抑制长的错误答案。最终导致<strong>正确答案更倾向于短的表达，而错误答案更倾向于长的表达</strong>。</p>
-<p>这两个发现和<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" target="_blank" rel="noopener">DAPO</a>的其中两个发现不谋而合，非常类似（注意是类似，实际上两者是有明显区别的），前者对应的是Token级别的策略梯度损失，后者对应的是动态采样。</p>
+<p>这两个发现和<a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO</a>的其中两个发现不谋而合，非常类似（注意是类似，实际上两者是有明显区别的），前者对应的是Token级别的策略梯度损失，后者对应的是动态采样。</p>
 <p>神奇的是，现有很多框架的PPO（包括GRPO之前的PPO）实现也存在着长度偏差，见下面的代码清单。论文猜测这种偏差可能来源于预训练，因为预训练时token会被填充到固定长度上下文，而<strong>按上下文长度归一化损失</strong>有助于<strong>数值稳定性</strong>。但在强化微调阶段，响应长度是不固定的，这在无意中引入了长度偏差。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">masked_mean</span><span class="params">(tensor, mask, dim)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (tensor * mask).sum(axis=dim) / mask.sum(axis=dim)  <span class="comment"># 原始实现（有偏）</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 修改后的无偏实现（使用固定常数 MAX_TOKENS）</span></span><br><span class="line">    <span class="keyword">return</span> (tensor * mask).sum(axis=<span class="number">-1</span>) / MAX_TOKENS  </span><br><span class="line"></span><br><span class="line">ppo_loss = ...  <span class="comment"># 计算每个 token 的 PPO 损失</span></span><br><span class="line">response_mask = ...  <span class="comment"># 每个 token 的响应 mask</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 方式 1：每个响应长度归一化（如 OpenRLHF）</span></span><br><span class="line">loss_variant1 = masked_mean(ppo_loss, response_mask, dim=<span class="number">-1</span>).mean()</span><br><span class="line"><span class="comment"># 方式 2：整个 batch 归一化（如 trl、verl）</span></span><br><span class="line">loss_variant2 = masked_mean(ppo_loss, response_mask, dim=<span class="literal">None</span>).mean()</span><br></pre></td></tr></table></figure>
 <p>真是非常细节的发现，而且确实有一定道理。虽然本文的两个偏差和DAPO类似，但角度却不相同。</p>
@@ -150,7 +150,7 @@
 <li>当基础模型与提示模板不匹配时，模型的提升主要依赖于 RL 调优，因此<strong>问题集的覆盖范围至关重要</strong>。但如果<strong>选择了合适的模板，即使问题集很小且完全 o.o.d.，RL 仍然可以有效强化推理能力</strong>。</li>
 <li>说明，<strong>关键在于强化正确的推理行为，而不是向模型注入新知识。</strong></li>
 </ul>
-<p>以上观察和我们一直以来的分析是相吻合的，即：能力在与Base，RL（或少量高质量数据SFT）都是在激活能力，也就是“引导”模型释放能力。所以，模板不匹配时需要多样化的数据（可阅读《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" target="_blank" rel="noopener">DeepSeek R1后LLM新范式 | Yam</a>》）。</p>
+<p>以上观察和我们一直以来的分析是相吻合的，即：能力在与Base，RL（或少量高质量数据SFT）都是在激活能力，也就是“引导”模型释放能力。所以，模板不匹配时需要多样化的数据（可阅读《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a>》）。</p>
 <h2 id="数学预训练提升rl上限">数学预训练提升RL上限</h2>
 <p>大多数复现R1-Zero都用Qwen2.5，但Qwen2.5本身已经具备一定推理和Aha能力。这里考察R1-Zero类似的训练方法能否在<strong>数学推理能力较弱的基础模型</strong>上取得成功。</p>
 <p>实验基于Llama-3.2-3B Base，FineMath是在该数据集上继续训练的模型，NuminaQA则是在该QA数据集上基于FineMath模型继续训练的模型。</p>
@@ -216,9 +216,11 @@
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css"> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
   <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script> -->
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',
