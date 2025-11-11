@@ -15,7 +15,9 @@ date: 2019-07-13 20:00:00
   - [哲学](#%E5%93%B2%E5%AD%A6)
 - [LLM系列](#llm%E7%B3%BB%E5%88%97)
   - [Reward](#reward)
-  - [R1/RL相关](#r1rl%E7%9B%B8%E5%85%B3)
+  - [GRPO](#grpo)
+  - [R1](#r1)
+  - [RL](#rl)
   - [ChatGPT/LLM](#chatgptllm)
   - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
   - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
@@ -72,6 +74,7 @@ date: 2019-07-13 20:00:00
 
 ### 思考
 
+- [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
 - [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
 - [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
 - [NLP 与 AI](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
@@ -87,22 +90,26 @@ date: 2019-07-13 20:00:00
 
 ### Reward
 
+- [Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
 - [解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
 - [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 
-### R1/RL相关
+### GRPO
 
+- [Reinforce++与它的KL Loss选择 | Yam](https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/)
 - [GRPO“又一背锅侠”：Clip的各种拉扯 | Yam](https://yam.gift/2025/09/12/NLP/LLM-Training/2025-09-12-GRPO-Clip/)
 - [GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走 | Yam](https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/)
 - [GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | Yam](https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/)
 - [GiGPO：双层级优势函数驱动的Agent强化学习新范式 | Yam](https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/)
 - [GRPO优化在继续——CISPO和熵 | Yam](https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/)
+- [异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/)
+- [DAPO：为GRPO的锦上加四点花 | Yam](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/)
+
+### R1
+
 - [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
-- [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
-- [异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/)
-- [DAPO：为GRPO的锦上加四点花 | Yam](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/)
 - [DeepSeek R1后应用、职业与行业影响——2025年梳理 | Yam](https://yam.gift/2025/03/15/AI/2025-03-15-LLM-App-Develop/)
 - [DeepSeek R1后LLM新范式 | Yam](https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/)
 - [DeepSeek R1：新范式、新纪元 | Yam](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)
@@ -110,6 +117,10 @@ date: 2019-07-13 20:00:00
 - [R1相关：RL数据选择与Scaling | Yam](https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/)
 - [R1相关：DPO数据选择与DPO等RL算法 | Yam](https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/)
 - [LLM、强化、蒸馏讨论 | Yam](https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/)
+
+### RL
+
+- [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 
 ### ChatGPT/LLM
 

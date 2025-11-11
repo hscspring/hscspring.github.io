@@ -31,10 +31,18 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 
 目前感兴趣的方向：
 
-- LLM：上下文压缩、超长上下文、指令跟随、模型架构、继续训练、可控生成、各类应用。
+- LLM：上下文工程、上下文压缩、超长上下文、指令跟随、模型架构、继续训练、各类应用。
+- 强化学习：Agentic RL、Embodied AI。
 - 多模态：对齐、融合、语音、视频。
-- 强化学习：在LLM、Embodied上的应用。
 - 推理部署：蒸馏、量化、解码、异构、端侧。
+
+长期关注和研究的方向：
+
+- 上下文工程＋agent强化微调
+- 实时学习+自进化
+- 创新架构
+- 端测推理
+- EmbodyAI
 
 对深入研究和理解算法原理乐此不疲，并作为终生追求。业余时间正在做的自认为很酷的事儿:
 
@@ -96,6 +104,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - Datawhale Paper 分享者。
     - 视频：[Paper 分享](https://www.bilibili.com/medialist/detail/ml1760686270)
 - LLM 相关技术活动主讲嘉宾/评委。
+    - `20250923` 云栖大会魔搭Agent挑战赛评委：[MCP&Agent挑战赛](https://modelscope.cn/active/aihackathon-mcp-agent)
     - `20250227` 嘉程资本创业流水席第251期：[2月27日，探讨DeepSeek R1技术解析与应用趋势！架构论文/技术影响/应用场景｜嘉程创业流水席第251期](https://mp.weixin.qq.com/s/DkksIqGQKadXt8IqVD-y0g)
     - `20250225` 大工大创业沙龙第111期：DeepSeek解密
     - `20250215` 2025 iFLYTEK 开发者TALK 杭州站：[揭秘DeepSeek核心技术与应用构建 | 开发者TALK开年首站落地杭州](https://mp.weixin.qq.com/s/OQDMd4jU1BHp80DoF9kAzg)，[文章](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)、[PPT](https://github.com/datawhalechina/hugging-llm/tree/main/resources)
