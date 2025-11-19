@@ -122,6 +122,11 @@ date: 2019-07-13 20:00:00
 
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 
+### Hybrid
+
+- [Hybrid LLM 之 Gated DeltaNet | 长琴](https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/)
+- [Hybrid LLM 之 Gated Attention | 长琴](https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/)
+
 ### ChatGPT/LLM
 
 - [群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考 | Yam](https://yam.gift/2025/08/11/AI/2025-08-11-AI-Develop/)
