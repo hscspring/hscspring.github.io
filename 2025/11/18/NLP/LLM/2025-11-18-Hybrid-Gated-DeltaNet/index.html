@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deltanet-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-gated-deltanet-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-gated-deltanet-1.jpg">
-<meta property="og:updated_time" content="2025-11-19T00:50:11.410Z">
+<meta property="og:updated_time" content="2025-11-19T00:53:44.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hybrid LLM 之 Gated DeltaNet">
 <meta name="twitter:description" content="Qwen3-Next 采用了混合架构让人眼前一亮，其中重要的 Gated DeltaNet 模块设计优雅，最大限度地在工程效率和模型效果之间探索平衡，值得学习了解。  TL; DR  DeltaNet：线性 attention 可以看作矩阵状态的累积记忆，DeltaNet 通过 delta rule 更加精确地更新 KV 关联，缓解传统线性 attention 记忆过载问题。 **Gated D">
@@ -108,6 +108,7 @@
 <li><strong>DeltaNet</strong>：线性 attention 可以看作矩阵状态的累积记忆，DeltaNet 通过 delta rule 更加精确地更新 KV 关联，缓解传统线性 attention 记忆过载问题。</li>
 <li>**Gated DeltaNet **：引入 α 门控，实现选择性遗忘与灵活记忆管理，提高检索精度和稳定性。</li>
 </ul>
+<a id="more"></a>
 <p>本文来看一下 Gated DeltaNet，来自 <a href="https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct" target="_blank" rel="noopener">Qwen3-Next</a><sup>[1]</sup>，对应博客：<a href="https://qwen.ai/blog?id=4074cca80393150c248e508aa62983f9cb7d27cd&amp;from=research.latest-advancements-list" target="_blank" rel="noopener">Qwen3-Next</a><sup>[2]</sup>，hybird 架构的又一配置，它算是线性 attention 的一种。内容主要来自 <a href="https://sustcsonglin.github.io/blog/2024/deltanet-1/" target="_blank" rel="noopener">DeltaNet Explained (Part I) | Songlin Yang</a><sup>[3]</sup>，算是一篇学习笔记。</p>
 <h2 id="背景">背景</h2>
 <p>众所周知，attention 的的计复杂度随序列长度呈二次增长（于是，自然就有了线性 attention 等替代方案）。</p>
