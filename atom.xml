@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-11-19T01:55:03.636Z</updated>
+  <updated>2025-11-23T17:55:11.541Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,40 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</title>
+    <link href="https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/"/>
+    <id>https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/</id>
+    <published>2025-11-23T15:00:00.000Z</published>
+    <updated>2025-11-23T17:55:11.541Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 LLM 应用开发里，我们经常需要处理多轮消息、对话历史等结构化内容。理论上，这些对象应该是简单、透明、可控的——但在 NumPy 和特定字典工具（如 &lt;code&gt;addict.Dict&lt;/code&gt;）参与后，一些微妙的行为会悄悄改变数据结构，让输出变得诡异甚至完全不对。本篇记录我在实际开发（尤其是 verl 与 transformers）中遇到的两个“小问题”：一个来自 NumPy 的自动维度推断，另一个来自字典工具的默认属性行为。它们不是 bug，却可能让你花一阵子 debug。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NumPy 变长消息问题&lt;/strong&gt;：当使用 &lt;code&gt;np.array(..., dtype=object)&lt;/code&gt; 处理长度不一致的消息列表时，NumPy 可能返回不同维度的数组，导致后续处理出错。改用 &lt;code&gt;np.fromiter&lt;/code&gt; 或预分配 object 数组并赋值，可确保输出结构统一。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;字典赋值工具干扰问题&lt;/strong&gt;：使用 &lt;code&gt;addict.Dict&lt;/code&gt; 等动态字典工具包装消息数据时，其默认行为会干扰 transformers 对消息结构的正确判断，导致模板生成错误。可换用 &lt;code&gt;OmegaConf&lt;/code&gt; 或修改 &lt;code&gt;addict&lt;/code&gt; 源码禁用自动建键功能以修复问题。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="NumPy" scheme="https://yam.gift/tags/NumPy/"/>
+    
+      <category term="Tokenizer" scheme="https://yam.gift/tags/Tokenizer/"/>
+    
+  </entry>
   
   <entry>
     <title>Hybrid LLM 之 Gated DeltaNet</title>
@@ -705,33 +739,6 @@
       <category term="RM-R1" scheme="https://yam.gift/tags/RM-R1/"/>
     
       <category term="TTRL" scheme="https://yam.gift/tags/TTRL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>从Voila看语音端到端发展</title>
-    <link href="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/"/>
-    <id>https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/</id>
-    <published>2025-05-14T15:00:00.000Z</published>
-    <updated>2025-05-14T23:16:16.182Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文借着&lt;a href=&quot;https://github.com/maitrix-org/Voila&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Voila&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;顺便聊一下音频端到端（OMNI）的进展，以及个人的一些理解。这玩意儿就是从2024年5月份GPT4o发布后开始逐渐火热起来，尤其是2024年下半年，&lt;a href=&quot;https://github.com/ga642381/speech-trident?tab=readme-ov-file#trident-speechaudio-codec-models&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;看看&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;短短的几个月出了多少codec的文章。当时我们也做了一些尝试，没取得什么大的成果，不过倒是验证了蛮多想法。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="OMNI" scheme="https://yam.gift/tags/OMNI/"/>
-    
-      <category term="SLM" scheme="https://yam.gift/tags/SLM/"/>
-    
-      <category term="Voila" scheme="https://yam.gift/tags/Voila/"/>
     
   </entry>
   
