@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-11-23T17:55:11.541Z</updated>
+  <updated>2025-11-29T03:57:02.857Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>自我验证：搞数据的风吹到了奖励模型</title>
+    <link href="https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/"/>
+    <id>https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/</id>
+    <published>2025-11-29T04:00:00.000Z</published>
+    <updated>2025-11-29T03:57:02.857Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在开放性问题上，仅靠生成答案很容易出错。如何让模型不仅能写出证明，还能识别自身错误，从而形成闭环优化？答案是——&lt;strong&gt;自我验证&lt;/strong&gt;。来看一下 DeepSeek 最新的论文：&lt;a href=&quot;https://github.com/deepseek-ai/DeepSeek-Math-V2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;，看自我验证如何让 LLM 生成与评估协同来提升数学定理证明能力。&lt;/p&gt;
+&lt;p&gt;TL; DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练验证器&lt;/strong&gt;：验证器不仅打分，还识别证明中的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;引入元验证&lt;/strong&gt;：通过二次评分机制防止验证器虚构问题，使验证分析更可靠。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练生成器&lt;/strong&gt;：生成器在生成证明后进行自我分析，并根据验证器和元验证器的反馈优化输出。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证生成协同&lt;/strong&gt;：生成器与验证器形成闭环，生成新的证明挑战验证器能力，同时扩大自动标注数据，提高整体系统可靠性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心启示是：&lt;strong&gt;奖励模型不仅要给分数，更要建模评估分析过程&lt;/strong&gt;，让生成与验证形成协同闭环，显著提升开放性问题的推理能力。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://qnimg.lovevivian.cn/paper-deepseekmath-v2-2.jpg&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
+    
+      <category term="Reward" scheme="https://yam.gift/tags/Reward/"/>
+    
+      <category term="DeepSeekMath-V2" scheme="https://yam.gift/tags/DeepSeekMath-V2/"/>
+    
+      <category term="Self-Verified" scheme="https://yam.gift/tags/Self-Verified/"/>
+    
+  </entry>
   
   <entry>
     <title>两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</title>
@@ -704,41 +748,6 @@
       <category term="DAPO" scheme="https://yam.gift/tags/DAPO/"/>
     
       <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reward Model建模</title>
-    <link href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/"/>
-    <id>https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/</id>
-    <published>2025-06-09T15:00:00.000Z</published>
-    <updated>2025-06-09T23:36:02.148Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文介绍几篇关于Reward的文章，Reward经历了RLHF的scalar，到LLM-as-Judge，以及DeepSeek-R1的Rule，很自然地逐渐转移到通用领域——如何针对非推理（无标准答案）Query，给出模型响应的Reward。只要解决好这个问题，R1-Zero的方法就可以很自然地扩展到通用领域。而这也可以和之前在&lt;a href=&quot;https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/&quot;&gt;DeepSeek R1深度技术解析及其影响 | Yam&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;中提到的强化学习执念很好地融合在一起。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
-    
-      <category term="GRM" scheme="https://yam.gift/tags/GRM/"/>
-    
-      <category term="DeepSeek-GRM" scheme="https://yam.gift/tags/DeepSeek-GRM/"/>
-    
-      <category term="RM-R1" scheme="https://yam.gift/tags/RM-R1/"/>
-    
-      <category term="TTRL" scheme="https://yam.gift/tags/TTRL/"/>
     
   </entry>
   
