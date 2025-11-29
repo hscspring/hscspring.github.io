@@ -23,7 +23,7 @@
 <meta property="og:description" content="在开放性问题上，仅靠生成答案很容易出错。如何让模型不仅能写出证明，还能识别自身错误，从而形成闭环优化？答案是——自我验证。来看一下 DeepSeek 最新的论文：DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning[1]，看自我验证如何让 LLM 生成与评估协同来提升数学定理证明能力。 TL; DR  训练验证器：验证器不仅">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepseekmath-v2-2.jpg">
-<meta property="og:updated_time" content="2025-11-29T03:57:02.857Z">
+<meta property="og:updated_time" content="2025-11-29T03:59:35.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自我验证：搞数据的风吹到了奖励模型">
 <meta name="twitter:description" content="在开放性问题上，仅靠生成答案很容易出错。如何让模型不仅能写出证明，还能识别自身错误，从而形成闭环优化？答案是——自我验证。来看一下 DeepSeek 最新的论文：DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning[1]，看自我验证如何让 LLM 生成与评估协同来提升数学定理证明能力。 TL; DR  训练验证器：验证器不仅">
@@ -176,9 +176,9 @@
 <p>因此，<strong>必须赋予证明生成器真正的验证能力</strong>：在训练过程中，提示生成器 πθ 先生成一个证明 Y，然后进行自我分析 Z，其格式和评分标准 Iv 与验证器一致。将自我分析中预测的证明分数记为 s′。</p>
 <p>然后，使用验证器 πφ 对两个部分进行评估：证明 Y 获得分数 RY = s，自我分析 Z 获得元验证分数 Rmeta(Z) = ms。奖励如下：</p>
 <p class="katex-block katex-error" title="ParseError: KaTeX parse error: No such environment: align at position 7: \begin{̲a̲l̲i̲g̲n̲}̲
-R = R_{format}…">\begin{align}
-R = R_{format} (Y,Z) \cdot (\alpha R_Y + \beta R_Z) \\
-R_Z = R_{score}(s^{\prime}, s) \cdot R_{meta}(Z)
+R &amp;= R_{format…">\begin{align}
+R &amp;= R_{format} (Y,Z) \cdot (\alpha R_Y + \beta R_Z) \\
+R_Z &amp;= R_{score}(s^{\prime}, s) \cdot R_{meta}(Z)
 \end{align}
 </p>
 <p>R_format 用于验证证明和自我分析是否符合指定格式，R_score(s′, s) 用于奖励准确的自我评估，打分方法应该和前面《证明验证》环节一样。α = 0.76，β = 0.24。</p>
