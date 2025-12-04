@@ -97,32 +97,17 @@
 <p>TL;DR</p>
 <p>DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 <strong>GRPO 稳定性</strong> 展开。</p>
 <ul>
-<li>
-<p>数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。</p>
-</li>
-<li>
-<p>GRPO 稳定性优化：</p>
+<li>数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。</li>
+<li>GRPO 稳定性优化：
 <ul>
-<li>
-<p><strong>Advantage 去标准差</strong>：消除难度偏差，提高样本权重的公平性。</p>
-</li>
-<li>
-<p><strong>KL 的无偏修正</strong>：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。</p>
-</li>
-<li>
-<p><strong>序列级 off-policy 掩码</strong>：屏蔽高偏差且优势为负的序列，显著提升稳定性。</p>
-</li>
-<li>
-<p><strong>MoE 路由保持</strong>：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。</p>
-</li>
-<li>
-<p><strong>采样保持</strong>：保持 <code>π_old</code> 与 <code>π_θ</code> 的动作空间一致，避免采样截断可能带来的稳定性问题。</p>
-</li>
+<li><strong>Advantage 去标准差</strong>：消除难度偏差，提高样本权重的公平性。</li>
+<li><strong>KL 的无偏修正</strong>：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。</li>
+<li><strong>序列级 off-policy 掩码</strong>：屏蔽高偏差且优势为负的序列，显著提升稳定性。</li>
+<li><strong>MoE 路由保持</strong>：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。</li>
+<li><strong>采样保持</strong>：保持 <code>π_old</code> 与 <code>π_θ</code> 的动作空间一致，避免采样截断可能带来的稳定性问题。</li>
 </ul>
 </li>
-<li>
-<p>工具使用部分提出<strong>更高效的思维轨迹管理方式</strong>：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。</p>
-</li>
+<li>工具使用部分提出<strong>更高效的思维轨迹管理方式</strong>：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。</li>
 </ul>
         
           <p class="article-more-link">

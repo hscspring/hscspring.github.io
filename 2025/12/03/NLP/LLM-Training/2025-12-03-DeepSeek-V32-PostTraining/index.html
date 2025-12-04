@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepseek-v32-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-deepseek-v32-1.jpg">
-<meta property="og:updated_time" content="2025-12-04T00:16:24.749Z">
+<meta property="og:updated_time" content="2025-12-04T00:18:03.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DeepSeekV3.2后训练：稳定压倒一切">
 <meta name="twitter:description" content="DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 后训练（post-training）阶段的一系列稳定性工程。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。 TL;DR Deep">
@@ -102,32 +102,17 @@
 <p>TL;DR</p>
 <p>DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 <strong>GRPO 稳定性</strong> 展开。</p>
 <ul>
-<li>
-<p>数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。</p>
-</li>
-<li>
-<p>GRPO 稳定性优化：</p>
+<li>数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。</li>
+<li>GRPO 稳定性优化：
 <ul>
-<li>
-<p><strong>Advantage 去标准差</strong>：消除难度偏差，提高样本权重的公平性。</p>
-</li>
-<li>
-<p><strong>KL 的无偏修正</strong>：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。</p>
-</li>
-<li>
-<p><strong>序列级 off-policy 掩码</strong>：屏蔽高偏差且优势为负的序列，显著提升稳定性。</p>
-</li>
-<li>
-<p><strong>MoE 路由保持</strong>：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。</p>
-</li>
-<li>
-<p><strong>采样保持</strong>：保持 <code>π_old</code> 与 <code>π_θ</code> 的动作空间一致，避免采样截断可能带来的稳定性问题。</p>
-</li>
+<li><strong>Advantage 去标准差</strong>：消除难度偏差，提高样本权重的公平性。</li>
+<li><strong>KL 的无偏修正</strong>：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。</li>
+<li><strong>序列级 off-policy 掩码</strong>：屏蔽高偏差且优势为负的序列，显著提升稳定性。</li>
+<li><strong>MoE 路由保持</strong>：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。</li>
+<li><strong>采样保持</strong>：保持 <code>π_old</code> 与 <code>π_θ</code> 的动作空间一致，避免采样截断可能带来的稳定性问题。</li>
 </ul>
 </li>
-<li>
-<p>工具使用部分提出<strong>更高效的思维轨迹管理方式</strong>：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。</p>
-</li>
+<li>工具使用部分提出<strong>更高效的思维轨迹管理方式</strong>：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。</li>
 </ul>
 <a id="more"></a>
 <p><a href="https://huggingface.co/deepseek-ai/DeepSeek-V3.2" target="_blank" rel="noopener">DeepSeek-V3.2</a><sup>[1]</sup> 正式发布了，功能上来看好像就是增加了工具使用，有人夸有人失望，媒体说什么咱们无需关心，也不做评价。技术人还是认认真真看看其中有没有什么能学到的新技术。关于 DSA 的部分，后面专门说，本文主要说说后训练部分。</p>
