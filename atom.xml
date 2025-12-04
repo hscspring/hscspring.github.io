@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2025-11-29T04:07:19.649Z</updated>
+  <updated>2025-12-04T00:16:24.749Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,73 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>DeepSeekV3.2后训练：稳定压倒一切</title>
+    <link href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/"/>
+    <id>https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/</id>
+    <published>2025-12-03T15:00:00.000Z</published>
+    <updated>2025-12-04T00:16:24.749Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 &lt;strong&gt;后训练（post-training）阶段的一系列稳定性工程&lt;/strong&gt;。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 &lt;strong&gt;GRPO 稳定性&lt;/strong&gt; 展开。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GRPO 稳定性优化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Advantage 去标准差&lt;/strong&gt;：消除难度偏差，提高样本权重的公平性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;KL 的无偏修正&lt;/strong&gt;：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;序列级 off-policy 掩码&lt;/strong&gt;：屏蔽高偏差且优势为负的序列，显著提升稳定性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MoE 路由保持&lt;/strong&gt;：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;采样保持&lt;/strong&gt;：保持 &lt;code&gt;π_old&lt;/code&gt; 与 &lt;code&gt;π_θ&lt;/code&gt; 的动作空间一致，避免采样截断可能带来的稳定性问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;工具使用部分提出&lt;strong&gt;更高效的思维轨迹管理方式&lt;/strong&gt;：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
+    
+      <category term="DeepSeek-V3.2" scheme="https://yam.gift/tags/DeepSeek-V3-2/"/>
+    
+      <category term="MoE" scheme="https://yam.gift/tags/MoE/"/>
+    
+      <category term="Post-Training" scheme="https://yam.gift/tags/Post-Training/"/>
+    
+  </entry>
   
   <entry>
     <title>DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型</title>
@@ -704,50 +771,6 @@
       <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
     
       <category term="Instruction Following" scheme="https://yam.gift/tags/Instruction-Following/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GRPO优化在继续——CISPO和熵</title>
-    <link href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/"/>
-    <id>https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/</id>
-    <published>2025-06-19T15:00:00.000Z</published>
-    <updated>2025-06-20T01:26:42.034Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;来自&lt;a href=&quot;https://arxiv.org/abs/2506.13585&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MiniMax-M1: Scaling Test-Time Compute Efficiently with Lightning Attention&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;中的一个发现。其实R1-Zero后，关于GRPO的优化和研究已经有相当不少的文章了，光笔者自己都梳理过不少，如下。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/&quot;&gt;VAPO：基于价值方法的新突破 | Yam&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/&quot;&gt;异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/&quot;&gt;DAPO：为GRPO的锦上加四点花 | Yam&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/&quot;&gt;R1相关：RL数据选择与Scaling | Yam&lt;/a&gt;&lt;sup&gt;[5]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/&quot;&gt;R1相关：DPO数据选择与DPO等RL算法 | Yam&lt;/a&gt;&lt;sup&gt;[6]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/&quot;&gt;R1相关：R1-Zero的进一步理解和探索 | Yam&lt;/a&gt;&lt;sup&gt;[7]&lt;/sup&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;没想到还能继续出新。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="Entropy" scheme="https://yam.gift/tags/Entropy/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
-    
-      <category term="DAPO" scheme="https://yam.gift/tags/DAPO/"/>
-    
-      <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
     
   </entry>
   
