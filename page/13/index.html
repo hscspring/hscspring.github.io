@@ -87,7 +87,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/" data-id="cmhu0pld30075qkbzvfeempww" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/14/Python/2021-06-14-Python-Call-Java/" data-id="cmjfy0jg600l3hobzte388s7r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -141,7 +141,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/" data-id="cmhu0plce005fqkbzwi12rxe0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/10/NLP/2021-06-10-Pretrain-Thinking/" data-id="cmjfy0jd1006ghobz8j0nf93j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -196,7 +196,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/" data-id="cmhu0plcy006yqkbz8iz2w3la" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/" data-id="cmjfy0jgd00lhhobz4xythjww" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -235,6 +235,61 @@
 
 
   
+    <article id="post-Rust/2021-06-06-str2String" class="post-Rust/2021-06-06-str2String post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2021/06/06/Rust/2021-06-06-str2String/">Rust str 转 String</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/" data-id="cmjfy0jgc00lehobz996df54e" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>在 Rust 中，<code>str</code> 是引用，<code>String</code> 是字符串对象，如下所示，<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4fd8146578daef00aa903218053c6cf7" target="_blank" rel="noopener">点击执行</a>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码来自 https://github.com/rust-lang/rustlings</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">string_slice</span></span>(arg: &amp;<span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, arg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">string</span></span>(arg: <span class="built_in">String</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, arg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    string(<span class="string">"red"</span>.to_string());</span><br><span class="line">    string(<span class="string">"rust is fun!"</span>.to_owned());</span><br><span class="line">    string(<span class="string">"nice weather"</span>.into());</span><br><span class="line">    string(<span class="built_in">String</span>::from(<span class="string">"hi"</span>));</span><br><span class="line">    string(<span class="built_in">format!</span>(<span class="string">"Interpolation &#123;&#125;"</span>, <span class="string">"Station"</span>));</span><br><span class="line">    string(<span class="string">"Happy Monday!"</span>.to_string().replace(<span class="string">"Mon"</span>, <span class="string">"Tues"</span>));</span><br><span class="line">    string(<span class="string">"mY sHiFt KeY iS sTiCkY"</span>.to_lowercase());</span><br><span class="line">    </span><br><span class="line">    string_slice(<span class="string">"blue"</span>);</span><br><span class="line">    string_slice(&amp;<span class="built_in">String</span>::from(<span class="string">"abc"</span>)[<span class="number">0</span>..<span class="number">1</span>]);</span><br><span class="line">    string_slice(&amp;<span class="string">"abc"</span>.to_string()[<span class="number">0</span>..<span class="number">1</span>]);</span><br><span class="line">    string_slice(<span class="string">"  hello there "</span>.trim());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2021/06/06/Rust/2021-06-06-str2String/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2021/06/06/Rust/2021-06-06-str2String/">
+    <time datetime="2021-06-06T15:00:00.000Z" class="entry-date">
+        2021-06-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/str/">str</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-Paper/2021-06-06-ProtoBERT" class="post-Paper/2021-06-06-ProtoBERT post type-post status-publish format-standard hentry">
     <!---->
 
@@ -250,7 +305,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/" data-id="cmhu0pleg009xqkbzhb85sr0r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/" data-id="cmjfy0ji500nnhobzb5q4lohk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -291,61 +346,6 @@
 
 
   
-    <article id="post-Rust/2021-06-06-str2String" class="post-Rust/2021-06-06-str2String post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2021/06/06/Rust/2021-06-06-str2String/">Rust str 转 String</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/" data-id="cmhu0pll9010kqkbznyixc5n0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>在 Rust 中，<code>str</code> 是引用，<code>String</code> 是字符串对象，如下所示，<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=4fd8146578daef00aa903218053c6cf7" target="_blank" rel="noopener">点击执行</a>：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代码来自 https://github.com/rust-lang/rustlings</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">string_slice</span></span>(arg: &amp;<span class="built_in">str</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, arg);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">string</span></span>(arg: <span class="built_in">String</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">"&#123;&#125;"</span>, arg);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    string(<span class="string">"red"</span>.to_string());</span><br><span class="line">    string(<span class="string">"rust is fun!"</span>.to_owned());</span><br><span class="line">    string(<span class="string">"nice weather"</span>.into());</span><br><span class="line">    string(<span class="built_in">String</span>::from(<span class="string">"hi"</span>));</span><br><span class="line">    string(<span class="built_in">format!</span>(<span class="string">"Interpolation &#123;&#125;"</span>, <span class="string">"Station"</span>));</span><br><span class="line">    string(<span class="string">"Happy Monday!"</span>.to_string().replace(<span class="string">"Mon"</span>, <span class="string">"Tues"</span>));</span><br><span class="line">    string(<span class="string">"mY sHiFt KeY iS sTiCkY"</span>.to_lowercase());</span><br><span class="line">    </span><br><span class="line">    string_slice(<span class="string">"blue"</span>);</span><br><span class="line">    string_slice(&amp;<span class="built_in">String</span>::from(<span class="string">"abc"</span>)[<span class="number">0</span>..<span class="number">1</span>]);</span><br><span class="line">    string_slice(&amp;<span class="string">"abc"</span>.to_string()[<span class="number">0</span>..<span class="number">1</span>]);</span><br><span class="line">    string_slice(<span class="string">"  hello there "</span>.trim());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2021/06/06/Rust/2021-06-06-str2String/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2021/06/06/Rust/2021-06-06-str2String/">
-    <time datetime="2021-06-06T15:00:00.000Z" class="entry-date">
-        2021-06-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/str/">str</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-Paper/2021-05-22-BERTology" class="post-Paper/2021-05-22-BERTology post type-post status-publish format-standard hentry">
     <!---->
 
@@ -361,7 +361,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" data-id="cmhu0plel00a7qkbz37h1aqr2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" data-id="cmjfy0ji800nrhobzgorojs08" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -416,7 +416,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" data-id="cmhu0plbp0038qkbzj9cyv8wq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" data-id="cmjfy0jbz0048hobz5u480mr3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -509,7 +509,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/" data-id="cmhu0pleb009uqkbz60lt7f59" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/" data-id="cmjfy0jhw00nfhobztrddftdx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -565,7 +565,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cmhu0ple7009rqkbzos72i2s5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cmjfy0jhz00nkhobzptac03pt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -619,7 +619,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cmhu0ple4009eqkbzxn8a3rwk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cmjfy0jhv00nchobzltss1hrj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
