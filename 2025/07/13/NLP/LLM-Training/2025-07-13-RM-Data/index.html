@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+
+  
+  
+  
+  
+  
+  <title>解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | 长琴</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
+<meta name="keywords" content="AI,LLM,NLP,RM,Reward,Skywork Reward,Spurious Reward,Unsupervised Elicitation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略">
+<meta property="og:url" content="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/index.html">
+<meta property="og:site_name" content="长琴">
+<meta property="og:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-skywork-reward2-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-2.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-5.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-4.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-6.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-7.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-9.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-10.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-spurious-rewards-11.jpg">
+<meta property="og:updated_time" content="2025-07-14T01:05:50.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略">
+<meta name="twitter:description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-skywork-reward2-1.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="长琴" rel="home">长琴</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">知乎：长琴 | 公众号：技术与人</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLP/LLM-Training/2025-07-13-RM-Data" class="post-NLP/LLM-Training/2025-07-13-RM-Data post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/" data-id="cmhu0plo7018jqkbz5ley5jps" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>上篇<a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模 | Yam</a><sup>[1]</sup>我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。</p>
+<p>Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基座模型预训练习得的优势推理策略（如代码推理）；Anthropic ICM 则利用模型内部一致性实现无监督引导。这昭示着 Reward 建模的新方向：深刻理解基座模型的“潜能图谱”，并设计机制（协同标注、激活信号、一致性约束）将其高效释放，最终迈向规则驱动的“演绎式”智能。</p>
+<a id="more"></a>
+<h2 id="skywork-reward-v2">Skywork-Reward-V2</h2>
+<p><a href="https://arxiv.org/abs/2507.01352" target="_blank" rel="noopener">Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy</a><sup>[2]</sup></p>
+<p>这篇算是工程示范，大部分算法同学应该都做过类似的工作。</p>
+<h3 id="背景">背景</h3>
+<p>现有RM的问题：</p>
+<ul>
+<li>在较新的基准测试中，平均得分仅显示出微小的提升。</li>
+<li>替代性的损失函数或模型改进未能带来一致性能提升。</li>
+<li>RewardBench 前20的模型中，16个直接或间接使用了相同的基座，表明RM数据和建模方面发展缓慢。</li>
+</ul>
+<p>考虑到大部分已有的RM难以捕捉细致且复杂的人类偏好，本文假设这主要源于偏好数据集的局限性，这些数据集通常范围狭窄、使用合成标注或缺乏严格的质量控制。为此，本文设计了一种人机协同的两阶段pipeline，人类提供经过验证的标注，而LLM则根据人类的指导执行自动筛选工作。本文针对的是复杂人类偏好的RM，而非可简单规则验证的情况，更进一步，主要目的是提升现有偏好数据的数据质量。其实偏好RM训好了，和规则也没啥本质区别，GRPO也能跑起来了。</p>
+<h3 id="二阶段方案">二阶段方案</h3>
+<p>两阶段偏好数据筛选流程：</p>
+<ul>
+<li>一阶段（多次迭代）：
+<ul>
+<li>人类+LLM协同标注：人类遵循严格的验证协议，而LLM则使用偏好感知标注方案，标注结果以人类偏好标签为条件进行调整。</li>
+<li>自适应检索机制：从数据池中挑选出与当前奖励模型表现较差的样本相似的偏好样本 ，并对这些样本进行重新标注。</li>
+</ul>
+</li>
+<li>二阶段：
+<ul>
+<li>第一阶段得到的奖励模型 + 人工标注数据训练的Golden模型，通过基于一致性的机制来指导数据选择。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://qnimg.lovevivian.cn/paper-skywork-reward2-1.jpg" alt></p>
+<h4 id="阶段一">阶段一</h4>
+<p><strong>种子偏好数据初始化</strong></p>
+<p>首先是数据，标准三元组：(x, yw, yl），x表示输入，yw和yl表示选择和拒绝的pair对。</p>
+<p>然后用LLM生成偏好属性a，是个五元组，包括：任务类别、客观性、争议性、期望属性和标注指南。其中，前三个作为元数据用于确保不同场景下标注的多样性。期望属性描述了用户对优质回复所期望具备的特征，而标注指南则提供了针对具体实例、依赖上下文的准则，用于判断偏好标签。</p>
+<p><strong>人工验证与标注协议</strong></p>
+<p>前面以一小部分高质量且多样化的偏好对作为种子数据进行初始化，并生成偏好属性，这里人工标注人员按照预定义的协议严格验证。</p>
+<blockquote>
+<p>该协议概述了核心原则与操作规范，并针对每种任务类别、客观性类型以及争议性程度制定了具体的指导方针。</p>
+</blockquote>
+<p>具体如下：</p>
+<ul>
+<li>人工验证过程允许使用LLM，但有严格的指导原则，并针对不同任务、客观性类型和争议性等级制定了详细的使用规范。</li>
+<li>优先处理被标记为“客观”（属性里的”客观性“）的偏好数据对，并以批处理方式利用 LLM 进行预验证。具体就是把<strong>包含一个回复</strong>的对话内容给模型让其判断正确或错误。</li>
+<li>对偏好信号比较模糊，标注者无法从成对数据中判断偏好关系的样本直接丢弃。</li>
+</ul>
+<p>人工确认的为D_gold，LLM确认得为D_silver。</p>
+<p><strong>步骤1</strong>：</p>
+<p>D_silver上训模型，D_gold验证选出最佳ckpt，然后计算p = σ(rθ(x, yw) − rθ(x, yl))。</p>
+<p><strong>步骤2</strong>：</p>
+<p>为了扩大数据量，通过一种自适应检索机制利用LLM作为标注器，收集与人类偏好一致的代表性样本。该机制根据偏好属性a和奖励模型的预测结果 ，从未经验证的数据池中选择新的样本。</p>
+<p>对于每一个成对样本（来自D_gold，见前图），计算其 (x, a) 的Embedding，并检索出最相似的 top-k 个样本。直观上，优先选取那些与奖励模型出现错误或置信度较低的样本相似的偏好数据。就是选择模型犯错的样本进行标注，提高数据效率。</p>
+<p>检索上限设为 k_max=8 ，并使用一个动态规则来确定具体的 k 值：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.15999999999999992em" columnalign="left left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mi>k</mi><mi>max</mi><mo>⁡</mo></msub><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext> if </mtext><mi>p</mi><mo>≤</mo><mn>0.5</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> (incorrect prediction) </mtext></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mrow><mo fence="true">⌈</mo><msub><mi>k</mi><mi>max</mi><mo>⁡</mo></msub><mo>⋅</mo><mo stretchy="false">(</mo><mn>1</mn><mo>−</mo><mi>p</mi><mo stretchy="false">)</mo><mo fence="true">⌉</mo></mrow><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mtext> if </mtext><mi>p</mi><mo>&gt;</mo><mn>0.5</mn></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mtext> (correct prediction) </mtext></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">k=\left\{\begin{array}{lll}
+k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } \\
+\left\lceil k_{\max } \cdot(1-p)\right\rceil, &amp; \text { if } p&gt;0.5 &amp; \text { (correct prediction) }
+\end{array}\right.
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.40003em;vertical-align:-0.95003em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size3">{</span></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top:0em;">⌈</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03148em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord mathdefault">p</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">⌉</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> if </span></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> if </span></span><span class="mord mathdefault">p</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord">0</span><span class="mord">.</span><span class="mord">5</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> (incorrect prediction) </span></span></span></span><span style="top:-2.4099999999999997em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord text"><span class="mord"> (correct prediction) </span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9500000000000004em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>⌈x⌉是上取整符号，表示不小于x的最小整数（向上舍入为最接近的整数），通常用于在置信度较高时减少样本数量，起到一种动态控制的作用。</p>
+<p><strong>步骤3</strong>：</p>
+<p>获得带标签的检索样本后，使用LLM通过自洽性（self-consistency）方法聚合最终判断结果。</p>
+<ul>
+<li>首先，在单个模型内部通过自洽性进行模型内聚合 ；</li>
+<li>随后，在多个模型之间合并结果 ，减轻任何单一模型可能带来的偏差。</li>
+</ul>
+<p>对于所有由 LLM 进行的标注任务，回复被标记为“候选 1”和“候选 2”，并且它们在提示中的顺序是随机的 ，以避免位置偏见。</p>
+<p>最后，将人工标注的样本加入D_gold ，将LLM 标注的样本加入D_silver。</p>
+<p>在整个第一阶段，对步骤123进行迭代执行 。每次迭代之后，使用一个内部的人工标注验证集进行合理性检查 。不过这些检查的得分仅作为参考，整个流程的执行并不依赖于它们。</p>
+<h4 id="阶段二">阶段二</h4>
+<p>接下来是第二阶段——将数据规模扩展到数千万条真实场景下的偏好数据对 。然而，即使通过自动化方式标注整个数据集，也可能代价高昂且并非必要。本文提供两种基于一致性的过滤策略，用于判断哪些数据得进一步验证。只验证不太保险的数据。</p>
+<p><strong>与最优奖励模型的偏好一致性</strong></p>
+<p>在当前最优的奖励模型下，排除所有预测置信度大于 0.5（即判断为正确）的数据对。对于剩余的数据，继续应用阶段一的方法，但不再引入人工验证者参与。</p>
+<p><strong>与黄金奖励模型的偏好一致性</strong></p>
+<p>用所有已积累的人工验证的样本单独训练一个黄金奖励模型，用近似“真实”的人类偏好分布。从未经验证的数据池中，仅保留那些其原始“chosen-rejected”标签满足以下两个条件的数据对：</p>
+<ul>
+<li>与黄金奖励模型的判断一致；</li>
+<li>同时与LLM的判断或当前最优奖励模型的判断一致。</li>
+</ul>
+<p>大约有500万条偏好数据对通过了这个一致性机制筛选，就无需再进行属性生成或额外标注。</p>
+<p><strong>对丢弃数据的再利用尝试</strong></p>
+<p>为了充分利用被过滤掉的数据池，尝试简单回收策略：直接反转“chosen-rejected”顺序，从而重新利用这些数据。这种方法不会带来额外的标注成本或计算开销。</p>
+<h3 id="小结">小结</h3>
+<p>如开头所言，这是相当典型的工程示范了，用于偏好数据标注，其实简单来说就是利用LLM+人工进行协同标注，有点像boosting方法，自适应检索机制则是为了提高标注效率。有大量标注偏好数据需求时可以参考这个流程。</p>
+<h2 id="spurious-rewards">Spurious Rewards</h2>
+<p>这是华盛顿大学和Allen的一篇paper：<a href="https://arxiv.org/abs/2506.10947" target="_blank" rel="noopener">Spurious Rewards: Rethinking Training Signals in RLVR</a><sup>[3]</sup>，个人觉得非常有意思，它是那种你乍看好像没啥，但仔细读完就会觉得非常值得的论文。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-1.jpg" alt></p>
+<h3 id="背景">背景</h3>
+<p>这篇文章从一个有意思的现象开始——即使是虚假奖励，可验证奖励强化学习（RLVR）仍能在<strong>某些模型</strong>（Qwen）中激发出强大的数学推理能力。也就是说，即便错误的Reward信号也能让某些模型性能得到提升！接下来整篇文章基本都在探索为什么会这样。</p>
+<p>RL主要是激活，这个其实有很多文章都提到过了，我们也梳理过相关文章。</p>
+<ul>
+<li><a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">R1相关：R1-Zero的进一步理解和探索 | Yam</a><sup>[4]</sup></li>
+<li><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a><sup>[5]</sup></li>
+<li><a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">DeepSeek R1深度技术解析及其影响 | Yam</a><sup>[6]</sup></li>
+<li><a href="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/">R1相关：少量高质量数据SFT激活LLM推理能力 | Yam</a><sup>[7]</sup></li>
+<li><a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">R1相关：RL数据选择与Scaling | Yam</a><sup>[8]</sup></li>
+<li><a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">R1相关：DPO数据选择与DPO等RL算法 | Yam</a><sup>[9]</sup></li>
+</ul>
+<p>本文当然也是类似想法：我们尚未完全理解 RLVR 提升性能的具体机制，在许多情况下，它可能在某种程度上揭示了模型在预训练期间学到的内在能力，而不仅仅是依赖于其所接收到的奖励信号。其实，根据之前的研究成果，RLVR表现出的性能提升主要还是基于LLM基座能力，RL只是将其激活。个人觉得这个可能性更大。</p>
+<p>对于错误信号有效的模型，本文发现其中推理过程包含python表达——代码推理，这类答案的准确率远高于不含代码的答案。由此，本文假设“采用其他能够提高代码使用频率的方法，也应能提升测试性能”，后面的实验也验证了这一假设，而且这种方法对提示词的变化比较鲁棒。</p>
+<h3 id="虚假奖励信号">虚假奖励信号</h3>
+<ul>
+<li>真实标签奖励（Ground Truth）：用真实标签奖励具有可验证正确答案的回复。代表奖励监督质量的上限。</li>
+<li>多数投票奖励（Majority Vote）：用 RLVR 训练前的模型对训练集进行伪标注：对每个提示生成 64 条采样回复，并从中选择多数答案（最高频的）作为标签。这些标签（可能错误的）随后用于标准的在线 RLVR 训练中作为奖励信号。类似我们在<a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模 | Yam</a><sup>[1]</sup>提到的TTRL。</li>
+<li>格式奖励（Format）：进一步削弱奖励信号，完全忽略正确性。只要回复中包含至少一个非空的 <code>\boxed{}</code>，就给予奖励，无论其中的答案是否正确。在 Qwen2.5-Math 的系统提示词中明确要求使用 <code>\boxed{}</code>；该奖励机制鼓励模型在一定程度上遵循提示格式。</li>
+<li>随机奖励（Random）：给定固定概率超参 γ，所有回复以 γ 的概率获得奖励 1，否则 0。在主实验中 γ = 0.5，还尝试了 <code>γ ∈ {0.001, 0.3, 0.7}</code> 也能获得类似的性能提升，只是收敛速度不同。当 γ = 0 时，如理论预期，不会产生任何变化（此时损失函数为常数，梯度全为零）。</li>
+<li>错误奖励（Incorrect）：故意提供错误的监督信号，仅对错误答案给予奖励。具体来说，首先通过多数投票对所有训练数据进行标注，然后选出其中被标记为“错误”的子集用于训练。训练时奖励那些答案与错误标签匹配的回复。</li>
+</ul>
+<p>实验结果是：<strong>虚假奖励可以使 Qwen2.5 模型受益，但几乎总是无法改进非 Qwen 模型。</strong></p>
+<ul>
+<li>Olmo 系列模型在面对虚假奖励时表现出相对平稳的性能，只有在使用真实标签奖励训练时才显示出显著提升。</li>
+<li>较小的模型从虚假奖励（如随机奖励）中获益的可能性更低。</li>
+<li>Qwen 模型在面对不同强度的奖励信号时展现出独特的鲁棒性。</li>
+</ul>
+<p>因此，文本建议RLVR 奖励信号应该在各种模型上进行测试。</p>
+<h3 id="为什么？">为什么？</h3>
+<p>接下来就是重头戏：为什么？其实，我们根据已有的经验几乎可以确定是Qwen系列的基座本身就有一定推理能力，而这在很大程度上是因为预训练时添加了大量推理类（代码、数学等）数据。来看看本文是怎么分析的。</p>
+<p>首先，本文假设RLVR训练结果的差异是由于各模型在预训练阶段学到的具体<strong>推理策略不同</strong>所致。特别是某些策略可能容易通过RLVR被激发出来，而另一些策略则可能较难显现，甚至完全缺失。关注的更深层面的“推理策略”，而非简单的推理能力。</p>
+<p>目前已知的策略：</p>
+<ul>
+<li>⚠️通过生成代码辅助数学推理（Qwen-Math）。</li>
+<li>不重复的生成。</li>
+<li>与任务无关的提示（如由 LIPSUM 生成的 LaTeX 占位文本）也能带来显著的提升。</li>
+</ul>
+<p>不过本文重点是第一个策略。</p>
+<h4 id="不同模型在推理策略上表现出预先存在的差异">不同模型在推理策略上表现出预先存在的差异</h4>
+<p>一个显著不同：Qwen2.5-Math-7B 经常（65%）生成 python 代码来辅助其思考过程，这种行为被称为“代码推理”。进一步分析发现：</p>
+<ul>
+<li>首先，在面对来自常见数学基准测试中问题的数值变化时仍能保持准确性——它能在原始题目中代入不同数值的情况下正确预测答案，这一现象与已有研究一致。</li>
+<li>此外，模型在预测代码输出时，往往能够以高精度生成复杂的数值答案。然而，当这些问题被以不同的叙述方式重新表述时，模型不再使用代码推理的方法。</li>
+</ul>
+<p>因此，本文推测：Qwen2.5-Math-7B在预训练阶段接触过大量借助代码进行数学推理的数据，从而形成了这种行为倾向。</p>
+<p>这种模式并没有在其他模型中观察到，文中将它们称为：</p>
+<ul>
+<li>无代码模型（如 Llama 系列、Qwen2.5-1.5B 和 OLMo2-7B）：完全不生成代码，因此无法从这种推理策略中受益；</li>
+<li>低效代码模型（如 OLMo2-7B-SFT 占 98.0%，Qwen2.5-7B 占 92.2%）：频繁尝试使用代码推理，但它们的代码生成反而与更差的性能相关。</li>
+</ul>
+<p>因此，高效的代码推理能力是 Qwen2.5-Math 系列模型在 RLVR 训练前所具备的一种独特且已有的能力。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-2.jpg" alt></p>
+<h4 id="带有虚假奖励的-rlvr-可以上调已有推理策略">带有虚假奖励的 RLVR 可以上调已有推理策略</h4>
+<p>本文中所采用的奖励信号——包括如随机奖励和错误奖励等<strong>虚假奖励</strong> ——之所以能够在 Qwen2.5-Math 和 Qwen2.5 模型上获得较高的准确率，很大程度上是因为它们<strong>激发了正确的推理策略</strong> 。</p>
+<p><strong>性能提升与代码推理频率密切相关</strong></p>
+<p>在RLVR 训练之前，Qwen2.5-Math-7B的代码推理使用率就达到65%。训练开始后，大部分奖励下，代码推理的使用频率在最初的 15 步内迅速上升至约 90%，与准确率的提升高度相关；使用随机奖励增长较为缓慢，但最终也达到了 95.6%。</p>
+<p>当使用真实标签奖励进行训练时，代码推理频率也会迅速上升，但随着模型在自然语言推理上的准确性逐步提高，该频率又会逐渐下降，这表明模型<strong>正在从高质量的真实奖励信号中学习真正的知识</strong>。</p>
+<p>而对于那些“低效代码”模型，代码推理频率的下降与性能提升高度相关 。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-5.jpg" alt></p>
+<p><strong>RLVR 训练期间的推理策略切换</strong></p>
+<p>Qwen2.5-Math-7B 的准确率在不同训练信号下平均提升了23.5 个百分点。为进一步分析提升来源，本文追踪了在每种训练信号下，模型在四个互不重叠子集上的表现：</p>
+<ul>
+<li>Code→Code：训练前后均使用代码推理；</li>
+<li>Code→Lang：训练前使用代码推理，训练后转为自然语言推理；</li>
+<li>Lang→Code：训练前使用自然语言推理，训练后转为使用代码推理；</li>
+<li>Lang→Lang：训练前后均使用自然语言推理。</li>
+</ul>
+<p>主要关注两个相互关联的指标：每个子集的出现频率和准确率。</p>
+<p><strong>频率分析</strong></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-4.jpg" alt></p>
+<p>上图是Qwen2.5-Math-7B 的推理策略转换模式。</p>
+<p>对于所有<strong>弱奖励和虚假奖励</strong>，模型在 RLVR 训练后更倾向于使用代码推理。</p>
+<ul>
+<li>原本使用代码推理的问题中，只有少数转向了自然语言推理（Code→Lang）；</li>
+<li>而原本使用自然语言推理的问题中，大多数在训练后转为使用代码推理（Lang→Code）。</li>
+</ul>
+<p>但这一趋势<strong>不适用于真实标签奖励</strong>。</p>
+<p>对于低效代码模型，有意义的奖励信号会引导模型远离低效的代码推理行为：</p>
+<ul>
+<li>对于 Qwen2.5-7B，在真实标签、多数投票和错误奖励下，代码推理使用率均下降；</li>
+<li>对于 OLMo2-7B-SFT，仅在真实标签和多数投票奖励下出现代码推理减少（见《<strong>性能提升与代码推理频率密切相关</strong>》部分的图，主要是真实标签下降比较明显）。</li>
+</ul>
+<p>对于无代码模型，RLVR 未能激发其推理策略上的显著变化，表明这类能力很可能未在预训练阶段被有效学习。</p>
+<p><strong>准确率分析</strong></p>
+<p>继续看上图，在所有训练信号下训练后，Lang→Code子集的准确率出现了显著提升。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-6.jpg" alt></p>
+<p>这一点在上表也得到印证：</p>
+<ul>
+<li>Qwen2.5-Math-7B的性能提升中，有58.3%来自这一子集；</li>
+<li>在Qwen2.5-Math-1.5B中，Lang→Code的样本贡献了78.7%的性能提升。</li>
+</ul>
+<p>对于低效代码模型：在 Qwen2.5-7B中，Code→Lang这一转变贡献了93.9%的性能提升。这是符合直觉的，因为该模型在自然语言推理上的准确率高于代码推理，因此RLVR训练本质上促使模型**「采用其更擅长的推理策略」**。</p>
+<blockquote>
+<p>重要！非常有意思的分析！</p>
+</blockquote>
+<p>对于无代码模型，由于在 RLVR 训练前后都未使用代码推理，因此所有性能提升（或下降）都来自于Lang→Lang子集。</p>
+<p>以上结果表明：在 Qwen2.5-Math 和 Qwen2.5 系列模型上，<strong>「通过虚假奖励信号获得的准确率提升，很大程度上只是因为RLVR成功地激发了模型原本具备的正确推理策略」</strong>。</p>
+<h4 id="对代码推理频率的显式干预">对代码推理频率的显式干预</h4>
+<p>这一部分通过主动干预代码推理的发生频率（使其更频繁或更少发生），来探究代码推理对性能的因果影响。</p>
+<p><strong>诱导代码推理显著提升了Qwen2.5-Math系列模型的性能，但通常会降低其他模型的表现</strong></p>
+<p>文中通过以下两种方式主动诱导模型更频繁地使用代码推理：提示引导和RLVR训练干预。</p>
+<ul>
+<li>在提示引导实验中，强制模型以“Let’s solve this using python.”开头进行回答。</li>
+<li>在RLVR训练中，当回复中包含字符串 “python” 时才给予正奖励。</li>
+</ul>
+<p>总体来看，只有 Qwen2.5-Math 系列模型表现出显著的性能提升（训练引导超过提示词），其他模型则改善有限（不具备代码推理能力，性能甚至下降）。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-7.jpg" alt></p>
+<p><strong>通过虚假奖励抑制代码推理可以降低 Qwen2.5-Math-7B 的性能提升却能提高其他模型表现</strong></p>
+<p>本文假设：代码推理是弱奖励和虚假奖励带来性能提升的重要来源之一。反过来，如果对代码生成进行惩罚，就有可能削弱这些奖励信号在 Qwen2.5-Math 模型上的效果。</p>
+<p>设计复合奖励机制，只有当回复满足以下两个条件时才会获得奖励：</p>
+<ul>
+<li>满足原始的虚假奖励条件；</li>
+<li>回复中不包含字符串python 。</li>
+</ul>
+<p>结果显示，对 Qwen2.5-Math-7B：</p>
+<ul>
+<li>格式奖励+无python在上不再带来任何提升。</li>
+<li>错误奖励+无python在MATH-500 上的表现与原始错误奖励相当，但在更具挑战性的AMC上，虽有提升但增益减弱，整体不如原始错误奖励。说明去除代码推理确实如预期那样削弱了错误奖励的效果，但推测应该还有其他有益的行为（如减少重复生成）依然可以被部分激发出来。</li>
+<li>真实奖励+无python与上面类似，仍然能够带来性能提升，说明RLVR还能激活其他有价值的能力。</li>
+</ul>
+<p>对低效代码模型：复合奖励往往优于原始奖励，尤其是OLMo2-7B-SFT。推测是因为 Qwen2.5-7B 和 OLMo2-7B-SFT 在 RLVR 训练前本身就具有较弱的代码推理能力，因此复合奖励通过明确抑制这一行为，避免了对次优策略的强化，从而提升了整体表现。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-9.jpg" alt></p>
+<h4 id="来自错误奖励和随机奖励的训练信号">来自错误奖励和随机奖励的训练信号</h4>
+<h5 id="错误奖励">错误奖励</h5>
+<p>本文提出了两个可能的机制，用以解释为什么错误奖励仍能提供有效的训练信号：</p>
+<ul>
+<li>许多错误标签与真实值较为接近，因此即便标签本身不准确，它们仍然可以为基本正确的推理过程提供正向强化；</li>
+<li>错误标签可能起到类似格式奖励的作用：模型在无法获得真实标签的情况下，仍需成功提取并评估生成的答案，才能给出正向奖励，这一过程要求一定程度上的正确推理。就是说，获得答案过程本身也是一种奖励。</li>
+</ul>
+<p>比较有意思的解释。</p>
+<h5 id="随机奖励">随机奖励</h5>
+<p>由于 GRPO 将奖励归一化为均值为零的分布，因此“随机奖励中大多数获得奖励的答案是正确的”这一解释不成立。如果大多数被奖励的回答是正确的，那么大多数被惩罚的回答也应该是正确的。</p>
+<p><strong>不同概率的随机奖励始终能够提升性能</strong></p>
+<p>如图所示，在初始探索阶段之后，所有非零概率配置都能成功带来显著的性能提升 ，其最终表现可与真实标签奖励相媲美。只是不同 γ 值下的收敛速度有所差异，但所有配置最终都达到了相近的高性能区间 。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-10.jpg" alt></p>
+<p><strong>GRPO 的截断偏差可以诱导出随机奖励的训练信号</strong></p>
+<p>GRPO 在进行梯度更新时，会基于奖励计算一个归一化的组内相对优势值。该优势值的期望为零——也就是说，它本身在统计上不会引导模型向任何特定方向更新。但由于截断机制，最终的期望梯度仍然不为零。</p>
+<p>受 <a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO</a><sup>[10]</sup>启发（截断偏差会减少探索行为、增强利用行为），本文假设：即使在随机奖励的情况下，截断偏差也会<strong>强化那些先验概率较高的行为模式</strong>。实验结果显示，截断机制确实提升了策略模型对训练答案中某些 token 的选择概率，表明模型在训练过程中<strong>更加依赖其原有的知识和行为偏好</strong>。</p>
+<p>很有意思的发现。我们看看消融过程。有两种方法绕过截断偏差：</p>
+<ul>
+<li>在损失计算中直接关闭损失函数中的截断项；</li>
+<li>调整rollout批次大小，使策略模型在更新前后保持不变（ratio等于1），从而避免触发截断。当rollout比较小时，策略在更新前后的变化就会非常小，几乎可以认为 πθ ≈ πold。
+<ul>
+<li>增加Mini-Batch Size。</li>
+<li>减少Rollout Batch Size。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-11.jpg" alt></p>
+<p>如图所示，在标准的带截断的 GRPO设置下（紫色曲线），随机奖励显著提升了代码推理行为，表明模型被引导到其已有的推理模式分布上。这种“集中效应”在移除截断机制后消失（其他颜色曲线所示的不同实验条件）。此外，还发现不使用截断的训练过程非常不稳定（这是正常的，PPO也就是因为这个原因才加了截断）。</p>
+<h3 id="小结">小结</h3>
+<p>这篇文章的核心结论其实就是前面的一句话：通过虚假奖励信号获得的准确率提升，很大程度上只是因为RLVR成功地激发了模型<strong>原本具备的正确推理策略</strong>。将我们原来认为的“推理<strong>能力</strong>在Base”深入到“推理<strong>策略</strong>在Base”。</p>
+<p>这篇文章主要是对Qwen2.5-Math-7B进行分析，分析了它在各种不同情况下的推理表现，确定代码推理（生成代码辅助数学推理）是其性能表现的关键（预训练阶段接触过大量借助代码进行数学推理的数据），这一策略也是最直接、最明显能提升效果的策略。而无代码或低效代码模型由于本身的推理策略不是代码推理，它们自然无法从代码推理中受益，相反它们会避免使用该策略，强行使用反而会导致性能下降。</p>
+<p>错误奖励信号有效是因为许多错误标签和真实值接近，因此虽然结果不对，但可以提供基本正确的推理过程；另外，错误标签可能起到类似格式奖励的作用，因为必须先获得标签才能判断对错，这个过程本身需要生成的结果具备要求的格式。而随机奖励信号有效则与GRPO的截断有关，截断机制会强化那些先验概率较高（原有的知识和行为偏好）的行为模式。</p>
+<p>非常精彩的一篇论文（而且做的很扎实），想要记录的点有点多，导致篇幅有点大，但确实都值得记录。其实还没完，关于GRPO截断那部分推导和进一步分析也不错，有时间单独择文再议。</p>
+<h2 id="unsupervised-elicitation">Unsupervised Elicitation</h2>
+<p>来自Anthropic的一篇论文：<a href="https://arxiv.org/abs/2506.10139" target="_blank" rel="noopener">Unsupervised Elicitation of Language Models</a><sup>[11]</sup>，介绍了一种新的无监督算法——内部一致性最大化（Internal Coherence Maximization，简称 ICM），用于在没有监督数据的情况下，通过模型自身生成的标签对预训练模型进行微调。</p>
+<h3 id="背景">背景</h3>
+<p>随着任务和模型行为变得越来越复杂，人工标注变得越来越不可靠：</p>
+<ul>
+<li>
+<p>LLM可能会学会模仿样本中的错误。</p>
+</li>
+<li>
+<p>或利用反馈中的缺陷。</p>
+</li>
+</ul>
+<p>那么，如何训练LLM完成那些对人类来说难以示范或可靠评估的任务呢？本文给出的答案是：不标注，引导模型。又见“引导”！</p>
+<p>ICM通过寻找一组在预训练模型下逻辑一致且可相互预测的标签来实现这一目标。具体而言，相互可预测性衡量的是在给定所有其他标签的条件下，模型推断出每一个标签的可能性（在给定其他标签的前提下，我能多自信地预测每个标签）。这直观地促使所有标签根据模型反映一个统一的概念。逻辑一致性则进一步施加了简单的约束，从而阻止表面上可预测但无意义的标签分配，例如为所有数据分配相同的标签。</p>
+<h3 id="方法">方法</h3>
+<h4 id="评分函数">评分函数</h4>
+<p>简单来说，就是完全依靠X预测Y。由两部分组成的评分函数来衡量模型生成标签集的质量：</p>
+<ul>
+<li>一是在给定所有其他标签的条件下，模型推断出每个标签的可能性（“相互可预测性”），</li>
+<li>二是整个标签集在逻辑上的一致性。</li>
+</ul>
+<p><strong>相互可预测性</strong>：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="script">P</mi><mi>θ</mi></msub><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>0</mn></mrow><mi>N</mi></munderover><mi>log</mi><mo>⁡</mo><msub><mi>P</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>y</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><mi>D</mi><mi mathvariant="normal">\</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{P}_\theta(D)=\sum_{i=0}^N \log P_\theta\left(y_i \mid x_i, D \backslash\left(x_i, y_i\right)\right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord"><span class="mord mathcal" style="margin-right:0.08222em;">P</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.106005em;vertical-align:-1.277669em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.13889em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.02778em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mord">\</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span></p>
+<p>给定Xi和其他（X，Y）对预测Yi。直觉来看，如果 <code>{(xi, yi)}</code> 整体为模型指定了一个单一且连贯的概念，那么评分就会很高。然而，这可能会导致一些退化的解决方案，例如，将所有样本分配相同的标签。</p>
+<p><strong>逻辑一致性</strong>：</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="script">I</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mi>c</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>i</mi></msub><mo separator="true">,</mo><msub><mi>x</mi><mi>j</mi></msub><mo separator="true">,</mo><msub><mi>y</mi><mi>j</mi></msub><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathcal{I}(D)=\sum_{i=1}^N \sum_{j=1}^N c\left(x_i, y_i, x_j, y_j\right)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.07382em;">I</span></span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.2421130000000007em;vertical-align:-1.4137769999999998em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000002em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">i</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.277669em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8283360000000006em;"><span style="top:-1.872331em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3000050000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4137769999999998em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">c</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.311664em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05724em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span></p>
+<p>针对退化问题，对标签集施加简单的逻辑一致性约束， <code>c(xi, yi, xj, yj)∈{0,1}</code>。判断样本之间的细粒度逻辑一致性并非易事，然而实证证据表明，即使采用简单且通用的逻辑约束也已足够。</p>
+<p>最终评分函数为：U (D) = α · Pθ(D) − I(D)，α 是一个超参数，用于平衡相互可预测性和逻辑一致性的强度。</p>
+<h4 id="算法">算法</h4>
+<p>寻找使评分函数最大化的最优标签集是一个整数规划问题，在实际规模的数据集（<code>10^3&lt;N&lt;10^6</code> ）上求解该问题是计算上不可行的。因此，ICM 提出了一种高效的近似算法，其灵感来源于模拟退火。</p>
+<p>ICM 从一个空的标签集合开始，初始化时随机为 K 个样本分配标签，随后以每次添加一个标签的方式迭代扩展。为了添加一个新标签，ICM 执行以下三个步骤：</p>
+<ul>
+<li>采样一个新样本；</li>
+<li>在修复任何引入的不一致性的同时确定其标签；</li>
+<li>根据评分函数决定是否接受该新标签。</li>
+</ul>
+<p>通过这一过程，ICM 渐进式地扩展标签集并提升评分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"># Algorithm 1 Internal Coherence Maximization (ICM)</span><br><span class="line">输入: 未标注数据集 D_unlabel=&#123;xi&#125;. 标注数据集D=∅. 预训练模型θ. 初始温度T0. 最终温度Tmin. 退火率β.</span><br><span class="line">输出: 标注数据集&#123;xi, yi&#125;.</span><br><span class="line"></span><br><span class="line">随机选择K个样本，更新D  # 初始化</span><br><span class="line">D ← consistencyfix(D)                               # 一致性修复，修复标签集中的逻辑不一致问题</span><br><span class="line">for n=1,...,N do                                    # 迭代扩展标签集</span><br><span class="line">    T ← max(T_min, T0/(1+βlog(n))                   # 更新温度</span><br><span class="line">    采样xi∼&#123;x1,...,xN&#125;                               # 样本选择</span><br><span class="line">    利用公式P(D)给xi标注y^i</span><br><span class="line">    临时更新D^ ← D ∪ &#123;(xi, yˆi)&#125;</span><br><span class="line">    Dˆ ← consistencyfix(Dˆ)                         # 解决不一致</span><br><span class="line">    ∆ = U(Dˆ) − U(D)</span><br><span class="line">    if ∆&gt;0 then</span><br><span class="line">        D ← D^                                      # 接受新标签</span><br><span class="line">    else</span><br><span class="line">        if random(0,1) &lt; exp(∆/T) then              # 根据概率拒绝新标签</span><br><span class="line">            D ← D^</span><br><span class="line">        end if</span><br><span class="line">    end if</span><br><span class="line">end for</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># Algorithm 2 ConsistencyFix</span><br><span class="line">输入：标注数据集D. 预训练模型θ. 最大迭代次数M.</span><br><span class="line">输出：更新后的数据集D.</span><br><span class="line"></span><br><span class="line">for m = 1,...,M do</span><br><span class="line">    if I(D)≠0 then</span><br><span class="line">        采样不一致pair对(xi,xj)</span><br><span class="line">        枚举一致标签选项&#123;(yi,yj)&#125;</span><br><span class="line">        (y^i, y^j) = arg max U(D ∪ &#123;(xi,yi), (xj,yj)&#125;)</span><br><span class="line">        if U(D ∪ &#123;(xi,y^i),(xj,y^j)&#125;) &gt; U(D) then</span><br><span class="line">            D ← D ∪ &#123;(xi,yˆi), (xj,yˆj)&#125;</span><br><span class="line">        endif</span><br><span class="line">    endif</span><br><span class="line">endfor</span><br></pre></td></tr></table></figure>
+<p>ICM主要包括以下几个关键步骤：</p>
+<ul>
+<li>初始化。
+<ul>
+<li>通常选取一个较小的K值（如K=8 ），保证提供足够示范的同时减少初始噪声，从而取得较好的平衡。</li>
+<li>使用模型或人工进行初步标注。</li>
+</ul>
+</li>
+<li>选择一个新样本标注。
+<ul>
+<li>样本可以是未标注的，也可以是之前已标注过的。可以动态地纠正早期可能出现的错误。</li>
+<li>为了充分利用逻辑一致性约束，优先选择那些与已有标注样本存在逻辑一致性关系的未标注样本，通过提高它们的采样权重（例如提高100倍）来实现更有效的标注。</li>
+</ul>
+</li>
+<li>一致性修复。
+<ul>
+<li>当发现一对已标注数据(xi, xj)存在不一致性时，算法会检查所有可能的、符合逻辑一致性的标签组合，并选择其中能使U(D)最大的那组标签。</li>
+<li>引入一个新标签后，首先修复它所引入的不一致性，然后再计算U(D)。确保即使新的正确标签与当前所有一致但错误的标签相矛盾，算法也会优先检查并修复已有的错误标签，而不是直接拒绝这个新标签。</li>
+</ul>
+</li>
+<li>接受新标签。
+<ul>
+<li>如果新标签能够提升U(D)，直接接受它。</li>
+<li>否则，受模拟退火思想启发，算法会以一定概率拒绝该标签，这个概率由两个因素决定：
+<ul>
+<li>评分差值Δ：U(D)下降幅度越大，被拒绝的概率越高。</li>
+<li>迭代次数：随着时间的推移，拒绝的可能性逐渐增加，使得算法变得越来越“挑剔”。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>数据集中将原始任务统一为分类任务。示例如下：</p>
+<table>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TruthfulQA</td>
+<td>Question: What are some cities that get less rainfall than Boston? <br>Claim: San Francisco and Los Angeles get less rainfall than Boston.<br>I think this Claim is [True/False]</td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td>Question: Arnel had ten boxes of pencils with the same number of pencils· · ·<br>Claim: Arnel shared 5 x 8 = 40 pencils with his friends. So, he had 10 + 40 = 50 pencils in all. Therefore, each box had 50/10 = 5 pencils inside. The answer is 5. <br>I think this Claim is [True/False]</td>
+</tr>
+<tr>
+<td>Alpaca</td>
+<td>Query: Design a medium-level sudoku puzzle. <br>Response A: Done! Attached is a medium-level sudoku puzzle I designed. <br>Response B: A medium-level sudoku puzzle consists of 81 squares arranged in a 9 x 9 grid. The first step is to look for empty cells and assign the numbers 1 to 9 . . . <br>Claim: Response A is more helpful and harmless than Response B <br>I think this Claim is [True/False]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="示例">示例</h3>
+<p>我们针对前面的方法举个例子，感谢ChatGPT帮我们快速写的示例。</p>
+<h4 id="算法2">算法2</h4>
+<p>现在有一个带标签的数据集 <code>D = {(xi, yi)}</code>，但其中可能存在逻辑不一致的标签组合。算法2的目标是：在不引入太多新噪声的前提下，通过有限次修复，使数据集的逻辑一致性变强，也就是降低 I(D)。</p>
+<p>假设初始有3个样本和标注：</p>
+<table>
+<thead>
+<tr>
+<th>样本</th>
+<th>内容（Claim）</th>
+<th>当前标签</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x1</td>
+<td>“San Francisco gets less rainfall than Boston”</td>
+<td>True</td>
+</tr>
+<tr>
+<td>x2</td>
+<td>“Ibuprofen has no side effects”</td>
+<td>True</td>
+</tr>
+<tr>
+<td>x3</td>
+<td>“All drugs have side effects”</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+<p>假设逻辑一致性函数判断：x2=True 和 x3=True 逻辑矛盾（药没有副作用 vs 所有药都有副作用），I(D)≠0。算法步骤如下：</p>
+<ul>
+<li>随机挑出矛盾对 (x2, x3)，当前是：
+<ul>
+<li>(x2, True)</li>
+<li>(x3, True)</li>
+</ul>
+</li>
+<li>枚举一致标签选项：哪些标签组合对这两个样本来说是逻辑一致的？枚举出三种一致的备选组合：
+<ul>
+<li>(True, True)，当前的，不一致</li>
+<li>(False, True)，一致</li>
+<li>(True, False)，一致</li>
+<li>(False, False)，一致</li>
+</ul>
+</li>
+<li>计算每组组合下的 U(D)：
+<ul>
+<li>尝试三组备选组合：<code>{(x1, True), (x2, False), (x3, True)}</code>，<code>{(x1, True), (x2, True), (x3, False)}</code>，<code>{(x1, True), (x2, False), (x3, False)}</code></li>
+<li>模型会基于 log-prob 和一致性惩罚算出三组评分，选出得分最高的那一组，假设为：<code>(y^2, y^3) = (False, True)</code></li>
+</ul>
+</li>
+<li>如果新标签提升了 U(D)，就替换
+<ul>
+<li>如果新组合 U(D’) &gt; 原始 D 的评分，<code>D ← D ∪ {(x2, False), (x3, True)}</code>。</li>
+</ul>
+</li>
+</ul>
+<p>算法每轮只处理一个冲突 pair，但我们可能有多个冲突，因此它会执行最多 M 轮，不断尝试修复，直到所有逻辑一致或达到最大轮数。</p>
+<p>还有两个值得关注的点：</p>
+<ul>
+<li>什么时候做出一致性判断？</li>
+<li>一致性判断是怎么做出来的？</li>
+</ul>
+<p>首先看第一个，它发生在两个位置：</p>
+<ul>
+<li>
+<p>每一轮判断 I(D)≠0。</p>
+</li>
+<li>
+<p>U(D) 打分的时候，因为计算U(D)需要计算I(D)。</p>
+</li>
+</ul>
+<p>拿所有 <code>(xi, yi) (xj, yj)</code> 两两配对，判断它们是否逻辑矛盾。</p>
+<p>然后看第二个，其实就是一些简单的启发式规则，满足规则的记为c=0，否则记为c=1。比如前面的x2和x3同时为True时就有逻辑冲突，此时，c(x1=True, x2=True) = 1。</p>
+<p>论文中没有把 c 函数的规则完全列出（因为和任务密切相关），但有两个共性：</p>
+<ul>
+<li>只依赖 <code>xi, yi, xj, yj</code> 的内容。</li>
+<li>可设计成“任务无关”的模板规则（简单的逻辑约束）。</li>
+</ul>
+<p>比如：</p>
+<table>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>一致性判断 c 的例子（启发式规则）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TruthfulQA</td>
+<td>如果两个句子结论矛盾 &amp; 均为 True → 判定为不一致</td>
+</tr>
+<tr>
+<td>GSM8K</td>
+<td>如果两者数值计算结果不同 &amp; 都是 True → 判定为不一致</td>
+</tr>
+<tr>
+<td>Alpaca</td>
+<td>如果互相对立的两个响应都标为“更好” → 判定为不一致</td>
+</tr>
+</tbody>
+</table>
+<h4 id="算法1">算法1</h4>
+<p>理解了算法2，算法1就比较简单了。</p>
+<p>假设前面的3条数据已经被修复成：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D = &#123;</span><br><span class="line">  (x1, <span class="literal">True</span>),</span><br><span class="line">  (x2, <span class="literal">False</span>),</span><br><span class="line">  (x3, <span class="literal">True</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来进入ICM流程。每一轮会尝试给未标注数据xi打标签，然后：</p>
+<ul>
+<li>评估相互可预测性。</li>
+<li>判断是否引入逻辑矛盾（调用算法2）。</li>
+<li>决定是否接受这个新标签（基于 Δ 和模拟退火）。</li>
+</ul>
+<p>假设新样本x4为：“Los Angeles is one of the rainiest US cities.”</p>
+<ul>
+<li>更新温度T：<code>T ← max(T_min, T0 / (1 + β log(n)))</code>，用于控制“接受坏标签”的概率。</li>
+<li>采样一个样本xi，即x4。</li>
+<li>用当前已有标签 D计算概率<code>Pθ(y4=True | x4,D)</code>和<code>Pθ(y4=False | x4,D)</code>，假设分别为0.2和0.8，则预测标签<code>y^4 = False</code>。</li>
+<li>临时加入标签，<code>D^ = D ∪ {(x4, False)}</code>。</li>
+<li>一致性修复。检查：
+<ul>
+<li>x4=False 和 x1=True 是否冲突？是两个不同城市，没有直接冲突。</li>
+<li>x4=False 和 x3=True 是否冲突？两个不同主题，无关，没有冲突。</li>
+</ul>
+</li>
+<li>评分函数 U 的变化。
+<ul>
+<li>相互可预测性 Pθ 是否提升？（x4 被已有标签“合理解释”）</li>
+<li>一致性惩罚是否增加？（没有 → <code>I(D^)=I(D)</code>）</li>
+</ul>
+</li>
+<li>根据Δ或概率决定是否接受标签。
+<ul>
+<li>Δ其实是新标签带来的边际好处或损失。</li>
+<li>Δ &gt; 0 接受新标签，Δ &lt; 0靠退火控制。</li>
+</ul>
+</li>
+</ul>
+<p>总的来看，比较难做的还是这个“一致性判断”。</p>
+<h3 id="小结">小结</h3>
+<p>这篇论文主要介绍了一种无监督算法——内部一致性最大化，其关键还是依赖模型自身能力，尤其是其对数据的预测一致性。论文整体还是比较新颖的，最终效果也达到了与人类相当甚至更好。</p>
+<h2 id="总结">总结</h2>
+<p>自上篇<a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模 | Yam</a><sup>[1]</sup>后，这是我们关于Reward相关的第二篇文章，本文介绍的三篇论文中，第一篇和第三篇是偏数据标注的，具体来说是Reward相关pair对的数据标注，第二篇虽说是关于Reward信号和Base模型策略的，但也可以看作数据内隐——什么样的数据造就什么样的策略——带来什么样的能力。</p>
+<p>从另一个角度看，第二篇和第三篇都与模型内部推理能力相关，前者侧重于推理策略，后者则使用内部一致性，但总的来说都与Base模型本身能力有关；而第一篇则是典型的标注示范。</p>
+<p>最后，不得不感慨一句：Reward真的越来越重要了，毕竟GRPO这种纯靠规则（或法则）的算法实在太诱人了，Reward模型不仅可以用在RLHF中，直接GRPO Policy也是很不错的嘛。不过话说回来，只要我们能找到适当的规则，无论这种规则是纯规则还是模型，这种演绎式算法都可能让我们“言出法随”——玄幻小说的无上功法已经在你我手中啦。</p>
+<h2 id="references">References</h2>
+<p><code>[1]</code> Reward Model建模 | Yam: <em><a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/</a></em><br>
+<code>[2]</code> Skywork-Reward-V2: Scaling Preference Data Curation via Human-AI Synergy: <em><a href="https://arxiv.org/abs/2507.01352" target="_blank" rel="noopener">https://arxiv.org/abs/2507.01352</a></em><br>
+<code>[3]</code> Spurious Rewards: Rethinking Training Signals in RLVR: <em><a href="https://arxiv.org/abs/2506.10947" target="_blank" rel="noopener">https://arxiv.org/abs/2506.10947</a></em><br>
+<code>[4]</code> R1相关：R1-Zero的进一步理解和探索 | Yam: <em><a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/</a></em><br>
+<code>[5]</code> DeepSeek R1后LLM新范式 | Yam: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em><br>
+<code>[6]</code> DeepSeek R1深度技术解析及其影响 | Yam: <em><a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/</a></em><br>
+<code>[7]</code> R1相关：少量高质量数据SFT激活LLM推理能力 | Yam: <em><a href="https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/">https://yam.gift/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/</a></em><br>
+<code>[8]</code> R1相关：RL数据选择与Scaling | Yam: <em><a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/</a></em><br>
+<code>[9]</code> R1相关：DPO数据选择与DPO等RL算法 | Yam: <em><a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/</a></em><br>
+<code>[10]</code> DAPO: <em><a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/</a></em><br>
+<code>[11]</code> Unsupervised Elicitation of Language Models: <em><a href="https://arxiv.org/abs/2506.10139" target="_blank" rel="noopener">https://arxiv.org/abs/2506.10139</a></em></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/">
+    <time datetime="2025-07-13T00:00:00.000Z" class="entry-date">
+        2025-07-13
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RM/">RM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Reward/">Reward</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Skywork-Reward/">Skywork Reward</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spurious-Reward/">Spurious Reward</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unsupervised-Elicitation/">Unsupervised Elicitation</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" rel="prev"><span class="meta-nav">←</span> GiGPO：双层级优势函数驱动的Agent强化学习新范式</a></span>
+    
+    
+        <span class="nav-next"><a href="/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" rel="next">激活诱导LLM指令跟随 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="/js/gitalk.min.js"></script> -->
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">75</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">158</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">40</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/">Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/">DeepSeekV3.2后训练：稳定压倒一切</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/">DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/23/Python/2025-11-23-LLM-Message-Issue/">两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/">Hybrid LLM 之 Gated DeltaNet</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AGI/" style="font-size: 10px;">AGI</a> <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.67px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Activation-Steering/" style="font-size: 10px;">Activation Steering</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Aha/" style="font-size: 10px;">Aha</a> <a href="/tags/Algorithm/" style="font-size: 12.67px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.33px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.67px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.67px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.33px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12px;">Business</a> <a href="/tags/C/" style="font-size: 10.67px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.67px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CISPO/" style="font-size: 10px;">CISPO</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15.33px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.67px;">Classification</a> <a href="/tags/Clip/" style="font-size: 10px;">Clip</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.67px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Engineering/" style="font-size: 10px;">Context Engineering</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 14px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.67px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.67px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DAPO/" style="font-size: 14px;">DAPO</a> <a href="/tags/DB/" style="font-size: 10.67px;">DB</a> <a href="/tags/DCPO/" style="font-size: 10px;">DCPO</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DPO/" style="font-size: 10px;">DPO</a> <a href="/tags/Darling/" style="font-size: 10px;">Darling</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15.33px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.67px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.67px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12px;">DeepLearning</a> <a href="/tags/DeepScaleR/" style="font-size: 10.67px;">DeepScaleR</a> <a href="/tags/DeepSeek/" style="font-size: 11.33px;">DeepSeek</a> <a href="/tags/DeepSeek-GRM/" style="font-size: 10px;">DeepSeek-GRM</a> <a href="/tags/DeepSeek-V3-2/" style="font-size: 10px;">DeepSeek-V3.2</a> <a href="/tags/DeepSeekMath-V2/" style="font-size: 10px;">DeepSeekMath-V2</a> <a href="/tags/DeltaNet/" style="font-size: 10px;">DeltaNet</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 15.33px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10.67px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dr-GRPO/" style="font-size: 10px;">Dr GRPO</a> <a href="/tags/DrDAPO/" style="font-size: 10px;">DrDAPO</a> <a href="/tags/DrGRPO/" style="font-size: 10px;">DrGRPO</a> <a href="/tags/Dream/" style="font-size: 10.67px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.67px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EM/" style="font-size: 10px;">EM</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/EMPO/" style="font-size: 10px;">EMPO</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/ETTRL/" style="font-size: 10px;">ETTRL</a> <a href="/tags/EVOL-RL/" style="font-size: 10px;">EVOL-RL</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.67px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.33px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.67px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 11.33px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.67px;">Evaluation</a> <a href="/tags/Eventlet/" style="font-size: 10px;">Eventlet</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/Exam/" style="font-size: 10px;">Exam</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FD-Leak/" style="font-size: 10px;">FD Leak</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/FastCuRL/" style="font-size: 10px;">FastCuRL</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.33px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.33px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GAE/" style="font-size: 10px;">GAE</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GLU/" style="font-size: 10px;">GLU</a> <a href="/tags/GMPO/" style="font-size: 10.67px;">GMPO</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.67px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRM/" style="font-size: 10px;">GRM</a> <a href="/tags/GRPO/" style="font-size: 16.67px;">GRPO</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/GSPO/" style="font-size: 10px;">GSPO</a> <a href="/tags/GTPO/" style="font-size: 10px;">GTPO</a> <a href="/tags/GTPO-S/" style="font-size: 10px;">GTPO-S</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Gated-DeltaNet/" style="font-size: 10px;">Gated DeltaNet</a> <a href="/tags/GiGPO/" style="font-size: 10px;">GiGPO</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.67px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.67px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 12.67px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.67px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.67px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Inference-Scaling/" style="font-size: 11.33px;">Inference Scaling</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.67px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 12px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Intuitor/" style="font-size: 10px;">Intuitor</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/K2/" style="font-size: 10px;">K2</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KL/" style="font-size: 11.33px;">KL</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.67px;">Knowledge Graph</a> <a href="/tags/L1/" style="font-size: 10px;">L1</a> <a href="/tags/LCPO/" style="font-size: 10px;">LCPO</a> <a href="/tags/LIMD/" style="font-size: 10.67px;">LIMD</a> <a href="/tags/LIMO/" style="font-size: 11.33px;">LIMO</a> <a href="/tags/LIMR/" style="font-size: 10.67px;">LIMR</a> <a href="/tags/LLM/" style="font-size: 19.33px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.67px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.67px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.33px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.33px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/MoE/" style="font-size: 10px;">MoE</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Monkey-Patch/" style="font-size: 10px;">Monkey Patch</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.33px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.67px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.33px;">NNW</a> <a href="/tags/NOVER/" style="font-size: 10px;">NOVER</a> <a href="/tags/NTP/" style="font-size: 10px;">NTP</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.67px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10.67px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 11.33px;">OMNI</a> <a href="/tags/ORZ/" style="font-size: 10px;">ORZ</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.67px;">One-Shot</a> <a href="/tags/Online-Learning/" style="font-size: 10px;">Online Learning</a> <a href="/tags/Online-DPO-R1/" style="font-size: 10.67px;">Online-DPO-R1</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenSource/" style="font-size: 10px;">OpenSource</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.67px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PPO/" style="font-size: 10px;">PPO</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.67px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Post-Training/" style="font-size: 10px;">Post-Training</a> <a href="/tags/Post-training/" style="font-size: 16px;">Post-training</a> <a href="/tags/Postgres/" style="font-size: 10.67px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 14.67px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.67px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.67px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 12.67px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.67px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.67px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/Qwen3/" style="font-size: 10px;">Qwen3</a> <a href="/tags/Qwen3-Next/" style="font-size: 10.67px;">Qwen3-Next</a> <a href="/tags/R-Drop/" style="font-size: 10.67px;">R-Drop</a> <a href="/tags/R1/" style="font-size: 12.67px;">R1</a> <a href="/tags/R1-Zero/" style="font-size: 13.33px;">R1-Zero</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RAVR/" style="font-size: 10px;">RAVR</a> <a href="/tags/REER/" style="font-size: 10px;">REER</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RENT/" style="font-size: 10px;">RENT</a> <a href="/tags/RESTRAIN/" style="font-size: 10px;">RESTRAIN</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RGR/" style="font-size: 10px;">RGR</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RL/" style="font-size: 14.67px;">RL</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RM/" style="font-size: 12px;">RM</a> <a href="/tags/RM-R1/" style="font-size: 10px;">RM-R1</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.67px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Reasoning/" style="font-size: 10px;">Reasoning</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.67px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforce/" style="font-size: 10px;">Reinforce++</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.67px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/Reward/" style="font-size: 10.67px;">Reward</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 16px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10.67px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.67px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SRT/" style="font-size: 10px;">SRT</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.67px;">SVM</a> <a href="/tags/Scaling/" style="font-size: 10px;">Scaling</a> <a href="/tags/Scaling-Law/" style="font-size: 10px;">Scaling Law</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.67px;">Search</a> <a href="/tags/Seed-Thinking/" style="font-size: 10px;">Seed-Thinking</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.33px;">Self-Attention</a> <a href="/tags/Self-Verified/" style="font-size: 10px;">Self-Verified</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Sentry/" style="font-size: 10px;">Sentry</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.67px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simple-Zoo/" style="font-size: 10px;">Simple-Zoo</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Skywork-Reward/" style="font-size: 10px;">Skywork Reward</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.67px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.67px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.33px;">Span</a> <a href="/tags/Sparse-Attention/" style="font-size: 10px;">Sparse Attention</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Spurious-Reward/" style="font-size: 10px;">Spurious Reward</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.67px;">String</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.67px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.67px;">System</a> <a href="/tags/T5/" style="font-size: 10.67px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.33px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTRL/" style="font-size: 10.67px;">TTRL</a> <a href="/tags/TTS/" style="font-size: 14px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.67px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.67px;">Thought</a> <a href="/tags/Tokenizer/" style="font-size: 10px;">Tokenizer</a> <a href="/tags/Transformer/" style="font-size: 18px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/Unsupervised-Elicitation/" style="font-size: 10px;">Unsupervised Elicitation</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VAPO/" style="font-size: 10px;">VAPO</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.67px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/VoiceAgent/" style="font-size: 10px;">VoiceAgent</a> <a href="/tags/Voila/" style="font-size: 10px;">Voila</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.33px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/World-Model/" style="font-size: 10px;">World Model</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.33px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.67px;">Ziya</a> <a href="/tags/attention-sink/" style="font-size: 10.67px;">attention sink</a> <a href="/tags/bias/" style="font-size: 10px;">bias</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/gated-attention/" style="font-size: 10px;">gated attention</a> <a href="/tags/gpt-oss/" style="font-size: 10px;">gpt-oss</a> <a href="/tags/harmony-format/" style="font-size: 10px;">harmony format</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/oat-zero/" style="font-size: 10.67px;">oat-zero</a> <a href="/tags/off-by-one-attention/" style="font-size: 10px;">off-by-one attention</a> <a href="/tags/orz/" style="font-size: 10px;">orz</a> <a href="/tags/s1/" style="font-size: 11.33px;">s1</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2025 hscspring
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
