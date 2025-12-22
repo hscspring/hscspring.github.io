@@ -90,12 +90,14 @@ date: 2019-07-13 20:00:00
 
 ### Reward
 
-- [Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
+- [自我验证：搞数据的风吹到了奖励模型 | 长琴](https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/#more)
 - [解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
+- [Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
 - [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 
 ### GRPO
 
+- [DeepSeekV3.2后训练：稳定压倒一切 | 长琴](https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/)
 - [Reinforce++与它的KL Loss选择 | Yam](https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/)
 - [GRPO“又一背锅侠”：Clip的各种拉扯 | Yam](https://yam.gift/2025/09/12/NLP/LLM-Training/2025-09-12-GRPO-Clip/)
 - [GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走 | Yam](https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/)
@@ -406,6 +408,7 @@ date: 2019-07-13 20:00:00
 
 ### Python
 
+- [两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用 | 长琴](https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/)
 - [记一次诡异的 FD 泄露：躲在暗处的猴子补丁 | Yam](https://yam.gift/2025/09/21/Python/2025-09-21-FD-Leak/)
 - [Python 编码笔记整理 | Yam](https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/)
 - [Jupyter Notebook Cheat Sheet | Yam](https://yam.gift/2021/06/07/Python/2021-06-07-JupyterCheatSheet/)
