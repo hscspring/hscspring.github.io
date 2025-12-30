@@ -92,6 +92,7 @@ date: 2019-07-13 20:00:00
 
 - [自我验证：搞数据的风吹到了奖励模型 | 长琴](https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/#more)
 - [解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
+- [Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴](https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/)
 - [Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
 - [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 
@@ -490,6 +491,7 @@ date: 2019-07-13 20:00:00
 
 ## 杂文随笔Essay
 
+- [所爱隔山海，山海亦可平 | 长琴](https://yam.gift/2025/12/22/Diary/2025-12-22-Love/)
 - [60小时备考高架擦边过经验 | Yam](https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/)
 - [我为什么做开源？ | Yam](https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/)
 - [随笔：人生，当有所为有所不为 | Yam](https://yam.gift/2017/08/31/Diary/2017-08-31-diary/)

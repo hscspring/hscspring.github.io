@@ -55,11 +55,18 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - 音乐：偏爱古典、史诗、摇滚、后摇、纯音。
 - 运动：跑步、健身、太极，各类球如足球、羽毛球、壁球、篮球、桌球、乒乓球，各类棋，各类牌。
 
+## 网站小工具
+
+- [Toolhub](https://toolhub-web.vercel.app/)：好用的工具集合网站。中文地址：https://toolhub.huggingai.cn/
+- [YoC](https://yoc-nine.vercel.app/)：GitHub年度报告。中文地址：https://yoc.huggingai.cn/
 
 ## 开源项目
 
 | 项目                                                         | 类型    | 简介                                                         | 备注     |
 | ------------------------------------------------------------ | ------- | ------------------------------------------------------------ | -------- |
+| [hscspring/pararun](https://github.com/hscspring/pararun)    | Library | 脚本并发执行库                                               | 独立开发 |
+| [hscspring/lightinfer](https://github.com/hscspring/lightinfer) | Library | 将模型Inference转为HTTP Server                               | 独立开发 |
+| [hscspring/promptlog](https://github.com/hscspring/promptlog) | Library | 提示词版本控制记录工具                                       | 独立开发 |
 | [datawhalechina/llm-deploy](https://github.com/datawhalechina/llm-deploy) | 教程    | 大模型/LLM推理和部署理论与实践                               | 负责人   |
 | [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama) | 教程    | 以LLaMA为例基于NumPy介绍LLM推理相关知识                      | 负责人   |
 | [datawhalechina/HuggingLLM](https://github.com/datawhalechina/hugging-llm) | 教程    | 蝴蝶书《ChatGPT原理与应用开发》[视频](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092) | 负责人   |
@@ -83,10 +90,10 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 
 ## 开源社群
 
-- 知乎专栏（不怎么更新的）：
+- 知乎专栏：
     - [NLP 点滴 - 知乎](https://www.zhihu.com/column/lovenlp)
     - [多模态点滴 - 知乎](https://www.zhihu.com/column/c_1857730227255504896)
-- Rust 中文社区日报编辑、专栏作者。
+- Rust 中文社区日报编辑、专栏作者（已暂停）。
     - Rust 日报：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=%E9%95%BF%E7%90%B4)
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
 - 阿里云天池《数据科学》NumPy 课程 负责人。
@@ -104,6 +111,7 @@ AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 
 - Datawhale Paper 分享者。
     - 视频：[Paper 分享](https://www.bilibili.com/medialist/detail/ml1760686270)
 - LLM 相关技术活动主讲嘉宾/评委。
+    - `20251121` 非凡 AI 百大创造先锋：[﻿⁤⁢⁤‍‬‌‬‬⁡﻿⁣﻿‬⁡⁤⁢‍﻿⁢﻿﻿‍⁢‍﻿⁡‬‍‍‬﻿⁤⁢‌‍AI Creators 100 - 飞书云文档](https://uniquecapital.feishu.cn/wiki/Hck2wlaxTifbjdk0oincaUFqnQd)
     - `20250923` 云栖大会魔搭Agent挑战赛评委：[MCP&Agent挑战赛](https://modelscope.cn/active/aihackathon-mcp-agent)
     - `20250227` 嘉程资本创业流水席第251期：[2月27日，探讨DeepSeek R1技术解析与应用趋势！架构论文/技术影响/应用场景｜嘉程创业流水席第251期](https://mp.weixin.qq.com/s/DkksIqGQKadXt8IqVD-y0g)
     - `20250225` 大工大创业沙龙第111期：DeepSeek解密
