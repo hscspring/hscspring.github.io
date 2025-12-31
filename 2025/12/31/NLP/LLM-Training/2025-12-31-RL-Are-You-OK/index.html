@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+  
+  
+  <meta name="description" content="AI | NLP | 人工智能 | 哲学 | 自然语言处理 | 机器学习">
+  
+
+  
+  
+  
+  
+  
+  <title>RL 究竟能不能突破 Base——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？ 如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。 这两种理解对应着不同的训练">
+<meta name="keywords" content="AI,LLM,NLP,RL,R1,GRPO,DELTA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RL 究竟能不能突破 Base——关于推理能力外推、稳定性与训练条件的系统分析">
+<meta property="og:url" content="https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/index.html">
+<meta property="og:site_name" content="长琴">
+<meta property="og:description" content="在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？ 如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。 这两种理解对应着不同的训练">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-interplay-1.jpg">
+<meta property="og:image" content="https://qnimg.lovevivian.cn/paper-delta-1.jpg">
+<meta property="og:updated_time" content="2025-12-31T00:34:16.090Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RL 究竟能不能突破 Base——关于推理能力外推、稳定性与训练条件的系统分析">
+<meta name="twitter:description" content="在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？ 如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。 这两种理解对应着不同的训练">
+<meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-interplay-1.jpg">
+  
+  
+    <link rel="icon" href="/css/images/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+  
+  <!-- baidu webmaster push -->
+<link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
+<body class="home blog custom-background custom-font-enabled single-author">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
+      <header id="masthead" class="site-header" role="banner">
+    <hgroup>
+      <h1 class="site-title">
+        <a href="/" title="长琴" rel="home">长琴</a>
+      </h1>
+      
+        <h2 class="site-description">
+          <a href="/" id="subtitle">知乎：长琴 | 公众号：技术与人</a>
+        </h2>
+      
+    </hgroup>
+
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+            <button class="menu-toggle">菜单</button>
+            <a class="assistive-text" href="/#content" title="跳至内容">跳至内容</a><!--TODO-->
+            <div class="menu-main-container">
+                <ul id="menu-main" class="nav-menu">
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/">Home</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/series/">Series</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/archives/">Archives</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/about/">About</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="/fun/">Fun</a></li>
+                
+                    <li class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://github.com/hscspring">Projects</a></li>
+                
+                </ul>
+            </div>
+    </nav>
+</header>
+      <div id="main" class="wrapper">
+        <div id="primary" class="site-content"><div id="content" role="main"><article id="post-NLP/LLM-Training/2025-12-31-RL-Are-You-OK" class="post-NLP/LLM-Training/2025-12-31-RL-Are-You-OK post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title article-title">
+      RL 究竟能不能突破 Base——关于推理能力外推、稳定性与训练条件的系统分析
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/" data-id="cmjtaa6mj0000dybzyulhntdb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+            <!-- Table of Contents -->
+              
+        <p>在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：<strong>我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？</strong></p>
+<p>如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。</p>
+<p>这两种理解对应着不同的训练目标，也自然导向了不同的训练策略。与之相关的研究结论之所以看似分化，往往源于训练设定与任务分布的差异：在某些工作中，RL 被观察到伴随能力跃迁；而在另一些设定下，其作用则始终未超出 Base 模型的能力边界。</p>
+<p>本文并不试图在“RL 是否能够突破 Base”这一争论中选边站队，而是系统梳理已有工作的结论与假设，试图澄清一个更关键的问题：</p>
+<p><strong>在什么条件下，RL 才可能表现为能力外推？而在什么情况下，它更合理地被理解为一种采样与抛光机制？</strong></p>
+<a id="more"></a>
+<p>TL;DR</p>
+<ul>
+<li>
+<p><strong>RL 并不等价于推理能力外推</strong>：在大多数常见设置下，它更多是在提高采样效率，强化 Base 模型中已存在的推理路径。</p>
+</li>
+<li>
+<p><strong>RL 只有在特定条件下才可能带来真实的能力提升</strong>：任务在预训练中未被充分覆盖，且训练数据恰好位于模型的能力边缘。</p>
+</li>
+<li>
+<p><strong>RL 无法在完全失败的问题族上起作用</strong>：当 Base 模型在目标问题上呈现 pass@k = 0 时，RL 缺乏有效梯度；但通过细粒度过程奖励进行预热，将模型推出“全零区域”，再配合 RL 训练，可能触发类似 <em>grokking</em> 的相变，实现能力跃迁。</p>
+</li>
+<li>
+<p><strong>RL 与中期训练的职责边界须明确</strong>：中期训练负责植入并稳定必要的先验与原语，RL 负责放大探索、推动能力边界；实践中，若目标是稳定可靠性，应侧重中期训练、辅以少量 RL，而若目标是能力外推，则应减少中期训练、加大 RL 探索力度。</p>
+</li>
+<li>
+<p><strong>RL 过程奖励是必要条件，而非锦上添花</strong>：将过程级信息纳入奖励设计，有助于缓解 reward hacking，并显著提升推理的稳定性与泛化能力。</p>
+</li>
+</ul>
+<hr>
+<h2 id="背景和问题">背景和问题</h2>
+<p>DeepSeek R1 之后，GRPO 已经成为后训练的标配，但是关于 “它到底能不能让 LLM 获得全新的推理能力”，其实还存在不少分歧，主要有两种声音。</p>
+<p>第一种乐观派观点，认为模型在预训练之外获得了显著的推理提升。比如《<a href="https://arxiv.org/abs/2505.24864" target="_blank" rel="noopener">2505 Liu et al. ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models</a>》^[4]^展示了 ProRL 能够在基座模型表现较差的任务上扩展推理边界。</p>
+<p>另一种自然是怀疑派了，他们认为RL 只是 Base 模型能力提纯器^[3]^，比如《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》^[1]^认为，尽管 RLVR 训练后的模型在较小的 k（例如 k = 1）下优于其基座模型，但当 k 较大时，基座模型在 pass@k 上可以达到相同甚至更高的性能。他们的覆盖率与困惑度分析表明，模型的推理能力最终受限于基座模型的支持范围。类似地，《<a href="https://arxiv.org/abs/2507.14843" target="_blank" rel="noopener">2507 Wu et al. The Invisible Leash: Why RLVR May or May Not Escape Its Origin</a>》也从理论上论证了 RLVR 无法突破基座模型的表示能力上限。^[2]^</p>
+<p>两派观点看起来都很有道理，那真相是什么呢？</p>
+<p>当前的 RLVR 是否真的能够类似传统强化学习通过探索发现新策略那样，将模型的推理能力扩展到超出预训练阶段所获得的水平？还是说仅仅在利用 Base 模型中已经存在的推理模式？</p>
+<p>更具体点来说，LLM 是否能够通过 RL 解决这样一类问题：即预训练模型在尝试次数足够多的情况下仍然完全失败（pass@K = 0）的问题族？——以及其可迁移性：如果这种可学习性确实存在，那么所学到的能力是否能够系统性地迁移到分布外的测试集上？^[2]^</p>
+<h2 id="我们知道什么">我们知道什么</h2>
+<p>关于 GRPO 我们已经写过多篇文章了，对于这个问题，其实认知中是有一些答案的，我们先回顾一下。</p>
+<p>首先是《<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">250302 R1相关：DPO数据选择与DPO等RL算法 | 长琴</a>》^[5]^，我们有两个观点：</p>
+<ul>
+<li>Base 模型有推理能力，RL才能将（在某项任务上）该能力激活。</li>
+<li>多样化的数据（激活路径）比算法设计更重要。</li>
+</ul>
+<p>简单来说，RL 还是在 Base 基础上展开，在<strong>特定任务</strong>上探索最佳轨迹。而多样化的数据能够更容易激活能力。</p>
+<p>第二篇是《<a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">250410 R1相关：R1-Zero的进一步理解和探索 | 长琴</a>》^[6]^，我们也有两个观点：</p>
+<ul>
+<li>RL 的核心是引导！适当难度数据逐步、渐进引导。</li>
+<li>RL关键不在于“增加知识”，而是强化“已有正确的推理行为”。即核心是引导 Base，而非学习知识。</li>
+</ul>
+<p>简单来说，RL 在专门选择的数据上引导、强化推理，而非学习。意味着当前RLVR模型生成的推理路径已在其 Base 模型中存在^[1]^。</p>
+<p>第三篇是《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">250315 DeepSeek R1后LLM新范式 | 长琴</a>》^[7]^，我们有下面几个观点：</p>
+<ul>
+<li>少量高质量数据 SFT/DPO/RL 能让 Base 模型效果提升。
+<ul>
+<li>SFT 展示出来“<strong>相对还可以的固定路径</strong>”，因为激活的数据是确定的。</li>
+<li>RL 展示出来“<strong>比较好的那条路径</strong>”，因为数据是随机 rollout 出来的。</li>
+<li>DPO 介于两者之间，展示出来“<strong>相_比较_还可以的固定路径</strong>”。</li>
+</ul>
+</li>
+<li>GRPO 之所以有效果，核心在于 Base（比如 Qwen 系列可以，LLaMA 系列就不行）。“KL 似乎并没有太多作用” 可能是因为 Base 模型比较稳定，RL 用的数据又不多，较难难“训坏”模型。</li>
+</ul>
+<p>根据我们已知的事实来看，其实还是倾向于怀疑派观点，即认为 GRPO 其实是在 “激活” Base，至于能否让模型真的学到新的推理模式，不知道。</p>
+<p>《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》^[1]^（后面简称论文1）系统研究了这个问题，给出了以下几个发现：</p>
+<ul>
+<li>当前的 RLVR 模型在推理覆盖范围上往往比其 Base 模型更窄。</li>
+<li>当前 RLVR 模型所生成的推理路径，实际上已经存在于其 Base 模型中。</li>
+<li>现有的 RLVR 算法表现相近，且整体上仍远未达到最优水平。</li>
+</ul>
+<p>这篇文章获得了 NeurIPS 2025 最佳论文^[8]^，实验相当扎实、细致。</p>
+<h2 id="事情还未结束">事情还未结束</h2>
+<p>如果事情到刚刚那里结束，那显然也不需要专门写这篇文章了。虽然大量证据和研究结果有点偏向怀疑派，但 GRPO 是确实有点香，而且乐观派也不是毫无道理，说明这中间一定还有什么不为人知的东西。莫名想起 19 世纪初期，物理学家迈克尔逊所说：“尽管去断言物理学的未来不会再有惊人的奇迹是不安全的，但是似乎事实很可能就是，大多数基本的大原则已经被牢固地建立起来了。而未来的的进展主要如何对于我们所注意到的所有现象，更加严格地应用这些原则。正是在这里，测量科学显示了它的重要性——定量工作比定性工作更令人渴望。一位著名的物理学家说，物理科学的未来真理要在小数点的第六位找到。”^[9]^</p>
+<p>进一步的研究来自《<a href="https://arxiv.org/abs/2509.21016" target="_blank" rel="noopener">2509 Sun et al. RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?</a>》^[2]^和《<a href="https://arxiv.org/abs/2512.07783" target="_blank" rel="noopener">2512 Zhang et al. On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models</a>》^[3]^，这两篇文章都意识到了两派观点分歧的根本原因：<strong>未受控制的环境</strong>。所以，首要的事情是控制环境变量。</p>
+<p>前者（下面简称论文2）构建了受控数据集 DELTA（这篇论文第一版就叫《DELTA: How Does RL Unlock and Transfer New Algorithms in LLMs?》）：一个合成的编程问题族数据集，刻意隔离不同的推理技能，用于检验模型的：</p>
+<ul>
+<li><strong>可学习性</strong>：强化学习是否能够向模型灌输一种其先前无法执行的过程；</li>
+<li><strong>泛化能力</strong>：该过程能否迁移到多样的分布外情形，而非仅仅是记忆化的模式。 具体而言，沿着与 Boden 创造力类型学（《<a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">1998 Boden Creativity and artificial intelligence - ScienceDirect</a>》^[10]^）一致的三个维度，扩展了 OMEGA 的受控测试：
+<ul>
+<li>探索性：在同一问题族内扩展已有技能（例如从六边形推广到八边形）；</li>
+<li>组合性：将先前彼此独立的技能进行组合（例如同时包含旋转障碍物和箱子的弹跳球问题）；</li>
+<li>变换性：发现非常规解法（例如保证周期性的特殊初始状态）。</li>
+</ul>
+</li>
+</ul>
+<p>与以往的编程或数学数据集不同，DELTA 引入了完全分布外的问题（名字叫 Manufactoria）以及具有丰富层级的奖励设计，避免了依赖工具的捷径和数据混杂等因素。</p>
+<p>后者（下面简称论文3）关注了不同训练阶段（预训练、中期训练和强化）在塑造语言模型推理能力方面如何相互作用。因为显然不同训练阶段是最不可控的环境：预训练时的语料是未知的；中期训练充当预训练和专门后训练目标之间的分布桥梁，它的作用也非常关键，也是不可控的；同理还有后训练。</p>
+<p>为此，构建了一个完全可控的框架，用以隔离各训练阶段的贡献。设计基于三个原则：</p>
+<ul>
+<li>完全可控的合成推理任务，具备明确的原子操作和由 DAG 定义的依赖结构；</li>
+<li>可观察、可解析的推理过程，从而实现过程层面的评估，并减少奖励或评估作弊；</li>
+<li>系统性操控预训练、中期训练及后训练的分布，以将因果效应归因于各训练阶段。</li>
+</ul>
+<p>同时设计了两个关键维度来评估推理能力：</p>
+<ul>
+<li>
+<p><strong>外推（深度）泛化</strong>：评估模型能否通过在更深层次上组合已学原语，解决比预训练阶段遇到的问题更复杂的任务；</p>
+</li>
+<li>
+<p><strong>情境（广度）泛化</strong>：评估模型能否将推理技能迁移到具有相同底层逻辑但表面情境不同的新问题上。</p>
+</li>
+</ul>
+<p>这两个维度共同捕捉了与现实语言模型相关的广泛组合推理和迁移推理能力。</p>
+<p>数据生成框架、任务设定以及过程验证评估的整体概览如下图所示，</p>
+<ul>
+<li>（a）基于依赖图和情境呈现的合成数据生成框架，该框架明确指定了推理过程；</li>
+<li>（b）用于外推和情境泛化的任务设置；</li>
+<li>（c）过程验证评估框架，用于评估推理过程和最终答案的准确性。</li>
+</ul>
+<p><img src="https://qnimg.lovevivian.cn/paper-interplay-1.jpg" alt></p>
+<h3 id="可学习性">可学习性</h3>
+<p>这是论文 2 非常核心的研究成果。首先，他们也认同怀疑派的观点，认为“RL 无法突破基座模型能力边界”的立场是可以理解的，原因很简单：GRPO 依赖不同 rollout 之间的奖励差异。但如果从未有任何 rollout 成功（如在 “pass@K = 0” 的任务中），自然就不存在可用于学习的梯度信号。如下图 (a) 所示，朴素的 GRPO 训练会陷入停滞。</p>
+<p><img src="https://qnimg.lovevivian.cn/paper-delta-1.jpg" alt></p>
+<p>不过他们的关注点在于：**如果没有任何 rollout 达到完整通过，RL 如何传播有意义的学习信号？**对此，给出了具体路径：</p>
+<ul>
+<li><strong>按测试用例通过率训练。</strong> 一种解决思路是利用“部分得分”，即不再使用全有或全无的完整通过率（只有当所有测试用例均通过时才给 reward = 1），<strong>而是采用更细粒度的“按测试用例通过率”，即位于 [0, 1] 区间的连续奖励</strong>。如上图 (b) 所示，该信号能够为学习提供初始牵引力。然而，在约 100 个训练步之后，该信号很快饱和，完整通过率仍然可以忽略不计（&lt; 0.01%）。</li>
+<li><strong>热身阶段（Warm-up）。</strong> 尽管按细粒度的测试用例通过率无法作为完整的替代损失函数，但论文发现它<strong>可以作为一个关键的热身阶段</strong>，将模型从“全零区域”中推出。如上图 (b) 所示，该信号使模型得以脱离全零区域：尽管完整通过率仍然低于 1%，模型已经开始累积正向梯度。</li>
+<li><strong>探索与顿悟（grokking）。</strong> 在完成这一热身检查点之后，再切换到使用二值“完整通过”奖励的 RL。上图 © 展示了其动态过程：在大约 450 个训练步内，模型仍处于探索阶段，完整通过率依然低于 1%。随后出现一次突然的“顿悟”时刻，模型发现了解决该问题族的关键策略。训练随之进入收敛阶段，此时 RL 会不断强化并稳定地巩固这一成功的推理路径。在收敛后，RL 训练模型在 pass@k 上相对于参考模型实现了接近 100% 的绝对提升。</li>
+</ul>
+<p>简单来说，先用细粒度奖励让模型热身，推出全零区域（哪怕很小），然后再 RLVR，这就解决了 Base 模型“pass@K=0”的问题。这种模型从失败突然跃迁到精通的现象被称为——<em>grokking</em> 式的相变。</p>
+<p>与此同时，在较容易的任务区间或较弱的实验设置下，<strong>强化学习主要体现为对已有技能的强化</strong>。最终呈现哪种结果，关键取决于奖励设计、数据配比、任务难度以及具体的训练流程。</p>
+<p>所以，这和怀疑派的观点其实并不完全矛盾，论文 1 的结论是：“<strong>当前的 RLVR 方法</strong>虽然能够提升采样效率，但几乎不会诱发超出基础模型的新颖推理能力。”如果不考虑论文 2 的调整，两者的结论其实反而是一致的，之所以看起来好像是相反的，其实是因为它们的数据集、训练设置等方面均不相同。</p>
+<p>因此，我们有必要进一步看看论文 1 对当前 RLVR 方法的评判，以便更好地理解 RL 对“可学习性”的影响。</p>
+<p>论文 1 主要是通过 Pass@k 这一评估指标进行系统性检测和分析，文章观察到，尽管经 RLVR 训练的模型在较小的 k 值（例如 k = 1）下优于其基础模型，但当 k 较大时，基础模型反而能够取得更高的 pass@k 分数。这说明什么？说明 RL 主要作用是<strong>提高采样效率</strong>，将 Base 模型已有的正确答案路径更容易地“采”出来。</p>
+<p>此外，研究也发现，随着 RLVR 训练的推进，大语言模型的<strong>推理能力边界往往会收缩</strong>。进一步的覆盖率和困惑度分析表明，RLVR 模型生成的推理路径<strong>实际上已经包含在基础模型的采样分布之中</strong>。也就是说，所观察到的平均得分提升，来源于在这些本就可解的问题上更高效的采样，而非学会了解决新的问题。</p>
+<p>而且，论文 1 还深度分析了 RL 训练过程不同配置的影响。</p>
+<ul>
+<li>RL 算法：不同的 RL 算法采样效率差距仅存在轻微变化。</li>
+<li>rollout：增加 rollout，pass@k 有所小幅提升，但最终 RL 训练模型仍然被基础模型超越。</li>
+<li>KL 正则化：引入 KL 正则化的模型在 pass@1 上与不含 KL 的 GRPO 模型表现相近，但其 pass@128 明显更低。这也是 KL “稳定限制”的表现。</li>
+<li>熵：输出熵的降低确实是推理边界收窄的一个因素，但仅靠熵的变化并不足以完全解释这一现象。</li>
+</ul>
+<p>其实，这些都是对已有结论的佐证或强化，但其中还有一点却与众不同，它就是：“蒸馏”。论文发现，蒸馏可以将更强教师模型中的新型推理模式传递给学生模型，从而<strong>突破 Base 模型的推理能力边界</strong>。这与 RLVR 是本质上的不同！这真的是知识迁移了，蒸馏过程本身有助于注入一个更优的先验。</p>
+<h3 id="加速顿悟">加速顿悟</h3>
+<p>好了，我们回到论文 2，既然有了突破推理能力的路径，一个自然的后续问题就是：如何缩短探索阶段，并使 “grokking” 更早出现。文章考察了两种策略。</p>
+<ul>
+<li>经验回放：每一轮采样记录成功的轨迹，当同一 query 再次出现时，会将最近的最多三条成功轨迹附加到该次 rollout 中。结果表明，经验回放确实有助于模型在更早阶段出现顿悟。然而，其<strong>收敛速度仍慢于基线 GRPO 算法</strong>，猜想其原因可能是被复用的轨迹属于 off-policy 数据。</li>
+<li>反馈：将失败反馈直接纳入生成过程，鼓励模型更早提升完整通过率。具体做法是用反馈信息（如失败的测试用例）替换 EOS 标记，并让模型继续生成。结果显示，即使只应用一次反馈，也能够加速顿悟时刻的出现。但与此同时，它也<strong>降低了训练稳定性</strong>，可能原因是反馈 token 的 off-policy 注入。</li>
+</ul>
+<p>看起来成功并不那么容易。</p>
+<p>接下来考察预热，一个很自然的问题是：预热效果是否可以通过跨问题家族的课程学习来实现？结果显然也没那么“显然”——有效的课程学习不仅需要控制难度，还必须在结构上与目标问题族保持一致。因而，尽管课程学习可能非常有效，其成功依赖于<strong>能否找到在推理结构上适合作为桥梁的相关问题族</strong>——而这并非总是可行。相比之下，<strong>基于稠密奖励的预热训练</strong>具有更广泛的适用性，因为它不需要额外设计或混合新的问题族。</p>
+<p>又是一瓢冷水啊——使用按测试用例通过率的预热训练并非万能方案：其有效性取决于<strong>模型的能力以及目标问题家族的难度</strong>。</p>
+<p>就知道事情没那么简单，看吧，要突破 Base 能力限制，还是需要很多条件和精心设计的，也许有时候还需要那么一点点运气和成吨的耐心。</p>
+<h3 id="泛化能力">泛化能力</h3>
+<p>论文 2 的研究发现，经 RL 训练的模型<strong>能够泛化到更困难及组合后的变体，但性能会随复杂度提升而下降，而变换性情形仍然是最具挑战性的</strong>。也就是说，探索和组合还是可能的，但太难了也不太行，至于发现新的非常规解法，那暂时就别想了。</p>
+<p>哎哟，你别说，这结论可比外面的空气还冷。这不就说明就是很难突破 Base 能力的限制么，Base 锁定真的够牢固的。不过没关系，论文 2 对泛化的研究相对比较简单，我们看看论文 3 有没有啥新结论。</p>
+<p>直接看整体结论吧！</p>
+<p>首先，关于强化学习是否真正提升 Base 模型推理能力的两种对立观点，其实并不真正冲突。RL 只有在满足两个条件时，才会带来真实的能力提升：</p>
+<ul>
+<li>
+<p>任务在预训练阶段未被<strong>充分覆盖</strong>，从而为 RL 探索留下足够空间；</p>
+</li>
+<li>
+<p>RL 数据经过校准，<strong>恰好位于模型能力边缘</strong>，既不太简单（领域内任务），也不太困难（领域外任务）。</p>
+</li>
+</ul>
+<p><strong>当任一条件不满足时，RL 通常只是强化已有能力，而非真正改进</strong>。</p>
+<p>冷水多了虽然冷但似乎更加冷静……这个结论进一步勾连起了前面的结论：</p>
+<ul>
+<li>来自论文 2 的那句：“其有效性取决于<strong>模型的能力以及目标问题家族的难度</strong>。”你俩还真的是“心有灵犀”。</li>
+<li>来自论文 1 的，为啥增加 k，RL 就没优势了，如果 Base 已经很强了，那 RL 在大 k 下还能有啥呢……</li>
+<li>我们已经知道的，RL 是引导、是激活、是采样那条比较好的路径。你改进的条件太苛刻了呀！剩下的可不就是 “打磨” 么。</li>
+</ul>
+<p>我们继续吧，第二点，RL 仅在 Base 模型中<strong>存在相关原语或基础技能时</strong>，才会激励情境泛化。如果在新情境上缺乏最低限度的预训练接触，RL 并不会引发迁移。但<strong>即使是非常稀疏的覆盖（例如 ≥1%），也能提供足够的种子，使 RL 得以稳健强化</strong>，从而实现强有力的跨情境泛化。我说你和论文 2 心有灵犀吧，看看这结论是多么一致，这不就是论文 2 提到的预热推出全零区域吗？至于能不能推出去，那可不是：“其成功依赖于<strong>能否找到在推理结构上适合作为桥梁的相关问题族</strong>——而这并非总是可行”吗……这是第一点的延续。</p>
+<p>第三，引入中期训练阶段作为预训练与后训练分布的桥梁，在固定计算预算下显著增强了领域内和领域外的性能，凸显了中期训练作为训练设计中一个尚未充分探索但极具潜力的杠杆作用。需要说明下啊，这里的中期训练就是继续训练。这不就是第二点的延续吗……预训练没有那 1% 的覆盖，中期训练补呗……</p>
+<p>第四，过程奖励能够减轻奖励作弊现象，并提升推理的可靠性。将过程验证纳入奖励函数，使强化信号与有效的推理行为保持一致，从而在复杂的组合性任务中实现可测量的准确率和泛化能力提升。等等，论文 2 咋说来着？“相比之下，<strong>基于稠密奖励的预热训练</strong>具有更广泛的适用性，因为它不需要额外设计或混合新的问题族”。</p>
+<p>至此，平静的冷水已冻结成冰……</p>
+<h3 id="一些指引">一些指引</h3>
+<p>讲真的，是不是都不想看下去了。且慢，这里还有一些仔细分析后的实践指导，相信可以给我们一些温暖。其实再不济，我们阿 Q 一下，“找到比较好的路径”在实际中也非常重要呀，线上推理时总不能用很大的 k 吧，大部分时候不还是 k=1！</p>
+<p>首先，我们已经知道，RL 只有在预训练阶段未被充分覆盖且RL 数据难度适当时才能真正实现推理能力提升。这就有了一个比较实践的指导方针：<strong>围绕模型能力边缘设计 RL 数据</strong>。文章建议将 RL 的 rollout 任务分布限制在“pass@1 失败但 pass@k 成功”的样本上，即模型能力边缘区域，从而在避免冗余优化与奖励稀疏的同时，实现真实的能力外推。同时，随着模型能力增强，先前的分布外任务将逐渐进入可解任务范围，形成一种自然的、自适应的学习过程。</p>
+<p>其次，在明确了后训练能够激励泛化的条件后，文章转向一个基础性问题：预训练的暴露程度如何影响后训练的泛化能力？也就是前面第二点，为探究这一问题，论文在固定 RL 数据方案和设置的前提下，改变预训练数据的分布，并考察其对后训练泛化的影响。结果我们也知道了，预训练需要一定限度的原语暴露才会激励情境泛化。带来的实际指导意义是：<strong>应优先确保基础领域知识、规则和技能的广泛覆盖（约 1% 的密度），而不必追求复杂数据样本</strong>。一旦这些基础原语建立，RL 就能有效地充当组合器，将它们结合起来解决复杂的分布外问题。让我们 recall 一下论文 2，这不就是“组合性”的表现吗！</p>
+<p>第三，中期训练，作为桥梁，我们已经知道它就是补预训练的不足，实践指导是：<strong>中期训练负责植入先验，RL 负责扩大探索</strong>。在中期训练中，应精心构建位于模型“能力边缘”的数据集，稳定 RL 所需的原语。实践中，应根据模型部署目标动态调整计算资源分配：</p>
+<ul>
+<li><strong>当目标是提升在相似任务上的可靠性时</strong>，应将大部分计算预算分配给中期训练，仅辅以轻量级 RL；</li>
+<li><strong>当目标是探索和泛化到更复杂的任务时</strong>，中期训练只需分配适度的计算预算（足以建立必要先验即可），而应将主要计算资源投入到更强力度的 RL 探索中。</li>
+</ul>
+<p>因为在“相似任务”上，问题不在于“不会”，而在于“不稳、易偏、易退化”，而中期训练最擅长的是“稳定能力”，RL 更擅长的是“推边界”。</p>
+<p>什么叫“相似任务上的可靠性”？就是逻辑结构、原语模型已经见过了，但表达变了、组合略复杂、稳定性不足。表现为 pass@1 不高，但 pass@k 明显 &gt; 0。此任务的重点不是能力缺失，而是分布对齐和稳定性。</p>
+<p>而在“复杂任务”上，首先的问题就是“不会”，模型面临的任务组合更深、结构更新，此时更需要 RL 搜索新组合、发现新推理路径。表现为 pass@k 也很低或为 0。此时的重点是能力边界需要被“往外推”。</p>
+<p>总的来说：</p>
+<ul>
+<li>要可靠性就多继续训练，少 RL。因为中期训练是监督训练，数据分布稳定可控，擅长对齐分布、固化原语、提升一致性。这个也适用于大多数日常任务——最好对齐，RL 少量抛光。</li>
+<li>要外推探索则少继续训练，多 RL。因为 RL 特点（相较而言）是非稳定、强放大效应，擅长探索新组合、提示低概率路径。不过可能产生偏置，破坏已有稳定能力。这个适合比较难的任务——RL 先保证会做。</li>
+</ul>
+<p>最后，关于“过程奖励减轻 reward hack” 这点应该已经是共识了，同时还能提升准确率和泛化性。既然如此，实践建议自然是：<strong>将过程级信息纳入结果奖励中</strong>。其实简单来说就是不要直到最后才给模型反馈，或者不要只给最终结果一个反馈。</p>
+<h2 id="应该差不多了">应该差不多了</h2>
+<p>我想，到这里事情应该说的差不多了。让我们先丢出结论：</p>
+<p>“RL 不是不行，而是需要根据任务进行相应设计，其重点不只是训练什么，更是如何训练^[2]^。只有姿势对了，RL 才会给我们相应回报，否则确实是在抛光”。</p>
+<p>来，我们再来梳理一下整个路径。</p>
+<p>首先，在早期，我们知道 RL 就是对 Base 的激活和引导，不过前提是 Base 得强（还记得 LLaMA 就无法 aha，大家都用 Qwen）。而且，当时还发现，课程学习好像能进一步提升效果。但总体而言，当时还停留在“是什么”和“怎么做”的阶段，并不很清楚“为什么”。</p>
+<p>然后，怀疑派的论文 1 利用 pass@k 系统研究确认了我们的早起认知，明确告诉我们：RL 就是在抛光，数据蒸馏才能真正突破 Base 边界。也难怪大家都在蒸馏……数据蒸馏其实等价于先给模型注入新的先验呀。与此同时，也有乐观派认为 RL 能提升推理能力。局势显然还没有彻底明朗。</p>
+<p>很自然，论文 2 和论文 3 就想彻底弄清楚到底咋回事。他们都意识到，之所以会有看起来相互矛盾的结论，是因为变量控制没做好——实验的配置都不一样，结论可不是五花八门么，这跟瞎子摸象有啥区别。</p>
+<p>于是，论文 2 搞了个受控数据集 DELTA，研究 RL 的可学习性和泛化能力。当然，主要是可学习性。他们发现，先用细粒度奖励让模型热身，推出全零区域，然后再 RLVR，模型就会从失败突然跃迁到精通，这一现象被称为——<em>grokking</em> 式相变。这说明 RL 是可以将 Base 模型能力外推的，不过这种有效性取决于模型的能力以及目标问题家族的难度。要想做出效果，还是需要一些精心设计的，不是说你照猫画虎，就真的成虎了。</p>
+<p>论文 2 还对泛化能力也做了研究，其结论是：RL 能够泛化到同一问题族更困难及组合后的变体，但性能会随复杂度提升而下降，但变换性情形（发现非常规解法）仍然是极其有挑战性的。</p>
+<p>论文 2 对泛化的研究结论清晰，但篇幅不大，论文 3 在论文 2 之后发表，他们从外推（深度）和情境（广度）两个方面全面系统地研究了 RL 的泛化能力，把重点放在不同的训练阶段的影响。为此，专门构建了一个完全可控的框架，用以隔离各训练阶段的贡献。</p>
+<p>其结论是清晰和有说服力的，RL 只有在同时满足：“预训练阶段未被充分覆盖（给 RL 留有一定进步空间），且数据恰好位于模型能力边缘”时才能真正提升 Base 模型推理能力。也就是说无论是怀疑派还是乐观派其实你们都对，之所以结果看起来不同，是因为你们的配置条件不一样。</p>
+<p>再进一步来说，要想 RL 提升能力，Base 必须有相应的原语，数量不重要，哪怕一点点都行，但不能没有。所以，中期训练作为预训练与后训练分布的桥梁，有时候就显得非常重要，尤其是预训练没有覆盖到任务原语的情况下。</p>
+<p>论文 3 的这些泛化观点在论文 2 中都有影子，另外，他们还都过程奖励的重要性，只不过论文 2 用在热身阶段，而论文 3 则发现它能提升效果和泛化性。不过论文 2 在 Discussion 和 Future Study 环节着重强调了过程奖励，并将其衍生到更广泛的领域：“这一原则同样可以扩展到数学和科学领域，例如基于评分量表的评估、逐步检查器、定理证明器验证，以及基于仿真或约束的评估器。”</p>
+<p>搞清楚状况，策略就变得简单。</p>
+<ul>
+<li>首先是模型需要有相应的先验，如果没有那就数据蒸馏或者继续（中期）训练。</li>
+<li>然后是训练数据，必须围绕模型能力边缘设计，不能太简单，也不能太复杂。而且，数据设计是个动态过程，随着训练的推进，模型能力增强，分布外任务将逐渐进入可解任务范围，此时数据也应该做出对应调整。</li>
+<li>最后是奖励设计，把过程信息加进去吧。</li>
+</ul>
+<p>诚如论文 2 所言，“如何训练”与“训练什么”同样重要。这些策略都指向的是“如何训练”呀。其实对于上述策略，论文 2 在 Discussion 和 Future Study 环节也有类似的描述，原文如下：</p>
+<ul>
+<li>首先，在一个大型混合语料中，并非所有高难问题都存在自然的、课程式的渐进路径；简单地加入松散相关的问题族，并不能可靠地平滑学习过程，甚至可能毫无帮助。</li>
+<li>其次，一些具体的训练选择——例如基于稠密奖励的分阶段预热、经验回放，以及验证/反馈闭环——在提升困难层级问题的性能方面展现出巨大潜力。更宏观地看，能力强化（对既有先验的精炼）与能力发现（获取新策略）两种情形都可能发生，而最终落入哪一种机制，取决于具体设置。</li>
+<li>合适的 RL 基础设施、奖励设计、数据混合方式以及任务难度水平至关重要；这些因素共同作用，能够让我们从强化学习中挖掘出远超以往的性能，并得出在其他配置下看似难以企及的结论。</li>
+</ul>
+<p>而几个月后，论文 3 基本明确了这些问题。我是真的觉得你们有必要坐下来一起好好聊聊；）</p>
+<p>好了，梳理的差不多了，相信在这个过程中，我们都能明显感受到 RL 在 LLM 方向上一路从粗糙到日渐细腻，这种变化、这种研究的不断精细和深入，真的很让人感动啊。也特别感谢三篇关键论文做出的精彩贡献！</p>
+<h2 id="附录">附录</h2>
+<p>我们把论文 2 的一个“呼吁”放在附录部分：呼吁关注“困难子集”。</p>
+<p>真是因为知道了 RL 的这种调性，自然，在数学和编程领域的基准评测中常常报告的“平均结果”就有一些问题，因为它很容易掩盖掉少量真正困难的 case。而这些 case 呈现出截然不同的学习动力学特征——单个问题往往需要数百甚至上千个 step 才能出现类似 <em>grokking</em> 的相变。但在规模庞大且高度异质的题池中，任何一个困难样本被反复采样并成功解决的概率都会被稀释，从而削弱学习信号。</p>
+<p>因此，呼吁是：“在未来的评测中<strong>显式地隔离并持续跟踪这一子集</strong>，避免真正新颖推理能力的进展被整体指标所掩盖。”</p>
+<p>这是一篇论文呀，朋友们。</p>
+<h2 id="参考文献">参考文献</h2>
+<p><code>[1]</code> 2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?: <em><a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">https://arxiv.org/abs/2504.13837</a></em></p>
+<p><code>[2]</code> 2509 Sun et al. RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?: <em><a href="https://arxiv.org/abs/2509.21016" target="_blank" rel="noopener">https://arxiv.org/abs/2509.21016</a></em></p>
+<p><code>[3]</code> 2512 Zhang et al. On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models: <em><a href="https://arxiv.org/abs/2512.07783" target="_blank" rel="noopener">https://arxiv.org/abs/2512.07783</a></em></p>
+<p><code>[4]</code> 2505 Liu et al. ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models: <em><a href="https://arxiv.org/abs/2505.24864" target="_blank" rel="noopener">https://arxiv.org/abs/2505.24864</a></em></p>
+<p><code>[5]</code> 250302 R1相关：DPO数据选择与DPO等RL算法 | 长琴: <em><a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/</a></em></p>
+<p>[6] 250410 R1相关：R1-Zero的进一步理解和探索 | 长琴: <em><a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/</a></em></p>
+<p>[7] 250315 DeepSeek R1后LLM新范式 | 长琴: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em></p>
+<p>[8] 2251126 Announcing the NeurIPS 2025 Best Paper Awards – NeurIPS Blog: <em><a href="https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/" target="_blank" rel="noopener">https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/</a></em></p>
+<p>[9] 210709 磷酸君Phosphates 回答“物理学的大厦已经落成，上面只有两朵乌云”是什么意思: <em><a href="https://www.zhihu.com/question/319790208/answer/1915331392" target="_blank" rel="noopener">https://www.zhihu.com/question/319790208/answer/1915331392</a></em></p>
+<p>[10] 1998 Boden Creativity and artificial intelligence - ScienceDirect: <em><a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">https://www.sciencedirect.com/science/article/pii/S0004370298000551</a></em></p>
+
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/">
+    <time datetime="2025-12-31T01:00:00.000Z" class="entry-date">
+        2025-12-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DELTA/">DELTA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GRPO/">GRPO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/R1/">R1</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RL/">RL</a></li></ul>
+
+    </footer>
+</article>
+
+
+    
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+    
+        <span class="nav-next"><a href="/2025/12/22/Diary/2025-12-22-Love/" rel="next">所爱隔山海，山海亦可平 <span class="meta-nav">→</span></a></span>
+    
+</nav><!-- .nav-single -->
+
+
+
+
+
+
+
+<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a><a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a><a href="#" class="bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"24"},"share":{},"image":{"viewList":["fbook","twi","linkedin","qzone","tsina","douban","weixin","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?'];</script>
+
+<section id="comment">
+  <!-- 评论代码 -->
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <!-- <script src="/js/gitalk.min.js"></script> -->
+  <script>
+  const gitalk = new Gitalk({
+    clientID: '0eb512031083d6e7edfb',
+    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
+    repo: 'hscspring.github.io',
+    owner: 'hscspring',
+    admin: ['hscspring'],
+    id: md5(location.pathname),
+    distractionFreeMode: false
+  })
+  gitalk.render('gitalk-container')
+  </script>
+  <!-- 评论代码已完成 -->
+</section>
+
+</div></div>
+        <div id="secondary" class="widget-area" role="complementary">
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget-content">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Coding/">Coding</a><span class="category-list-count">75</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Feeling/">Feeling</a><span class="category-list-count">159</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Thinking/">Thinking</a><span class="category-list-count">41</span></li></ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Music</h3>
+    <div class="widget-content">
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=541131&auto=0&height=66"></iframe>
+      <!-- 评论代码 -->
+      <!-- <audio src="http://qnimg.lovevivian.cn/miss.mp3" controls="controls"
+             style="width:100%">
+        您的浏览器不支持 audio 标签。
+      </audio> -->
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget-content">
+      <ul>
+        
+          <li>
+            <a href="/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/">RL 究竟能不能突破 Base——关于推理能力外推、稳定性与训练条件的系统分析</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/22/Diary/2025-12-22-Love/">所爱隔山海，山海亦可平</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/">Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？</a>
+          </li>
+        
+          <li>
+            <a href="/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/">DeepSeekV3.2后训练：稳定压倒一切</a>
+          </li>
+        
+          <li>
+            <a href="/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/">DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </aside>
+
+  
+    
+  <aside class="widget">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget-content tagcloud">
+      <a href="/tags/AE/" style="font-size: 10px;">AE</a> <a href="/tags/AGI/" style="font-size: 10px;">AGI</a> <a href="/tags/AI/" style="font-size: 20px;">AI</a> <a href="/tags/AIGC/" style="font-size: 10.67px;">AIGC</a> <a href="/tags/ALBERT/" style="font-size: 10px;">ALBERT</a> <a href="/tags/AR/" style="font-size: 10px;">AR</a> <a href="/tags/AUC/" style="font-size: 10px;">AUC</a> <a href="/tags/Accuracy/" style="font-size: 10px;">Accuracy</a> <a href="/tags/Activation/" style="font-size: 10px;">Activation</a> <a href="/tags/Activation-Steering/" style="font-size: 10px;">Activation Steering</a> <a href="/tags/Agent/" style="font-size: 10px;">Agent</a> <a href="/tags/Aha/" style="font-size: 10px;">Aha</a> <a href="/tags/Algorithm/" style="font-size: 12.67px;">Algorithm</a> <a href="/tags/Array/" style="font-size: 10px;">Array</a> <a href="/tags/Arrow/" style="font-size: 10px;">Arrow</a> <a href="/tags/Attention/" style="font-size: 12px;">Attention</a> <a href="/tags/Automatic-Speech-Processing/" style="font-size: 10px;">Automatic Speech Processing</a> <a href="/tags/Automation/" style="font-size: 10px;">Automation</a> <a href="/tags/BERT/" style="font-size: 17.33px;">BERT</a> <a href="/tags/BIO/" style="font-size: 10.67px;">BIO</a> <a href="/tags/BIOHD/" style="font-size: 10.67px;">BIOHD</a> <a href="/tags/BM25/" style="font-size: 10px;">BM25</a> <a href="/tags/BPE/" style="font-size: 10px;">BPE</a> <a href="/tags/BabyGrow/" style="font-size: 10px;">BabyGrow</a> <a href="/tags/Backtracking/" style="font-size: 10px;">Backtracking</a> <a href="/tags/Backward/" style="font-size: 10px;">Backward</a> <a href="/tags/Bahdanau-Attention/" style="font-size: 10px;">Bahdanau Attention</a> <a href="/tags/Bart/" style="font-size: 10px;">Bart</a> <a href="/tags/Bayes/" style="font-size: 10px;">Bayes</a> <a href="/tags/Beam-Search/" style="font-size: 10px;">Beam Search</a> <a href="/tags/Bert-Flow/" style="font-size: 10px;">Bert-Flow</a> <a href="/tags/Bi-LSTM/" style="font-size: 10px;">Bi-LSTM</a> <a href="/tags/Biasing/" style="font-size: 10px;">Biasing</a> <a href="/tags/BigCodec/" style="font-size: 10px;">BigCodec</a> <a href="/tags/Binary-Search/" style="font-size: 11.33px;">Binary Search</a> <a href="/tags/Blending/" style="font-size: 10px;">Blending</a> <a href="/tags/Brain/" style="font-size: 10px;">Brain</a> <a href="/tags/Brain-Decoding/" style="font-size: 10px;">Brain Decoding</a> <a href="/tags/Bridge/" style="font-size: 10px;">Bridge</a> <a href="/tags/Business/" style="font-size: 12px;">Business</a> <a href="/tags/C/" style="font-size: 10.67px;">C</a> <a href="/tags/C4/" style="font-size: 10px;">C4</a> <a href="/tags/CCG/" style="font-size: 10.67px;">CCG</a> <a href="/tags/CE-BERT/" style="font-size: 10px;">CE BERT</a> <a href="/tags/CFG/" style="font-size: 10px;">CFG</a> <a href="/tags/CISPO/" style="font-size: 10px;">CISPO</a> <a href="/tags/CKY/" style="font-size: 10px;">CKY</a> <a href="/tags/CNN/" style="font-size: 10px;">CNN</a> <a href="/tags/CRF/" style="font-size: 10px;">CRF</a> <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/CYK/" style="font-size: 10px;">CYK</a> <a href="/tags/Calculus/" style="font-size: 10px;">Calculus</a> <a href="/tags/Camera/" style="font-size: 10px;">Camera</a> <a href="/tags/Cascades/" style="font-size: 10px;">Cascades</a> <a href="/tags/Catalan/" style="font-size: 10px;">Catalan</a> <a href="/tags/ChatBot/" style="font-size: 10px;">ChatBot</a> <a href="/tags/ChatGPT/" style="font-size: 15.33px;">ChatGPT</a> <a href="/tags/Chi2/" style="font-size: 10px;">Chi2</a> <a href="/tags/Chunking/" style="font-size: 10px;">Chunking</a> <a href="/tags/Class-Imbalance-Loss/" style="font-size: 10px;">Class Imbalance Loss</a> <a href="/tags/Classification/" style="font-size: 10.67px;">Classification</a> <a href="/tags/Clip/" style="font-size: 10px;">Clip</a> <a href="/tags/CoT/" style="font-size: 10px;">CoT</a> <a href="/tags/Codec/" style="font-size: 12px;">Codec</a> <a href="/tags/Cognition/" style="font-size: 10.67px;">Cognition</a> <a href="/tags/Collaborative-Filtering/" style="font-size: 10px;">Collaborative Filtering</a> <a href="/tags/Collins-Parser/" style="font-size: 10px;">Collins Parser</a> <a href="/tags/Computational-Linguistics/" style="font-size: 10px;">Computational Linguistics</a> <a href="/tags/Computer/" style="font-size: 10px;">Computer</a> <a href="/tags/Computer-Science/" style="font-size: 12px;">Computer Science</a> <a href="/tags/Confusing-Labels/" style="font-size: 10px;">Confusing Labels</a> <a href="/tags/Context-Engineering/" style="font-size: 10px;">Context Engineering</a> <a href="/tags/Context-Free-Grammars/" style="font-size: 10px;">Context-Free Grammars</a> <a href="/tags/Continual-Pre-training/" style="font-size: 14px;">Continual Pre-training</a> <a href="/tags/Continual-Pretraining/" style="font-size: 10.67px;">Continual Pretraining</a> <a href="/tags/Contrastive-Learning/" style="font-size: 10px;">Contrastive-Learning</a> <a href="/tags/Coordinate-Ascent/" style="font-size: 10px;">Coordinate Ascent</a> <a href="/tags/Cosine/" style="font-size: 10.67px;">Cosine</a> <a href="/tags/Cosine-Similarity/" style="font-size: 10px;">Cosine Similarity</a> <a href="/tags/Cross-Entropy/" style="font-size: 10px;">Cross Entropy</a> <a href="/tags/Cross-brackets/" style="font-size: 10px;">Cross-brackets</a> <a href="/tags/Cross-view/" style="font-size: 10px;">Cross-view</a> <a href="/tags/Ctrl/" style="font-size: 10px;">Ctrl</a> <a href="/tags/Culture/" style="font-size: 10px;">Culture</a> <a href="/tags/DA/" style="font-size: 10px;">DA</a> <a href="/tags/DAC/" style="font-size: 10px;">DAC</a> <a href="/tags/DAPO/" style="font-size: 14px;">DAPO</a> <a href="/tags/DB/" style="font-size: 10.67px;">DB</a> <a href="/tags/DCPO/" style="font-size: 10px;">DCPO</a> <a href="/tags/DELTA/" style="font-size: 10px;">DELTA</a> <a href="/tags/DNN/" style="font-size: 10px;">DNN</a> <a href="/tags/DP/" style="font-size: 10px;">DP</a> <a href="/tags/DPO/" style="font-size: 10px;">DPO</a> <a href="/tags/Darling/" style="font-size: 10px;">Darling</a> <a href="/tags/Data-Augmentation/" style="font-size: 10px;">Data Augmentation</a> <a href="/tags/Data-Clearing/" style="font-size: 10px;">Data Clearing</a> <a href="/tags/Data-Enhancement/" style="font-size: 10px;">Data Enhancement</a> <a href="/tags/Data-Preprocess/" style="font-size: 10px;">Data Preprocess</a> <a href="/tags/Data-Science/" style="font-size: 14px;">Data Science</a> <a href="/tags/Data-Structure/" style="font-size: 15.33px;">Data Structure</a> <a href="/tags/DataManagement/" style="font-size: 10.67px;">DataManagement</a> <a href="/tags/Database/" style="font-size: 10px;">Database</a> <a href="/tags/DeBERTa/" style="font-size: 10px;">DeBERTa</a> <a href="/tags/Debiasing/" style="font-size: 10px;">Debiasing</a> <a href="/tags/Decoder/" style="font-size: 10px;">Decoder</a> <a href="/tags/Decoding/" style="font-size: 10.67px;">Decoding</a> <a href="/tags/Deep/" style="font-size: 10px;">Deep</a> <a href="/tags/DeepGen/" style="font-size: 10px;">DeepGen</a> <a href="/tags/DeepGraph/" style="font-size: 10px;">DeepGraph</a> <a href="/tags/DeepLearning/" style="font-size: 12px;">DeepLearning</a> <a href="/tags/DeepScaleR/" style="font-size: 10.67px;">DeepScaleR</a> <a href="/tags/DeepSeek/" style="font-size: 11.33px;">DeepSeek</a> <a href="/tags/DeepSeek-GRM/" style="font-size: 10px;">DeepSeek-GRM</a> <a href="/tags/DeepSeek-V3-2/" style="font-size: 10px;">DeepSeek-V3.2</a> <a href="/tags/DeepSeekMath-V2/" style="font-size: 10px;">DeepSeekMath-V2</a> <a href="/tags/DeltaNet/" style="font-size: 10px;">DeltaNet</a> <a href="/tags/Dependence/" style="font-size: 10px;">Dependence</a> <a href="/tags/Diary/" style="font-size: 16px;">Diary</a> <a href="/tags/Disentangled-Attention/" style="font-size: 10px;">Disentangled Attention</a> <a href="/tags/DistilBERT/" style="font-size: 10px;">DistilBERT</a> <a href="/tags/Distillation/" style="font-size: 10.67px;">Distillation</a> <a href="/tags/Django/" style="font-size: 10px;">Django</a> <a href="/tags/Docker/" style="font-size: 10px;">Docker</a> <a href="/tags/Docker-Compose/" style="font-size: 10px;">Docker-Compose</a> <a href="/tags/Dockerfile/" style="font-size: 10px;">Dockerfile</a> <a href="/tags/Dr-GRPO/" style="font-size: 10px;">Dr GRPO</a> <a href="/tags/DrDAPO/" style="font-size: 10px;">DrDAPO</a> <a href="/tags/DrGRPO/" style="font-size: 10px;">DrGRPO</a> <a href="/tags/Dream/" style="font-size: 10.67px;">Dream</a> <a href="/tags/Dropout/" style="font-size: 10.67px;">Dropout</a> <a href="/tags/Dynamic-Mask/" style="font-size: 10px;">Dynamic-Mask</a> <a href="/tags/EDA/" style="font-size: 10px;">EDA</a> <a href="/tags/EM/" style="font-size: 10px;">EM</a> <a href="/tags/EMD/" style="font-size: 10px;">EMD</a> <a href="/tags/EMPO/" style="font-size: 10px;">EMPO</a> <a href="/tags/ERNIE/" style="font-size: 10px;">ERNIE</a> <a href="/tags/ETTRL/" style="font-size: 10px;">ETTRL</a> <a href="/tags/EVOL-RL/" style="font-size: 10px;">EVOL-RL</a> <a href="/tags/Economics/" style="font-size: 10px;">Economics</a> <a href="/tags/Edit-Distance/" style="font-size: 10px;">Edit Distance</a> <a href="/tags/Efficient-DeepLearning/" style="font-size: 10px;">Efficient-DeepLearning</a> <a href="/tags/Elasticsearch/" style="font-size: 10px;">Elasticsearch</a> <a href="/tags/Electra/" style="font-size: 10px;">Electra</a> <a href="/tags/Elixir/" style="font-size: 10.67px;">Elixir</a> <a href="/tags/Ellipsis/" style="font-size: 10px;">Ellipsis</a> <a href="/tags/Embedding/" style="font-size: 11.33px;">Embedding</a> <a href="/tags/Embeddings/" style="font-size: 10.67px;">Embeddings</a> <a href="/tags/Embodied-AI/" style="font-size: 10px;">Embodied AI</a> <a href="/tags/Encoder/" style="font-size: 10px;">Encoder</a> <a href="/tags/Entropy/" style="font-size: 11.33px;">Entropy</a> <a href="/tags/Evaluation/" style="font-size: 10.67px;">Evaluation</a> <a href="/tags/Eventlet/" style="font-size: 10px;">Eventlet</a> <a href="/tags/ExT5/" style="font-size: 10px;">ExT5</a> <a href="/tags/Exam/" style="font-size: 10px;">Exam</a> <a href="/tags/F1/" style="font-size: 10px;">F1</a> <a href="/tags/FD-Leak/" style="font-size: 10px;">FD Leak</a> <a href="/tags/FDW/" style="font-size: 10px;">FDW</a> <a href="/tags/FLAN/" style="font-size: 10px;">FLAN</a> <a href="/tags/FSM/" style="font-size: 10px;">FSM</a> <a href="/tags/Faith/" style="font-size: 10px;">Faith</a> <a href="/tags/FastCuRL/" style="font-size: 10px;">FastCuRL</a> <a href="/tags/Feature-Engineering/" style="font-size: 10px;">Feature Engineering</a> <a href="/tags/Feature-based/" style="font-size: 10px;">Feature-based</a> <a href="/tags/Few-Shot/" style="font-size: 11.33px;">Few-Shot</a> <a href="/tags/Few-shot-Prompting/" style="font-size: 10px;">Few-shot Prompting</a> <a href="/tags/Fine-tuning/" style="font-size: 10px;">Fine-tuning</a> <a href="/tags/Formal-Grammars/" style="font-size: 11.33px;">Formal Grammars</a> <a href="/tags/Forward/" style="font-size: 10px;">Forward</a> <a href="/tags/Full-Text-Search/" style="font-size: 10px;">Full-Text-Search</a> <a href="/tags/Function-Syntax/" style="font-size: 10px;">Function Syntax</a> <a href="/tags/Funk-MF/" style="font-size: 10px;">Funk MF</a> <a href="/tags/Funnel-Transformer/" style="font-size: 10px;">Funnel Transformer</a> <a href="/tags/GAE/" style="font-size: 10px;">GAE</a> <a href="/tags/GBTD/" style="font-size: 10px;">GBTD</a> <a href="/tags/GELU/" style="font-size: 10px;">GELU</a> <a href="/tags/GLU/" style="font-size: 10px;">GLU</a> <a href="/tags/GMPO/" style="font-size: 10.67px;">GMPO</a> <a href="/tags/GP/" style="font-size: 10px;">GP</a> <a href="/tags/GPT-1/" style="font-size: 10px;">GPT-1</a> <a href="/tags/GPT-2/" style="font-size: 10.67px;">GPT-2</a> <a href="/tags/GPT-3/" style="font-size: 10px;">GPT-3</a> <a href="/tags/GPT3/" style="font-size: 10px;">GPT3</a> <a href="/tags/GPU/" style="font-size: 10px;">GPU</a> <a href="/tags/GRM/" style="font-size: 10px;">GRM</a> <a href="/tags/GRPO/" style="font-size: 17.33px;">GRPO</a> <a href="/tags/GRU/" style="font-size: 10px;">GRU</a> <a href="/tags/GSG/" style="font-size: 10px;">GSG</a> <a href="/tags/GSPO/" style="font-size: 10px;">GSPO</a> <a href="/tags/GTPO/" style="font-size: 10px;">GTPO</a> <a href="/tags/GTPO-S/" style="font-size: 10px;">GTPO-S</a> <a href="/tags/Gan/" style="font-size: 10px;">Gan</a> <a href="/tags/Garden-path/" style="font-size: 10px;">Garden-path</a> <a href="/tags/Gated-DeltaNet/" style="font-size: 10px;">Gated DeltaNet</a> <a href="/tags/GiGPO/" style="font-size: 10px;">GiGPO</a> <a href="/tags/Git/" style="font-size: 10px;">Git</a> <a href="/tags/Global-Pointer/" style="font-size: 10px;">Global Pointer</a> <a href="/tags/Glow/" style="font-size: 10px;">Glow</a> <a href="/tags/Graceful-Shutdown/" style="font-size: 10px;">Graceful Shutdown</a> <a href="/tags/Gradient-Descent/" style="font-size: 10px;">Gradient Descent</a> <a href="/tags/Graph/" style="font-size: 10.67px;">Graph</a> <a href="/tags/GraphQL/" style="font-size: 10.67px;">GraphQL</a> <a href="/tags/Grid-Grammar/" style="font-size: 10px;">Grid Grammar</a> <a href="/tags/Growth/" style="font-size: 13.33px;">Growth</a> <a href="/tags/H2O-Danube/" style="font-size: 10px;">H2O-Danube</a> <a href="/tags/HMM/" style="font-size: 10.67px;">HMM</a> <a href="/tags/Hard-SVM/" style="font-size: 10px;">Hard-SVM</a> <a href="/tags/Hinge-Loss/" style="font-size: 10px;">Hinge Loss</a> <a href="/tags/Hope/" style="font-size: 10px;">Hope</a> <a href="/tags/Host-only/" style="font-size: 10px;">Host-only</a> <a href="/tags/HuggingLLM/" style="font-size: 10px;">HuggingLLM</a> <a href="/tags/Human-in-Loop/" style="font-size: 10px;">Human-in-Loop</a> <a href="/tags/Human-in-the-Loop/" style="font-size: 10px;">Human-in-the-Loop</a> <a href="/tags/IDE/" style="font-size: 10px;">IDE</a> <a href="/tags/IE/" style="font-size: 10px;">IE</a> <a href="/tags/IQR/" style="font-size: 10px;">IQR</a> <a href="/tags/Imbalance-Data/" style="font-size: 10px;">Imbalance Data</a> <a href="/tags/Impossible-Triangle/" style="font-size: 10px;">Impossible-Triangle</a> <a href="/tags/In-Context-Learning/" style="font-size: 10.67px;">In-Context Learning</a> <a href="/tags/Industry/" style="font-size: 10px;">Industry</a> <a href="/tags/Inference-Scaling/" style="font-size: 11.33px;">Inference Scaling</a> <a href="/tags/Information-Extraction/" style="font-size: 10px;">Information Extraction</a> <a href="/tags/Information-Theory/" style="font-size: 10px;">Information Theory</a> <a href="/tags/Instruct/" style="font-size: 10px;">Instruct</a> <a href="/tags/InstructGPT/" style="font-size: 10.67px;">InstructGPT</a> <a href="/tags/Instruction-Following/" style="font-size: 12px;">Instruction Following</a> <a href="/tags/Instruction-Inference/" style="font-size: 10px;">Instruction Inference</a> <a href="/tags/Intuitor/" style="font-size: 10px;">Intuitor</a> <a href="/tags/Isolation-Forest/" style="font-size: 10px;">Isolation Forest</a> <a href="/tags/ItemCF/" style="font-size: 10px;">ItemCF</a> <a href="/tags/Jaccard/" style="font-size: 10px;">Jaccard</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Jax/" style="font-size: 10px;">Jax</a> <a href="/tags/Job/" style="font-size: 10px;">Job</a> <a href="/tags/Jupyter/" style="font-size: 10px;">Jupyter</a> <a href="/tags/K2/" style="font-size: 10px;">K2</a> <a href="/tags/KKT/" style="font-size: 10px;">KKT</a> <a href="/tags/KL/" style="font-size: 11.33px;">KL</a> <a href="/tags/KS/" style="font-size: 10px;">KS</a> <a href="/tags/Kernel/" style="font-size: 10px;">Kernel</a> <a href="/tags/Kernel-Function/" style="font-size: 10px;">Kernel Function</a> <a href="/tags/Kernel-Method/" style="font-size: 10px;">Kernel Method</a> <a href="/tags/Keyword/" style="font-size: 10px;">Keyword</a> <a href="/tags/Knowledge-Graph/" style="font-size: 10.67px;">Knowledge Graph</a> <a href="/tags/L1/" style="font-size: 10px;">L1</a> <a href="/tags/LCPO/" style="font-size: 10px;">LCPO</a> <a href="/tags/LIMD/" style="font-size: 10.67px;">LIMD</a> <a href="/tags/LIMO/" style="font-size: 11.33px;">LIMO</a> <a href="/tags/LIMR/" style="font-size: 10.67px;">LIMR</a> <a href="/tags/LLM/" style="font-size: 19.33px;">LLM</a> <a href="/tags/LLM-Colosseum/" style="font-size: 10px;">LLM-Colosseum</a> <a href="/tags/LM/" style="font-size: 12px;">LM</a> <a href="/tags/LOF/" style="font-size: 10px;">LOF</a> <a href="/tags/LR/" style="font-size: 10px;">LR</a> <a href="/tags/LSTM/" style="font-size: 10px;">LSTM</a> <a href="/tags/Labeling/" style="font-size: 10px;">Labeling</a> <a href="/tags/Language-Model/" style="font-size: 10.67px;">Language Model</a> <a href="/tags/Lexical-Semantics/" style="font-size: 10px;">Lexical Semantics</a> <a href="/tags/Lexicalism/" style="font-size: 10px;">Lexicalism</a> <a href="/tags/Lexicalized-CFG/" style="font-size: 10px;">Lexicalized CFG</a> <a href="/tags/Lexicalized-Grammars/" style="font-size: 10px;">Lexicalized Grammars</a> <a href="/tags/Life/" style="font-size: 12.67px;">Life</a> <a href="/tags/Linear-Algebra/" style="font-size: 10px;">Linear Algebra</a> <a href="/tags/Linear-Sturcture/" style="font-size: 10px;">Linear Sturcture</a> <a href="/tags/Linked-List/" style="font-size: 10px;">Linked List</a> <a href="/tags/LinkedList/" style="font-size: 10.67px;">LinkedList</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/Llama/" style="font-size: 10px;">Llama</a> <a href="/tags/Logistic-Regression/" style="font-size: 10px;">Logistic Regression</a> <a href="/tags/Lucene/" style="font-size: 10px;">Lucene</a> <a href="/tags/Luong-Attention/" style="font-size: 10px;">Luong Attention</a> <a href="/tags/MEMM/" style="font-size: 10px;">MEMM</a> <a href="/tags/MF/" style="font-size: 10px;">MF</a> <a href="/tags/MIO/" style="font-size: 10px;">MIO</a> <a href="/tags/MM-Fusion/" style="font-size: 10px;">MM Fusion</a> <a href="/tags/MTL/" style="font-size: 11.33px;">MTL</a> <a href="/tags/Machine/" style="font-size: 10px;">Machine</a> <a href="/tags/Machine-Learning/" style="font-size: 14px;">Machine Learning</a> <a href="/tags/Machine-Translation/" style="font-size: 10px;">Machine Translation</a> <a href="/tags/Manacher/" style="font-size: 10px;">Manacher</a> <a href="/tags/Managemnt/" style="font-size: 11.33px;">Managemnt</a> <a href="/tags/MarkBERT/" style="font-size: 10px;">MarkBERT</a> <a href="/tags/Markov/" style="font-size: 10px;">Markov</a> <a href="/tags/Materialized-Views/" style="font-size: 10px;">Materialized Views</a> <a href="/tags/Math/" style="font-size: 10.67px;">Math</a> <a href="/tags/Matplotlib/" style="font-size: 10px;">Matplotlib</a> <a href="/tags/Matrix-Factorization/" style="font-size: 10px;">Matrix Factorization</a> <a href="/tags/Median/" style="font-size: 10px;">Median</a> <a href="/tags/Meta-Learning/" style="font-size: 10px;">Meta Learning</a> <a href="/tags/Metric/" style="font-size: 10px;">Metric</a> <a href="/tags/Minimum-Edit-Distance/" style="font-size: 10px;">Minimum Edit Distance</a> <a href="/tags/Minkowski/" style="font-size: 10px;">Minkowski</a> <a href="/tags/MoE/" style="font-size: 10px;">MoE</a> <a href="/tags/Model-Evaluation/" style="font-size: 10px;">Model Evaluation</a> <a href="/tags/Module/" style="font-size: 10px;">Module</a> <a href="/tags/Monkey-Patch/" style="font-size: 10px;">Monkey Patch</a> <a href="/tags/Multi-Head-Attention/" style="font-size: 10px;">Multi-Head Attention</a> <a href="/tags/Multi-Modal/" style="font-size: 10px;">Multi-Modal</a> <a href="/tags/MultiModal/" style="font-size: 10px;">MultiModal</a> <a href="/tags/Multitask/" style="font-size: 10px;">Multitask</a> <a href="/tags/Multiway-Tree/" style="font-size: 10px;">Multiway Tree</a> <a href="/tags/NAT/" style="font-size: 10px;">NAT</a> <a href="/tags/NER/" style="font-size: 14px;">NER</a> <a href="/tags/NLG/" style="font-size: 11.33px;">NLG</a> <a href="/tags/NLM/" style="font-size: 10.67px;">NLM</a> <a href="/tags/NLP/" style="font-size: 20px;">NLP</a> <a href="/tags/NLU/" style="font-size: 10px;">NLU</a> <a href="/tags/NMT/" style="font-size: 10px;">NMT</a> <a href="/tags/NNW/" style="font-size: 11.33px;">NNW</a> <a href="/tags/NOVER/" style="font-size: 10px;">NOVER</a> <a href="/tags/NTP/" style="font-size: 10px;">NTP</a> <a href="/tags/Naive-Bayes/" style="font-size: 10px;">Naive Bayes</a> <a href="/tags/Neo4j/" style="font-size: 10px;">Neo4j</a> <a href="/tags/Network/" style="font-size: 10px;">Network</a> <a href="/tags/Ngram/" style="font-size: 10.67px;">Ngram</a> <a href="/tags/NodeJS/" style="font-size: 10px;">NodeJS</a> <a href="/tags/Normalizing-Flow/" style="font-size: 10px;">Normalizing Flow</a> <a href="/tags/NumPy/" style="font-size: 10.67px;">NumPy</a> <a href="/tags/Numba/" style="font-size: 10px;">Numba</a> <a href="/tags/Numpy/" style="font-size: 10px;">Numpy</a> <a href="/tags/OMNI/" style="font-size: 11.33px;">OMNI</a> <a href="/tags/ORZ/" style="font-size: 10px;">ORZ</a> <a href="/tags/Occupation/" style="font-size: 10px;">Occupation</a> <a href="/tags/One-Shot/" style="font-size: 10.67px;">One-Shot</a> <a href="/tags/Online-Learning/" style="font-size: 10px;">Online Learning</a> <a href="/tags/Online-DPO-R1/" style="font-size: 10.67px;">Online-DPO-R1</a> <a href="/tags/OpenAI/" style="font-size: 10px;">OpenAI</a> <a href="/tags/OpenSource/" style="font-size: 10px;">OpenSource</a> <a href="/tags/Orientation/" style="font-size: 10px;">Orientation</a> <a href="/tags/P-R/" style="font-size: 10px;">P-R</a> <a href="/tags/PCCG/" style="font-size: 10px;">PCCG</a> <a href="/tags/PCFG/" style="font-size: 10px;">PCFG</a> <a href="/tags/PEGASUS/" style="font-size: 10px;">PEGASUS</a> <a href="/tags/PLM/" style="font-size: 10.67px;">PLM</a> <a href="/tags/PPMI/" style="font-size: 10px;">PPMI</a> <a href="/tags/PPO/" style="font-size: 10px;">PPO</a> <a href="/tags/PTM/" style="font-size: 10px;">PTM</a> <a href="/tags/PageRank/" style="font-size: 10px;">PageRank</a> <a href="/tags/Palindromic/" style="font-size: 10px;">Palindromic</a> <a href="/tags/Pandarallel/" style="font-size: 10px;">Pandarallel</a> <a href="/tags/Pandas/" style="font-size: 10.67px;">Pandas</a> <a href="/tags/Partial-Parsing/" style="font-size: 10px;">Partial Parsing</a> <a href="/tags/Passion/" style="font-size: 10px;">Passion</a> <a href="/tags/Pearson/" style="font-size: 10px;">Pearson</a> <a href="/tags/Philosophy/" style="font-size: 10.67px;">Philosophy</a> <a href="/tags/Phrase-Structure-Grammar/" style="font-size: 10px;">Phrase Structure Grammar</a> <a href="/tags/Phrase-Structure-Grammars/" style="font-size: 10px;">Phrase Structure Grammars</a> <a href="/tags/PoS/" style="font-size: 10px;">PoS</a> <a href="/tags/Polars/" style="font-size: 10px;">Polars</a> <a href="/tags/Pooling/" style="font-size: 10px;">Pooling</a> <a href="/tags/Position-Encoding/" style="font-size: 10px;">Position-Encoding</a> <a href="/tags/Post-Training/" style="font-size: 10px;">Post-Training</a> <a href="/tags/Post-training/" style="font-size: 16.67px;">Post-training</a> <a href="/tags/Postgres/" style="font-size: 10.67px;">Postgres</a> <a href="/tags/Pragmatic-Automatic-Processing/" style="font-size: 10px;">Pragmatic Automatic Processing</a> <a href="/tags/Pre-Trained/" style="font-size: 10px;">Pre-Trained</a> <a href="/tags/Pre-Training/" style="font-size: 10px;">Pre-Training</a> <a href="/tags/Pre-training/" style="font-size: 14.67px;">Pre-training</a> <a href="/tags/Precision/" style="font-size: 10px;">Precision</a> <a href="/tags/Pretrain/" style="font-size: 10.67px;">Pretrain</a> <a href="/tags/Pretrained/" style="font-size: 10px;">Pretrained</a> <a href="/tags/Pretraining/" style="font-size: 10.67px;">Pretraining</a> <a href="/tags/Probabilistic-Grammar/" style="font-size: 10px;">Probabilistic Grammar</a> <a href="/tags/Probabilistic-Model/" style="font-size: 10px;">Probabilistic Model</a> <a href="/tags/Promote/" style="font-size: 10px;">Promote</a> <a href="/tags/Prompt/" style="font-size: 12.67px;">Prompt</a> <a href="/tags/ProtoBERT/" style="font-size: 10px;">ProtoBERT</a> <a href="/tags/Pruning/" style="font-size: 10px;">Pruning</a> <a href="/tags/Psychology/" style="font-size: 10.67px;">Psychology</a> <a href="/tags/PyPI/" style="font-size: 10px;">PyPI</a> <a href="/tags/Python/" style="font-size: 18.67px;">Python</a> <a href="/tags/QA/" style="font-size: 10px;">QA</a> <a href="/tags/Quant/" style="font-size: 10px;">Quant</a> <a href="/tags/Quantization/" style="font-size: 10px;">Quantization</a> <a href="/tags/Query/" style="font-size: 10px;">Query</a> <a href="/tags/Queue/" style="font-size: 10px;">Queue</a> <a href="/tags/Qwen3/" style="font-size: 10px;">Qwen3</a> <a href="/tags/Qwen3-Next/" style="font-size: 10.67px;">Qwen3-Next</a> <a href="/tags/R-Drop/" style="font-size: 10.67px;">R-Drop</a> <a href="/tags/R1/" style="font-size: 13.33px;">R1</a> <a href="/tags/R1-Zero/" style="font-size: 13.33px;">R1-Zero</a> <a href="/tags/RAG/" style="font-size: 10px;">RAG</a> <a href="/tags/RAVR/" style="font-size: 10px;">RAVR</a> <a href="/tags/REER/" style="font-size: 10px;">REER</a> <a href="/tags/RELU/" style="font-size: 10px;">RELU</a> <a href="/tags/RENT/" style="font-size: 10px;">RENT</a> <a href="/tags/RESTRAIN/" style="font-size: 10px;">RESTRAIN</a> <a href="/tags/RFE/" style="font-size: 10px;">RFE</a> <a href="/tags/RGR/" style="font-size: 10px;">RGR</a> <a href="/tags/RHO/" style="font-size: 10px;">RHO</a> <a href="/tags/RHO-1/" style="font-size: 10px;">RHO-1</a> <a href="/tags/RL/" style="font-size: 15.33px;">RL</a> <a href="/tags/RLHF/" style="font-size: 10px;">RLHF</a> <a href="/tags/RM/" style="font-size: 12px;">RM</a> <a href="/tags/RM-R1/" style="font-size: 10px;">RM-R1</a> <a href="/tags/RMSE/" style="font-size: 10px;">RMSE</a> <a href="/tags/RNN/" style="font-size: 10px;">RNN</a> <a href="/tags/ROC/" style="font-size: 10px;">ROC</a> <a href="/tags/RWD/" style="font-size: 10px;">RWD</a> <a href="/tags/Rank/" style="font-size: 10px;">Rank</a> <a href="/tags/RaspberryPi/" style="font-size: 10.67px;">RaspberryPi</a> <a href="/tags/Raspberrypi/" style="font-size: 10px;">Raspberrypi</a> <a href="/tags/Reasoning/" style="font-size: 10px;">Reasoning</a> <a href="/tags/Recall/" style="font-size: 10px;">Recall</a> <a href="/tags/Recommendation/" style="font-size: 12.67px;">Recommendation</a> <a href="/tags/Recursion/" style="font-size: 10.67px;">Recursion</a> <a href="/tags/Reformer/" style="font-size: 10px;">Reformer</a> <a href="/tags/Regex/" style="font-size: 10px;">Regex</a> <a href="/tags/Regular-Expression/" style="font-size: 10px;">Regular Expression</a> <a href="/tags/Reinforce/" style="font-size: 10px;">Reinforce++</a> <a href="/tags/Reinforcement-Learning/" style="font-size: 10px;">Reinforcement Learning</a> <a href="/tags/Relationship-Extraction/" style="font-size: 10px;">Relationship Extraction</a> <a href="/tags/Representation/" style="font-size: 10.67px;">Representation</a> <a href="/tags/Reqular-Expressions/" style="font-size: 10px;">Reqular Expressions</a> <a href="/tags/Retrieving/" style="font-size: 10px;">Retrieving</a> <a href="/tags/Reward/" style="font-size: 10.67px;">Reward</a> <a href="/tags/RoBERTa/" style="font-size: 10px;">RoBERTa</a> <a href="/tags/Rotated-Sorted-Array/" style="font-size: 10px;">Rotated Sorted Array</a> <a href="/tags/Rust/" style="font-size: 16.67px;">Rust</a> <a href="/tags/SCFG/" style="font-size: 10px;">SCFG</a> <a href="/tags/SGD/" style="font-size: 10px;">SGD</a> <a href="/tags/SLM/" style="font-size: 10.67px;">SLM</a> <a href="/tags/SMO/" style="font-size: 10px;">SMO</a> <a href="/tags/SQL/" style="font-size: 10.67px;">SQL</a> <a href="/tags/SRN/" style="font-size: 10px;">SRN</a> <a href="/tags/SRT/" style="font-size: 10px;">SRT</a> <a href="/tags/STaR/" style="font-size: 10px;">STaR</a> <a href="/tags/SVD/" style="font-size: 10px;">SVD++</a> <a href="/tags/SVM/" style="font-size: 10.67px;">SVM</a> <a href="/tags/Scaling/" style="font-size: 10px;">Scaling</a> <a href="/tags/Scaling-Law/" style="font-size: 10px;">Scaling Law</a> <a href="/tags/Seaborn/" style="font-size: 10px;">Seaborn</a> <a href="/tags/Search/" style="font-size: 10.67px;">Search</a> <a href="/tags/Seed-Thinking/" style="font-size: 10px;">Seed-Thinking</a> <a href="/tags/Segmentation/" style="font-size: 10px;">Segmentation</a> <a href="/tags/Selection-Inference/" style="font-size: 10px;">Selection-Inference</a> <a href="/tags/Self-Attention/" style="font-size: 11.33px;">Self-Attention</a> <a href="/tags/Self-Verified/" style="font-size: 10px;">Self-Verified</a> <a href="/tags/Semantic-Automatic-Processing/" style="font-size: 10px;">Semantic Automatic Processing</a> <a href="/tags/Semantic-Similarity/" style="font-size: 10px;">Semantic Similarity</a> <a href="/tags/Senta/" style="font-size: 10px;">Senta</a> <a href="/tags/Sentence-Representation/" style="font-size: 10px;">Sentence Representation</a> <a href="/tags/Sentence-Similarity/" style="font-size: 10px;">Sentence Similarity</a> <a href="/tags/Sentence-BERT/" style="font-size: 10px;">Sentence-BERT</a> <a href="/tags/Sentiment-Classification/" style="font-size: 10px;">Sentiment Classification</a> <a href="/tags/SentimentAnalysis/" style="font-size: 10px;">SentimentAnalysis</a> <a href="/tags/Sentry/" style="font-size: 10px;">Sentry</a> <a href="/tags/Siamese/" style="font-size: 10px;">Siamese</a> <a href="/tags/Sigmoid/" style="font-size: 10px;">Sigmoid</a> <a href="/tags/SimCSE/" style="font-size: 10.67px;">SimCSE</a> <a href="/tags/Similarity/" style="font-size: 10px;">Similarity</a> <a href="/tags/Simon/" style="font-size: 10px;">Simon</a> <a href="/tags/Simple-Zoo/" style="font-size: 10px;">Simple-Zoo</a> <a href="/tags/Simpson-Paradox/" style="font-size: 10px;">Simpson Paradox</a> <a href="/tags/Skill/" style="font-size: 10px;">Skill</a> <a href="/tags/Skywork-Reward/" style="font-size: 10px;">Skywork Reward</a> <a href="/tags/Slide/" style="font-size: 10px;">Slide</a> <a href="/tags/Smoothing/" style="font-size: 10.67px;">Smoothing</a> <a href="/tags/Soft-SVM/" style="font-size: 10px;">Soft-SVM</a> <a href="/tags/Softmax/" style="font-size: 10px;">Softmax</a> <a href="/tags/Sort/" style="font-size: 10.67px;">Sort</a> <a href="/tags/Span/" style="font-size: 11.33px;">Span</a> <a href="/tags/Sparse-Attention/" style="font-size: 10px;">Sparse Attention</a> <a href="/tags/Spell-Check/" style="font-size: 10px;">Spell Check</a> <a href="/tags/Spurious-Reward/" style="font-size: 10px;">Spurious Reward</a> <a href="/tags/SqueezeBERT/" style="font-size: 10px;">SqueezeBERT</a> <a href="/tags/Stable-LM/" style="font-size: 10px;">Stable LM</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Stacking/" style="font-size: 10px;">Stacking</a> <a href="/tags/Statistics/" style="font-size: 10px;">Statistics</a> <a href="/tags/Stirling/" style="font-size: 10px;">Stirling</a> <a href="/tags/Strategic/" style="font-size: 10px;">Strategic</a> <a href="/tags/StratifiedKFold/" style="font-size: 10px;">StratifiedKFold</a> <a href="/tags/String/" style="font-size: 10.67px;">String</a> <a href="/tags/Study/" style="font-size: 10px;">Study</a> <a href="/tags/Style/" style="font-size: 10px;">Style</a> <a href="/tags/Substring/" style="font-size: 10px;">Substring</a> <a href="/tags/Summarization/" style="font-size: 10.67px;">Summarization</a> <a href="/tags/Supertagging/" style="font-size: 10px;">Supertagging</a> <a href="/tags/Swap/" style="font-size: 10px;">Swap</a> <a href="/tags/System/" style="font-size: 10.67px;">System</a> <a href="/tags/T5/" style="font-size: 10.67px;">T5</a> <a href="/tags/TF-IDF/" style="font-size: 10px;">TF-IDF</a> <a href="/tags/THW/" style="font-size: 11.33px;">THW</a> <a href="/tags/TS3-Codec/" style="font-size: 10px;">TS3-Codec</a> <a href="/tags/TTRL/" style="font-size: 10.67px;">TTRL</a> <a href="/tags/TTS/" style="font-size: 14px;">TTS</a> <a href="/tags/Tagging/" style="font-size: 10px;">Tagging</a> <a href="/tags/TanH/" style="font-size: 10px;">TanH</a> <a href="/tags/TensorBay/" style="font-size: 10px;">TensorBay</a> <a href="/tags/Tensorflow/" style="font-size: 10px;">Tensorflow</a> <a href="/tags/Test/" style="font-size: 10px;">Test</a> <a href="/tags/Text-Classification/" style="font-size: 10px;">Text Classification</a> <a href="/tags/Text-Generation/" style="font-size: 10px;">Text Generation</a> <a href="/tags/Text-Normalization/" style="font-size: 10px;">Text Normalization</a> <a href="/tags/TextCNN/" style="font-size: 10.67px;">TextCNN</a> <a href="/tags/TextRank/" style="font-size: 10px;">TextRank</a> <a href="/tags/Thought/" style="font-size: 10.67px;">Thought</a> <a href="/tags/Tokenizer/" style="font-size: 10px;">Tokenizer</a> <a href="/tags/Transformer/" style="font-size: 18px;">Transformer</a> <a href="/tags/Transformer-XL/" style="font-size: 10px;">Transformer-XL</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Treebank/" style="font-size: 10px;">Treebank</a> <a href="/tags/Tuning/" style="font-size: 10px;">Tuning</a> <a href="/tags/Tutorial/" style="font-size: 10px;">Tutorial</a> <a href="/tags/Ubuntu/" style="font-size: 10px;">Ubuntu</a> <a href="/tags/UniLM/" style="font-size: 10px;">UniLM</a> <a href="/tags/Unity-Operation/" style="font-size: 10px;">Unity Operation</a> <a href="/tags/Unix/" style="font-size: 10px;">Unix</a> <a href="/tags/Unsupervised-Elicitation/" style="font-size: 10px;">Unsupervised Elicitation</a> <a href="/tags/UserCF/" style="font-size: 10px;">UserCF</a> <a href="/tags/VAPO/" style="font-size: 10px;">VAPO</a> <a href="/tags/VITS/" style="font-size: 10px;">VITS</a> <a href="/tags/Vagrant/" style="font-size: 10px;">Vagrant</a> <a href="/tags/Valence/" style="font-size: 10px;">Valence</a> <a href="/tags/Vector-Semantics/" style="font-size: 10px;">Vector Semantics</a> <a href="/tags/Verifier/" style="font-size: 10px;">Verifier</a> <a href="/tags/Virtual-Network/" style="font-size: 10px;">Virtual Network</a> <a href="/tags/VirtualBox/" style="font-size: 10px;">VirtualBox</a> <a href="/tags/Visualization/" style="font-size: 10px;">Visualization</a> <a href="/tags/Viterbi/" style="font-size: 10.67px;">Viterbi</a> <a href="/tags/Vocabulary-Learning/" style="font-size: 10px;">Vocabulary Learning</a> <a href="/tags/VoiceAgent/" style="font-size: 10px;">VoiceAgent</a> <a href="/tags/Voila/" style="font-size: 10px;">Voila</a> <a href="/tags/Voting/" style="font-size: 10px;">Voting</a> <a href="/tags/W2NER/" style="font-size: 11.33px;">W2NER</a> <a href="/tags/WOE/" style="font-size: 10px;">WOE</a> <a href="/tags/Web-Server-Multithreaded-Server/" style="font-size: 10px;">Web Server Multithreaded Server</a> <a href="/tags/Wide/" style="font-size: 10px;">Wide</a> <a href="/tags/Word2vec/" style="font-size: 10px;">Word2vec</a> <a href="/tags/Work/" style="font-size: 10px;">Work</a> <a href="/tags/World-Model/" style="font-size: 10px;">World Model</a> <a href="/tags/XLNet/" style="font-size: 10px;">XLNet</a> <a href="/tags/XTTS/" style="font-size: 10px;">XTTS</a> <a href="/tags/Z-Score/" style="font-size: 10px;">Z-Score</a> <a href="/tags/Zero-Short/" style="font-size: 10px;">Zero-Short</a> <a href="/tags/Zero-Shot/" style="font-size: 11.33px;">Zero-Shot</a> <a href="/tags/Zero-shot/" style="font-size: 10px;">Zero-shot</a> <a href="/tags/ZhouZhihua/" style="font-size: 10px;">ZhouZhihua</a> <a href="/tags/Zipf/" style="font-size: 10px;">Zipf</a> <a href="/tags/Ziya/" style="font-size: 10.67px;">Ziya</a> <a href="/tags/attention-sink/" style="font-size: 10.67px;">attention sink</a> <a href="/tags/bias/" style="font-size: 10px;">bias</a> <a href="/tags/binning/" style="font-size: 10px;">binning</a> <a href="/tags/emacs/" style="font-size: 10px;">emacs</a> <a href="/tags/few-shot/" style="font-size: 10px;">few-shot</a> <a href="/tags/ffmpeg/" style="font-size: 10px;">ffmpeg</a> <a href="/tags/gated-attention/" style="font-size: 10px;">gated attention</a> <a href="/tags/gpt-oss/" style="font-size: 10px;">gpt-oss</a> <a href="/tags/harmony-format/" style="font-size: 10px;">harmony format</a> <a href="/tags/jpype/" style="font-size: 10px;">jpype</a> <a href="/tags/knowledge-Graph/" style="font-size: 10px;">knowledge Graph</a> <a href="/tags/motion/" style="font-size: 10px;">motion</a> <a href="/tags/node2vec/" style="font-size: 10px;">node2vec</a> <a href="/tags/oat-zero/" style="font-size: 10.67px;">oat-zero</a> <a href="/tags/off-by-one-attention/" style="font-size: 10px;">off-by-one attention</a> <a href="/tags/orz/" style="font-size: 10px;">orz</a> <a href="/tags/s1/" style="font-size: 11.33px;">s1</a> <a href="/tags/ssh/" style="font-size: 10px;">ssh</a> <a href="/tags/str/" style="font-size: 10px;">str</a> <a href="/tags/vim/" style="font-size: 10px;">vim</a> <a href="/tags/vlc/" style="font-size: 10px;">vlc</a>
+    </div>
+  </aside>
+
+  
+</div>
+      </div>
+      <footer id="colophon" role="contentinfo">
+    <p>&copy; 2025 hscspring
+    All rights reserved.</p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
+    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
+
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+<script src="/js/navigation.js"></script>
+
+<div id="bg"></div>
+
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</body>
+</html>
