@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-interplay-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-delta-1.jpg">
-<meta property="og:updated_time" content="2025-12-31T00:38:45.989Z">
+<meta property="og:updated_time" content="2025-12-31T00:44:37.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从抛光到外推：强化学习在推理能力提升中的角色与边界">
 <meta name="twitter:description" content="在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？ 如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。 这两种理解对应着不同的训练">
@@ -127,26 +127,26 @@
 <hr>
 <h2 id="背景和问题">背景和问题</h2>
 <p>DeepSeek R1 之后，GRPO 已经成为后训练的标配，但是关于 “它到底能不能让 LLM 获得全新的推理能力”，其实还存在不少分歧，主要有两种声音。</p>
-<p>第一种乐观派观点，认为模型在预训练之外获得了显著的推理提升。比如《<a href="https://arxiv.org/abs/2505.24864" target="_blank" rel="noopener">2505 Liu et al. ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models</a>》^[4]^展示了 ProRL 能够在基座模型表现较差的任务上扩展推理边界。</p>
-<p>另一种自然是怀疑派了，他们认为RL 只是 Base 模型能力提纯器^[3]^，比如《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》^[1]^认为，尽管 RLVR 训练后的模型在较小的 k（例如 k = 1）下优于其基座模型，但当 k 较大时，基座模型在 pass@k 上可以达到相同甚至更高的性能。他们的覆盖率与困惑度分析表明，模型的推理能力最终受限于基座模型的支持范围。类似地，《<a href="https://arxiv.org/abs/2507.14843" target="_blank" rel="noopener">2507 Wu et al. The Invisible Leash: Why RLVR May or May Not Escape Its Origin</a>》也从理论上论证了 RLVR 无法突破基座模型的表示能力上限。^[2]^</p>
+<p>第一种乐观派观点，认为模型在预训练之外获得了显著的推理提升。比如《<a href="https://arxiv.org/abs/2505.24864" target="_blank" rel="noopener">2505 Liu et al. ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models</a>》<sup>[4]</sup>展示了 ProRL 能够在基座模型表现较差的任务上扩展推理边界。</p>
+<p>另一种自然是怀疑派了，他们认为RL 只是 Base 模型能力提纯器<sup>[3]</sup>，比如《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》<sup>[1]</sup>认为，尽管 RLVR 训练后的模型在较小的 k（例如 k = 1）下优于其基座模型，但当 k 较大时，基座模型在 pass@k 上可以达到相同甚至更高的性能。他们的覆盖率与困惑度分析表明，模型的推理能力最终受限于基座模型的支持范围。类似地，《<a href="https://arxiv.org/abs/2507.14843" target="_blank" rel="noopener">2507 Wu et al. The Invisible Leash: Why RLVR May or May Not Escape Its Origin</a>》也从理论上论证了 RLVR 无法突破基座模型的表示能力上限。<sup>[2]</sup></p>
 <p>两派观点看起来都很有道理，那真相是什么呢？</p>
 <p>当前的 RLVR 是否真的能够类似传统强化学习通过探索发现新策略那样，将模型的推理能力扩展到超出预训练阶段所获得的水平？还是说仅仅在利用 Base 模型中已经存在的推理模式？</p>
-<p>更具体点来说，LLM 是否能够通过 RL 解决这样一类问题：即预训练模型在尝试次数足够多的情况下仍然完全失败（pass@K = 0）的问题族？——以及其可迁移性：如果这种可学习性确实存在，那么所学到的能力是否能够系统性地迁移到分布外的测试集上？^[2]^</p>
+<p>更具体点来说，LLM 是否能够通过 RL 解决这样一类问题：即预训练模型在尝试次数足够多的情况下仍然完全失败（pass@K = 0）的问题族？——以及其可迁移性：如果这种可学习性确实存在，那么所学到的能力是否能够系统性地迁移到分布外的测试集上？<sup>[2]</sup></p>
 <h2 id="我们知道什么">我们知道什么</h2>
 <p>关于 GRPO 我们已经写过多篇文章了，对于这个问题，其实认知中是有一些答案的，我们先回顾一下。</p>
-<p>首先是《<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">250302 R1相关：DPO数据选择与DPO等RL算法 | 长琴</a>》^[5]^，我们有两个观点：</p>
+<p>首先是《<a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">250302 R1相关：DPO数据选择与DPO等RL算法 | 长琴</a>》<sup>[5]</sup>，我们有两个观点：</p>
 <ul>
 <li>Base 模型有推理能力，RL才能将（在某项任务上）该能力激活。</li>
 <li>多样化的数据（激活路径）比算法设计更重要。</li>
 </ul>
 <p>简单来说，RL 还是在 Base 基础上展开，在<strong>特定任务</strong>上探索最佳轨迹。而多样化的数据能够更容易激活能力。</p>
-<p>第二篇是《<a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">250410 R1相关：R1-Zero的进一步理解和探索 | 长琴</a>》^[6]^，我们也有两个观点：</p>
+<p>第二篇是《<a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">250410 R1相关：R1-Zero的进一步理解和探索 | 长琴</a>》<sup>[6]</sup>，我们也有两个观点：</p>
 <ul>
 <li>RL 的核心是引导！适当难度数据逐步、渐进引导。</li>
 <li>RL关键不在于“增加知识”，而是强化“已有正确的推理行为”。即核心是引导 Base，而非学习知识。</li>
 </ul>
-<p>简单来说，RL 在专门选择的数据上引导、强化推理，而非学习。意味着当前RLVR模型生成的推理路径已在其 Base 模型中存在^[1]^。</p>
-<p>第三篇是《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">250315 DeepSeek R1后LLM新范式 | 长琴</a>》^[7]^，我们有下面几个观点：</p>
+<p>简单来说，RL 在专门选择的数据上引导、强化推理，而非学习。意味着当前RLVR模型生成的推理路径已在其 Base 模型中存在<sup>[1]</sup>。</p>
+<p>第三篇是《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">250315 DeepSeek R1后LLM新范式 | 长琴</a>》<sup>[7]</sup>，我们有下面几个观点：</p>
 <ul>
 <li>少量高质量数据 SFT/DPO/RL 能让 Base 模型效果提升。
 <ul>
@@ -158,20 +158,20 @@
 <li>GRPO 之所以有效果，核心在于 Base（比如 Qwen 系列可以，LLaMA 系列就不行）。“KL 似乎并没有太多作用” 可能是因为 Base 模型比较稳定，RL 用的数据又不多，较难难“训坏”模型。</li>
 </ul>
 <p>根据我们已知的事实来看，其实还是倾向于怀疑派观点，即认为 GRPO 其实是在 “激活” Base，至于能否让模型真的学到新的推理模式，不知道。</p>
-<p>《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》^[1]^（后面简称论文1）系统研究了这个问题，给出了以下几个发现：</p>
+<p>《<a href="https://arxiv.org/abs/2504.13837" target="_blank" rel="noopener">2504 Yue et al. Does Reinforcement Learning Really Incentivize Reasoning Capacity in LLMs Beyond the Base Model?</a>》<sup>[1]</sup>（后面简称论文1）系统研究了这个问题，给出了以下几个发现：</p>
 <ul>
 <li>当前的 RLVR 模型在推理覆盖范围上往往比其 Base 模型更窄。</li>
 <li>当前 RLVR 模型所生成的推理路径，实际上已经存在于其 Base 模型中。</li>
 <li>现有的 RLVR 算法表现相近，且整体上仍远未达到最优水平。</li>
 </ul>
-<p>这篇文章获得了 NeurIPS 2025 最佳论文^[8]^，实验相当扎实、细致。</p>
+<p>这篇文章获得了 NeurIPS 2025 最佳论文<sup>[8]</sup>，实验相当扎实、细致。</p>
 <h2 id="事情还未结束">事情还未结束</h2>
-<p>如果事情到刚刚那里结束，那显然也不需要专门写这篇文章了。虽然大量证据和研究结果有点偏向怀疑派，但 GRPO 是确实有点香，而且乐观派也不是毫无道理，说明这中间一定还有什么不为人知的东西。莫名想起 19 世纪初期，物理学家迈克尔逊所说：“尽管去断言物理学的未来不会再有惊人的奇迹是不安全的，但是似乎事实很可能就是，大多数基本的大原则已经被牢固地建立起来了。而未来的的进展主要如何对于我们所注意到的所有现象，更加严格地应用这些原则。正是在这里，测量科学显示了它的重要性——定量工作比定性工作更令人渴望。一位著名的物理学家说，物理科学的未来真理要在小数点的第六位找到。”^[9]^</p>
-<p>进一步的研究来自《<a href="https://arxiv.org/abs/2509.21016" target="_blank" rel="noopener">2509 Sun et al. RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?</a>》^[2]^和《<a href="https://arxiv.org/abs/2512.07783" target="_blank" rel="noopener">2512 Zhang et al. On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models</a>》^[3]^，这两篇文章都意识到了两派观点分歧的根本原因：<strong>未受控制的环境</strong>。所以，首要的事情是控制环境变量。</p>
+<p>如果事情到刚刚那里结束，那显然也不需要专门写这篇文章了。虽然大量证据和研究结果有点偏向怀疑派，但 GRPO 是确实有点香，而且乐观派也不是毫无道理，说明这中间一定还有什么不为人知的东西。莫名想起 19 世纪初期，物理学家迈克尔逊所说：“尽管去断言物理学的未来不会再有惊人的奇迹是不安全的，但是似乎事实很可能就是，大多数基本的大原则已经被牢固地建立起来了。而未来的的进展主要如何对于我们所注意到的所有现象，更加严格地应用这些原则。正是在这里，测量科学显示了它的重要性——定量工作比定性工作更令人渴望。一位著名的物理学家说，物理科学的未来真理要在小数点的第六位找到。<sup>[9]</sup>”</p>
+<p>进一步的研究来自《<a href="https://arxiv.org/abs/2509.21016" target="_blank" rel="noopener">2509 Sun et al. RL Grokking Recipe: How Does RL Unlock and Transfer New Algorithms in LLMs?</a>》<sup>[2]</sup>和《<a href="https://arxiv.org/abs/2512.07783" target="_blank" rel="noopener">2512 Zhang et al. On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models</a>》<sup>[3]</sup>，这两篇文章都意识到了两派观点分歧的根本原因：<strong>未受控制的环境</strong>。所以，首要的事情是控制环境变量。</p>
 <p>前者（下面简称论文2）构建了受控数据集 DELTA（这篇论文第一版就叫《DELTA: How Does RL Unlock and Transfer New Algorithms in LLMs?》）：一个合成的编程问题族数据集，刻意隔离不同的推理技能，用于检验模型的：</p>
 <ul>
 <li><strong>可学习性</strong>：强化学习是否能够向模型灌输一种其先前无法执行的过程；</li>
-<li><strong>泛化能力</strong>：该过程能否迁移到多样的分布外情形，而非仅仅是记忆化的模式。 具体而言，沿着与 Boden 创造力类型学（《<a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">1998 Boden Creativity and artificial intelligence - ScienceDirect</a>》^[10]^）一致的三个维度，扩展了 OMEGA 的受控测试：
+<li><strong>泛化能力</strong>：该过程能否迁移到多样的分布外情形，而非仅仅是记忆化的模式。 具体而言，沿着与 Boden 创造力类型学（《<a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">1998 Boden Creativity and artificial intelligence - ScienceDirect</a>》<sup>[10]</sup>）一致的三个维度，扩展了 OMEGA 的受控测试：
 <ul>
 <li>探索性：在同一问题族内扩展已有技能（例如从六边形推广到八边形）；</li>
 <li>组合性：将先前彼此独立的技能进行组合（例如同时包含旋转障碍物和箱子的弹跳球问题）；</li>
@@ -281,7 +281,7 @@
 <p>最后，关于“过程奖励减轻 reward hack” 这点应该已经是共识了，同时还能提升准确率和泛化性。既然如此，实践建议自然是：<strong>将过程级信息纳入结果奖励中</strong>。其实简单来说就是不要直到最后才给模型反馈，或者不要只给最终结果一个反馈。</p>
 <h2 id="应该差不多了">应该差不多了</h2>
 <p>我想，到这里事情应该说的差不多了。让我们先丢出结论：</p>
-<p>“RL 不是不行，而是需要根据任务进行相应设计，其重点不只是训练什么，更是如何训练^[2]^。只有姿势对了，RL 才会给我们相应回报，否则确实是在抛光”。</p>
+<p>“RL 不是不行，而是需要根据任务进行相应设计，其重点不只是训练什么，更是如何训练<sup>[2]</sup>。只有姿势对了，RL 才会给我们相应回报，否则确实是在抛光”。</p>
 <p>来，我们再来梳理一下整个路径。</p>
 <p>首先，在早期，我们知道 RL 就是对 Base 的激活和引导，不过前提是 Base 得强（还记得 LLaMA 就无法 aha，大家都用 Qwen）。而且，当时还发现，课程学习好像能进一步提升效果。但总体而言，当时还停留在“是什么”和“怎么做”的阶段，并不很清楚“为什么”。</p>
 <p>然后，怀疑派的论文 1 利用 pass@k 系统研究确认了我们的早起认知，明确告诉我们：RL 就是在抛光，数据蒸馏才能真正突破 Base 边界。也难怪大家都在蒸馏……数据蒸馏其实等价于先给模型注入新的先验呀。与此同时，也有乐观派认为 RL 能提升推理能力。局势显然还没有彻底明朗。</p>
@@ -317,11 +317,11 @@
 <p><code>[3]</code> 2512 Zhang et al. On the Interplay of Pre-Training, Mid-Training, and RL on Reasoning Language Models: <em><a href="https://arxiv.org/abs/2512.07783" target="_blank" rel="noopener">https://arxiv.org/abs/2512.07783</a></em></p>
 <p><code>[4]</code> 2505 Liu et al. ProRL: Prolonged Reinforcement Learning Expands Reasoning Boundaries in Large Language Models: <em><a href="https://arxiv.org/abs/2505.24864" target="_blank" rel="noopener">https://arxiv.org/abs/2505.24864</a></em></p>
 <p><code>[5]</code> 250302 R1相关：DPO数据选择与DPO等RL算法 | 长琴: <em><a href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/</a></em></p>
-<p>[6] 250410 R1相关：R1-Zero的进一步理解和探索 | 长琴: <em><a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/</a></em></p>
-<p>[7] 250315 DeepSeek R1后LLM新范式 | 长琴: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em></p>
-<p>[8] 2251126 Announcing the NeurIPS 2025 Best Paper Awards – NeurIPS Blog: <em><a href="https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/" target="_blank" rel="noopener">https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/</a></em></p>
-<p>[9] 210709 磷酸君Phosphates 回答“物理学的大厦已经落成，上面只有两朵乌云”是什么意思: <em><a href="https://www.zhihu.com/question/319790208/answer/1915331392" target="_blank" rel="noopener">https://www.zhihu.com/question/319790208/answer/1915331392</a></em></p>
-<p>[10] 1998 Boden Creativity and artificial intelligence - ScienceDirect: <em><a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">https://www.sciencedirect.com/science/article/pii/S0004370298000551</a></em></p>
+<p><code>[6]</code> 250410 R1相关：R1-Zero的进一步理解和探索 | 长琴: <em><a href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/</a></em></p>
+<p><code>[7]</code> 250315 DeepSeek R1后LLM新范式 | 长琴: <em><a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/</a></em></p>
+<p><code>[8]</code> 2251126 Announcing the NeurIPS 2025 Best Paper Awards – NeurIPS Blog: <em><a href="https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/" target="_blank" rel="noopener">https://blog.neurips.cc/2025/11/26/announcing-the-neurips-2025-best-paper-awards/</a></em></p>
+<p><code>[9]</code> 210709 磷酸君Phosphates 回答“物理学的大厦已经落成，上面只有两朵乌云”是什么意思: <em><a href="https://www.zhihu.com/question/319790208/answer/1915331392" target="_blank" rel="noopener">https://www.zhihu.com/question/319790208/answer/1915331392</a></em></p>
+<p><code>[10]</code> 1998 Boden Creativity and artificial intelligence - ScienceDirect: <em><a href="https://www.sciencedirect.com/science/article/pii/S0004370298000551" target="_blank" rel="noopener">https://www.sciencedirect.com/science/article/pii/S0004370298000551</a></em></p>
 
       
     </div><!-- .entry-content -->
