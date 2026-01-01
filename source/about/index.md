@@ -14,28 +14,22 @@ date: 2018-04-07 22:29:12
 - Thinking：思考+探索。
 
 按「业务类型」分组的索引放在 [`SERIES`](https://yam.gift/series/) 下面，包含几乎所有博客内容。
-
 如果有地方能恰巧帮到你，那真是太荣幸了：）
+友情提醒，无论文章长短（长文居多，万字长文属基操），读起来都需要耗费精神。
 
 ## 关于博主
 
 知乎：[长琴](https://www.zhihu.com/people/haosc)，公众号：[技术与人](https://mp.weixin.qq.com/s/10zLlVRF6NZ4EgD-enJqIg)。
 
 相信使命和生命同样重要。
-
 致力于用算法改善世界，用认知提升思维。
 
----
 
-经济学学士和硕士，工作几年后转行算法。做过少量图像、少量前端，做过后端，但绝大部分时间都在做 NLP 算法。
-
+经济学学士和硕士，工作几年后下定决心转行算法。做过少量图像、少量前端，做过后端，做过一年语音，但绝大部分时间都在做 NLP 算法和大模型。
 做过 NLP 算法负责人，做过 CTO，现在仍然在一线写代码、训模型，主要在做 LLM + RL + TTS + 多模态。
-
 目前是AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 成员、[Rust语言中文社区](https://rustcc.cn/)成员、哲学爱好者。
+会（上过生产）Python、Java、Rust、JavaScript、Elixir、一点 C++，谈不上精通。
 
-会（上过生产）Python、Java、Rust、JavaScript、Elixir、一点 C++，Vim 比较溜、Emacs 不太熟。
-
----
 
 目前感兴趣的方向：
 
@@ -53,16 +47,14 @@ date: 2018-04-07 22:29:12
 - EmbodyAI
 
 对深入研究和理解算法原理乐此不疲，并作为终生追求。业余时间正在做的自认为很酷的事儿:
-
 - 写能帮助普通大众提升效率的软件。
 - 做能帮助行业新人更好入门的教程。
 
----
 
 喜欢读书、音乐、运动。
 
-- 读书：包括哲学、AI、计算机、编程、架构、经济、思维、科学、科幻、文学、历史、个人成长、运动健身等多个方面。
-- 音乐：偏爱古典、史诗、摇滚、后摇、纯音。
+- 读书：哲学、AI、计算机、编程、架构、经济、思维、科学、科幻、文学、历史、个人成长、运动健身等多个方面。
+- 音乐：古典、史诗、摇滚、后摇、纯音。
 - 运动：跑步、健身、太极，各类球如足球、羽毛球、壁球、篮球、桌球、乒乓球，各类棋，各类牌。
 
 ## 网站小工具
@@ -72,31 +64,31 @@ date: 2018-04-07 22:29:12
 
 ## 开源项目
 
-| 项目                                                         | 类型 | 简介                                                         | 备注     |
-| ------------------------------------------------------------ | ---- | ------------------------------------------------------------ | -------- |
-| [hscspring/pararun](https://github.com/hscspring/pararun)    | 工具 | 脚本并发执行库                                               | 独立开发 |
-| [hscspring/lightinfer](https://github.com/hscspring/lightinfer) | 工具 | 将模型Inference转为HTTP Server                               | 独立开发 |
-| [hscspring/promptlog](https://github.com/hscspring/promptlog) | 工具 | 提示词版本控制记录工具                                       | 独立开发 |
-| [datawhalechina/llm-deploy](https://github.com/datawhalechina/llm-deploy) | 教程 | 大模型/LLM推理和部署理论与实践                               | 负责人   |
-| [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama) | 教程 | 以LLaMA为例基于NumPy介绍LLM推理相关知识                      | 负责人   |
-| [datawhalechina/HuggingLLM](https://github.com/datawhalechina/hugging-llm) | 教程 | 蝴蝶书《ChatGPT原理与应用开发》[视频](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092) | 负责人   |
-| [datawhalechina/hands-on-llm](https://github.com/datawhalechina/hands-on-llm) | 教程 | 从理论到训练再到上线全流程                                   | 负责人   |
-| [datawhalechina/巨硬的 NumPy](https://github.com/datawhalechina/powerful-numpy) | 教程 | NumPy教程，[视频：巨硬的 Numpy：从小白到入门]( https://www.bilibili.com/video/BV1Ym4y1U7at?share_source=copy_web&vd_source=cea86f777e9ba73f1a486c90773fcb03) | 负责人   |
-| [datawhalechina/sweetalk-design-pattern](https://github.com/datawhalechina/sweetalk-design-pattern) | 教程 | 基于《大话设计模式》对设计原则和设计模式进行解读             | 负责人   |
-| [datawhalechina/llm-tutorial](https://github.com/datawhalechina/prompt-engineering-for-developers) | 教程 | 面向开发者的 LLM 入门教程，吴恩达大模型系列课程中文版        | 发起人   |
-| [datawhalechina/daily-interview](https://github.com/datawhalechina/daily-interview) | 教程 | 面经，包括机器学习，CV，NLP，推荐，开发等                    | 贡献者   |
-| [hscspring/pnlp](https://github.com/hscspring/pnlp)          | 工具 | 常用的NLP处理工具                                            | 独立开发 |
-| [hscspring/hcgf](https://github.com/hscspring/hcgf)          | 工具 | 简单易用的LLM微调工具                                        | 独立开发 |
-| [hscspring/bytepiece-rs](https://github.com/hscspring/bytepiece-rs) | 工具 | Rust+Python版本的 Bytepiece Tokenizer                        | 独立开发 |
-| [hscspring/cppjieba](https://github.com/hscspring/cppjieba)  | 工具 | 结巴分词的C++版本                                            | 独立开发 |
-| [hscspring/uuid-by-string](https://github.com/hscspring/uuid-by-string) | 工具 | UUID生成                                                     | 独立开发 |
-| [hscspring/hnlp](https://github.com/hscspring/hnlp)          | 工具 | 一个易用的、开发中的传统NLP训练框架                          | 独立开发 |
-| [hscspring/llama.np](https://github.com/hscspring/llama.np)  | 算法 | LLaMA推理纯NumPy实现                                         | 独立开发 |
-| [hscspring/Multi-Label-Text-Classification](https://github.com/hscspring/Multi-Label-Text-Classification-for-Chinese) | 算法 | 多标签分类                                                   | 独立开发 |
-| [hscspring/ptcls](https://github.com/hscspring/ptcls/tree/main) | 算法 | Token分类                                                    | 独立开发 |
-| [hscspring/SuitJOB](https://github.com/hscspring/SuitJOB)    | 方案 | 简单的Job推荐系统                                            | 独立开发 |
-| [hscspring/ALL4AI](https://github.com/hscspring/ALL4AI)      | 聚合 | AI相关工具、项目集                                           | 负责人   |
-| [hscspring/All4NLP](https://github.com/hscspring/All4NLP)    | 聚合 | NLP相关工具、项目集                                          | 负责人   |
+| 项目                                                         | 类型 | 简介                                                         |
+| ------------------------------------------------------------ | ---- | ------------------------------------------------------------ |
+| [hscspring/pararun](https://github.com/hscspring/pararun)    | 工具 | 脚本并发执行库                                               |
+| [hscspring/lightinfer](https://github.com/hscspring/lightinfer) | 工具 | 将模型Inference转为HTTP Server                               |
+| [hscspring/promptlog](https://github.com/hscspring/promptlog) | 工具 | 提示词版本控制记录工具                                       |
+| [datawhalechina/llm-deploy](https://github.com/datawhalechina/llm-deploy) | 教程 | 大模型/LLM推理和部署理论与实践                               |
+| [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama) | 教程 | 以LLaMA为例基于NumPy介绍LLM推理相关知识                      |
+| [datawhalechina/HuggingLLM](https://github.com/datawhalechina/hugging-llm) | 教程 | 蝴蝶书《ChatGPT原理与应用开发》[视频](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092) |
+| [datawhalechina/hands-on-llm](https://github.com/datawhalechina/hands-on-llm) | 教程 | 从理论到训练再到上线全流程                                   |
+| [datawhalechina/巨硬的 NumPy](https://github.com/datawhalechina/powerful-numpy) | 教程 | NumPy教程，[视频：巨硬的 Numpy：从小白到入门]( https://www.bilibili.com/video/BV1Ym4y1U7at?share_source=copy_web&vd_source=cea86f777e9ba73f1a486c90773fcb03) |
+| [datawhalechina/sweetalk-design-pattern](https://github.com/datawhalechina/sweetalk-design-pattern) | 教程 | 基于《大话设计模式》对设计原则和设计模式进行解读             |
+| [datawhalechina/llm-tutorial](https://github.com/datawhalechina/prompt-engineering-for-developers) | 教程 | 面向开发者的 LLM 入门教程，吴恩达大模型系列课程中文版        |
+| [datawhalechina/daily-interview](https://github.com/datawhalechina/daily-interview) | 教程 | 面经，包括机器学习，CV，NLP，推荐，开发等                    |
+| [hscspring/pnlp](https://github.com/hscspring/pnlp)          | 工具 | 常用的NLP处理工具                                            |
+| [hscspring/hcgf](https://github.com/hscspring/hcgf)          | 工具 | 简单易用的LLM微调工具                                        |
+| [hscspring/bytepiece-rs](https://github.com/hscspring/bytepiece-rs) | 工具 | Rust+Python版本的 Bytepiece Tokenizer                        |
+| [hscspring/cppjieba](https://github.com/hscspring/cppjieba)  | 工具 | 结巴分词的C++版本                                            |
+| [hscspring/uuid-by-string](https://github.com/hscspring/uuid-by-string) | 工具 | UUID生成                                                     |
+| [hscspring/hnlp](https://github.com/hscspring/hnlp)          | 工具 | 一个易用的、开发中的传统NLP训练框架                          |
+| [hscspring/llama.np](https://github.com/hscspring/llama.np)  | 算法 | LLaMA推理纯NumPy实现                                         |
+| [hscspring/Multi-Label-Text-Classification](https://github.com/hscspring/Multi-Label-Text-Classification-for-Chinese) | 算法 | 多标签分类                                                   |
+| [hscspring/ptcls](https://github.com/hscspring/ptcls/tree/main) | 算法 | Token分类                                                    |
+| [hscspring/SuitJOB](https://github.com/hscspring/SuitJOB)    | 方案 | 简单的Job推荐系统                                            |
+| [hscspring/ALL4AI](https://github.com/hscspring/ALL4AI)      | 聚合 | AI相关工具、项目集                                           |
+| [hscspring/All4NLP](https://github.com/hscspring/All4NLP)    | 聚合 | NLP相关工具、项目集                                          |
 
 ## 开源社群
 

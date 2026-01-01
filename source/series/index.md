@@ -123,7 +123,7 @@ date: 2019-07-13 20:00:00
 
 ### RL
 
-- [从抛光到外推：强化学习在推理能力提升中的角色与边界 | 长琴](https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/)
+- [RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴](https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/)
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 
 ### Hybrid
