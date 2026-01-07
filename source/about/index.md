@@ -1,5 +1,5 @@
 ---
-title: 关于我
+title: 关于我：用技术改善世界，用认知重塑思维
 date: 2018-04-07 22:29:12
 ---
 
@@ -15,52 +15,37 @@ date: 2018-04-07 22:29:12
 
 按「业务类型」分组的索引放在 [`SERIES`](https://yam.gift/series/) 下面，包含几乎所有博客内容。
 如果有地方能恰巧帮到你，那真是太荣幸了：）
-友情提醒，无论文章长短（长文居多，万字长文属基操），读起来都需要耗费精神。
 
 ## 关于博主
 
-知乎：[长琴](https://www.zhihu.com/people/haosc)，公众号：[技术与人](https://mp.weixin.qq.com/s/10zLlVRF6NZ4EgD-enJqIg)。
+知乎：[长琴](https://www.zhihu.com/people/haosc) | 公众号：[技术与人](https://mp.weixin.qq.com/s/10zLlVRF6NZ4EgD-enJqIg)。
 
-相信使命和生命同样重要。
-致力于用算法改善世界，用认知提升思维。
+**“相信使命和生命同样重要。致力于用技术改善世界，用认知重塑思维。”**
 
+对深入研究和理解算法原理乐此不疲，并作为终生追求。业余时间正在做的事儿:
 
-经济学学士和硕士，工作几年后下定决心转行算法。做过少量图像、少量前端，做过后端，做过一年语音，但绝大部分时间都在做 NLP 算法和大模型。
-做过 NLP 算法负责人，做过 CTO，现在仍然在一线写代码、训模型，主要在做 LLM + RL + TTS + 多模态。
-目前是AI 算法工程师/架构师、程序员、[Datawhale](https://datawhale.club/) 成员、[Rust语言中文社区](https://rustcc.cn/)成员、哲学爱好者。
-会（上过生产）Python、Java、Rust、JavaScript、Elixir、一点 C++，谈不上精通。
-
-
-目前感兴趣的方向：
-
-- LLM：上下文工程、上下文压缩、超长上下文、指令跟随、模型架构、继续训练、各类应用。
-- 强化学习：Agentic RL、Embodied AI。
-- 多模态：对齐、融合、语音、视频。
-- 推理部署：蒸馏、量化、解码、异构、端侧。
-
-长期关注和研究的方向：
-
-- 上下文工程＋Agent 强化微调
-- 实时学习+自进化
-- 创新架构
-- 端测推理
-- EmbodyAI
-
-对深入研究和理解算法原理乐此不疲，并作为终生追求。业余时间正在做的自认为很酷的事儿:
 - 写能帮助普通大众提升效率的软件。
 - 做能帮助行业新人更好入门的教程。
 
+【**个人画像**】
 
-喜欢读书、音乐、运动。
+一名深耕一线的 **AI 算法工程师 / 架构师**。 有着非典型的跨界背景：从经济学研究、到组织管理、再到全面转型算法，完成跨界进化。曾任 NLP 负责人与 CTO，但比起管理，更喜欢写代码和搞模型。
 
-- 读书：哲学、AI、计算机、编程、架构、经济、思维、科学、科幻、文学、历史、个人成长、运动健身等多个方面。
-- 音乐：古典、史诗、摇滚、后摇、纯音。
-- 运动：跑步、健身、太极，各类球如足球、羽毛球、壁球、篮球、桌球、乒乓球，各类棋，各类牌。
+目前依然坚持**一线训推与开发**，主要关注 LLM、RL、多模态及推理加速领域。我相信跨学科的认知背景能让自己更深刻地理解“技术与人”的关系。懂点语音，也懂点前后端，图像不太懂。会（上过生产）Python、Java、JavaScript、Elixir、一点 C++ 和 Rust，不过哪个都不敢说自己精通。
 
-## 网站小工具
+【**技术领域**】
 
-- [Toolhub](https://toolhub-web.vercel.app/)：好用的工具集合网站。中文地址：https://toolhub.huggingai.cn/
-- [YoC](https://yoc-nine.vercel.app/)：GitHub年度报告。中文地址：https://yoc.huggingai.cn/
+- **LLM**：上下文工程（压缩/超长/跟随）、模型架构、实时学习、自进化学习。
+- **强化学习**：Agentic RL、Embodied AI。
+- **多模态**：对齐、融合、语音、视频。
+- **推理部署**：蒸馏量化、异构计算、端侧推理。
+
+
+【**生活志趣**】
+
+- **读书**：哲学、AI、计算机、编程、架构、经济、思维、科学、科幻、文学、历史、个人成长、运动健身等多个方面。
+- **音乐**：古典、史诗、摇滚、后摇、纯音。也弹吉他，会拉一点中提琴。
+- **运动**：跑步、健身、太极，各类球如足球、羽毛球、壁球、篮球、桌球、乒乓球，各类棋，各类牌。
 
 ## 开源项目
 
@@ -69,6 +54,9 @@ date: 2018-04-07 22:29:12
 | [hscspring/pararun](https://github.com/hscspring/pararun)    | 工具 | 脚本并发执行库                                               |
 | [hscspring/lightinfer](https://github.com/hscspring/lightinfer) | 工具 | 将模型Inference转为HTTP Server                               |
 | [hscspring/promptlog](https://github.com/hscspring/promptlog) | 工具 | 提示词版本控制记录工具                                       |
+| [hscspring/yoc](https://github.com/hscspring/yoc)            | 应用 | GitHub年度报告。[国外](https://yoc-nine.vercel.app/) [国内](https://yoc.huggingai.cn/) |
+| [hscspring/toolhub](https://github.com/hscspring/toolhub)    | 应用 | 好用的工具集合网站。[国外](https://toolhub-web.vercel.app/) [国内](https://toolhub.huggingai.cn/) |
+| [hscspring/SuitJOB](https://github.com/hscspring/SuitJOB)    | 应用 | 根据岗位描述和要求匹配岗位。[国外](https://suit-job.vercel.app/) [国内](https://suitjob.huggingai.cn/) |
 | [datawhalechina/llm-deploy](https://github.com/datawhalechina/llm-deploy) | 教程 | 大模型/LLM推理和部署理论与实践                               |
 | [datawhalechina/hands-on-llama](https://github.com/datawhalechina/hands-on-llama) | 教程 | 以LLaMA为例基于NumPy介绍LLM推理相关知识                      |
 | [datawhalechina/HuggingLLM](https://github.com/datawhalechina/hugging-llm) | 教程 | 蝴蝶书《ChatGPT原理与应用开发》[视频](https://space.bilibili.com/431850986/channel/collectiondetail?sid=1315092) |
@@ -86,7 +74,6 @@ date: 2018-04-07 22:29:12
 | [hscspring/llama.np](https://github.com/hscspring/llama.np)  | 算法 | LLaMA推理纯NumPy实现                                         |
 | [hscspring/Multi-Label-Text-Classification](https://github.com/hscspring/Multi-Label-Text-Classification-for-Chinese) | 算法 | 多标签分类                                                   |
 | [hscspring/ptcls](https://github.com/hscspring/ptcls/tree/main) | 算法 | Token分类                                                    |
-| [hscspring/SuitJOB](https://github.com/hscspring/SuitJOB)    | 方案 | 简单的Job推荐系统                                            |
 | [hscspring/ALL4AI](https://github.com/hscspring/ALL4AI)      | 聚合 | AI相关工具、项目集                                           |
 | [hscspring/All4NLP](https://github.com/hscspring/All4NLP)    | 聚合 | NLP相关工具、项目集                                          |
 
@@ -95,6 +82,8 @@ date: 2018-04-07 22:29:12
 - 知乎专栏：
     - [NLP 点滴 - 知乎](https://www.zhihu.com/column/lovenlp)
     - [多模态点滴 - 知乎](https://www.zhihu.com/column/c_1857730227255504896)
+    - [技术与人 · 编程点滴 - 知乎](https://www.zhihu.com/column/c_1986696308027839732)
+    - [时间的侧面 - 知乎](https://www.zhihu.com/column/c_1986694600249845277)
 - Rust 中文社区日报编辑、专栏作者（已暂停）。
     - Rust 日报：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=%E9%95%BF%E7%90%B4)
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)

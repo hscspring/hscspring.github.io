@@ -74,6 +74,8 @@ date: 2019-07-13 20:00:00
 
 ### 思考
 
+- [从平面国到硅世界：当文明被困在自己的维度里 | 长琴](https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/)
+- [以 AI Coding 之管窥探世界之变 | 长琴](https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/)
 - [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
 - [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
 - [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
@@ -110,7 +112,7 @@ date: 2019-07-13 20:00:00
 
 ### R1
 
-- [R1后范式最佳实践：Seed-Thinking和Qwen3 | Yam](https://yam.gift/2025/05/01/NLP/LLM-Training/xx/)
+- [R1后范式最佳实践：Seed-Thinking和Qwen3 | 长琴](https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
 - [R1相关：R1-Zero的进一步理解和探索 | Yam](https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/)
 - [DeepSeek R1后应用、职业与行业影响——2025年梳理 | Yam](https://yam.gift/2025/03/15/AI/2025-03-15-LLM-App-Develop/)
@@ -492,6 +494,7 @@ date: 2019-07-13 20:00:00
 
 ## 杂文随笔Essay
 
+- [站在 30-40 岁的档口 | 长琴](https://yam.gift/2026/01/01/Diary/2026-01-01-30to40/)
 - [所爱隔山海，山海亦可平 | 长琴](https://yam.gift/2025/12/22/Diary/2025-12-22-Love/)
 - [60小时备考高架擦边过经验 | Yam](https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/)
 - [我为什么做开源？ | Yam](https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/)
