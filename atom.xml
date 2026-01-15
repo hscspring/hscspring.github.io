@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>长琴</title>
+  <icon>https://yam.gift/icon.png</icon>
+  <subtitle>知乎：长琴 | 公众号：技术与人</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://yam.gift/"/>
+  <updated>2026-01-15T00:16:43.346Z</updated>
+  <id>https://yam.gift/</id>
+  
+  <author>
+    <name>hscspring</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析</title>
+    <link href="https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/"/>
+    <id>https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/</id>
+    <published>2026-01-14T15:00:00.000Z</published>
+    <updated>2026-01-15T00:16:43.346Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;EXAONE:&lt;/strong&gt; 改进 GRPO，通过移除 Clip 保留探索性 Token，并利用非对称采样引导模型远离错误路径。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Kimi:&lt;/strong&gt; 从 KKT 条件推导出 RL 目标函数，将长推理过程视为“隐式搜索”，并利用逐步升温长度惩罚解决“过度思考”问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MiMo:&lt;/strong&gt; 采用反向 KL 散度进行多教师蒸馏（MOPD），实现“寻找众数”的精准能力迁移。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;MiniMax:&lt;/strong&gt; 针对 GRPO Clip 问题，采用带 Stop-gradient 的重要性采样与 Token Mask 机制，不丢弃探索梯度同时确保训练平稳。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Qwen:&lt;/strong&gt; 将重要性权重回归序列级别，引入长度归一化解决 Token-level 高方差，同时增强了 MoE 路由的稳定性，并进一步演进为平滑剪裁的 SAPO。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;结论：&lt;/strong&gt; 行业正从简单的奖励最大化转向更精细的分布对齐、隐式规划引导和训练稳定性控制。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="KKT" scheme="https://yam.gift/tags/KKT/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
+    
+      <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
+    
+      <category term="EXAONE" scheme="https://yam.gift/tags/EXAONE/"/>
+    
+      <category term="AGAPO" scheme="https://yam.gift/tags/AGAPO/"/>
+    
+      <category term="Kimi" scheme="https://yam.gift/tags/Kimi/"/>
+    
+      <category term="MiMo" scheme="https://yam.gift/tags/MiMo/"/>
+    
+      <category term="MOPD" scheme="https://yam.gift/tags/MOPD/"/>
+    
+      <category term="MiniMax" scheme="https://yam.gift/tags/MiniMax/"/>
+    
+      <category term="Qwen" scheme="https://yam.gift/tags/Qwen/"/>
+    
+      <category term="SAPO" scheme="https://yam.gift/tags/SAPO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【聆听·微光】003：一位对工作迷茫的程序员的觉醒时刻</title>
+    <link href="https://yam.gift/2026/01/12/ListenGlimmer/003/"/>
+    <id>https://yam.gift/2026/01/12/ListenGlimmer/003/</id>
+    <published>2026-01-12T15:00:00.000Z</published>
+    <updated>2026-01-12T13:14:43.837Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 工作1-2年的后端开发工程师。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 我觉得现在的工作没有价值，时而感到迷茫。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今天通话的伙伴是 L 同学，刚毕业工作了一两年，在银行做系统，稳定的同时又备受煎熬，在工作中找不到意义和价值。同时又有自己的创业小项目，有现金流，但还无法全职的程度。L 同学是公众号的老粉丝了，看过我不少文章，他自己的创业小项目也是受《&lt;a href=&quot;https://yam.gift/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/&quot;&gt;实时语音交互场景下RAG的机遇和挑战 | 长琴&lt;/a&gt;》这篇文章的启发。&lt;/p&gt;
+&lt;p&gt;L 同学的困惑主要是工作相关和 AI 时代如何提升性学习。从问题表面来看其实是比较容易解决的，不过在聊的时候发现，其实这些问题只是 L 同学在探索和找寻自身意义和价值过程中的自然表现，这才是根源所在。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【聆听·微光】002：一位普通院校硕士研究生的毕业之际</title>
+    <link href="https://yam.gift/2026/01/07/ListenGlimmer/002/"/>
+    <id>https://yam.gift/2026/01/07/ListenGlimmer/002/</id>
+    <published>2026-01-07T15:00:00.000Z</published>
+    <updated>2026-01-10T03:21:31.887Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 即将硕士研究生毕业。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 我觉得自己决策慢、做事情慢、好像行动力不强。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;今天的来访者是 J 同学，一位研三、正在找工作、即将踏入社会的、有一点迷茫但又有一些憧憬的典型毕业季同学。&lt;/p&gt;
+&lt;p&gt;J 同学读的文章是《&lt;a href=&quot;https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/&quot;&gt;我为什么做开源？ | 长琴&lt;/a&gt;》，结果被我里面说的一句话”打击“了，觉得自己可能不适合技术。这句话是这样的：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;我也始终觉得，通过嚼碎的内容是没法成为一个优秀工程师的，也不是一个大学生更不是一个已经工作的人应该使用的学习方式。所以，我的所有教程都没有环境部分，我觉得要是连环境都搞不定，可能真的不适合这个行业。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;J 同学说自己就是需要嚼碎的内容，可能搞不定环境。&lt;/p&gt;
+&lt;p&gt;虽然那是我的真实想法，但这么赤裸裸的表达对一个可能不那么喜欢、同时又是技术相关专业的新人来说，可能有点过于苛刻了。还请 J 同学不要放在心上。&lt;/p&gt;
+&lt;p&gt;J 同学的问题比较典型，总的来说可以分三块：工作、能力和认知。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>从平面国到硅世界：当文明被困在自己的维度里</title>
+    <link href="https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/"/>
+    <id>https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/</id>
+    <published>2026-01-06T15:00:00.000Z</published>
+    <updated>2026-01-07T01:57:47.280Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;今天看完了《平面国》，一本著于 1884 年的小书，一本看似讲物理，其实讲社会和人类的书。&lt;/p&gt;
+&lt;p&gt;一千个人眼中有一千个哈姆雷特，同样，每一个人看书都会有自己不同的视角和理解。当下，正值 AI 迅猛发展的时刻，一切的一切看似都在往好的方面发展，我前几天才写完《&lt;a
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    
+      <category term="Future" scheme="https://yam.gift/tags/Future/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【聆听·微光】001：一位研究生在读的”reward hacker“关于学习的困惑</title>
+    <link href="https://yam.gift/2026/01/03/ListenGlimmer/001/"/>
+    <id>https://yam.gift/2026/01/03/ListenGlimmer/001/</id>
+    <published>2026-01-03T03:00:00.000Z</published>
+    <updated>2026-01-07T15:25:01.935Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;：研究生在读，大模型方向实习生。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;：我是个 Reward Hacker，为了面试通过，我刷题、背八股，但我心里慌。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;2025 年 1 月 2 日，昨天发完小红书后，今天迎来了第一位小伙伴。&lt;/p&gt;
+&lt;p&gt;第一位小伙伴（我们后面称他为 F 同学）就和我想象中的不一样，我本来以为他会问关于大模型和相关工作的问题，没想到他更加关注的居然是 ”学习“ 问题。他看的博客是《&lt;a href=&quot;https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/&quot;&gt;Hybrid LLM 之 Gated DeltaNet | 长琴&lt;/a&gt;》。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+      <category term="Study" scheme="https://yam.gift/tags/Study/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>聆听·微光</title>
+    <link href="https://yam.gift/2026/01/03/ListenGlimmer/000/"/>
+    <id>https://yam.gift/2026/01/03/ListenGlimmer/000/</id>
+    <published>2026-01-03T02:00:00.000Z</published>
+    <updated>2026-01-03T11:50:15.388Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;一段比较长的背景&quot;&gt;一段比较长的背景&lt;/h2&gt;
+&lt;h3
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+      <category term="Listen" scheme="https://yam.gift/tags/Listen/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>以 AI Coding 之管窥探世界之变</title>
+    <link href="https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/"/>
+    <id>https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/</id>
+    <published>2026-01-01T01:30:00.000Z</published>
+    <updated>2026-01-01T12:42:11.250Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;过去三周，我用 AI Coding 在零碎时间完成了 7 个真实项目，其中多个已开源并投入实际使用。&lt;/li&gt;
+&lt;li&gt;AI 已经不再只是“辅助写代码”，而是在&lt;strong&gt;架构清晰、决策明确的前提下，实质性替代了大量中级开发工作&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;AI Coding 的上限不在模型，而在使用者：是否会设计、会 review、会做关键决策。&lt;/li&gt;
+&lt;li&gt;由 AI Coding 的跃迁可以窥见更大的变化：世界正在进入“超级个体”时代，个人能力被放大，但分化会更剧烈。&lt;/li&gt;
+&lt;li&gt;算法层面，基础模型、RL、多模态会继续变得更强大、更智能。&lt;/li&gt;
+&lt;li&gt;产品层面，具身智能、虚拟世界不再遥远，AIGC 将攻占互联网。&lt;/li&gt;
+&lt;li&gt;面对不可逆的技术浪潮，我选择“批判地接受”：积极参与，同时保留理性与属于自己的私有空间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;p&gt;2025 年最后一天，2026 年第一天，之际，很想聊聊 AI 编程。我记得 2024 年底的时候，AI 编程还不怎么好用，当时用 MetaGPT 写了一个贪吃蛇，结果有个 bug 半天怎么都没弄好，最后还是我自己手动改了两处代码。&lt;/p&gt;
+&lt;p&gt;万万没想到啊，这才一年不到的时间，AI 编程居然到了如斯地步。年初的时候听说 cursor 比较好用，下载后随便玩了一下感觉没有想象中那么强。也尝试过 VSCode 的插件 Cline，用它做了个 Code review，怎么说呢，感觉没有达到自己的预期。&lt;/p&gt;
+&lt;p&gt;其实，我一直是重度 AI 使用者，Code 也在用，只是没有在一个 IDE 里用，大部分时候都是在 ChatGPT 的对话框里完成。常见的任务包括：完成某个功能的脚本、对已有代码进行改造（比如改多线程、异步等）、写单元测试等。&lt;/p&gt;
+&lt;p&gt;直到最近，突然看到 Trae 发布了 Solo 模式，想着试一试，于是在 2025 年 12 月初一下子开启了全面的 AI Coding。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    
+      <category term="AI-Coding" scheme="https://yam.gift/tags/AI-Coding/"/>
+    
+      <category term="Future" scheme="https://yam.gift/tags/Future/"/>
+    
+      <category term="promptlog" scheme="https://yam.gift/tags/promptlog/"/>
+    
+      <category term="lightinfer" scheme="https://yam.gift/tags/lightinfer/"/>
+    
+      <category term="pararun" scheme="https://yam.gift/tags/pararun/"/>
+    
+      <category term="trae" scheme="https://yam.gift/tags/trae/"/>
+    
+      <category term="antigravity" scheme="https://yam.gift/tags/antigravity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>站在 30-40 岁的档口</title>
+    <link href="https://yam.gift/2026/01/01/Diary/2026-01-01-30to40/"/>
+    <id>https://yam.gift/2026/01/01/Diary/2026-01-01-30to40/</id>
+    <published>2026-01-01T00:00:00.000Z</published>
+    <updated>2025-12-31T23:52:16.986Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;人都说 30 而立，40
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="Diary" scheme="https://yam.gift/tags/Diary/"/>
+    
+      <category term="Life" scheme="https://yam.gift/tags/Life/"/>
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+      <category term="Age" scheme="https://yam.gift/tags/Age/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析</title>
+    <link href="https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/"/>
+    <id>https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/</id>
+    <published>2025-12-31T01:00:00.000Z</published>
+    <updated>2025-12-31T14:22:17.484Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：&lt;strong&gt;我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。&lt;/p&gt;
+&lt;p&gt;这两种理解对应着不同的训练目标，也自然导向了不同的训练策略。与之相关的研究结论之所以看似分化，往往源于训练设定与任务分布的差异：在某些工作中，RL 被观察到伴随能力跃迁；而在另一些设定下，其作用则始终未超出 Base 模型的能力边界。&lt;/p&gt;
+&lt;p&gt;本文并不试图在“RL 是否能够突破 Base”这一争论中选边站队，而是系统梳理已有工作的结论与假设，试图澄清一个更关键的问题：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;在什么条件下，RL 才可能表现为能力外推？而在什么情况下，它更合理地被理解为一种采样与抛光机制？&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="DELTA" scheme="https://yam.gift/tags/DELTA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>所爱隔山海，山海亦可平</title>
+    <link href="https://yam.gift/2025/12/22/Diary/2025-12-22-Love/"/>
+    <id>https://yam.gift/2025/12/22/Diary/2025-12-22-Love/</id>
+    <published>2025-12-22T15:00:00.000Z</published>
+    <updated>2025-12-22T16:03:16.303Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;前段时间空闲时间偶尔会想一个问题：“当历史的积累超越了人类学习的极限时会发生什么？”&lt;/p&gt;
+&lt;p&gt;其实不说以后，就现在已然出现知识爆炸的情况，研究方向越来越细，都不是“隔行如何山”了，稍微跨个方向可能都相差极大。是不是可以认为已经差不多到了“穷尽一生也学不完某个方向”的地
+        
+      
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="Diary" scheme="https://yam.gift/tags/Diary/"/>
+    
+      <category term="Life" scheme="https://yam.gift/tags/Life/"/>
+    
+      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    
+      <category term="Study" scheme="https://yam.gift/tags/Study/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？</title>
+    <link href="https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/"/>
+    <id>https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/</id>
+    <published>2025-12-21T15:00:00.000Z</published>
+    <updated>2025-12-31T06:50:40.590Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;随着 GRPO 在后训练的不断应用和成熟，越来越多的任务都开始采用 RL 作为进一步提升效果的方案。但是对于那些缺乏明确标准答案的场景，除了人工标注外，还有没有其他比较高效、低成本的方案呢？&lt;/p&gt;
+&lt;p&gt;R1 之后出现了一种比较激进的方案：无验证 RL，模型不再依赖外部验证器，而是仅利用自身内部信号，如一致性、置信度或分布特征等来构造学习信号。&lt;/p&gt;
+&lt;p&gt;从最早的多数投票（TTRL、SRT），到基于熵与自确定性的强化学习，再到引入语义多样性与进化机制的最新方法，这个方向看似在不断取得进展，但其实这一类方法有个很严重的问题：“绝大多数内部反馈机制，本质上都在推动策略熵持续下降。”&lt;/p&gt;
+&lt;p&gt;这既解释了它们在训练初期或部分任务的有效性，同时也揭示了很多时候性能退化和探索崩塌的缘由。最新的工作从各个角度提出改进策略，如优势重塑、多样性奖励到进化式选择等等，但归根结底也都是在增加模型的探索能力，或者说平衡探索-利用。那么，对这种新的 RL 范式，你怎么看？&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TTRL / SRT、EM / RENT、Intuitor、EMPO 等方法都在显式或隐式地最小化策略熵。&lt;/li&gt;
+&lt;li&gt;内部反馈奖励几乎必然导致策略熵单调下降，最终引发探索不足与性能退化。&lt;/li&gt;
+&lt;li&gt;ETTRL 通过高熵 token 分支 rollout 与基于熵的 advantage 重塑，缓解早期过度自信。&lt;/li&gt;
+&lt;li&gt;Darling 将语义多样性显式并入奖励，增加探索。&lt;/li&gt;
+&lt;li&gt;EVOL-RL 以“多数选择 + 新颖性变异”模拟进化过程，在稳定与探索之间取得更优平衡。&lt;/li&gt;
+&lt;li&gt;RESTRAIN 利用全部 rollout 信号，对低一致性与过度自信样本进行系统性惩罚。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方案&lt;/th&gt;
+&lt;th&gt;具体做法&lt;/th&gt;
+&lt;th&gt;特点&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2504.16084&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;TTRL 250422&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt; / &lt;a href=&quot;https://arxiv.org/abs/2505.21444&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;SRT 250527&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;多数投票答案&lt;/td&gt;
+&lt;td&gt;部分领域（数学）使用&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2505.15134&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;EM 250521&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt; FT&lt;/td&gt;
+&lt;td&gt;直接最小化 token 级别熵（类似 SFT）&lt;/td&gt;
+&lt;td&gt;数学和编码任务中强&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2505.15134&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;EM 250521&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt; RL / &lt;a href=&quot;https://arxiv.org/abs/2505.22660&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RENT 250528&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;熵作为奖励&lt;/td&gt;
+&lt;td&gt;能在大型数据集上收敛&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2505.15134&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;EM 250521&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt; INF&lt;/td&gt;
+&lt;td&gt;将 LLM 输出的 logits 视为可自由优化的参数&lt;/td&gt;
+&lt;td&gt;最小化输出分布的熵&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2504.05812&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;EMPO 250408&lt;/a&gt;&lt;sup&gt;[5]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;将输出按语义聚类，语义簇熵作为奖励&lt;/td&gt;
+&lt;td&gt;增加一点多样性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2505.19590&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Intuitor 250526&lt;/a&gt;&lt;sup&gt;[6]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;自确定性（输出分布与均匀分布的平均 KL 散度）作为奖励&lt;/td&gt;
+&lt;td&gt;对“更长文本偏好”偏差不敏感&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2508.11356&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;ETTRL 250815&lt;/a&gt;&lt;sup&gt;[7]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;树状分支 rollout + Advantage clip&lt;/td&gt;
+&lt;td&gt;降低成本、缓解早期估计偏差&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2509.02534&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Darling 250902&lt;/a&gt;&lt;sup&gt;[8]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;奖励×多样性&lt;/td&gt;
+&lt;td&gt;增加回复的语义多样性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2509.15194&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;EVOL-RL 250918&lt;/a&gt;&lt;sup&gt;[9]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;模拟生物进化增加新颖性奖励&lt;/td&gt;
+&lt;td&gt;防止熵崩塌&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;a href=&quot;https://arxiv.org/abs/2510.02172&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;RESTRAIN 251002&lt;/a&gt;&lt;sup&gt;[10]&lt;/sup&gt;&lt;/td&gt;
+&lt;td&gt;惩罚低一致性样本同时保留高潜力推理链&lt;/td&gt;
+&lt;td&gt;无监督自我改进&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="TTRL" scheme="https://yam.gift/tags/TTRL/"/>
+    
+      <category term="SRT" scheme="https://yam.gift/tags/SRT/"/>
+    
+      <category term="EM" scheme="https://yam.gift/tags/EM/"/>
+    
+      <category term="RENT" scheme="https://yam.gift/tags/RENT/"/>
+    
+      <category term="EMPO" scheme="https://yam.gift/tags/EMPO/"/>
+    
+      <category term="Intuitor" scheme="https://yam.gift/tags/Intuitor/"/>
+    
+      <category term="ETTRL" scheme="https://yam.gift/tags/ETTRL/"/>
+    
+      <category term="Darling" scheme="https://yam.gift/tags/Darling/"/>
+    
+      <category term="EVOL-RL" scheme="https://yam.gift/tags/EVOL-RL/"/>
+    
+      <category term="RESTRAIN" scheme="https://yam.gift/tags/RESTRAIN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DeepSeekV3.2后训练：稳定压倒一切</title>
+    <link href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/"/>
+    <id>https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/</id>
+    <published>2025-12-03T15:00:00.000Z</published>
+    <updated>2025-12-04T00:23:06.672Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 &lt;strong&gt;后训练（post-training）阶段的一系列稳定性工程&lt;/strong&gt;。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 &lt;strong&gt;GRPO 稳定性&lt;/strong&gt; 展开。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。&lt;/li&gt;
+&lt;li&gt;GRPO 稳定性优化：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Advantage 去标准差&lt;/strong&gt;：消除难度偏差，提高样本权重的公平性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KL 的无偏修正&lt;/strong&gt;：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;序列级 off-policy 掩码&lt;/strong&gt;：屏蔽高偏差且优势为负的序列，显著提升稳定性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MoE 路由保持&lt;/strong&gt;：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;采样保持&lt;/strong&gt;：保持 &lt;code&gt;π_old&lt;/code&gt; 与 &lt;code&gt;π_θ&lt;/code&gt; 的动作空间一致，避免采样截断可能带来的稳定性问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;工具使用部分提出&lt;strong&gt;更高效的思维轨迹管理方式&lt;/strong&gt;：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="DeepSeek-V3.2" scheme="https://yam.gift/tags/DeepSeek-V3-2/"/>
+    
+      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
+    
+      <category term="MoE" scheme="https://yam.gift/tags/MoE/"/>
+    
+      <category term="Post-Training" scheme="https://yam.gift/tags/Post-Training/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型</title>
+    <link href="https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/"/>
+    <id>https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/</id>
+    <published>2025-11-29T04:00:00.000Z</published>
+    <updated>2025-11-29T04:07:19.649Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在开放性问题上，仅靠生成答案很容易出错。如何让模型不仅能写出证明，还能识别自身错误，从而形成闭环优化？答案是——&lt;strong&gt;自我验证&lt;/strong&gt;。来看一下 DeepSeek 最新的论文：&lt;a href=&quot;https://github.com/deepseek-ai/DeepSeek-Math-V2&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;DeepSeekMath-V2: Towards Self-Verifiable Mathematical Reasoning&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;，看自我验证如何让 LLM 生成与评估协同来提升数学定理证明能力。&lt;/p&gt;
+&lt;p&gt;TL; DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练验证器&lt;/strong&gt;：验证器不仅打分，还识别证明中的问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;引入元验证&lt;/strong&gt;：通过二次评分机制防止验证器虚构问题，使验证分析更可靠。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;训练生成器&lt;/strong&gt;：生成器在生成证明后进行自我分析，并根据验证器和元验证器的反馈优化输出。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;验证生成协同&lt;/strong&gt;：生成器与验证器形成闭环，生成新的证明挑战验证器能力，同时扩大自动标注数据，提高整体系统可靠性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;核心启示是：&lt;strong&gt;奖励模型不仅要给分数，更要建模评估分析过程&lt;/strong&gt;，让生成与验证形成协同闭环，显著提升开放性问题的推理能力。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://qnimg.lovevivian.cn/paper-deepseekmath-v2-2.jpg&quot; alt&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
+    
+      <category term="Reward" scheme="https://yam.gift/tags/Reward/"/>
+    
+      <category term="DeepSeekMath-V2" scheme="https://yam.gift/tags/DeepSeekMath-V2/"/>
+    
+      <category term="Self-Verified" scheme="https://yam.gift/tags/Self-Verified/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</title>
+    <link href="https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/"/>
+    <id>https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/</id>
+    <published>2025-11-23T15:00:00.000Z</published>
+    <updated>2025-11-23T17:55:11.541Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在 LLM 应用开发里，我们经常需要处理多轮消息、对话历史等结构化内容。理论上，这些对象应该是简单、透明、可控的——但在 NumPy 和特定字典工具（如 &lt;code&gt;addict.Dict&lt;/code&gt;）参与后，一些微妙的行为会悄悄改变数据结构，让输出变得诡异甚至完全不对。本篇记录我在实际开发（尤其是 verl 与 transformers）中遇到的两个“小问题”：一个来自 NumPy 的自动维度推断，另一个来自字典工具的默认属性行为。它们不是 bug，却可能让你花一阵子 debug。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NumPy 变长消息问题&lt;/strong&gt;：当使用 &lt;code&gt;np.array(..., dtype=object)&lt;/code&gt; 处理长度不一致的消息列表时，NumPy 可能返回不同维度的数组，导致后续处理出错。改用 &lt;code&gt;np.fromiter&lt;/code&gt; 或预分配 object 数组并赋值，可确保输出结构统一。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;字典赋值工具干扰问题&lt;/strong&gt;：使用 &lt;code&gt;addict.Dict&lt;/code&gt; 等动态字典工具包装消息数据时，其默认行为会干扰 transformers 对消息结构的正确判断，导致模板生成错误。可换用 &lt;code&gt;OmegaConf&lt;/code&gt; 或修改 &lt;code&gt;addict&lt;/code&gt; 源码禁用自动建键功能以修复问题。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="NumPy" scheme="https://yam.gift/tags/NumPy/"/>
+    
+      <category term="Tokenizer" scheme="https://yam.gift/tags/Tokenizer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hybrid LLM 之 Gated DeltaNet</title>
+    <link href="https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/"/>
+    <id>https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/</id>
+    <published>2025-11-18T15:30:00.000Z</published>
+    <updated>2026-01-06T04:18:19.329Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;Qwen3-Next 采用了混合架构让人眼前一亮，其中重要的 Gated DeltaNet 模块设计优雅，最大限度地在工程效率和模型效果之间探索平衡，值得学习了解。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;TL; DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;DeltaNet&lt;/strong&gt;：线性 attention 可以看作矩阵状态的累积记忆，DeltaNet 通过 delta rule 更加精确地更新 KV 关联，缓解传统线性 attention 记忆过载问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Gated DeltaNet&lt;/strong&gt;：引入 α 门控，实现选择性遗忘与灵活记忆管理，提高检索精度和稳定性。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="Qwen3-Next" scheme="https://yam.gift/tags/Qwen3-Next/"/>
+    
+      <category term="Gated DeltaNet" scheme="https://yam.gift/tags/Gated-DeltaNet/"/>
+    
+      <category term="DeltaNet" scheme="https://yam.gift/tags/DeltaNet/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Reward建模新范式：无验证器RL与Reference的妙用</title>
+    <link href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/"/>
+    <id>https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/</id>
+    <published>2025-11-11T00:00:00.000Z</published>
+    <updated>2025-12-31T06:50:58.642Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;R1 之后，GRPO 等强化学习框架的成功让我们相信“反馈”是提升推理力的关键。&lt;br&gt;
+然而，当任务无法被规则验证时，这一框架就不太好用了。&lt;br&gt;
+本文介绍一种“无验证器”新范式，让模型用 Reference 自我强化，重新定义奖励建模。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;传统 RLHF 依赖验证器或 RM 打分，但很多开放任务无法简单验证。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;NOVER：&lt;/strong&gt; 基于 PPL 设计奖励，引入策略代理同步与效率奖励，稳定训练。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reinforcing General Reasoning：&lt;/strong&gt; 直接最大化参考答案概率，以“正确答案的似然”替代验证器。方差更低，与 RLOO、PPO 等技术兼容。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;逆向激励：&lt;/strong&gt; 先生成答案，再生成自评得分，无需标准答案。适合创意、写作等难以客观评判的任务。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Reference 进一步妙用：&lt;/strong&gt; 帮助模型思考“为什么这是答案”，可用于生成高质量数据。也可与逆向激励结合。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
+    
+      <category term="NOVER" scheme="https://yam.gift/tags/NOVER/"/>
+    
+      <category term="RGR" scheme="https://yam.gift/tags/RGR/"/>
+    
+      <category term="RAVR" scheme="https://yam.gift/tags/RAVR/"/>
+    
+      <category term="REER" scheme="https://yam.gift/tags/REER/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>子非我，安知我不知鱼之乐——AI、人类与意识的边界</title>
+    <link href="https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/"/>
+    <id>https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/</id>
+    <published>2025-10-25T01:30:00.000Z</published>
+    <updated>2025-10-27T09:07:02.396Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;AGI已近在眼前&lt;/strong&gt;：当前的大模型已在多个领域展现出专家能力，其发展因巨大的战略价值（如“知识霸权”）而不可阻挡。尽管Scaling Law遇到瓶颈，但通往AGI的路径依然多样且充满探索。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;AI可能是“新物种”，而非“类人”&lt;/strong&gt;：AI在高级认知上媲美甚至超过人类，但其底层驱动力很可能与人类截然不同。人类的核心目标是基因决定的“更好地活着”，而AI很可能没有这种源于脆弱生命的生存本能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;人类的本能与情感是特质而非缺陷&lt;/strong&gt;：人类的脆弱、情感和欲望，构成了我们鲜活的体验，是“人性”的宝贵部分。绝对理性、无欲无求的“神化”方向并不可取。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;意识与自我认知的谜题&lt;/strong&gt;：意识的本质或许与“自我认知”密切相关，但 AI 是否需要或会产生这样的“自我”，仍是未知数。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;我们为何担忧AI&lt;/strong&gt;：人类希望AI是“人工”智能，本质上是希望“奴役”一个强大的同类，这种控制欲与历史上对权力的追求一脉相承。但当这个“同类”的本质与我们完全不同，同时还比我们强大很多时，担忧便油然而生。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Reinforce++和它的KL Loss选择</title>
+    <link href="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/"/>
+    <id>https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/</id>
+    <published>2025-10-24T15:30:00.000Z</published>
+    <updated>2026-01-04T23:15:11.440Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
+    
+      <category term="Reinforce++" scheme="https://yam.gift/tags/Reinforce/"/>
+    
+      <category term="PPO" scheme="https://yam.gift/tags/PPO/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hybrid LLM 之 Gated Attention</title>
+    <link href="https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/"/>
+    <id>https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/</id>
+    <published>2025-09-25T15:30:00.000Z</published>
+    <updated>2025-12-31T06:52:00.583Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://qwen.ai/blog?id=4074cca80393150c248e508aa62983f9cb7d27cd&amp;amp;from=research.latest-advancements-list&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Qwen3-Next&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt; 发布后，算是真正开启了 hybrid 序幕，原本还想着后面再慢慢补这块，现在看来是不行了，得提前了。好在东西也不多，我们就借着这次机会过一轮吧。&lt;/p&gt;
+&lt;p&gt;这是第一篇，我们简单点，从 Gated Attention 开始，来自 Paper：&lt;a href=&quot;https://arxiv.org/abs/2505.06708&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;，5 月份的一篇论文了，官方 &lt;a href=&quot;https://github.com/qiuzh20/gated_attention&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt; 关注的人不多，没想到这就成了 Qwen 新版本的标准配置了。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="attention sink" scheme="https://yam.gift/tags/attention-sink/"/>
+    
+      <category term="gated attention" scheme="https://yam.gift/tags/gated-attention/"/>
+    
+      <category term="GLU" scheme="https://yam.gift/tags/GLU/"/>
+    
+      <category term="Qwen3-Next" scheme="https://yam.gift/tags/Qwen3-Next/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>记一次诡异的 FD 泄露：躲在暗处的猴子补丁</title>
+    <link href="https://yam.gift/2025/09/21/Python/2025-09-21-FD-Leak/"/>
+    <id>https://yam.gift/2025/09/21/Python/2025-09-21-FD-Leak/</id>
+    <published>2025-09-21T15:00:00.000Z</published>
+    <updated>2025-09-25T00:56:39.667Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文记录一次线上服务关于 FD 泄露的 Bug 排查经历。相关代码：&lt;a href=&quot;https://github.com/hscspring/fd_leak&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;hscspring/fd_leak: fd leak caused by monkey patch.&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;引子：线上服务频频告警，一切迹象都指向了再常见不过的 FD 耗尽问题。然而，这次的排查之旅却像一场侦探游戏，线索若隐若现，真相几度反转。最终，我们揪出的元凶竟是一个“躲在暗处”的&lt;strong&gt;猴子补丁（Monkey Patch）&lt;/strong&gt;，而触发它作案的，则是一两行看似人畜无害的&lt;strong&gt;导入语句&lt;/strong&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
+    
+    
+      <category term="Python" scheme="https://yam.gift/tags/Python/"/>
+    
+      <category term="FD Leak" scheme="https://yam.gift/tags/FD-Leak/"/>
+    
+      <category term="Monkey Patch" scheme="https://yam.gift/tags/Monkey-Patch/"/>
+    
+      <category term="Eventlet" scheme="https://yam.gift/tags/Eventlet/"/>
+    
+      <category term="Sentry" scheme="https://yam.gift/tags/Sentry/"/>
+    
+  </entry>
+  
+</feed>
