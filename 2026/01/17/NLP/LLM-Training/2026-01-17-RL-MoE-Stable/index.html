@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-cispo-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-icepop-3.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-r3-5.jpg">
-<meta property="og:updated_time" content="2026-01-17T04:27:33.010Z">
+<meta property="og:updated_time" content="2026-01-17T05:09:21.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="稳定性压倒一切：MoE RL 训推不一致问题及解决策略">
 <meta name="twitter:description" content="TL;DR  核心矛盾：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。 现象严重性：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。 不同策略：算法鲁棒化的 GSPO/GMPO，数学偏差补偿的 TIS/IcePop，系统强行对齐的 R3/Dee">
@@ -237,13 +237,13 @@
 <td><strong>重要性修正</strong></td>
 <td><strong>TIS / IcePop</strong></td>
 <td>引入校正系数或直接 Mask 掉训推概率比（IS）过大的 Token。</td>
-<td>“打补丁”式优化，IcePop 比 TIS 更激进、更干净。</td>
+<td>系统性优化，IcePop 比 TIS 更激进、更干净。</td>
 </tr>
 <tr>
 <td><strong>强制对齐</strong></td>
 <td><strong>R3 / DeepSeek</strong></td>
 <td>训练时强制复用推理时记录的专家路径。</td>
-<td>直接且有效地解决了不一致问题。</td>
+<td>直接且有效地解决不一致问题。</td>
 </tr>
 </tbody>
 </table>
