@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-cispo-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-icepop-3.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-r3-5.jpg">
-<meta property="og:updated_time" content="2026-01-17T04:20:47.375Z">
+<meta property="og:updated_time" content="2026-01-17T04:24:02.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="稳定性压倒一切：MoE RL 训推不一致问题及解决策略">
 <meta name="twitter:description" content="TL;DR  核心矛盾：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。 现象严重性：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。 **不同策略：**算法鲁棒化的 GSPO/GMPO，数学偏差补偿的 TIS/IcePop，系统强行对齐的 R3">
@@ -120,7 +120,7 @@
 </ul>
 <a id="more"></a>
 <p>本文来讨论一下 MoE RL 的稳定性问题。其实，我自己还没用过 MoE，基本还是 Dense，所以讨论也谈不上，纯粹是整理了。￣□￣｜｜</p>
-<p>另外，本文的图片和公式均来自原文。</p>
+<p>另外，本文的图片和公式绝大多数来自原文，特在此声明。</p>
 <h2 id="问题">问题</h2>
 <p>在 RL 时，训练和推理经常是不同的引擎，比如推理用 VLLM 或 SGLang，训练用 FSDP 或 Megatron。这就导致 rollout 时的分布和训练时的需要的分布可能不一样。有同学可能会问了，rollout 只是采样轨迹呀，怎么和后面的更新参数、计算 <code>log_prob</code> 有关呢？嘿，在 RL 中，它们不仅有关，还强耦合。因为在损失函数有个很重要的前提：期望是在策略上取的，trace 从哪个策略采样，本身就是目标函数的一部分。rollout 看似在生成数据，其实是定义一个行为分布。后面的计算 <code>log_prob</code> 是应该在选定分布上进行。</p>
 <p>我们来看看具体的现象，来自 <a href="https://arxiv.org/abs/2510.11370" target="_blank" rel="noopener">R3</a><sup>[1]</sup>（Stabilizing MoE Reinforcement Learning by Aligning Training and Inference Routers），</p>
