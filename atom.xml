@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-01-15T23:20:12.192Z</updated>
+  <updated>2026-01-17T04:20:47.375Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>稳定性压倒一切：MoE RL 训推不一致问题及解决策略</title>
+    <link href="https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/"/>
+    <id>https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/</id>
+    <published>2026-01-17T04:00:00.000Z</published>
+    <updated>2026-01-17T04:20:47.375Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;核心矛盾&lt;/strong&gt;：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;现象严重性&lt;/strong&gt;：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。&lt;/li&gt;
+&lt;li&gt;**不同策略：**算法鲁棒化的 GSPO/GMPO，数学偏差补偿的 TIS/IcePop，系统强行对齐的 R3/DeepSeek。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
+    
+      <category term="TIS" scheme="https://yam.gift/tags/TIS/"/>
+    
+      <category term="IcePop" scheme="https://yam.gift/tags/IcePop/"/>
+    
+      <category term="R3" scheme="https://yam.gift/tags/R3/"/>
+    
+  </entry>
   
   <entry>
     <title>【聆听·微光】004：一位算法后端开发工程师的AI转型之路</title>
@@ -830,38 +874,6 @@
       <category term="Reinforce++" scheme="https://yam.gift/tags/Reinforce/"/>
     
       <category term="PPO" scheme="https://yam.gift/tags/PPO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hybrid LLM 之 Gated Attention</title>
-    <link href="https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/"/>
-    <id>https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/</id>
-    <published>2025-09-25T15:30:00.000Z</published>
-    <updated>2025-12-31T06:52:00.583Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;a href=&quot;https://qwen.ai/blog?id=4074cca80393150c248e508aa62983f9cb7d27cd&amp;amp;from=research.latest-advancements-list&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Qwen3-Next&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt; 发布后，算是真正开启了 hybrid 序幕，原本还想着后面再慢慢补这块，现在看来是不行了，得提前了。好在东西也不多，我们就借着这次机会过一轮吧。&lt;/p&gt;
-&lt;p&gt;这是第一篇，我们简单点，从 Gated Attention 开始，来自 Paper：&lt;a href=&quot;https://arxiv.org/abs/2505.06708&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;，5 月份的一篇论文了，官方 &lt;a href=&quot;https://github.com/qiuzh20/gated_attention&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt; 关注的人不多，没想到这就成了 Qwen 新版本的标准配置了。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="attention sink" scheme="https://yam.gift/tags/attention-sink/"/>
-    
-      <category term="gated attention" scheme="https://yam.gift/tags/gated-attention/"/>
-    
-      <category term="GLU" scheme="https://yam.gift/tags/GLU/"/>
-    
-      <category term="Qwen3-Next" scheme="https://yam.gift/tags/Qwen3-Next/"/>
     
   </entry>
   
