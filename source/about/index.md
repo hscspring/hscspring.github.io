@@ -51,6 +51,8 @@ date: 2018-04-07 22:29:12
 
 | 项目                                                         | 类型 | 简介                                                         |
 | ------------------------------------------------------------ | ---- | ------------------------------------------------------------ |
+| [hscspring/xhttpy](https://github.com/hscspring/xhttpy)      | 工具 | 大一统的HTTP/API请求工具                                     |
+| [hscspring/create-vibe-app](https://github.com/hscspring/create-vibe-app) | 工具 | Vibe Coding脚手架                                            |
 | [hscspring/pararun](https://github.com/hscspring/pararun)    | 工具 | 脚本并发执行库                                               |
 | [hscspring/lightinfer](https://github.com/hscspring/lightinfer) | 工具 | 将模型Inference转为HTTP Server                               |
 | [hscspring/promptlog](https://github.com/hscspring/promptlog) | 工具 | 提示词版本控制记录工具                                       |

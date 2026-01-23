@@ -23,7 +23,7 @@ def add_superscript_references(markdown_text):
     modified_text = pattern.sub(replacer, markdown_text)
 
     # 生成 Reference 部分
-    ref_lines = ['\n\n## References\n']
+    ref_lines = ['\n\n## Reference\n']
     for idx, title, url in references:
         ref_lines.append(f'`[{idx}]` {title}: *{url}*  ')
     

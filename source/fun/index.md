@@ -17,3 +17,4 @@ date: 2025-12-23 08:00:00
 [Pointer Pointer](https://pointerpointer.com/)：鼠标在哪，就有一个图片的指头指向那里。
 [Virtual Travels, 360° Aerial Panoramas, 360° Virtual Tours Around the World](https://www.airpano.com/)：在电脑上走遍全球。
 [中国女性择偶数据实验室](https://hermatch-svelte.vercel.app/)：不同条件男性比例。
+[SeanWong17/Mammalia-tree](https://github.com/SeanWong17/Mammalia-tree): 一个沉浸式的 3D/2D 网页可视化项目，探索哺乳动物 2 亿年的演化史诗。

@@ -12,7 +12,7 @@ date: 2025-12-23 08:00:00
 [Alignment Research Blog](https://alignment.openai.com/)： OpenAI 对齐。
 [美团技术团队](https://tech.meituan.com/)：很多精品。
 [Lil'Log](https://lilianweng.github.io/)：文章不多但质量奇高，看完一篇都要耗费不少精力。我从 Diffusion 找到她。
-[科学空间|Scientific Spaces](https://kexue.fm/)：苏神国内怕是没人不知道。我是伪天文爱好者，关注他博客时他还是高中生，当时惊为天人。
+[科学空间|Scientific Spaces](https://kexue.fm/)：苏神国内搞算法的怕是大部分人都知道。我是伪天文爱好者，关注他博客时他还是高中生，当时惊为天人。
 [lucidrains (Phil Wang)](https://github.com/lucidrains)：好像没什么这位大佬不能复现的。ChatGPT 出来后关注 RLHF 复现时认识的。
 [Michael Nielsen](https://michaelnielsen.org/)：NNDL 作者，关于神经网络梯度那块看了好多遍。
 [Yuandong Tian's webpage](https://yuandong-tian.com/)：这位不多介绍了，他还写小说：[杂文小说合集/Blog & Novels](https://yuandong-tian.com/novel.html)。

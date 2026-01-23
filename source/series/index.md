@@ -74,6 +74,7 @@ date: 2019-07-13 20:00:00
 
 ### 思考
 
+- [我的 Vibe Coding 认知升级之路 | 长琴](https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/)
 - [从平面国到硅世界：当文明被困在自己的维度里 | 长琴](https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/)
 - [以 AI Coding 之管窥探世界之变 | 长琴](https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/)
 - [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
@@ -125,6 +126,8 @@ date: 2019-07-13 20:00:00
 
 ### RL
 
+- [稳定性压倒一切：MoE RL 训推不一致问题及解决策略 | 长琴](https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/)
+- [LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析 | 长琴](https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/)
 - [RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴](https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/)
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 
