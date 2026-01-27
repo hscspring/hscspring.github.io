@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-01-22T16:08:00.718Z</updated>
+  <updated>2026-01-27T23:38:31.704Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考</title>
+    <link href="https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/"/>
+    <id>https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/</id>
+    <published>2026-01-25T15:30:00.000Z</published>
+    <updated>2026-01-27T23:38:31.704Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;注意注意，本文并非试图给出一条确定的 AGI 技术路线，也不是对某一种路线的辩护或预测，而是有意将多位一线研究者在不同语境下提及的方向进行整理。在此基础上，也夹杂了一些个人长期形成的判断和思考，供参考，而非结论。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;多位一线研究者的观点在&lt;strong&gt;三个方向上高度收敛&lt;/strong&gt;：&lt;strong&gt;多模态（尤其是视频）、强化学习、自进化系统&lt;/strong&gt;，它们共同指向比纯 LLM 更高阶的智能形态。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scaling 仍然重要，但对象在变化&lt;/strong&gt;：从模型规模 → 推理过程 → 自学习环境（System 3），再加上 Token 效率、多尺度学习等，Scaling 正在更加精细和广泛。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;多模态不是“加模态”，而是“建世界”&lt;/strong&gt;：视频和感知建模可能拥有比文本高一个数量级的 Scaling 上限，语言并非理解物理世界的必要条件。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;强化学习是自主进化的核心机制&lt;/strong&gt;：预训练擅长吸收信息，RL 擅长通过试错优化策略，可能是持续学习、自我修正和边缘能力提升的关键。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Agent 不应只是工具封装&lt;/strong&gt;：真正的 Agent 更像一个“可训练的智能系统”，本身就是产品，具备学习、记忆和进化能力。&lt;/li&gt;
+&lt;li&gt;从更长期看，&lt;strong&gt;现有 Attention 和 NTP 可能不是终局&lt;/strong&gt;，新架构、新目标函数、新范式雨后春笋。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="Agent" scheme="https://yam.gift/tags/Agent/"/>
+    
+      <category term="Attention" scheme="https://yam.gift/tags/Attention/"/>
+    
+      <category term="Scaling" scheme="https://yam.gift/tags/Scaling/"/>
+    
+      <category term="NTP" scheme="https://yam.gift/tags/NTP/"/>
+    
+  </entry>
   
   <entry>
     <title>MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？</title>
@@ -817,60 +861,6 @@
       <category term="Gated DeltaNet" scheme="https://yam.gift/tags/Gated-DeltaNet/"/>
     
       <category term="DeltaNet" scheme="https://yam.gift/tags/DeltaNet/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Reward建模新范式：无验证器RL与Reference的妙用</title>
-    <link href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/"/>
-    <id>https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/</id>
-    <published>2025-11-11T00:00:00.000Z</published>
-    <updated>2025-12-31T06:50:58.642Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;R1 之后，GRPO 等强化学习框架的成功让我们相信“反馈”是提升推理力的关键。&lt;br&gt;
-然而，当任务无法被规则验证时，这一框架就不太好用了。&lt;br&gt;
-本文介绍一种“无验证器”新范式，让模型用 Reference 自我强化，重新定义奖励建模。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;传统 RLHF 依赖验证器或 RM 打分，但很多开放任务无法简单验证。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;NOVER：&lt;/strong&gt; 基于 PPL 设计奖励，引入策略代理同步与效率奖励，稳定训练。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reinforcing General Reasoning：&lt;/strong&gt; 直接最大化参考答案概率，以“正确答案的似然”替代验证器。方差更低，与 RLOO、PPO 等技术兼容。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;逆向激励：&lt;/strong&gt; 先生成答案，再生成自评得分，无需标准答案。适合创意、写作等难以客观评判的任务。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Reference 进一步妙用：&lt;/strong&gt; 帮助模型思考“为什么这是答案”，可用于生成高质量数据。也可与逆向激励结合。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="R1" scheme="https://yam.gift/tags/R1/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
-    
-      <category term="RM" scheme="https://yam.gift/tags/RM/"/>
-    
-      <category term="NOVER" scheme="https://yam.gift/tags/NOVER/"/>
-    
-      <category term="RGR" scheme="https://yam.gift/tags/RGR/"/>
-    
-      <category term="RAVR" scheme="https://yam.gift/tags/RAVR/"/>
-    
-      <category term="REER" scheme="https://yam.gift/tags/REER/"/>
     
   </entry>
   
