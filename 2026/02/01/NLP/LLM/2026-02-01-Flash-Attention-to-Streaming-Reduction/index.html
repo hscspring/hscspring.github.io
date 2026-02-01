@@ -14,21 +14,21 @@
   
   <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 Softmax、LayerNorm/">
+  <meta name="description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 S">
 <meta name="keywords" content="AI,LLM,Streaming,Reduction,Flash-Attention,Online Softmax,LayerNorm,Adam,RMSProp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算">
 <meta property="og:url" content="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/index.html">
 <meta property="og:site_name" content="长琴">
-<meta property="og:description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 Softmax、LayerNorm/">
+<meta property="og:description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 S">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flash-attn-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flash-attn-2.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-flash-attn-3.jpg">
-<meta property="og:updated_time" content="2026-02-01T04:50:46.218Z">
+<meta property="og:updated_time" content="2026-02-01T05:12:58.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算">
-<meta name="twitter:description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 Softmax、LayerNorm/">
+<meta name="twitter:description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 S">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/paper-flash-attn-1.jpg">
   
   
@@ -106,13 +106,10 @@
         <p>TL;DR</p>
 <p>本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：<strong>Streaming Reduction</strong>。</p>
 <ul>
-<li>只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。</li>
+<li>只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。</li>
 <li>统一了 Softmax、LayerNorm/RMSNorm 、Adam/RMSProp 优化器及分布式 AllReduce 的底层逻辑——它们本质上都是在维护一套 O(1) 复杂度的状态迁移。</li>
 <li>判断算子能否分块化：重写归约形式、检查结合律与坐标系补偿、构造 Merge 函数。</li>
 </ul>
-<blockquote>
-<p>AI 写的，我略作修改。</p>
-</blockquote>
 <a id="more"></a>
 <p>一直没有时间仔细看 Flash-Attention，只是大概知道原理，前几天大概瞄了一眼论文，一下被其中的 Online Softmax 吸引，然后就引出了一系列的思考。本文记录一下这个过程，有些地方不一定对，请读者不吝指正。</p>
 <h2 id="online-softmax">Online Softmax</h2>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-02-01T04:50:46.218Z</updated>
+  <updated>2026-02-01T05:12:58.955Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -21,20 +21,17 @@
     <link href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/"/>
     <id>https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/</id>
     <published>2026-02-01T04:30:00.000Z</published>
-    <updated>2026-02-01T04:50:46.218Z</updated>
+    <updated>2026-02-01T05:12:58.955Z</updated>
     
     <summary type="html">
     
       &lt;p&gt;TL;DR&lt;/p&gt;
 &lt;p&gt;本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：&lt;strong&gt;Streaming Reduction&lt;/strong&gt;。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。&lt;/li&gt;
+&lt;li&gt;只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。&lt;/li&gt;
 &lt;li&gt;统一了 Softmax、LayerNorm/RMSNorm 、Adam/RMSProp 优化器及分布式 AllReduce 的底层逻辑——它们本质上都是在维护一套 O(1) 复杂度的状态迁移。&lt;/li&gt;
 &lt;li&gt;判断算子能否分块化：重写归约形式、检查结合律与坐标系补偿、构造 Merge 函数。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;AI 写的，我略作修改。&lt;/p&gt;
-&lt;/blockquote&gt;
     
     </summary>
     
