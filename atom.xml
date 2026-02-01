@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-01-30T23:27:20.042Z</updated>
+  <updated>2026-02-01T04:46:54.466Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,49 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算</title>
+    <link href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/"/>
+    <id>https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/</id>
+    <published>2026-02-01T04:30:00.000Z</published>
+    <updated>2026-02-01T04:46:54.466Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：&lt;strong&gt;Streaming Reduction&lt;/strong&gt;。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;只要算子具备“平移/缩放不变性”与“可结合的累积结构”，就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。&lt;/li&gt;
+&lt;li&gt;统一了 Softmax、LayerNorm/RMSNorm 、Adam/RMSProp 优化器及分布式 AllReduce 的底层逻辑——它们本质上都是在维护一套 O(1) 复杂度的状态迁移。&lt;/li&gt;
+&lt;li&gt;判断算子能否分块化：重写归约形式、检查结合律与坐标系补偿、构造 Merge 函数。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="Streaming" scheme="https://yam.gift/tags/Streaming/"/>
+    
+      <category term="Reduction" scheme="https://yam.gift/tags/Reduction/"/>
+    
+      <category term="Flash-Attention" scheme="https://yam.gift/tags/Flash-Attention/"/>
+    
+      <category term="Online Softmax" scheme="https://yam.gift/tags/Online-Softmax/"/>
+    
+      <category term="LayerNorm" scheme="https://yam.gift/tags/LayerNorm/"/>
+    
+      <category term="Adam" scheme="https://yam.gift/tags/Adam/"/>
+    
+      <category term="RMSProp" scheme="https://yam.gift/tags/RMSProp/"/>
+    
+  </entry>
   
   <entry>
     <title>【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道”</title>
@@ -818,40 +861,6 @@
       <category term="DeepSeekMath-V2" scheme="https://yam.gift/tags/DeepSeekMath-V2/"/>
     
       <category term="Self-Verified" scheme="https://yam.gift/tags/Self-Verified/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</title>
-    <link href="https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/"/>
-    <id>https://yam.gift/2025/11/23/Python/2025-11-23-LLM-Message-Issue/</id>
-    <published>2025-11-23T15:00:00.000Z</published>
-    <updated>2025-11-23T17:55:11.541Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在 LLM 应用开发里，我们经常需要处理多轮消息、对话历史等结构化内容。理论上，这些对象应该是简单、透明、可控的——但在 NumPy 和特定字典工具（如 &lt;code&gt;addict.Dict&lt;/code&gt;）参与后，一些微妙的行为会悄悄改变数据结构，让输出变得诡异甚至完全不对。本篇记录我在实际开发（尤其是 verl 与 transformers）中遇到的两个“小问题”：一个来自 NumPy 的自动维度推断，另一个来自字典工具的默认属性行为。它们不是 bug，却可能让你花一阵子 debug。&lt;/p&gt;
-&lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;NumPy 变长消息问题&lt;/strong&gt;：当使用 &lt;code&gt;np.array(..., dtype=object)&lt;/code&gt; 处理长度不一致的消息列表时，NumPy 可能返回不同维度的数组，导致后续处理出错。改用 &lt;code&gt;np.fromiter&lt;/code&gt; 或预分配 object 数组并赋值，可确保输出结构统一。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;字典赋值工具干扰问题&lt;/strong&gt;：使用 &lt;code&gt;addict.Dict&lt;/code&gt; 等动态字典工具包装消息数据时，其默认行为会干扰 transformers 对消息结构的正确判断，导致模板生成错误。可换用 &lt;code&gt;OmegaConf&lt;/code&gt; 或修改 &lt;code&gt;addict&lt;/code&gt; 源码禁用自动建键功能以修复问题。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="NumPy" scheme="https://yam.gift/tags/NumPy/"/>
-    
-      <category term="Tokenizer" scheme="https://yam.gift/tags/Tokenizer/"/>
     
   </entry>
   
