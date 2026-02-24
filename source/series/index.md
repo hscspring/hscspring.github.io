@@ -18,6 +18,7 @@ date: 2019-07-13 20:00:00
   - [GRPO](#grpo)
   - [R1](#r1)
   - [RL](#rl)
+  - [Hybrid](#hybrid)
   - [ChatGPT/LLM](#chatgptllm)
   - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
   - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
@@ -27,6 +28,7 @@ date: 2019-07-13 20:00:00
   - [VoiceAgent](#voiceagent)
   - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
   - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
+- [推理加速](#%E6%8E%A8%E7%90%86%E5%8A%A0%E9%80%9F)
 - [NLP系列](#nlp%E7%B3%BB%E5%88%97)
   - [基础](#%E5%9F%BA%E7%A1%80)
   - [思考](#%E6%80%9D%E8%80%83-1)
@@ -74,7 +76,8 @@ date: 2019-07-13 20:00:00
 
 ### 思考
 
-- [我的 Vibe Coding 认知升级之路 | 长琴](https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/)
+- [通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考 | 长琴](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/)
+- [为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路 | 长琴](https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/)
 - [从平面国到硅世界：当文明被困在自己的维度里 | 长琴](https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/)
 - [以 AI Coding 之管窥探世界之变 | 长琴](https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/)
 - [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
@@ -126,6 +129,7 @@ date: 2019-07-13 20:00:00
 
 ### RL
 
+- [MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？ | 长琴](https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/)
 - [稳定性压倒一切：MoE RL 训推不一致问题及解决策略 | 长琴](https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/)
 - [LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析 | 长琴](https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/)
 - [RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴](https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/)
@@ -196,6 +200,10 @@ date: 2019-07-13 20:00:00
 - [2023 DAC](https://yam.gift/2024/12/30/Paper/TTS/2024-12-30-DAC/)
 - [2023 XTTS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-XTTS/)
 - [2021 VITS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/)
+
+## 推理加速
+
+- [从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴](https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/)
 
 ## NLP系列
 

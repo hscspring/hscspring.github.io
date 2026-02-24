@@ -119,13 +119,15 @@ date: 2018-04-07 22:29:12
 
 ## 学术研究
 
+- 《[GarmentGPT: Compositional Garment Pattern Generation via Discrete Latent Tokenization | OpenReview](https://openreview.net/forum?id=XzXKnazRBF)》
+    - 蹭了一篇 ICLR 2026，基于之前的一些实验和讨论，始料未及。
 - 《ChatGPT原理与应用开发》
     - [2024年度影响力新书奖+2024年度影响力作者奖](https://mp.weixin.qq.com/s/wuEMOMU7JzqVilpCrld1Cg)、[2024年度影响力新书奖重磅出炉!](https://mp.weixin.qq.com/s/FAMs0Ojh7Dgdn89MHYZ4Jg)、[人工智能畅销图书TOP10](https://mp.weixin.qq.com/s/vGaRszquaL_bEpukBPyXRQ)
     - [《Datawhale蝴蝶书》出版了！](https://mp.weixin.qq.com/s/cIn3-hL9DSOJf2S2_MihNw)
     - GitHub：[datawhalechina/hugging-llm: HuggingLLM, Hugging Future.](https://github.com/datawhalechina/hugging-llm)
-- 《Interactive NLP》
+- 《[[2305.13246] Interactive Natural Language Processing](https://arxiv.org/abs/2305.13246)》
     - 负责部分内容。
-    - Paper：[[2305.13246] Interactive Natural Language Processing](https://arxiv.org/abs/2305.13246)
+    - [Interactive Natural Language Processing: Language Model as Agent | Springer Nature Link](https://link.springer.com/book/9783032062635)
     - GitHub：[Paper List for a new paradigm of NLP: Interactive NLP](https://github.com/InteractiveNLP-Team/awesome-InteractiveNLP-papers)
 - 《ChineseFLAN》
     - 负责部分数据集。
