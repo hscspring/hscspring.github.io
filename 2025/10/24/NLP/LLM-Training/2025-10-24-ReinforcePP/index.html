@@ -15,7 +15,7 @@
   <title>Reinforce++和它的KL Loss选择 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
-<meta name="keywords" content="AI,LLM,GRPO,KL,Reinforce++,PPO">
+<meta name="keywords" content="AI,LLM,KL,GRPO,Reinforce++,PPO">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforce++和它的KL Loss选择">
 <meta property="og:url" content="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/index.html">
@@ -94,7 +94,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" data-id="cmjfy0jyj01x7hobzv87z6h77" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" data-id="cmm9b973s01cm4obzh61lu0aa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
