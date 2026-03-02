@@ -59,36 +59,6 @@
   </entry>
   
   <entry>
-    <title>博客阅读指南 | 笔记、实践与思考，一路同行</title>
-    <link href="https://yam.gift/2026/03/01/How-to-Read-Blog/"/>
-    <id>https://yam.gift/2026/03/01/How-to-Read-Blog/</id>
-    <published>2026-03-01T10:00:00.000Z</published>
-    <updated>2026-03-01T14:43:55.244Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;以下内容由 AI 生成。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;我是长琴，这里是我的个人博客。初衷只是方便自己复盘知识点、梳理思考脉络，慢慢沉淀中。&lt;/p&gt;
-&lt;p&gt;这里的内容主要是一名深耕一线的 AI 从业者的日常：有技术的拆解、有认知的碰撞，也有生活的点滴，是技术博客，更是一个普通人持续成长的印记。&lt;/p&gt;
-&lt;p&gt;不追求更新速度，只求能认真把事情想清楚、写明白、做扎实，做有温度、有思考、有成长的记录。&lt;/p&gt;
-&lt;p&gt;若有某一句话、某一篇笔记，能恰巧帮到你，便是莫大的荣幸。&lt;/p&gt;
-&lt;p&gt;愿我们都能在技术与生活的路上，慢慢走，深深悟，久久行。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="Life" scheme="https://yam.gift/tags/Life/"/>
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
-  </entry>
-  
-  <entry>
     <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算</title>
     <link href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/"/>
     <id>https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/</id>
@@ -837,6 +807,58 @@
       <category term="EVOL-RL" scheme="https://yam.gift/tags/EVOL-RL/"/>
     
       <category term="RESTRAIN" scheme="https://yam.gift/tags/RESTRAIN/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DeepSeekV3.2后训练：稳定压倒一切</title>
+    <link href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/"/>
+    <id>https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/</id>
+    <published>2025-12-03T15:00:00.000Z</published>
+    <updated>2025-12-04T00:23:06.672Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 &lt;strong&gt;后训练（post-training）阶段的一系列稳定性工程&lt;/strong&gt;。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。&lt;/p&gt;
+&lt;p&gt;TL;DR&lt;/p&gt;
+&lt;p&gt;DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 &lt;strong&gt;GRPO 稳定性&lt;/strong&gt; 展开。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。&lt;/li&gt;
+&lt;li&gt;GRPO 稳定性优化：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Advantage 去标准差&lt;/strong&gt;：消除难度偏差，提高样本权重的公平性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;KL 的无偏修正&lt;/strong&gt;：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;序列级 off-policy 掩码&lt;/strong&gt;：屏蔽高偏差且优势为负的序列，显著提升稳定性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MoE 路由保持&lt;/strong&gt;：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;采样保持&lt;/strong&gt;：保持 &lt;code&gt;π_old&lt;/code&gt; 与 &lt;code&gt;π_θ&lt;/code&gt; 的动作空间一致，避免采样截断可能带来的稳定性问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;工具使用部分提出&lt;strong&gt;更高效的思维轨迹管理方式&lt;/strong&gt;：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    
+      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
+    
+      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    
+      <category term="DeepSeek-V3.2" scheme="https://yam.gift/tags/DeepSeek-V3-2/"/>
+    
+      <category term="MoE" scheme="https://yam.gift/tags/MoE/"/>
+    
+      <category term="Post-Training" scheme="https://yam.gift/tags/Post-Training/"/>
     
   </entry>
   
