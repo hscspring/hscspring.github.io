@@ -1,108 +1,105 @@
 ---
-title: 各主题系列
+title: 博客导览
 date: 2019-07-13 20:00:00
 ---
 
 > 说明：读书笔记（类型为 Feeling）并非原创，内容和图均来自原作，仅用于学习交流。
+>
+
+**目录导航**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [个人成长Growth](#%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BFgrowth)
-- [人工智能AI](#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BDai)
-  - [思考](#%E6%80%9D%E8%80%83)
-  - [哲学](#%E5%93%B2%E5%AD%A6)
-- [LLM系列](#llm%E7%B3%BB%E5%88%97)
-  - [Reward](#reward)
-  - [GRPO](#grpo)
-  - [R1](#r1)
-  - [RL](#rl)
-  - [Hybrid](#hybrid)
-  - [ChatGPT/LLM](#chatgptllm)
-  - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
-  - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
-  - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
-  - [LLM指令跟随](#llm%E6%8C%87%E4%BB%A4%E8%B7%9F%E9%9A%8F)
-- [LMM系列](#lmm%E7%B3%BB%E5%88%97)
-  - [VoiceAgent](#voiceagent)
-  - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
-  - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
-- [推理加速](#%E6%8E%A8%E7%90%86%E5%8A%A0%E9%80%9F)
-- [NLP系列](#nlp%E7%B3%BB%E5%88%97)
-  - [基础](#%E5%9F%BA%E7%A1%80)
-  - [思考](#%E6%80%9D%E8%80%83-1)
-  - [语言](#%E8%AF%AD%E8%A8%80)
-  - [设计](#%E8%AE%BE%E8%AE%A1)
-  - [图谱](#%E5%9B%BE%E8%B0%B1)
-  - [NLP论文笔记](#nlp%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
-  - [SLP](#slp)
-  - [冯志伟《自然语言计算机形式分析的理论与方法》](#%E5%86%AF%E5%BF%97%E4%BC%9F%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BD%A2%E5%BC%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95)
-- [推荐广告Recommendation](#%E6%8E%A8%E8%8D%90%E5%B9%BF%E5%91%8Arecommendation)
-- [深度学习DeepLearning](#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0deeplearning)
-- [机器学习MachineLearning](#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0machinelearning)
-- [数据科学DataScience](#%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6datascience)
-- [数学Math](#%E6%95%B0%E5%AD%A6math)
-- [系统Unix](#%E7%B3%BB%E7%BB%9Funix)
-- [网络Net](#%E7%BD%91%E7%BB%9Cnet)
-- [树莓派Raspberrypi](#%E6%A0%91%E8%8E%93%E6%B4%BEraspberrypi)
-- [编程Coding](#%E7%BC%96%E7%A8%8Bcoding)
-  - [基础环境](#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83)
-  - [Rust与AI](#rust%E4%B8%8Eai)
-  - [Rust](#rust)
-  - [Python](#python)
-  - [Python 小白快速入门教程](#python-%E5%B0%8F%E7%99%BD%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B)
-  - [C 语言课程笔记](#c-%E8%AF%AD%E8%A8%80%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0)
-  - [服务基础](#%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80)
-- [算法Algorithm](#%E7%AE%97%E6%B3%95algorithm)
-  - [LeetCode](#leetcode)
-  - [剑指 Offer2（Python 版）解析](#%E5%89%91%E6%8C%87-offer2python-%E7%89%88%E8%A7%A3%E6%9E%90)
-  - [数据结构与算法](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95)
-- [经金商管EFBM](#%E7%BB%8F%E9%87%91%E5%95%86%E7%AE%A1efbm)
-- [认知心理CogPsy](#%E8%AE%A4%E7%9F%A5%E5%BF%83%E7%90%86cogpsy)
-- [育儿](#%E8%82%B2%E5%84%BF)
-- [杂文随笔Essay](#%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94essay)
+- [🚀 前沿与核心 (FrontierCore)](#-%E5%89%8D%E6%B2%BF%E4%B8%8E%E6%A0%B8%E5%BF%83-frontiercore)
+  - [大模型 (LLM)](#%E5%A4%A7%E6%A8%A1%E5%9E%8B-llm)
+    - [【对齐与后训练】](#%E5%AF%B9%E9%BD%90%E4%B8%8E%E5%90%8E%E8%AE%AD%E7%BB%83)
+      - [Reward](#reward)
+      - [GRPO](#grpo)
+      - [R1](#r1)
+      - [RL](#rl)
+      - [LLM指令跟随](#llm%E6%8C%87%E4%BB%A4%E8%B7%9F%E9%9A%8F)
+    - [【预训练与基座】](#%E9%A2%84%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%9F%BA%E5%BA%A7)
+      - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
+      - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
+      - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
+      - [Hybrid架构](#hybrid%E6%9E%B6%E6%9E%84)
+    - [【推理优化】](#%E6%8E%A8%E7%90%86%E4%BC%98%E5%8C%96)
+      - [算子](#%E7%AE%97%E5%AD%90)
+      - [Rust与AI](#rust%E4%B8%8Eai)
+    - [【科普与周边】](#%E7%A7%91%E6%99%AE%E4%B8%8E%E5%91%A8%E8%BE%B9)
+      - [ChatGPT/LLM](#chatgptllm)
+  - [多模态 (LMM)](#%E5%A4%9A%E6%A8%A1%E6%80%81-lmm)
+    - [VoiceAgent](#voiceagent)
+    - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
+    - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
+- [🧰 基础与筑基 (FoundationBase)](#-%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AD%91%E5%9F%BA-foundationbase)
+  - [自然语言处理 (NLP)](#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86-nlp)
+    - [基础](#%E5%9F%BA%E7%A1%80)
+    - [思考](#%E6%80%9D%E8%80%83)
+    - [语言](#%E8%AF%AD%E8%A8%80)
+    - [设计](#%E8%AE%BE%E8%AE%A1)
+    - [图谱](#%E5%9B%BE%E8%B0%B1)
+    - [论文笔记](#%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
+    - [SLP笔记](#slp%E7%AC%94%E8%AE%B0)
+    - [自然语言计算机形式分析的理论与方法](#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BD%A2%E5%BC%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95)
+  - [深度学习 (Deep Learning)](#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-deep-learning)
+  - [机器学习 (Machine Learning)](#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-machine-learning)
+  - [推荐广告 (Recommendation)](#%E6%8E%A8%E8%8D%90%E5%B9%BF%E5%91%8A-recommendation)
+  - [数学 (Math)](#%E6%95%B0%E5%AD%A6-math)
+  - [数据科学 (Data Science)](#%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6-data-science)
+- [🛠️ 工程与应用 (EngineeringApp)](#-%E5%B7%A5%E7%A8%8B%E4%B8%8E%E5%BA%94%E7%94%A8-engineeringapp)
+  - [编程 (Coding)](#%E7%BC%96%E7%A8%8B-coding)
+    - [基础环境](#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83)
+    - [Rust](#rust)
+    - [The Rust Programming Language笔记](#the-rust-programming-language%E7%AC%94%E8%AE%B0)
+    - [Python](#python)
+    - [Python 小白快速入门教程](#python-%E5%B0%8F%E7%99%BD%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B)
+    - [C 语言课程笔记](#c-%E8%AF%AD%E8%A8%80%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0)
+    - [服务基础](#%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80)
+  - [算法 (Algorithm)](#%E7%AE%97%E6%B3%95-algorithm)
+    - [LeetCode](#leetcode)
+    - [剑指 Offer2（Python 版）解析](#%E5%89%91%E6%8C%87-offer2python-%E7%89%88%E8%A7%A3%E6%9E%90)
+    - [数据结构与算法](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95)
+  - [系统 (Unix)](#%E7%B3%BB%E7%BB%9F-unix)
+  - [网络 (Net)](#%E7%BD%91%E7%BB%9C-net)
+  - [树莓派 (Raspberry Pi)](#%E6%A0%91%E8%8E%93%E6%B4%BE-raspberry-pi)
+- [🧠 认知与成长 (CognitionGrowth)](#-%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%88%90%E9%95%BF-cognitiongrowth)
+  - [人工智能 (AI)](#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-ai)
+    - [思考](#%E6%80%9D%E8%80%83-1)
+    - [哲学](#%E5%93%B2%E5%AD%A6)
+  - [个人成长 (Growth)](#%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF-growth)
+  - [聆听微光 (Listen Glimmer)](#%E8%81%86%E5%90%AC%E5%BE%AE%E5%85%89-listen-glimmer)
+- [✨ 生活杂记](#-%E7%94%9F%E6%B4%BB%E6%9D%82%E8%AE%B0)
+  - [认知心理 (Cognitive Psychology)](#%E8%AE%A4%E7%9F%A5%E5%BF%83%E7%90%86-cognitive-psychology)
+  - [经金商管 (EFBM)](#%E7%BB%8F%E9%87%91%E5%95%86%E7%AE%A1-efbm)
+  - [育儿 (Baby)](#%E8%82%B2%E5%84%BF-baby)
+  - [杂文随笔 (Essay)](#%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94-essay)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 
-## 个人成长Growth
+---
 
-- [AI 工程师养成记（上）](https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/)
-- [一些关于工作的观点（From《华为工作法》）](https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/)
+# 🚀 前沿与核心 (FrontierCore)
+
+> 这是我现阶段深耕的核心。这里不仅有[大模型文章原理]，更对应了 GitHub 上的 `hcgf`、`hands-on-llama`、`lightinfer` 等【**前沿模型训推实战**】开源代码。
 
 
-## 人工智能AI
+## 大模型 (LLM)
 
-### 思考
+### 【对齐与后训练】
 
-- [通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考 | 长琴](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/)
-- [为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路 | 长琴](https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/)
-- [从平面国到硅世界：当文明被困在自己的维度里 | 长琴](https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/)
-- [以 AI Coding 之管窥探世界之变 | 长琴](https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/)
-- [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
-- [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
-- [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
-- [NLP 与 AI](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
-- [关于AI前沿的思考 | Yam](https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/)
+#### Reward
 
-### 哲学
+- 【RM数据】[自我验证：搞数据的风吹到了奖励模型 | 长琴](https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/#more)
+- 【RM数据】[解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
+- 【RM建模】[Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴](https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/)
+- 【RM建模】[Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
+- 【RM建模】[Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
 
-- [西蒙《人工科学》读书笔记](https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/)
-- [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
-- [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
-
-## LLM系列
-
-### Reward
-
-- [自我验证：搞数据的风吹到了奖励模型 | 长琴](https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/#more)
-- [解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam](https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/)
-- [Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴](https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/)
-- [Reward建模新范式：无验证器RL与Reference的妙用 | 长琴](https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/)
-- [Reward Model建模 | Yam](https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/)
-
-### GRPO
+#### GRPO
 
 - [DeepSeekV3.2后训练：稳定压倒一切 | 长琴](https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/)
 - [Reinforce++与它的KL Loss选择 | Yam](https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/)
@@ -114,7 +111,7 @@ date: 2019-07-13 20:00:00
 - [异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | Yam](https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/)
 - [DAPO：为GRPO的锦上加四点花 | Yam](https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/)
 
-### R1
+#### R1
 
 - [R1后范式最佳实践：Seed-Thinking和Qwen3 | 长琴](https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/)
 - [Yarz-Logic：R1-Zero相关实验报告 | Yam](https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/)
@@ -127,7 +124,7 @@ date: 2019-07-13 20:00:00
 - [R1相关：DPO数据选择与DPO等RL算法 | Yam](https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/)
 - [LLM、强化、蒸馏讨论 | Yam](https://yam.gift/2025/02/27/AI/2025-02-27-AI-Discussion/)
 
-### RL
+#### RL
 
 - [MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？ | 长琴](https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/)
 - [稳定性压倒一切：MoE RL 训推不一致问题及解决策略 | 长琴](https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/)
@@ -135,12 +132,51 @@ date: 2019-07-13 20:00:00
 - [RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴](https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/)
 - [VAPO：基于价值方法的新突破 | Yam](https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/)
 
-### Hybrid
+#### LLM指令跟随
 
+- [激活诱导LLM指令跟随 | Yam](https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/)
+- [指令跟随近期工作梳理（2025年上半年） | Yam](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/)
+- [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/)
+
+### 【预训练与基座】
+
+#### LLM预训练
+
+- [预训练：无处安放的躁动之心 | Yam](https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/)
+- [预训练：NTP和Scaling Law | Yam](https://yam.gift/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/)
+
+#### LLM继续训练
+
+- [Tiny LLM Continual Pre-training：RHO-1 | Yam](https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/)
+- [LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam](https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/)
+- [LLM Continual Pre-training：Ziya2 | Yam](https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/)
+
+#### LLM数据处理相关
+
+- [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
+- [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
+
+#### Hybrid架构
+
+- [DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线 | 长琴](https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/)
 - [Hybrid LLM 之 Gated DeltaNet | 长琴](https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/)
 - [Hybrid LLM 之 Gated Attention | 长琴](https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/)
 
-### ChatGPT/LLM
+### 【推理优化】
+
+#### 算子
+
+- [从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴](https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/)
+
+#### Rust与AI
+
+- [【Rust与AI】概览和方向 | Yam](https://yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/)
+- [【Rust与AI】LLM模型基本架构 | Yam](https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/)
+
+
+### 【科普与周边】
+
+#### ChatGPT/LLM
 
 - [群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考 | Yam](https://yam.gift/2025/08/11/AI/2025-08-11-AI-Develop/)
 - [关于gpt-oss那些值得关注的点 | Yam](https://yam.gift/2025/08/06/NLP/2025-08-06-gpt-oss/)
@@ -155,30 +191,9 @@ date: 2019-07-13 20:00:00
 - [关于大语言模型的思考](https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/)
 - [OpenAIGC 大赛小结](https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/)
 - [ChatGPT 影响冲击：职业、行业与产业](https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/)
+- [「+AI」需要什么？ | 长琴](https://yam.gift/2023/02/27/AI/2023-02-27-Enpower-AI/)
 
-### LLM预训练
-
-- [预训练：无处安放的躁动之心 | Yam](https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/)
-- [预训练：NTP和Scaling Law | Yam](https://yam.gift/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/)
-
-### LLM继续训练
-
-- [Tiny LLM Continual Pre-training：RHO-1 | Yam](https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/)
-- [LLM Tiny Pretrain：H2O-Danube and Stable LM | Yam](https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/)
-- [LLM Continual Pre-training：Ziya2 | Yam](https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/)
-
-### LLM数据处理相关
-
-- [LLM DataManagement：Weaver | Yam](https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/)
-- [LLM DataManagement：Ziya2 | Yam](https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/)
-
-### LLM指令跟随
-
-- [激活诱导LLM指令跟随 | Yam](https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/)
-- [指令跟随近期工作梳理（2025年上半年） | Yam](https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/)
-- [LLM指令跟随论文速览](https://yam.gift/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/)
-
-## LMM系列
+## 多模态 (LMM)
 
 ### VoiceAgent
 
@@ -201,11 +216,15 @@ date: 2019-07-13 20:00:00
 - [2023 XTTS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-XTTS/)
 - [2021 VITS](https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/)
 
-## 推理加速
 
-- [从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴](https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/)
+---
 
-## NLP系列
+# 🧰 基础与筑基 (FoundationBase)
+
+> 支撑上层建筑的基础学科与经典理论。这里不仅有大量 NLP/机器学习[总结笔记]，更对应了 GitHub 上的 `pnlp`、`hnlp`、`巨硬的NumPy` 等【**底层数据建设**】项目。
+
+
+## 自然语言处理 (NLP)
 
 ### 基础
 
@@ -237,7 +256,7 @@ date: 2019-07-13 20:00:00
 - [关系提取简述](https://yam.gift/2019/12/11/NLP/KG/2019-12-11-Relationship-Extraction/)
 - [自然语言记忆模块（NLM）](https://yam.gift/2019/12/02/NLP/KG/2019-12-02-NLM/)
 
-### NLP论文笔记
+### 论文笔记
 
 - [2024 LLM中的演绎推理、归纳推理和溯因推理](https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/)
 - [2022 LM Cascades](https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/)
@@ -298,7 +317,7 @@ date: 2019-07-13 20:00:00
 - [2015 Luong Attention](https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/)
 - [2004 TextRank Keyword Extraction](https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/)
 
-### [SLP](https://web.stanford.edu/~jurafsky/slp3/)
+### [SLP笔记](https://web.stanford.edu/~jurafsky/slp3/)
 
 - [Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02)](https://yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/)
 - [Language Model Note (SLP Ch03)](https://yam.gift/2017/10/14/NLP/SLP/2017-10-14-Ch03-Language-Model/)
@@ -314,7 +333,7 @@ date: 2019-07-13 20:00:00
 - [Statistical Parsing Note (SLP Ch14)](https://yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/)
 - [Information Extraction Note (SLP Ch18)](https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/)
 
-### 冯志伟《自然语言计算机形式分析的理论与方法》
+### 自然语言计算机形式分析的理论与方法
 
 - [第一章：自然语言处理的学科定位](https://yam.gift/2018/09/19/NLP/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/)
 - [第二章：自然语言研究的先驱](https://yam.gift/2018/10/11/NLP/NLPFA/2018-10-11-Ch02-Pioneers-in-Language-Computing/)
@@ -336,16 +355,7 @@ date: 2019-07-13 20:00:00
 - [第十八章：自然语言处理中的理性主义与经验主义](https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/)
 
 
-## 推荐广告Recommendation
-
-- [推荐系统概述](https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/)
-- [协同过滤](https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/)
-- [矩阵分解](https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/)
-- [Wide & Deep](https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/)
-- [GBTD + LR](https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/)
-
-
-## 深度学习DeepLearning
+## 深度学习 (Deep Learning)
 
 - [“心有麟熙”《强化学习炼金术》系列笔记 | Yam](https://yam.gift/2018/05/07/AI/2018-05-07-RL-Series/)
 - [Gan 原理、证明与实现 | Yam](https://yam.gift/2018/03/26/AI/2018-03-26-Gan-Series/)
@@ -353,7 +363,7 @@ date: 2019-07-13 20:00:00
 - [AI 小课堂：Activation Function | Yam](https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/)
 
 
-## 机器学习MachineLearning
+## 机器学习 (Machine Learning)
 
 - [机器学习概念](https://yam.gift/2018/04/22/ML/2018-04-22-ML-Concept/)
 - [Metrics](https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/)
@@ -364,8 +374,23 @@ date: 2019-07-13 20:00:00
 - [Hard-SVM, Soft-SVM 和 KKT](https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/)
 - [核方法 和 SMO](https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/)
 
+## 推荐广告 (Recommendation)
 
-## 数据科学DataScience
+- [推荐系统概述](https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/)
+- [协同过滤](https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/)
+- [矩阵分解](https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/)
+- [Wide & Deep](https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/)
+- [GBTD + LR](https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/)
+
+## 数学 (Math)
+
+- [辛普森悖论及其哲学思考 | Yam](https://yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/)
+- [信息熵与选择：由三门问题想到的 | Yam](https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/)
+- [线性代数的本质笔记 | Yam](https://yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/)
+- [微积分的本质笔记 | Yam](https://yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/)
+
+
+## 数据科学 (Data Science)
 
 - [高性能数据处理 | Yam](https://yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/)
 - [List, Dict, Array, Series, DataFrame 相互转换](https://yam.gift/2017/02/15/DataSci/2017-02-15-list-dict-series-dataframe-ndarray-transform/)
@@ -375,51 +400,34 @@ date: 2019-07-13 20:00:00
 - [QA 小课堂：Introduction | Yam](https://yam.gift/2020/07/05/AIQA/2020-07-05-Introduction/)
 
 
-## 数学Math
+---
 
-- [辛普森悖论及其哲学思考 | Yam](https://yam.gift/2016/09/03/Math/2016-09-03-Simpson-Paradox/)
-- [信息熵与选择：由三门问题想到的 | Yam](https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/)
-- [线性代数的本质笔记 | Yam](https://yam.gift/2018/05/13/Math/2018-05-13-Essence-of-Linear-Algebra/)
-- [微积分的本质笔记 | Yam](https://yam.gift/2018/05/12/Math/2018-05-12-Essence-of-Calculus/)
+# 🛠️ 工程与应用 (EngineeringApp)
 
-
-## 系统Unix
-
-- [Ubuntu16.04 安装 VirtualBox & Vagrant 管理 VirtualBox 各种问题总结 | Yam](https://yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/)
-- [AINLP GPU 使用体验指南 | Yam](https://yam.gift/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/)
-- [Unix Cheat Sheet | Yam](https://yam.gift/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/)
-- [Docker Memo | Yam](https://yam.gift/2021/08/05/Unix/2021-08-05-Docker/)
-- [Git Memo | Yam](https://yam.gift/2021/08/12/Unix/2021-08-15-Git/)
+> 将算法变为可用产品，以及日常开发的底层能力。这里不仅有[编程语言和系统级笔记]，更对应了 GitHub 上的 `create-vibe-app` 脚手架、`yoc`、`toolhub` 等【**全栈应用产品**】。
 
 
-## 网络Net
-
-- [虚拟网络指南 | Yam](https://yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/)
-
-
-## 树莓派Raspberrypi
-
-- [机器之脑：树莓派初使用 | Yam](https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/)
-- [机器之眼：树莓派摄像头 | Yam](https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/)
-
-
-## 编程Coding
+## 编程 (Coding)
 
 ### 基础环境
 
 - [hscspring/ALL4AI: AI Related Tools/Projects](https://github.com/hscspring/ALL4AI)
 - [Programming Language Environment Cheat Sheet | Yam](https://yam.gift/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/)
+- [IDE Memo | 长琴](https://yam.gift/2022/11/15/Unix/2022-11-15-IDE/)
 
-### Rust与AI
-
-- [【Rust与AI】概览和方向 | Yam](https://yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/)
-- [【Rust与AI】LLM模型基本架构 | Yam](https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/)
-  
 ### Rust
 
 - [Rust str 转 String](https://yam.gift/2021/06/06/Rust/2021-06-06-str2String/)
 - [Rust Tutorial](https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/)
 - [Rust by Example Brief Note | Yam](https://yam.gift/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/)
+
+### The Rust Programming Language笔记
+
+- [The Rust Programming Language Brief Note (Vol1-Basic) | 长琴](https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/)
+- [The Rust Programming Language Brief Note (Vol2-Manage) | 长琴](https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol2-Manage/)
+- [The Rust Programming Language Brief Note (Vol3-Style) | 长琴](https://yam.gift/2019/12/03/Rust/RPL/2020-01-21-RPL-Brief-Note-Vol3-Style/)
+- [The Rust Programming Language Brief Note (Vol4-Advance) | 长琴](https://yam.gift/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/)
+- [The Rust Programming Language Brief Note (Vol5-Project) | 长琴](https://yam.gift/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/)
 
 ### Python
 
@@ -452,7 +460,7 @@ date: 2019-07-13 20:00:00
 - [DataBase Foreign Data Wrapper](https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/)
 
 
-## 算法Algorithm
+## 算法 (Algorithm)
 
 ### LeetCode
 
@@ -483,7 +491,84 @@ date: 2019-07-13 20:00:00
 - [Sort Based on Multiway Tree](https://yam.gift/2019/11/03/DSA/2019-11-03-Multiway-Tree-Sort/)
 
 
-## 经金商管EFBM
+## 系统 (Unix)
+
+- [Ubuntu16.04 安装 VirtualBox & Vagrant 管理 VirtualBox 各种问题总结 | Yam](https://yam.gift/2016/09/04/Unix/2016-09-04-Ubuntu-VirtualBox-Vagrant-questions/)
+- [AINLP GPU 使用体验指南 | Yam](https://yam.gift/2019/12/09/Unix/2019-12-09-AINLP-GPU-Guide/)
+- [Unix Cheat Sheet | Yam](https://yam.gift/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/)
+- [Docker Memo | Yam](https://yam.gift/2021/08/05/Unix/2021-08-05-Docker/)
+- [Git Memo | Yam](https://yam.gift/2021/08/12/Unix/2021-08-15-Git/)
+
+
+## 网络 (Net)
+
+- [虚拟网络指南 | Yam](https://yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/)
+
+
+## 树莓派 (Raspberry Pi)
+
+- [机器之脑：树莓派初使用 | Yam](https://yam.gift/2021/07/01/Raspberrypi/2021-07-01-RaspberryPi-Init/)
+- [机器之眼：树莓派摄像头 | Yam](https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/)
+
+
+---
+
+# 🧠 认知与成长 (CognitionGrowth)
+
+> 跨学科思维、对行业未来的洞察与生活随笔。这里对应了 GitHub 上的 `daily-interview` 以及我在知乎/公众号上的【**行业反思与随笔**】。
+
+
+## 人工智能 (AI)
+
+### 思考
+
+- [通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考 | 长琴](https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/)
+- [为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路 | 长琴](https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/)
+- [从平面国到硅世界：当文明被困在自己的维度里 | 长琴](https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/)
+- [以 AI Coding 之管窥探世界之变 | 长琴](https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/)
+- [子非我，安知我不知鱼之乐——AI、人类与意识的边界 | 长琴](https://yam.gift/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/)
+- [分类与 AI](https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/)
+- [语言、AI、情感](https://yam.gift/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/)
+- [NLP 与 AI](https://yam.gift/2018/07/22/NLP/2018-07-22-NLP-and-AI/)
+- [关于AI前沿的思考 | Yam](https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/)
+
+### 哲学
+
+- [西蒙《人工科学》读书笔记](https://yam.gift/2018/09/30/AI/2018-09-30-The-Science-of-Artificial/)
+- [人工智能哲学笔记](https://yam.gift/2018/04/07/AI/2018-04-07-AI-Philosophy-Note/)
+- [《与机器人共舞》读后感兼谈 AI 与 IA](https://yam.gift/2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/)
+
+
+## 个人成长 (Growth)
+
+- [AI 工程师养成记（上）](https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/)
+- [一些关于工作的观点（From《华为工作法》）](https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/)
+
+## 聆听微光 (Listen Glimmer)
+
+- [聆听·微光 | 长琴](https://yam.gift/2026/01/03/ListenGlimmer/000/)
+- [【聆听·微光】001：一位研究生在读的”reward hacker“关于学习的困惑 | 长琴](https://yam.gift/2026/01/03/ListenGlimmer/001/)
+- [【聆听·微光】002：一位普通院校硕士研究生的毕业之际 | 长琴](https://yam.gift/2026/01/07/ListenGlimmer/002/)
+- [【聆听·微光】003：一位对工作迷茫的程序员的觉醒时刻 | 长琴](https://yam.gift/2026/01/12/ListenGlimmer/003/)
+- [【聆听·微光】004：一位算法后端开发工程师的AI转型之路 | 长琴](https://yam.gift/2026/01/15/ListenGlimmer/004/)
+- [【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道” | 长琴](https://yam.gift/2026/01/26/ListenGlimmer/006/)
+
+
+---
+
+# ✨ 生活杂记
+
+> 技术从业者的另一面——读书感悟、生活思考、平凡日子里的点滴记录。
+
+
+## 认知心理 (Cognitive Psychology)
+
+- [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
+- [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
+- [麦肯锡战略化思维》读书笔记](https://yam.gift/2022/10/23/CogPsy/2022-10-23-Structured-Strategic-Thought/)
+
+
+## 经金商管 (EFBM)
 
 - [由一场供应链讲座引发的思考](https://yam.gift/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/)
 - [《基业长青》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-28-Built-to-Last/)
@@ -491,19 +576,12 @@ date: 2019-07-13 20:00:00
 - [《海底捞你学不会》读书笔记](https://yam.gift/2015/11/30/Economy/2015-11-30-HaiDiLao/)
 
 
-## 认知心理CogPsy
-
-- [多贝里《清醒思考的艺术》读书笔记](https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/)
-- [《自私的基因》读书笔记](https://yam.gift/2016/02/27/CogPsy/2016-02-17-Selfish-Gene/)
-- [麦肯锡战略化思维》读书笔记](https://yam.gift/2022/10/23/CogPsy/2022-10-23-Structured-Strategic-Thought/)
-
-
-## 育儿
+## 育儿 (Baby)
 
 - [《真希望父母读过这本书》读书笔记 | Yam](https://yam.gift/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/)
 
 
-## 杂文随笔Essay
+## 杂文随笔 (Essay)
 
 - [站在 30-40 岁的档口 | 长琴](https://yam.gift/2026/01/01/Diary/2026-01-01-30to40/)
 - [所爱隔山海，山海亦可平 | 长琴](https://yam.gift/2025/12/22/Diary/2025-12-22-Love/)

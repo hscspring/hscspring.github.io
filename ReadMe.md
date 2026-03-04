@@ -12,6 +12,14 @@ hexo g
 
 
 
+
+
+## 置顶
+
+https://kanboo.github.io/2017/12/13/Hexo-Topfeatures/
+
+
+
 ## 公式
 
 方案一（和博客写法不兼容，很多公式无法显示）：
