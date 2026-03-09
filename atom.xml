@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-03-01T10:08:05.168Z</updated>
+  <updated>2026-03-09T00:10:38.618Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求</title>
+    <link href="https://yam.gift/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/"/>
+    <id>https://yam.gift/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/</id>
+    <published>2026-03-09T00:30:00.000Z</published>
+    <updated>2026-03-09T00:10:38.618Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;RP（Roleplay） AI 的核心价值不是「扮演角色」，而是满足用户的&lt;strong&gt;情感寄托与沉浸体验&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;RP 的评估极其困难，本质是&lt;strong&gt;用户偏好问题而非正确性问题&lt;/strong&gt;，因此线上 A/B 和用户行为信号依然是核心。&lt;/li&gt;
+&lt;li&gt;高质量 RP 数据不仅是语句质量，更是&lt;strong&gt;叙事推进、角色一致性和情绪峰值设计&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;未来的方向可能是 &lt;strong&gt;Worldplay&lt;/strong&gt;：可演化的世界、多角色互动和长期关系。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="C.AI" scheme="https://yam.gift/tags/C-AI/"/>
+    
+      <category term="Talkie" scheme="https://yam.gift/tags/Talkie/"/>
+    
+      <category term="RolePlay" scheme="https://yam.gift/tags/RolePlay/"/>
+    
+  </entry>
   
   <entry>
     <title>DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线</title>
@@ -807,58 +842,6 @@
       <category term="EVOL-RL" scheme="https://yam.gift/tags/EVOL-RL/"/>
     
       <category term="RESTRAIN" scheme="https://yam.gift/tags/RESTRAIN/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DeepSeekV3.2后训练：稳定压倒一切</title>
-    <link href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/"/>
-    <id>https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/</id>
-    <published>2025-12-03T15:00:00.000Z</published>
-    <updated>2025-12-04T00:23:06.672Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 &lt;strong&gt;后训练（post-training）阶段的一系列稳定性工程&lt;/strong&gt;。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。&lt;/p&gt;
-&lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;DeepSeek-V3.2 的后训练重点不是“更强”，而是“更稳”。大量技巧围绕 &lt;strong&gt;GRPO 稳定性&lt;/strong&gt; 展开。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;数据部分：多个领域专用专家 → 生成数据 → 蒸馏到统一模型。&lt;/li&gt;
-&lt;li&gt;GRPO 稳定性优化：
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Advantage 去标准差&lt;/strong&gt;：消除难度偏差，提高样本权重的公平性。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;KL 的无偏修正&lt;/strong&gt;：基于 K3 + 重要性采样，使 KL 梯度更稳定可靠。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;序列级 off-policy 掩码&lt;/strong&gt;：屏蔽高偏差且优势为负的序列，显著提升稳定性。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;MoE 路由保持&lt;/strong&gt;：固定专家路由，避免 off-policy 和训推框架不同导致的路由漂移。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;采样保持&lt;/strong&gt;：保持 &lt;code&gt;π_old&lt;/code&gt; 与 &lt;code&gt;π_θ&lt;/code&gt; 的动作空间一致，避免采样截断可能带来的稳定性问题。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;工具使用部分提出&lt;strong&gt;更高效的思维轨迹管理方式&lt;/strong&gt;：只有新用户消息进来才清空工具调用推理轨迹，工具调用历史则始终保留。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
-    
-      <category term="KL" scheme="https://yam.gift/tags/KL/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
-    
-      <category term="DeepSeek-V3.2" scheme="https://yam.gift/tags/DeepSeek-V3-2/"/>
-    
-      <category term="MoE" scheme="https://yam.gift/tags/MoE/"/>
-    
-      <category term="Post-Training" scheme="https://yam.gift/tags/Post-Training/"/>
     
   </entry>
   
