@@ -24,7 +24,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-minimax-her-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/blog-minimax-her-2.jpg">
-<meta property="og:updated_time" content="2026-03-09T00:10:38.618Z">
+<meta property="og:updated_time" content="2026-03-09T00:18:48.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求">
 <meta name="twitter:description" content="TL;DR  RP（Roleplay） AI 的核心价值不是「扮演角色」，而是满足用户的情感寄托与沉浸体验。 RP 的评估极其困难，本质是用户偏好问题而非正确性问题，因此线上 A/B 和用户行为信号依然是核心。 高质量 RP 数据不仅是语句质量，更是叙事推进、角色一致性和情绪峰值设计。 未来的方向可能是 Worldplay：可演化的世界、多角色互动和长期关系。">
@@ -38,8 +38,8 @@
 
   
   <!-- baidu webmaster push -->
-<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-</head></html>
+<link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml">
+<link href="https://cdn.bootcss.com/KaTeX/0.11.1/katex.min.css" rel="stylesheet" /><!-- hexo-inject:begin --><!-- hexo-inject:end --></head></html>
 <body class="home blog custom-background custom-font-enabled single-author">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
@@ -112,7 +112,7 @@
 <a id="more"></a>
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">DocToc</a></em></p>
+<p><strong>Table of Contents</strong>  <em>generated with <a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">DocToc</a><sup>[1]</sup></em></p>
 <ul>
 <li><a href="#cai">C.AI</a>
 <ul>
@@ -148,7 +148,7 @@
 </ul>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <h2 id="c-ai"><a href="http://C.AI" target="_blank" rel="noopener">C.AI</a></h2>
-<p>因为自己也在做 roleplay，很早以前就想听一下《<a href="https://www.xiaoyuzhoufm.com/episode/67359e9843dc3a43878eaa90?s=eyJ1IjogIjY0MzRjZTRhZWRjZTY3MTA0YTE4Njg3NiJ9" target="_blank" rel="noopener">我在 Character.ai 做 Post Training｜对谈前 C.AI 模型应用算法专家 Ted</a>》，今天终于完成了，一口气听了两期，一共两个小时，这个是其中之一。怎么说呢，对一个算法来说，信息密度确实是比较小的，但其中有不少观点还挺有启发。</p>
+<p>因为自己也在做 roleplay，很早以前就想听一下《<a href="https://www.xiaoyuzhoufm.com/episode/67359e9843dc3a43878eaa90?s=eyJ1IjogIjY0MzRjZTRhZWRjZTY3MTA0YTE4Njg3NiJ9" target="_blank" rel="noopener">我在 Character.ai 做 Post Training｜对谈前 C.AI 模型应用算法专家 Ted</a><sup>[2]</sup>》，今天终于完成了，一口气听了两期，一共两个小时，这个是其中之一。怎么说呢，对一个算法来说，信息密度确实是比较小的，但其中有不少观点还挺有启发。</p>
 <h3 id="产品和运营">产品和运营</h3>
 <ul>
 <li>
@@ -178,7 +178,7 @@
 </ul>
 <p>虽然对一个算法来说，最应该关注训练、数据和评估，但产品和运营也应该有所了解，不过里面提到的基本上也是业界共识了，某些方面甚至已经更进一步了。毕竟已经一年多过去了。其实很多时候公司的基因或战略决定了方案的选择，接下来我们看看 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 的基因。</p>
 <h3 id="基因和战略选择">基因和战略选择</h3>
-<p>这里的内容来自 <a href="https://www.woshipm.com/evaluating/5935708.html" target="_blank" rel="noopener">Character.ai：这家AI创业团队，找到了让LLM“爆发”的方法</a>，我做了一些删减和调整。创始团队对 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 是什么样的有非常强烈的执着，包括：</p>
+<p>这里的内容来自 <a href="https://www.woshipm.com/evaluating/5935708.html" target="_blank" rel="noopener">Character.ai：这家AI创业团队，找到了让LLM“爆发”的方法</a><sup>[3]</sup>，我做了一些删减和调整。创始团队对 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 是什么样的有非常强烈的执着，包括：</p>
 <ul>
 <li><a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 一定是非常灵活的，用户来决定它是什么，因为用户比我们自己更了解他们想要什么。</li>
 <li>我们不会指定若干个角色，而是让用户来尽可能的创造角色，因为一个角色不可能让所有人都满意。<strong>a billion users inventing a billion use cases</strong>.</li>
@@ -196,7 +196,7 @@
 <li><strong>替代现实生活的社交体验</strong>。有用户通过 AI 填补现实生活中的社交空缺，甚至将其视为替代现实的方式。</li>
 </ul>
 <p>总的来看，用户对 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 情感投射非常强烈，他们从中寻找现实生活中难以得到的情感满足和安慰。</p>
-<p><a href="https://www.woshipm.com/pd/5963346.html" target="_blank" rel="noopener">万字长文：AI陪伴产品的终极解法？ | 人人都是产品经理</a> 提到个问题：为何 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 对话量最大的是动漫和游戏 IP，但在 reddit 上很少看到高赞评论在讲 IP，而是讲自己的感受？</p>
+<p><a href="https://www.woshipm.com/pd/5963346.html" target="_blank" rel="noopener">万字长文：AI陪伴产品的终极解法？ | 人人都是产品经理</a><sup>[4]</sup> 提到个问题：为何 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 对话量最大的是动漫和游戏 IP，但在 reddit 上很少看到高赞评论在讲 IP，而是讲自己的感受？</p>
 <p>文章作者认为：**用户其实是需要一个有反馈、有温度的树洞，关心的是自己，与 IP 关系不大，或者说 IP 不是最核心的要素。**原因如下：</p>
 <ul>
 <li><a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 用户在现实生活中缺乏社交，Chatbot 可以随时陪伴，解决了<strong>情感寄托的诉求</strong>，这是最核心的需求。</li>
@@ -205,7 +205,7 @@
 </ul>
 <p>总的来说，用户更关心的是自己的内心和感受，而不是哪个角色解决了我的问题，但知名 IP 降低了沟通的门槛。</p>
 <h2 id="talkie">Talkie</h2>
-<p>说完 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a>，近期 Talkie 发了一篇关于 roleplay 的博客：<a href="https://www.minimaxi.com/news/minimax-m2-her-%E6%8A%80%E6%9C%AF%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">MiniMax-M2-her 技术深度解析 - MiniMax News</a>，开头就提到：“<em>一份关于如何在生产环境中构建真正可用的 Role-Play Agent 的技术报告</em>”，本文主要偏技术（尤其是数据处理），我们也来记录一下其中一些有意思的观点。</p>
+<p>说完 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a>，近期 Talkie 发了一篇关于 roleplay 的博客：<a href="https://www.minimaxi.com/news/minimax-m2-her-%E6%8A%80%E6%9C%AF%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">MiniMax-M2-her 技术深度解析 - MiniMax News</a><sup>[5]</sup>，开头就提到：“<em>一份关于如何在生产环境中构建真正可用的 Role-Play Agent 的技术报告</em>”，本文主要偏技术（尤其是数据处理），我们也来记录一下其中一些有意思的观点。</p>
 <p>开篇有几个很有趣的观察：</p>
 <ul>
 <li>regen 往往集中在关键叙事节点，比如倾诉、和解之类，用户真正在意的是高密度情绪峰值时刻。</li>
@@ -344,7 +344,7 @@
 <h2 id="rp产品">RP产品</h2>
 <p>前面看了一些 RP 产品的研究分析后，感觉还挺有意思，于是又读了一些类似产品的分析报告。包括星野、筑梦岛、完蛋、病娇AI猫娘女友、逆水寒等。这里一并记录一下其中一些有意思的观察。</p>
 <h3 id="星野">星野</h3>
-<p>星野是 MiniMax 在国内的 RP 产品，基本算是国内的 Top，在国内谈 RP 肯定逃不开星野。文章《<a href="https://www.woshipm.com/evaluating/5946439.html" target="_blank" rel="noopener">万字长文：为什么AI陪伴产品都想抄星野？ | 人人都是产品经理</a>》认为星野成功的关键是因素有：</p>
+<p>星野是 MiniMax 在国内的 RP 产品，基本算是国内的 Top，在国内谈 RP 肯定逃不开星野。文章《<a href="https://www.woshipm.com/evaluating/5946439.html" target="_blank" rel="noopener">万字长文：为什么AI陪伴产品都想抄星野？ | 人人都是产品经理</a><sup>[6]</sup>》认为星野成功的关键是因素有：</p>
 <ul>
 <li>多模态打造沉浸式虚拟社交体验。形象、人设、音色自定义，丰富的场景构建和互动方式，提升了用户沉浸感。</li>
 <li>抓住了以乙女游戏用户群为核心的用户需求。</li>
@@ -352,7 +352,7 @@
 <li>背后依托 MiniMax 在 RP 上的积累，AI 模型具备优势。</li>
 </ul>
 <h3 id="筑梦岛">筑梦岛</h3>
-<p>筑梦岛一开始是阅文集团女频网文平台潇湘书院 App 里的一个模块，后面才独立为新的 App。以下记录来自《<a href="https://www.woshipm.com/evaluating/5974879.html" target="_blank" rel="noopener">万字长文：用AGI视角重新理解筑梦岛 | 人人都是产品经理</a>》，虽然是分析筑梦岛，但其实内容适合所有 RP 类产品。</p>
+<p>筑梦岛一开始是阅文集团女频网文平台潇湘书院 App 里的一个模块，后面才独立为新的 App。以下记录来自《<a href="https://www.woshipm.com/evaluating/5974879.html" target="_blank" rel="noopener">万字长文：用AGI视角重新理解筑梦岛 | 人人都是产品经理</a><sup>[7]</sup>》，虽然是分析筑梦岛，但其实内容适合所有 RP 类产品。</p>
 <p><strong>关于方向</strong>：</p>
 <ul>
 <li>用户互动深化。就是用户不仅与 AI 角色交流，还可能围绕这些角色形成小团队，分享经验、创作故事等。</li>
@@ -370,7 +370,7 @@
 <li>情感陪伴不仅仅是技术挑战，更是对人性、人类情感的深入理解与回应。</li>
 </ul>
 <h3 id="完蛋">完蛋</h3>
-<p>完蛋是一款恋爱类游戏，记录来自《<a href="https://www.woshipm.com/pd/5963346.html" target="_blank" rel="noopener">万字长文：AI陪伴产品的终极解法？ | 人人都是产品经理</a>》，它的成功至少用了四招：<strong>第一视角+女主选角+弱互动+恋爱的满足感</strong>。</p>
+<p>完蛋是一款恋爱类游戏，记录来自《<a href="https://www.woshipm.com/pd/5963346.html" target="_blank" rel="noopener">万字长文：AI陪伴产品的终极解法？ | 人人都是产品经理</a><sup>[4]</sup>》，它的成功至少用了四招：<strong>第一视角+女主选角+弱互动+恋爱的满足感</strong>。</p>
 <p>完蛋能破圈，背后也是“情感寄托”，它的用户构成主要是大学生（准确来说是男大学生）。他们能接触到的女性有限，完蛋给了他们不同平行世界的感觉——我现在虽然没找，但未来会这样追求。</p>
 <p>具体用户画像来看，他们年龄在 15-35 之间，现实中存在社交挑战，但对爱情有着较强烈渴望，他们在感情中有一定程度的自卑感，倾向于逃避现实，期望通过这类娱乐内容寻找共鸣和缺失的自信。这部分人群的经济能力大部分都一般，但愿意为情感价值付费，而且可能对情感丰富、剧情深刻的文化作品有较高兴趣。</p>
 <p>值得一提的是，完蛋并没有 AI 元素。</p>
@@ -385,7 +385,16 @@
 <p>因此，RP 只有文字故事显然是不够的，图像、语音、视频、3D 环境等都更能提升沉浸感，也能一定程度上增加情感满足，毕竟人大部分时候都是感官动物，文字还是有点“太累”。</p>
 <p>另外，我们一直没有提的是，其实用户是同时包含创作者和使用者的，就好像现在抖音一样，有播主和观众。我想，这两类用户同时存在的形态应该会一直持续，创作者未来也并不一定局限于创建一个“角色”或“故事”，故事也不一定必须以 bot 互动的形式呈现给其他用户。</p>
 <h2 id="小结">小结</h2>
-<p>本文从 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 的技术访谈开始进入 RP 的讨论，紧跟着谈到这一领域无可跳过的 Talkie（25 年 4 月 <a href="https://www.thepaper.cn/newsDetail_forward_30729024" target="_blank" rel="noopener">MAU 3000多万</a>），主要是讨论他们发布的 Her 模型的构建方法，偏技术。然后就顺便关注了一下 RP 类产品，通过一些分析文章探讨了星野、筑梦岛、完蛋、猫娘女友、逆水寒等 RP 类产品的做法，最后浅聊了一下这一赛道的关键：沉浸感和情感寄托。虽然大部分内容都整理自其它文章，但很多地方也加了一些自己的观点和分析，作为算法，感觉看看产品和用户分析也挺有意思的，而且这也能反过来指导模型和算法优化。</p>
+<p>本文从 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 的技术访谈开始进入 RP 的讨论，紧跟着谈到这一领域无可跳过的 Talkie（25 年 4 月 <a href="https://www.thepaper.cn/newsDetail_forward_30729024" target="_blank" rel="noopener">MAU 3000多万</a><sup>[8]</sup>），主要是讨论他们发布的 Her 模型的构建方法，偏技术。然后就顺便关注了一下 RP 类产品，通过一些分析文章探讨了星野、筑梦岛、完蛋、猫娘女友、逆水寒等 RP 类产品的做法，最后浅聊了一下这一赛道的关键：沉浸感和情感寄托。虽然大部分内容都整理自其它文章，但很多地方也加了一些自己的观点和分析，作为算法，感觉看看产品和用户分析也挺有意思的，而且这也能反过来指导模型和算法优化。</p>
+<h2 id="reference">Reference</h2>
+<p><code>[1]</code> DocToc: <em><a href="https://github.com/thlorenz/doctoc" target="_blank" rel="noopener">https://github.com/thlorenz/doctoc</a></em><br>
+<code>[2]</code> 我在 <a href="http://Character.ai" target="_blank" rel="noopener">Character.ai</a> 做 Post Training｜对谈前 <a href="http://C.AI" target="_blank" rel="noopener">C.AI</a> 模型应用算法专家 Ted: <em><a href="https://www.xiaoyuzhoufm.com/episode/67359e9843dc3a43878eaa90?s=eyJ1IjogIjY0MzRjZTRhZWRjZTY3MTA0YTE4Njg3NiJ9" target="_blank" rel="noopener">https://www.xiaoyuzhoufm.com/episode/67359e9843dc3a43878eaa90?s=eyJ1IjogIjY0MzRjZTRhZWRjZTY3MTA0YTE4Njg3NiJ9</a></em><br>
+<code>[3]</code> <a href="http://Character.ai" target="_blank" rel="noopener">Character.ai</a>：这家AI创业团队，找到了让LLM“爆发”的方法: <em><a href="https://www.woshipm.com/evaluating/5935708.html" target="_blank" rel="noopener">https://www.woshipm.com/evaluating/5935708.html</a></em><br>
+<code>[4]</code> 万字长文：AI陪伴产品的终极解法？ | 人人都是产品经理: <em><a href="https://www.woshipm.com/pd/5963346.html" target="_blank" rel="noopener">https://www.woshipm.com/pd/5963346.html</a></em><br>
+<code>[5]</code> MiniMax-M2-her 技术深度解析 - MiniMax News: <em><a href="https://www.minimaxi.com/news/minimax-m2-her-%E6%8A%80%E6%9C%AF%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90" target="_blank" rel="noopener">https://www.minimaxi.com/news/minimax-m2-her-技术深度解析</a></em><br>
+<code>[6]</code> 万字长文：为什么AI陪伴产品都想抄星野？ | 人人都是产品经理: <em><a href="https://www.woshipm.com/evaluating/5946439.html" target="_blank" rel="noopener">https://www.woshipm.com/evaluating/5946439.html</a></em><br>
+<code>[7]</code> 万字长文：用AGI视角重新理解筑梦岛 | 人人都是产品经理: <em><a href="https://www.woshipm.com/evaluating/5974879.html" target="_blank" rel="noopener">https://www.woshipm.com/evaluating/5974879.html</a></em><br>
+<code>[8]</code> MAU 3000多万: <em><a href="https://www.thepaper.cn/newsDetail_forward_30729024" target="_blank" rel="noopener">https://www.thepaper.cn/newsDetail_forward_30729024</a></em></p>
 
       
     </div><!-- .entry-content -->
