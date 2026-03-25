@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yam.gift/"/>
-  <updated>2026-03-13T16:18:49.385Z</updated>
+  <updated>2026-03-25T00:44:24.378Z</updated>
   <id>https://yam.gift/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Training-Free RL：当“训练”不再更新参数，而是更新上下文</title>
+    <link href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/"/>
+    <id>https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/</id>
+    <published>2026-03-24T15:00:00.000Z</published>
+    <updated>2026-03-25T00:44:24.378Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;TL;DR：&lt;/strong&gt;&lt;br&gt;
+随着 LLM 能力增强，强化学习正在从“更新模型参数”转向“优化上下文”。Training-Free RL 不再训练 policy，而是通过自评估、对比、反思和记忆机制，从 rollout 中提取“经验/洞察”，并以自然语言形式注入上下文，从而改变模型输出分布。本质上，这是一种以 LLM 为先验、以“经验文本”为 advantage 的新型 RL 范式。&lt;/p&gt;
+&lt;p&gt;RL 近期出现了大量新的学习范式，我们此前已经介绍过几篇关于 RM 建模的文章：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/&quot;&gt;Reward Model建模 | 长琴&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/&quot;&gt;Reward建模新范式：无验证器RL与Reference的妙用 | 长琴&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/&quot;&gt;Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;虽然是 RM 建模，但其实再放大了说也就是 RL 建模。而且，R1 之后，RL 大多都简化为 GRPO，其关键就在 Reward（或者说 Advantage）建模和设计上。从这个角度看，之前介绍的无验证 RL，它既是 Reward 建模范式，但更多的其实是一种新的 RL 范式——验证都不需要了，都不是验证器的问题。&lt;/p&gt;
+&lt;p&gt;本文介绍的是另一种范式——免训练 RL。是的，没错，随着 LLM 能力不断变强，保持 LLM 不动，对“上下文”进行调整也能很好地完成任务。还记得前几个月腾讯姚顺雨的 &lt;a href=&quot;https://www.clbench.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CL-bench Leaderboard&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt; 吗——即使你把所有相关上下文都给了 LLM，它也不一定能用好。从某种意义上说，免训练 RL 的作用点也是“用好”上下文。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    
+    
+      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    
+      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    
+      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    
+      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    
+      <category term="Meta Learning" scheme="https://yam.gift/tags/Meta-Learning/"/>
+    
+      <category term="Context Learning" scheme="https://yam.gift/tags/Context-Learning/"/>
+    
+      <category term="Meta RL" scheme="https://yam.gift/tags/Meta-RL/"/>
+    
+      <category term="TRT" scheme="https://yam.gift/tags/TRT/"/>
+    
+      <category term="MemAPO" scheme="https://yam.gift/tags/MemAPO/"/>
+    
+  </entry>
   
   <entry>
     <title>从 OpenClaw 再谈 AI Coding：我们还剩下什么</title>
@@ -718,40 +764,6 @@
       <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
     
       <category term="DELTA" scheme="https://yam.gift/tags/DELTA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>所爱隔山海，山海亦可平</title>
-    <link href="https://yam.gift/2025/12/22/Diary/2025-12-22-Love/"/>
-    <id>https://yam.gift/2025/12/22/Diary/2025-12-22-Love/</id>
-    <published>2025-12-22T15:00:00.000Z</published>
-    <updated>2025-12-22T16:03:16.303Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;前段时间空闲时间偶尔会想一个问题：“当历史的积累超越了人类学习的极限时会发生什么？”&lt;/p&gt;
-&lt;p&gt;其实不说以后，就现在已然出现知识爆炸的情况，研究方向越来越细，都不是“隔行如何山”了，稍微跨个方向可能都相差极大。是不是可以认为已经差不多到了“穷尽一生也学不完某个方向”的地
-        
-      
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="Diary" scheme="https://yam.gift/tags/Diary/"/>
-    
-      <category term="Life" scheme="https://yam.gift/tags/Life/"/>
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
-      <category term="Study" scheme="https://yam.gift/tags/Study/"/>
     
   </entry>
   
