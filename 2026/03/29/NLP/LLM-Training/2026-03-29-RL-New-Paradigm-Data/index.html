@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-understading-by-reconstruction-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-act-1.jpg">
 <meta property="og:image" content="https://qnimg.lovevivian.cn/paper-crl-1.jpg">
-<meta property="og:updated_time" content="2026-03-30T00:23:43.866Z">
+<meta property="og:updated_time" content="2026-03-30T00:32:06.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据">
 <meta name="twitter:description" content="TL;DR 新一代 RL 范式，本质是在“制造更高质量的训练数据”，而不是单纯优化参数。    方法 提升的信息类型     ERL/OEL 局部修正（reflection），通过“反思 → 经验 → 蒸馏”，把一次尝试变成可复用知识   MR-Search 跨 episode 经验，把“反思”提升为跨 episode 的持续积累（接近元学习）   Reconstruction 隐式推理过程，不学">
@@ -141,19 +141,19 @@
 </table>
 <p>以上方法其实都在做一件事：Trajectory → Information Gain → Policy Improvement。核心是把低信息密度的轨迹转换为高信息密度监督信号。</p>
 <hr>
-<p>上篇《<a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴</a>》我们介绍了一些不更新参数的“训练”范式，目前还在实验中，但目测应该是有效果的——我个人老早就想自动化 prompt 的调整了，这一步着实不应该成为门槛，更不应该投入过多精力去 try-and-error，实在是太不自动化、太不可控了。</p>
+<p>上篇《<a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴</a><sup>[1]</sup>》我们介绍了一些不更新参数的“训练”范式，目前还在实验中，但目测应该是有效果的——我个人老早就想自动化 prompt 的调整了，这一步着实不应该成为门槛，更不应该投入过多精力去 try-and-error，实在是太不自动化、太不可控了。</p>
 <p>不过本文不讨论 Training-Free，而是介绍一些基于 “反思和经验” 的学习范式，固然是需要训练的，但更多的难道不算是一种数据构造方式？从这个角度看也挺有意思。</p>
 <a id="more"></a>
 <h2 id="反思">反思</h2>
 <p>这个点是最容易想到的，绝大多数 paper 都是这个思路，很 naive 的想法——让 LLM 根据结果自己反思哪些地方有问题，可以改进，然后沉淀成经验，便于后续使用。</p>
-<p>来自微软的 <a href="https://arxiv.org/abs/2602.13949" target="_blank" rel="noopener">2602 Experiential Reinforcement Learning</a>，经验强化学习（ERL），就是这样。</p>
+<p>来自微软的 <a href="https://arxiv.org/abs/2602.13949" target="_blank" rel="noopener">2602 Experiential Reinforcement Learning</a><sup>[2]</sup>，经验强化学习（ERL），就是这样。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-erl-1.jpg" alt></p>
 <p>它将显式的体验–反思–巩固环嵌入强化学习过程：给定一项任务，模型生成初始尝试，接收环境反馈，并产生一个指导优化第二次尝试的（结构化）反思，该次尝试的成功会被强化并内化（自蒸馏）为基础策略，后续能够直接从原始输入重现改进后的行为而无需反思。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-erl-2.jpg" alt></p>
 <p>算法过程如下：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-erl-3.jpg" alt></p>
-<p>再比如来自 Allen 的 <a href="https://arxiv.org/abs/2603.11327" target="_blank" rel="noopener">2603 Meta-Reinforcement Learning with Self-Reflection for Agentic Search</a>（MR-Search），它通过在每个 episode 结束后生成显式的自我反思，并将这些反思作为额外上下文用于指导后续尝试，从而实现跨 episode 的探索。这就实现了多轮交互下的连续自我反思和跨轮次知识整合，一种逐步累积信息、不断改进的过程。也可以看成是一种元学习，元学习的目标是“如何生成有效的自我反思”。</p>
-<p>噢噢，差点忘记说，微软紧跟着有一篇 <a href="https://arxiv.org/abs/2603.16856" target="_blank" rel="noopener">2603 Online Experiential Learning for Language Models</a>，简称 OEL，直接把 ERL 那一套搬到了线上（伪在线……），实现从现实环境交互中学习。</p>
+<p>再比如来自 Allen 的 <a href="https://arxiv.org/abs/2603.11327" target="_blank" rel="noopener">2603 Meta-Reinforcement Learning with Self-Reflection for Agentic Search</a><sup>[3]</sup>（MR-Search），它通过在每个 episode 结束后生成显式的自我反思，并将这些反思作为额外上下文用于指导后续尝试，从而实现跨 episode 的探索。这就实现了多轮交互下的连续自我反思和跨轮次知识整合，一种逐步累积信息、不断改进的过程。也可以看成是一种元学习，元学习的目标是“如何生成有效的自我反思”。</p>
+<p>噢噢，差点忘记说，微软紧跟着有一篇 <a href="https://arxiv.org/abs/2603.16856" target="_blank" rel="noopener">2603 Online Experiential Learning for Language Models</a><sup>[4]</sup>，简称 OEL，直接把 ERL 那一套搬到了线上（伪在线……），实现从现实环境交互中学习。</p>
 <ul>
 <li>首先，从用户端收集的交互轨迹中提取并积累可迁移的经验知识；</li>
 <li>其次，通过策略内上下文蒸馏将这些知识整合到模型参数，无需访问用户端环境。</li>
@@ -162,7 +162,7 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-oel-1.jpg" alt></p>
 <p>其中，Equation（1）就是把提取到的经验和历史经验拼接，非常简单。感觉是不是也可以试一下？</p>
 <h2 id="逆向">逆向</h2>
-<p>这个做法也比较有意思，来自字节的 <a href="https://arxiv.org/abs/2603.11103" target="_blank" rel="noopener">2603 Understanding by Reconstruction: Reversing the Software Development Process for LLM Pretraining</a>，它主要是通过重构进行理解，一个基本假设是：对静态仓库背后潜在的智能体轨迹（即规划、推理和调试步骤）进行逆向工程（重建创建过程），能够提供比原始代码更丰富的监督信号。用更加通俗的话来说，就是不看表面数据（轨迹），而是尝试理解数据背后的思维和创建过程。</p>
+<p>这个做法也比较有意思，来自字节的 <a href="https://arxiv.org/abs/2603.11103" target="_blank" rel="noopener">2603 Understanding by Reconstruction: Reversing the Software Development Process for LLM Pretraining</a><sup>[5]</sup>，它主要是通过重构进行理解，一个基本假设是：对静态仓库背后潜在的智能体轨迹（即规划、推理和调试步骤）进行逆向工程（重建创建过程），能够提供比原始代码更丰富的监督信号。用更加通俗的话来说，就是不看表面数据（轨迹），而是尝试理解数据背后的思维和创建过程。</p>
 <p>具体采用多智能体仿真：主智能体生成高层需求和实施方案，而子智能体则被委派处理各个独立文件。为防止偏离正确方向，过程中还注入了结构化的真实值信息（比如从代码中提取的文件层级结构和依赖图）。同时，引入基于搜索的最优化技术来优化思考过程。受树搜索算法的启发，将轨迹分解为多个步骤，迭代采样优化。仅当新生成的思维降低了目标真实代码的困惑度，才代替原始推理。</p>
 <p>数据合成过程如下：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-understading-by-reconstruction-1.jpg" alt></p>
@@ -173,7 +173,7 @@
 </ul>
 <p>其实要训练的目标就是「开发过程」的逻辑，而非具体的实现，模型仅预测 Think 和 Action 的 token，Observation 的 token 会被 mask。而且，考虑到合成数据的偏差和噪声，不选择 SFT 而是选择 CT。Action token 类似 <code>CallSubAgent(task=&quot;Create 'operations.py'...&quot;</code>、<code>ReadTool(file=&quot;operations.py&quot;)</code> 这样。</p>
 <h2 id="对比">对比</h2>
-<p>这个 <a href="https://arxiv.org/abs/2603.08706" target="_blank" rel="noopener">2603 Agentic Critical Training</a> 更有意思了，作者觉得前面的反思其实是一种模仿，并不是自发产生的。于是提出这个 ACT 框架：在序列决策过程的每个时间步中，将每个专家动作与模型生成的替代动作配对，形成偏好对（假设专家更好），RL 训练智能体识别哪个动作更好。由于没有监督信号，模型就必须自主进行思维链展开，做出正确选择，这就产生了真正的自我反思。</p>
+<p>这个 <a href="https://arxiv.org/abs/2603.08706" target="_blank" rel="noopener">2603 Agentic Critical Training</a><sup>[6]</sup> 更有意思了，作者觉得前面的反思其实是一种模仿，并不是自发产生的。于是提出这个 ACT 框架：在序列决策过程的每个时间步中，将每个专家动作与模型生成的替代动作配对，形成偏好对（假设专家更好），RL 训练智能体识别哪个动作更好。由于没有监督信号，模型就必须自主进行思维链展开，做出正确选择，这就产生了真正的自我反思。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-act-1.jpg" alt></p>
 <ul>
 <li>阶段 1（数据构建）：给定专家示范轨迹，提取状态-动作对，并在每个状态从初始策略 πθ0 中采样替代动作。将专家动作与模型生成的替代动作配对，以构建对比训练样本。</li>
@@ -189,8 +189,8 @@
 <li>格式正确 0 分，不正确 -0.5 分。</li>
 </ul>
 <h2 id="互补">互补</h2>
-<p>之前的经验要么是静态的，要么无法和 actor 协同进化，阿里在 <a href="https://arxiv.org/abs/2603.17621" target="_blank" rel="noopener">2603 Complementary Reinforcement Learning</a> 提出互补强化学习（CRL），实现经验提取器与策略的无缝协同演化。具体来说，策略通过奖励驱动优化（我们已经很熟悉了），经验提取器则据其提炼的「经验是否显著促进策略的成功」来优化。</p>
-<p>经验提取器使用 <a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">CISPO</a> 优化，策略则使用 GRPO 的一个变种。因为他们发现，当所有交互都依赖检索到的经验时，策略会过早收敛，并落后于经验引导（说明策略没能将经验内化为能力，反而对外部指导过度依赖）。因此将采样分为两个组：经验引导和无经验。但由于两个组的奖励尺度和方差存在差异，导致优势估计有偏差，所以需要在每个子组内计算优势。</p>
+<p>之前的经验要么是静态的，要么无法和 actor 协同进化，阿里在 <a href="https://arxiv.org/abs/2603.17621" target="_blank" rel="noopener">2603 Complementary Reinforcement Learning</a><sup>[7]</sup> 提出互补强化学习（CRL），实现经验提取器与策略的无缝协同演化。具体来说，策略通过奖励驱动优化（我们已经很熟悉了），经验提取器则据其提炼的「经验是否显著促进策略的成功」来优化。</p>
+<p>经验提取器使用 <a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">CISPO</a><sup>[8]</sup> 优化，策略则使用 GRPO 的一个变种。因为他们发现，当所有交互都依赖检索到的经验时，策略会过早收敛，并落后于经验引导（说明策略没能将经验内化为能力，反而对外部指导过度依赖）。因此将采样分为两个组：经验引导和无经验。但由于两个组的奖励尺度和方差存在差异，导致优势估计有偏差，所以需要在每个子组内计算优势。</p>
 <p>算法不复杂，但工程实现可不容易，因为两个模型是互相依赖的，序列执行显然会浪费资源，所以 CRL 用了异步设计，将 replay 收集与经验蒸馏解耦。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-crl-1.jpg" alt></p>
 <p>主循环中，策略持续与环境交互以收集 replay，并使用 RLVR 优化；后台经验提取器处理已完成的轨迹，蒸馏经验，维护经验库。经验管理器 H 承担两个协调角色：</p>
@@ -198,10 +198,21 @@
 <li>经验整合：维护一个内部队列 Q 以接收并调度蒸馏请求，且在写入锁的保护下管理对 M 的所有写操作，以防止状态冲突。</li>
 <li>经验检索：将并发检索查询聚合为 batch 以最大化吞吐，并在读取锁的保护下将语义搜索分发至并行工作进程，以实现并发读取。</li>
 </ul>
-<p>看起来和<a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">这里</a>介绍的 <a href="https://arxiv.org/abs/2603.21520" target="_blank" rel="noopener">MemAPO</a> 有点关联，一看果然都是阿里的。</p>
+<p>看起来和<a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">这里</a><sup>[9]</sup>介绍的 <a href="https://arxiv.org/abs/2603.21520" target="_blank" rel="noopener">MemAPO</a><sup>[10]</sup> 有点关联，一看果然都是阿里的。</p>
 <p>总的来说，两个优化在一套框架下但又解耦的比较干净。其实还有一些小细节，比如同一任务多实例运行可能导致 M 冗余，所以周期性地触发 Merge 操作——以块为粒度分析 item 决定去留，结果带着滑动到下一块。再比如只使用任务描述作为 query 可能会反复检索到相同的经验，于是引入 <code>search_and_ask</code> 工具，允许策略在环境交互过程中的任意决策步骤主动查询 M，查询时还会根据当前状态及所面临的问题总结生成一个上下文感知的 q′ 进行检索。再比如经验提取器的更新需要等待经验条目 m（唯一的 m 视为一个独立的训练样本）达到所需的训练批量大小时才触发。</p>
 <h2 id="小结">小结</h2>
 <p>本节我们介绍了几种新的 RL 训练范式，其实简单来说就一句话——把一些「相关的反馈」纳入训练过程。这里的反馈主要是「反思经验」。从 ERL 到 OEL，经验和真实环境开始互动；从代码“逆向”设计，让「创建思维」再现提升模型；从模仿到真正自我反思，ACT 先让模型根据 pair 对对比学习好坏从而产生自我反思后再训策略；从静态存储到动态协同，CRL 把策略和经验提取纳入一套训练框架，异步解耦协同进化。RL 一直在进化。不过，我们其实也可以从数据角度看，这又何尝不是另一种“高质量数据”呢。</p>
+<h2 id="reference">Reference</h2>
+<p><code>[1]</code> Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴: <em><a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/</a></em><br>
+<code>[2]</code> 2602 Experiential Reinforcement Learning: <em><a href="https://arxiv.org/abs/2602.13949" target="_blank" rel="noopener">https://arxiv.org/abs/2602.13949</a></em><br>
+<code>[3]</code> 2603 Meta-Reinforcement Learning with Self-Reflection for Agentic Search: <em><a href="https://arxiv.org/abs/2603.11327" target="_blank" rel="noopener">https://arxiv.org/abs/2603.11327</a></em><br>
+<code>[4]</code> 2603 Online Experiential Learning for Language Models: <em><a href="https://arxiv.org/abs/2603.16856" target="_blank" rel="noopener">https://arxiv.org/abs/2603.16856</a></em><br>
+<code>[5]</code> 2603 Understanding by Reconstruction: Reversing the Software Development Process for LLM Pretraining: <em><a href="https://arxiv.org/abs/2603.11103" target="_blank" rel="noopener">https://arxiv.org/abs/2603.11103</a></em><br>
+<code>[6]</code> 2603 Agentic Critical Training: <em><a href="https://arxiv.org/abs/2603.08706" target="_blank" rel="noopener">https://arxiv.org/abs/2603.08706</a></em><br>
+<code>[7]</code> 2603 Complementary Reinforcement Learning: <em><a href="https://arxiv.org/abs/2603.17621" target="_blank" rel="noopener">https://arxiv.org/abs/2603.17621</a></em><br>
+<code>[8]</code> CISPO: <em><a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/</a></em><br>
+<code>[9]</code> 这里: <em><a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/</a></em><br>
+<code>[10]</code> MemAPO: <em><a href="https://arxiv.org/abs/2603.21520" target="_blank" rel="noopener">https://arxiv.org/abs/2603.21520</a></em></p>
 
       
     </div><!-- .entry-content -->
