@@ -106,6 +106,8 @@ date: 2018-04-07 22:29:12
 - Datawhale Paper 分享。
     - 视频：[Paper 分享](https://www.bilibili.com/medialist/detail/ml1760686270)
 - LLM 相关技术活动主讲嘉宾/评委。
+    - `20260310` 飞书玩虾大会 GEEK 专场嘉宾：[【飞行社】📚 🦞 玩“虾”大会 Day2-周二晚见](https://www.feishu.cn/community/course/content?course_id=7613765188436626367&class_id=7613765188520512458&lesson_id=7613771397420026814&content_id=7613771397457775562)
+    - `20260308` AI 黑客松高校联赛导师、评委：[就在本周，邀你观战｜嘉宾揭晓&观众招募开启](https://mp.weixin.qq.com/s/WYfqI6p8glQP0ZC0sES7IA)
     - `20251121` 非凡 AI 百大创造先锋：[AI Creators 100 - 飞书云文档](https://uniquecapital.feishu.cn/wiki/Hck2wlaxTifbjdk0oincaUFqnQd)
     - `20250923` 云栖大会魔搭Agent挑战赛评委：[MCP&Agent挑战赛](https://modelscope.cn/active/aihackathon-mcp-agent)
     - `20250227` 嘉程资本创业流水席第251期：[2月27日，探讨DeepSeek R1技术解析与应用趋势！架构论文/技术影响/应用场景｜嘉程创业流水席第251期](https://mp.weixin.qq.com/s/DkksIqGQKadXt8IqVD-y0g)
