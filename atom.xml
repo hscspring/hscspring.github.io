@@ -435,10 +435,25 @@
       <![CDATA[<p>TL;DR</p>
 <ul>
 <li>
-<p><strong>EXAONE:</strong> 改进 GRPO，通过移除 Clip 保留探索性]]>
+<p><strong>EXAONE:</strong> 改进 GRPO，通过移除 Clip 保留探索性 Token，并利用非对称采样引导模型远离错误路径。</p>
+</li>
+<li>
+<p><strong>Kimi:</strong> 从 KKT 条件推导出 RL 目标函数，将长推理过程视为“隐式搜索”，并利用逐步升温长度惩罚解决“过度思考”问题。</p>
+</li>
+<li>
+<p><strong>MiMo:</strong> 采用反向 KL 散度进行多教师蒸馏（MOPD），实现“寻找众数”的精准能力迁移。</p>
+</li>
+<li>
+<p><strong>MiniMax:</strong> 针对 GRPO Clip 问题，采用带 Stop-gradient 的重要性采样与 Token Mask 机制，不丢弃探索梯度同时确保训练平稳。</p>
+</li>
+<li>
+<p><strong>Qwen:</strong> 将重要性权重回归序列级别，引入长度归一化解决 Token-level 高方差，同时增强了 MoE 路由的稳定性，并进一步演进为平滑剪裁的 SAPO。</p>
+</li>
+</ul>
+<p><strong>结论：</strong> 行业正从简单的奖励最大化转向更精细的分布对齐、隐式规划引导和训练稳定性控制。</p>]]>
     </summary>
     <title>LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析</title>
-    <updated>2026-01-15T00:21:04.040Z</updated>
+    <updated>2026-04-18T02:39:51.773Z</updated>
   </entry>
   <entry>
     <author>
