@@ -1,6 +1,7 @@
 ---
 title: 观点
 date: 2025-12-23 08:00:00
+description: 收藏一些有意思的观点，随机翻卡片，偶遇一个。
 ---
 
 <div id="sv-root">

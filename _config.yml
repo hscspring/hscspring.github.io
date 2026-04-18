@@ -164,7 +164,8 @@ theme: cyanstyle
 #   inline: false  # https://markdown-it.github.io/markdown-it/#MarkdownIt.renderInline
 
 
-# https://github.com/byronwanbl/hexo-renderer-markdown-it-katex
+# markdown-it 渲染 + KaTeX 插件（服务端预渲染公式）
+# https://github.com/hexojs/hexo-renderer-markdown-it
 markdown:
   render:
     html: true
@@ -174,6 +175,9 @@ markdown:
     typographer: true
     quotes: '“”‘’'
   plugins:
+    - name: '@renbaoshuo/markdown-it-katex'
+      options:
+        throwOnError: true
   anchors:
     level: 2
     collisionSuffix: ''
