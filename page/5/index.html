@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" data-id="cmo3lf8ek00kdq2bz9arqfy2h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" data-id="cmo3log6x00lherbzfg3k6nvn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -152,7 +162,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/" data-id="cmo3lf8ek00k9q2bz7aht0cn9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/" data-id="cmo3log6x00llerbz0g4sdk34" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -207,7 +217,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" data-id="cmo3lf8eb00h1q2bzbn4l188k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" data-id="cmo3log7400n2erbzf5558j9h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -261,7 +271,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/" data-id="cmo3lf8d20040q2bz8f57axi9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/" data-id="cmo3log5l004nerbz5l8udwio" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -318,7 +328,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" data-id="cmo3lf8eb00gvq2bz94iua12q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" data-id="cmo3log7400mverbz07rp3rc6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -412,7 +422,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/" data-id="cmo3lf8ej00k6q2bzgdf41y2c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/" data-id="cmo3log6w00leerbzg6ydho5m" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -475,7 +485,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" data-id="cmo3lf8ek00kiq2bzbiu30tjb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" data-id="cmo3log6w00laerbz9czq4nip" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -529,7 +539,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/" data-id="cmo3lf8d7005wq2bz2jj32dsi" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/" data-id="cmo3log6800djerbzhkm03674" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -583,7 +593,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cmo3lf8ej00k2q2bz66ea1g7x" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cmo3log6r00l6erbz6wxlhko4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -637,7 +647,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" data-id="cmo3lf8ej00jxq2bzbrsk1ve5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" data-id="cmo3log6r00l3erbzeusm54wo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -762,12 +772,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

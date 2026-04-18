@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="cmo3lf8e700ftq2bz38o636ji" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" data-id="cmo3log6d00fuerbzbcpv72bd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -152,7 +162,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="cmo3lf8di00a8q2bz65y6bacm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" data-id="cmo3log5t007yerbz0ru3f8vj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -212,7 +222,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/" data-id="cmo3lf8da006rq2bzdoeb6wv8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/" data-id="cmo3log5p0063erbzf4cleznf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -269,7 +279,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" data-id="cmo3lf8e600fpq2bzeapee70d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" data-id="cmo3log6d00foerbz1s28h1ef" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -325,7 +335,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/" data-id="cmo3lf8jm022hq2bz2j8w03y6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/" data-id="cmo3log6n00jqerbzhamx5yw2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -391,7 +401,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/15/Diary/2019-07-15-diary/" data-id="cmo3lf8d1003fq2bz1a2l74w5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/15/Diary/2019-07-15-diary/" data-id="cmo3log5j0040erbzdnjraz1k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -448,7 +458,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/" data-id="cmo3lf8di00a6q2bz8ij95ls5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/14/Paper/2019-07-14-XLNet-Paper/" data-id="cmo3log5t007verbz6ut1f14o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -511,7 +521,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" data-id="cmo3lf8e600fmq2bz3b08ge8y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/Think-Ds-Algo/2019-07-13-Ch03-Linear-Structure/" data-id="cmo3log6f00gierbzdr5x07sn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -569,7 +579,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" data-id="cmo3lf8e600fjq2bz7h1ubqbw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" data-id="cmo3log6d00fmerbz72zhdpnt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -623,7 +633,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/" data-id="cmo3lf8da006oq2bzcl4pg8fn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/" data-id="cmo3log5p006aerbz6f5v7kob" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -772,12 +782,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

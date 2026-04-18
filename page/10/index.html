@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/" data-id="cmo3lf8cr000wq2bz9xqt0r1i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/11/04/AI/2023-11-04-OpenAIGC/" data-id="cmo3log58000xerbz3l6w40ok" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -148,7 +158,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/" data-id="cmo3lf8dd007zq2bz2rvpgnic" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/10/15/NLP/2023-10-15-Think-About-LLM/" data-id="cmo3log5r007aerbz7ksz4m4x" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -204,7 +214,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" data-id="cmo3lf8dd007sq2bz79hid7kz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" data-id="cmo3log5r0076erbz8yub4jw1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -263,7 +273,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cmo3lf8dd007wq2bz0dfj56kp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cmo3log5s007herbz1vbra032" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -328,7 +338,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/27/AI/2023-02-27-Enpower-AI/" data-id="cmo3lf8cq000rq2bz32lw92tl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/27/AI/2023-02-27-Enpower-AI/" data-id="cmo3log57000rerbzazj3bhmy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -382,7 +392,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/" data-id="cmo3lf8dc007qq2bzcbcvfxyb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/" data-id="cmo3log5r0074erbzecicei6j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -438,7 +448,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" data-id="cmo3lf8dc007oq2bz5e239vt1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/" data-id="cmo3log5r0070erbzg5ac68nw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -492,7 +502,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" data-id="cmo3lf8dc007hq2bz26sk0rmx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" data-id="cmo3log5r006xerbz8mdkdir5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -564,7 +574,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/" data-id="cmo3lf8dw00esq2bz4hu4c8qo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/" data-id="cmo3log6400cierbzgnlje02v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -618,7 +628,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" data-id="cmo3lf8dc007kq2bz4pa85hmf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" data-id="cmo3log5q006uerbz2h2o8q6k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -743,12 +753,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

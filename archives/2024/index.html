@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -95,13 +105,13 @@
       
   
     <h1 class="entry-title">
-      <a class="archive-article-title" href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/">LLM指令跟随论文速览（2024-2025）</a>
+      <a class="archive-article-title" href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/">OMNI论文速览（2024）</a>
     </h1>
   
 
   </header>
   <footer class="entry-meta">
-    <a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/">
+    <a href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/">
     <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
         2024-12-31
     </time>
@@ -114,7 +124,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Instruction-Following/" rel="tag">Instruction Following</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OMNI/" rel="tag">OMNI</a></li></ul>
 
     </footer>
 </article>
@@ -157,13 +167,13 @@
       
   
     <h1 class="entry-title">
-      <a class="archive-article-title" href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/">OMNI论文速览（2024）</a>
+      <a class="archive-article-title" href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/">LLM指令跟随论文速览（2024-2025）</a>
     </h1>
   
 
   </header>
   <footer class="entry-meta">
-    <a href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/">
+    <a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/">
     <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
         2024-12-31
     </time>
@@ -176,7 +186,7 @@
 
     
   <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OMNI/" rel="tag">OMNI</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Instruction-Following/" rel="tag">Instruction Following</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li></ul>
 
     </footer>
 </article>
@@ -219,37 +229,6 @@
       
   
     <h1 class="entry-title">
-      <a class="archive-article-title" href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">XTTS</a>
-    </h1>
-  
-
-  </header>
-  <footer class="entry-meta">
-    <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">
-    <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
-        2024-12-31
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XTTS/" rel="tag">XTTS</a></li></ul>
-
-    </footer>
-</article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
       <a class="archive-article-title" href="/2024/12/31/Paper/TTS/2024-12-31-VITS/">VITS</a>
     </h1>
   
@@ -270,6 +249,37 @@
     
   <span class="article-delim">&#8226;</span>
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VITS/" rel="tag">VITS</a></li></ul>
+
+    </footer>
+</article>
+  
+    
+    
+    <article class="post type-post status-publish format-standard hentry archive-type-post">
+  <header class="entry-header">
+      
+  
+    <h1 class="entry-title">
+      <a class="archive-article-title" href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">XTTS</a>
+    </h1>
+  
+
+  </header>
+  <footer class="entry-meta">
+    <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">
+    <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
+        2024-12-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XTTS/" rel="tag">XTTS</a></li></ul>
 
     </footer>
 </article>
@@ -845,12 +855,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

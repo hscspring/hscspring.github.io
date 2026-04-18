@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -79,62 +89,6 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
-    <article id="post-Paper/TTS/2024-12-31-XTTS" class="post-Paper/TTS/2024-12-31-XTTS post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">XTTS</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-XTTS/" data-id="cmo3lf8mb024bq2bz6psz6j7r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>论文：<a href="https://arxiv.org/abs/2406.04904">XTTS: a Massively Multilingual Zero-Shot Text-to-Speech Model</a><br>
-代码：<a href="https://github.com/coqui-ai/TTS">coqui-ai/TTS: 🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production</a></p>
-<p>基于Tortoise的改进，自回归。本文主要关心架构。</p>
-        
-          <p class="article-more-link">
-            <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">
-    <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
-        2024-12-31
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XTTS/" rel="tag">XTTS</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-Paper/TTS/2024-12-31-VITS" class="post-Paper/TTS/2024-12-31-VITS post type-post status-publish format-standard hentry">
     <!---->
 
@@ -150,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/" data-id="cmo3lf8mc024fq2bzdugxhclt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/" data-id="cmo3logcj0273erbz68u62qne" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -191,6 +145,62 @@
 
 
   
+    <article id="post-Paper/TTS/2024-12-31-XTTS" class="post-Paper/TTS/2024-12-31-XTTS post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">XTTS</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-XTTS/" data-id="cmo3logcn0276erbz0yv065b6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>论文：<a href="https://arxiv.org/abs/2406.04904">XTTS: a Massively Multilingual Zero-Shot Text-to-Speech Model</a><br>
+代码：<a href="https://github.com/coqui-ai/TTS">coqui-ai/TTS: 🐸💬 - a deep learning toolkit for Text-to-Speech, battle-tested in research and production</a></p>
+<p>基于Tortoise的改进，自回归。本文主要关心架构。</p>
+        
+          <p class="article-more-link">
+            <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/">
+    <time datetime="2024-12-31T15:00:00.000Z" class="entry-date">
+        2024-12-31
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TTS/" rel="tag">TTS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XTTS/" rel="tag">XTTS</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-Paper/TTS/2024-12-30-DAC" class="post-Paper/TTS/2024-12-30-DAC post type-post status-publish format-standard hentry">
     <!---->
 
@@ -206,7 +216,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/30/Paper/TTS/2024-12-30-DAC/" data-id="cmo3lf8lt0244q2bz4pl7bf6j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/30/Paper/TTS/2024-12-30-DAC/" data-id="cmo3logcf026verbzckktcx37" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -261,7 +271,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/" data-id="cmo3lf8ls0241q2bzaz0zgyxt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/" data-id="cmo3logcf026rerbzcc8x5jym" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -316,7 +326,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/26/Paper/TTS/2024-12-26-BigCodec/" data-id="cmo3lf8lr023yq2bz8yp6ao28" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/26/Paper/TTS/2024-12-26-BigCodec/" data-id="cmo3logce026oerbzey3fb4cr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -371,7 +381,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/" data-id="cmo3lf8dd0086q2bz59cld3ke" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/" data-id="cmo3log5s007kerbz8f7ebylf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -426,7 +436,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/" data-id="cmo3lf8ck0001q2bz8n7385ut" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/30/BabyGrow/2024-09-30-Hope-Parents-Read-the-Book/" data-id="cmo3log5f002kerbzaezudaof" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -480,7 +490,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/30/Diary/2024-09-30-Work-Design/" data-id="cmo3lf8d2003vq2bzbvca18a2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/30/Diary/2024-09-30-Work-Design/" data-id="cmo3log5l004ierbzewc295gw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -534,7 +544,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/" data-id="cmo3lf8dw00exq2bz3z2r9ksq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/" data-id="cmo3log6500cperbz5op6g855" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -590,7 +600,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" data-id="cmo3lf8eg00ixq2bz82u98xqr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" data-id="cmo3log6o00k7erbzdd472ext" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -708,12 +718,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" data-id="cmo3lf8d00031q2bzd9zaasaq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" data-id="cmo3log5h0034erbzh738b9dz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -187,7 +197,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/" data-id="cmo3lf8dn00bzq2bz300u07wm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/" data-id="cmo3log5y009werbz6po5250t" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -243,7 +253,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cmo3lf8do00c9q2bz88z55p3c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/" data-id="cmo3log5x009rerbz5r3e1nfo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -297,7 +307,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cmo3lf8dn00c2q2bz8w0w3j9p" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/13/Paper/2020-12-13-Bert-Flow/" data-id="cmo3log5y009uerbzhyi6f7yh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -353,7 +363,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" data-id="cmo3lf8da006yq2bz83ylgmen" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/12/12/NLP/2020-12-12-NLP-Representation-History-Future/" data-id="cmo3log5p006derbzdw8xhwui" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -408,7 +418,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/" data-id="cmo3lf8cp000kq2bzfz999jeg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/11/28/AI/2020-11-28-Classification-and-AI/" data-id="cmo3log57000jerbzgmlea9kb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -462,7 +472,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/" data-id="cmo3lf8dn00bsq2bz5ixm5l92" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/" data-id="cmo3log5x009perbzcctf54v1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -516,7 +526,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" data-id="cmo3lf8dn00bpq2bz5esc6plu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" data-id="cmo3log5x009merbzb2c89azy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -586,7 +596,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/" data-id="cmo3lf8dg0099q2bz28ftcg5r" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/" data-id="cmo3log6900dterbzfm6914rx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -640,7 +650,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" data-id="cmo3lf8dg0096q2bz1w801l8b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" data-id="cmo3log6900dqerbz4s3i7l3i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -758,12 +768,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

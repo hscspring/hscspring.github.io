@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" data-id="cmo3lf8jl022fq2bz8gi069me" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" data-id="cmo3log6n00jkerbz0vvthtwe" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -148,7 +158,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" data-id="cmo3lf8jk022eq2bzdfg188gb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/21/NLP/SLP/2019-06-21-Ch12-Formal-Grammars-of-English/" data-id="cmo3log6n00jnerbz74vr4o6y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -202,7 +212,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" data-id="cmo3lf8d7005sq2bzhsds7ehn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/19/Math/2019-06-19-Think-From-Three-Gates/" data-id="cmo3log5n005herbz6qtw6ntk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -256,7 +266,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/17/NLP/SLP/2019-06-17-Ch09-Senquence-Processing-with-Recurrent-Networks/" data-id="cmo3lf8jo022kq2bz0tukh3v4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/17/NLP/SLP/2019-06-17-Ch09-Senquence-Processing-with-Recurrent-Networks/" data-id="cmo3log6m00jherbza9ul1j8q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -315,7 +325,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/" data-id="cmo3lf8cv002aq2bz5pd39903" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/15/DB/2019-06-15-Common-DB-Related/" data-id="cmo3log5c0025erbz74m7gzg7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -375,7 +385,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/11/NLP/SLP/2019-06-11-Ch08-Part-of-Speech-Tagging/" data-id="cmo3lf8jh022cq2bz7z1ngzue" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/11/NLP/SLP/2019-06-11-Ch08-Part-of-Speech-Tagging/" data-id="cmo3log6m00jferbz9k4b3gnn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -440,7 +450,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/" data-id="cmo3lf8cz002uq2bzapwl6x1c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/06/08/ExpSum/2019-06-08-Concept-and-View-of-Work/" data-id="cmo3log5g002zerbz7246f5ih" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -494,7 +504,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="cmo3lf8jh022bq2bzhngmgvt4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/31/NLP/SLP/2019-05-31-Ch07-Neural-Networks-and-Neural-Language-Models/" data-id="cmo3log6m00jcerbzeqvw9bli" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -559,7 +569,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/16/NLP/SLP/2019-05-16-Ch06-Vector-Semantics/" data-id="cmo3lf8js022pq2bz6bnp61di" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/16/NLP/SLP/2019-05-16-Ch06-Vector-Semantics/" data-id="cmo3log6m00j9erbz145f6984" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -618,7 +628,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/08/NLP/SLP/2019-05-08-Ch05-Logistic-Regression/" data-id="cmo3lf8eq00mhq2bz7ja27di0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/08/NLP/SLP/2019-05-08-Ch05-Logistic-Regression/" data-id="cmo3log6m00j5erbz9mm83frw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -757,12 +767,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

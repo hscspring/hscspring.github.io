@@ -52,8 +52,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -99,7 +109,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/" data-id="cmo3lf8mc024fq2bzdugxhclt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-VITS/" data-id="cmo3logcj0273erbz68u62qne" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -267,10 +277,10 @@ A &amp; =\underset{\hat{A}}{\arg \max } \log p\left(x \mid c_{\text {text }}, \h
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/" rel="prev"><span class="meta-nav">←</span> XTTS</a></span>
+        <span class="nav-previous"><a href="/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/" rel="prev"><span class="meta-nav">←</span> 音频Codec论文速览（2024）</a></span>
     
     
-        <span class="nav-next"><a href="/2024/12/30/Paper/TTS/2024-12-30-DAC/" rel="next">DAC <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2024/12/31/Paper/TTS/2024-12-31-XTTS/" rel="next">XTTS <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 
@@ -286,10 +296,9 @@ A &amp; =\underset{\hat{A}}{\arg \max } \log p\left(x \mid c_{\text {text }}, \h
 <section id="comment">
   <!-- 评论代码 -->
   <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-  <!-- <script src="/js/gitalk.min.js"></script> -->
+  <link rel="stylesheet" href="/css/gitalk.css">
+  <script src="/js/md5.min.js"></script>
+  <script src="/js/gitalk.min.js"></script>
   <script>
   const gitalk = new Gitalk({
     clientID: '0eb512031083d6e7edfb',
@@ -377,12 +386,6 @@ A &amp; =\underset{\hat{A}}{\arg \max } \log p\left(x \mid c_{\text {text }}, \h
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

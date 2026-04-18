@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/" data-id="cmo3lf8du00e9q2bzekmbcbbq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/07/17/Paper/2022-07-17-W2NER-Code/" data-id="cmo3log6300c0erbz4e2e76j5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -148,7 +158,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/" data-id="cmo3lf8du00e6q2bzcctf6maj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/" data-id="cmo3log6300brerbz7nv37wtq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -207,7 +217,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/" data-id="cmo3lf8du00e2q2bz1zracmnt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/06/11/Paper/2022-06-11-W2NER/" data-id="cmo3log6300bterbzazx2ffrw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -249,62 +259,6 @@
 
 
   
-    <article id="post-Paper/2022-04-23-MarkBERT" class="post-Paper/2022-04-23-MarkBERT post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/" data-id="cmo3lf8du00dwq2bzhlip3d5i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>Paper：<a href="https://arxiv.org/abs/2203.06378">[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT</a></p>
-<p>一句话概述：在 Token 中加入你感兴趣的词的边界标记。</p>
-<p>摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用 POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER 任务上取得了 2 个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。</p>
-        
-          <p class="article-more-link">
-            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">
-    <time datetime="2022-04-23T15:00:00.000Z" class="entry-date">
-        2022-04-23
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/" rel="tag">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MarkBERT/" rel="tag">MarkBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/" rel="tag">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RWD/" rel="tag">RWD</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
     <article id="post-Paper/2022-04-23-Pretrained-for-Rank" class="post-Paper/2022-04-23-Pretrained-for-Rank post type-post status-publish format-standard hentry">
     <!---->
 
@@ -320,7 +274,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" data-id="cmo3lf8du00dzq2bze6cn3ww4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" data-id="cmo3log6200bmerbz9gmx4qnf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -361,6 +315,62 @@
 
 
   
+    <article id="post-Paper/2022-04-23-MarkBERT" class="post-Paper/2022-04-23-MarkBERT post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2022/04/23/Paper/2022-04-23-MarkBERT/">MarkBERT</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/" data-id="cmo3log6300bverbzcmeuercq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>Paper：<a href="https://arxiv.org/abs/2203.06378">[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT</a></p>
+<p>一句话概述：在 Token 中加入你感兴趣的词的边界标记。</p>
+<p>摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：首先，在边界标记上添加单词级别的学习目标很方便，这是对传统字符和句子级预训练任务的补充；其次，可以通过用 POS 标签特定的标记替换通用标记来轻松合并更丰富的语义。在 NER 任务上取得了 2 个点的提升，在文本分类、关键词识别、语义相似任务上也取得了更好的精度。</p>
+        
+          <p class="article-more-link">
+            <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/">
+    <time datetime="2022-04-23T15:00:00.000Z" class="entry-date">
+        2022-04-23
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/" rel="tag">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MarkBERT/" rel="tag">MarkBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/" rel="tag">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RWD/" rel="tag">RWD</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-Paper/2022-04-15-Quantifying-Memorization-NLM" class="post-Paper/2022-04-15-Quantifying-Memorization-NLM post type-post status-publish format-standard hentry">
     <!---->
 
@@ -376,7 +386,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/" data-id="cmo3lf8dt00dsq2bz02usgwpz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/" data-id="cmo3log6200boerbzfeynby3v" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -432,7 +442,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" data-id="cmo3lf8dt00dpq2bzfiz8bwsb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" data-id="cmo3log6200bierbz2cr9g4eg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -488,7 +498,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/" data-id="cmo3lf8dt00dlq2bz3mzmfu71" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/04/05/Paper/2022-04-05-Retrieving-From-Training-Data/" data-id="cmo3log6100b4erbz5u3kde7l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -545,7 +555,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/" data-id="cmo3lf8db007aq2bz76o92hwa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/" data-id="cmo3log5q006qerbz56j66t6i" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -606,7 +616,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/05/Paper/2022-03-05-T5/" data-id="cmo3lf8dt00diq2bz7w3g0at2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2022/03/05/Paper/2022-03-05-T5/" data-id="cmo3log6200bberbz5kynbi40" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -727,12 +737,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

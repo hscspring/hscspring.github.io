@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" data-id="cmo3lf8ep00m4q2bz2qq8gw65" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" data-id="cmo3log7700nxerbzgsgpab0q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -148,7 +158,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" data-id="cmo3lf8ep00m6q2bz86bn985d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" data-id="cmo3log7600nqerbze6mac7fn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -202,7 +212,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" data-id="cmo3lf8ep00m2q2bz8eh8bnc6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" data-id="cmo3log7700nterbz6a6y6elv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -256,7 +266,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/03/Python/Py4F/2019-10-03-Python-for-Freshman-Ch02/" data-id="cmo3lf8ep00lyq2bzcap246p7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/03/Python/Py4F/2019-10-03-Python-for-Freshman-Ch02/" data-id="cmo3log7600nmerbz0x2l87cr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -310,7 +320,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/02/Python/Py4F/2019-10-02-Python-for-Freshman-Ch01/" data-id="cmo3lf8eo00lsq2bzhr7mfx4y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/02/Python/Py4F/2019-10-02-Python-for-Freshman-Ch01/" data-id="cmo3log7600njerbz2auw1rcl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -364,7 +374,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="cmo3lf8di00ahq2bz5jsu9unr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="cmo3log5t0088erbzh8l10fr6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -422,7 +432,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cmo3lf8d20048q2bz7up0b4qj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cmo3log5g0031erbz3werae0c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -487,7 +497,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cmo3lf8d3004aq2bze1nt1f8x" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cmo3log5h0036erbz2gs9f8x9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -553,7 +563,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cmo3lf8di00aeq2bz9itf6cre" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cmo3log5t0085erbze49qeqa4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -620,7 +630,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cmo3lf8di00aaq2bzcrl78ws0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cmo3log5t0081erbz5j67a8kf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -745,12 +755,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 

@@ -45,8 +45,18 @@
         <a href="/" title="长琴" rel="home">长琴</a>
       </h1>
       
-        <script type="text/javascript" src="http://api.hitokoto.us/rand?encode=js&charset=utf-8"></script>
-        <h2 class="site-description"><script>hitokoto();</script></h2>
+        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <script>
+          (function () {
+            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
+              .then(function (r) { return r.json(); })
+              .then(function (d) {
+                var el = document.getElementById('hitokoto');
+                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+              })
+              .catch(function () {});
+          })();
+        </script>
       
     </hgroup>
 
@@ -94,7 +104,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" data-id="cmo3lf8dl00b8q2bzbj7710xd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" data-id="cmo3log5w009aerbz9ehx3xaw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -150,7 +160,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" data-id="cmo3lf8cu0022q2bz5rh90l48" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" data-id="cmo3log5f002ierbz16bl2nqg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -256,7 +266,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/" data-id="cmo3lf8dl00baq2bz039m850g" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/" data-id="cmo3log5w0098erbz05aog9zt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -312,7 +322,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/" data-id="cmo3lf8dl00b6q2bz23nic185" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/" data-id="cmo3log5w0095erbz0wkwd68f" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -367,7 +377,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" data-id="cmo3lf8dl00b1q2bzh3h3707t" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" data-id="cmo3log5w0093erbz3mwg2yky" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -423,7 +433,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="cmo3lf8dl00ayq2bz549t0hmb" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="cmo3log5v0090erbz9u0y49jk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -483,7 +493,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/" data-id="cmo3lf8dl00b3q2bzfmvifvna" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/" data-id="cmo3log5v008xerbz8nfeaapr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -539,7 +549,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/" data-id="cmo3lf8dk00awq2bz1u4n3rvc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/" data-id="cmo3log5v008terbzfzas3d73" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -595,7 +605,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/" data-id="cmo3lf8dn00bvq2bzaelbhp7e" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/" data-id="cmo3log5v008qerbzhpk8eunk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -656,7 +666,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" data-id="cmo3lf8dk00arq2bzfla0hzr1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" data-id="cmo3log5v008merbzbjs260rp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -776,12 +786,6 @@
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
-    
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <!-- <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_page_pv">本文总阅读量<span id="busuanzi_value_page_pv"></span>次</span> -->
-    <!-- <span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人次</span> -->
-
 </footer>
     <script src="/js/jquery-2.0.3.min.js"></script>
 
