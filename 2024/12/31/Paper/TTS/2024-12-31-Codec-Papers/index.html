@@ -60,7 +60,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -110,7 +114,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/" data-id="cmo3logcg0270erbz0jbwf4x9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/" data-id="cmo3lqnxk01cjiobzgjrtdlgy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -264,7 +268,7 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="prev"><span class="meta-nav">←</span> LLM指令跟随论文速览（2024-2025）</a></span>
+        <span class="nav-previous"><a href="/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" rel="prev"><span class="meta-nav">←</span> SLM论文速览（2024）</a></span>
     
     
         <span class="nav-next"><a href="/2024/12/31/Paper/TTS/2024-12-31-VITS/" rel="next">VITS <span class="meta-nav">→</span></a></span>

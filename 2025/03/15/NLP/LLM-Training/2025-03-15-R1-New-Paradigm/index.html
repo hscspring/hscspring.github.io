@@ -30,16 +30,16 @@
 <meta property="article:tag" content="Pre-training">
 <meta property="article:tag" content="Continual Pre-training">
 <meta property="article:tag" content="Post-training">
+<meta property="article:tag" content="LIMO">
+<meta property="article:tag" content="s1">
+<meta property="article:tag" content="Inference Scaling">
 <meta property="article:tag" content="LIMR">
+<meta property="article:tag" content="LIMD">
+<meta property="article:tag" content="Online-DPO-R1">
 <meta property="article:tag" content="R1">
 <meta property="article:tag" content="R1-Zero">
 <meta property="article:tag" content="oat-zero">
 <meta property="article:tag" content="DeepScaleR">
-<meta property="article:tag" content="LIMO">
-<meta property="article:tag" content="s1">
-<meta property="article:tag" content="Inference Scaling">
-<meta property="article:tag" content="LIMD">
-<meta property="article:tag" content="Online-DPO-R1">
 <meta property="article:tag" content="orz">
 <meta property="article:tag" content="L1">
 <meta property="article:tag" content="LCPO">
@@ -74,7 +74,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -124,7 +128,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" data-id="cmo3log6q00koerbz6k1dc8vk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/" data-id="cmo3lqnwi015hiobz4h5ee682" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

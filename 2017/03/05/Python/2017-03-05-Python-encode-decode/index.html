@@ -55,7 +55,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -105,7 +109,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/" data-id="cmo3log6500cterbze4vf34vh" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2017/03/05/Python/2017-03-05-Python-encode-decode/" data-id="cmo3lqnti0067iobz37r7d0o9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

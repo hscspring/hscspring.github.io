@@ -69,7 +69,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -119,7 +123,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/" data-id="cmo3log6200bferbz8uky2u1k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/12/04/Paper/2021-12-04-Prompt/" data-id="cmo3lqnvt011niobz78z137ac" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

@@ -66,7 +66,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -116,7 +120,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" data-id="cmo3log5a001lerbzebb7221b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" data-id="cmo3lqnt20026iobz4o9pcus1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/" data-id="cmo3log6e00g8erbz7xchdaqs" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/" data-id="cmo3lqnw5012siobzag9uafq7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -174,7 +178,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/" data-id="cmo3log6e00g1erbzfn1i2ab4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/" data-id="cmo3lqnw0012iiobz2hcc1tue" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -230,7 +234,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/" data-id="cmo3log5h003cerbz1j9307gf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/13/ML/2020-08-13-SVM-Hard-Soft-KKT/" data-id="cmo3lqntd004niobzcwpmdg5l" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -292,7 +296,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/" data-id="cmo3log6e00fyerbz4n3t3xl8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/" data-id="cmo3lqnw1012oiobzfhjr312d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -348,7 +352,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/" data-id="cmo3log56000ferbzg810bdv9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/" data-id="cmo3lqnt00016iobz4z8md2qc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -405,7 +409,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/07/05/AIQA/2020-07-05-Introduction/" data-id="cmo3log520001erbz2zs2gpb2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/07/05/AIQA/2020-07-05-Introduction/" data-id="cmo3lqnss0001iobz563ddz6d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -469,7 +473,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/" data-id="cmo3log5x009herbzfkxw3yni" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/" data-id="cmo3lqnve00yciobzgislbemu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -525,7 +529,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" data-id="cmo3log5w009ferbzcb5zfd7f" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/25/Paper/2020-06-25-RoBERTa/" data-id="cmo3lqnvf00yhiobz48r2ch8q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -582,7 +586,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/" data-id="cmo3log5w009cerbz2x9c03ks" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/" data-id="cmo3lqnve00ybiobzhnmz4qad" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -638,7 +642,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" data-id="cmo3log5p0067erbz7mtu5jf0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" data-id="cmo3lqntm007niobzaudkat6j" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

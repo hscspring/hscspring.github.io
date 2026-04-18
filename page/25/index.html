@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/" data-id="cmo3log6l00j2erbz6l26cjtd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/" data-id="cmo3lqnx6019oiobz8ge23elf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -166,7 +170,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" data-id="cmo3log6l00izerbzcrao7s5h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" data-id="cmo3lqnx4019aiobz8y8p366x" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -225,7 +229,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="cmo3log5b0023erbzcvakdp76" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/21/DB/2019-04-21-DB-FDW/" data-id="cmo3lqnsx000fiobz2gvy1gdl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -279,7 +283,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/10/Python/Py4F/2019-04-10-Python-for-Freshman-Ch00/" data-id="cmo3log7500ngerbz90la46ho" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/10/Python/Py4F/2019-04-10-Python-for-Freshman-Ch00/" data-id="cmo3lqnw9013diobzfu5v61ws" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -335,7 +339,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/" data-id="cmo3log6l00iwerbz71a6fql0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/" data-id="cmo3lqnx6019liobz839sdjs6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -395,7 +399,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" data-id="cmo3log6k00imerbzf4pehlaa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" data-id="cmo3lqnx30195iobz83b4c0q9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -453,7 +457,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/" data-id="cmo3log6o00k3erbz4vyygy7k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/08/NLP/NLPFA/2019-04-08-Ch17-NLP-System-Evaluation/" data-id="cmo3lqnx30191iobzhp8sb00o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -514,7 +518,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/04/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/" data-id="cmo3log6l00iperbzhzwkdlf8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/04/04/NLP/NLPFA/2019-04-04-Ch16-Formal-Model-in-Statistical-Machine-Translation/" data-id="cmo3lqnx40197iobzbjjs9cl4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -569,7 +573,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/31/NLP/2019-03-31-Nabokov-Favorite-Word/" data-id="cmo3log5p0060erbzeikdaq3w" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/31/NLP/2019-03-31-Nabokov-Favorite-Word/" data-id="cmo3lqntl007fiobzdu6x28bn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -623,7 +627,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/29/NLP/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/" data-id="cmo3log6k00iferbz5fam8zab" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/29/NLP/NLPFA/2019-03-29-Ch15-Formal-Model-of-Automatic-Speech-Processing/" data-id="cmo3lqnx2018yiobz36tg3sog" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

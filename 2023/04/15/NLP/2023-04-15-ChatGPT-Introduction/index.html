@@ -41,12 +41,12 @@
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="InstructGPT">
-<meta property="article:tag" content="LM">
 <meta property="article:tag" content="GPT-3">
 <meta property="article:tag" content="GPT-2">
 <meta property="article:tag" content="GPT-1">
 <meta property="article:tag" content="RLHF">
 <meta property="article:tag" content="Transformer">
+<meta property="article:tag" content="LM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/ChatGPT-Intro-1.png">
   
@@ -78,7 +78,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -128,7 +132,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cmo3log5s007herbz1vbra032" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/" data-id="cmo3lqnto008iiobz0qyl1wxm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

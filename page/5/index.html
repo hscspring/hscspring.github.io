@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" data-id="cmo3log6x00lherbzfg3k6nvn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" data-id="cmo3lqnwl0161iobz05s80tg4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -162,7 +166,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/" data-id="cmo3log6x00llerbz0g4sdk34" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/" data-id="cmo3lqnwo0168iobz8y29dtlx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -217,7 +221,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" data-id="cmo3log7400n2erbzf5558j9h" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" data-id="cmo3lqnxh01bviobz2d32c2e7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -271,7 +275,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/" data-id="cmo3log5l004nerbz5l8udwio" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/Diary/2025-06-26-60hours-Pass-Arch-Exam/" data-id="cmo3lqnt8003siobzbbja55nd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -328,7 +332,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" data-id="cmo3log7400mverbz07rp3rc6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" data-id="cmo3lqnxf01bhiobzflcmd1ye" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -422,7 +426,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/" data-id="cmo3log6w00leerbzg6ydho5m" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/" data-id="cmo3lqnwk015yiobz0g35a361" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -485,7 +489,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" data-id="cmo3log6w00laerbz9czq4nip" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" data-id="cmo3lqnwk015viobz3vn3gckq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -539,7 +543,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/" data-id="cmo3log6800djerbzhkm03674" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/14/MM/2025-05-14-Voila-and-OMNI/" data-id="cmo3lqntd004ciobzcgem6xk3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -593,7 +597,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cmo3log6r00l6erbz6wxlhko4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/" data-id="cmo3lqnwk015riobz3lifhh90" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -647,7 +651,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" data-id="cmo3log6r00l3erbzeusm54wo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" data-id="cmo3lqnwj015oiobzfbqw9q15" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

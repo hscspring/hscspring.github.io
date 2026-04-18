@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" data-id="cmo3log7700nxerbzgsgpab0q" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/10/Python/Py4F/2019-10-10-Python-for-Freshman-Ch03/" data-id="cmo3lqnwb013ziobz9i68d2ld" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -158,7 +162,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" data-id="cmo3log7600nqerbze6mac7fn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/07/Python/Py4F/2019-10-07-Python-for-Freshman-Ch05/" data-id="cmo3lqnwb013siobzgcnl73ms" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -212,7 +216,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" data-id="cmo3log7700nterbz6a6y6elv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/06/Python/Py4F/2019-10-06-Python-for-Freshman-Ch04/" data-id="cmo3lqnwa013piobz08wfeccy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -266,7 +270,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/03/Python/Py4F/2019-10-03-Python-for-Freshman-Ch02/" data-id="cmo3log7600nmerbz0x2l87cr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/03/Python/Py4F/2019-10-03-Python-for-Freshman-Ch02/" data-id="cmo3lqnwa013miobz1f9bde37" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -320,7 +324,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/02/Python/Py4F/2019-10-02-Python-for-Freshman-Ch01/" data-id="cmo3log7600njerbz2auw1rcl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/10/02/Python/Py4F/2019-10-02-Python-for-Freshman-Ch01/" data-id="cmo3lqnw9013jiobzaosi44e8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -374,7 +378,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="cmo3log5t0088erbzh8l10fr6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/09/28/Paper/2019-09-28-CTRL/" data-id="cmo3lqntt00ahiobz5fjt5vq5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -432,7 +436,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cmo3log5g0031erbz3werae0c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL-Elixir/" data-id="cmo3lqntd004giobz3r988jdm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -497,7 +501,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cmo3log5h0036erbz2gs9f8x9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/24/GraphQL/2019-08-24-GraphQL/" data-id="cmo3lqntd004jiobz4ouvctxc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -563,7 +567,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cmo3log5t0085erbze49qeqa4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/05/Paper/2019-08-05-Bert-Paper/" data-id="cmo3lqntt00aeiobz7kmtadn5" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -630,7 +634,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cmo3log5t0081erbz5j67a8kf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/" data-id="cmo3lqnts00aaiobzdhyz96t1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/" data-id="cmo3log6800dmerbz4g4le1ps" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/19/RecSys/2020-10-19-RecIntroduction/" data-id="cmo3lqntq0098iobz30cg1j1o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -163,7 +167,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/13/Paper/2020-10-13-FunnelTransformer/" data-id="cmo3log5x009kerbz4wimhak6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/10/13/Paper/2020-10-13-FunnelTransformer/" data-id="cmo3lqnvg00yliobz8jceghw6" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -219,7 +223,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/26/ML/2020-09-26-ModelFusing/" data-id="cmo3log5j003xerbz8wxchec2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/26/ML/2020-09-26-ModelFusing/" data-id="cmo3lqntg0059iobz51qn3goj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -279,7 +283,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="cmo3log5j003terbz56qlbnd8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/24/ML/2020-09-24-ModelParameters/" data-id="cmo3lqntg0056iobz193a3je1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -339,7 +343,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/" data-id="cmo3log5i003qerbzb6vh6b4d" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/" data-id="cmo3lqntg0053iobz2gw02ioj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -394,7 +398,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" data-id="cmo3log5i003nerbz7wbp44bk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/18/ML/2020-09-18-EDA/" data-id="cmo3lqntf0051iobzaq1y3lzo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -455,7 +459,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/" data-id="cmo3log5h003gerbz0fppd0d8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/15/ML/2020-09-15-Metrics/" data-id="cmo3lqntf004xiobzebvlfv83" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -509,7 +513,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" data-id="cmo3log5y009yerbzcexh0td1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/" data-id="cmo3lqnvf00yeiobzgo762jhu" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -565,7 +569,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" data-id="cmo3log5i003jerbzb1a14st4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/09/09/ML/2020-09-09-Kernel-SMO/" data-id="cmo3lqnte004uiobz5q2oa2xr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -619,7 +623,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/31/DSA/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/" data-id="cmo3log6e00g5erbzbpqih4pj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/31/DSA/LeetCode/2020-08-31-Find-First-and-Last-Position-of-Element-in-Sorted-Array/" data-id="cmo3lqnw7012ziobz85948x7w" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

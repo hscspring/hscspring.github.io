@@ -24,8 +24,8 @@
 <meta property="article:published_time" content="2016-09-19T13:32:55.000Z">
 <meta property="article:modified_time" content="2024-06-12T02:06:43.531Z">
 <meta property="article:author" content="hscspring">
-<meta property="article:tag" content="Python">
 <meta property="article:tag" content="NumPy">
+<meta property="article:tag" content="Python">
 <meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
   
@@ -57,7 +57,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -107,7 +111,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2016/09/19/DataSci/2016-09-19-NumPy/" data-id="cmo3log5f002nerbz33qwbusn" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2016/09/19/DataSci/2016-09-19-NumPy/" data-id="cmo3lqnt3002eiobz5hihh6mm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

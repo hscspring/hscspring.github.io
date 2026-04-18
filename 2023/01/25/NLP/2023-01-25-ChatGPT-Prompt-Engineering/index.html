@@ -36,12 +36,12 @@
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="ChatGPT">
 <meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Prompt">
+<meta property="article:tag" content="Instruct">
 <meta property="article:tag" content="In-Context Learning">
 <meta property="article:tag" content="Few-Shot">
 <meta property="article:tag" content="One-Shot">
 <meta property="article:tag" content="Zero-Shot">
-<meta property="article:tag" content="Prompt">
-<meta property="article:tag" content="Instruct">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-2.jpg">
   
@@ -73,7 +73,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -123,7 +127,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" data-id="cmo3log5q006uerbz2h2o8q6k" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" data-id="cmo3lqntn0089iobzgumhcquc" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

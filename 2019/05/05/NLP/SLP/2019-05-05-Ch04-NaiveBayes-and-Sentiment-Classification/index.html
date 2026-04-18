@@ -30,9 +30,9 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="NLP">
+<meta property="article:tag" content="Evaluation">
 <meta property="article:tag" content="Naive Bayes">
 <meta property="article:tag" content="Sentiment Classification">
-<meta property="article:tag" content="Evaluation">
 <meta property="article:tag" content="F1">
 <meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary">
@@ -66,7 +66,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -116,7 +120,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/" data-id="cmo3log6l00j2erbz6l26cjtd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/" data-id="cmo3lqnx6019oiobz8ge23elf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

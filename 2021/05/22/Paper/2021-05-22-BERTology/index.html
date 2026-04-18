@@ -58,7 +58,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -108,7 +112,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" data-id="cmo3log5z00a5erbzafizfz83" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2021/05/22/Paper/2021-05-22-BERTology/" data-id="cmo3lqnvh00z2iobzdjaq8p4u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -380,7 +384,7 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/06/06/Rust/2021-06-06-str2String/" rel="prev"><span class="meta-nav">←</span> Rust str 转 String</a></span>
+        <span class="nav-previous"><a href="/2021/06/06/Paper/2021-06-06-ProtoBERT/" rel="prev"><span class="meta-nav">←</span> Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</a></span>
     
     
         <span class="nav-next"><a href="/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" rel="next">AI 工程师养成记（上） <span class="meta-nav">→</span></a></span>

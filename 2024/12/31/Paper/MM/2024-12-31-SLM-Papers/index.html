@@ -59,7 +59,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -109,7 +113,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" data-id="cmo3log7500n6erbzan1v87x9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" data-id="cmo3lqnxh01c2iobze8f5gqqv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -217,7 +221,7 @@
         <span class="nav-previous"><a href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/" rel="prev"><span class="meta-nav">←</span> OMNI论文速览（2024）</a></span>
     
     
-        <span class="nav-next"><a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="next">LLM指令跟随论文速览（2024-2025） <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2024/12/31/Paper/TTS/2024-12-31-Codec-Papers/" rel="next">音频Codec论文速览（2024） <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 

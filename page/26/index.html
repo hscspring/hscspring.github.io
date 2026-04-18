@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/22/NLP/NLPFA/2019-03-22-Ch14-HMM/" data-id="cmo3log6k00iierbza2khf7xl" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/22/NLP/NLPFA/2019-03-22-Ch14-HMM/" data-id="cmo3lqnx2018riobz401vbm0y" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -180,7 +184,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cmo3log6k00icerbzf0200som" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/15/NLP/NLPFA/2019-03-15-Ch13-Ngram-and-Smoothing/" data-id="cmo3lqnx2018uiobzgi64euc9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -251,7 +255,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="cmo3log6j00i5erbzei3r60y9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/11/NLP/NLPFA/2019-03-11-Ch12-Bayes-and-Dynamic-Programming/" data-id="cmo3lqnx1018oiobz6apmbkws" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -330,7 +334,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/01/NLP/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" data-id="cmo3log6j00hverbz9bytda0z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/03/01/NLP/NLPFA/2019-03-01-Ch11-Probabilistic-Grammar/" data-id="cmo3lqnx1018miobz9slxezal" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -385,7 +389,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/27/NLP/NLPFA/2019-02-27-Ch10-Formal-Model-of-Pragmatic-Automatic-Processing/" data-id="cmo3log6j00i2erbz6xg06sn7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/27/NLP/NLPFA/2019-02-27-Ch10-Formal-Model-of-Pragmatic-Automatic-Processing/" data-id="cmo3lqnx0018iiobz7svb44fd" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -440,7 +444,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/21/NLP/NLPFA/2019-02-21-Ch09-System-Function-Syntax/" data-id="cmo3log6i00hqerbzbfjx98pv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/21/NLP/NLPFA/2019-02-21-Ch09-System-Function-Syntax/" data-id="cmo3lqnwz0188iobzebao8fpz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -496,7 +500,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/15/NLP/NLPFA/2019-02-15-Ch08-Formal-Model-of-Semantic-Automatic-Processing/" data-id="cmo3log6i00hserbz16br36zw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/02/15/NLP/NLPFA/2019-02-15-Ch08-Formal-Model-of-Semantic-Automatic-Processing/" data-id="cmo3lqnx0018fiobz9cv83yt2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -551,7 +555,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/31/NLP/NLPFA/2019-01-31-Ch07-Formal-Model-Based-on-Lexicalism/" data-id="cmo3log6i00hnerbz11xsbs3b" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/31/NLP/NLPFA/2019-01-31-Ch07-Formal-Model-Based-on-Lexicalism/" data-id="cmo3lqnx0018ciobz02cb64we" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -635,7 +639,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/18/NLP/NLPFA/2019-01-18-Ch06-Formal-Model-Based-on-Grid-Grammar/" data-id="cmo3log6i00hlerbzdu993yzk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/18/NLP/NLPFA/2019-01-18-Ch06-Formal-Model-Based-on-Grid-Grammar/" data-id="cmo3lqnwz0182iobz7rji86j1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -695,7 +699,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/15/NLP/NLPFA/2019-01-15-Ch05-Formal-Model-Based-on-Dependence-and-Valence/" data-id="cmo3log6h00hgerbz8qhagvdf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/01/15/NLP/NLPFA/2019-01-15-Ch05-Formal-Model-Based-on-Dependence-and-Valence/" data-id="cmo3lqnwz0185iobz8optciet" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

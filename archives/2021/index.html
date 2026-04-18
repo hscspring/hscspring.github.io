@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -911,37 +915,6 @@
       
   
     <h1 class="entry-title">
-      <a class="archive-article-title" href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</a>
-    </h1>
-  
-
-  </header>
-  <footer class="entry-meta">
-    <a href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">
-    <time datetime="2021-06-06T15:00:00.000Z" class="entry-date">
-        2021-06-06
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/" rel="tag">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/" rel="tag">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ProtoBERT/" rel="tag">ProtoBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/few-shot/" rel="tag">few-shot</a></li></ul>
-
-    </footer>
-</article>
-  
-    
-    
-    <article class="post type-post status-publish format-standard hentry archive-type-post">
-  <header class="entry-header">
-      
-  
-    <h1 class="entry-title">
       <a class="archive-article-title" href="/2021/06/06/Rust/2021-06-06-str2String/">Rust str 转 String</a>
     </h1>
   
@@ -962,6 +935,37 @@
     
   <span class="article-delim">&#8226;</span>
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/str/" rel="tag">str</a></li></ul>
+
+    </footer>
+</article>
+  
+    
+    
+    <article class="post type-post status-publish format-standard hentry archive-type-post">
+  <header class="entry-header">
+      
+  
+    <h1 class="entry-title">
+      <a class="archive-article-title" href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note</a>
+    </h1>
+  
+
+  </header>
+  <footer class="entry-meta">
+    <a href="/2021/06/06/Paper/2021-06-06-ProtoBERT/">
+    <time datetime="2021-06-06T15:00:00.000Z" class="entry-date">
+        2021-06-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BERT/" rel="tag">BERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NER/" rel="tag">NER</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ProtoBERT/" rel="tag">ProtoBERT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/few-shot/" rel="tag">few-shot</a></li></ul>
 
     </footer>
 </article>

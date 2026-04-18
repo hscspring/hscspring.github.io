@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/" data-id="cmo3logcd026jerbzcy0532xr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/" data-id="cmo3lqnxe01bdiobz9pz77jfw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -801,7 +805,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/01/23/NLP/SLP/2020-01-23-Ch10-Encoder-Decoder-Models-Attention-and-Contextual-Embeddings/" data-id="cmo3log6n00juerbzamaj9iz1" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/01/23/NLP/SLP/2020-01-23-Ch10-Encoder-Decoder-Models-Attention-and-Contextual-Embeddings/" data-id="cmo3lqnxa01afiobzakue11to" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -855,7 +859,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol2-Manage/" data-id="cmo3log7700o0erbz8wln0mde" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol2-Manage/" data-id="cmo3lqnxc01atiobz889y68fr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -917,7 +921,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/" data-id="cmo3log7700o3erbzhh3o3r92" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/" data-id="cmo3lqnxe01baiobz6syz5nat" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -973,7 +977,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/" data-id="cmo3log5u008jerbz55ba67vr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/" data-id="cmo3lqntu00auiobz11hyd1lg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1038,7 +1042,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" data-id="cmo3log6900dxerbz8qxe37tt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" data-id="cmo3lqntq009biobz2354fqtj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1093,7 +1097,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/" data-id="cmo3log6c00fcerbzgptmckaa" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch2/" data-id="cmo3lqnvu011xiobzcmuodll0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1163,7 +1167,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/" data-id="cmo3log6c00fferbzhvatev81" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch3/" data-id="cmo3lqnvu0120iobzb045clr9" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1218,6 +1222,76 @@
 
 
   
+    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch6" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch6 post type-post status-publish format-standard hentry">
+    <!---->
+
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/">剑指 Offer2（Python 版）解析（Ch6）</a>
+    </h1>
+  
+
+        
+        <!-- <div class="comments-link">
+            
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/" data-id="cmo3lqnvv0124iobz3ltu7fd3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+        </div> --><!-- .comments-link -->
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <div class="toc"><ul class="toc-item"><li><span><a href="#第六章：面试中的各项能力" data-toc-modified-id="第六章：面试中的各项能力-1">第六章：面试中的各项能力</a></span><ul class="toc-item"><li><span><a href="#面试题-53（一）：数字在排序数组中出现的次数" data-toc-modified-id="面试题-53（一）：数字在排序数组中出现的次数-1.1">面试题 53（一）：数字在排序数组中出现的次数</a></span></li><li><span><a href="#面试题-53（二）：0-到-n-1-中缺失的数字" data-toc-modified-id="面试题-53（二）：0-到-n-1-中缺失的数字-1.2">面试题 53（二）：0 到 n-1 中缺失的数字</a></span></li><li><span><a href="#面试题-53（三）：数组中数值和下标相等的元素" data-toc-modified-id="面试题-53（三）：数组中数值和下标相等的元素-1.3">面试题 53（三）：数组中数值和下标相等的元素</a></span></li><li><span><a href="#面试题-53（四）：数组中数值只出现一次的数" data-toc-modified-id="面试题-53（四）：数组中数值只出现一次的数-1.4">面试题 53（四）：数组中数值只出现一次的数</a></span></li><li><span><a href="#面试题-54：二叉搜索树的第-k-大节点" data-toc-modified-id="面试题-54：二叉搜索树的第-k-大节点-1.5">面试题 54：二叉搜索树的第 k 大节点</a></span></li><li><span><a href="#面试题-55（一）：二叉树的深度" data-toc-modified-id="面试题-55（一）：二叉树的深度-1.6">面试题 55（一）：二叉树的深度</a></span></li><li><span><a href="#面试题-55（二）：平衡二叉树" data-toc-modified-id="面试题-55（二）：平衡二叉树-1.7">面试题 55（二）：平衡二叉树</a></span></li><li><span><a href="#面试题-56（一）：数组中只出现一次的两个数字" data-toc-modified-id="面试题-56（一）：数组中只出现一次的两个数字-1.8">面试题 56（一）：数组中只出现一次的两个数字</a></span></li><li><span><a href="#面试题-56（二）：数组中唯一只出现一次的数字" data-toc-modified-id="面试题-56（二）：数组中唯一只出现一次的数字-1.9">面试题 56（二）：数组中唯一只出现一次的数字</a></span></li><li><span><a href="#面试题-57（一）：和为-s-的两个数字" data-toc-modified-id="面试题-57（一）：和为-s-的两个数字-1.10">面试题 57（一）：和为 s 的两个数字</a></span></li><li><span><a href="#面试题-57（二）：和为-s-的连续正数序列" data-toc-modified-id="面试题-57（二）：和为-s-的连续正数序列-1.11">面试题 57（二）：和为 s 的连续正数序列</a></span></li><li><span><a href="#面试题-58（一）：翻转单词顺序" data-toc-modified-id="面试题-58（一）：翻转单词顺序-1.12">面试题 58（一）：翻转单词顺序</a></span></li><li><span><a href="#面试题-58（二）：左旋转字符串" data-toc-modified-id="面试题-58（二）：左旋转字符串-1.13">面试题 58（二）：左旋转字符串</a></span></li><li><span><a href="#面试题-59（一）：滑动窗口的最大值" data-toc-modified-id="面试题-59（一）：滑动窗口的最大值-1.14">面试题 59（一）：滑动窗口的最大值</a></span></li><li><span><a href="#面试题-59（二）：队列的最大值" data-toc-modified-id="面试题-59（二）：队列的最大值-1.15">面试题 59（二）：队列的最大值</a></span></li><li><span><a href="#面试题-60：n-个骰子的点数" data-toc-modified-id="面试题-60：n-个骰子的点数-1.16">面试题 60：n 个骰子的点数</a></span></li><li><span><a href="#面试题-61：扑克牌的顺子" data-toc-modified-id="面试题-61：扑克牌的顺子-1.17">面试题 61：扑克牌的顺子</a></span></li><li><span><a href="#面试题-62：圆圈中最后剩下的数字" data-toc-modified-id="面试题-62：圆圈中最后剩下的数字-1.18">面试题 62：圆圈中最后剩下的数字</a></span></li><li><span><a href="#面试题-63：股票的最大利润" data-toc-modified-id="面试题-63：股票的最大利润-1.19">面试题 63：股票的最大利润</a></span></li><li><span><a href="#面试题-64：求-1-到-n-之和" data-toc-modified-id="面试题-64：求-1-到-n-之和-1.20">面试题 64：求 1 到 n 之和</a></span></li><li><span><a href="#面试题-65：不用加减乘除做加法" data-toc-modified-id="面试题-65：不用加减乘除做加法-1.21">面试题 65：不用加减乘除做加法</a></span></li><li><span><a href="#面试题-66：构建乘积数组" data-toc-modified-id="面试题-66：构建乘积数组-1.22">面试题 66：构建乘积数组</a></span></li></ul></li><li><span><a href="#面试案例" data-toc-modified-id="面试案例-2">面试案例</a></span><ul class="toc-item"><li><span><a href="#面试题-67：把字符串转换成整数" data-toc-modified-id="面试题-67：把字符串转换成整数-2.1">面试题 67：把字符串转换成整数</a></span></li><li><span><a href="#面试题-68：树中两个节点的最低公共祖先" data-toc-modified-id="面试题-68：树中两个节点的最低公共祖先-2.2">面试题 68：树中两个节点的最低公共祖先</a></span></li></ul></li></ul></div>
+<p><strong>具体实现和测试代码</strong>：</p>
+<ul>
+<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
+</ul>
+<p><strong>系列解析</strong>（TBD）：</p>
+<ul>
+<li>Python 单例模式</li>
+<li>好玩儿的 DP</li>
+<li>递归还是递归</li>
+<li>双指针的威力</li>
+<li>双列表的威力</li>
+<li>有趣的排列组合</li>
+</ul>
+<blockquote>
+<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch6/">
+    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
+        2019-12-15
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/" rel="tag">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+  
     <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch4" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch4 post type-post status-publish format-standard hentry">
     <!---->
 
@@ -1233,7 +1307,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/" data-id="cmo3log6c00fherbz792sg4fe" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/" data-id="cmo3lqnvv0127iobz3oxsbc0u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -1266,76 +1340,6 @@
 
     <footer class="entry-meta">
     <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch4/">
-    <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
-        2019-12-15
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/" rel="tag">Algorithm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Data-Structure/" rel="tag">Data Structure</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-  
-    <article id="post-DSA/Coding-Review2/2019-12-15-CR2-Ch5" class="post-DSA/Coding-Review2/2019-12-15-CR2-Ch5 post type-post status-publish format-standard hentry">
-    <!---->
-
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/">剑指 Offer2（Python 版）解析（Ch5）</a>
-    </h1>
-  
-
-        
-        <!-- <div class="comments-link">
-            
-            <a href="javascript:void(0);" data-url="https://yam.gift/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/" data-id="cmo3log6d00fjerbzfzmogonv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
-        </div> --><!-- .comments-link -->
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <div class="toc"><ul class="toc-item"><li><span><a href="#第五章：优化时间和空间效率" data-toc-modified-id="第五章：优化时间和空间效率-1">第五章：优化时间和空间效率</a></span><ul class="toc-item"><li><span><a href="#面试题-39：数组中出现次数超过一半的数字" data-toc-modified-id="面试题-39：数组中出现次数超过一半的数字-1.1">面试题 39：数组中出现次数超过一半的数字</a></span></li><li><span><a href="#面试题-40：最小的-k-个数" data-toc-modified-id="面试题-40：最小的-k-个数-1.2">面试题 40：最小的 k 个数</a></span></li><li><span><a href="#面试题-41：数据流中的中位数" data-toc-modified-id="面试题-41：数据流中的中位数-1.3">面试题 41：数据流中的中位数</a></span></li><li><span><a href="#面试题-42：连续子数组的最大和" data-toc-modified-id="面试题-42：连续子数组的最大和-1.4">面试题 42：连续子数组的最大和</a></span></li><li><span><a href="#面试题-43：从-1-到-n-整数中-1-出现的次数" data-toc-modified-id="面试题-43：从-1-到-n-整数中-1-出现的次数-1.5">面试题 43：从 1 到 n 整数中 1 出现的次数</a></span></li><li><span><a href="#面试题-44：数字序列中某一位的数字" data-toc-modified-id="面试题-44：数字序列中某一位的数字-1.6">面试题 44：数字序列中某一位的数字</a></span></li><li><span><a href="#面试题-45：把数组排成最小的数" data-toc-modified-id="面试题-45：把数组排成最小的数-1.7">面试题 45：把数组排成最小的数</a></span></li><li><span><a href="#面试题-46：把数字翻译成字符串" data-toc-modified-id="面试题-46：把数字翻译成字符串-1.8">面试题 46：把数字翻译成字符串</a></span></li><li><span><a href="#面试题-47：礼物的最大价值" data-toc-modified-id="面试题-47：礼物的最大价值-1.9">面试题 47：礼物的最大价值</a></span></li><li><span><a href="#面试题-48：最长不含重复字符的子字符串" data-toc-modified-id="面试题-48：最长不含重复字符的子字符串-1.10">面试题 48：最长不含重复字符的子字符串</a></span></li><li><span><a href="#面试题-49：丑数" data-toc-modified-id="面试题-49：丑数-1.11">面试题 49：丑数</a></span></li><li><span><a href="#面试题-50（一）：字符串中第一个只出现一次的字符" data-toc-modified-id="面试题-50（一）：字符串中第一个只出现一次的字符-1.12">面试题 50（一）：字符串中第一个只出现一次的字符</a></span></li><li><span><a href="#面试题-50（二）：字符流中第一个只出现一次的字符" data-toc-modified-id="面试题-50（二）：字符流中第一个只出现一次的字符-1.13">面试题 50（二）：字符流中第一个只出现一次的字符</a></span></li><li><span><a href="#面试题-51：数组中的逆序对" data-toc-modified-id="面试题-51：数组中的逆序对-1.14">面试题 51：数组中的逆序对</a></span></li><li><span><a href="#面试题-52：两个链表的第一个公共节点" data-toc-modified-id="面试题-52：两个链表的第一个公共节点-1.15">面试题 52：两个链表的第一个公共节点</a></span></li></ul></li></ul></div>
-<p><strong>具体实现和测试代码</strong>：</p>
-<ul>
-<li><a href="https://github.com/hscspring/The-DataStructure-and-Algorithms/tree/master/CodingInterview2-Python">The-DataStructure-and-Algorithms/CodingInterview2-Python</a></li>
-</ul>
-<p><strong>系列解析</strong>（TBD）：</p>
-<ul>
-<li>Python 单例模式</li>
-<li>好玩儿的 DP</li>
-<li>递归还是递归</li>
-<li>双指针的威力</li>
-<li>双列表的威力</li>
-<li>有趣的排列组合</li>
-</ul>
-<blockquote>
-<p><strong>特别说明</strong>：下文中的实例代码一般仅包括核心算法（不一定能直接运行），完整代码可以参考对应的链接。</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/15/DSA/Coding-Review2/2019-12-15-CR2-Ch5/">
     <time datetime="2019-12-15T15:00:00.000Z" class="entry-date">
         2019-12-15
     </time>

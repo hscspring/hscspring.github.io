@@ -58,7 +58,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -108,7 +112,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/" data-id="cmo3log6o00kaerbz3o882cy7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2025/01/05/NLP/LLM-Training/2025-01-05-LLM-Pretrain-PreStart/" data-id="cmo3lqnwd014jiobz9iu9cznv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -201,7 +205,7 @@
         <span class="nav-previous"><a href="/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/" rel="prev"><span class="meta-nav">←</span> 实时语音交互场景下RAG的机遇和挑战</a></span>
     
     
-        <span class="nav-next"><a href="/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/" rel="next">OMNI论文速览（2024） <span class="meta-nav">→</span></a></span>
+        <span class="nav-next"><a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="next">LLM指令跟随论文速览（2024-2025） <span class="meta-nav">→</span></a></span>
     
 </nav><!-- .nav-single -->
 

@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" data-id="cmo3log5w009aerbz9ehx3xaw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/" data-id="cmo3lqntw00bfiobz0hhv4elq" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -160,7 +164,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" data-id="cmo3log5f002ierbz16bl2nqg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" data-id="cmo3lqnsw000biobz2faxgqud" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -266,7 +270,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/" data-id="cmo3log5w0098erbz05aog9zt" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/27/Paper/2020-04-27-DistilBERT/" data-id="cmo3lqntw00bciobz1rekc9zw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -322,7 +326,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/" data-id="cmo3log5w0095erbz0wkwd68f" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/23/Paper/2020-04-23-Transformer/" data-id="cmo3lqntw00bjiobzbby7dgj0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -377,7 +381,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" data-id="cmo3log5w0093erbz3mwg2yky" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/" data-id="cmo3lqntv00b8iobzhr5fb9es" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -433,7 +437,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="cmo3log5v0090erbz9u0y49jk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/04/07/Paper/2020-04-07-GPT2/" data-id="cmo3lqntv00b1iobz2ql4b3rf" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -493,7 +497,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/" data-id="cmo3log5v008xerbz8nfeaapr" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/" data-id="cmo3lqntv00b5iobz0gg82g8o" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -549,7 +553,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/" data-id="cmo3log5v008terbzfzas3d73" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/03/21/Paper/2020-03-21-Text-Rank/" data-id="cmo3lqntv00ayiobzgpgc55fx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -605,7 +609,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/" data-id="cmo3log5v008qerbzhpk8eunk" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/" data-id="cmo3lqntu00asiobz54g2ajmj" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -666,7 +670,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" data-id="cmo3log5v008merbzbjs260rp" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" data-id="cmo3lqntu00aqiobz04cjggsm" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

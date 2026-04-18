@@ -25,8 +25,8 @@
 <meta property="article:modified_time" content="2024-06-12T02:06:43.530Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="Search">
-<meta property="article:tag" content="Binary Search">
 <meta property="article:tag" content="LinkedList">
+<meta property="article:tag" content="Binary Search">
 <meta property="article:tag" content="Rotated Sorted Array">
 <meta name="twitter:card" content="summary">
   
@@ -58,7 +58,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -108,7 +112,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/" data-id="cmo3log6e00g8erbz7xchdaqs" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/22/DSA/LeetCode/2020-08-22-Search-in-Rotated-Sorted-Array/" data-id="cmo3lqnw5012siobzag9uafq7" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

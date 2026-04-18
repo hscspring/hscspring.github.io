@@ -52,7 +52,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -104,7 +108,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" data-id="cmo3log5r007derbz4yrw7af3" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" data-id="cmo3lqntp008siobzdg2fdqi2" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -163,7 +167,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" data-id="cmo3log6500cmerbz04rj2t3z" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" data-id="cmo3lqnvs011giobz8l0q45ht" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -217,7 +221,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/03/16/AI/2024-03-16-LLM-Basic/" data-id="cmo3log580010erbz0dvp6wub" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/03/16/AI/2024-03-16-LLM-Basic/" data-id="cmo3lqnt1001liobz7psy24ql" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -283,7 +287,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" data-id="cmo3log6a00emerbz1saoeknw" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" data-id="cmo3lqnts00a7iobz13srck6c" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -337,7 +341,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" data-id="cmo3log6o00k0erbzgf6y41vg" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/" data-id="cmo3lqnwd014giobz3loqeiuo" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -391,7 +395,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" data-id="cmo3log6f00guerbzc4fg2nj0" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" data-id="cmo3lqnwc0142iobz9zr4dt2u" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -447,7 +451,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/" data-id="cmo3log6g00gxerbz44peddtv" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/" data-id="cmo3lqnwd014ciobzh5da8u7e" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -501,7 +505,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" data-id="cmo3log6o00jwerbzejrl29ip" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" data-id="cmo3lqnwc0149iobzd5g168lx" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -555,7 +559,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/" data-id="cmo3logcg026yerbzc3ab4kz8" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/" data-id="cmo3lqnxf01bkiobza4pgbfvz" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -609,7 +613,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" data-id="cmo3logcd026lerbz0np001xy" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" data-id="cmo3lqnxe01b7iobzeylehtb4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 

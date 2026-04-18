@@ -24,9 +24,9 @@
 <meta property="article:published_time" content="2020-08-20T15:00:00.000Z">
 <meta property="article:modified_time" content="2024-06-12T02:06:43.530Z">
 <meta property="article:author" content="hscspring">
-<meta property="article:tag" content="Recursion">
 <meta property="article:tag" content="LinkedList">
 <meta property="article:tag" content="Swap">
+<meta property="article:tag" content="Recursion">
 <meta name="twitter:card" content="summary">
   
   
@@ -57,7 +57,11 @@
               .then(function (r) { return r.json(); })
               .then(function (d) {
                 var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) el.textContent = d.hitokoto;
+                if (el && d && d.hitokoto) {
+                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
+                                        : (d.from || '');
+                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
+                }
               })
               .catch(function () {});
           })();
@@ -107,7 +111,7 @@
         
         <!-- <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/" data-id="cmo3log6e00g1erbzfn1i2ab4" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
+            <a href="javascript:void(0);" data-url="https://yam.gift/2020/08/20/DSA/LeetCode/2020-08-20-Swap-Nodes-in-Paris/" data-id="cmo3lqnw0012iiobz2hcc1tue" class="leave-reply bdsharebuttonbox" data-cmd="more"></a>
         </div> --><!-- .comments-link -->
       </header><!-- .entry-header -->
 
