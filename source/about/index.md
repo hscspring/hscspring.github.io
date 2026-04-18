@@ -105,20 +105,30 @@ date: 2018-04-07 22:29:12
     - Rust与AI 专栏：[Search - Rust 语言中文社区](https://rustcc.cn/search?q=Rust%E4%B8%8EAI)
 - Datawhale Paper 分享。
     - 视频：[Paper 分享](https://www.bilibili.com/medialist/detail/ml1760686270)
-- LLM 相关技术活动主讲嘉宾/评委。
-    - `20260310` 飞书玩虾大会 GEEK 专场嘉宾：[【飞行社】📚 🦞 玩“虾”大会 Day2-周二晚见](https://www.feishu.cn/community/course/content?course_id=7613765188436626367&class_id=7613765188520512458&lesson_id=7613771397420026814&content_id=7613771397457775562)
-    - `20260308` AI 黑客松高校联赛导师、评委：[就在本周，邀你观战｜嘉宾揭晓&观众招募开启](https://mp.weixin.qq.com/s/WYfqI6p8glQP0ZC0sES7IA)
-    - `20251121` 非凡 AI 百大创造先锋：[AI Creators 100 - 飞书云文档](https://uniquecapital.feishu.cn/wiki/Hck2wlaxTifbjdk0oincaUFqnQd)
-    - `20250923` 云栖大会魔搭Agent挑战赛评委：[MCP&Agent挑战赛](https://modelscope.cn/active/aihackathon-mcp-agent)
-    - `20250227` 嘉程资本创业流水席第251期：[2月27日，探讨DeepSeek R1技术解析与应用趋势！架构论文/技术影响/应用场景｜嘉程创业流水席第251期](https://mp.weixin.qq.com/s/DkksIqGQKadXt8IqVD-y0g)
-    - `20250225` 大工大创业沙龙第111期：DeepSeek解密
-    - `20250215` 2025 iFLYTEK 开发者TALK 杭州站：[揭秘DeepSeek核心技术与应用构建 | 开发者TALK开年首站落地杭州](https://mp.weixin.qq.com/s/OQDMd4jU1BHp80DoF9kAzg)，[文章](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)、[PPT](https://github.com/datawhalechina/hugging-llm/tree/main/resources)
-    - `20240817` OpenAIGC 第二届开发者大赛评委：[顶峰相见，OPENAIGC开发者大赛8月17日上海决赛开启！](https://mp.weixin.qq.com/s/CE7NTPi_M6JYdu-1oPMSzA)
-    - `20231223` 早早聊：[前端搞 AI | Datawhale X 早早聊喊你来玩转 AI 开发啦](https://www.zaozao.run/conf/c76)
-    - `20231216` 讯飞星火 AI 开发者 TALK：[携手知名开发者社区，畅谈大模型实际应用 | AI 开发者 TALK](https://mp.weixin.qq.com/s/-ix8xXSm421QfmfD7lVTLg)
-    - `20231125` 苏州 GDG：[2023 苏州 Devfest AI 专场预告 - 程序猿媛们在 LLM 浪潮中的新机遇](https://mp.weixin.qq.com/s/MudtoqKhASsU-80axnNiCQ)
-    - `20231104` OpenAIGC 开发者大赛评委：[初赛结果公示 & 决赛日议程 —2023 第一届 OPENAIGC 开发者大赛](https://mp.weixin.qq.com/s/AWtUDm7HR9mlFPYbP-Vngg)
-    - `20231024` 1024 浙江程序员节：[【工作动态】2023 浙江程序员节活动预告](https://mp.weixin.qq.com/s/hL9ZqL1fs3Fc-EZi2JfE_Q)
+
+### LLM 相关技术活动主讲嘉宾/评委
+
+最近 4 条：
+
+- `20260310` 飞书玩虾大会 GEEK 专场嘉宾：[【飞行社】📚 🦞 玩"虾"大会 Day2-周二晚见](https://www.feishu.cn/community/course/content?course_id=7613765188436626367&class_id=7613765188520512458&lesson_id=7613771397420026814&content_id=7613771397457775562)
+- `20260308` AI 黑客松高校联赛导师、评委：[就在本周，邀你观战｜嘉宾揭晓&观众招募开启](https://mp.weixin.qq.com/s/WYfqI6p8glQP0ZC0sES7IA)
+- `20251121` 非凡 AI 百大创造先锋：[AI Creators 100 - 飞书云文档](https://uniquecapital.feishu.cn/wiki/Hck2wlaxTifbjdk0oincaUFqnQd)
+- `20250923` 云栖大会魔搭 Agent 挑战赛评委：[MCP&Agent 挑战赛](https://modelscope.cn/active/aihackathon-mcp-agent)
+
+<details>
+<summary>查看更早的活动记录</summary>
+
+- `20250227` 嘉程资本创业流水席第 251 期：[2 月 27 日，探讨 DeepSeek R1 技术解析与应用趋势！架构论文/技术影响/应用场景｜嘉程创业流水席第 251 期](https://mp.weixin.qq.com/s/DkksIqGQKadXt8IqVD-y0g)
+- `20250225` 大工大创业沙龙第 111 期：DeepSeek 解密
+- `20250215` 2025 iFLYTEK 开发者 TALK 杭州站：[揭秘 DeepSeek 核心技术与应用构建 | 开发者 TALK 开年首站落地杭州](https://mp.weixin.qq.com/s/OQDMd4jU1BHp80DoF9kAzg)，[文章](https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/)、[PPT](https://github.com/datawhalechina/hugging-llm/tree/main/resources)
+- `20240817` OpenAIGC 第二届开发者大赛评委：[顶峰相见，OPENAIGC 开发者大赛 8 月 17 日上海决赛开启！](https://mp.weixin.qq.com/s/CE7NTPi_M6JYdu-1oPMSzA)
+- `20231223` 早早聊：[前端搞 AI | Datawhale X 早早聊喊你来玩转 AI 开发啦](https://www.zaozao.run/conf/c76)
+- `20231216` 讯飞星火 AI 开发者 TALK：[携手知名开发者社区，畅谈大模型实际应用 | AI 开发者 TALK](https://mp.weixin.qq.com/s/-ix8xXSm421QfmfD7lVTLg)
+- `20231125` 苏州 GDG：[2023 苏州 Devfest AI 专场预告 - 程序猿媛们在 LLM 浪潮中的新机遇](https://mp.weixin.qq.com/s/MudtoqKhASsU-80axnNiCQ)
+- `20231104` OpenAIGC 开发者大赛评委：[初赛结果公示 & 决赛日议程 —2023 第一届 OPENAIGC 开发者大赛](https://mp.weixin.qq.com/s/AWtUDm7HR9mlFPYbP-Vngg)
+- `20231024` 1024 浙江程序员节：[【工作动态】2023 浙江程序员节活动预告](https://mp.weixin.qq.com/s/hL9ZqL1fs3Fc-EZi2JfE_Q)
+
+</details>
 
 
 ## 公开作品

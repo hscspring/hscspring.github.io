@@ -8,20 +8,28 @@
           <a href="<%- url_for() %>" id="subtitle"><%= theme.subtitle %></a>
         </h2>
       <% } else { %>
-        <h2 class="site-description"><span id="hitokoto">...</span></h2>
+        <h2 class="site-description">
+          <span id="saying-text">...</span>
+          <a class="saying-more" href="<%- url_for('/sayingview/') %>" title="更多观点">→</a>
+        </h2>
+        <style>
+          .saying-more {
+            margin-left: .4em;
+            opacity: .55;
+            text-decoration: none;
+            transition: opacity .15s ease;
+          }
+          .saying-more:hover { opacity: 1; }
+        </style>
         <script>
           (function () {
-            fetch('https://v1.hitokoto.cn/?c=i&c=k&encode=json')
-              .then(function (r) { return r.json(); })
-              .then(function (d) {
-                var el = document.getElementById('hitokoto');
-                if (el && d && d.hitokoto) {
-                  var from = d.from_who ? d.from_who + (d.from ? '《' + d.from + '》' : '')
-                                        : (d.from || '');
-                  el.textContent = d.hitokoto + (from ? ' —— ' + from : '');
-                }
-              })
-              .catch(function () {});
+            var data = <%- JSON.stringify(get_sayings()) %>;
+            if (!data || !data.length) return;
+            var pick = data[Math.floor(Math.random() * data.length)];
+            var el = document.getElementById('saying-text');
+            if (!el || !pick || !pick.text) return;
+            var from = pick.author || pick.source || '';
+            el.textContent = pick.text + (from ? ' —— ' + from : '');
           })();
         </script>
       <% } %>

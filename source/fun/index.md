@@ -19,3 +19,6 @@ date: 2025-12-23 08:00:00
 [中国女性择偶数据实验室](https://hermatch-svelte.vercel.app/)：不同条件男性比例。
 [SeanWong17/Mammalia-tree](https://github.com/SeanWong17/Mammalia-tree): 一个沉浸式的 3D/2D 网页可视化项目，探索哺乳动物 2 亿年的演化史诗。
 [DustinBrett/daedalOS: Desktop environment in the browser](https://github.com/DustinBrett/daedalOS)：浏览器里的电脑。
+[Internet Artifacts](https://neal.fun/internet-artifacts/)：网络考古博物馆，从 1977 年走到今天，鼠标按一下感受一次时代变迁。
+[Window Swap](https://www.window-swap.com/)：随机看见地球某个角落别人窗外的几分钟，治愈得不可思议。
+[Patatap](https://patatap.com/)：键盘按键 → 抽象图形 + 合成音效，键盘狂魔的合法发泄出口。

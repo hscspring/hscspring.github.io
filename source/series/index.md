@@ -8,84 +8,16 @@ date: 2019-07-13 20:00:00
 
 **目录导航**
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [🚀 前沿与核心 (Frontier & Core)](#-%E5%89%8D%E6%B2%BF%E4%B8%8E%E6%A0%B8%E5%BF%83-frontier--core)
-  - [大模型 (LLM)](#%E5%A4%A7%E6%A8%A1%E5%9E%8B-llm)
-    - [【对齐与后训练】](#%E5%AF%B9%E9%BD%90%E4%B8%8E%E5%90%8E%E8%AE%AD%E7%BB%83)
-      - [实时学习/在线学习](#%E5%AE%9E%E6%97%B6%E5%AD%A6%E4%B9%A0%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0)
-      - [Reward](#reward)
-      - [RL](#rl)
-      - [GRPO](#grpo)
-      - [R1](#r1)
-      - [上下文与指令](#%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%8E%E6%8C%87%E4%BB%A4)
-    - [【预训练与基座】](#%E9%A2%84%E8%AE%AD%E7%BB%83%E4%B8%8E%E5%9F%BA%E5%BA%A7)
-      - [LLM预训练](#llm%E9%A2%84%E8%AE%AD%E7%BB%83)
-      - [LLM继续训练](#llm%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83)
-      - [LLM数据处理相关](#llm%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3)
-      - [Hybrid架构](#hybrid%E6%9E%B6%E6%9E%84)
-    - [【推理与优化】](#%E6%8E%A8%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96)
-      - [算子](#%E7%AE%97%E5%AD%90)
-      - [Rust与AI](#rust%E4%B8%8Eai)
-    - [【产品与应用】](#%E4%BA%A7%E5%93%81%E4%B8%8E%E5%BA%94%E7%94%A8)
-      - [产品](#%E4%BA%A7%E5%93%81)
-      - [应用开发](#%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91)
-  - [多模态 (LMM)](#%E5%A4%9A%E6%A8%A1%E6%80%81-lmm)
-    - [VoiceAgent](#voiceagent)
-    - [LMM论文速览](#lmm%E8%AE%BA%E6%96%87%E9%80%9F%E8%A7%88)
-    - [LMM论文笔记](#lmm%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
-- [🧰 基础与筑基 (Foundation & Base)](#-%E5%9F%BA%E7%A1%80%E4%B8%8E%E7%AD%91%E5%9F%BA-foundation--base)
-  - [自然语言处理 (NLP)](#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86-nlp)
-    - [基础](#%E5%9F%BA%E7%A1%80)
-    - [思考](#%E6%80%9D%E8%80%83)
-    - [语言](#%E8%AF%AD%E8%A8%80)
-    - [设计](#%E8%AE%BE%E8%AE%A1)
-    - [图谱](#%E5%9B%BE%E8%B0%B1)
-    - [论文笔记](#%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0)
-    - [SLP笔记](#slp%E7%AC%94%E8%AE%B0)
-    - [自然语言计算机形式分析的理论与方法](#%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%BD%A2%E5%BC%8F%E5%88%86%E6%9E%90%E7%9A%84%E7%90%86%E8%AE%BA%E4%B8%8E%E6%96%B9%E6%B3%95)
-  - [深度学习 (Deep Learning)](#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-deep-learning)
-  - [机器学习 (Machine Learning)](#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-machine-learning)
-  - [推荐广告 (Recommendation)](#%E6%8E%A8%E8%8D%90%E5%B9%BF%E5%91%8A-recommendation)
-  - [数学 (Math)](#%E6%95%B0%E5%AD%A6-math)
-  - [数据科学 (Data Science)](#%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6-data-science)
-- [🛠️ 工程与开发 (Engineering & Develop)](#-%E5%B7%A5%E7%A8%8B%E4%B8%8E%E5%BC%80%E5%8F%91-engineering--develop)
-  - [编程 (Coding)](#%E7%BC%96%E7%A8%8B-coding)
-    - [基础环境](#%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83)
-    - [Rust](#rust)
-    - [The Rust Programming Language笔记](#the-rust-programming-language%E7%AC%94%E8%AE%B0)
-    - [Python](#python)
-    - [Python 小白快速入门教程](#python-%E5%B0%8F%E7%99%BD%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B)
-    - [C 语言课程笔记](#c-%E8%AF%AD%E8%A8%80%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0)
-    - [服务基础](#%E6%9C%8D%E5%8A%A1%E5%9F%BA%E7%A1%80)
-  - [算法 (Algorithm)](#%E7%AE%97%E6%B3%95-algorithm)
-    - [LeetCode](#leetcode)
-    - [剑指 Offer2（Python 版）解析](#%E5%89%91%E6%8C%87-offer2python-%E7%89%88%E8%A7%A3%E6%9E%90)
-    - [数据结构与算法](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95)
-  - [系统 (Unix)](#%E7%B3%BB%E7%BB%9F-unix)
-  - [网络 (Net)](#%E7%BD%91%E7%BB%9C-net)
-  - [树莓派 (Raspberry Pi)](#%E6%A0%91%E8%8E%93%E6%B4%BE-raspberry-pi)
-- [🧠 认知与成长 (Cognition & Growth)](#-%E8%AE%A4%E7%9F%A5%E4%B8%8E%E6%88%90%E9%95%BF-cognition--growth)
-  - [人工智能 (AI)](#%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD-ai)
-    - [思考](#%E6%80%9D%E8%80%83-1)
-    - [哲学](#%E5%93%B2%E5%AD%A6)
-    - [商业](#%E5%95%86%E4%B8%9A)
-    - [科普](#%E7%A7%91%E6%99%AE)
-  - [个人成长 (Growth)](#%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF-growth)
-  - [聆听微光 (Listen Glimmer)](#%E8%81%86%E5%90%AC%E5%BE%AE%E5%85%89-listen-glimmer)
-- [✨ 生活与体验 (Life & Experience)](#-%E7%94%9F%E6%B4%BB%E4%B8%8E%E4%BD%93%E9%AA%8C-life--experience)
-  - [认知心理 (Cognitive Psychology)](#%E8%AE%A4%E7%9F%A5%E5%BF%83%E7%90%86-cognitive-psychology)
-  - [经金商管 (EFBM)](#%E7%BB%8F%E9%87%91%E5%95%86%E7%AE%A1-efbm)
-  - [育儿 (Baby)](#%E8%82%B2%E5%84%BF-baby)
-  - [杂文随笔 (Essay)](#%E6%9D%82%E6%96%87%E9%9A%8F%E7%AC%94-essay)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+- [🚀 前沿与核心](#frontier) — 大模型 / 多模态
+- [🧰 基础与筑基](#foundation) — NLP / DL / ML / 推荐 / 数学 / 数据科学
+- [🛠️ 工程与开发](#engineering) — 编程 / 算法 / 系统 / 网络 / 树莓派
+- [🧠 认知与成长](#cognition) — AI 思考 / 个人成长 / 聆听微光
+- [✨ 生活与体验](#life) — 认知心理 / 经金商管 / 育儿 / 随笔
 
 
 ---
 
+<a id="frontier"></a>
 # 🚀 前沿与核心 (Frontier & Core)
 
 > 这是我现阶段深耕的核心。这里不仅有[大模型文章原理]，更对应了 GitHub 上的 `hcgf`、`hands-on-llama`、`lightinfer` 等【**前沿模型训推实战**】开源代码。
@@ -228,6 +160,7 @@ date: 2019-07-13 20:00:00
 
 ---
 
+<a id="foundation"></a>
 # 🧰 基础与筑基 (Foundation & Base)
 
 > 支撑上层建筑的基础学科与经典理论。这里不仅有大量 NLP/机器学习[总结笔记]，更对应了 GitHub 上的 `pnlp`、`hnlp`、`巨硬的NumPy` 等【**底层数据建设**】项目。
@@ -411,6 +344,7 @@ date: 2019-07-13 20:00:00
 
 ---
 
+<a id="engineering"></a>
 # 🛠️ 工程与开发 (Engineering & Develop)
 
 > 将算法变为可用产品，以及日常开发的底层能力。这里不仅有[编程语言和系统级笔记]，更对应了 GitHub 上的 `create-vibe-app` 脚手架、`yoc`、`toolhub` 等【**全栈应用产品**】。
@@ -522,6 +456,7 @@ date: 2019-07-13 20:00:00
 
 ---
 
+<a id="cognition"></a>
 # 🧠 认知与成长 (Cognition & Growth)
 
 > 跨学科思维、对行业未来的洞察与生活随笔。这里对应了 GitHub 上的 `daily-interview` 以及我在知乎/公众号上的【**行业反思与随笔**】。
@@ -577,6 +512,7 @@ date: 2019-07-13 20:00:00
 
 ---
 
+<a id="life"></a>
 # ✨ 生活与体验 (Life & Experience)
 
 > 技术从业者的另一面——读书感悟、生活思考、平凡日子里的点滴记录。
