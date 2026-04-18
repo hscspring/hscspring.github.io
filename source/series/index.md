@@ -105,6 +105,7 @@ date: 2019-07-13 20:00:00
 
 #### Hybrid架构
 
+- [LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴](https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/)
 - [DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线 | 长琴](https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/)
 - [Hybrid LLM 之 Gated DeltaNet | 长琴](https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/)
 - [Hybrid LLM 之 Gated Attention | 长琴](https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/)
