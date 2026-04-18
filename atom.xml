@@ -1,800 +1,556 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>长琴</title>
-  <icon>https://yam.gift/icon.png</icon>
-  <subtitle>知乎：长琴 | 公众号：技术与人</subtitle>
-  <link href="/atom.xml" rel="self"/>
-  
-  <link href="https://yam.gift/"/>
-  <updated>2026-04-17T23:03:12.191Z</updated>
-  <id>https://yam.gift/</id>
-  
   <author>
     <name>hscspring</name>
-    
   </author>
-  
   <generator uri="https://hexo.io/">Hexo</generator>
-  
+  <icon>https://yam.gift/icon.png</icon>
+  <id>https://yam.gift/</id>
+  <link href="https://yam.gift/" rel="alternate"/>
+  <link href="https://yam.gift/atom.xml" rel="self"/>
+  <rights>All rights reserved 2026, hscspring</rights>
+  <subtitle>知乎：长琴 | 公众号：技术与人</subtitle>
+  <title>长琴</title>
+  <updated>2026-04-17T23:03:12.191Z</updated>
   <entry>
-    <title>LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构</title>
-    <link href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="Reasoning" scheme="https://yam.gift/tags/Reasoning/"/>
+    <category term="DLM" scheme="https://yam.gift/tags/DLM/"/>
+    <category term="Planning" scheme="https://yam.gift/tags/Planning/"/>
+    <category term="Thinking" scheme="https://yam.gift/tags/Thinking/"/>
     <id>https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/</id>
+    <link href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/"/>
     <published>2026-04-17T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<p>本文系统梳理了让LLM&quot;先规划再回答&quot;的各类方法，从数据构造（结构化中间表示、层次抽象）、机制设计（注意力对齐、思维 token 注入）到认知启发（ACT-R分层、元思维进化）逐层深入，最后追问&quot;规划的本质&quot;，指出显式token规划存在局限，潜在空间（latent）规划或许更接近真正的思考——非线性、可中断、全局感知。</p>
+<hr>
+<p>当 reasoning 成为一种数据格式后，下一个很自然的想法就是 “如何 reasoning”，由此引出的做法可谓是五花八门。本文就尝试从这一角度进行梳理，探讨「如何思考（规划）」，或者等价于「如何构造思考数据」。毕竟，重点一直都是「搞数据」和「搞高质量数据」。</p>
+<p>注意，思考和规划大多数时候是一个意思，但规划多了一点显式约束的意思，思考过程也隐含了规划信号。</p>]]>
+    </summary>
+    <title>LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构</title>
     <updated>2026-04-17T23:03:12.191Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;本文系统梳理了让LLM&amp;quot;先规划再回答&amp;quot;的各类方法，从数据构造（结构化中间表示、层次抽象）、机制设计（注意力对齐、思维 token 注入）到认知启发（ACT-R分层、元思维进化）逐层深入，最后追问&amp;quot;规划的本质&amp;quot;，指出显式token规划存在局限，潜在空间（latent）规划或许更接近真正的思考——非线性、可中断、全局感知。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;当 reasoning 成为一种数据格式后，下一个很自然的想法就是 “如何 reasoning”，由此引出的做法可谓是五花八门。本文就尝试从这一角度进行梳理，探讨「如何思考（规划）」，或者等价于「如何构造思考数据」。毕竟，重点一直都是「搞数据」和「搞高质量数据」。&lt;/p&gt;
-&lt;p&gt;注意，思考和规划大多数时候是一个意思，但规划多了一点显式约束的意思，思考过程也隐含了规划信号。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="Reasoning" scheme="https://yam.gift/tags/Reasoning/"/>
-    
-      <category term="DLM" scheme="https://yam.gift/tags/DLM/"/>
-    
-      <category term="Planning" scheme="https://yam.gift/tags/Planning/"/>
-    
-      <category term="Thinking" scheme="https://yam.gift/tags/Thinking/"/>
-    
   </entry>
-  
   <entry>
-    <title>探寻实时学习新路径：挖掘极致高效的“子空间微调”</title>
-    <link href="https://yam.gift/2026/04/11/NLP/LLM-Training/2026-04-11-Real-time-Learning-from-PEFT/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="LoRA" scheme="https://yam.gift/tags/LoRA/"/>
+    <category term="MiCA" scheme="https://yam.gift/tags/MiCA/"/>
+    <category term="TinyLoRA" scheme="https://yam.gift/tags/TinyLoRA/"/>
+    <category term="LoRA-XS Real-time Learning" scheme="https://yam.gift/tags/LoRA-XS-Real-time-Learning/"/>
     <id>https://yam.gift/2026/04/11/NLP/LLM-Training/2026-04-11-Real-time-Learning-from-PEFT/</id>
+    <link href="https://yam.gift/2026/04/11/NLP/LLM-Training/2026-04-11-Real-time-Learning-from-PEFT/"/>
     <published>2026-04-11T04:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<p>在大模型微调的语境下，我们习惯了 LoRA 带来的“低秩”红利。但当参数量被压缩到极致，甚至低至 13 个参数时，模型还在学习什么？TinyLoRA 给了我们答案。另外，MiCA 的出现又给了我们一个清奇的视角：与其在拥挤的主导子空间里寻找增量，不如去那些被遗忘的“次要奇异方向”开垦荒原。本文将结合这两篇论文，聊聊如何通过挖掘特定的子空间，实现一种近乎“无损”且“实时”的插件化学习能力，这可能也是一种低成本、高独立性、可插拔的“实时学习”新范式。</p>]]>
+    </summary>
+    <title>探寻实时学习新路径：挖掘极致高效的“子空间微调”</title>
     <updated>2026-04-11T06:35:41.878Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;在大模型微调的语境下，我们习惯了 LoRA 带来的“低秩”红利。但当参数量被压缩到极致，甚至低至 13 个参数时，模型还在学习什么？TinyLoRA 给了我们答案。另外，MiCA 的出现又给了我们一个清奇的视角：与其在拥挤的主导子空间里寻找增量，不如去那些被遗忘的“次要奇异方向”开垦荒原。本文将结合这两篇论文，聊聊如何通过挖掘特定的子空间，实现一种近乎“无损”且“实时”的插件化学习能力，这可能也是一种低成本、高独立性、可插拔的“实时学习”新范式。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="LoRA" scheme="https://yam.gift/tags/LoRA/"/>
-    
-      <category term="MiCA" scheme="https://yam.gift/tags/MiCA/"/>
-    
-      <category term="TinyLoRA" scheme="https://yam.gift/tags/TinyLoRA/"/>
-    
-      <category term="LoRA-XS Real-time Learning" scheme="https://yam.gift/tags/LoRA-XS-Real-time-Learning/"/>
-    
   </entry>
-  
   <entry>
-    <title>RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</title>
-    <link href="https://yam.gift/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="Meta RL" scheme="https://yam.gift/tags/Meta-RL/"/>
+    <category term="ERL" scheme="https://yam.gift/tags/ERL/"/>
+    <category term="OEL" scheme="https://yam.gift/tags/OEL/"/>
+    <category term="MR-Search" scheme="https://yam.gift/tags/MR-Search/"/>
+    <category term="ACT" scheme="https://yam.gift/tags/ACT/"/>
+    <category term="CRL" scheme="https://yam.gift/tags/CRL/"/>
     <id>https://yam.gift/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/</id>
+    <link href="https://yam.gift/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/"/>
     <published>2026-03-29T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<p>新一代 RL 范式，本质是在“制造更高质量的训练数据”，而不是单纯优化参数。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>提升的信息类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ERL/OEL</td>
+<td>局部修正（reflection），通过“反思 → 经验 → 蒸馏”，把一次尝试变成可复用知识</td>
+</tr>
+<tr>
+<td>MR-Search</td>
+<td>跨 episode 经验，把“反思”提升为跨 episode 的持续积累（接近元学习）</td>
+</tr>
+<tr>
+<td>Reconstruction</td>
+<td>隐式推理过程，不学结果反推“生成过程”（学习思维轨迹而非表面数据）</td>
+</tr>
+<tr>
+<td>ACT</td>
+<td>偏好信号（implicit reward），用对比学习逼出“真正的自我反思”，而不是模仿式反思</td>
+</tr>
+<tr>
+<td>CRL</td>
+<td>长期可复用经验，让“策略”和“经验系统”协同进化，形成闭环学习系统</td>
+</tr>
+</tbody>
+</table>
+<p>以上方法其实都在做一件事：Trajectory → Information Gain → Policy Improvement。核心是把低信息密度的轨迹转换为高信息密度监督信号。</p>
+<hr>
+<p>上篇《<a href="https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/">Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴</a><sup>[1]</sup>》我们介绍了一些不更新参数的“训练”范式，目前还在实验中，但目测应该是有效果的——我个人老早就想自动化 prompt 的调整了，这一步着实不应该成为门槛，更不应该投入过多精力去 try-and-error，实在是太不自动化、太不可控了。</p>
+<p>不过本文不讨论 Training-Free，而是介绍一些基于 “反思和经验” 的学习范式，固然是需要训练的，但更多的难道不算是一种数据构造方式？从这个角度看也挺有意思。</p>]]>
+    </summary>
+    <title>RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</title>
     <updated>2026-03-30T00:32:06.498Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;新一代 RL 范式，本质是在“制造更高质量的训练数据”，而不是单纯优化参数。&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;方法&lt;/th&gt;
-&lt;th&gt;提升的信息类型&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;ERL/OEL&lt;/td&gt;
-&lt;td&gt;局部修正（reflection），通过“反思 → 经验 → 蒸馏”，把一次尝试变成可复用知识&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;MR-Search&lt;/td&gt;
-&lt;td&gt;跨 episode 经验，把“反思”提升为跨 episode 的持续积累（接近元学习）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Reconstruction&lt;/td&gt;
-&lt;td&gt;隐式推理过程，不学结果反推“生成过程”（学习思维轨迹而非表面数据）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;ACT&lt;/td&gt;
-&lt;td&gt;偏好信号（implicit reward），用对比学习逼出“真正的自我反思”，而不是模仿式反思&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CRL&lt;/td&gt;
-&lt;td&gt;长期可复用经验，让“策略”和“经验系统”协同进化，形成闭环学习系统&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;以上方法其实都在做一件事：Trajectory → Information Gain → Policy Improvement。核心是把低信息密度的轨迹转换为高信息密度监督信号。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;上篇《&lt;a href=&quot;https://yam.gift/2026/03/24/NLP/LLM-Context/2026-03-24-RL-New-Paradigm-Traning-Free/&quot;&gt;Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;》我们介绍了一些不更新参数的“训练”范式，目前还在实验中，但目测应该是有效果的——我个人老早就想自动化 prompt 的调整了，这一步着实不应该成为门槛，更不应该投入过多精力去 try-and-error，实在是太不自动化、太不可控了。&lt;/p&gt;
-&lt;p&gt;不过本文不讨论 Training-Free，而是介绍一些基于 “反思和经验” 的学习范式，固然是需要训练的，但更多的难道不算是一种数据构造方式？从这个角度看也挺有意思。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="Meta RL" scheme="https://yam.gift/tags/Meta-RL/"/>
-    
-      <category term="ERL" scheme="https://yam.gift/tags/ERL/"/>
-    
-      <category term="OEL" scheme="https://yam.gift/tags/OEL/"/>
-    
-      <category term="MR-Search" scheme="https://yam.gift/tags/MR-Search/"/>
-    
-      <category term="ACT" scheme="https://yam.gift/tags/ACT/"/>
-    
-      <category term="CRL" scheme="https://yam.gift/tags/CRL/"/>
-    
   </entry>
-  
   <entry>
-    <title>Training-Free RL：当“训练”不再更新参数，而是更新上下文</title>
-    <link href="https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="Meta Learning" scheme="https://yam.gift/tags/Meta-Learning/"/>
+    <category term="Context Learning" scheme="https://yam.gift/tags/Context-Learning/"/>
+    <category term="Meta RL" scheme="https://yam.gift/tags/Meta-RL/"/>
+    <category term="TRT" scheme="https://yam.gift/tags/TRT/"/>
+    <category term="MemAPO" scheme="https://yam.gift/tags/MemAPO/"/>
     <id>https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/</id>
+    <link href="https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/"/>
     <published>2026-03-24T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p><strong>TL;DR：</strong><br>
+随着 LLM 能力增强，强化学习正在从“更新模型参数”转向“优化上下文”。Training-Free RL 不再训练 policy，而是通过自评估、对比、反思和记忆机制，从 rollout 中提取“经验/洞察”，并以自然语言形式注入上下文，从而改变模型输出分布。本质上，这是一种以 LLM 为先验、以“经验文本”为 advantage 的新型 RL 范式。</p>
+<p>RL 近期出现了大量新的学习范式，我们此前已经介绍过几篇关于 RM 建模的文章：</p>
+<ul>
+<li><a href="https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/">Reward Model建模 | 长琴</a><sup>[1]</sup></li>
+<li><a href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/">Reward建模新范式：无验证器RL与Reference的妙用 | 长琴</a><sup>[2]</sup></li>
+<li><a href="https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/">Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴</a><sup>[3]</sup></li>
+</ul>
+<p>虽然是 RM 建模，但其实再放大了说也就是 RL 建模。而且，R1 之后，RL 大多都简化为 GRPO，其关键就在 Reward（或者说 Advantage）建模和设计上。从这个角度看，之前介绍的无验证 RL，它既是 Reward 建模范式，但更多的其实是一种新的 RL 范式——验证都不需要了，都不是验证器的问题。</p>
+<p>本文介绍的是另一种范式——免训练 RL。是的，没错，随着 LLM 能力不断变强，保持 LLM 不动，对“上下文”进行调整也能很好地完成任务。还记得前几个月腾讯姚顺雨的 <a href="https://www.clbench.com/">CL-bench Leaderboard</a><sup>[4]</sup> 吗——即使你把所有相关上下文都给了 LLM，它也不一定能用好。从某种意义上说，免训练 RL 的作用点也是“用好”上下文。</p>]]>
+    </summary>
+    <title>Training-Free RL：当“训练”不再更新参数，而是更新上下文</title>
     <updated>2026-03-25T00:44:24.378Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;TL;DR：&lt;/strong&gt;&lt;br&gt;
-随着 LLM 能力增强，强化学习正在从“更新模型参数”转向“优化上下文”。Training-Free RL 不再训练 policy，而是通过自评估、对比、反思和记忆机制，从 rollout 中提取“经验/洞察”，并以自然语言形式注入上下文，从而改变模型输出分布。本质上，这是一种以 LLM 为先验、以“经验文本”为 advantage 的新型 RL 范式。&lt;/p&gt;
-&lt;p&gt;RL 近期出现了大量新的学习范式，我们此前已经介绍过几篇关于 RM 建模的文章：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/&quot;&gt;Reward Model建模 | 长琴&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/&quot;&gt;Reward建模新范式：无验证器RL与Reference的妙用 | 长琴&lt;/a&gt;&lt;sup&gt;[2]&lt;/sup&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/&quot;&gt;Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴&lt;/a&gt;&lt;sup&gt;[3]&lt;/sup&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;虽然是 RM 建模，但其实再放大了说也就是 RL 建模。而且，R1 之后，RL 大多都简化为 GRPO，其关键就在 Reward（或者说 Advantage）建模和设计上。从这个角度看，之前介绍的无验证 RL，它既是 Reward 建模范式，但更多的其实是一种新的 RL 范式——验证都不需要了，都不是验证器的问题。&lt;/p&gt;
-&lt;p&gt;本文介绍的是另一种范式——免训练 RL。是的，没错，随着 LLM 能力不断变强，保持 LLM 不动，对“上下文”进行调整也能很好地完成任务。还记得前几个月腾讯姚顺雨的 &lt;a href=&quot;https://www.clbench.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CL-bench Leaderboard&lt;/a&gt;&lt;sup&gt;[4]&lt;/sup&gt; 吗——即使你把所有相关上下文都给了 LLM，它也不一定能用好。从某种意义上说，免训练 RL 的作用点也是“用好”上下文。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="Meta Learning" scheme="https://yam.gift/tags/Meta-Learning/"/>
-    
-      <category term="Meta RL" scheme="https://yam.gift/tags/Meta-RL/"/>
-    
-      <category term="Context Learning" scheme="https://yam.gift/tags/Context-Learning/"/>
-    
-      <category term="TRT" scheme="https://yam.gift/tags/TRT/"/>
-    
-      <category term="MemAPO" scheme="https://yam.gift/tags/MemAPO/"/>
-    
   </entry>
-  
   <entry>
-    <title>从 OpenClaw 再谈 AI Coding：我们还剩下什么</title>
-    <link href="https://yam.gift/2026/03/13/AI/2026-03-13-From-OpencClaw-to-AI-Coding/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    <category term="AI-Coding" scheme="https://yam.gift/tags/AI-Coding/"/>
+    <category term="OpenClaw" scheme="https://yam.gift/tags/OpenClaw/"/>
+    <category term="Monad" scheme="https://yam.gift/tags/Monad/"/>
     <id>https://yam.gift/2026/03/13/AI/2026-03-13-From-OpencClaw-to-AI-Coding/</id>
+    <link href="https://yam.gift/2026/03/13/AI/2026-03-13-From-OpencClaw-to-AI-Coding/"/>
     <published>2026-03-13T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<ul>
+<li>OpenClaw 的爆火，本质上不是产品本身，而是 Agent 生态被突然点燃：个人级 AI 操作系统开始具象化，整个 AI 产业链（模型、平台、云、工具）随之受益。</li>
+<li>与此同时，AI Coding 正在重写软件开发范式——代码的重要性下降，系统设计、上下文管理和判断力成为新的核心能力。</li>
+<li>在这个时代，真正重要的不再是“会不会写代码”，而是：能否提出好问题、设计系统，并驾驭 AI 去实现它。</li>
+</ul>]]>
+    </summary>
+    <title>从 OpenClaw 再谈 AI Coding：我们还剩下什么</title>
     <updated>2026-03-13T16:18:49.385Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;OpenClaw 的爆火，本质上不是产品本身，而是 Agent 生态被突然点燃：个人级 AI 操作系统开始具象化，整个 AI 产业链（模型、平台、云、工具）随之受益。&lt;/li&gt;
-&lt;li&gt;与此同时，AI Coding 正在重写软件开发范式——代码的重要性下降，系统设计、上下文管理和判断力成为新的核心能力。&lt;/li&gt;
-&lt;li&gt;在这个时代，真正重要的不再是“会不会写代码”，而是：能否提出好问题、设计系统，并驾驭 AI 去实现它。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
-    
-      <category term="AI-Coding" scheme="https://yam.gift/tags/AI-Coding/"/>
-    
-      <category term="OpenClaw" scheme="https://yam.gift/tags/OpenClaw/"/>
-    
-      <category term="Monad" scheme="https://yam.gift/tags/Monad/"/>
-    
   </entry>
-  
   <entry>
-    <title>Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求</title>
-    <link href="https://yam.gift/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="C.AI" scheme="https://yam.gift/tags/C-AI/"/>
+    <category term="Talkie" scheme="https://yam.gift/tags/Talkie/"/>
+    <category term="RolePlay" scheme="https://yam.gift/tags/RolePlay/"/>
     <id>https://yam.gift/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/</id>
+    <link href="https://yam.gift/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/"/>
     <published>2026-03-09T00:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p><strong>TL;DR</strong></p>
+<ul>
+<li>RP（Roleplay） AI 的核心价值不是「扮演角色」，而是满足用户的<strong>情感寄托与沉浸体验</strong>。</li>
+<li>RP 的评估极其困难，本质是<strong>用户偏好问题而非正确性问题</strong>，因此线上 A/B 和用户行为信号依然是核心。</li>
+<li>高质量 RP 数据不仅是语句质量，更是<strong>叙事推进、角色一致性和情绪峰值设计</strong>。</li>
+<li>未来的方向可能是 <strong>Worldplay</strong>：可演化的世界、多角色互动和长期关系。</li>
+</ul>]]>
+    </summary>
+    <title>Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求</title>
     <updated>2026-03-09T00:18:48.384Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;strong&gt;TL;DR&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;RP（Roleplay） AI 的核心价值不是「扮演角色」，而是满足用户的&lt;strong&gt;情感寄托与沉浸体验&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;RP 的评估极其困难，本质是&lt;strong&gt;用户偏好问题而非正确性问题&lt;/strong&gt;，因此线上 A/B 和用户行为信号依然是核心。&lt;/li&gt;
-&lt;li&gt;高质量 RP 数据不仅是语句质量，更是&lt;strong&gt;叙事推进、角色一致性和情绪峰值设计&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;未来的方向可能是 &lt;strong&gt;Worldplay&lt;/strong&gt;：可演化的世界、多角色互动和长期关系。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="C.AI" scheme="https://yam.gift/tags/C-AI/"/>
-    
-      <category term="Talkie" scheme="https://yam.gift/tags/Talkie/"/>
-    
-      <category term="RolePlay" scheme="https://yam.gift/tags/RolePlay/"/>
-    
   </entry>
-  
   <entry>
-    <title>DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线</title>
-    <link href="https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="DLM" scheme="https://yam.gift/tags/DLM/"/>
+    <category term="MDLM" scheme="https://yam.gift/tags/MDLM/"/>
+    <category term="LLaDA" scheme="https://yam.gift/tags/LLaDA/"/>
+    <category term="TiDAR" scheme="https://yam.gift/tags/TiDAR/"/>
+    <category term="STAR-LDM" scheme="https://yam.gift/tags/STAR-LDM/"/>
+    <category term="CARD" scheme="https://yam.gift/tags/CARD/"/>
+    <category term="JustGRPO" scheme="https://yam.gift/tags/JustGRPO/"/>
     <id>https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/</id>
+    <link href="https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/"/>
     <published>2026-03-01T10:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<p>本文深度梳理了离散扩散语言模型（MDLM）的发展脉络。从 SEMDLM 的理论奠基，到 LLaDA 实现 100B 参数的 Scaling 验证，再到 2026 年初关于 DLM 十大挑战的宏观思考。文章重点剖析了 DLM 与自回归模型（ARM）的差异，介绍了 “DLM 规划 + ARM 执行” 等多种前沿混合架构，并探讨了 RL 后训练中的“灵活性陷阱”。核心观点认为：DLM 的真正潜力不在于并行推理，而在于其非线性推理、全局编辑与迭代修正的认知模式。</p>
+<hr>
+<p>本来正打算写（学）一写（学） DLM 的，都看了一阵子了，突然刷到这么一篇论文：<a href="https://arxiv.org/abs/2601.14041">2601 Top 10 Open Challenges Steering the Future of Diffusion Language Model and Its Variants</a><sup>[1]</sup>，这是篇好论文呀。于是，就趁着这股东风，把一些观点一并梳理下。本文内容相对侧重观点介绍和梳理而非公式推导。另外，本文涉及的 DLM 并不是完整的，大部分时候仅指 MDLM，也就是 Masked Diffusion Language Models。</p>]]>
+    </summary>
+    <title>DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线</title>
     <updated>2026-03-01T10:08:05.168Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;本文深度梳理了离散扩散语言模型（MDLM）的发展脉络。从 SEMDLM 的理论奠基，到 LLaDA 实现 100B 参数的 Scaling 验证，再到 2026 年初关于 DLM 十大挑战的宏观思考。文章重点剖析了 DLM 与自回归模型（ARM）的差异，介绍了 “DLM 规划 + ARM 执行” 等多种前沿混合架构，并探讨了 RL 后训练中的“灵活性陷阱”。核心观点认为：DLM 的真正潜力不在于并行推理，而在于其非线性推理、全局编辑与迭代修正的认知模式。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;本来正打算写（学）一写（学） DLM 的，都看了一阵子了，突然刷到这么一篇论文：&lt;a href=&quot;https://arxiv.org/abs/2601.14041&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;2601 Top 10 Open Challenges Steering the Future of Diffusion Language Model and Its Variants&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;，这是篇好论文呀。于是，就趁着这股东风，把一些观点一并梳理下。本文内容相对侧重观点介绍和梳理而非公式推导。另外，本文涉及的 DLM 并不是完整的，大部分时候仅指 MDLM，也就是 Masked Diffusion Language Models。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="DLM" scheme="https://yam.gift/tags/DLM/"/>
-    
-      <category term="MDLM" scheme="https://yam.gift/tags/MDLM/"/>
-    
-      <category term="LLaDA" scheme="https://yam.gift/tags/LLaDA/"/>
-    
-      <category term="TiDAR" scheme="https://yam.gift/tags/TiDAR/"/>
-    
-      <category term="STAR-LDM" scheme="https://yam.gift/tags/STAR-LDM/"/>
-    
-      <category term="CARD" scheme="https://yam.gift/tags/CARD/"/>
-    
-      <category term="JustGRPO" scheme="https://yam.gift/tags/JustGRPO/"/>
-    
   </entry>
-  
   <entry>
-    <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算</title>
-    <link href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="Streaming" scheme="https://yam.gift/tags/Streaming/"/>
+    <category term="Reduction" scheme="https://yam.gift/tags/Reduction/"/>
+    <category term="Flash-Attention" scheme="https://yam.gift/tags/Flash-Attention/"/>
+    <category term="Online Softmax" scheme="https://yam.gift/tags/Online-Softmax/"/>
+    <category term="LayerNorm" scheme="https://yam.gift/tags/LayerNorm/"/>
+    <category term="Adam" scheme="https://yam.gift/tags/Adam/"/>
+    <category term="RMSProp" scheme="https://yam.gift/tags/RMSProp/"/>
     <id>https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/</id>
+    <link href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/"/>
     <published>2026-02-01T04:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<p>本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：<strong>Streaming Reduction</strong>。</p>
+<ul>
+<li>只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。</li>
+<li>统一了 Softmax、LayerNorm/RMSNorm 、Adam/RMSProp 优化器及分布式 AllReduce 的底层逻辑——它们本质上都是在维护一套 O(1) 复杂度的状态迁移。</li>
+<li>判断算子能否分块化：重写归约形式、检查结合律与坐标系补偿、构造 Merge 函数。</li>
+</ul>]]>
+    </summary>
+    <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算</title>
     <updated>2026-02-01T23:10:05.230Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;p&gt;本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：&lt;strong&gt;Streaming Reduction&lt;/strong&gt;。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;只要算子具备“可结合的累积结构”与“平移/缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。&lt;/li&gt;
-&lt;li&gt;统一了 Softmax、LayerNorm/RMSNorm 、Adam/RMSProp 优化器及分布式 AllReduce 的底层逻辑——它们本质上都是在维护一套 O(1) 复杂度的状态迁移。&lt;/li&gt;
-&lt;li&gt;判断算子能否分块化：重写归约形式、检查结合律与坐标系补偿、构造 Merge 函数。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="Streaming" scheme="https://yam.gift/tags/Streaming/"/>
-    
-      <category term="Reduction" scheme="https://yam.gift/tags/Reduction/"/>
-    
-      <category term="Flash-Attention" scheme="https://yam.gift/tags/Flash-Attention/"/>
-    
-      <category term="Online Softmax" scheme="https://yam.gift/tags/Online-Softmax/"/>
-    
-      <category term="LayerNorm" scheme="https://yam.gift/tags/LayerNorm/"/>
-    
-      <category term="Adam" scheme="https://yam.gift/tags/Adam/"/>
-    
-      <category term="RMSProp" scheme="https://yam.gift/tags/RMSProp/"/>
-    
   </entry>
-  
   <entry>
-    <title>【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道”</title>
-    <link href="https://yam.gift/2026/01/26/ListenGlimmer/006/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
     <id>https://yam.gift/2026/01/26/ListenGlimmer/006/</id>
+    <link href="https://yam.gift/2026/01/26/ListenGlimmer/006/"/>
     <published>2026-01-26T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>【来访者个人档案】</p>
+<ul>
+<li><strong>身份</strong>： 工作多年的项目负责人。</li>
+<li><strong>自述</strong>： 想把 AI 用在公司内部和项目上，但很难推进。</li>
+</ul>
+<p>这次来访的和前面的大有不同，我们称其为 G 同学，G 同学已经在一家公司做到了领导层，负责软件开发相关项目，手下也有十几号人。G 同学通过 Datawhale 关注到我，读了《<a href="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/">为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</a>》，那会儿正在想办法让团队用上 AI，提升效率。</p>
+<p>G 同学的烦恼如果用一句话概括，那就是：“传统企业如何用好 AI 之落在中层管理者身上的职责和困惑”。这其中除了技术相关问题，还有大量沟通、管理、协调等非技术问题。好在我也做过管理，还是能聊一聊的。</p>]]>
+    </summary>
+    <title>【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道”</title>
     <updated>2026-01-30T23:27:20.042Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 工作多年的项目负责人。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 想把 AI 用在公司内部和项目上，但很难推进。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;这次来访的和前面的大有不同，我们称其为 G 同学，G 同学已经在一家公司做到了领导层，负责软件开发相关项目，手下也有十几号人。G 同学通过 Datawhale 关注到我，读了《&lt;a href=&quot;https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/&quot;&gt;为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路&lt;/a&gt;》，那会儿正在想办法让团队用上 AI，提升效率。&lt;/p&gt;
-&lt;p&gt;G 同学的烦恼如果用一句话概括，那就是：“传统企业如何用好 AI 之落在中层管理者身上的职责和困惑”。这其中除了技术相关问题，还有大量沟通、管理、协调等非技术问题。好在我也做过管理，还是能聊一聊的。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
   </entry>
-  
   <entry>
-    <title>通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考</title>
-    <link href="https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="Agent" scheme="https://yam.gift/tags/Agent/"/>
+    <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    <category term="Scaling" scheme="https://yam.gift/tags/Scaling/"/>
+    <category term="Attention" scheme="https://yam.gift/tags/Attention/"/>
+    <category term="NTP" scheme="https://yam.gift/tags/NTP/"/>
     <id>https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/</id>
+    <link href="https://yam.gift/2026/01/25/AI/2026-01-25-AI-Future-Framework/"/>
     <published>2026-01-25T15:30:00.000Z</published>
+    <summary>
+      <![CDATA[<p>注意注意，本文并非试图给出一条确定的 AGI 技术路线，也不是对某一种路线的辩护或预测，而是有意将多位一线研究者在不同语境下提及的方向进行整理。在此基础上，也夹杂了一些个人长期形成的判断和思考，供参考，而非结论。</p>
+<p>TL;DR</p>
+<ul>
+<li>多位一线研究者的观点在<strong>三个方向上高度收敛</strong>：<strong>多模态（尤其是视频）、强化学习、自进化系统</strong>，它们共同指向比纯 LLM 更高阶的智能形态。</li>
+<li><strong>Scaling 仍然重要，但对象在变化</strong>：从模型规模 → 推理过程 → 自学习环境（System 3），再加上 Token 效率、多尺度学习等，Scaling 正在更加精细和广泛。</li>
+<li><strong>多模态不是“加模态”，而是“建世界”</strong>：视频和感知建模可能拥有比文本高一个数量级的 Scaling 上限，语言并非理解物理世界的必要条件。</li>
+<li><strong>强化学习是自主进化的核心机制</strong>：预训练擅长吸收信息，RL 擅长通过试错优化策略，可能是持续学习、自我修正和边缘能力提升的关键。</li>
+<li><strong>Agent 不应只是工具封装</strong>：真正的 Agent 更像一个“可训练的智能系统”，本身就是产品，具备学习、记忆和进化能力。</li>
+<li>从更长期看，<strong>现有 Attention 和 NTP 可能不是终局</strong>，新架构、新目标函数、新范式雨后春笋。</li>
+</ul>]]>
+    </summary>
+    <title>通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考</title>
     <updated>2026-01-27T23:47:26.743Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;注意注意，本文并非试图给出一条确定的 AGI 技术路线，也不是对某一种路线的辩护或预测，而是有意将多位一线研究者在不同语境下提及的方向进行整理。在此基础上，也夹杂了一些个人长期形成的判断和思考，供参考，而非结论。&lt;/p&gt;
-&lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;多位一线研究者的观点在&lt;strong&gt;三个方向上高度收敛&lt;/strong&gt;：&lt;strong&gt;多模态（尤其是视频）、强化学习、自进化系统&lt;/strong&gt;，它们共同指向比纯 LLM 更高阶的智能形态。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Scaling 仍然重要，但对象在变化&lt;/strong&gt;：从模型规模 → 推理过程 → 自学习环境（System 3），再加上 Token 效率、多尺度学习等，Scaling 正在更加精细和广泛。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;多模态不是“加模态”，而是“建世界”&lt;/strong&gt;：视频和感知建模可能拥有比文本高一个数量级的 Scaling 上限，语言并非理解物理世界的必要条件。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;强化学习是自主进化的核心机制&lt;/strong&gt;：预训练擅长吸收信息，RL 擅长通过试错优化策略，可能是持续学习、自我修正和边缘能力提升的关键。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Agent 不应只是工具封装&lt;/strong&gt;：真正的 Agent 更像一个“可训练的智能系统”，本身就是产品，具备学习、记忆和进化能力。&lt;/li&gt;
-&lt;li&gt;从更长期看，&lt;strong&gt;现有 Attention 和 NTP 可能不是终局&lt;/strong&gt;，新架构、新目标函数、新范式雨后春笋。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="Agent" scheme="https://yam.gift/tags/Agent/"/>
-    
-      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
-    
-      <category term="Scaling" scheme="https://yam.gift/tags/Scaling/"/>
-    
-      <category term="Attention" scheme="https://yam.gift/tags/Attention/"/>
-    
-      <category term="NTP" scheme="https://yam.gift/tags/NTP/"/>
-    
   </entry>
-  
   <entry>
-    <title>MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？</title>
-    <link href="https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="KAT" scheme="https://yam.gift/tags/KAT/"/>
     <id>https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/</id>
+    <link href="https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/"/>
     <published>2026-01-22T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>来自快手的 <a href="https://kwaikat.github.io/kwaikat-blog/posts/katcoder_1201/">KAT-Coder-V1 Pro 重磅升级，揭秘强化学习训练稳定性关键因素 - KwaiPilot</a><sup>[1]</sup>，直接给出了让人惊讶的发现：</p>
+<p><strong>RL 训练不稳定的主导因素并不是训推不一致，而是采样噪声本身</strong>。</p>
+<p>他们发现，当显式抑制噪声强度后，即使存在明显的训推差异，训练依旧保持稳定，并能获得更快的收敛速度。</p>
+<p>这可真是——玄之又玄啊。</p>]]>
+    </summary>
+    <title>MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？</title>
     <updated>2026-01-27T23:55:30.867Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;来自快手的 &lt;a href=&quot;https://kwaikat.github.io/kwaikat-blog/posts/katcoder_1201/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;KAT-Coder-V1 Pro 重磅升级，揭秘强化学习训练稳定性关键因素 - KwaiPilot&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;，直接给出了让人惊讶的发现：&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;RL 训练不稳定的主导因素并不是训推不一致，而是采样噪声本身&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;他们发现，当显式抑制噪声强度后，即使存在明显的训推差异，训练依旧保持稳定，并能获得更快的收敛速度。&lt;/p&gt;
-&lt;p&gt;这可真是——玄之又玄啊。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="KAT" scheme="https://yam.gift/tags/KAT/"/>
-    
   </entry>
-  
   <entry>
-    <title>为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</title>
-    <link href="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    <category term="AI-Coding" scheme="https://yam.gift/tags/AI-Coding/"/>
+    <category term="CompoundEngineering" scheme="https://yam.gift/tags/CompoundEngineering/"/>
+    <category term="OpenSpec" scheme="https://yam.gift/tags/OpenSpec/"/>
+    <category term="context" scheme="https://yam.gift/tags/context/"/>
+    <category term="kanban" scheme="https://yam.gift/tags/kanban/"/>
+    <category term="spec" scheme="https://yam.gift/tags/spec/"/>
+    <category term="skill" scheme="https://yam.gift/tags/skill/"/>
     <id>https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/</id>
+    <link href="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/"/>
     <published>2026-01-18T09:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>AI Coding 已经疯了。</p>
+<p>我也在一边根据本能在使用，同时也在学习一些新的技巧和方法。直到看到《<a href="https://zhuanlan.zhihu.com/p/1993009461451831150">认知重建：Speckit 用了三个月，我放弃了——走出工具很强但用不好的困境 - 知乎</a><sup>[1]</sup>》这篇文章，我觉得自己得系统梳理一下了。</p>
+<p>这里就随便那么梳理一下吧，可能会比较乱。</p>]]>
+    </summary>
+    <title>为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</title>
     <updated>2026-01-18T09:28:13.501Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;AI Coding 已经疯了。&lt;/p&gt;
-&lt;p&gt;我也在一边根据本能在使用，同时也在学习一些新的技巧和方法。直到看到《&lt;a href=&quot;https://zhuanlan.zhihu.com/p/1993009461451831150&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;认知重建：Speckit 用了三个月，我放弃了——走出工具很强但用不好的困境 - 知乎&lt;/a&gt;&lt;sup&gt;[1]&lt;/sup&gt;》这篇文章，我觉得自己得系统梳理一下了。&lt;/p&gt;
-&lt;p&gt;这里就随便那么梳理一下吧，可能会比较乱。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Coding" scheme="https://yam.gift/categories/Coding/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
-    
-      <category term="AI-Coding" scheme="https://yam.gift/tags/AI-Coding/"/>
-    
-      <category term="CompoundEngineering" scheme="https://yam.gift/tags/CompoundEngineering/"/>
-    
-      <category term="OpenSpec" scheme="https://yam.gift/tags/OpenSpec/"/>
-    
-      <category term="context" scheme="https://yam.gift/tags/context/"/>
-    
-      <category term="kanban" scheme="https://yam.gift/tags/kanban/"/>
-    
-      <category term="spec" scheme="https://yam.gift/tags/spec/"/>
-    
-      <category term="skill" scheme="https://yam.gift/tags/skill/"/>
-    
   </entry>
-  
   <entry>
-    <title>稳定压倒一切：MoE RL 训推不一致问题及解决策略</title>
-    <link href="https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
+    <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
+    <category term="TIS" scheme="https://yam.gift/tags/TIS/"/>
+    <category term="IcePop" scheme="https://yam.gift/tags/IcePop/"/>
+    <category term="R3" scheme="https://yam.gift/tags/R3/"/>
     <id>https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/</id>
+    <link href="https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/"/>
     <published>2026-01-17T04:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<ul>
+<li><strong>核心矛盾</strong>：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。</li>
+<li><strong>现象严重性</strong>：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。</li>
+<li><strong>不同策略</strong>：算法鲁棒化的 GSPO/GMPO，数学偏差补偿的 TIS/IcePop，系统强行对齐的 R3/DeepSeek。</li>
+</ul>]]>
+    </summary>
+    <title>稳定压倒一切：MoE RL 训推不一致问题及解决策略</title>
     <updated>2026-01-22T15:04:34.054Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;核心矛盾&lt;/strong&gt;：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;现象严重性&lt;/strong&gt;：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;不同策略&lt;/strong&gt;：算法鲁棒化的 GSPO/GMPO，数学偏差补偿的 TIS/IcePop，系统强行对齐的 R3/DeepSeek。&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="DeepSeek" scheme="https://yam.gift/tags/DeepSeek/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
-    
-      <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
-    
-      <category term="TIS" scheme="https://yam.gift/tags/TIS/"/>
-    
-      <category term="IcePop" scheme="https://yam.gift/tags/IcePop/"/>
-    
-      <category term="R3" scheme="https://yam.gift/tags/R3/"/>
-    
   </entry>
-  
   <entry>
-    <title>【聆听·微光】004：一位算法后端开发工程师的AI转型之路</title>
-    <link href="https://yam.gift/2026/01/15/ListenGlimmer/004/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
     <id>https://yam.gift/2026/01/15/ListenGlimmer/004/</id>
+    <link href="https://yam.gift/2026/01/15/ListenGlimmer/004/"/>
     <published>2026-01-15T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>【来访者个人档案】</p>
+<ul>
+<li><strong>身份</strong>： 工作3年的算法专业的后端开发工程师。</li>
+<li><strong>自述</strong>： 我对现在的工作不满意，我想全面拥抱 AI。</li>
+</ul>
+<p>今天来访的是一位老粉丝了，我们后面用 S 同学来称呼。S 同学从2022年我写《ChatGPT 原理与应用开发》那会儿就关注了，根据这个开源项目找到我的博客并 RSS 订阅。后面看了我相当多的博客，对我算是比较熟悉的了。</p>
+<p>S 同学想聊的依然是工作和学习（或者说成长），这好像真的是大家共同的主题了，只不过由于背景和条件不同，表现出来的状况和问题也不相同。</p>]]>
+    </summary>
+    <title>【聆听·微光】004：一位算法后端开发工程师的AI转型之路</title>
     <updated>2026-01-15T23:20:12.192Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 工作3年的算法专业的后端开发工程师。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 我对现在的工作不满意，我想全面拥抱 AI。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;今天来访的是一位老粉丝了，我们后面用 S 同学来称呼。S 同学从2022年我写《ChatGPT 原理与应用开发》那会儿就关注了，根据这个开源项目找到我的博客并 RSS 订阅。后面看了我相当多的博客，对我算是比较熟悉的了。&lt;/p&gt;
-&lt;p&gt;S 同学想聊的依然是工作和学习（或者说成长），这好像真的是大家共同的主题了，只不过由于背景和条件不同，表现出来的状况和问题也不相同。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
   </entry>
-  
   <entry>
-    <title>LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析</title>
-    <link href="https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
+    <category term="RL" scheme="https://yam.gift/tags/RL/"/>
+    <category term="KKT" scheme="https://yam.gift/tags/KKT/"/>
+    <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
+    <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
+    <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
+    <category term="EXAONE" scheme="https://yam.gift/tags/EXAONE/"/>
+    <category term="AGAPO" scheme="https://yam.gift/tags/AGAPO/"/>
+    <category term="Kimi" scheme="https://yam.gift/tags/Kimi/"/>
+    <category term="MiMo" scheme="https://yam.gift/tags/MiMo/"/>
+    <category term="MOPD" scheme="https://yam.gift/tags/MOPD/"/>
+    <category term="MiniMax" scheme="https://yam.gift/tags/MiniMax/"/>
+    <category term="Qwen" scheme="https://yam.gift/tags/Qwen/"/>
+    <category term="SAPO" scheme="https://yam.gift/tags/SAPO/"/>
     <id>https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/</id>
+    <link href="https://yam.gift/2026/01/14/NLP/LLM-Training/2026-01-14-Open-LLM-RL-ShowCase/"/>
     <published>2026-01-14T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>TL;DR</p>
+<ul>
+<li>
+<p><strong>EXAONE:</strong> 改进 GRPO，通过移除 Clip 保留探索性]]>
+    </summary>
+    <title>LLM 强化的“炼金术”：主流开源模型的 RL 优化策略赏析</title>
     <updated>2026-01-15T00:21:04.040Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;TL;DR&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;EXAONE:&lt;/strong&gt; 改进 GRPO，通过移除 Clip 保留探索性 Token，并利用非对称采样引导模型远离错误路径。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Kimi:&lt;/strong&gt; 从 KKT 条件推导出 RL 目标函数，将长推理过程视为“隐式搜索”，并利用逐步升温长度惩罚解决“过度思考”问题。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;MiMo:&lt;/strong&gt; 采用反向 KL 散度进行多教师蒸馏（MOPD），实现“寻找众数”的精准能力迁移。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;MiniMax:&lt;/strong&gt; 针对 GRPO Clip 问题，采用带 Stop-gradient 的重要性采样与 Token Mask 机制，不丢弃探索梯度同时确保训练平稳。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Qwen:&lt;/strong&gt; 将重要性权重回归序列级别，引入长度归一化解决 Token-level 高方差，同时增强了 MoE 路由的稳定性，并进一步演进为平滑剪裁的 SAPO。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;结论：&lt;/strong&gt; 行业正从简单的奖励最大化转向更精细的分布对齐、隐式规划引导和训练稳定性控制。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="NLP" scheme="https://yam.gift/tags/NLP/"/>
-    
-      <category term="RL" scheme="https://yam.gift/tags/RL/"/>
-    
-      <category term="KKT" scheme="https://yam.gift/tags/KKT/"/>
-    
-      <category term="GRPO" scheme="https://yam.gift/tags/GRPO/"/>
-    
-      <category term="CISPO" scheme="https://yam.gift/tags/CISPO/"/>
-    
-      <category term="GSPO" scheme="https://yam.gift/tags/GSPO/"/>
-    
-      <category term="EXAONE" scheme="https://yam.gift/tags/EXAONE/"/>
-    
-      <category term="AGAPO" scheme="https://yam.gift/tags/AGAPO/"/>
-    
-      <category term="Kimi" scheme="https://yam.gift/tags/Kimi/"/>
-    
-      <category term="MiMo" scheme="https://yam.gift/tags/MiMo/"/>
-    
-      <category term="MOPD" scheme="https://yam.gift/tags/MOPD/"/>
-    
-      <category term="MiniMax" scheme="https://yam.gift/tags/MiniMax/"/>
-    
-      <category term="Qwen" scheme="https://yam.gift/tags/Qwen/"/>
-    
-      <category term="SAPO" scheme="https://yam.gift/tags/SAPO/"/>
-    
   </entry>
-  
   <entry>
-    <title>【聆听·微光】003：一位对工作迷茫的程序员的觉醒时刻</title>
-    <link href="https://yam.gift/2026/01/12/ListenGlimmer/003/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
     <id>https://yam.gift/2026/01/12/ListenGlimmer/003/</id>
+    <link href="https://yam.gift/2026/01/12/ListenGlimmer/003/"/>
     <published>2026-01-12T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>【来访者个人档案】</p>
+<ul>
+<li><strong>身份</strong>： 工作1-2年的后端开发工程师。</li>
+<li><strong>自述</strong>： 我觉得现在的工作没有价值，时而感到迷茫。</li>
+</ul>
+<p>今天通话的伙伴是 L 同学，刚毕业工作了一两年，在银行做系统，稳定的同时又备受煎熬，在工作中找不到意义和价值。同时又有自己的创业小项目，有现金流，但还无法全职的程度。L 同学是公众号的老粉丝了，看过我不少文章，他自己的创业小项目也是受《<a href="https://yam.gift/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/">实时语音交互场景下RAG的机遇和挑战 | 长琴</a>》这篇文章的启发。</p>
+<p>L 同学的困惑主要是工作相关和 AI 时代如何提升性学习。从问题表面来看其实是比较容易解决的，不过在聊的时候发现，其实这些问题只是 L 同学在探索和找寻自身意义和价值过程中的自然表现，这才是根源所在。</p>]]>
+    </summary>
+    <title>【聆听·微光】003：一位对工作迷茫的程序员的觉醒时刻</title>
     <updated>2026-01-12T13:14:43.837Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 工作1-2年的后端开发工程师。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 我觉得现在的工作没有价值，时而感到迷茫。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;今天通话的伙伴是 L 同学，刚毕业工作了一两年，在银行做系统，稳定的同时又备受煎熬，在工作中找不到意义和价值。同时又有自己的创业小项目，有现金流，但还无法全职的程度。L 同学是公众号的老粉丝了，看过我不少文章，他自己的创业小项目也是受《&lt;a href=&quot;https://yam.gift/2025/01/05/MM/2025-01-05-RAG-and-Voice-Agent/&quot;&gt;实时语音交互场景下RAG的机遇和挑战 | 长琴&lt;/a&gt;》这篇文章的启发。&lt;/p&gt;
-&lt;p&gt;L 同学的困惑主要是工作相关和 AI 时代如何提升性学习。从问题表面来看其实是比较容易解决的，不过在聊的时候发现，其实这些问题只是 L 同学在探索和找寻自身意义和价值过程中的自然表现，这才是根源所在。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
   </entry>
-  
   <entry>
-    <title>【聆听·微光】002：一位普通院校硕士研究生的毕业之际</title>
-    <link href="https://yam.gift/2026/01/07/ListenGlimmer/002/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
     <id>https://yam.gift/2026/01/07/ListenGlimmer/002/</id>
+    <link href="https://yam.gift/2026/01/07/ListenGlimmer/002/"/>
     <published>2026-01-07T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>【来访者个人档案】</p>
+<ul>
+<li><strong>身份</strong>： 即将硕士研究生毕业。</li>
+<li><strong>自述</strong>： 我觉得自己决策慢、做事情慢、好像行动力不强。</li>
+</ul>
+<p>今天的来访者是 J 同学，一位研三、正在找工作、即将踏入社会的、有一点迷茫但又有一些憧憬的典型毕业季同学。</p>
+<p>J 同学读的文章是《<a href="https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/">我为什么做开源？ | 长琴</a>》，结果被我里面说的一句话”打击“了，觉得自己可能不适合技术。这句话是这样的：</p>
+<blockquote>
+<p>我也始终觉得，通过嚼碎的内容是没法成为一个优秀工程师的，也不是一个大学生更不是一个已经工作的人应该使用的学习方式。所以，我的所有教程都没有环境部分，我觉得要是连环境都搞不定，可能真的不适合这个行业。</p>
+</blockquote>
+<p>J 同学说自己就是需要嚼碎的内容，可能搞不定环境。</p>
+<p>虽然那是我的真实想法，但这么赤裸裸的表达对一个可能不那么喜欢、同时又是技术相关专业的新人来说，可能有点过于苛刻了。还请 J 同学不要放在心上。</p>
+<p>J 同学的问题比较典型，总的来说可以分三块：工作、能力和认知。</p>]]>
+    </summary>
+    <title>【聆听·微光】002：一位普通院校硕士研究生的毕业之际</title>
     <updated>2026-01-12T12:44:26.341Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;： 即将硕士研究生毕业。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;： 我觉得自己决策慢、做事情慢、好像行动力不强。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;今天的来访者是 J 同学，一位研三、正在找工作、即将踏入社会的、有一点迷茫但又有一些憧憬的典型毕业季同学。&lt;/p&gt;
-&lt;p&gt;J 同学读的文章是《&lt;a href=&quot;https://yam.gift/2025/01/12/Diary/2025-01-12-Why-OpenSource/&quot;&gt;我为什么做开源？ | 长琴&lt;/a&gt;》，结果被我里面说的一句话”打击“了，觉得自己可能不适合技术。这句话是这样的：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;我也始终觉得，通过嚼碎的内容是没法成为一个优秀工程师的，也不是一个大学生更不是一个已经工作的人应该使用的学习方式。所以，我的所有教程都没有环境部分，我觉得要是连环境都搞不定，可能真的不适合这个行业。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;J 同学说自己就是需要嚼碎的内容，可能搞不定环境。&lt;/p&gt;
-&lt;p&gt;虽然那是我的真实想法，但这么赤裸裸的表达对一个可能不那么喜欢、同时又是技术相关专业的新人来说，可能有点过于苛刻了。还请 J 同学不要放在心上。&lt;/p&gt;
-&lt;p&gt;J 同学的问题比较典型，总的来说可以分三块：工作、能力和认知。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
   </entry>
-  
   <entry>
-    <title>从平面国到硅世界：当文明被困在自己的维度里</title>
-    <link href="https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
+    <category term="AI" scheme="https://yam.gift/tags/AI/"/>
+    <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
+    <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
+    <category term="Future" scheme="https://yam.gift/tags/Future/"/>
     <id>https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/</id>
+    <link href="https://yam.gift/2026/01/06/AI/2026-01-06-Read-Flatland/"/>
     <published>2026-01-06T15:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>今天看完了《平面国》，一本著于 1884 年的小书，一本看似讲物理，其实讲社会和人类的书。</p>
+<p>一千个人眼中有一千个哈姆雷特，同样，每一个人看书都会有自己不同的视角和理解。当下，正值 AI 迅猛发展的时刻，一切的一切看似都在往好的方面发展，我前几天才写完《<a href="https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/">以 AI Coding 之管窥探世界之变 | 长琴</a>》，今天看完这本书，又有了新的理解。本文尽量谈一些观点和认知层面的，避免剧透。</p>
+<p>平面国的主角是一位二维世界的正方形，前面大部分内容都在介绍二维世界是怎么运行维系的。后面才开启了先到一维，再到三维、零维，想去更高维，但最终回到二维的一段经历。</p>]]>
+    </summary>
+    <title>从平面国到硅世界：当文明被困在自己的维度里</title>
     <updated>2026-01-17T04:29:01.220Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;今天看完了《平面国》，一本著于 1884 年的小书，一本看似讲物理，其实讲社会和人类的书。&lt;/p&gt;
-&lt;p&gt;一千个人眼中有一千个哈姆雷特，同样，每一个人看书都会有自己不同的视角和理解。当下，正值 AI 迅猛发展的时刻，一切的一切看似都在往好的方面发展，我前几天才写完《&lt;a href=&quot;https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/&quot;&gt;以 AI Coding 之管窥探世界之变 | 长琴&lt;/a&gt;》，今天看完这本书，又有了新的理解。本文尽量谈一些观点和认知层面的，避免剧透。&lt;/p&gt;
-&lt;p&gt;平面国的主角是一位二维世界的正方形，前面大部分内容都在介绍二维世界是怎么运行维系的。后面才开启了先到一维，再到三维、零维，想去更高维，但最终回到二维的一段经历。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Thinking" scheme="https://yam.gift/categories/Thinking/"/>
-    
-    
-      <category term="AI" scheme="https://yam.gift/tags/AI/"/>
-    
-      <category term="LLM" scheme="https://yam.gift/tags/LLM/"/>
-    
-      <category term="AGI" scheme="https://yam.gift/tags/AGI/"/>
-    
-      <category term="Future" scheme="https://yam.gift/tags/Future/"/>
-    
   </entry>
-  
   <entry>
-    <title>【聆听·微光】001：一位研究生在读的”reward hacker“关于学习的困惑</title>
-    <link href="https://yam.gift/2026/01/03/ListenGlimmer/001/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    <category term="Study" scheme="https://yam.gift/tags/Study/"/>
     <id>https://yam.gift/2026/01/03/ListenGlimmer/001/</id>
+    <link href="https://yam.gift/2026/01/03/ListenGlimmer/001/"/>
     <published>2026-01-03T03:00:00.000Z</published>
+    <summary>
+      <![CDATA[<p>【来访者个人档案】</p>
+<ul>
+<li><strong>身份</strong>：研究生在读，大模型方向实习生。</li>
+<li><strong>自述</strong>：我是个 Reward Hacker，为了面试通过，我刷题、背八股，但我心里慌。</li>
+</ul>
+<hr>
+<p>2025 年 1 月 2 日，昨天发完小红书后，今天迎来了第一位小伙伴。</p>
+<p>第一位小伙伴（我们后面称他为 F 同学）就和我想象中的不一样，我本来以为他会问关于大模型和相关工作的问题，没想到他更加关注的居然是 ”学习“ 问题。他看的博客是《<a href="https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/">Hybrid LLM 之 Gated DeltaNet | 长琴</a>》。</p>]]>
+    </summary>
+    <title>【聆听·微光】001：一位研究生在读的”reward hacker“关于学习的困惑</title>
     <updated>2026-01-07T15:25:01.935Z</updated>
-    
-    <summary type="html">
-    
-      &lt;p&gt;【来访者个人档案】&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;身份&lt;/strong&gt;：研究生在读，大模型方向实习生。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;自述&lt;/strong&gt;：我是个 Reward Hacker，为了面试通过，我刷题、背八股，但我心里慌。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;2025 年 1 月 2 日，昨天发完小红书后，今天迎来了第一位小伙伴。&lt;/p&gt;
-&lt;p&gt;第一位小伙伴（我们后面称他为 F 同学）就和我想象中的不一样，我本来以为他会问关于大模型和相关工作的问题，没想到他更加关注的居然是 ”学习“ 问题。他看的博客是《&lt;a href=&quot;https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/&quot;&gt;Hybrid LLM 之 Gated DeltaNet | 长琴&lt;/a&gt;》。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
-      <category term="Study" scheme="https://yam.gift/tags/Study/"/>
-    
   </entry>
-  
   <entry>
-    <title>聆听·微光</title>
-    <link href="https://yam.gift/2026/01/03/ListenGlimmer/000/"/>
+    <author>
+      <name>hscspring</name>
+    </author>
+    <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
+    <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
+    <category term="Listen" scheme="https://yam.gift/tags/Listen/"/>
     <id>https://yam.gift/2026/01/03/ListenGlimmer/000/</id>
+    <link href="https://yam.gift/2026/01/03/ListenGlimmer/000/"/>
     <published>2026-01-03T02:00:00.000Z</published>
-    <updated>2026-01-17T04:27:57.621Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;一段比较长的背景&quot;&gt;一段比较长的背景&lt;/h2&gt;
-&lt;h3 id=&quot;那些没被技术替代的-才是-人&quot;&gt;那些没被技术替代的，才是“人”&lt;/h3&gt;
-&lt;p&gt;我的公众号叫《技术与人》，技术是因为自己热爱技术，喜欢探索技术；而“人”则是重要的另一面，所有的技术，最后总归须落到人身上。&lt;/p&gt;
-&lt;p&gt;“技术”方向的文章很好写，毕竟写了快 10 年了，虽然现在 AI 发展迅猛，但个人写作能力和每次瞄准的写作方向也不太是 AI 能替代的（可以参考我在&lt;a href=&quot;https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/&quot;&gt;这里&lt;/a&gt;的观点）。&lt;/p&gt;
-&lt;p&gt;“人”这个方向却一直没有找到合适的创作内容。其实我是老早就想写这块内容了，但一方面是没找到合适的内容，另一方面也是因为自己的技术还在快速积累，时间和精力也不允许。&lt;/p&gt;
-&lt;p&gt;不过“人”这个方向的“方向”应该是老早就明确的——给他人更多的帮助和温暖。现在知乎草稿箱里还躺着一句 2020 年写的话：“&lt;strong&gt;为这个人人自危的时代注入一丝温暖&lt;/strong&gt;”，对应的标题是《孤独》。可能那会儿一个人又学到瓶颈了，并且对职业和人生又有点迷茫了。但后面又慢慢想清楚了。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://qnimg.lovevivian.cn/blog_general/ghat.jpg&quot; alt&gt;&lt;/p&gt;
-    
+    <summary>
+      <![CDATA[<h2 id="一段比较长的背景">一段比较长的背景</h2>
+<h3 id="那些没被技术替代的，才是“人”">那些没被技术替代的，才是“人”</h3>
+<p>我的公众号叫《技术与人》，技术是因为自己热爱技术，喜欢探索技术；而“人”则是重要的另一面，所有的技术，最后总归须落到人身上。</p>
+<p>“技术”方向的文章很好写，毕竟写了快 10 年了，虽然现在 AI 发展迅猛，但个人写作能力和每次瞄准的写作方向也不太是 AI 能替代的（可以参考我在<a href="https://yam.gift/2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/">这里</a>的观点）。</p>
+<p>“人”这个方向却一直没有找到合适的创作内容。其实我是老早就想写这块内容了，但一方面是没找到合适的内容，另一方面也是因为自己的技术还在快速积累，时间和精力也不允许。</p>
+<p>不过“人”这个方向的“方向”应该是老早就明确的——给他人更多的帮助和温暖。现在知乎草稿箱里还躺着一句 2020 年写的话：“<strong>为这个人人自危的时代注入一丝温暖</strong>”，对应的标题是《孤独》。可能那会儿一个人又学到瓶颈了，并且对职业和人生又有点迷茫了。但后面又慢慢想清楚了。</p>
+<p><img src="https://qnimg.lovevivian.cn/blog_general/ghat.jpg" alt=""></p>]]>
     </summary>
-    
-    
-      <category term="Feeling" scheme="https://yam.gift/categories/Feeling/"/>
-    
-    
-      <category term="Growth" scheme="https://yam.gift/tags/Growth/"/>
-    
-      <category term="Listen" scheme="https://yam.gift/tags/Listen/"/>
-    
+    <title>聆听·微光</title>
+    <updated>2026-01-17T04:27:57.621Z</updated>
   </entry>
-  
 </feed>
