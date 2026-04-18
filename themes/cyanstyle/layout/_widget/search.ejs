@@ -1,6 +1,154 @@
-<aside id="search" class="widget widget_search"><form role="search" method="get" accept-charset="utf-8" id="searchform" class="searchform" action="//google.com/search">
-    <div>
-        <input type="text" value="" name="s" id="s" />
-        <input type="submit" id="searchsubmit" value="搜索" />
-    </div>
-</form></aside>
+<aside id="search" class="widget widget_search">
+  <h3 class="widget-title">搜索</h3>
+  <div class="local-search">
+    <input
+      id="local-search-input"
+      type="search"
+      placeholder="搜索文章 / 标签 / 内容"
+      autocomplete="off"
+      spellcheck="false"
+    />
+    <div id="local-search-status" class="local-search-status"></div>
+    <div id="local-search-results" class="local-search-results"></div>
+  </div>
+</aside>
+
+<style>
+  .local-search { position: relative; }
+  #local-search-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+  }
+  #local-search-input:focus { border-color: #0a8cd1; }
+  .local-search-status {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #888;
+    min-height: 1em;
+  }
+  .local-search-results {
+    margin-top: 6px;
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  .local-search-results .search-hit {
+    display: block;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .local-search-results .search-hit:hover { background: #f5f5f5; }
+  .local-search-results .search-title {
+    font-size: 13px;
+    word-break: break-word;
+  }
+  .local-search-results .search-meta {
+    font-size: 11px;
+    color: #999;
+    margin-top: 2px;
+  }
+  .local-search-results mark {
+    background: #fff3a3;
+    color: inherit;
+    padding: 0 1px;
+  }
+</style>
+
+<script>
+(function () {
+  var input = document.getElementById('local-search-input');
+  var statusEl = document.getElementById('local-search-status');
+  var results = document.getElementById('local-search-results');
+  if (!input) return;
+
+  var data = null;
+  var loading = false;
+
+  function setStatus(msg) {
+    statusEl.textContent = msg || '';
+  }
+
+  function load() {
+    if (data || loading) return Promise.resolve();
+    loading = true;
+    setStatus('加载索引...');
+    return fetch('/search.json')
+      .then(function (r) { return r.json(); })
+      .then(function (json) {
+        data = json;
+        setStatus('共 ' + data.length + ' 篇文章可搜索');
+      })
+      .catch(function () { setStatus('索引加载失败'); })
+      .then(function () { loading = false; });
+  }
+
+  function escapeReg(s) {
+    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  function escapeHtml(s) {
+    return s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function search(q) {
+    if (!data) return;
+    if (!q) { results.innerHTML = ''; setStatus('共 ' + data.length + ' 篇文章可搜索'); return; }
+    var lq = q.toLowerCase();
+    var hits = [];
+    for (var i = 0; i < data.length; i++) {
+      var p = data[i];
+      var inTitle = p.title && p.title.toLowerCase().indexOf(lq) !== -1;
+      var inTag = p.tags && p.tags.some(function (t) { return t.toLowerCase().indexOf(lq) !== -1; });
+      var inContent = p.content && p.content.toLowerCase().indexOf(lq) !== -1;
+      if (inTitle || inTag || inContent) {
+        hits.push({
+          item: p,
+          score: (inTitle ? 4 : 0) + (inTag ? 2 : 0) + (inContent ? 1 : 0),
+        });
+      }
+    }
+    hits.sort(function (a, b) { return b.score - a.score; });
+    render(hits.slice(0, 8), q, hits.length);
+  }
+
+  function render(hits, q, total) {
+    if (!hits.length) {
+      results.innerHTML = '';
+      setStatus('无匹配结果');
+      return;
+    }
+    setStatus('共 ' + total + ' 条匹配，显示前 ' + hits.length);
+    var re = new RegExp(escapeReg(q), 'gi');
+    var html = hits.map(function (h) {
+      var p = h.item;
+      var title = escapeHtml(p.title).replace(re, function (m) { return '<mark>' + m + '</mark>'; });
+      var meta = (p.date || '') + (p.tags && p.tags.length ? ' · ' + p.tags.slice(0, 2).join(', ') : '');
+      return '<a href="' + p.url + '" class="search-hit">'
+        + '<div class="search-title">' + title + '</div>'
+        + '<div class="search-meta">' + escapeHtml(meta) + '</div>'
+        + '</a>';
+    }).join('');
+    results.innerHTML = html;
+  }
+
+  var timer;
+  input.addEventListener('input', function (e) {
+    var q = e.target.value.trim();
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      load().then(function () { search(q); });
+    }, 120);
+  });
+  input.addEventListener('focus', function () { load(); }, { once: true });
+})();
+</script>
