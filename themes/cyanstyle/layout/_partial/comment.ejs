@@ -1,25 +1,22 @@
-<% if (!index && post.comments && theme.gitalk){ %>
-
+<% if (!index && post.comments && theme.waline && theme.waline.serverURL){ %>
 <section id="comment">
-  <!-- 评论代码 -->
-  <div id="gitalk-container"></div>
-  <link rel="stylesheet" href="/css/gitalk.css">
-  <script src="/js/md5.min.js"></script>
-  <script src="/js/gitalk.min.js"></script>
-  <script>
-  const gitalk = new Gitalk({
-    clientID: '0eb512031083d6e7edfb',
-    clientSecret: 'e830808995dd813ca26fed50573760963457da37',
-    repo: 'hscspring.github.io',
-    owner: 'hscspring',
-    admin: ['hscspring'],
-    id: md5(location.pathname),
-    distractionFreeMode: false,
-    // gitalk 默认 cors-anywhere.azm.workers.dev 已被 GitHub 限流；改用社区可用的 deno 代理
-    proxy: 'https://strangeised-wisely-ftq.deno.dev/https://github.com/login/oauth/access_token'
-  })
-  gitalk.render('gitalk-container')
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@waline/client@3/dist/waline.css">
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://cdn.jsdelivr.net/npm/@waline/client@3/dist/waline.js';
+    init({
+      el: '#waline',
+      serverURL: '<%= theme.waline.serverURL %>',
+      lang: 'zh-CN',
+      path: window.location.pathname,
+      emoji: [
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bilibili'
+      ],
+      reaction: true,
+      pageview: false,
+      comment: true
+    });
   </script>
-  <!-- 评论代码已完成 -->
 </section>
 <% } %>

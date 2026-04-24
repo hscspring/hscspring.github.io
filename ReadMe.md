@@ -47,7 +47,7 @@ npx hexo g         # 验证能 build 出来
 - **公式书写**：`$inline$` 行内 + `$$display$$` 块级，注意 LaTeX 内部用半角括号；Nunjucks 已通过 `scripts/disable-nunjucks.js` 全局禁用，避免 `{{ }}` 冲突
 - **首页副标题**：`themes/cyanstyle/layout/_partial/header.ejs` 在构建期从 `source/sayingview/sayings.yml` 随机抽取一句（替代了原来的 hitokoto.us）
 - **本地搜索**：`scripts/search-generator.js` 构建期生成 `search.json`，侧栏 `_widget/search.ejs` 原生 JS 懒加载，无第三方依赖
-- **评论**：Gitalk，资源（CSS/JS/md5）已本地化到 `themes/cyanstyle/source/{css,js}/`，避免代理问题
+- **评论**：Waline，自托管在 Vercel + LeanCloud，绑域名 `comment.yam.gift`（与 toolhub 共用同一后端）。前端走 jsDelivr CDN。配置项见 `themes/cyanstyle/_config.yml` 的 `waline.serverURL`
 - **自定义域名**：`source/CNAME` 在 `_config.yml` 的 `skip_render` 中，每次 build 自动复制到 `public/CNAME`
 - **OG 封面**：`source/og.jpg`（站点级别），`_config.yml` 里 `image: https://yam.gift/og.jpg`
 
