@@ -382,58 +382,6 @@
 
 
   
-    <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project post type-post status-publish format-standard hentry">
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">The Rust Programming Language Brief Note (Vol5-Project)</a>
-    </h1>
-  
-
-        
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <div class="toc"><ul class="toc-item"><li><span><a href="#2-Programming-Guess" data-toc-modified-id="2-Programming-Guess-1">2 Programming Guess</a></span></li><li><span><a href="#12-An-I/O-Project:-Building-a-Command-Line-Program" data-toc-modified-id="12-An-I/O-Project:-Building-a-Command-Line-Program-2">12 An I/O Project: Building a Command Line Program</a></span></li><li><span><a href="#20-Final-Project,-Building-a-Multithreaded-Web-Server" data-toc-modified-id="20-Final-Project,-Building-a-Multithreaded-Web-Server-3">20 Final Project, Building a Multithreaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-Building-a-Single-Threaded-Web-Server" data-toc-modified-id="20-1-Building-a-Single-Threaded-Web-Server-3.1">20-1 Building a Single-Threaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-1-Listening-to-the-Tcp-Connection" data-toc-modified-id="20-1-1-Listening-to-the-Tcp-Connection-3.1.1">20-1-1 Listening to the Tcp Connection</a></span></li><li><span><a href="#20-1-2-Reading-the-Request" data-toc-modified-id="20-1-2-Reading-the-Request-3.1.2">20-1-2 Reading the Request</a></span></li><li><span><a href="#20-1-3-Writing-a-Response" data-toc-modified-id="20-1-3-Writing-a-Response-3.1.3">20-1-3 Writing a Response</a></span></li><li><span><a href="#20-1-4-Returning-Real-HTML" data-toc-modified-id="20-1-4-Returning-Real-HTML-3.1.4">20-1-4 Returning Real HTML</a></span></li><li><span><a href="#20-1-5-Validating-the-Request-and-Selectively-Responding" data-toc-modified-id="20-1-5-Validating-the-Request-and-Selectively-Responding-3.1.5">20-1-5 Validating the Request and Selectively Responding</a></span></li><li><span><a href="#20-1-6-A-Touch-of-Refactoring" data-toc-modified-id="20-1-6-A-Touch-of-Refactoring-3.1.6">20-1-6 A Touch of Refactoring</a></span></li></ul></li><li><span><a href="#20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server" data-toc-modified-id="20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server-3.2">20-2 Turning Our Single-Threaded Server into a Multithreaded Server</a></span><ul class="toc-item"><li><span><a href="#20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation" data-toc-modified-id="20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation-3.2.1">20-2-1 Simulating a Slow Request in the Current Server Implementation</a></span></li><li><span><a href="#20-2-2-Improving-Throughput-with-a-Thread-Pool" data-toc-modified-id="20-2-2-Improving-Throughput-with-a-Thread-Pool-3.2.2">20-2-2 Improving Throughput with a Thread Pool</a></span><ul class="toc-item"><li><span><a href="#20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request" data-toc-modified-id="20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request-3.2.2.1">20-2-2-1 Code Structure If We Could Spawn a Thread for Each Request</a></span></li><li><span><a href="#20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads" data-toc-modified-id="20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads-3.2.2.2">20-2-2-2 Creating a Similar Interface for a Finite Number of Threads</a></span></li><li><span><a href="#20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development" data-toc-modified-id="20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development-3.2.2.3">20-2-2-3 Building the <code>ThreadPool</code> Struct Using Compiler Driven Development</a></span></li><li><span><a href="#20-2-2-4-Validating-the-Number-of-Threads-in-new" data-toc-modified-id="20-2-2-4-Validating-the-Number-of-Threads-in-new-3.2.2.4">20-2-2-4 Validating the Number of Threads in <code>new</code></a></span></li><li><span><a href="#20-2-2-5-Creating-Space-to-Store-the-Threads" data-toc-modified-id="20-2-2-5-Creating-Space-to-Store-the-Threads-3.2.2.5">20-2-2-5 Creating Space to Store the Threads</a></span></li><li><span><a href="#20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread" data-toc-modified-id="20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread-3.2.2.6">20-2-2-6 A <code>Worker</code> Struct Responsible for Sending Code from the <code>ThreadPool</code> to a Thread</a></span></li><li><span><a href="#20-2-2-7-Sending-Requests-to-Threads-via-Channels" data-toc-modified-id="20-2-2-7-Sending-Requests-to-Threads-via-Channels-3.2.2.7">20-2-2-7 Sending Requests to Threads via Channels</a></span></li><li><span><a href="#20-2-2-8-Implementing-the-execute-Method" data-toc-modified-id="20-2-2-8-Implementing-the-execute-Method-3.2.2.8">20-2-2-8 Implementing the <code>execute</code> Method</a></span></li></ul></li></ul></li><li><span><a href="#20-3-Graceful-Shutdown-and-Cleanup" data-toc-modified-id="20-3-Graceful-Shutdown-and-Cleanup-3.3">20-3 Graceful Shutdown and Cleanup</a></span><ul class="toc-item"><li><span><a href="#20-3-1-Implementing-the-Drop-Trait-on-ThreadPool" data-toc-modified-id="20-3-1-Implementing-the-Drop-Trait-on-ThreadPool-3.3.1">20-3-1 Implementing the <code>Drop</code> Trait on <code>ThreadPool</code></a></span></li><li><span><a href="#20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs" data-toc-modified-id="20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs-3.3.2">20-3-2 Signaling to the Threads to Stop Listening for Jobs</a></span></li></ul></li></ul></li></ul></div>
-<h2 id="2-Programming-Guess">2 Programming Guess</h2>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">foo</span> = <span class="number">5</span>; <span class="comment">// immutable </span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">bar</span> = <span class="number">5</span>; <span class="comment">// mutable</span></span><br><span class="line"></span><br><span class="line">io::<span class="title function_ invoke__">stdin</span>().<span class="title function_ invoke__">read_line</span>(&amp;<span class="keyword">mut</span> guess) </span><br><span class="line">    .<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Failed to read line&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">guess</span>: <span class="type">u32</span> = guess.<span class="title function_ invoke__">trim</span>().<span class="title function_ invoke__">parse</span>()</span><br><span class="line">	.<span class="title function_ invoke__">expect</span>(<span class="string">&quot;input a number&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">guess</span>: <span class="type">u32</span> = <span class="keyword">match</span> guess.<span class="title function_ invoke__">trim</span>().<span class="title function_ invoke__">parse</span>() &#123;</span><br><span class="line">     <span class="title function_ invoke__">Ok</span>(num) =&gt; num,</span><br><span class="line">     <span class="title function_ invoke__">Err</span>(_) =&gt; <span class="keyword">continue</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">match</span> guess.<span class="title function_ invoke__">cmp</span>(&amp;secret_number) &#123; </span><br><span class="line">     Ordering::Less =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Too small!&quot;</span>), </span><br><span class="line">     Ordering::Greater =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Too big!&quot;</span>), </span><br><span class="line">     Ordering::Equal =&gt; &#123;</span><br><span class="line">     	<span class="built_in">println!</span>(<span class="string">&quot;You win!&quot;</span>);</span><br><span class="line">    	<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo doc --open // documents</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">
-    <time datetime="2019-12-03T04:00:00.000Z" class="entry-date">
-        2019-12-03
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Coding/">Coding</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graceful-Shutdown/" rel="tag">Graceful Shutdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Server-Multithreaded-Server/" rel="tag">Web Server Multithreaded Server</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
     <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance post type-post status-publish format-standard hentry">
       <header class="entry-header">
         
@@ -481,6 +429,58 @@
     
   <span class="article-delim">&#8226;</span>
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
+    <article id="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project" class="post-Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project post type-post status-publish format-standard hentry">
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">The Rust Programming Language Brief Note (Vol5-Project)</a>
+    </h1>
+  
+
+        
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <div class="toc"><ul class="toc-item"><li><span><a href="#2-Programming-Guess" data-toc-modified-id="2-Programming-Guess-1">2 Programming Guess</a></span></li><li><span><a href="#12-An-I/O-Project:-Building-a-Command-Line-Program" data-toc-modified-id="12-An-I/O-Project:-Building-a-Command-Line-Program-2">12 An I/O Project: Building a Command Line Program</a></span></li><li><span><a href="#20-Final-Project,-Building-a-Multithreaded-Web-Server" data-toc-modified-id="20-Final-Project,-Building-a-Multithreaded-Web-Server-3">20 Final Project, Building a Multithreaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-Building-a-Single-Threaded-Web-Server" data-toc-modified-id="20-1-Building-a-Single-Threaded-Web-Server-3.1">20-1 Building a Single-Threaded Web Server</a></span><ul class="toc-item"><li><span><a href="#20-1-1-Listening-to-the-Tcp-Connection" data-toc-modified-id="20-1-1-Listening-to-the-Tcp-Connection-3.1.1">20-1-1 Listening to the Tcp Connection</a></span></li><li><span><a href="#20-1-2-Reading-the-Request" data-toc-modified-id="20-1-2-Reading-the-Request-3.1.2">20-1-2 Reading the Request</a></span></li><li><span><a href="#20-1-3-Writing-a-Response" data-toc-modified-id="20-1-3-Writing-a-Response-3.1.3">20-1-3 Writing a Response</a></span></li><li><span><a href="#20-1-4-Returning-Real-HTML" data-toc-modified-id="20-1-4-Returning-Real-HTML-3.1.4">20-1-4 Returning Real HTML</a></span></li><li><span><a href="#20-1-5-Validating-the-Request-and-Selectively-Responding" data-toc-modified-id="20-1-5-Validating-the-Request-and-Selectively-Responding-3.1.5">20-1-5 Validating the Request and Selectively Responding</a></span></li><li><span><a href="#20-1-6-A-Touch-of-Refactoring" data-toc-modified-id="20-1-6-A-Touch-of-Refactoring-3.1.6">20-1-6 A Touch of Refactoring</a></span></li></ul></li><li><span><a href="#20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server" data-toc-modified-id="20-2-Turning-Our-Single-Threaded-Server-into-a-Multithreaded-Server-3.2">20-2 Turning Our Single-Threaded Server into a Multithreaded Server</a></span><ul class="toc-item"><li><span><a href="#20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation" data-toc-modified-id="20-2-1-Simulating-a-Slow-Request-in-the-Current-Server-Implementation-3.2.1">20-2-1 Simulating a Slow Request in the Current Server Implementation</a></span></li><li><span><a href="#20-2-2-Improving-Throughput-with-a-Thread-Pool" data-toc-modified-id="20-2-2-Improving-Throughput-with-a-Thread-Pool-3.2.2">20-2-2 Improving Throughput with a Thread Pool</a></span><ul class="toc-item"><li><span><a href="#20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request" data-toc-modified-id="20-2-2-1-Code-Structure-If-We-Could-Spawn-a-Thread-for-Each-Request-3.2.2.1">20-2-2-1 Code Structure If We Could Spawn a Thread for Each Request</a></span></li><li><span><a href="#20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads" data-toc-modified-id="20-2-2-2-Creating-a-Similar-Interface-for-a-Finite-Number-of-Threads-3.2.2.2">20-2-2-2 Creating a Similar Interface for a Finite Number of Threads</a></span></li><li><span><a href="#20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development" data-toc-modified-id="20-2-2-3-Building-the-ThreadPool-Struct-Using-Compiler-Driven-Development-3.2.2.3">20-2-2-3 Building the <code>ThreadPool</code> Struct Using Compiler Driven Development</a></span></li><li><span><a href="#20-2-2-4-Validating-the-Number-of-Threads-in-new" data-toc-modified-id="20-2-2-4-Validating-the-Number-of-Threads-in-new-3.2.2.4">20-2-2-4 Validating the Number of Threads in <code>new</code></a></span></li><li><span><a href="#20-2-2-5-Creating-Space-to-Store-the-Threads" data-toc-modified-id="20-2-2-5-Creating-Space-to-Store-the-Threads-3.2.2.5">20-2-2-5 Creating Space to Store the Threads</a></span></li><li><span><a href="#20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread" data-toc-modified-id="20-2-2-6-A-Worker-Struct-Responsible-for-Sending-Code-from-the-ThreadPool-to-a-Thread-3.2.2.6">20-2-2-6 A <code>Worker</code> Struct Responsible for Sending Code from the <code>ThreadPool</code> to a Thread</a></span></li><li><span><a href="#20-2-2-7-Sending-Requests-to-Threads-via-Channels" data-toc-modified-id="20-2-2-7-Sending-Requests-to-Threads-via-Channels-3.2.2.7">20-2-2-7 Sending Requests to Threads via Channels</a></span></li><li><span><a href="#20-2-2-8-Implementing-the-execute-Method" data-toc-modified-id="20-2-2-8-Implementing-the-execute-Method-3.2.2.8">20-2-2-8 Implementing the <code>execute</code> Method</a></span></li></ul></li></ul></li><li><span><a href="#20-3-Graceful-Shutdown-and-Cleanup" data-toc-modified-id="20-3-Graceful-Shutdown-and-Cleanup-3.3">20-3 Graceful Shutdown and Cleanup</a></span><ul class="toc-item"><li><span><a href="#20-3-1-Implementing-the-Drop-Trait-on-ThreadPool" data-toc-modified-id="20-3-1-Implementing-the-Drop-Trait-on-ThreadPool-3.3.1">20-3-1 Implementing the <code>Drop</code> Trait on <code>ThreadPool</code></a></span></li><li><span><a href="#20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs" data-toc-modified-id="20-3-2-Signaling-to-the-Threads-to-Stop-Listening-for-Jobs-3.3.2">20-3-2 Signaling to the Threads to Stop Listening for Jobs</a></span></li></ul></li></ul></li></ul></div>
+<h2 id="2-Programming-Guess">2 Programming Guess</h2>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="variable">foo</span> = <span class="number">5</span>; <span class="comment">// immutable </span></span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut </span><span class="variable">bar</span> = <span class="number">5</span>; <span class="comment">// mutable</span></span><br><span class="line"></span><br><span class="line">io::<span class="title function_ invoke__">stdin</span>().<span class="title function_ invoke__">read_line</span>(&amp;<span class="keyword">mut</span> guess) </span><br><span class="line">    .<span class="title function_ invoke__">expect</span>(<span class="string">&quot;Failed to read line&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">guess</span>: <span class="type">u32</span> = guess.<span class="title function_ invoke__">trim</span>().<span class="title function_ invoke__">parse</span>()</span><br><span class="line">	.<span class="title function_ invoke__">expect</span>(<span class="string">&quot;input a number&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="variable">guess</span>: <span class="type">u32</span> = <span class="keyword">match</span> guess.<span class="title function_ invoke__">trim</span>().<span class="title function_ invoke__">parse</span>() &#123;</span><br><span class="line">     <span class="title function_ invoke__">Ok</span>(num) =&gt; num,</span><br><span class="line">     <span class="title function_ invoke__">Err</span>(_) =&gt; <span class="keyword">continue</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">match</span> guess.<span class="title function_ invoke__">cmp</span>(&amp;secret_number) &#123; </span><br><span class="line">     Ordering::Less =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Too small!&quot;</span>), </span><br><span class="line">     Ordering::Greater =&gt; <span class="built_in">println!</span>(<span class="string">&quot;Too big!&quot;</span>), </span><br><span class="line">     Ordering::Equal =&gt; &#123;</span><br><span class="line">     	<span class="built_in">println!</span>(<span class="string">&quot;You win!&quot;</span>);</span><br><span class="line">    	<span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cargo doc --open // documents</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/">
+    <time datetime="2019-12-03T04:00:00.000Z" class="entry-date">
+        2019-12-03
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Coding/">Coding</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Graceful-Shutdown/" rel="tag">Graceful Shutdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Server-Multithreaded-Server/" rel="tag">Web Server Multithreaded Server</a></li></ul>
 
     </footer>
 </article>

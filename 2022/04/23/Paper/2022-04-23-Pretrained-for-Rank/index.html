@@ -245,10 +245,35 @@
         'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo',
         'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/bilibili'
       ],
-      reaction: true,
+      // 自定义 8 个 reaction，全部走 jsdelivr，避开默认 unpkg
+      // 文件名取自 @waline/emojis 1.1.0 weibo 子集，需带 weibo_ 前缀
+      reaction: [
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_lovely.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_clap.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_laugh.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_think.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_doge.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_heart_eyes.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_yum.png',
+        'https://cdn.jsdelivr.net/gh/walinejs/emojis@1.1.0/weibo/weibo_sob.png'
+      ],
       pageview: false,
       comment: true
     });
+
+    // 历史评论里硬编码了 unpkg.com 的 emoji URL（国内不稳），运行时改写到 jsdelivr
+    const rewriteEmojiCDN = () => {
+      document.querySelectorAll('#waline img[src*="unpkg.com/@waline"]').forEach((img) => {
+        img.src = img.src
+          .replace('https://unpkg.com/', 'https://cdn.jsdelivr.net/npm/')
+          .replace('http://unpkg.com/', 'https://cdn.jsdelivr.net/npm/')
+          .replace(/^\/\/unpkg\.com\//, 'https://cdn.jsdelivr.net/npm/');
+      });
+    };
+    const walineEl = document.getElementById('waline');
+    if (walineEl) {
+      new MutationObserver(rewriteEmojiCDN).observe(walineEl, { childList: true, subtree: true });
+    }
   </script>
 </section>
 
