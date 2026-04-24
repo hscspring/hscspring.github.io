@@ -1,0 +1,427 @@
+# 长琴对账簿 · 数据
+# ============================================================
+# 字段说明：
+#   id        : 全局唯一编号
+#   date      : 判断写下的日期 (YYYY-MM-DD)，草稿统一用 "(草稿)" 前缀
+#   category  : 职业 / 技术 / 行业 / 科学 / 方法论
+#   text      : 一句话核心判断（≤ 60 字）
+#   status    : verified ✅ / partial 🔄 / pending ⏳ / strong ✅✅ / failed ❌
+#   verified_at : 验证日期 (YYYY-MM 或 null)
+#   source    : 出处文章名
+#   url       : 出处链接（可空）
+#   note      : 验证后的简短说明（≤ 80 字）
+# ============================================================
+
+- id: 1
+  date: 2023-02-21
+  category: 职业
+  text: NLP 工程师这个职业可能彻底消亡
+  status: verified
+  verified_at: 2025-12
+  source: 《ChatGPT 影响冲击：职业、行业与产业》
+  url: /2023/02/21/NLP/2023-02-21-ChatGPT-Impact/
+  note: 3 年后回看，传统 NLP 任务 90% 被一行 LLM API 替代，"NLP 算法岗"基本消失，剩下合并为"LLM 算法岗"。
+
+- id: 2
+  date: 2023-02-21
+  category: 职业
+  text: Prompt 工程师注定是个昙花一现的职位
+  status: verified
+  verified_at: 2024-12
+  source: 《ChatGPT 影响冲击》《关于大语言模型的思考》
+  url: /2023/10/15/NLP/2023-10-15-Think-About-LLM/
+  note: 2024 起这个 title 已从主流 JD 消失，留下的全部叫"应用工程师"或"Agent 工程师"。
+
+- id: 3
+  date: 2023-02-21
+  category: 职业
+  text: 未来只剩 AI 算法 + 传统 ML 两种算法工程师
+  status: verified
+  verified_at: 2025-12
+  source: 《ChatGPT 影响冲击》
+  url: /2023/02/21/NLP/2023-02-21-ChatGPT-Impact/
+  note: NLP / CV / 语音三大算法岗 2024-2026 完全合并为"多模态 LLM 算法岗"。
+
+- id: 4
+  date: 2024-12-20
+  category: 职业
+  text: 算法工程师未来主要做"LLM 之外的剩余 10%"
+  status: pending
+  verified_at: null
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 业务工程 / 多 Agent 编排 / RL 后训练 / 推理加速正在成为新的护城河岗，但还没全面到位。
+
+- id: 5
+  date: 2025-02-17
+  category: 职业
+  text: 算法工程师必须先是个工程师
+  status: verified
+  verified_at: 2025-09
+  source: 《DeepSeek R1 深度技术解析》
+  url: /2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/
+  note: 2025 起所有头部公司算法岗 JD 都加了"工程能力优先"。
+
+- id: 6
+  date: 2018-07-22
+  category: 技术
+  text: AI = 先验 + 演绎 + 归纳 三件套（九宫格框架）
+  status: verified
+  verified_at: 2025-02
+  source: 《NLP 与 AI》
+  url: /2018/07/22/NLP/2018-07-22-NLP-and-AI/
+  note: 8 年后 LLM（归纳）+ RL（演绎）+ RAG/KG（先验）正是当下主流大模型架构三件套。框架性判断比单点预言更稀缺。
+
+- id: 7
+  date: 2018-09-19
+  category: 技术
+  text: 多模态是 NLP 必然方向（伏笔于 2018，明确于 2021）
+  status: verified
+  verified_at: 2024-05
+  source: 《NLPFA Ch01 NLP 的方向》首发；《Senta：百度情感分析模型》明确判断
+  url: /2018/09/19/NLP/NLPFA/2018-09-19-Ch01-Orientation-of-NLP/
+  note: 2018-09 NLP 大纲就把多模态列为子方向；2021-10 在 Senta 一文里明确"必然"判断。2 年后 GPT-4V，4 年后 Gemini/Sora/Veo 全面爆发。
+
+- id: 8
+  date: 2022-03-27
+  category: 技术
+  text: 句子表征下一次创新会从"段到句"
+  status: partial
+  verified_at: 2024-12
+  source: 《句子表征综述》
+  url: /2022/03/27/NLP/2022-03-27-Sentence-Representation-Summarization/
+  note: 尺度跃迁押对了，但形态被 long-context Transformer 直接吃掉，不是我猜的"段→句"对称建模。
+
+- id: 9
+  date: 2023-02-21 (草稿)
+  category: 技术
+  text: 强化学习是新方向；下一招"先思考再生成"
+  status: strong
+  verified_at: 2024-09
+  source: 同日草稿《ChatGPT 实现流程》（未发布）
+  url: ""
+  note: 18 个月后 OpenAI o1 发布，23 个月后 R1。**目前发现最早的 reasoning paradigm 预言**。
+
+- id: 10
+  date: 2023-10-15
+  category: 技术
+  text: DPO 和 PPO 不在一个维度上，看好 PPO 系
+  status: verified
+  verified_at: 2025-02
+  source: 《关于大语言模型的思考》
+  url: /2023/10/15/NLP/2023-10-15-Think-About-LLM/
+  note: 18 个月内 R1 / Kimi-K1.5 / DAPO / GRPO / GSPO / CISPO 全部走 PPO 系，没有一个走 DPO。
+
+- id: 11
+  date: 2024-12-20
+  category: 技术
+  text: o1 + RL 是不被很多人重视、但很可能带来下一次革命的组合
+  status: verified
+  verified_at: 2025-01
+  source: 《关于 AI 前沿的思考》明确判断；《ChatGPT Prompt 工程》（2023-01-25）已伏笔
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 写完 60 天后 R1 发布，全行业转向 RL。从 2018 押 RL 7 年的冷板凳兑现。早期伏笔：2023-01-25 已在 Prompt 工程一文里写"推理是下一突破点"，比 o1 发布早 20 个月。
+
+- id: 12
+  date: 2025-02-17
+  category: 技术
+  text: R1 之后所有 LLM 都会"R1"一下
+  status: verified
+  verified_at: 2025-08
+  source: 《DeepSeek R1 深度技术解析》
+  url: /2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/
+  note: Qwen3 / Kimi-K2 / GPT-5 / Gemini-2.5 / Claude 4.5 / 豆包 1.5 全部 R1 一下。"R1 一下"成了行业 verb。
+
+- id: 13
+  date: 2026-03-01
+  category: 技术
+  text: DLM 的关键根本不是并行，而是模式
+  status: pending
+  verified_at: null
+  source: 《DLM 漫谈》
+  url: /2026/03/01/NLP/LLM/2026-03-01-DLM/
+  note: 把 DLM 当"更快的 AR"是浪费，价值在"非线性 / 可中断 / 全局感知"的思考模式。trend 在向这边走。
+
+- id: 14
+  date: 2018-07-12
+  category: 技术
+  text: OpenClaw 之上必然出现"Agent of Agents"编排管理层（首发于 2018，明确于 2024）
+  status: pending
+  verified_at: null
+  source: 《NLP 业务与系统》愿景种子；《LLM Tiny Pretrain》（2024-02-03）明确判断；《从 OpenClaw 到 AI Coding》（2026-03-13）落地形态
+  url: /2018/07/12/NLP/2018-07-12-NLP-Business-and-System/
+  note: 2018-07 BERT 都没出，就在 NLP-Business 里画过"两个机器人对话帮我点餐"的未来；2024-02 在小模型语境下升级成"组合是目的"；2026-03 OpenClaw 出现后给出具体落地形态。可证伪条件：到 2027-12 仍无 GitHub star ≥ 10K 的多 Agent 编排管理产品则修正。
+
+- id: 15
+  date: 2019-07-20
+  category: 行业
+  text: 当时火热的"AI 客服"基本是模板分类器
+  status: strong
+  verified_at: 2023-12
+  source: 《ChatBot 设计》
+  url: /2019/07/20/NLP/2019-07-20-ChatBot-Design/
+  note: 2019 大众媒体宠儿，2023 后 LLM 普及那一代"伪 AI 客服"几乎全被淘汰。让我从 2019 起就避开了那个赛道泡沫。
+
+- id: 16
+  date: 2023-02-21
+  category: 行业
+  text: 个人或几个人能做以前成百上千人的事
+  status: verified
+  verified_at: 2024-12
+  source: 《ChatGPT 影响冲击》
+  url: /2023/02/21/NLP/2023-02-21-ChatGPT-Impact/
+  note: 写时 GPT-4 还没发。Cursor / Bolt / Devin / V0 验证到刺眼——10 万 ARR SaaS 后面常常只站一个人。3 年后亲自印证：2026-01-01《以 AI Coding 之管窥探世界之变》写"AI 超级个体时代即将来临"。
+
+- id: 17
+  date: 2023-02-21
+  category: 行业
+  text: AI 研究和应用会两极化、中间层算法工程师在夹缝中求生
+  status: verified
+  verified_at: 2025-06
+  source: 《ChatGPT 影响冲击》首发；《OpenAIGC》（2023-11-04）心理化深化
+  url: /2023/02/21/NLP/2023-02-21-ChatGPT-Impact/
+  note: 国内基模公司收敛到 5-7 家。"调 BERT、做特征工程"那批人在经历转岗潮。残忍程度被严重低估。8 个月后在 OpenAIGC 一文里把同一个判断"心理化"："算法研究的聚集化和算法应用的普及化……两头都卷"。
+
+- id: 18
+  date: 2023-04-15
+  category: 行业
+  text: LLM 作为外部"最强大脑"会被每个人轻易获取
+  status: verified
+  verified_at: 2025-06
+  source: 《ChatGPT 介绍》
+  url: /2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/
+  note: 2024-2025 ChatGPT/豆包/Kimi/DS/Claude/Gemini 全面移动端化、免费化。2026 国内上亿月活。
+
+- id: 19
+  date: 2023-02-21
+  category: 行业
+  text: LLM 会成为像电、像 K8S 一样的 Infra（首发于 2023-02）
+  status: verified
+  verified_at: 2024-12
+  source: 《ChatGPT 影响冲击》首发"新电力"类比；《关于大语言模型的思考》（2023-10-15）K8S/容器具象化
+  url: /2023/02/21/NLP/2023-02-21-ChatGPT-Impact/
+  note: 2023-02 用"无处不在的电"类比（早于"K8S"说法 8 个月）；2023-10 K8S/容器更具象化。pip install openai 已经像 pip install requests 一样常见。Infra 化速度比当年 K8S 还快。
+
+- id: 20
+  date: 2024-12-20
+  category: 行业
+  text: 不会有某个突然的 AGI 时刻、AGI 是分形过程
+  status: pending
+  verified_at: null
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 16 个月没有"GPT-5 引爆 AGI"那种戏剧时刻。R1 / Sonnet / Cursor / Veo 3 / o3 / Sora 2 都是分形进步。
+
+- id: 21
+  date: 2024-12-20
+  category: 行业
+  text: 主动性将成为稀缺生产要素
+  status: pending
+  verified_at: null
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 已能在身边看到信号——人和人差距不再是"会不会用 AI"，而是"想不想用、敢不敢决定要做什么"。
+
+- id: 22
+  date: 2025-05-01
+  category: 行业
+  text: MCP 从技术层面没什么，热闹一阵会冷
+  status: verified
+  verified_at: 2026-04
+  source: 《Seed Thinking & Qwen3》
+  url: /2025/05/01/NLP/LLM-Training/2025-05-01-Seed-Thinking-Qwen3/
+  note: 写时 MCP 正爆火、所有 LLM/Agent 平台抢着接入。1 年后回看，MCP 已从顶峰回落，"MCP everything"hype 退潮，主流回归 Function Calling/自家 Agent 协议。反 hype + 短窗口的判断。
+
+- id: 23
+  date: 2016-03-31
+  category: 科学
+  text: AI 与 IA 双线并进，奇点不可知
+  status: verified
+  verified_at: 2024-12
+  source: 《与机器人共舞》读后感兼谈 AI 与 IA
+  url: /2016/03/31/AI/2016-03-31-Machines-of-Loving-Grace/
+  note: 博客上**最早**的可挂年限预言。AI（LLM/Agent）+ IA（Cursor/Copilot）双线并进，"奇点不可知"也对。
+
+- id: 24
+  date: 2017-09-07
+  category: 科学
+  text: 我们关注的从来不是信息，而是共鸣
+  status: pending
+  verified_at: null
+  source: 《语言、AI、情感》
+  url: /2017/09/07/NLP/2017-09-07-Language-AI-Emotion/
+  note: 2017 "AI 陪聊"还被嘲笑。9 年后 Character.ai/Talkie/Replika 月活成亿。共鸣是底层需求。
+
+- id: 25
+  date: 2020-11-28
+  category: 科学
+  text: 知识足够多就有可能产生"智慧"（机器同理）
+  status: verified
+  verified_at: 2022-11
+  source: 《分类与 AI》
+  url: /2020/11/28/AI/2020-11-28-Classification-and-AI/
+  note: 写时 GPT-3 paper 出来才半年。两年后 ChatGPT 验证了 emergence。Scaling Law / 知识压缩两边都中。
+
+- id: 27
+  date: 2024-12-20
+  category: 科学
+  text: 视频 AI 两年内做出"人想看的电影"是过于乐观
+  status: pending
+  verified_at: null
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 反 Bob 预言。Veo 3 / Sora 2 在 30 秒短片接近"可看"，"想看的电影"未到。目前我赢面更大。
+
+- id: 28
+  date: 2024-12-20
+  category: 科学
+  text: 具身智能 2-3 年元年（不需 5 年）
+  status: pending
+  verified_at: null
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: 2025 起 Figure / 1X / 智元 / 宇树动作密集，2026 普遍被当作"具身智能元年"。两次反 Bob 我赢概率更大。
+
+- id: 29
+  date: 2024-12-20
+  category: 科学
+  text: 2025 是语音 Agent 爆发年
+  status: verified
+  verified_at: 2025-12
+  source: 《关于 AI 前沿的思考》
+  url: /2024/12/20/NLP/2024-12-20-Think-About-AI-and-Related/
+  note: OMNI / ElevenLabs / SesameAI / 字节豆包 / Cosyvoice / Kimi 语音助理一年内全部到位。
+
+- id: 26
+  date: 2023-01-20
+  category: 科学
+  text: 下一突破点是世界模型 + 实时学习（首发于 2023）
+  status: pending
+  verified_at: null
+  source: 《GPT-3 论文笔记》首发；《LLM 应用开发》《群聊中的 AGI 拼图》系统化展开
+  url: /2023/01/20/NLP/2023-01-20-GPT3/
+  note: 2023-01 ChatGPT 出来才 2 个月就在 GPT-3 笔记里把"世界模型"作为下一方向写下；2025-03 重提具身智能 + 世界模型；2025-08 系统化论述"知道自己知道或不知道"的元认知 + Sutton 去中心化神经网络。2026 论文密度上升。可证伪条件：2027 底两条线无工业级进展则修正。
+
+- id: 30
+  date: 2021-02-19
+  category: 方法论
+  text: 真正的稳定 = 任何时候都能找到工作
+  status: verified
+  verified_at: 2025-06
+  source: 《AI 工程师成长 I》
+  url: /2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/
+  note: 2024-2026 互联网寒冬 + LLM 冲击叠加，"待大厂 = 稳定"叙事崩塌。穿越 5 年仍持有的判断比当下灵光稀缺。
+
+- id: 31
+  date: 2023-04-22
+  category: 方法论
+  text: 任务 > 工具
+  status: verified
+  verified_at: 2026-04
+  source: 《ChatGPT 开发指南》
+  url: /2023/04/22/NLP/2023-04-22-ChatGPT-Development/
+  note: 3 年里 LLM 换了 10 茬，任务形状没变。这是其他所有判断之所以站得住的底层操作系统。
+
+- id: 32
+  date: 2025-02-17
+  category: 方法论
+  text: 复现是唯一的认知验证手段
+  status: verified
+  verified_at: 2025-02
+  source: 《DeepSeek R1 深度技术解析》
+  url: /2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/
+  note: 别人的总结不能替你的复现，二手判断没有重量。
+
+- id: 33
+  date: 2025-12-22
+  category: 方法论
+  text: 网上已经有了的，就索然无趣，基本不会再碰
+  status: verified
+  verified_at: 2026-04
+  source: Diary 等多处
+  url: ""
+  note: 解释了为什么我不写"GPT-5 全网最快解读"——已经有人写了的事，挪去做的边际效用为零。
+
+- id: 34
+  date: 2026-01-01
+  category: 方法论
+  text: 大势面前个人努力微不足道，但仍要踩着浪花前进
+  status: verified
+  verified_at: 2026-04
+  source: 《以 AI Coding 之管窥探世界之变》
+  url: /2026/01/01/AI/2026-01-01-From-AI-Coding-Watch-World-Future/
+  note: INTJ 在 2026 找到的妥协解。承认渺小、不放弃前进。古典派写这种话不带矫情。
+
+- id: 35
+  date: 2026-02
+  category: 方法论
+  text: 使命与生命同样重要
+  status: pending
+  verified_at: null
+  source: 个人草稿（未发布）
+  url: ""
+  note: 草稿里写下的句子比对外文案更接近本心。解释了 2024-2026 一系列反主流决定。
+
+- id: 36
+  date: 2026-04-18
+  category: 方法论
+  text: 不读博，但要把博士那部分获益拿到手
+  status: pending
+  verified_at: null
+  source: 私密草稿
+  url: ""
+  note: 5 年后回看才能验证。最反主流的职业选择——逻辑：你已经在过博士生活，你只是没有学位。
+
+# ============================================================
+# 长琴对账·新预言（在验证中，到期后回头标 ✅/❌）
+# ============================================================
+
+- id: P-A
+  date: 2026-04-19
+  category: 技术
+  text: 2027 年底前出现 latent thinking 路线的明确 SOTA
+  status: pending
+  verified_at: null
+  source: 《长琴对账·首篇》预言 A
+  url: /2026/04/19/AI/2026-04-19-Judgments-Decade/
+  note: 可证伪条件：到 2027-12-31，仍没有 reasoning 模型在 AIME / Math-500 / GPQA-Diamond 三个 benchmark 上同时超过同尺寸 token-CoT 模型 ≥5 个百分点的，本预言落空。
+
+- id: P-B
+  date: 2026-04-19
+  category: 技术
+  text: 到 2028 年出现工业级实时学习 / 持续学习方案
+  status: pending
+  verified_at: null
+  source: 《长琴对账·首篇》预言 B
+  url: /2026/04/19/AI/2026-04-19-Judgments-Decade/
+  note: 可证伪条件：到 2028-12-31，仍没有任何主流 base model（参数 ≥7B）支持"在线学习单个用户偏好且不灾难性遗忘"作为开箱即用功能，本预言落空。
+
+- id: P-C
+  date: 2026-04-19
+  category: 行业
+  text: 2027 起"Agent 数据 / RL 范式工程师"成为 LLM 公司硬岗位
+  status: pending
+  verified_at: null
+  source: 《长琴对账·首篇》预言 C
+  url: /2026/04/19/AI/2026-04-19-Judgments-Decade/
+  note: 可证伪条件：到 2027-12-31，国内主流 LLM 公司（DS / Qwen / Kimi / 字节 / 智谱）招聘 JD 中仍未出现独立标题的"Agent Data Engineer"或"RL Pipeline Engineer"岗位，本预言落空。
+
+- id: P-D
+  date: 2026-04-19
+  category: 行业
+  text: 到 2028 年"个人超级助理"产品形态走到日活级
+  status: pending
+  verified_at: null
+  source: 《长琴对账·首篇》预言 D
+  url: /2026/04/19/AI/2026-04-19-Judgments-Decade/
+  note: 可证伪条件：到 2028-12-31，仍没有任何"个人超级助理"产品（含主动 / 长期记忆 / 跨设备）单 App DAU 超过 5000 万，本预言落空。
+
+- id: P-E
+  date: 2026-04-19
+  category: 方法论
+  text: 到 2029 年我会写出一本《Agentic RL 时代的训练范式与数据工程》
+  status: pending
+  verified_at: null
+  source: 《长琴对账·首篇》预言 E
+  url: /2026/04/19/AI/2026-04-19-Judgments-Decade/
+  note: 可证伪条件：到 2029-12-31 仍未出版（任意形式，含电子书 / 付费专栏）此书，本预言落空。
