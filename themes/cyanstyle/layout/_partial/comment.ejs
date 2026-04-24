@@ -14,7 +14,9 @@
     owner: 'hscspring',
     admin: ['hscspring'],
     id: md5(location.pathname),
-    distractionFreeMode: false
+    distractionFreeMode: false,
+    // gitalk 默认 cors-anywhere.azm.workers.dev 已被 GitHub 限流；改用社区可用的 deno 代理
+    proxy: 'https://strangeised-wisely-ftq.deno.dev/https://github.com/login/oauth/access_token'
   })
   gitalk.render('gitalk-container')
   </script>
