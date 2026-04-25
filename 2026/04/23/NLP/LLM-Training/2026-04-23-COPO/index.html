@@ -16,16 +16,16 @@
   
   <title>COPO：基于认知模式的 Step-Level RL 优化 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今天介绍一篇 Agentic RL 的小文章吧，来自 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents，我们在《LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点看下它提出来">
+  <meta name="description" content="今天介绍一篇 Agentic RL 的小文章吧，来自 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents[1]，我们在《LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴[2]》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="COPO：基于认知模式的 Step-Level RL 优化">
 <meta property="og:url" content="https://yam.gift/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/index.html">
 <meta property="og:site_name" content="长琴">
-<meta property="og:description" content="今天介绍一篇 Agentic RL 的小文章吧，来自 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents，我们在《LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点看下它提出来">
+<meta property="og:description" content="今天介绍一篇 Agentic RL 的小文章吧，来自 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents[1]，我们在《LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴[2]》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点">
 <meta property="og:locale">
 <meta property="og:image" content="https://yam.gift/og.jpg">
 <meta property="article:published_time" content="2026-04-23T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-04-25T03:38:05.037Z">
+<meta property="article:modified_time" content="2026-04-25T03:46:40.867Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
@@ -128,7 +128,7 @@
       
             <!-- Table of Contents -->
               
-        <p>今天介绍一篇 Agentic RL 的小文章吧，来自 <a href="https://arxiv.org/abs/2602.12662">2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents</a>，我们在《<a href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/">LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴</a>》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点看下它提出来的 COPO（认知感知策略优化）——用于通过置信度感知优势重加权来实现步骤级的权重分配。</p>
+        <p>今天介绍一篇 Agentic RL 的小文章吧，来自 <a href="https://arxiv.org/abs/2602.12662">2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents</a><sup>[1]</sup>，我们在《<a href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/">LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴</a><sup>[2]</sup>》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点看下它提出来的 COPO（认知感知策略优化）——用于通过置信度感知优势重加权来实现步骤级的权重分配。</p>
 <span id="more"></span>
 <p>出发点很简单，GRPO 对轨迹中的所有步骤统一分配优势，并不会区分每一步所采用的认知模式在当前上下文中是否合适。COPO 基于动作预测的置信度，实现了逐步（step-level）的信用分配。这里有个关键洞察：合适的认知模式应当能够促进模型做出高置信度且正确的动作选择。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-scdala-1.jpg" alt=""></p>
@@ -218,6 +218,12 @@ M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class
 <p>上图右边则是算法对短（S）、中（M）和长（L）三类任务（轨迹越长越复杂）的感知情况，COPO 展现出明显的复杂度感知适应能力：能够随着任务复杂度的提升按比例<strong>增加认知投入</strong>。而 GRPO 在所有难度级别上都保持近乎均匀的分布。</p>
 <h2 id="小结">小结</h2>
 <p>我们看到 COPO 的思想其实非常的直观，而且你看，其实它还是变着花样搞数据，而且目测，这种 ”花样“ 还会有更多。原因也很简单，对于后训练来说，数据一定是排在第一位的，具体来说——什么样的数据以什么样的方式给模型——就是后训练的核心了。</p>
+<h2 id="Reference">Reference</h2>
+<p><code>[1]</code> 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents: <em><a href="https://arxiv.org/abs/2602.12662">https://arxiv.org/abs/2602.12662</a></em><br>
+<code>[2]</code> LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴: <em><a href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/">https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/</a></em></p>
+<blockquote>
+<p>本文已收录至 <a href="https://github.com/hscspring/rl-llm-nlp">rl-llm-nlp</a> —— 一份带观点的 post-R1 LLM × RL 编年史与论文索引。如果你对相关话题有想法，欢迎来 <a href="https://github.com/hscspring/rl-llm-nlp/issues">Issues</a> 拍砖。</p>
+</blockquote>
 
       
     </div><!-- .entry-content -->
