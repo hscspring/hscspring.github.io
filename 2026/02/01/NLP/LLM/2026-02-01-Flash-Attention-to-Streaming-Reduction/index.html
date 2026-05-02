@@ -16,6 +16,7 @@
   
   <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="canonical" href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/">
   <meta name="description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“可结合的累积结构”与“平移&#x2F;缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算">
