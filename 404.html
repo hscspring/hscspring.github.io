@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>页面跳转中... | 长琴</title>
+<style>
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    color: #333;
+    line-height: 1.7;
+  }
+  h1 { color: rgb(81, 165, 168); font-size: 28px; margin: 0 0 12px; }
+  .hint { color: #888; font-size: 15px; margin: 0 0 30px; }
+  .url { color: #c0392b; font-family: Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; }
+  .links { margin-top: 30px; }
+  .links a { color: rgb(81, 165, 168); margin-right: 20px; text-decoration: none; border-bottom: 1px dashed; }
+  .links a:hover { border-bottom-style: solid; }
+  #status { color: #888; font-size: 14px; }
+  .matches { margin-top: 30px; }
+  .match-item { padding: 10px 0; border-bottom: 1px solid #eee; }
+  .match-item a { color: rgb(81, 165, 168); text-decoration: none; }
+  .match-item a:hover { text-decoration: underline; }
+  .match-date { color: #aaa; font-size: 12px; margin-left: 10px; }
+</style>
+</head>
+<body>
+
+<h1 id="title">页面跳转中...</h1>
+<p class="hint" id="hint">正在为你查找正确的地址...</p>
+<p id="status"></p>
+
+<div id="not-found" hidden>
+  <p>抱歉，没找到你要访问的页面：</p>
+  <p class="url" id="url-shown"></p>
+  <p class="hint">这个 URL 可能已迁移、删除，或者本来就是个错误链接。</p>
+  <div class="links">
+    <a href="/">返回首页</a>
+    <a href="/archives/">看看存档</a>
+    <a href="/series/">导览</a>
+  </div>
+  <div class="matches" id="matches"></div>
+</div>
+
+<script>
+(async function () {
+  var status = document.getElementById('status');
+  var notFound = document.getElementById('not-found');
+  var urlShown = document.getElementById('url-shown');
+  var matchesEl = document.getElementById('matches');
+  var title = document.getElementById('title');
+  var hint = document.getElementById('hint');
+
+  function showNotFound(msg) {
+    title.textContent = '404 — 页面找不到了';
+    hint.textContent = '';
+    status.textContent = '';
+    urlShown.textContent = location.pathname + location.search;
+    notFound.hidden = false;
+    if (msg) {
+      var p = document.createElement('p');
+      p.className = 'hint';
+      p.textContent = msg;
+      notFound.insertBefore(p, notFound.firstChild);
+    }
+  }
+
+  function redirect(url, reason) {
+    status.textContent = reason + ' → ' + url;
+    setTimeout(function () { location.replace(url); }, 200);
+  }
+
+  var path = location.pathname;
+
+  // 1. 剥掉 markdown 文本垃圾（路径里有 [ 或 ] 或全角括号）
+  var cleaned = path.split(/[\[\]（）]/)[0];
+  if (cleaned !== path) {
+    if (cleaned === '/' || cleaned === '') { redirect('/', '检测到错误粘贴'); return; }
+    path = cleaned;
+  }
+
+  // 2. 剥掉末尾 /null
+  if (path.endsWith('/null')) path = path.slice(0, -5);
+  if (path.endsWith('/null/')) path = path.slice(0, -6);
+  if (!path.endsWith('/')) path += '/';
+
+  // 3. 提取末段 slug 与原始日期前缀（用于模糊排序）
+  var segs = path.split('/').filter(Boolean);
+  var lastSlug = segs[segs.length - 1] || '';
+  var dateMatch = lastSlug.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  var origYear = dateMatch ? dateMatch[1] : '';
+
+  // tag / category 页直接回首页
+  if (segs[0] === 'tags' || segs[0] === 'categories') {
+    redirect('/', 'tag/category 不存在');
+    return;
+  }
+
+  // 5. slug 长度太短或没有日期前缀，无法匹配文章
+  if (!lastSlug || lastSlug.length < 8) {
+    showNotFound();
+    return;
+  }
+
+  // 6. 用 search.json 反查 slug
+  status.textContent = '查找中...';
+  try {
+    var res = await fetch('/search.json', { cache: 'force-cache' });
+    if (!res.ok) throw new Error('search.json HTTP ' + res.status);
+    var data = await res.json();
+    if (!Array.isArray(data) || !data.length) throw new Error('search.json 为空');
+
+    // 优先精确匹配 url 末段
+    var hit = data.find(function (p) {
+      var u = p.url || '';
+      if (!u.endsWith('/')) u += '/';
+      return u.endsWith('/' + lastSlug + '/');
+    });
+
+    if (hit) { redirect(hit.url, '已迁移'); return; }
+
+    // 退化：模糊匹配（去掉日期前缀，看 title 部分）
+    var stripDate = lastSlug.replace(/^\d{4}-\d{2}-\d{2}-/, '');
+    if (stripDate && stripDate.length > 5) {
+      var fuzz = data.filter(function (p) {
+        var u = (p.url || '').toLowerCase();
+        return u.indexOf(stripDate.toLowerCase()) >= 0;
+      });
+
+      // 同年文章排前面（提升模糊匹配命中率）
+      if (origYear) {
+        fuzz.sort(function (a, b) {
+          var aSame = (a.url || '').indexOf('/' + origYear + '/') === 0 ? 0 : 1;
+          var bSame = (b.url || '').indexOf('/' + origYear + '/') === 0 ? 0 : 1;
+          return aSame - bSame;
+        });
+      }
+      fuzz = fuzz.slice(0, 5);
+
+      if (fuzz.length === 1) { redirect(fuzz[0].url, '模糊匹配'); return; }
+      if (fuzz.length > 1) {
+        showNotFound('找到多个可能的页面，请选择：');
+        fuzz.forEach(function (m) {
+          var div = document.createElement('div');
+          div.className = 'match-item';
+          div.innerHTML = '<a href="' + m.url + '">' + m.title + '</a><span class="match-date">' + m.date + '</span>';
+          matchesEl.appendChild(div);
+        });
+        return;
+      }
+    }
+
+    showNotFound();
+  } catch (e) {
+    status.textContent = '查询出错：' + e.message;
+    showNotFound();
+  }
+})();
+</script>
+
+</body>
+</html>
