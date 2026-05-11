@@ -107,6 +107,71 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-NLP/LLM-Training/2026-05-11-TRPO" class="post-NLP/LLM-Training/2026-05-11-TRPO post type-post status-publish format-standard hentry">
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/">VAPO：基于价值方法的新突破</a>
+    </h1>
+  
+
+        
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p><strong>TL;DR</strong></p>
+<p>TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。</p>
+<ul>
+<li><strong>核心思想</strong>：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。</li>
+<li><strong>三大支柱</strong>：<strong>MM</strong>保证单调提升、**信任区域（Trust Region）**确保更新稳定、**共轭梯度（CG）**实现高维参数的高效求解。</li>
+<li><strong>历史地位</strong>：它是 PPO 和 GRPO 的理论基石，定义了现代 RL 对齐算法的底层逻辑。</li>
+</ul>
+<hr>
+<p>一直想仔细读一下 TRPO 的 <a href="https://arxiv.org/abs/1502.05477">paper</a><sup>[1]</sup>，每次都拖延住，这次是真的不得不上了，趁热打铁，记录一下。顺便说一句，类似 TRPO 这种 paper 是我个人非常喜欢的一类文章，写的很好，非常推荐。</p>
+<p>TRPO 这篇论文在现代强化学习中的地位不亚于 “Attention is all you need” 在 LLM 中的地位，后续大放异彩的 PPO、GRPO 其实都是在给 TRPO 的基础上“做减法”。</p>
+<p>比如 PPO，TRPO 计算 Fisher 矩阵和共轭梯度实现极其复杂，PPO-Clip 直接用截断把新旧策略的比值强行限制在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo>−</mo><mi>ϵ</mi><mo separator="true">,</mo><mn>1</mn><mo>+</mo><mi>ϵ</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1-\epsilon, 1+\epsilon]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϵ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ϵ</span><span class="mclose">]</span></span></span></span> 之间。而 GRPO 更是把 TRPO 里的思想发挥到了极致，它依然保留了 KL 散度约束，但在去掉 Baseline 这步走的更远，直接通过分组得分来代替 Advantage 估算。</p>
+<p>总的来说，只要符合以下三点的，基本都是 TRPO 这一脉的：</p>
+<ul>
+<li>重要性采样：用旧数据训练新模型，必须修正分布偏差，分子分母的比例永远是核心。</li>
+<li>信任区域 ：步子不能太大，必须限制在一定范围内，否则策略直接崩溃。</li>
+<li>优势函数：不考虑绝对得分，只看当前动作是否比平均水平更好。</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/">
+    <time datetime="2026-05-11T15:00:00.000Z" class="entry-date">
+        2026-05-11
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Post-training/" rel="tag">Post-training</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TRPO/" rel="tag">TRPO</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-NLP/LLM-Training/2026-04-23-COPO" class="post-NLP/LLM-Training/2026-04-23-COPO post type-post status-publish format-standard hentry">
       <header class="entry-header">
         
@@ -617,61 +682,6 @@
 
 
   
-    <article id="post-ListenGlimmer/006" class="post-ListenGlimmer/006 post type-post status-publish format-standard hentry">
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2026/01/26/ListenGlimmer/006/">【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道”</a>
-    </h1>
-  
-
-        
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p>【来访者个人档案】</p>
-<ul>
-<li><strong>身份</strong>： 工作多年的项目负责人。</li>
-<li><strong>自述</strong>： 想把 AI 用在公司内部和项目上，但很难推进。</li>
-</ul>
-<p>这次来访的和前面的大有不同，我们称其为 G 同学，G 同学已经在一家公司做到了领导层，负责软件开发相关项目，手下也有十几号人。G 同学通过 Datawhale 关注到我，读了《<a href="https://yam.gift/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/">为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</a>》，那会儿正在想办法让团队用上 AI，提升效率。</p>
-<p>G 同学的烦恼如果用一句话概括，那就是：“传统企业如何用好 AI 之落在中层管理者身上的职责和困惑”。这其中除了技术相关问题，还有大量沟通、管理、协调等非技术问题。好在我也做过管理，还是能聊一聊的。</p>
-        
-          <p class="article-more-link">
-            <a href="/2026/01/26/ListenGlimmer/006/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2026/01/26/ListenGlimmer/006/">
-    <time datetime="2026-01-26T15:00:00.000Z" class="entry-date">
-        2026-01-26
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Growth/" rel="tag">Growth</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -845,6 +855,10 @@
       <ul>
         
           <li>
+            <a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/">VAPO：基于价值方法的新突破</a>
+          </li>
+        
+          <li>
             <a href="/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/">COPO：基于认知模式的 Step-Level Agentic RL 优化</a>
           </li>
         
@@ -858,10 +872,6 @@
         
           <li>
             <a href="/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/">RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/">Training-Free RL：当“训练”不再更新参数，而是更新上下文</a>
           </li>
         
       </ul>

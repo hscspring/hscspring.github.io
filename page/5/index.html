@@ -107,6 +107,62 @@
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main">
   
+    <article id="post-NLP/2025-08-06-gpt-oss" class="post-NLP/2025-08-06-gpt-oss post type-post status-publish format-standard hentry">
+      <header class="entry-header">
+        
+        
+  
+    <h1 class="entry-title">
+      <a class="article-title" href="/2025/08/06/NLP/2025-08-06-gpt-oss/">关于gpt-oss那些值得关注的点</a>
+    </h1>
+  
+
+        
+      </header><!-- .entry-header -->
+
+    <div class="entry-content">
+      
+        <p>OpenAI终于开源了，无论如何，他们的一举一动总是会受人关注的。第一时间阅读了技术报告，乍一看好像没什么，而且好像有大量安全方面的内容。不过仔细阅读后，还是发现有一些不一样的细节。</p>
+<ul>
+<li>Blog：<a href="https://openai.com/index/introducing-gpt-oss/">Introducing gpt-oss | OpenAI</a><sup>[1]</sup></li>
+<li>GitHub：<a href="https://github.com/openai/gpt-oss/tree/main">openai/gpt-oss: gpt-oss-120b and gpt-oss-20b are two open-weight language models by OpenAI</a><sup>[2]</sup></li>
+<li>技术报告：<a href="https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf">oai_gpt-oss_model_card.pdf</a><sup>[3]</sup></li>
+<li>HuggingFace：<a href="https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4">gpt-oss - a openai Collection</a><sup>[4]</sup></li>
+<li>Demo：<a href="https://gpt-oss.com/">gpt-oss</a><sup>[5]</sup></li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2025/08/06/NLP/2025-08-06-gpt-oss/#more" class="more-link">More <span class="meta-nav">→</span></a>
+          </p>
+        
+      
+    </div><!-- .entry-content -->
+
+    <footer class="entry-meta">
+    <a href="/2025/08/06/NLP/2025-08-06-gpt-oss/">
+    <time datetime="2025-08-06T15:00:00.000Z" class="entry-date">
+        2025-08-06
+    </time>
+</a>
+    
+  <span class="article-delim">&#8226;</span>
+  <div class="article-category">
+  <a class="article-category-link" href="/categories/Thinking/">Thinking</a>
+  </div>
+
+    
+  <span class="article-delim">&#8226;</span>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OpenAI/" rel="tag">OpenAI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Sparse-Attention/" rel="tag">Sparse Attention</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/attention-sink/" rel="tag">attention sink</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bias/" rel="tag">bias</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gpt-oss/" rel="tag">gpt-oss</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/harmony-format/" rel="tag">harmony format</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/off-by-one-attention/" rel="tag">off-by-one attention</a></li></ul>
+
+    </footer>
+</article>
+
+
+
+
+
+
+  
     <article id="post-NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data" class="post-NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data post type-post status-publish format-standard hentry">
       <header class="entry-header">
         
@@ -605,71 +661,6 @@
 
 
   
-    <article id="post-NLP/LLM-Training/2026-05-11-TRPO" class="post-NLP/LLM-Training/2026-05-11-TRPO post type-post status-publish format-standard hentry">
-      <header class="entry-header">
-        
-        
-  
-    <h1 class="entry-title">
-      <a class="article-title" href="/2025/05/11/NLP/LLM-Training/2026-05-11-TRPO/">VAPO：基于价值方法的新突破</a>
-    </h1>
-  
-
-        
-      </header><!-- .entry-header -->
-
-    <div class="entry-content">
-      
-        <p><strong>TL;DR</strong></p>
-<p>TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。</p>
-<ul>
-<li><strong>核心思想</strong>：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。</li>
-<li><strong>三大支柱</strong>：<strong>MM</strong>保证单调提升、**信任区域（Trust Region）**确保更新稳定、**共轭梯度（CG）**实现高维参数的高效求解。</li>
-<li><strong>历史地位</strong>：它是 PPO 和 GRPO 的理论基石，定义了现代 RL 对齐算法的底层逻辑。</li>
-</ul>
-<hr>
-<p>一直想仔细读一下 TRPO 的 <a href="https://arxiv.org/abs/1502.05477">paper</a><sup>[1]</sup>，每次都拖延住，这次是真的不得不上了，趁热打铁，记录一下。顺便说一句，类似 TRPO 这种 paper 是我个人非常喜欢的一类文章，写的很好，非常推荐。</p>
-<p>TRPO 这篇论文在现代强化学习中的地位不亚于 “Attention is all you need” 在 LLM 中的地位，后续大放异彩的 PPO、GRPO 其实都是在给 TRPO 的基础上“做减法”。</p>
-<p>比如 PPO，TRPO 计算 Fisher 矩阵和共轭梯度实现极其复杂，PPO-Clip 直接用截断把新旧策略的比值强行限制在 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>1</mn><mo>−</mo><mi>ϵ</mi><mo separator="true">,</mo><mn>1</mn><mo>+</mo><mi>ϵ</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[1-\epsilon, 1+\epsilon]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ϵ</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ϵ</span><span class="mclose">]</span></span></span></span> 之间。而 GRPO 更是把 TRPO 里的思想发挥到了极致，它依然保留了 KL 散度约束，但在去掉 Baseline 这步走的更远，直接通过分组得分来代替 Advantage 估算。</p>
-<p>总的来说，只要符合以下三点的，基本都是 TRPO 这一脉的：</p>
-<ul>
-<li>重要性采样：用旧数据训练新模型，必须修正分布偏差，分子分母的比例永远是核心。</li>
-<li>信任区域 ：步子不能太大，必须限制在一定范围内，否则策略直接崩溃。</li>
-<li>优势函数：不考虑绝对得分，只看当前动作是否比平均水平更好。</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2025/05/11/NLP/LLM-Training/2026-05-11-TRPO/#more" class="more-link">More <span class="meta-nav">→</span></a>
-          </p>
-        
-      
-    </div><!-- .entry-content -->
-
-    <footer class="entry-meta">
-    <a href="/2025/05/11/NLP/LLM-Training/2026-05-11-TRPO/">
-    <time datetime="2025-05-11T15:00:00.000Z" class="entry-date">
-        2025-05-11
-    </time>
-</a>
-    
-  <span class="article-delim">&#8226;</span>
-  <div class="article-category">
-  <a class="article-category-link" href="/categories/Feeling/">Feeling</a>
-  </div>
-
-    
-  <span class="article-delim">&#8226;</span>
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AI/" rel="tag">AI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LLM/" rel="tag">LLM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NLP/" rel="tag">NLP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Post-training/" rel="tag">Post-training</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TRPO/" rel="tag">TRPO</a></li></ul>
-
-    </footer>
-</article>
-
-
-
-
-
-
-  
   
     <nav id="pagination">
       <nav id="page-nav">
@@ -843,6 +834,10 @@
       <ul>
         
           <li>
+            <a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/">VAPO：基于价值方法的新突破</a>
+          </li>
+        
+          <li>
             <a href="/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/">COPO：基于认知模式的 Step-Level Agentic RL 优化</a>
           </li>
         
@@ -856,10 +851,6 @@
         
           <li>
             <a href="/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/">RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</a>
-          </li>
-        
-          <li>
-            <a href="/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/">Training-Free RL：当“训练”不再更新参数，而是更新上下文</a>
           </li>
         
       </ul>
