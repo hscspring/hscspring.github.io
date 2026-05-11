@@ -17,16 +17,16 @@
   <title>TRPO深度拆解：为什么做后训练应该读懂TRPO | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/">
-  <meta name="description" content="TL;DR TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。  核心思想：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。 三大支柱：MM保证单调提升、**信任区域（Trust Region）**确保更新稳定、**共轭梯度（CG）**实现高维参数的高效求解。 历史地位：它是 PPO 和 GRPO 的理">
+  <meta name="description" content="TL;DR TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。  核心思想：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。 三大支柱：MM 保证单调提升、信任区域（Trust Region）确保更新稳定、共轭梯度（CG）实现高维参数的高效求解。 历史地位：它是 PPO 和 GRPO 的理论基石，定义了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TRPO深度拆解：为什么做后训练应该读懂TRPO">
 <meta property="og:url" content="https://yam.gift/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/index.html">
 <meta property="og:site_name" content="长琴">
-<meta property="og:description" content="TL;DR TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。  核心思想：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。 三大支柱：MM保证单调提升、**信任区域（Trust Region）**确保更新稳定、**共轭梯度（CG）**实现高维参数的高效求解。 历史地位：它是 PPO 和 GRPO 的理">
+<meta property="og:description" content="TL;DR TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。  核心思想：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。 三大支柱：MM 保证单调提升、信任区域（Trust Region）确保更新稳定、共轭梯度（CG）实现高维参数的高效求解。 历史地位：它是 PPO 和 GRPO 的理论基石，定义了">
 <meta property="og:locale">
 <meta property="og:image" content="https://yam.gift/og.jpg">
 <meta property="article:published_time" content="2026-05-11T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-05-11T23:07:05.075Z">
+<meta property="article:modified_time" content="2026-05-11T23:09:48.852Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
@@ -132,7 +132,7 @@
 <p>TRPO 解决了强化学习中“策略更新步长难以确定”的痛点。它通过数学证明，将复杂的策略改进过程转化为一个带约束的局部优化问题。</p>
 <ul>
 <li><strong>核心思想</strong>：利用 KL 散度在“概率分布空间”而非“参数数值空间”衡量更新距离。</li>
-<li><strong>三大支柱</strong>：<strong>MM</strong>保证单调提升、**信任区域（Trust Region）**确保更新稳定、**共轭梯度（CG）**实现高维参数的高效求解。</li>
+<li><strong>三大支柱</strong>：<strong>MM</strong> 保证单调提升、<strong>信任区域</strong>（Trust Region）确保更新稳定、<strong>共轭梯度</strong>（CG）实现高维参数的高效求解。</li>
 <li><strong>历史地位</strong>：它是 PPO 和 GRPO 的理论基石，定义了现代 RL 对齐算法的底层逻辑。</li>
 </ul>
 <hr>
