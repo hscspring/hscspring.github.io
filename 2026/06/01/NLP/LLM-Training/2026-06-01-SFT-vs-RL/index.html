@@ -17,16 +17,16 @@
   <title>你可能没那么懂 SFT：SFT 与 RL 的爱恨纠葛 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/">
-  <meta name="description" content="背景 说起 SFT，可能只要是这一行的，哪怕刚入门都能说道几句，但当我们仔细深入分析后就会发现它没那么简单。就好像你知道自然音阶，也能在钢琴上找到 do re mi fa suo la xi，但弹不好一首曲子。 我们从 SFT 和 RL 的对比讲起。关于 SFT 和 RL 的一般观点是这样的：SFT 主要侧重高效注入知识和技能，获得遵循能力。RL 则通过奖励信号引导模型探索，提升泛化。而 SFT">
+  <meta name="description" content="背景 说起 SFT，可能只要是这一行的，哪怕刚入门都能说道几句，但当我们仔细深入分析后就会发现它没那么简单。就好像你知道自然音阶，也能在钢琴上找到 do re mi fa suo la xi，但弹不好一首曲子。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="你可能没那么懂 SFT：SFT 与 RL 的爱恨纠葛">
 <meta property="og:url" content="https://yam.gift/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/index.html">
 <meta property="og:site_name" content="长琴">
-<meta property="og:description" content="背景 说起 SFT，可能只要是这一行的，哪怕刚入门都能说道几句，但当我们仔细深入分析后就会发现它没那么简单。就好像你知道自然音阶，也能在钢琴上找到 do re mi fa suo la xi，但弹不好一首曲子。 我们从 SFT 和 RL 的对比讲起。关于 SFT 和 RL 的一般观点是这样的：SFT 主要侧重高效注入知识和技能，获得遵循能力。RL 则通过奖励信号引导模型探索，提升泛化。而 SFT">
+<meta property="og:description" content="背景 说起 SFT，可能只要是这一行的，哪怕刚入门都能说道几句，但当我们仔细深入分析后就会发现它没那么简单。就好像你知道自然音阶，也能在钢琴上找到 do re mi fa suo la xi，但弹不好一首曲子。">
 <meta property="og:locale">
 <meta property="og:image" content="https://yam.gift/og.jpg">
 <meta property="article:published_time" content="2026-06-01T15:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-01T23:50:41.424Z">
+<meta property="article:modified_time" content="2026-06-01T23:53:54.771Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
@@ -133,6 +133,7 @@
               
         <h2 id="背景">背景</h2>
 <p>说起 SFT，可能只要是这一行的，哪怕刚入门都能说道几句，但当我们仔细深入分析后就会发现它没那么简单。就好像你知道自然音阶，也能在钢琴上找到 do re mi fa suo la xi，但弹不好一首曲子。</p>
+<span id="more"></span>
 <p>我们从 SFT 和 RL 的对比讲起。关于 SFT 和 RL 的一般观点是这样的：SFT 主要侧重高效注入知识和技能，获得遵循能力。RL 则通过奖励信号引导模型探索，提升泛化。而 SFT 有两种常见的失败模式：</p>
 <ul>
 <li>灾难性遗忘和分布外泛化能力下降。</li>
