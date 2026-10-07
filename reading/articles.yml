@@ -4,6 +4,47 @@
 # 可选：author, source, tags, language, minutes, favorite
 # date 是收录日期，格式统一为 YYYY-MM-DD。
 
+- title: Why I close SSH port 22 entirely (and what I use instead)
+  url: https://www.michelebologna.net/2026/ssh-port-22-fwknop-single-packet-authorization/
+  author: Michele Bologna
+  source: michelebologna.net
+  topic: 网络安全
+  date: 2026-10-07
+  note: 不满足于密钥登录和 fail2ban，而是用 fwknop 的单包授权让公网 SSH 端口默认完全不可达：客户端先发送经过加密和 HMAC 验证的 UDP 包，防火墙再仅为来源 IP 临时开放端口。文章还给出了 Ansible、chezmoi、Bitwarden、SSH ProxyCommand 与 Tailscale 备用通道的完整落地方案。
+  tags:
+    - SSH
+    - 单包授权
+    - fwknop
+    - Ansible
+  language: 英文
+  minutes: 7
+
+- title: my server is a phone now
+  url: https://seg6.space/posts/phone-server/
+  author: seg6
+  source: seg6.space
+  topic: 系统运维
+  date: 2026-10-07
+  note: 一次把闲置 Android 手机改造成家庭服务器的完整实践：保留 Android 驱动与电源管理，用 Termux、runit、Tailscale、Caddy 和 Cloudflare Tunnel 承担宿主层，再以 chroot 运行 ARM64 Linux 应用，并通过 Ansible 实现可复现部署。既有折腾的乐趣，也认真交代了性能、隔离、备份和可靠性的边界。
+  tags:
+    - Android
+    - Termux
+    - 自托管
+    - 家庭服务器
+  language: 英文
+
+- title: Why you might want to build your WebApp in Canvas instead of HTML
+  url: https://hivekit.io/blog/why-you-might-want-to-build-your-webapp-in-canvas-instead-of-html/
+  source: Hivekit
+  topic: 前端开发
+  date: 2026-10-07
+  note: 从性能、渲染控制、一致性和可移植性出发，分析复杂 Web 应用何时适合用 Canvas 取代 DOM，也坦诚讨论可访问性、文本输入与交互系统都需自行实现的代价。核心判断很实用：当界面不再像文档，而更像一个可缩放、平移的场景时，才应认真考虑 Canvas。
+  tags:
+    - Canvas
+    - Web 开发
+    - 渲染架构
+  language: 英文
+
 - title: Design Patterns Suck
   url: https://luminousmen.com/post/design-patterns-suck/
   author: Kirill Bobrov
