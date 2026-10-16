@@ -26,7 +26,7 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://yam.gift/og.jpg">
 <meta property="article:published_time" content="2025-03-15T07:30:00.000Z">
-<meta property="article:modified_time" content="2025-03-15T07:57:30.682Z">
+<meta property="article:modified_time" content="2026-10-16T01:16:42.414Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
@@ -140,7 +140,7 @@
 <p>一年前的Agent可能还比较简单，现在的Agent已经相当复杂了，虽然一句话完成一个需求（如<a href="https://github.com/geekan/MetaGPT">MetaGPT</a>）目前大部分时候还不可用，但这一定是暂时的。一方面AI还在不断进步，另一方面，Agent相关的标准在不断完善（如<a href="https://modelcontextprotocol.io/introduction">MCP</a>）。一旦很多东西标准化了，AI表现出来的威力会突破性的加强。根据我自己的经验，目前的Agent在做复杂任务时有一个非常大的毛病——中间某个环节出问题后，需要耗费非常多的时间和Token才有可能解决，很多时候还解决不了。这当然可能是AI不够聪明，但更多的问题还是标准化不足，类似MCP这样的协议有望解决这一问题。</p>
 <p>顺便科普一下，简单来理解，MCP就是把与LLM交互的各种组件统一成不同的模块服务，它提供了一种将 AI 模型连接到不同数据源和工具的标准化方式。从LLM的角度看，它标准化了应用程序如何为 LLM 提供上下文。举个例子，比如你让LLM帮你在电脑里找一个文件，一般我们都会借助一个软件来完成（比如Windows的Everything、Linux的find命令等），这时候就可以写一个类似的Server（比如就叫Everything MCP Server），然后LLM就通过这个Server使用具体的软件，LLM侧是比较清爽简单的，所有“变”和“不一样”的东西都放在这个MCP Server这里，类似于一个适配于LLM的Adapter。我只能说，潜力无限！在此之上就是各种Agent工具啦，比如现在比较有名的扣子，它允许用户通过工作流的方式创建复杂Agent和应用。我相信它底层的通用模块应该也是有类似MCP Server这样的Adapter的。随着Agent和应用不断复杂，是一定需要单独抽一层这样的Adapter出来的。</p>
 <h3 id="研究">研究</h3>
-<p>多模态自不必说，就LLM方向其实也还有蛮多可以做的工作，尤其是和RL结合，大有可为（感兴趣的读者可以关注<a href="https://github.com/hscspring/rl-llm-nlp">hscspring/rl-llm-nlp: Reinforcement Learning in LLM and NLP.</a>）。这里顺带说一下我自己的两个感觉。第一个就是LLM相关的前言论文大部分都来自国内机构或华人作者，这个趋势近两年是越来越明显，中国人的卷真不是吹的。第二个就是高品质前沿资料也开始集中在中文社区，尤其是知乎和微信公众号，有不少高质量的内容，虽然也不是很多，但相比英文社区貌似好很多。现在搜索前沿内容，能搜到的英文社区的资料越来越少了。感觉R1之后，算法领域国内比国外沸腾的更厉害。</p>
+<p>多模态自不必说，就LLM方向其实也还有蛮多可以做的工作，尤其是和RL结合，大有可为（感兴趣的读者可以关注<a href="https://github.com/hscspring/llm-post-training-atlas">LLM Post-Training Atlas / 大模型后训练图谱</a>）。这里顺带说一下我自己的两个感觉。第一个就是LLM相关的前言论文大部分都来自国内机构或华人作者，这个趋势近两年是越来越明显，中国人的卷真不是吹的。第二个就是高品质前沿资料也开始集中在中文社区，尤其是知乎和微信公众号，有不少高质量的内容，虽然也不是很多，但相比英文社区貌似好很多。现在搜索前沿内容，能搜到的英文社区的资料越来越少了。感觉R1之后，算法领域国内比国外沸腾的更厉害。</p>
 <p>另一个方向是模型架构方面的优化，DeepSeek在这方面走的很快，近期提出了<a href="https://arxiv.org/abs/2502.11089">NSA</a>，Kimi也提出了类似的<a href="https://github.com/MoonshotAI/MoBA">MoBA</a>，以及优化了新的更省资源的优化器<a href="https://arxiv.org/abs/2502.16982">Muon</a>，还有<a href="https://arxiv.org/abs/2502.12524">YOLU-12</a>对Attention架构的优化，近期何恺明大神的<a href="https://arxiv.org/abs/2503.10622">Transformers without Normalization</a>。相关的工作层出不穷，且看起来都相当有吸引力。还有量化、蒸馏方向也不断有新的成果出现。</p>
 <p>除此之外，Agent方向的算法也在逐步发展，比如搞Scaling的<a href="https://github.com/camel-ai/camel">camel</a>，以及相关的应用<a href="https://github.com/camel-ai/owl">OWL</a>，还有相关的具身智能、世界模型，AI方向的研究如火如荼。</p>
 <p>值得一提的是，以上提到的很多研究都是国内公司或华人主导。R1之后，据说很多之前专搞LLM的都压力山大，不知道又在埋头憋什么大招。AI可能从来没像今天这样繁荣。这块内容就不展开多说了，实在是有点多，感兴趣的读者可以关注我的博客。</p>
