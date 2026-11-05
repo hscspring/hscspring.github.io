@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Training-Free RL：当“训练”不再更新参数，而是更新上下文 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/03/24/NLP/LLM-Training/2026-03-24-RL-New-Paradigm-Traning-Free/">
   
   <meta name="description" content="TL;DR： 随着 LLM 能力增强，强化学习正在从“更新模型参数”转向“优化上下文”。Training-Free RL 不再训练 policy，而是通过自评估、对比、反思和记忆机制，从 rollout 中提取“经验&#x2F;洞察”，并以自然语言形式注入上下文，从而改变模型输出分布。本质上，这是一种以 LLM 为先验、以“经验文本”为 advantage 的新型 RL 范式。 RL 近期出现了大量新的学习">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       Training-Free RL：当“训练”不再更新参数，而是更新上下文
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -189,7 +190,7 @@
 <h2 id="语义优势-经验提取">语义优势+经验提取</h2>
 <p>TRT 的思路还是比较直观的，接下来的 <a href="https://arxiv.org/abs/2510.08191">2510 Training-Free Group Relative Policy Optimization</a><sup>[6]</sup> 就稍微有点复杂了，我将其称为文字版 GRPO。它利用的是每组 rollout 的相对<strong>语义</strong>（而非数值）优势，用少量真实数据迭代蒸馏高质量经验知识，作为先验在推理时注入提示词，指导模型行为。</p>
 <p>具体流程如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tfgrpo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tfgrpo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看出，这种方法的核心就是 LLM 本身足够强，因此我可以不调整模型参数，仅调整上下文来影响输出分布。这里的重点就是<strong>根据多条 rollout 的 reward 抽取高质量经验</strong>。</p>
 <p>我们来具体看一下过程细节：</p>
 <ul>
@@ -202,7 +203,7 @@
 <h2 id="检索召回-模式存储">检索召回+模式存储</h2>
 <p>可以看到，这个工作虽然做法与 TRT 不同，但本质类似。其实还有更 naive 的做法，比如 <a href="https://arxiv.org/abs/2603.21520">2603 MemAPO</a><sup>[7]</sup> 把之前的成功模式和失败模式都存下来，每次 query 时检索相关模式作为上下文信息注入。具体做法是：维护一种双记忆机制，将成功的推理轨迹提炼成可重用的策略模板，同时将错误的生成组织成结构化的错误模式，从而捕获重复出现的失败模式。给定一个新的 query，框架会检索相关的策略和失败模式，以构建能够促进有效推理并避免已知错误的提示。</p>
 <p>其核心流程如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-memapo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-memapo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>虽然这里介绍的方法都是不训模型的，但其实以类似方法收集数据训练模型也是可以的，无论是经验、洞察也好，反思也罢，都类似一种「元学习」，可以看作一种「思考模式」，当然也可以看成一种「数据」。这里的重点反而不是训练或不训练。</p>
 <h2 id="轻量验证-策略引导">轻量验证+策略引导</h2>
 <p>我们把 LLM 作为内部信号，那自然有外部信号，啊，其实把刚刚所有方法用到 LLM 的地方用另一个 LLM 去做就是最直观、最简单的利用外部信号的方法，这对于大多数文本任务都是非常实用的。</p>
@@ -269,10 +270,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/" rel="prev"><span class="meta-nav">←</span> RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</a></span>
+        <div class="nav-previous">
+          <a href="/2026/03/29/NLP/LLM-Training/2026-03-29-RL-New-Paradigm-Data/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">RL新范式：从经验到更高质量数据——我们不再训练模型，而是在制造数据</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/03/13/AI/2026-03-13-From-OpencClaw-to-AI-Coding/" rel="next">从 OpenClaw 再谈 AI Coding：我们还剩下什么 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/03/13/AI/2026-03-13-From-OpencClaw-to-AI-Coding/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">从 OpenClaw 再谈 AI Coding：我们还剩下什么</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -397,8 +408,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

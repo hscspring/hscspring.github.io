@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>【Rust与AI】LLM模型基本架构 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/">
   
   <meta name="description" content="本篇是《Rust与AI》系列的第二篇，上一篇我们主要介绍了本系列的概览和方向，定下了一个基调。本篇我们将介绍LLM的基本架构，我们会以迄今为止使用最广泛的开源模型LLaMA为例展开介绍。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       【Rust与AI】LLM模型基本架构
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -176,7 +177,7 @@
 <p>接下来是 MHA 和 FFN，先看 FFN 模块，它的大概流程如下（<code>@</code> 表示矩阵/张量乘法）。</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">z1 = ns @ up_weights</span><br><span class="line">z2 = ns @ gate_weights</span><br><span class="line">z3 = z1 * <span class="title function_ invoke__">silu</span>(z2)</span><br><span class="line">z4 = z3 @ down_weights</span><br></pre></td></tr></table></figure>
 <p>整体来看是先将网络扩大再收缩，扩大时增加了一个激活处理。silu 函数大概长这样：</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-llama-silu.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-llama-silu.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>等价于只激活了一部分参数，这个非线性激活非常重要，可以让模型学习到更丰富的知识和表达。</p>
 <p>再就是 MHA 模块了，大概流程如下（为了更直观，去掉了 Batch Size 和 Softmax）。</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">q = ns @ q_weights # (L, D) @ (D, D) = (L, D)</span><br><span class="line">k = ns @ k_weights # (L, D) @ (D, D) = (L, D)</span><br><span class="line">v = ns @ v_weights # (L, D) @ (D, D) = (L, D)</span><br><span class="line"></span><br><span class="line">q = q.<span class="title function_ invoke__">reshape</span>(L, NH, HD)</span><br><span class="line">k = k.<span class="title function_ invoke__">reshape</span>(L, NH, HD)</span><br><span class="line">v = v.<span class="title function_ invoke__">reshpae</span>(L, NH, HD)</span><br><span class="line"></span><br><span class="line">attn = q.<span class="title function_ invoke__">trans</span>(NH, L, HD) @ k.<span class="title function_ invoke__">trans</span>(NH, HD, L)  # (NH, L, HD) @ (NH, HD, L) = (NH, L, L)</span><br><span class="line">v = attn @ v.<span class="title function_ invoke__">trans</span>(NH, L, HD) # (NH, L, L) @ (NH, L, HD) = (NH, L, HD)</span><br><span class="line">v = v.<span class="title function_ invoke__">reshpe</span>(L, NH*HD) # (L, D)</span><br></pre></td></tr></table></figure>
@@ -388,10 +389,20 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" rel="prev"><span class="meta-nav">←</span> LLM Continual Pre-training：Ziya2</a></span>
+        <div class="nav-previous">
+          <a href="/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM Continual Pre-training：Ziya2</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" rel="next">【Rust与AI】概览和方向 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/12/03/Rust/RustAI/2023-12-03-Rust-and-AI-Introduction/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">【Rust与AI】概览和方向</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -516,8 +527,9 @@ M1001 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

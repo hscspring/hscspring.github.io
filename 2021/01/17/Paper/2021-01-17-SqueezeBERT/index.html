@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>SqueezeBERT 论文笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/01/17/Paper/2021-01-17-SqueezeBERT/">
   
   <meta name="description" content="Paper：[2006.11316] SqueezeBERT: What can computer vision teach NLP about efficient neural networks? Code：transformers&#x2F;src&#x2F;transformers&#x2F;models&#x2F;squeezebert at master · huggingface&#x2F;transformers 核心思想：把全连接">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       SqueezeBERT 论文笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -156,7 +157,7 @@
 <h3 id="算法模型">算法模型</h3>
 <h4 id="Self-Attention-Convolutions">Self-Attention + Convolutions</h4>
 <p>首先看一下 BERT 各个组件的耗时：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-squeezebert-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-squeezebert-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>接下来就是要将 Encoder 中的 FC 替换为卷积。FC 如下：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mtext> PositionwiseFullyConnected </mtext><mrow><mi>p</mi><mo separator="true">,</mo><msub><mi>c</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow></msub><mo stretchy="false">(</mo><mi>f</mi><mo separator="true">,</mo><mi>w</mi><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mi>i</mi><msub><mi>C</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub></munderover><msub><mi>w</mi><mrow><msub><mi>c</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo separator="true">,</mo><mi>i</mi></mrow></msub><mo>∗</mo><msub><mi>f</mi><mrow><mi>p</mi><mo separator="true">,</mo><mi>i</mi></mrow></msub></mrow><annotation encoding="application/x-tex">\text { PositionwiseFullyConnected }_{p, c_{o u t}}(f, w)=\sum_{i}^{C_{i n}} w_{c_{o u t}, i} * f_{p, i}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1302em;vertical-align:-0.3802em;"></span><span class="mord"><span class="mord text"><span class="mord"> PositionwiseFullyConnected </span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.0573em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mpunct mtight">,</span><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2963em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3802em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.1171em;vertical-align:-1.2777em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8394em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3111em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0715em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">in</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.2777em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2963em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.9805em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.1076em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">p</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span></span></p>
@@ -205,7 +206,7 @@
 </ul>
 <h4 id="实验报告">实验报告</h4>
 <p>代表性看一下 test set 的结果：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-squeeze-bert-1.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-squeeze-bert-1.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>综合这个结果看，我认为 TinyBERT 不错：D</p>
 <h3 id="相关讨论">相关讨论</h3>
 <ul>
@@ -269,10 +270,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" rel="prev"><span class="meta-nav">←</span> AI 工程师养成记（上）</a></span>
+        <div class="nav-previous">
+          <a href="/2021/02/19/ExpSum/2021-02-19-AI-Engineer-Growing-I/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">AI 工程师养成记（上）</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/12/27/Paper/2020-12-27-Sentence-Bert/" rel="next">从 Sentence-BERT 谈句子表征 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/12/27/Paper/2020-12-27-Sentence-Bert/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">从 Sentence-BERT 谈句子表征</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -397,8 +408,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

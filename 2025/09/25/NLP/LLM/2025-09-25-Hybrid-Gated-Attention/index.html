@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Hybrid LLM 之 Gated Attention | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/">
   
   <meta name="description" content="Qwen3-Next[1] 发布后，算是真正开启了 hybrid 序幕，原本还想着后面再慢慢补这块，现在看来是不行了，得提前了。好在东西也不多，我们就借着这次机会过一轮吧。 这是第一篇，我们简单点，从 Gated Attention 开始，来自 Paper：Gated Attention for Large Language Models: Non-linearity, Sparsity, and">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       Hybrid LLM 之 Gated Attention
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -191,7 +192,7 @@
 </li>
 </ul>
 <p>结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>我们先看参数情况。模型基本配置如下：</p>
 <ul>
 <li>128 experts，激活 8 门控细粒度 experts</li>
@@ -262,7 +263,7 @@
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.1461em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:3.2254em;vertical-align:-1.4138em;"></span><span class="mord text"><span class="mord"> Non-Linearity-Map </span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;"><span class="delimsizing size4">(</span></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.8117em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span><span class="mrel mtight">=</span><span class="mord mtight">0</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.3em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4138em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0576em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:-0.0576em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">ij</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0785em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.2222em;">V</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">)</span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">W</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">O</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0315em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:3.2254em;vertical-align:-1.4138em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">4</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>式（3）对应 G2，式（4）则对应 G1。这同时解释了为啥 G5 没效果，因为它没有解决 <code>Wv</code> 和 <code>Wo</code> 之间缺乏非线性的问题。总之，有效门控变体所带来的性能提升很可能归因于在 <code>Wv</code> 和 <code>Wo</code> 之间引入了非线性。</p>
 <h3 id="稀疏性">稀疏性</h3>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>在检查了 G1 和 G2 的门控分数后发现：</p>
 <ul>
 <li>有效的门控分数是稀疏的。G1 最低，并且在接近 0 的区域高度集中。</li>
@@ -283,7 +284,7 @@
 <p>其实这点是很容易理解的，这种解决方案与 gpt-oss 的那个 bias 作用其实类似，让某些 token 的注意力可以为 0，而不是强行分配最终导致 sink。</p>
 <p>关于 attention sink 现象，我们直接取来自 <a href="https://yam.gift/2025/08/06/NLP/2025-08-06-gpt-oss/">关于gpt-oss那些值得关注的点 | Yam</a><sup>[6]</sup>  中的原话：模型将极大比例的注意力权重集中在序列的第一个 token（通常是 <code>&lt;bos&gt;</code> 开始 token），即使它对下文语义并不重要。其原因当然也和softmax有关，即使当前 token 与前面的其他 token 并无关联，模型仍需要分配“冗余”的注意力分数。此时，最容易被“牺牲”的位置就是第一个 token，因为它对所有后续 token 都可见，容易被训练为 attention sink。关于这点，相信只要大家做过Attention分析就应该深有体会，无论哪一层，attention分数最大的几乎都是首Token。</p>
 <h3 id="有助于上下文长度扩展">有助于上下文长度扩展</h3>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>实验观察结果如下：</p>
 <ul>
 <li><strong>32k</strong> 设置下，带门控的模型表现略优于基线模型。说明在训练长度范围内，attention sink 现象可能并未显著损害模型的长上下文性能。</li>
@@ -295,7 +296,7 @@
 <h3 id="非LLM时代的Gated-Attention">非LLM时代的Gated Attention</h3>
 <p>其实，第一次看到 gated attention 去搜索后，除了这篇文章，还有另外一篇 19 年针对普通神经网络（非 LLM）的文章：<a href="https://arxiv.org/abs/1912.00349">Not All Attention Is Needed: Gated Attention Network for Sequence Data</a><sup>[7]</sup>，对应的代码：<a href="https://github.com/keya-desai/Gated-Attention">GitHub </a><sup>[8]</sup>。</p>
 <p>它的观点如下：传统的注意力机制会关注输入句子的整个隐藏状态序列，但在大多数情况下，并不需要关注所有隐藏状态，尤其是对于长序列。文章提出了一种名为门控注意力网络（GA-Net）的新方法，该方法使用辅助网络动态地选择需要关注的元素子集，并计算注意力权重来聚合所选元素。这种方法避免了对未关注元素进行大量不必要的计算，并使模型能够关注序列中的重要部分。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，结合前面的观点，可以看到两篇文章的思想其实是一样的，只不过用在不同网络上。另外，这里用的是 sigmoid 后的 0 或 1，而不是连续值，如下式所示。不过，前文的参考文献中并没有看到这篇文章；）</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mtable rowspacing="0.16em" columnalign="right" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msubsup><mi>h</mi><mi>t</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo>=</mo><mi>L</mi><mi>S</mi><mi>T</mi><mi>M</mi><mrow><mo fence="true">(</mo><msubsup><mi>h</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo separator="true">,</mo><msub><mi>x</mi><mi>t</mi></msub><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mi>p</mi><mi>t</mi></msub><mo>=</mo><mi mathvariant="normal">sigmoid</mi><mo>⁡</mo><mrow><mo fence="true">(</mo><mi>U</mi><msubsup><mi>h</mi><mi>t</mi><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msubsup><mo fence="true">)</mo></mrow></mrow></mstyle></mtd></mtr></mtable></mtd><mtd width="50%"></mtd><mtd><mtext>(5)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{array}{r}
 h_t^{\prime}=L S T M\left(h_{t-1}^{\prime}, x_t\right) \\
@@ -315,11 +316,11 @@ p_t=\operatorname{sigmoid}\left(U h_t^{\prime}\right)
 \tag{6}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord"><span class="mtable"><span class="arraycolsep" style="width:0.5em;"></span><span class="col-align-r"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.45em;"><span style="top:-3.61em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mord mathrm">GLU</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right:0.1389em;">W</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⊙</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mord mathnormal" style="margin-right:0.2222em;">V</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span></span></span><span style="top:-2.41em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mord mathrm">Swish</span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">σ</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0528em;">β</span><span class="mord mathnormal">x</span><span class="mclose">)</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.95em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span><span class="tag"><span class="strut" style="height:2.4em;vertical-align:-0.95em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">6</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>除此之外，还有来自 Noam Shazeer 的 GLU 变体：<a href="https://arxiv.org/abs/2002.05202">GLU Variants Improve Transformer</a><sup>[12]</sup>，作用的就是 Transformer 的 FFN，各种变体如下所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>在 GLUE 多个任务实验结果（按平均）显示，ReGLU 最好，SwiGLU 紧随其后，然后是 GLU。如果按 TOP1 的任务数，排在第一位的是 SwiGLU（5/12），然后是 Bilinear（3/12）。而且，在 SuperGLUE 上 SwiGLU 最好。可能这也是为什么后面用 SwiGLU 的原因吧。</p>
 <p>最有意思的是论文的结论部分：我们扩展了 <strong>GLU</strong> 家族的层结构，并提出了它们在 <strong>Transformer</strong> 中的应用。在迁移学习的设置下，这些新变体在预训练所用的去噪目标上表现出更低的困惑度，同时在许多下游语言理解任务上也取得了更好的结果。这些架构实现简单，且没有明显的计算代价。<strong>至于它们为何有效，我们并没有给出解释，只能像其他一切成功一样，将其归因于“上天的恩赐”</strong>。最后这句英文原话是：We offer no explanation as to why these architectures seem to work; we attribute their success, as all else, to divine benevolence.</p>
 <p>哈哈，这个作者太逗了，后面搜了一下，发现他居然也是 MQA 的作者，论文在这里：<a href="https://arxiv.org/abs/1911.02150">Fast Transformer Decoding: One Write-Head is All You Need</a><sup>[13]</sup>。如果你不知道什么是 MQA，那肯定知道 GQA，这可是现在 LLM 的标配。GQA 就是在 MHA 和 MQA 之间取了个折中，如下图（来自<a href="https://arxiv.org/abs/2305.13245">GQA</a><sup>[14]</sup>论文）所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-attention-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>值得一提的是，Noam Shazeer 的这两篇论文都是独立作者，看起来更像是随手记了个 note……</p>
 <h2 id="小结">小结</h2>
 <p>考虑到 Qwen 目前的全球影响力，Qwen3-Next 算是正式大规模开启了混合架构。我们也从 Qwen3-Next 的 Gated Attention 出发，开启混合架构的学习。Gated Attention 虽然思想和实现都非常简单，但其实分析起来还是有不少细节的。论文将其有效的原因归结为引入的非线性和稀疏性，根据实验结果显示，是比较有说服力的。除此之外，论文还提到两个正外部性：缓解 attention sink 和助力上下文长度扩展，根据实验结果看，确实是一个不错的机制。可以目测，Gated Attention 应该会成为标配。</p>
@@ -387,10 +388,20 @@ p_t=\operatorname{sigmoid}\left(U h_t^{\prime}\right)
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" rel="prev"><span class="meta-nav">←</span> Reinforce++和它的KL Loss选择</a></span>
+        <div class="nav-previous">
+          <a href="/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Reinforce++和它的KL Loss选择</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/09/21/Python/2025-09-21-FD-Leak/" rel="next">记一次诡异的 FD 泄露：躲在暗处的猴子补丁 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/09/21/Python/2025-09-21-FD-Leak/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">记一次诡异的 FD 泄露：躲在暗处的猴子补丁</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -515,8 +526,9 @@ p_t=\operatorname{sigmoid}\left(U h_t^{\prime}\right)
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

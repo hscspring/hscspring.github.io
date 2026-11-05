@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>跨视角大脑解码 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/07/02/Paper/2022-07-02-Cross-view-Brain-Decoding/">
   
   <meta name="description" content="Paper：[2204.09564] Cross-view Brain Decoding 一句话概述：跨视角的 Zero-Shot 推理和翻译是可行的。 摘要：大脑如何跨多个视角捕获语义仍然是个谜团，之前的都是单视角：如（1）带目标词标签的图片（WP）；（2）使用目标词的句子（S）；（3）包含带目标词的词云（WC）以及其他语义相关的词。本文提出跨视图翻译任务，如：图像字幕（IC）、图像标签（IT）">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       跨视角大脑解码
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -198,10 +199,10 @@
 <li>6 个跨视角（范式）实验：训练和测试使用不同的视角。</li>
 </ul>
 <p>下图展示了一个例子：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cross-view-brain-decoding-2.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cross-view-brain-decoding-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>跨视角翻译任务</strong></p>
 <p>对每个受试，使用 18 fold 交叉验证本任务。每个任务输入输出如下表所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cross-view-brain-decoding-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cross-view-brain-decoding-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>图 2 也给出了每个任务的例子。和之前一样，使用 5000 个信息像素，分别计算每个受试的每个任务。</p>
 <h3 id="信息像素选择">信息像素选择</h3>
 <p>对每个像素和它的 26 个邻居训练回归模型，输出语义向量。对每个像素，计算 <code>true</code> 和预测表示之间的平均相关性，并选择前 5000 个作为信息像素。目标语义表征可能是「词向量」（跨视角 Zero-Shot 任务）和「词或句或词云向量」（跨视角翻译任务）。</p>
@@ -234,9 +235,9 @@
 <h2 id="结果和认知洞察">结果和认知洞察</h2>
 <h3 id="跨视角-Zero-Shot-概念解码">跨视角 Zero-Shot 概念解码</h3>
 <p>三个同/跨视角 pairwise 和 rand acc：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>像素在四种大脑网络上的分布：<br>
-<img src="https://qnimg.lovevivian.cn/paper-cvbd-6.jpg" alt=""></p>
+<img src="https://qnimg.lovevivian.cn/paper-cvbd-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>WP 训练视角</strong></p>
 <p>即范式 1「词+图片」视角：</p>
 <ul>
@@ -260,16 +261,16 @@
 </ul>
 <p><strong>重叠像素</strong></p>
 <p>对三个视角，不同大脑网络的重叠部分进行分析：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>第 2 行：WC-S 对，L 的占比超过其他。</li>
 <li>第 2 列（1、3 行）：29% 和 25% V 像素和 WP 的 V 重叠，说明大部分 WP 视角的像素来自 V 网络。</li>
 </ul>
 <h3 id="跨视角翻译">跨视角翻译</h3>
 <p>不同跨视角任务的 pairwise 和 rank acc：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>任务中像素在不同大脑网络间的分布：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-10.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-10.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结果如下：</p>
 <ul>
 <li>看表 6：pairwise acc 大约 75%，rank acc 大约 70%，说明任务是可行的。</li>
@@ -281,7 +282,7 @@
 </ul>
 <p><strong>重叠像素</strong></p>
 <p>下表给出了不同任务大脑网络重叠的比例：、</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-11.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cvbd-11.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看出：</p>
 <ul>
 <li>IC 和 IT 在所有大脑网络类型上彼此都有大量重叠，因为这两个任务非常相关。</li>
@@ -337,10 +338,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/07/17/Paper/2022-07-17-W2NER-Code/" rel="prev"><span class="meta-nav">←</span> W2NER 代码</a></span>
+        <div class="nav-previous">
+          <a href="/2022/07/17/Paper/2022-07-17-W2NER-Code/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">W2NER 代码</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/06/11/Paper/2022-06-11-W2NER/" rel="next">统一NER为词词关系分类 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/06/11/Paper/2022-06-11-W2NER/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">统一NER为词词关系分类</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -465,8 +476,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

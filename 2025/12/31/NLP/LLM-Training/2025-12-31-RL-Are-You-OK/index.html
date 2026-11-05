@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/">
   
   <meta name="description" content="在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？ 如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。 这两种理解对应着不同的训练">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -254,7 +255,7 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-interplay-1.jpg" alt=""></p>
 <h3 id="可学习性">可学习性</h3>
 <p>这是论文 2 非常核心的研究成果。首先，他们也认同怀疑派的观点，认为“RL 无法突破基座模型能力边界”的立场是可以理解的，原因很简单：GRPO 依赖不同 rollout 之间的奖励差异。但如果从未有任何 rollout 成功（如在 “pass@K = 0” 的任务中），自然就不存在可用于学习的梯度信号。如下图 (a) 所示，朴素的 GRPO 训练会陷入停滞。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-delta-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-delta-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>不过他们的关注点在于：**如果没有任何 rollout 达到完整通过，RL 如何传播有意义的学习信号？**对此，给出了具体路径：</p>
 <ul>
 <li><strong>按测试用例通过率训练。</strong> 一种解决思路是利用“部分得分”，即不再使用全有或全无的完整通过率（只有当所有测试用例均通过时才给 reward = 1），<strong>而是采用更细粒度的“按测试用例通过率”，即位于 [0, 1] 区间的连续奖励</strong>。如上图 (b) 所示，该信号能够为学习提供初始牵引力。然而，在约 100 个训练步之后，该信号很快饱和，完整通过率仍然可以忽略不计（&lt; 0.01%）。</li>
@@ -421,10 +422,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/01/01/Diary/2026-01-01-30to40/" rel="prev"><span class="meta-nav">←</span> 站在 30-40 岁的档口</a></span>
+        <div class="nav-previous">
+          <a href="/2026/01/01/Diary/2026-01-01-30to40/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">站在 30-40 岁的档口</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/12/22/Diary/2025-12-22-Love/" rel="next">所爱隔山海，山海亦可平 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/12/22/Diary/2025-12-22-Love/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">所爱隔山海，山海亦可平</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -549,8 +560,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

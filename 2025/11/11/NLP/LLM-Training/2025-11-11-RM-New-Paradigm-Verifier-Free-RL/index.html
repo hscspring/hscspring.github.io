@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Reward建模新范式：无验证器RL与Reference的妙用 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/">
   
   <meta name="description" content="R1 之后，GRPO 等强化学习框架的成功让我们相信“反馈”是提升推理力的关键。 然而，当任务无法被规则验证时，这一框架就不太好用了。 本文介绍一种“无验证器”新范式，让模型用 Reference 自我强化，重新定义奖励建模。  TL;DR  传统 RLHF 依赖验证器或 RM 打分，但很多开放任务无法简单验证。 NOVER： 基于 PPL 设计奖励，引入策略代理同步与效率奖励，稳定训练。 Re">
@@ -114,7 +114,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -134,6 +134,7 @@
       Reward建模新范式：无验证器RL与Reference的妙用
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -204,7 +205,7 @@
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">total </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.0778em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.0778em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathbb">I</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.0778em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">1</span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">r</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathrm mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">6</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <h4 id="代理诅咒">代理诅咒</h4>
 <p>利用 PPL 作为代理可能带来代理诅咒：即不精确的奖励可能导致 reward hacking。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-nover-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-nover-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>我们重点关注这方面的消融结果。</p>
 <ul>
 <li>Rf + Rr 可能导致推理爆炸（红色，推理过程过长甚至混乱、胡言乱语）和推理崩塌（绿色，几乎不再思考，只输出极少的推理内容）。问题源自 proxy 和 policy 不匹配。</li>
@@ -227,17 +228,17 @@
 <p>第二篇论文是 <a href="https://arxiv.org/abs/2505.21493">Reinforcing General Reasoning without Verifiers</a><sup>[3]</sup>，也是关注无法规则验证的领域。而且，有意思的是，这篇论文是 25 年 5 月 27 日提交的，而上一篇 NOVER 是 5 月 21 日提交的。距离如此之近，也是缘分啊。</p>
 <p>本文的方法是使用 RL 直接最大化生成参考答案的概率。具体做法是：给定一个问题，只生成推理轨迹，然后拼接上参考答案。然后，根据问题和推理轨迹评估参考答案的可能性。这个可能性既可以作为推理轨迹上策略梯度的奖励信号，也可以作为参考答案监督训练的权重项。</p>
 <p>简单来说，就是自己生成推理轨迹，然后让推理轨迹和参考答案对齐。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <h4 id="目标与梯度">目标与梯度</h4>
 <p>目标函数如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，<code>y*</code> 为参考答案，z 是推理轨迹。有验证器和无验证器是等价的。</p>
 <p>梯度为：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>证明过程如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>而这也与验证器的梯度等价：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>直观来看，式（5）中的“推理项”可以理解为一个策略梯度，其中：</p>
 <ul>
 <li>对某个推理轨迹 z 的<strong>奖励</strong>是策略在给定该推理轨迹 z 时，策略生成正确答案 <code>y*</code>的概率。</li>
@@ -245,18 +246,18 @@
 </ul>
 <h4 id="计算过程">计算过程</h4>
 <p>计算过程如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到，还是很直观的。</p>
 <h4 id="多种方案对比">多种方案对比</h4>
 <p>而且，仔细看，这个其实和前面的 NOVER 是非常类似的，NOVER 的核心奖励是 GT 的 PPL，而最小化 PPL 就等价于最大化序列概率。殊途同归呀。本文还给出了其他两个设计：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>后面两个式子，JLB 来自论文 <a href="https://arxiv.org/abs/2503.19618v1"> Learning to chain-of-thought with Jensen’s evidence lower bound</a><sup>[4]</sup>，LaTRO 来自论文 <a href="https://arxiv.org/abs/2411.04282">Language Models are Hidden Reasoners: Unlocking Latent Reasoning Capabilities via Self-Rewarding</a><sup>[5]</sup>，这篇论文居然是来自 2024 年的。这些方案的核心就是把模型输出拆分成推理轨迹和答案两个部分。</p>
 <p>后面两个方案效果不如 R1-Zero，但本方案却差不多甚至超过 R1-Zero。另外，本方案还有个好处：减少方差。直观来看，在估计梯度时，方差主要来源于两个采样过程（推理轨迹和答案），本方案去除了“答案生成”这一随机性来源，因此方差得以降低。</p>
 <h4 id="最终梯度">最终梯度</h4>
 <p>除此之外，本方案的梯度估计与其他方差降低技术完全兼容，比如RLOO、GRPO 的奖励归一、PPO 的 clip 等。本文针对每个提示采样多个响应，并将 RLOO 基线应用于式（5）中的推理项。同时，采用 <a href="https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/">DrGRPO</a><sup>[6]</sup> 中的长度归一化方法，得到最终的 on-policy 梯度估计器：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>以及一个 PPO 的版本：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-10.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rgrv-10.jpg" alt="" loading="lazy" decoding="async"></p>
 <h4 id="patch方案">patch方案</h4>
 <p>好了，迄今为止应该差不多了，最后还有个问题是如何 patch 正确答案。本文提到了一个细节，如果不想等全部答案生成完后再替换（这样会浪费资源生成答案，但其实没用），就需要在遇到答案开始标记后直接停止采样。这里要确保这个标记在词表中。</p>
 <h3 id="两者区别">两者区别</h3>
@@ -355,10 +356,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/" rel="prev"><span class="meta-nav">←</span> Hybrid LLM 之 Gated DeltaNet</a></span>
+        <div class="nav-previous">
+          <a href="/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Hybrid LLM 之 Gated DeltaNet</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/" rel="next">子非我，安知我不知鱼之乐——AI、人类与意识的边界 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">子非我，安知我不知鱼之乐——AI、人类与意识的边界</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -483,8 +494,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

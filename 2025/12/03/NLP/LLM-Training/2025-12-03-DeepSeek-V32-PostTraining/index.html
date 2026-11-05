@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DeepSeekV3.2后训练：稳定压倒一切 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/">
   
   <meta name="description" content="DeepSeek-V3.2 发布后，外界讨论大多集中在“新增了工具使用”、“是不是比某某更强”之类的话题。但如果你真正关心模型训练，会发现它最值得研究的地方根本不在模型能力，而是在 后训练（post-training）阶段的一系列稳定性工程。V3.2 不像 V3 带来结构性突破，更像是一次“工程师版本的 V3.2”：没什么光鲜亮丽的大新闻，但每一个小改动都在解决真实训练痛点。 TL;DR Deep">
@@ -27,8 +27,8 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
-<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="DeepSeek">
+<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="KL">
 <meta property="article:tag" content="GRPO">
 <meta property="article:tag" content="DeepSeek-V3.2">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       DeepSeekV3.2后训练：稳定压倒一切
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -263,7 +264,7 @@
 <li>删掉推理轨迹时，<strong>工具调用的历史和结果仍会被保留在上下文中</strong>。</li>
 </ul>
 <p>如下图所示，</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-v32-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-v32-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意看，Trun1.x 因为都是工具输出，所以保留了思考过程，但 Trun2.x 因为有了新的 User message 2，会丢弃推理轨迹，但工具调用历史和结果依然保留。这个设计看起来是比较直观的。</p>
 <h2 id="小结">小结</h2>
 <p>本文我们重点聊了 DeepSeek V3.2 的后训练，虽然没有特别大的创新（毕竟是 V3.2，不是 V4），但细节还是蛮多，尤其是关于 GRPO 稳定性优化方面，所有策略几乎都是为了稳定训练服务。其实我自己在跑训练时也会遇到乱码的情况，不过一般只是稍微调小一丢丢 rollout 的 tempreture，很少从系统层面分析和优化，通过本文也是受益良多。除了 GRPO，我们还简单介绍了数据蒸馏和工具使用的上下文管理。说起来，每个领域专门训一个模型用来生成数据还是挺财大气粗的。</p>
@@ -330,10 +331,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/" rel="prev"><span class="meta-nav">←</span> Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？</a></span>
+        <div class="nav-previous">
+          <a href="/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/" rel="next">DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">DeepSeekMath-V2自我验证：搞数据的风吹到了奖励模型</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -458,8 +469,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

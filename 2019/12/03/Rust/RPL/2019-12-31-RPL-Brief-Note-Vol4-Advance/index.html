@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>The Rust Programming Language Brief Note (Vol4-Advance) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol4-Advance/">
   
   <meta name="description" content="15 Smart Pointers15-1 Using Box to Point to Data on the Heap15-1-1 Using a Box&lt;T&gt; to Store Data on the Heap15-1-2 Enabling Recursive Types with Boxes15-1-2-1 More Information About the Cons List">
@@ -104,7 +104,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -124,6 +124,7 @@
       The Rust Programming Language Brief Note (Vol4-Advance)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -245,7 +246,7 @@
 <p>We use the <code>Rc</code> type when we want to allocate some data on the heap for multiple parts of our program to read and we can’t determine at compile time which part will finish using the data last. If we knew which part would finish last, we could just make that part the data’s owner, and the normal ownership rules enforced at compile time would take effect.</p>
 <p>Note that <code>Rc</code> is only for use in single-threaded scenarios.</p>
 <h4 id="15-4-1-Using-Rc-T-to-Share-Data">15-4-1 Using <code>Rc&lt;T&gt;</code> to Share Data</h4>
-<p><img src="https://doc.rust-lang.org/stable/book/img/trpl15-03.svg" alt=""></p>
+<p><img src="https://doc.rust-lang.org/stable/book/img/trpl15-03.svg" alt="" loading="lazy" decoding="async"></p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">List</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">Cons</span>(<span class="type">i32</span>, <span class="type">Box</span>&lt;List&gt;),</span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> crate::List::&#123;Cons, Nil&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">5</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(Nil))));</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">3</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a));</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">c</span> = <span class="title function_ invoke__">Cons</span>(<span class="number">4</span>, <span class="type">Box</span>::<span class="title function_ invoke__">new</span>(a));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// error[E0382]: use of moved value: `a`</span></span><br></pre></td></tr></table></figure>
 <p>The <code>Cons</code> variants own the data they hold, so when we create the <code>b</code> list, <code>a</code> is moved into <code>b</code> and <code>b</code> owns <code>a</code>. Then, when we try to use <code>a</code> again when creating <code>c</code>, we’re not allowed to because <code>a</code> has been moved.</p>
 <p>We could change the definition of <code>Cons</code> to hold references instead, but then we would have to specify lifetime parameters. By specifying lifetime parameters, we would be specifying that every element in the list will live at least as long as the entire list. The borrow checker wouldn’t let us compile <code>let a = Cons(10, &amp;Nil);</code> for example, because the temporary <code>Nil</code> value would be dropped before <code>a</code> could take a reference to it.</p>
@@ -311,7 +312,7 @@
 <p>This code creates a list in <code>a</code> and a list in <code>b</code> that points to the list in <code>a</code>. Then it modifies the list in <code>a</code> to point to <code>b</code>, creating a reference cycle.</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fn</span> <span class="title function_">main</span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="variable">a</span> = Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">5</span>, RefCell::<span class="title function_ invoke__">new</span>(Rc::<span class="title function_ invoke__">new</span>(Nil))));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;a initial rc count = &#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;a next item = &#123;:?&#125;&quot;</span>, a.<span class="title function_ invoke__">tail</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> <span class="variable">b</span> = Rc::<span class="title function_ invoke__">new</span>(<span class="title function_ invoke__">Cons</span>(<span class="number">10</span>, RefCell::<span class="title function_ invoke__">new</span>(Rc::<span class="title function_ invoke__">clone</span>(&amp;a))));</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;a rc count after b creation = &#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;b initial rc count = &#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;b));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;b next item = &#123;:?&#125;&quot;</span>, b.<span class="title function_ invoke__">tail</span>());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="variable">Some</span>(link) = a.<span class="title function_ invoke__">tail</span>() &#123;</span><br><span class="line">        *link.<span class="title function_ invoke__">borrow_mut</span>() = Rc::<span class="title function_ invoke__">clone</span>(&amp;b);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;b rc count after changing a = &#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;b));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;a rc count after changing a = &#123;&#125;&quot;</span>, Rc::<span class="title function_ invoke__">strong_count</span>(&amp;a));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Uncomment the next line to see that we have a cycle;</span></span><br><span class="line">    <span class="comment">// it will overflow the stack</span></span><br><span class="line">    <span class="comment">// println!(&quot;a next item = &#123;:?&#125;&quot;, a.tail());</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// a initial rc count = 1</span></span><br><span class="line"><span class="comment">// a next item = Some(RefCell &#123; value: Nil &#125;)</span></span><br><span class="line"><span class="comment">// a rc count after b creation = 2</span></span><br><span class="line"><span class="comment">// b initial rc count = 1</span></span><br><span class="line"><span class="comment">// b next item = Some(RefCell &#123; value: Cons(5, RefCell &#123; value: Nil &#125;) &#125;)</span></span><br><span class="line"><span class="comment">// b rc count after changing a = 2</span></span><br><span class="line"><span class="comment">// a rc count after changing a = 2</span></span><br></pre></td></tr></table></figure>
 <p>We modify <code>a</code> so it points to <code>b</code> instead of <code>Nil</code>, creating a cycle. We do that by using the <code>tail</code> method to get a reference to the <code>RefCell&gt;</code> in <code>a</code>, which we put in the variable <code>link</code>. Then we use the <code>borrow_mut</code> method on the <code>RefCell&gt;</code> to change the value inside from an <code>Rc</code> that holds a <code>Nil</code> value to the <code>Rc</code> in <code>b</code>.</p>
-<p><img src="https://doc.rust-lang.org/stable/book/img/trpl15-04.svg" alt=""></p>
+<p><img src="https://doc.rust-lang.org/stable/book/img/trpl15-04.svg" alt="" loading="lazy" decoding="async"></p>
 <p>In this case, right after we create the reference cycle, the program ends. The consequences of this cycle aren’t very dire. However, if a more complex program allocated lots of memory in a cycle and held onto it for a long time, the program would use more memory than it needed and might overwhelm the system, causing it to run out of available memory.</p>
 <p>If you have <code>RefCell</code> values that contain <code>Rc</code> values or similar nested combinations of types with interior mutability and reference counting, you must ensure that you don’t create cycles; you can’t rely on Rust to catch them.</p>
 <p>Another solution for avoiding reference cycles is reorganizing your data structures so that some references express ownership and some references don’t. As a result, you can have cycles made up of some ownership relationships and some non-ownership relationships, and only the ownership relationships affect whether or not a value can be dropped. In Listing above, we always want <code>Cons</code> variants to own their list, so reorganizing the data structure isn’t possible.</p>
@@ -731,10 +732,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/" rel="prev"><span class="meta-nav">←</span> ELECTRA 论文笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2019/12/08/Paper/2019-12-08-ELECTRA-Paper/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">ELECTRA 论文笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/" rel="next">The Rust Programming Language Brief Note (Vol5-Project) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/12/03/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol5-Project/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">The Rust Programming Language Brief Note (Vol5-Project)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -859,8 +870,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

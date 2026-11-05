@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/">
   
   <meta name="description" content="上篇Reward Model建模 | Yam[1]我们介绍了Reward相关的建模方案，本文继续介绍几篇Reward数据相关的论文。 Reward 数据的价值远不止于监督信号本身。本文剖析的三项研究揭示：Skywork-Reward-V2 优化了人机协同的标注效率；Spurious Rewards 的核心发现表明，RL 训练（如 GRPO）的核心作用常在于“激活”而非“教授”——虚假奖励亦能激发基">
@@ -28,8 +28,8 @@
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="RM">
 <meta property="article:tag" content="Reward">
+<meta property="article:tag" content="RM">
 <meta property="article:tag" content="Skywork Reward">
 <meta property="article:tag" content="Spurious Reward">
 <meta property="article:tag" content="Unsupervised Elicitation">
@@ -111,7 +111,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -131,6 +131,7 @@
       解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -233,7 +234,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <p>如开头所言，这是相当典型的工程示范了，用于偏好数据标注，其实简单来说就是利用LLM+人工进行协同标注，有点像boosting方法，自适应检索机制则是为了提高标注效率。有大量标注偏好数据需求时可以参考这个流程。</p>
 <h2 id="Spurious-Rewards">Spurious Rewards</h2>
 <p>这是华盛顿大学和Allen的一篇paper：<a href="https://arxiv.org/abs/2506.10947">Spurious Rewards: Rethinking Training Signals in RLVR</a><sup>[3]</sup>，个人觉得非常有意思，它是那种你乍看好像没啥，但仔细读完就会觉得非常值得的论文。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="背景-2">背景</h3>
 <p>这篇文章从一个有意思的现象开始——即使是虚假奖励，可验证奖励强化学习（RLVR）仍能在<strong>某些模型</strong>（Qwen）中激发出强大的数学推理能力。也就是说，即便错误的Reward信号也能让某些模型性能得到提升！接下来整篇文章基本都在探索为什么会这样。</p>
 <p>RL主要是激活，这个其实有很多文章都提到过了，我们也梳理过相关文章。</p>
@@ -285,14 +286,14 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <li>低效代码模型（如 OLMo2-7B-SFT 占 98.0%，Qwen2.5-7B 占 92.2%）：频繁尝试使用代码推理，但它们的代码生成反而与更差的性能相关。</li>
 </ul>
 <p>因此，高效的代码推理能力是 Qwen2.5-Math 系列模型在 RLVR 训练前所具备的一种独特且已有的能力。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <h4 id="带有虚假奖励的-RLVR-可以上调已有推理策略">带有虚假奖励的 RLVR 可以上调已有推理策略</h4>
 <p>本文中所采用的奖励信号——包括如随机奖励和错误奖励等<strong>虚假奖励</strong> ——之所以能够在 Qwen2.5-Math 和 Qwen2.5 模型上获得较高的准确率，很大程度上是因为它们<strong>激发了正确的推理策略</strong> 。</p>
 <p><strong>性能提升与代码推理频率密切相关</strong></p>
 <p>在RLVR 训练之前，Qwen2.5-Math-7B的代码推理使用率就达到65%。训练开始后，大部分奖励下，代码推理的使用频率在最初的 15 步内迅速上升至约 90%，与准确率的提升高度相关；使用随机奖励增长较为缓慢，但最终也达到了 95.6%。</p>
 <p>当使用真实标签奖励进行训练时，代码推理频率也会迅速上升，但随着模型在自然语言推理上的准确性逐步提高，该频率又会逐渐下降，这表明模型<strong>正在从高质量的真实奖励信号中学习真正的知识</strong>。</p>
 <p>而对于那些“低效代码”模型，代码推理频率的下降与性能提升高度相关 。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>RLVR 训练期间的推理策略切换</strong></p>
 <p>Qwen2.5-Math-7B 的准确率在不同训练信号下平均提升了23.5 个百分点。为进一步分析提升来源，本文追踪了在每种训练信号下，模型在四个互不重叠子集上的表现：</p>
 <ul>
@@ -303,7 +304,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 </ul>
 <p>主要关注两个相互关联的指标：每个子集的出现频率和准确率。</p>
 <p><strong>频率分析</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>上图是Qwen2.5-Math-7B 的推理策略转换模式。</p>
 <p>对于所有<strong>弱奖励和虚假奖励</strong>，模型在 RLVR 训练后更倾向于使用代码推理。</p>
 <ul>
@@ -319,7 +320,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <p>对于无代码模型，RLVR 未能激发其推理策略上的显著变化，表明这类能力很可能未在预训练阶段被有效学习。</p>
 <p><strong>准确率分析</strong></p>
 <p>继续看上图，在所有训练信号下训练后，Lang→Code子集的准确率出现了显著提升。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这一点在上表也得到印证：</p>
 <ul>
 <li>Qwen2.5-Math-7B的性能提升中，有58.3%来自这一子集；</li>
@@ -340,7 +341,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <li>在RLVR训练中，当回复中包含字符串 “python” 时才给予正奖励。</li>
 </ul>
 <p>总体来看，只有 Qwen2.5-Math 系列模型表现出显著的性能提升（训练引导超过提示词），其他模型则改善有限（不具备代码推理能力，性能甚至下降）。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>通过虚假奖励抑制代码推理可以降低 Qwen2.5-Math-7B 的性能提升却能提高其他模型表现</strong></p>
 <p>本文假设：代码推理是弱奖励和虚假奖励带来性能提升的重要来源之一。反过来，如果对代码生成进行惩罚，就有可能削弱这些奖励信号在 Qwen2.5-Math 模型上的效果。</p>
 <p>设计复合奖励机制，只有当回复满足以下两个条件时才会获得奖励：</p>
@@ -355,7 +356,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <li>真实奖励+无python与上面类似，仍然能够带来性能提升，说明RLVR还能激活其他有价值的能力。</li>
 </ul>
 <p>对低效代码模型：复合奖励往往优于原始奖励，尤其是OLMo2-7B-SFT。推测是因为 Qwen2.5-7B 和 OLMo2-7B-SFT 在 RLVR 训练前本身就具有较弱的代码推理能力，因此复合奖励通过明确抑制这一行为，避免了对次优策略的强化，从而提升了整体表现。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <h4 id="来自错误奖励和随机奖励的训练信号">来自错误奖励和随机奖励的训练信号</h4>
 <h5 id="错误奖励">错误奖励</h5>
 <p>本文提出了两个可能的机制，用以解释为什么错误奖励仍能提供有效的训练信号：</p>
@@ -368,7 +369,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <p>由于 GRPO 将奖励归一化为均值为零的分布，因此“随机奖励中大多数获得奖励的答案是正确的”这一解释不成立。如果大多数被奖励的回答是正确的，那么大多数被惩罚的回答也应该是正确的。</p>
 <p><strong>不同概率的随机奖励始终能够提升性能</strong></p>
 <p>如图所示，在初始探索阶段之后，所有非零概率配置都能成功带来显著的性能提升 ，其最终表现可与真实标签奖励相媲美。只是不同 γ 值下的收敛速度有所差异，但所有配置最终都达到了相近的高性能区间 。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-10.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-10.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>GRPO 的截断偏差可以诱导出随机奖励的训练信号</strong></p>
 <p>GRPO 在进行梯度更新时，会基于奖励计算一个归一化的组内相对优势值。该优势值的期望为零——也就是说，它本身在统计上不会引导模型向任何特定方向更新。但由于截断机制，最终的期望梯度仍然不为零。</p>
 <p>受 <a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO</a><sup>[10]</sup>启发（截断偏差会减少探索行为、增强利用行为），本文假设：即使在随机奖励的情况下，截断偏差也会<strong>强化那些先验概率较高的行为模式</strong>。实验结果显示，截断机制确实提升了策略模型对训练答案中某些 token 的选择概率，表明模型在训练过程中<strong>更加依赖其原有的知识和行为偏好</strong>。</p>
@@ -382,7 +383,7 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 </ul>
 </li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-11.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-spurious-rewards-11.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，在标准的带截断的 GRPO设置下（紫色曲线），随机奖励显著提升了代码推理行为，表明模型被引导到其已有的推理模式分布上。这种“集中效应”在移除截断机制后消失（其他颜色曲线所示的不同实验条件）。此外，还发现不使用截断的训练过程非常不稳定（这是正常的，PPO也就是因为这个原因才加了截断）。</p>
 <h3 id="小结-2">小结</h3>
 <p>这篇文章的核心结论其实就是前面的一句话：通过虚假奖励信号获得的准确率提升，很大程度上只是因为RLVR成功地激发了模型<strong>原本具备的正确推理策略</strong>。将我们原来认为的“推理<strong>能力</strong>在Base”深入到“推理<strong>策略</strong>在Base”。</p>
@@ -693,10 +694,20 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" rel="prev"><span class="meta-nav">←</span> GiGPO：双层级优势函数驱动的Agent强化学习新范式</a></span>
+        <div class="nav-previous">
+          <a href="/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">GiGPO：双层级优势函数驱动的Agent强化学习新范式</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" rel="next">激活诱导LLM指令跟随 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/07/01/NLP/LLM-IF/2025-07-01-Activation-Steering/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">激活诱导LLM指令跟随</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -821,8 +832,9 @@ k_{\max }, &amp; \text { if } p \leq 0.5 &amp; \text { (incorrect prediction) } 
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

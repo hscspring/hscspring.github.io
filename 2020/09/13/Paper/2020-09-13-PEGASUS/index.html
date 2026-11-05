@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>PEGASUS 论文笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/09/13/Paper/2020-09-13-PEGASUS/">
   
   <meta name="description" content="Paper：[1912.08777] PEGASUS: Pre-training with Extracted Gap-sentences for Abstractive Summarization Code：google-research&#x2F;pegasus 核心思想：基于 GSG 的 Transformer 在文本摘要上的应用。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       PEGASUS 论文笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -224,18 +225,18 @@
 <li>Large：16 层，1024 hidden size，4096 feed-forward layer size，16 self-attention heads，568 M 参数</li>
 </ul>
 <p>训练参数：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>没有预训练的 Base 可以作为 TransformerBase。</p>
 <p>在生成时使用了 greedy-decoding 和 beam-search 两种方式。</p>
 <p><strong>消融实验</strong></p>
 <p>预训练步数对下游任务影响显著：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>主题相关的预训练模型对下游任务更加有效：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>GSG 的 Ind-Orig 效果最好（证明按重要性选择是有效的），GSR（GSG 占 document 句子的比例）小于 50% 时表现好；单独使用 MLM 效果很差，MLM + Ind-Orig 和随机效果相近，另外实验也发现 MLM 在预训练早期（100k-200k 步）时能够提升下游任务，但当步数继续增加时反而会有抑制效果。所以 <strong>Large 就没有包括 MLM</strong>（是不是可以理解为——多此一举）。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>词表选择 Unigram 效果较好：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>大模型</strong></p>
 <p>除了之前提到的参数外，其他方面也选用了消融实验的最佳配置：</p>
 <ul>
@@ -245,15 +246,15 @@
 <li>选中的句子 20% 不改变</li>
 </ul>
 <p>在不同下游任务上的结果：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果也显示，小数据集更能从预训练中获益。</p>
 <p><strong>小样本</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-8.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-8.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>三根线分别是三种分数，折线上的五个点对应了不同数量的数据。</p>
 <p><strong>质量</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-9.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-9.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>模型是记忆器还是具备生成能力</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-10.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-10.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>这里的 similarity 是计算下游任务测试集和预训练文档的，采用了 ROUGE-2 Recall，即：common 2-grams / 测试集 2-grams。</p>
 <p><strong>更进一步</strong></p>
 <ul>
@@ -263,7 +264,7 @@
 <li>由于 Perplexity 收敛过慢，预训练从 500k 调整到 1.5M 步</li>
 <li>SentencePiece Tokenizer 编码换行符</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-11.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-pegasus-11.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Discussion">Discussion</h2>
 <p><strong>相关工作</strong></p>
 <ul>
@@ -321,10 +322,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/09/15/ML/2020-09-15-Metrics/" rel="prev"><span class="meta-nav">←</span> Metrics</a></span>
+        <div class="nav-previous">
+          <a href="/2020/09/15/ML/2020-09-15-Metrics/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Metrics</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/09/09/ML/2020-09-09-Kernel-SMO/" rel="next">核方法 和 SMO <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/09/09/ML/2020-09-09-Kernel-SMO/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">核方法 和 SMO</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -449,8 +460,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

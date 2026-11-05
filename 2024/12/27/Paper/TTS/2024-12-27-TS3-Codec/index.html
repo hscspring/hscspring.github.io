@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>TS3-Codec | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/12/27/Paper/TTS/2024-12-27-TS3-Codec/">
   
   <meta name="description" content="论文：TS3-Codec: Transformer-Based Simple Streaming Single Codec 没开源代码。">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       TS3-Codec
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -220,7 +221,7 @@
 </li>
 </ul>
 <h2 id="实验结果">实验结果</h2>
-<p><img src="https://qnimg.lovevivian.cn/paper-ts3codec-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ts3codec-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如果看非流式，BigCodec不愧是SOTA，表现出相当不错的水准。流式，感觉MIMI更具潜力。TS3-Codec在Token Rate上有一定优势，但参数量相比MIMI高了不少。另外，MIMI是多码本的，虽然Token Rate高了不少，但Frame Rate只有12.5。不过单码本流式那确实只有TS3-Codec了。</p>
 <p>可惜本文依然没有做Scale up的消融，不知道Transformer架构能否在Codec上Scale up。</p>
 <p>另外WavTokenzier实际使用效果不太理想，普通音频重建效果不太好。</p>
@@ -281,10 +282,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/12/30/Paper/TTS/2024-12-30-DAC/" rel="prev"><span class="meta-nav">←</span> DAC</a></span>
+        <div class="nav-previous">
+          <a href="/2024/12/30/Paper/TTS/2024-12-30-DAC/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">DAC</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/12/26/Paper/TTS/2024-12-26-BigCodec/" rel="next">BigCodec <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/12/26/Paper/TTS/2024-12-26-BigCodec/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">BigCodec</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -409,8 +420,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>R-Drop | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/08/18/Paper/2021-08-18-R-Drop/">
   
   <meta name="description" content="论文：[2106.14448] R-Drop: Regularized Dropout for Neural Networks Code：dropreg&#x2F;R-Drop 一句话概述：用 KL 散度作为损失的 SimCSE。 摘要：Dropout 是深度学习训练时广泛使用的正则化工具，本文提出 R-Drop，强迫不同 Dropout 模型（就是带 Dropout 的模型跑两次数据）的输出分布彼此保持一">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       R-Drop
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -180,10 +181,10 @@
 <p>一共 4 个 NLP 任务和 1 个 CV 任务，在 MT，NLU 和 LM 任务上效果还行，Summarization  和 Image Classification 任务提升较小。此处仅展示 MT 和 NLU 任务：</p>
 <p><strong>MT</strong></p>
 <p>α=5</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>NLU</strong></p>
 <p>α 在 0.1 0.5 和 1.0 之间动态调整。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其他实验 Summarization 的 α=0.7，LM 的 α=1.0/0.5（Transformer/Adaptive Input Transformer），图像分类任务 α=0.6。</p>
 <h2 id="研究">研究</h2>
 <p>主要对 R-Drop 相关配置的变化做了一些实验。</p>
@@ -192,7 +193,7 @@
 <li>R-Drop 有更低的验证 loss，可以在训练过程中提供持续的正则化。</li>
 <li>训练早期，Transformer 提升了 BLEU，但不久会陷入局部最优，R-Drop 持续提升 BLEU。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>k-步 R-Drop</strong><br>
 每隔 k 步执行 R-Drop，而不是每步都执行，具体效果见上图（右）：</p>
 <ul>
@@ -206,7 +207,7 @@
 <li>Dropout 比例一致时（0.3，0.3）效果最好。</li>
 <li>两个比例在适当区间（0.3-0.5）效果最好。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-rdrop-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>α 的效果</strong></p>
 <p>在 NMT 任务上做了 1 3 5 7 10 等多组对照实验，结果发现：</p>
 <ul>
@@ -263,10 +264,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" rel="prev"><span class="meta-nav">←</span> 在 TextCNN 上实验 Dropout 和对比学习</a></span>
+        <div class="nav-previous">
+          <a href="/2021/08/31/AI/2021-08-31-SL-CL-Dropout/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">在 TextCNN 上实验 Dropout 和对比学习</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/" rel="next">高性能数据处理 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">高性能数据处理</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -391,8 +402,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

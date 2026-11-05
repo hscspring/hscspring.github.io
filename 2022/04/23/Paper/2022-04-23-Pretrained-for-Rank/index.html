@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>预训练模型与传统方法在排序上有啥不同？ | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/">
   
   <meta name="description" content="Paper：[2204.07233] How Different are Pre-trained Transformers for Text Ranking? 一句话概述：BM25 粗排+CE 精排，你值得拥有。 摘要：近年来与传统的检索模型和反馈方法相比，大规模预训练的效果有了显著提高。不过这些结果主要是基于 MS Macro&#x2F; TREC 设置，非常特殊，我们对模型为什么好的理解是分散的。本文在">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       预训练模型与传统方法在排序上有啥不同？
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -187,12 +188,12 @@
 <ul>
 <li>图b：42% 高相关但在 BM25@100 里的被排到 CE@10，13% BM@500；图c 结果类似。说明 CE 可以提取 BM25 漏掉的相关文档，即使原来的排名非常低也没关系。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-pretrained-for-rank-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-pretrained-for-rank-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>问题4</strong>：CE 是否包含「精确匹配」？</p>
 <p>把文档中所有非查询词替换为 <code>[MASK]</code> Token，强制它仅依赖查询词和文档之间的精确匹配。结果如下表（第一行）所示，仅有 query 的 CE 比 BM25 差了很多，说明 CE 没有充分利用精确匹配。</p>
 <p><strong>问题5</strong>：CE 还能找到「不可能」的相关结果吗？</p>
 <p>MASK 掉文档中出现的 query 词，模型只使用文档的上下文（此时由于文档中没有 query 词，BM25 返回是随机的）。结果如下表（第二行）所示，相比正常情况掉了不少点，但比第一行结果好很多，说明 CE 能够从上下文中填充 MASK 掉的 Token。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-pretrained-for-rank-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-pretrained-for-rank-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>结论</strong></p>
 <ul>
 <li>排名靠前的文档通常排名非常不同，但排名底部的文档似乎存在更强的一致性。</li>
@@ -247,10 +248,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/04/23/Paper/2022-04-23-MarkBERT/" rel="prev"><span class="meta-nav">←</span> MarkBERT</a></span>
+        <div class="nav-previous">
+          <a href="/2022/06/11/Paper/2022-06-11-W2NER/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">统一NER为词词关系分类</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/" rel="next">量化NLM模型的记忆力 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">MarkBERT</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -375,8 +386,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

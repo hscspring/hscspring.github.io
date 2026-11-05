@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Neural Architectures for Named Entity Recognition 论文笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/12/28/Paper/2019-12-28-Bi-LSTM-CRF-NER-Paper/">
   
   <meta name="description" content="Paper: 1603.01360.pdf code:   clab&#x2F;stack-lstm-ner: NER system based on stack LSTMs   glample&#x2F;tagger: Named Entity Recognition Tool   核心思想：pretrained + character-based 词表示分别学习形态和拼写，Bi-LSTM + CRF 和基于转移的">
@@ -26,10 +26,10 @@
 <meta property="article:modified_time" content="2024-06-12T02:06:43.543Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="Embedding">
 <meta property="article:tag" content="NER">
 <meta property="article:tag" content="CRF">
 <meta property="article:tag" content="Bi-LSTM">
+<meta property="article:tag" content="Embedding">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       Neural Architectures for Named Entity Recognition 论文笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -258,7 +259,7 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <p>这个模型直接对多个 token 的实体构建表示，它依赖 stack 数据结构来增量构造输入块（chunks）。使用了 Stack-LSTM（LSTM + 栈指针）架构，它允许 embedding 一个栈的对象（push 和 pop），看起来就像一个维持对内容 summary embedding 的栈。</p>
 <p>关于 Stack-LSTM 的论文：<a href="https://www.aclweb.org/anthology/P15-1033/">Transition-Based Dependency Parsing with Stack Long Short-Term Memory - ACL Anthology</a>。</p>
 <h3 id="Chunking-Algorithm">Chunking Algorithm</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>
 <p>两个 stack：output 和 stack，分别表示已完成的 chunks 和暂存空间</p>
@@ -272,7 +273,7 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <li>SHIFT 将 word 从 buffer 移动到 stack</li>
 <li>OUT 将 word 从 buffer 移动到 output stack：REDUCE(y) 从栈顶 pop 所有的 item 生成一个 “chunk”，标记为 label y，然后 push 一个这个 chunk 的表示到 output stack。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>给定 content 的 stack，buffer 和 output，以及历史 action，针对每一个 time step 上 action 的分布建模。</p>
 <p>具体而言，每一个 action 都计算一个固定维度的 embedding，然后 concat 后获得完整的状态表示，这个表示用于定义每个 time step 可能采取的行动分布。模型就是最大化给定输入句子参考 action 序列（从标记语料中提取）的条件概率。预测时，使用贪婪算法选择最大概率的 action。</p>
 <p>因为是直接预测 “块” ，所以和使用的标记方法无关。</p>
@@ -285,7 +286,7 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <li>dropout（防止依赖某一个表示）</li>
 </ul>
 <h3 id="Character-based-models-of-words">Character-based models of words</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>为了训练 UNK，用 UNK 按 50% 的概率替换单例。LSTM 的 hidden dimension 为 25，左右加起来是 50。由于 RNN 倾向于最近的输入，所以期望前向 LSTM 能够表示词的后缀，后向 LSTM 能够表示词的前缀。本文认为重要的信息是位置独立的，使得 LSTM 成为建模词和字母关系的一个很好的先验。</p>
 <h3 id="Pretrained-embeddings">Pretrained embeddings</h3>
 <p>skip-n-gram（词顺序），训练时候精调。</p>
@@ -300,9 +301,9 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <p>CoNLL-2002, CONLL-2003，四类实体：地名，人名，组织名和杂项，没有使用 POS tag，除了在英文 dataset 上把数字替换成 0 外没有做任何其他预处理。</p>
 <h3 id="Results">Results</h3>
 <p>Stack-LSTM 更加依赖基于字符的表示，猜测是，LSTM-CRF 因为 Bi-LSTM 获得更多的上下文信息因而可能需要较少的拼写信息；而 Stack-LSTM 逐个使用单词，并且对单词 chunk 时仅仅依赖词表示。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="Network-architectures">Network architectures</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-neural-architectures-for-ner-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>word embedding +7.31</li>
 <li>CRF +1.79</li>
@@ -384,10 +385,20 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol2-Manage/" rel="prev"><span class="meta-nav">←</span> The Rust Programming Language Brief Note (Vol2-Manage)</a></span>
+        <div class="nav-previous">
+          <a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">The Rust Programming Language Brief Note (Vol1-Basic)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" rel="next">Rust Tutorial <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/12/21/Rust/2019-12-21-Rust-Tutorial/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Rust Tutorial</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -512,8 +523,9 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

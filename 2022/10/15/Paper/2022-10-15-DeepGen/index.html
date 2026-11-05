@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DeepGen：Diverse Search Ad Generation and Real-Time Customization | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/10/15/Paper/2022-10-15-DeepGen/">
   
   <meta name="description" content="Paper：[2208.03438] DeepGen: Diverse Search Ad Generation and Real-Time Customization Code：无 一句话概述：端到端广告文本生成方案。 摘要：DeepGen 是一个 Web 部署的用于为 Bing 广告客户自动生成搜索广告的系统。它使用最新的 NLG 模型从广告商的网页生成流畅的广告，并解决一些实际问题（真实性、">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       DeepGen：Diverse Search Ad Generation and Real-Time Customization
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -188,7 +189,7 @@
 <li>相关性（Relevance）：生成的文本是否与广告商的业务相关，包括是、否。</li>
 </ul>
 <p>如果一个广告文本文本质量好或一般、像人类写的、真实、相关，那就是「整体上好（Overall Good）」。结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>虽然基线模型和广告商编写的广告在质量上没有显著差异，但是总体良好率都因为<strong>较低的事实性分数</strong>而较低。比如一些打折信息，但是页面里其实并没有。为了缓解这个问题，本文使用了基于短语的交叉检查过滤，类似于基于实体的过滤【3】。</p>
 <p>一些交叉检查的例子包括：</p>
 <ul>
@@ -205,14 +206,14 @@
 <p>为了明确建模多样性，本文构建了一个可控的 NLG 模型来为同一源文本序列生成多个广告素材。具体通过控制代码（CTRL【4】）、代表所需输出属性的分类变量【5】来实现。这类模型被称为 Guided 模型。</p>
 <p>假设每个页面可以针对不同的卖点进行 12 个类别的广告（分类），比如产品或服务、广告商名称、品牌、位置等，主要从广告商门户网站说明中借用的。然后人工对大约 6500 条不同的广告商撰写的素材进行分类。使用 BERT-base 做分类任务，达到约 80% 的精度。</p>
 <p>接着预测每个广告片段的类别，然后将类别控制代码添加到源文本开始位置，获得一个包含 6M 个广告素材（包括标题和描述）数据集，用于训练 Guided Model。结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>Guided 模型和广告商的质量没有明显区别，抽取式的比它们要好。广告商的描述素材比模型要好，模型的优势在于能够明确地捕获标题和描述的不同广告类别。抽取式无法生成好的广告描述。</p>
 <h2 id="服务和定制化">服务和定制化</h2>
 <h3 id="多样性选择">多样性选择</h3>
 <p>主要是从 T 和标题素材和 D 和描述素材中选择一个语义多样的子集（针对每个 URL），然后给到线上服务组件，目的是减少系统负载，并提高文本多样性。</p>
 <p>本文使用了 CDSSM【6】，使用搜索日志训练，将每个素材表征为向量，然后使用 k-DPP 最大后验推理算法【7】对 CDSSM 空间中点的不同子集进行采样。</p>
 <p>同时，使用 PairwiseBLEU【8】、SelfBLEU【9】和 Distinct N-gram【10】来评估标题素材在 k-DPP 前后的多样性。从 50 个域名随机采样了 2000 个 URL 进行计算，结果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>生成的标题素材比广告商提供的更加多样化，k-DPP 可以进一步增加素材多样性。另外，Guided 模型本身可以生成与多个 AdCopy 模型组合生成的标题素材数量相似且多样性相似的标题素材。</p>
 <h3 id="实时拼接">实时拼接</h3>
 <p>在 query 时，将定制的广告文案拼接在一起，优化拍卖中标率（选择最佳的广告文案）。这里使用 LR 对每个素材位置进行打分，特征来自广告拍卖日志，比如素材文本中的字符串哈希、长度、素材的 Ngram 等，同时还将这些与查询文本进行交叉，得到每个位置的稀疏特征（大约 4B），LR 学习赢得给定广告副本拍卖的概率。每天持续使用前一天日志中的约 10B 数据进行训练。</p>
@@ -228,7 +229,7 @@
 <li>实验一：对比 DeepGen 和抽取式系统（对照组），可以看到明显的 RPM 收益，意味着 DeepGen 生成的个性化广告文案更有可能赢得拍卖并被用户点击。</li>
 <li>实验二：消融实验（针对实时定制），将实时拼接替换为预先计算的拼接作为对照组。具体做法是，建立一个单独的模型离线将素材拼接到多个广告副本中，并仅在查询（在线）期间对预先拼接的广告文本进行排名。RPM 依然明显，因为主要由 IY 驱动而不是 CTR。结果表明，在线拼接比离线拼接覆盖的排列空间更大，更有可能赢得拍卖。但是对于赢得拍卖的广告文本，无论在线还是离线对用户的吸引力都是相似的。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepgen-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="小结">小结</h2>
 <p>本文提出了一个自动的端到端搜索广告文本生成解决方案，使用 NLG 模型生成广告内容和多样化选择，利用实时 LR 排名器进行内容拼接。生成技术提供了丰富的高质量广告内容来源，比人类表现更加出色。通过语义嵌入进一步应用多样化选择，超越人类的多样性，同时确保系统的可扩展性。最后，使用实时排名来拼接有吸引力、根据用户查询和搜索意图为其真正定制的广告。这种自动广告生成方案展示了比抽取系统基线显著的 CTR 增益。</p>
 <p>总而言之，是一篇很不错的工业论文，里面涉及到多个组件和多个模型，整体构成了一整套解决方案和线上系统，非常值得参考。</p>
@@ -294,10 +295,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/10/16/Paper/2022-10-16-GlobalPointer/" rel="prev"><span class="meta-nav">←</span> Global Pointer：Novel Efficient Span-based Approach for NER</a></span>
+        <div class="nav-previous">
+          <a href="/2022/10/16/Paper/2022-10-16-GlobalPointer/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Global Pointer：Novel Efficient Span-based Approach for NER</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/09/11/Diary/2022-09-11-Passion/" rel="next">只如初见的不只爱情 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/09/11/Diary/2022-09-11-Passion/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">只如初见的不只爱情</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -422,8 +433,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

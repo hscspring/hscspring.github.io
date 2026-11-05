@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>AI 小课堂：Activation Function | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/07/05/AI/2020-07-05-BK-Activation/">
   
   <meta name="description" content="基本思想 激活函数在深度学习中的作用就跟神经元中 “细胞体” 的功能类似：确定输出中哪些要被激活。我们都知道 SVM 通过核方法对非线性可分的数据进行分类，这其实是一种提升的方法（机器学习中很多问题都是类似的降个维度或升个维度）。为啥提升维度就能够让原本线性不可分的数据可分呢？我们以下图为例：  两组不同标签的数据构成一个近似的同心圆。要想将两种不同的点分开，靠二维的一条直线肯定是没办法了，此时我">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       AI 小课堂：Activation Function
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -221,23 +222,23 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 <p>上面部分函数的的计算举例如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">x = np.array([-<span class="number">2.0</span>, -<span class="number">1.0</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>], dtype=np.float16)</span><br><span class="line">ReLU(x) = np.array([<span class="number">0.</span>, <span class="number">0.</span>, <span class="number">0.</span>, <span class="number">2.</span>, <span class="number">3.</span>, <span class="number">5.</span>])</span><br><span class="line">LeakLU(a=<span class="number">0.2</span>)(x) = np.array([-<span class="number">0.4</span>, -<span class="number">0.2</span>, <span class="number">0.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">5.0</span>])</span><br><span class="line">GeLU(x) = np.array([-<span class="number">0.0454</span>, -<span class="number">0.1589</span>,  <span class="number">0.0</span>, <span class="number">1.955</span> , <span class="number">2.996</span> , <span class="number">5.0</span>])</span><br><span class="line">TanH(x)= np.array([-<span class="number">0.964</span>, -<span class="number">0.7617</span>, <span class="number">0.</span>, <span class="number">0.964</span>, <span class="number">0.995</span>, <span class="number">1.0</span> ])</span><br><span class="line">Sigmoid(x) = np.array([<span class="number">0.1192</span>, <span class="number">0.2688</span>, <span class="number">0.5</span>, <span class="number">0.8804</span>, <span class="number">0.9526</span>, <span class="number">0.993</span>])</span><br><span class="line">Softmax(x) = np.array([<span class="number">7.625e-04</span>, <span class="number">2.073e-03</span>, <span class="number">5.634e-03</span>, <span class="number">4.163e-02</span>, <span class="number">1.132e-01</span>, <span class="number">8.364e-01</span>])</span><br></pre></td></tr></table></figure>
 <p>对应的图像如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/aitc-activation-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/aitc-activation-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="具体应用">具体应用</h3>
 <p>以上面的数据分类为例，构建一个单隐层的 DNN 模型：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    layers.Dense(<span class="number">32</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    layers.Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">model.<span class="built_in">compile</span>(optimizer=<span class="string">&#x27;adam&#x27;</span>,</span><br><span class="line">              loss=<span class="string">&#x27;binary_crossentropy&#x27;</span>,</span><br><span class="line">              metrics=[<span class="string">&#x27;accuracy&#x27;</span>],</span><br><span class="line">              run_eagerly=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">model.fit(X_train, y_train, epochs=<span class="number">50</span>, verbose=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 <p>最终分类结果如下（测试集上准确率 98%）：</p>
-<p><img src="http://qnimg.lovevivian.cn/aitc-activation-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/aitc-activation-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>当然，不同的激活函数效果并不相同，但经过堆叠隐层，调整节点数，最终都能够正确分类。那这里就有新的问题了：节点数和层数对结果影响怎样？我们以同一个激活函数分别固定节点数和层数进行分析。</p>
 <p><strong>固定层数（单隐层），调整隐层节点数</strong>：</p>
-<p><img src="http://qnimg.lovevivian.cn/aitc-activation-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/aitc-activation-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>在测试集上的准确率分别为：35%、58%、88% 和 100%。可以发现，节点数影响弯曲程度，节点越多，分割界面越平滑。</p>
 <p><strong>固定节点数（8个），调整隐层数</strong>：</p>
-<p><img src="http://qnimg.lovevivian.cn/aitc-activation-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/aitc-activation-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>在测试集上的准确率分别为：70%、73%、85% 和 70%。而且可以发现层数增加而不改变节点并不一定会取得好的效果。事实上神经网络的架构设计一般都是随着层数的增加，节点数先增加后减少。</p>
 <p>比如我们可以这样设计架构：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意：输入的 Feature 是二维的，即 dim=2</span></span><br><span class="line"><span class="comment"># 这里同样设计 4 个隐层</span></span><br><span class="line">model = tf.keras.Sequential([</span><br><span class="line">    layers.Dense(<span class="number">8</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    layers.Dense(<span class="number">16</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    layers.Dense(<span class="number">32</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    layers.Dense(<span class="number">8</span>, activation=<span class="string">&quot;relu&quot;</span>),</span><br><span class="line">    layers.Dense(<span class="number">1</span>, activation=<span class="string">&#x27;sigmoid&#x27;</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
 <p>这次我们设置不同的 epoch 数量：</p>
-<p><img src="http://qnimg.lovevivian.cn/aitc-activation-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/aitc-activation-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>在测试集上的准确率分别为：65%、88%、100% 和 100%。当然，如果我们这里同时也调整了节点数，如果节点数最高为 8 ，无论怎么调整架构准确率也不会太高。</p>
 <p>文中涉及所有代码可参见 JupyterNotebook：<a href="https://github.com/hscspring/All4NLP/blob/master/Activation/activations.ipynb">All4NLP/activations.ipynb at master · hscspring/All4NLP</a></p>
 <h2 id="参考资料">参考资料</h2>
@@ -293,10 +294,20 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/" rel="prev"><span class="meta-nav">←</span> Generate Parentheses (LeetCode 22)</a></span>
+        <div class="nav-previous">
+          <a href="/2020/08/12/DSA/LeetCode/2020-08-12-Generate-Parentheses/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Generate Parentheses (LeetCode 22)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/07/05/AIQA/2020-07-05-Introduction/" rel="next">QA 小课堂：Introduction <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/07/05/AIQA/2020-07-05-Introduction/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">QA 小课堂：Introduction</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -421,8 +432,9 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

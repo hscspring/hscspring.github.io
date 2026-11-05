@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ChatGPT Prompt工程：设计、实践与思考 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/">
   
   <meta name="description" content="ChatGPT 火爆出圈了，有些人惊叹于它的能力，当然也有部分人觉得也就那样。这就不得不提 Prompt 了，据说【相关文献1】，ChatGPT 效果好不好完全取决于你的 Prompt，“看来 Propmt 也成一个技术活儿了”。当我这么想的时候，没想到国外居然已经有了成熟的售卖 Prompt 的网站，这玩意儿居然成了 NFT（Non-Fungible Token），真是世界变化太快，本人过于迟钝">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       ChatGPT Prompt工程：设计、实践与思考
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -243,22 +244,22 @@
 <p>看了上面的例子，我们来一个 NLP 命名实体任务的例子（来自一个朋友，稍作改编），材料是来自维基百科的一段刘亦菲简介。</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">请做一个实体抽取任务，从下面这段话中提取出人名和地名，并用json格式输出：</span><br><span class="line">刘亦菲（ Crystal Liu，1987 年 8 月 25 日－[1]）为 华裔美籍的女演员、歌手。出生于湖北武汉，后随母亲移居美国纽约，毕业于北京电影学院表演系 2002 级本科班。2002 年，主演电视剧《金粉世家》进入演艺圈；之后几年相继饰演了《天龙八部》的王语嫣、《仙剑奇侠传》的赵灵儿和《神雕侠侣》的小龙女等知名角色。2005 年签约唱片公司进军歌坛。2008 年凭借好莱坞电影《功夫之王》亮相国际银幕 [4]。2012 年主演电影《 铜雀台》，斩获第五届澳门国际电影节金莲花奖最佳女主角 [5]。2017 年从 迪士尼《花木兰》真人版电影试镜中脱颖而出，成为花木兰的饰演者[3]。</span><br></pre></td></tr></table></figure>
 <p>结果展示如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>再来一个生成的例子，我们让他写一段年终总结，Prompt 如下：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">今年我们团队主要做了以下几件事：第一件，提升业务点击率20%以上；第二件，提升运营效率50%以上；第三件，降低团队成本20%左右。请围绕上面几件事写一段300字左右的晋升材料，我是项目主要成员，务必要突出我本人的个人能力。</span><br></pre></td></tr></table></figure>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>再来一个改写的例子：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">下面是甄嬛体的几个例子：</span><br><span class="line">例子1：方才在正想来老朋友已多年不见，也必定会想念彼此，若请你来小聚，应允的话就是极好的。念初我俩同窗数年，不敝风雪，情比金坚，此真也宛若在心。</span><br><span class="line">例子2：方才见网店上一只皮质书包，模样颜色极是俏丽，私心想着若是给你用来，定衬肤色，必是极好的……</span><br><span class="line">例子3：今日天气清爽，本是极好的日子，若能踏踏青，逛逛西苑，便是再好不过了。却偏恼人午觉一睡睡到晚上 9 点，负了个大好光阴。</span><br><span class="line"></span><br><span class="line">请用甄嬛体写一段200字左右的情书，表达对心仪对象的思念之情。</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>这几个例子来自【相关文献6】。</p>
 </blockquote>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>写的不是很好，我们给多点提示继续：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">刚刚写的不太算甄嬛体的风格。请注意，甄嬛体风格的要点如下：</span><br><span class="line"><span class="bullet">1.</span> 言必称 “本宫”。</span><br><span class="line"><span class="bullet">2.</span> 喜欢用双字及叠字描述事物。比如“方才”、“想来”、“极好”、“罢了”、“真真”。</span><br><span class="line"><span class="bullet">3.</span> 经常使用短语、短句进行对话。如“若是…… 想必是极好的。”“我 愿……，虽……，倒也不负恩泽。”“…… 原是最好不过的了。”</span><br><span class="line"><span class="bullet">4.</span> 故意将本来可以用简单的一句话表达的内容，偏要用非常文雅而又高深的几个短句表达出来，以达到其幽默效果。</span><br><span class="line"></span><br><span class="line">请用甄嬛体风格重新写一遍刚刚的情书。</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>风格要点参考自【相关文献7】。</p>
 </blockquote>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>哈哈，还行，倒数第二段有点拉胯，不过本宫比较满意，就不再继续调教了。</p>
 <p>通过这几个例子我们不难看出，只要 Prompt 足够「到位」，ChatGPT 都能理解的相当不错，也能生成不错的结果。这看起来就好像你给一个人在布置任务一样，把你的要求清晰准确的告知对方，对方帮你把事情做完。【核心文献2】有大量的示例，感兴趣的读者不妨一试。</p>
 <h2 id="更多Case">更多Case</h2>
@@ -267,13 +268,13 @@
 <p>例1：找代码 Bug</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">找到下面这段代码的 bug:</span><br><span class="line"></span><br><span class="line"><span class="code">```</span></span><br><span class="line"><span class="code">for (var i=0; i&lt;5; i++) &#123;</span></span><br><span class="line"><span class="code">  setTimeout (() =&gt; console.log (i), 1000)</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">```</span></span><br></pre></td></tr></table></figure>
 <p>结果反馈：</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>例2：知识问答</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在LaTeX中，怎么表示一个微分方程式？</span><br></pre></td></tr></table></figure>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>例3：代码生成问题，这里换了一个算法问题。</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请用 Python 写一个快速排序算法。</span><br></pre></td></tr></table></figure>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>还有部分有趣的例子包括：</p>
 <ul>
 <li>生成 AI 文字生成图片的Prompt</li>
@@ -406,7 +407,7 @@
 <p>大卫：Will you tell me how to find her?</p>
 <p>万事通：Discovery is quite possible. Our Blue Fairy does exist in one place, and in one place only. At the end of the world where the lions weep. Here is the place dreams are born.</p>
 <p>ChatGPT：As the Blue Fairy is a fictional character from the story “The Adventures of Pinocchio” written by Carlo Collodi in 1883, it is not possible to find her in the real world. You can find her in the pages of the book and in the various adaptations and versions of the story, such as films, TV shows, and stage plays. You can also find her in the imagination of people that read or watch the story.</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-10.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-prompt-10.jpg" alt="" loading="lazy" decoding="async"></p>
 
       
     </div><!-- .entry-content -->
@@ -454,10 +455,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/" rel="prev"><span class="meta-nav">←</span> 语言模型级联</a></span>
+        <div class="nav-previous">
+          <a href="/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">语言模型级联</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/01/21/Paper/2023-01-21-Human-in-Loop/" rel="next">Put Human in NLP Loop <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/01/21/Paper/2023-01-21-Human-in-Loop/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Put Human in NLP Loop</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -582,8 +593,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

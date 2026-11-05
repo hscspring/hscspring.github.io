@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>高性能数据处理 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/08/12/DataSci/2021-08-12-Dataprocess-Performance/">
   
   <meta name="description" content="最近在写深度学习开源库时，遇到了读取语料并预处理的 API，于是趁此机会整理一下之前积累的关于高性能的内容。全文包括两个部分：第一部分主要聚焦在常用工具 Pandas 处理数据时不同操作方法的性能；第二部分主要介绍一些加速数值计算的工具；第三部分主要介绍一些能够辅助增加性能的工具。 如果懒得看过程，可以直接看结论：  数值计算任务：numba 或 Cython 加速；使用 .values 计算 遍">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       高性能数据处理
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -355,10 +356,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/08/18/Paper/2021-08-18-R-Drop/" rel="prev"><span class="meta-nav">←</span> R-Drop</a></span>
+        <div class="nav-previous">
+          <a href="/2021/08/18/Paper/2021-08-18-R-Drop/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">R-Drop</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/08/12/Unix/2021-08-15-Git/" rel="next">Git Memo <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/08/12/Unix/2021-08-15-Git/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Git Memo</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -483,8 +494,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

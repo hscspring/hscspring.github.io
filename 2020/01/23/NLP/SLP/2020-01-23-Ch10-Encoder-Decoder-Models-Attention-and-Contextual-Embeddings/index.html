@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Encoder-Decoder Models Attention and Contextual Embedding Note (SLP Ch10) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/01/23/NLP/SLP/2020-01-23-Ch10-Encoder-Decoder-Models-Attention-and-Contextual-Embeddings/">
   
   <meta name="description" content="Encoder takes an input sequence and create a contextualized representation of it, then passed to a decoder which  generates a task-specific output sequence.">
@@ -105,7 +105,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -125,6 +125,7 @@
       Encoder-Decoder Models Attention and Contextual Embedding Note (SLP Ch10)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -155,9 +156,9 @@
 <li>Begin autoregressive generation, asking for a word in the context of the hidden layer from the end of the source input as well as the end-of-sentence marker.</li>
 <li>Subsequent words are conditioned on the previous hidden state and the embedding for the last word generated</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Encoder-Decoder-Networks">Encoder-Decoder Networks</h2>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>An <strong>encoder</strong> that accepts an input sequence Xn and generates a corresponding sequence of contextualized representations Hn.</li>
 <li>A <strong>Context vector</strong>, c, which is a function of Hn, conveys the essence of the input to the decoder.</li>
@@ -177,7 +178,7 @@
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord accent"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.6944em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.1944em;"><span class="mord">^</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1944em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mord mathrm">argmax</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2274em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1774em;"><span></span></span></span></span></span></span><span class="mord mathnormal">i</span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span></p>
 <h3 id="Beam-Search">Beam Search</h3>
 <p>To control the exponential growth of the search space, <strong>Beam search</strong> operates by combining a breadth-first-search strategy with a heuristic filter that scores each option and prunes the search space to stay within a fixed-size memory footprint, called the beam width. The sequence of partial outputs generated along these search paths as <strong>hypotheses</strong>.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch10-edmace-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>The completed hypotheses may have different lengths. The usual solution is to apply some form of length normalization to each of the hypotheses. With normalization, we have B hypotheses and can select the best one, or we can pass all or a subset of them on to a downstream application with their respective scores.</p>
 <h3 id="Context">Context</h3>
 <p>The number of hidden states varies with the size of the input, making it difficult to just use them directly as a context for the decode. The basic approach is just use the final hidden state of the encoder as c. However, it is more focused on the latter parts of input sequence, rather than the input as whole. One solution to this problem is to use Bi-RNNs, the context can be a function of the end state of both the forward and backward passes.</p>
@@ -195,7 +196,7 @@
 <p>Compute a fixed-length context vector for the current decoder state by taking a weighted average over all the encoder hidden states.</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>α</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><msubsup><mi>h</mi><mi>j</mi><mi>e</mi></msubsup></mrow><annotation encoding="application/x-tex">c_{i}=\sum_{j} \alpha_{i j} h_{j}^{e}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.5806em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.4638em;vertical-align:-1.4138em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8723em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.4138em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">ij</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7144em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0572em;">j</span></span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.3831em;"><span></span></span></span></span></span></span></span></span></span></span></p>
-<p><img src="http://qnimg.lovevivian.cn/slp-edmace-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-edmace-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 
       
     </div><!-- .entry-content -->
@@ -243,10 +244,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/" rel="prev"><span class="meta-nav">←</span> Rust by Example Brief Note</a></span>
+        <div class="nav-previous">
+          <a href="/2020/02/02/Rust/RPL/2020-02-02-Rust-by-Example-Brief-Note/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Rust by Example Brief Note</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol1-Basic/" rel="next">The Rust Programming Language Brief Note (Vol1-Basic) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/12/31/Rust/RPL/2019-12-31-RPL-Brief-Note-Vol2-Manage/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">The Rust Programming Language Brief Note (Vol2-Manage)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -371,8 +382,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

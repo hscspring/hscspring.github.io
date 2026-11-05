@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>VAPO：基于价值方法的新突破 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/">
   
   <meta name="description" content="刚出了 DAPO：为GRPO的锦上加四点花 | Yam[1]，字节Seed团队马上就送来新的 VAPO[2]，同样的清晰、高质量。 VAPO，全称 Value-based Augmented Proximal Policy Optimization，没错了，这是基于价值的方法。本文指出了困扰基于价值方法的三个关键挑战：价值模型偏差、序列长度异质性以及奖励信号的稀疏性，并分别对其进行优化，最终在 A">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       VAPO：基于价值方法的新突破
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -332,10 +333,10 @@ A_t=\delta_t+\lambda \gamma \delta_{t+1}+ (\lambda\gamma)^2 \delta_{t+2}+\cdots+
 <p>实验发现，后者性能略微更优。这归因于它引入了更丰富的对比信号，增强了策略模型的学习能力。</p>
 <h2 id="效果">效果</h2>
 <p>最终效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-vapo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-vapo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>VAPO以更少的步骤取得比DAPO更好的性能。</p>
 <p>各个优化点性能提升如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-vapo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-vapo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>上表的顺序也就是VAPO各个优化点的贡献排序。显然，Value-Pretraining和GAE的优化占了相当的比例，重要性极高（VAPO的分数减去列出的分数就是贡献分）。</p>
 <h2 id="小结">小结</h2>
 <p>本文从三个方面分析了基于Value的PPO算法在long-CoT、仅验证结果的推理任务中的挑战，并针对性地提出了对应的解决方案。对长序列价值模型偏移问题，使用Value-Pretraining和Decoupled-GAE；对训练时的异构长度问题，使用Length-Adaptive GAE和Token级别损失；对验证类任务奖励稀疏性问题，使用Clip-Higher、Positive Example LM Loss和Group-Sampling。这些优化中，Clip-Higher和Token-level Loss来自DAPO，Group-Sampling来自GRPO，剩余部分比较有意思的是针对GAE的优化，虽然看起来比较简单，但能发现这些问题并做出有效果的改进也是不容易的。总的来说，非常有价值，论文也一如既往的清晰、干净，值得一读。</p>
@@ -399,10 +400,20 @@ A_t=\delta_t+\lambda \gamma \delta_{t+1}+ (\lambda\gamma)^2 \delta_{t+2}+\cdots+
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" rel="prev"><span class="meta-nav">←</span> Yarz-Logic：R1-Zero相关实验报告</a></span>
+        <div class="nav-previous">
+          <a href="/2025/04/26/NLP/LLM-Training/2025-04-26-R1-Zero-Lab-Yarz-Logic/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Yarz-Logic：R1-Zero相关实验报告</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/" rel="next">R1相关：R1-Zero的进一步理解和探索 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">R1相关：R1-Zero的进一步理解和探索</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -527,8 +538,9 @@ A_t=\delta_t+\lambda \gamma \delta_{t+1}+ (\lambda\gamma)^2 \delta_{t+2}+\cdots+
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

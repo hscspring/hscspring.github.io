@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>《Elasticsearch 权威指南》之基础入门 Note（基于 7.x） | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/07/09/NLP/2019-07-09-Elasticsearch-Basic/">
   
   <meta name="description" content="目录 1&nbsp;&nbsp;为了搜索 2&nbsp;&nbsp;集群内的原理 3&nbsp;&nbsp;数据输入和输出 4&nbsp;&nbsp;分布式文档存储 4.1&nbsp;&nbsp;新建、索引和删除 4.2&nbsp;&nbsp;取回 4.3&nbsp;&nbsp;更新 4.4&nbsp;&nbsp;多文档 5&nbsp;&nbsp;搜索 6&nbsp;&nbsp;映射和分析 7&amp;n">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       《Elasticsearch 权威指南》之基础入门 Note（基于 7.x）
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -238,14 +239,14 @@
 </li>
 </ul>
 <h3 id="取回">取回</h3>
-<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0403.png" alt=""></p>
+<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0403.png" alt="" loading="lazy" decoding="async"></p>
 <p>从主分片或者副本分片检索文档的步骤顺序：</p>
 <p>1、客户端向 <code>Node 1</code> 发送获取请求。</p>
 <p>2、节点使用文档的 <code>_id</code> 来确定文档属于分片 <code>0</code> 。分片 <code>0</code> 的副本分片存在于所有的三个节点上。 在这种情况下，它将请求转发到 <code>Node 2</code> 。</p>
 <p>3、<code>Node 2</code> 将文档返回给 <code>Node 1</code> ，然后将文档返回给客户端。</p>
 <p>在处理读取请求时，协调结点在每次请求的时候都会通过轮询所有的副本分片来达到负载均衡。</p>
 <h3 id="更新">更新</h3>
-<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0404.png" alt=""></p>
+<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0404.png" alt="" loading="lazy" decoding="async"></p>
 <p>更新一个文档的步骤：</p>
 <ol>
 <li>客户端向 <code>Node 1</code> 发送更新请求。</li>
@@ -256,14 +257,14 @@
 <p><code>update</code> API 还接受 <code>routing</code> 、 <code>replication</code> 、 <code>consistency</code>和 <code>timeout</code> 参数。</p>
 <p>当主分片把更改转发到副本分片时， 它不会转发更新请求。 相反，它转发完整文档的新版本。请记住，这些更改将会异步转发到副本分片，并且不能保证它们以发送它们相同的顺序到达。</p>
 <h3 id="多文档">多文档</h3>
-<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0405.png" alt=""></p>
+<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0405.png" alt="" loading="lazy" decoding="async"></p>
 <p>使用单个 <code>mget</code> 请求取回多个文档所需的步骤顺序：</p>
 <ol>
 <li>客户端向 <code>Node 1</code> 发送 <code>mget</code> 请求。</li>
 <li><code>Node 1</code> 为每个分片构建多文档获取请求，然后并行转发这些请求到托管在每个所需的主分片或者副本分片的节点上。一旦收到所有答复， <code>Node 1</code> 构建响应并将其返回给客户端。</li>
 </ol>
 <p>可以对 <code>docs</code> 数组中每个文档设置 <code>routing</code> 参数。</p>
-<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0406.png" alt=""></p>
+<p><img src="https://www.elastic.co/guide/cn/elasticsearch/guide/current/images/elas_0406.png" alt="" loading="lazy" decoding="async"></p>
 <p><code>bulk</code> API 按如下步骤顺序执行：</p>
 <ol>
 <li>客户端向 <code>Node 1</code> 发送 <code>bulk</code> 请求。</li>
@@ -553,10 +554,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" rel="prev"><span class="meta-nav">←</span> Longest Substring Without Repeating Characters (LeetCode 3)</a></span>
+        <div class="nav-previous">
+          <a href="/2019/07/13/DSA/LeetCode/2019-07-13-Longest-Substring-Without-Repeating-Characters/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Longest Substring Without Repeating Characters (LeetCode 3)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" rel="next">Syntactic Parsing Note (SLP Ch13) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/07/08/NLP/SLP/2019-07-08-Ch13-Syntactic-Parsing/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Syntactic Parsing Note (SLP Ch13)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -681,8 +692,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

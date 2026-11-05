@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>GBTD + LR 论文笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/10/30/Paper/2020-10-30-GBTD-LR/">
   
   <meta name="description" content="2014 年，Facebook 在论文 practical-lessons-from-predicting-clicks-on-ads-at-facebook 中提出了一个将决策树算法和逻辑回归整合起来的模型，大致做法就是将输入的实数特征通过决策树转换为一个二进制的向量，该模型比其他方法在整体性能上提高超过 3 个百分点。">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       GBTD + LR 论文笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -188,10 +189,10 @@ p(w) = \prod_{k=1}^N N(w_k; \mu_k, \sigma_k^2)
 <p>但其实提升树正是做了类似的事情，每棵树可以看成一个类别特征，以实例最终落入的叶子索引作为值，可以使用 1-of-K 编码这一类型特征。比如结构图中所示的，特征有两棵子树，分别有 3 个和 2 个叶子，如果实例以第一个子树的叶子 2 和第二个子树的叶子 1 结尾，那么 LR 的输入可以用二进制向量 [0,1,0,1,0] 表示。</p>
 <p>基于提升树的转换可以理解为一种将实值向量转换为紧凑型二进制值向量的有监督特征编码。<strong>从根节点到叶节点的路径表示某些特征的规则</strong>。</p>
 <p>实验结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="数据新鲜度">数据新鲜度</h3>
 <p>实验结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果表明，按天再训练模型是有效果的。</p>
 <h3 id="在线分类器">在线分类器</h3>
 <p>为了最大化新数据，其中一个选择是在线训练线性分类器（提升树每天或没两天训练一次）。这部分主要评估几种不同的设置学习率的方法。</p>
@@ -255,7 +256,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </li>
 </ul>
 <p>最终实验结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-ltd-lr-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-ltd-lr-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，Per-coordinate 取得最好的预测精准度。而且使用该学习率策略 BOPR 和 LR-SGD 表现非常接近。</p>
 <ul>
 <li>LR 相比 BOPR 的一个优势是模型大小只有一半，因为 LR 只有一个与稀疏特征值相关的权重，而不是一个均值和方差。模型小意味着容易缓存且能更快查找。另外，在预测时，LR 只需要一个向量内积（权重向量和特征向量）就可以了，BOPR 却需要两个（方差、均值与特征向量）。</li>
@@ -263,24 +264,24 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </ul>
 <h3 id="实时数据">实时数据</h3>
 <p>由于 Label 只有 “点击” 而没有一个 “不点击”，所以，一般认为如果用户在看到广告后固定的一段时间内没有点击就是负样本。这个等待时间窗口需要仔细调整，太长会延迟实时训练数据，而且增加在等待点击信号时缓冲区（标记数据）的内存分配；太短会导致有些点击丢失，因为相关的标记数据可能还没来得及点就被标记成了 “不点击”。这是点击覆盖和新数据之间的一个权衡。另外一个重要的考虑是需要建立保护机制，以防止可能破坏在线学习系统的异常情况。此时，需要异常检测机制。实时系统结构如图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-ltd-lr-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-ltd-lr-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="内存和延迟">内存和延迟</h2>
 <h3 id="提升树的数量">提升树的数量</h3>
 <p>树的数量越多，预测需要的时间越久，具体实验结果如下（每棵树的叶子数限制为不超过 12）：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果显示，几乎所有的性能都来自前 500 棵树。</p>
 <h3 id="Boosting-特征重要性">Boosting 特征重要性</h3>
 <p>在每个树节点构造中，通过选择并拆分最佳特征以最大程度地减少平方误差。 由于特征可以在多棵树中使用，因此每个特征的（Boosting 特征重要性）是通过将所有树上特定特征的总（平方误差）减少量相加来确定的。实验结果如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-9.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-9.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果显示，top10 的特征几乎占了一半的重要性。</p>
 <h3 id="历史特征">历史特征</h3>
 <p>Boosting 模型中的特征可以分为两大类：上下文特征和历史特征。上下文特征依赖关于显示广告上下文的当前信息，比如用户使用的设备或者当前页面；历史特征取决于广告或用户之前的互动情况，例如，上周广告的点击率或用户的平均点击率。实验结果如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-10.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-10.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果显示，top10 的按重要性排序的特征全部是历史信息。top20 里也只有 2 个上下文特征。实验表明，只有上下文特征相比只有历史特征，整体性能会下降 4.5 个百分点。不过上下文特征在解决冷启动问题时非常重要。另外一个实验表明，具有上下文特征的模型比历史特征更依赖于数据的新鲜度，这与我们的直觉是一致的，因为历史特征描述了长期累积的用户行为，这比上下文特征要稳定得多。</p>
 <h2 id="大规模数据">大规模数据</h2>
 <p>因为数据规模太大，所以需要减少数据量，一般采用下采样，这里介绍了两种采样方式：uniform subsampling 和 negative down sampling。</p>
 <p>Uniform subsampling 实验结果如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-12.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-facebook-btd-lr-12.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果显示：</p>
 <ul>
 <li>更多的数据带来更好的表现</li>
@@ -361,10 +362,20 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/11/28/AI/2020-11-28-Classification-and-AI/" rel="prev"><span class="meta-nav">←</span> 分类与 AI</a></span>
+        <div class="nav-previous">
+          <a href="/2020/11/28/AI/2020-11-28-Classification-and-AI/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">分类与 AI</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" rel="next">Wide and Deep Learning for Recommender System 论文笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Wide and Deep Learning for Recommender System 论文笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -489,8 +500,9 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

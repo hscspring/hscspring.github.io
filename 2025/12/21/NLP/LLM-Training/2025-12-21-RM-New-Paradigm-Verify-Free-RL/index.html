@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？ | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/12/21/NLP/LLM-Training/2025-12-21-RM-New-Paradigm-Verify-Free-RL/">
   
   <meta name="description" content="随着 GRPO 在后训练的不断应用和成熟，越来越多的任务都开始采用 RL 作为进一步提升效果的方案。但是对于那些缺乏明确标准答案的场景，除了人工标注外，还有没有其他比较高效、低成本的方案呢？ R1 之后出现了一种比较激进的方案：无验证 RL，模型不再依赖外部验证器，而是仅利用自身内部信号，如一致性、置信度或分布特征等来构造学习信号。 从最早的多数投票（TTRL、SRT），到基于熵与自确定性的强化学">
@@ -119,7 +119,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -139,6 +139,7 @@
       Reward建模新范式：无验证RL——当模型只能相信自己，会发生什么？
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -390,7 +391,7 @@ H\left(\pi_\theta^{k+1}\right)-H\left(\pi_\theta^k\right)
 <h2 id="优化方案">优化方案</h2>
 <h3 id="熵调整优势">熵调整优势</h3>
 <p><a href="https://arxiv.org/abs/2508.11356">ETTRL 250815</a><sup>[7]</sup>，《ETTRL: Balancing Exploration and Exploitation in LLM Test-Time Reinforcement Learning Via Entropy Mechanism》瞄准了 TTRL 的问题：并行 rollout 带来的高推理成本，以及早期估计偏差导致的过度自信——会降低输出多样性并使性能进入平台期。提出基于熵的机制，通过两种策略：Entropy-fork Tree Majority Rollout (ETMR) 和 Entropy-based Advantage Reshaping (EAR)——增强探索与利用平衡。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ettrl-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ettrl-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>ETMR</strong></p>
 <p>针对高开销和探索不足的问题，一种树状 rollout 策略，仅在熵值最高的 K 个 token 处进行选择性分支。基于两点：</p>
 <ul>
@@ -398,7 +399,7 @@ H\left(\pi_\theta^{k+1}\right)-H\left(\pi_\theta^k\right)
 <li>推理中的输出多样性主要受到高熵 token 的影响——这些 token 通常是连接词或过渡词。</li>
 </ul>
 <p>借鉴 TreeRL 树形 rollout 方法，复用低熵 token，对高熵 token 选择 top-K 候选来生成多个采样分支。算法过程如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ettrl-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ettrl-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>EAR</strong></p>
 <p>训练初期，多数投票比例通常极低，这意味着只有很小一部分样本能够获得正奖励。此时，模型可能会对错误答案赋予过高的置信度，从而导致所谓的早期“过度自信”。为缓解早期估计偏差问题并维持探索，通过在优势计算中加入响应级别的相对熵奖励项来重塑优势函数。</p>
 <p>具体来说，采用 Adv-Clip 作为主要的正则化策略。它的核心思想简单而高效：将 advantage 的取值限制在预设范围内，从而在训练早期直接抑制过大的梯度更新。</p>
@@ -478,7 +479,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <li>对多数投票脆弱、内部一致性较低的 prompt 进行降权处理。</li>
 </ul>
 <p>如图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-restrain-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-restrain-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Pseudo-label weighting：伪标签加权机制</strong></p>
 <p>为了解决多数投票往往可能虚假的问题，具体做法是：根据观测到的投票数量按比例分配权重。</p>
 <p>给定 prompt x，n 个 rollout 构成一组 m 个不重复答案 a，每个答案 aj 对应的数量为 cj。每个 aj 被当做伪标签来计算加权损失：</p>
@@ -506,7 +507,7 @@ A_{i, j}-\delta &amp; \text { if } M(x) \lt \kappa\end{cases}\right.
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">u</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1.7936em;vertical-align:-0.686em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">g</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1076em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">n</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">r</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right:0.1076em;">f</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span><span class="tag"><span class="strut" style="height:1.7936em;vertical-align:-0.686em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">35</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>从 ref 中采样 n 个 rollout，和上面一样，c 是数量。注意这个权重是提前离线计算好的，训练期间保持不变。</p>
 <p>最终损失为：</p>
-<p><img src="https://qnimg.lovevivian.cn/restrain-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/restrain-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="小结">小结</h2>
 <p>本文梳理了近期关于无验证/无监督 RL 的一些思路，自从 TTRL 打开这扇门后，相关研究层出不穷，这最大的原因自然是针对那些更加常见的没有标准答案的任务。针对此类任务，《<a href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/">Reward建模新范式：无验证器RL与Reference的妙用 | 长琴</a><sup>[20]</sup>》其实还是有 RM 建模的，或者说有一个隐式的验证器，而本文介绍的方法并没有，顶多借助外部模型（比如多样性、相似度计算）拿到计算 reward 的某个指标，而不是直接验证结果或答案是否合理、正确。所以，我将其统称为 Verify-Free RL。</p>
 <p>既然说到这里了，顺便说一下《<a href="https://yam.gift/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/">Reward建模新范式：无验证器RL与Reference的妙用 | 长琴</a><sup>[20]</sup>》中介绍的「基于准则」的方法。我虽然没有尝试过直接让模型连续输出结果+评估，但尝试了先输出结果，再加一轮评估指标并让模型跟着输出评估结果。不出所料，相当严重的 reward hack，模型很快就学会了捷径，输出的内容不咋地，评估都是满分。我脑袋一拍盲猜啊，“让模型连续输出结果+评估” 也大概率会遇到同样的问题。那怎么办呢？说来也巧，正好前段时间发布的 <a href="https://yam.gift/2025/11/29/NLP/LLM-Training/2025-11-29-Reward-Data-Self-Verified/">DeepSeekMath-V2</a><sup>[21]</sup> 给出了答案——自我验证！Reward 模型对验证结果再验证，简单来说，就是 “评估+评估再评估”，范式就又回到了熟悉的领域。</p>
@@ -726,10 +727,20 @@ g_a \lt 0 \lt g_b \quad p_a \in (0, e^{-H})
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/12/22/Diary/2025-12-22-Love/" rel="prev"><span class="meta-nav">←</span> 所爱隔山海，山海亦可平</a></span>
+        <div class="nav-previous">
+          <a href="/2025/12/22/Diary/2025-12-22-Love/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">所爱隔山海，山海亦可平</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/" rel="next">DeepSeekV3.2后训练：稳定压倒一切 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">DeepSeekV3.2后训练：稳定压倒一切</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -854,8 +865,9 @@ g_a \lt 0 \lt g_b \quad p_a \in (0, e^{-H})
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

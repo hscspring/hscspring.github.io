@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ERNIE Tutorial（论文笔记 + 实践指南） | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/">
   
   <meta name="description" content="ERNIE 2.0 发布了，刷新了 SOTA，而且中文上做了不少优化，这种大杀器作为一个 NLP 工程师我觉得有必要深入了解了解，最好能想办法用到工作中。  ERNIE 2.0 是基于持续学习的语义理解预训练框架，使用多任务学习增量式构建预训练任务。ERNIE 2.0 中，新构建的预训练任务类型可以无缝的加入训练框架，持续的进行语义理解学习。通过新增的实体预测、句子因果关系判断、文章句子结构重建等">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       ERNIE Tutorial（论文笔记 + 实践指南）
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -204,7 +205,7 @@
 </li>
 </ul>
 <p>架构如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/github-nlp-baidu-ernie-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-nlp-baidu-ernie-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>共享的 encoder</li>
 <li>两种 loss functions</li>
@@ -223,7 +224,7 @@
 </li>
 <li>Task Embedding</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/github-nlp-baidu-ernie-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-nlp-baidu-ernie-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h4 id="Pre-training-Tasks">Pre-training Tasks</h4>
 <ul>
 <li>Word-aware Pre-training Tasks
@@ -252,7 +253,7 @@
 <ul>
 <li>
 <p>Pre-training Data</p>
-<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>Pre-training Settings</p>
@@ -282,7 +283,7 @@
 <li>QNLI: 判断给定的文本对是否是 问题-答案对</li>
 <li>AX: 对模型进行语言分析</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>Chinese Tasks</p>
@@ -294,12 +295,12 @@
 <li>语义相似度: LCQMC, BQ Corpus</li>
 <li>问答: NLPCC-DBQA</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <h4 id="Implementation-Details">Implementation Details</h4>
-<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-6.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-6.jpeg" alt="" loading="lazy" decoding="async"></p>
+<p><img src="http://qnimg.lovevivian.cn/github-baidu-nlp-ernie-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="实践">实践</h2>
 <p>官方<a href="https://github.com/PaddlePaddle/ERNIE/blob/develop/README.zh.md">文档</a>还是比较清晰的，我觉得对于大多数公司和个人来说，还是不要自己去训练了，实在太费钱了。不过如果是领域性很强的任务，还是可以重新训练一下的，要不然模型太 general。</p>
 <h3 id="Fine-tuning">Fine-tuning</h3>
@@ -383,10 +384,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" rel="prev"><span class="meta-nav">←</span> Longest Palindromic Substring (LeetCode 5)</a></span>
+        <div class="nav-previous">
+          <a href="/2019/08/03/DSA/LeetCode/2019-08-03-Longest-Palindromic-Substring/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Longest Palindromic Substring (LeetCode 5)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/07/20/NLP/2019-07-20-ChatBot-Design/" rel="next">ChatBot 设计方案 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/07/20/NLP/2019-07-20-ChatBot-Design/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">ChatBot 设计方案</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -511,8 +522,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

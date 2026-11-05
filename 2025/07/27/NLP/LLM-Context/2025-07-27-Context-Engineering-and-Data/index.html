@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>重识LLM法则：上下文工程与数据进化 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/07/27/NLP/LLM-Context/2025-07-27-Context-Engineering-and-Data/">
   
   <meta name="description" content="周六下午出去日常“漫游”，地铁上看了数据标注公司Surge AI创始人Edwin Chen的访谈和Manus的上下文工程两篇文章，结合自己之前的一些思考，感觉很多东西又串联起来了，突然就想把它们写出来。晚上回来，从23点写到凌晨3点，终于搞定，是有此文。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       重识LLM法则：上下文工程与数据进化
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -172,10 +173,10 @@
 </blockquote>
 <p><strong>文件系统作为上下文</strong></p>
 <p>Agent的上下文信息经常太长，超出模型限制后性能下降，而且长输入成本也高。上下文截断或压缩策略可能导致信息损失，而且更关键的，Agent必须根据所有先前状态预测下个动作，我们没法保证那个信息在未来可能非常有用。所以，Manus将文件系统视为上下文，按需写入和读取。这里的压缩策略始终设计为可恢复的。比如，只要保留URL，网页内容就可以从上下文中移除。</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-manus-context-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-manus-context-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>通过复述控制记忆</strong></p>
 <p>通过不断重复TODO，将目标复述到上下文末尾，缓解主题偏离和早期目标遗忘问题。</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-manus-context-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-manus-context-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>保留错误内容</strong></p>
 <p>把错误的尝试保留在上下文中。当模型看到一次失败的动作——以及由此产生的观察结果或错误堆栈信息——它会在内部隐式地更新自己的信念。这会让模型对类似动作的“先验”偏好发生转变，从而降低再次犯同样错误的概率。</p>
 <p><strong>增加提示样本结构多样性</strong></p>
@@ -190,12 +191,12 @@
 <h2 id="再次重新认识数据">再次重新认识数据</h2>
 <p>为什么说“再次”，因为R1出来后已经让我们重新认识了什么叫“高质量数据”。感兴趣的读者可以阅读《<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a><sup>[7]</sup>》和《<a href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">DeepSeek R1深度技术解析及其影响 | Yam</a><sup>[8]</sup>》。这里的再次，当然是指“LLM即Agent”的数据，具体来说就是K2的数据构造。</p>
 <p>为什么K2能够LLM即Agent？我想高质量的相关数据恐怕是最重要的原因。请打开K2技术报告，我们不谈预训练阶段的Rephrasing，直接把报告翻到第9页，看SFT的《Large-Scale Agentic Data Synthesis for Tool Use Learning》，整整一小节介绍如何搞数据。数据合成pipeline如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-k2-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-k2-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>有真实的3000个和生成的各个领域超过2万个工具；成千上万个风格和能力各异的Agent和针对每个Agent一系列有明确评分标准的从简单到复杂的任务；用户模拟+工具模拟生成高质量多轮对话；质量评估和过滤，以及真实环境数据补充。</p>
 <p>不知道大家有没有再次重新认识数据。果然，还是机器学习那句老话——数据决定上限，算法逼近上限。LLM的进化之路也是“数据”的蜕变进化之路啊。</p>
 <h2 id="数据高质量数据">数据高质量数据</h2>
 <p>说到数据，正好再聊聊最近看到的另一篇文章：《<a href="https://mp.weixin.qq.com/s/n8AdurwSLsULuG1xKfVnKA?open_in_browser=true">Surge AI创始人Edwin Chen首次接受采访：为什么我看不上Scale AI和Alex Wong</a><sup>[9]</sup>》，Surge AI是一家数据标注公司，2020年成立至今从未融资，创始人几乎不接受任何采访，这次与20VC的对话是其首秀。先看看他们牛逼闪闪的主页：</p>
-<p><img src="https://qnimg.lovevivian.cn/hp-surgeai-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/hp-surgeai-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>文章里对这个做了翻译，质量非常不错（另外，文章作者的小声BB也很有意思），感兴趣的读者可以阅读原文。这里只是罗列其中一些比较有意思的观点（相似的放一起了），每个观点后面有我的BB。</p>
 <ol>
 <li>数据质量是最核心的原则。为此必须构建技术系统，以<strong>测量和改进数据质量</strong>。质量是公司文化的核心，必须提供“别人给不了的数据”。要用数据开启全新的研究与产品路径。“数据质量”排第一，其次是“算力”，最后才是“算法”。</li>
@@ -310,10 +311,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/08/06/NLP/2025-08-06-gpt-oss/" rel="prev"><span class="meta-nav">←</span> 关于gpt-oss那些值得关注的点</a></span>
+        <div class="nav-previous">
+          <a href="/2025/08/06/NLP/2025-08-06-gpt-oss/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">关于gpt-oss那些值得关注的点</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" rel="next">GiGPO：双层级优势函数驱动的Agent强化学习新范式 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/07/25/NLP/LLM-Training/2025-07-25-GiGPO/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">GiGPO：双层级优势函数驱动的Agent强化学习新范式</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -438,8 +449,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

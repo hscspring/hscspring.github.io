@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>OMNI论文速览（2024） | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/12/31/Paper/MM/2024-12-31-OMNI-Papers-2024/">
   
   <meta name="description" content="OMNI相关论文。">
@@ -105,7 +105,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -125,6 +125,7 @@
       OMNI论文速览（2024）
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -182,7 +183,7 @@
 <li>SFT：多轮、风格控制。</li>
 <li>两个子任务：语音输入-文本输出，文本输出-语音输出。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-glm4-voice-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-glm4-voice-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="202411-Freeze-Omni-MM-Align-Tencent">202411 <code>Freeze-Omni, MM Align</code> Tencent</h3>
 <p><a href="https://github.com/VITA-MLLM/Freeze-Omni">VITA-MLLM/Freeze-Omni: ✨✨Freeze-Omni: A Smart and Low Latency Speech-to-speech Dialogue Model with Frozen LLM</a></p>
 <p>LLM固定，三阶段，6w多轮对话数据，LLM能力不降（已有方案的问题），双工。</p>
@@ -191,19 +192,19 @@
 <li>使用Text-Speech数据对训练基于自回归的Speech Decoder，输出Codec，使用LLM的hidden state将Speech Decoder的输出转移到LLM的输出文本空间，达到TextInput -&gt; SpeechOut。</li>
 <li>基于Chunk的Speech-Speech微调。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>阶段1 Speech Encoder：</p>
 <ul>
 <li>基于Chunk，Speech到连续特征再到LLM的Embedding空间。</li>
 <li>三阶段训练：ASR（Encoder）、ASR（LLM Adapter）、QA（Prompt Embedding）。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>阶段2 Speech Decoder：</p>
 <ul>
 <li>NAR + AR + Codec。</li>
 <li>三阶段训练：单码本Codec训练、NAR+AR、NAR Prefix Decoder（用于将语音解码器与 LLM 的输出紧密耦合）。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-freeze-omni-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>阶段3 Duplex：</p>
 <ul>
 <li>VAD然后Chunk by Chunk给到OMNI。</li>
@@ -219,7 +220,7 @@
 <li>同时处理输入输出流</li>
 <li>处理自然对话中的复杂动态，如对话轮次切换、打断、重叠语音、其他声音等</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-salmonn-omni-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-salmonn-omni-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>具体做法：</p>
 <ul>
 <li>有”说话“和”没说话“两个状态，用<code>start_speak</code>和<code>end_speak</code>两个特殊Token标记。</li>
@@ -245,7 +246,7 @@
 <li>移除用户输入文本流，对剩下的三个流进行细粒度分块和对齐，展平这些块，并继续使用结果展平的三个流数据训练模型。</li>
 <li>构建由只包含输入和输出语音的展平的两个流数据，并继续训练模型专注于语音生成。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>交互打平输出：先输出固定chunk大小的文本Token，然后是固定chunk大小的语音Token。</p>
 <p>Audio 编码：CosyVoice；解码：OT-CFM到Mel，HifiGAN到Audio。</p>
 <p>模态对齐：</p>
@@ -254,11 +255,11 @@
 <li>TTS: <code>[T⁢T⁢S]⁢[S⁢O⁢T]⁢T_seq⁢[E⁢O⁢T]⁢[S⁢O⁢S]⁢S_seq⁢[E⁢O⁢S]</code></li>
 </ul>
 <p>半双工训练：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>全双工三流训练：Chunking+Speech-Text基于Chunk对齐，固定大小，2Token文本对应10Token语音。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>全双工双流训练：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omniflatten-3.jpg" alt="" loading="lazy" decoding="async"></p>
 
       
     </div><!-- .entry-content -->
@@ -306,10 +307,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="prev"><span class="meta-nav">←</span> LLM指令跟随论文速览（2024-2025）</a></span>
+        <div class="nav-previous">
+          <a href="/2024/12/31/Paper/LLM/2024-12-31-Instruction-Following-Papers/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM指令跟随论文速览（2024-2025）</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" rel="next">SLM论文速览（2024） <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/12/31/Paper/MM/2024-12-31-SLM-Papers/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">SLM论文速览（2024）</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -434,8 +445,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

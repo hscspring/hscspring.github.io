@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/06/06/Paper/2021-06-06-ProtoBERT/">
   
   <meta name="description" content="Paper：2105.00828 BERT memorisation and pitfalls in low-resource scenarios Code：无 核心思想：结合原型网络，将少样本的标签表征为稠密向量。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       Few-Shot NER and BERT Noisy Learning：ProtoBERT Paper Note
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -262,7 +263,7 @@ v \in \mathbb{R}^k
 <p><strong>标签噪声</strong></p>
 <p>通过随机变换部分训练标签引入人工噪声。</p>
 <h4 id="BERT-学习时噪声的影响">BERT 学习时噪声的影响</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-1.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>三个不同的阶段：</p>
 <ul>
 <li>拟合：学习如何泛化，使用简单的模式尽可能解释更多的训练数据。</li>
@@ -270,7 +271,7 @@ v \in \mathbb{R}^k
 <li>记忆：快速记住噪声样例，提高训练表现，同时验证集表现下降。</li>
 </ul>
 <p><strong>第二阶段学习</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>在第二阶段，BERT <strong>完全忽略</strong>了带噪声的 Token，因此在它们上的表现比随机分类器更差。</p>
 <p><strong>噪声鲁棒性</strong></p>
 <p>图 1 中观察到 BERT 对噪声和一般过拟合非常稳健。在没有噪声的情况下，即使进一步训练，BERT 也不会过度拟合。即使有很大比例的噪声，也可以通过在第二阶段提前停止来获得与在干净数据上训练的模型相似的性能。</p>
@@ -289,19 +290,19 @@ v \in \mathbb{R}^k
 <li>一个遗忘事件：epoch t-1 能够正确分类，epoch t 不能</li>
 <li>一个学习事件：epoch t-1 不能正确分类，epoch t 能</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>被遗忘的大多是相应类别的非典型示例。</p>
 <h4 id="少资源场景下的-BERT">少资源场景下的 BERT</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以观察到两个现象：</p>
 <ul>
 <li>减少句子的数量会大大降低模型的泛化能力，但不会降低其记忆能力。</li>
 <li>当可用的句子较少时，它们往往是在较早的时期首次学习的。</li>
 </ul>
 <h4 id="ProtoBERT">ProtoBERT</h4>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>在少样本稀有类型上，ProtoBERT 超过基准，随着可用样例数量增加，BERT 和 ProtoBERT 不相上下。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-proto-bert-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>在所有数据集全集上的表现与 baseline 相似，但是 WNUT17（侧重识别稀有实体）上要好很多。</p>
 <h3 id="相关讨论">相关讨论</h3>
 <ul>
@@ -377,10 +378,20 @@ v \in \mathbb{R}^k
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/06/06/Rust/2021-06-06-str2String/" rel="prev"><span class="meta-nav">←</span> Rust str 转 String</a></span>
+        <div class="nav-previous">
+          <a href="/2021/06/07/Python/2021-06-07-JupyterCheatSheet/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Jupyter Notebook Cheat Sheet</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/05/22/Paper/2021-05-22-BERTology/" rel="next">深度探索 Bert：BERTology Paper Note <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/06/06/Rust/2021-06-06-str2String/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Rust str 转 String</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -505,8 +516,9 @@ v \in \mathbb{R}^k
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

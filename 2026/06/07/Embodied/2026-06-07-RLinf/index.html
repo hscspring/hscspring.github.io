@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>VLA Sim-Real 协同训练 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/">
   
   <meta name="description" content="一直对 EmbodiedAI 比较关注，大概是从 2103 A Survey of Embodied AI: From Simulators to Research Tasks[1] 开始，主要是一直对机器人感兴趣，看了《超能陆战队》后就总想自己也搞一个，再加上自己也是搞 AI 算法，关注到这个方向其实是比较自然的。后面陆续出来 RT-2: Vision-Language-Action Model">
@@ -26,9 +26,9 @@
 <meta property="article:modified_time" content="2026-11-03T13:09:24.975Z">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
-<meta property="article:tag" content="SFT">
 <meta property="article:tag" content="EmbodiedAI">
 <meta property="article:tag" content="VLA">
+<meta property="article:tag" content="SFT">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       VLA Sim-Real 协同训练
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -199,9 +200,9 @@
 <li>第一阶段中的仿真数据如何影响 RL 优化；</li>
 <li>真实世界 SFT 在第一阶段和第二阶段中分别扮演何种角色。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-beyond-lmitation-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-beyond-lmitation-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>第一点看左图，第一阶段的 sim 数据必不可少，没了直接不干活儿了。右图是数据效率，你会发现其实并不需要那么多 real 数据，协同框架的数据效率最高，协同 20 条等价于 SFT 100条。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-beyond-lmitation-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-beyond-lmitation-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>第二点看此图，第二阶段移除了 real SFT 正则化项后，成功率直接从 81.3% 降到 40.3%；同样，第一阶段移除 real SFT 后，最终性能只有 12.5%。说明与 RL 相比，SFT 在利用有限的 real 数据方面具有显著更高的数据效率（40.3 vs 12.5）。</p>
 <h2 id="小结">小结</h2>
 <p>看完再回头想想，这个看起来好像就是训练上稍微做了一个小的调整（混合真实数据），哈，事实上论文正是在说他们自己的框架：<a href="https://rlinf.readthedocs.io/zh-cn/latest/rst_source/start/index.html">RLinf</a><sup>[6]</sup>，官方介绍是这样子的：</p>
@@ -269,10 +270,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/06/22/NLP/LLM-Training/2026-06-22-TRPO-Vanishing/" rel="prev"><span class="meta-nav">←</span> 为什么TRPO在LLM里不能用？——FiberPO的起点</a></span>
+        <div class="nav-previous">
+          <a href="/2026/06/22/NLP/LLM-Training/2026-06-22-TRPO-Vanishing/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">为什么TRPO在LLM里不能用？——FiberPO的起点</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/06/06/AI/2026-06-06-Think-AI/" rel="next">当我20天的账单超过4000美元 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/06/06/AI/2026-06-06-Think-AI/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">当我20天的账单超过4000美元</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -397,8 +408,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

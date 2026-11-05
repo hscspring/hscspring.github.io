@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM打街霸 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/04/08/NLP/2024-04-08-LLM-Colosseum/">
   
   <meta name="description" content="国外的一个项目，看了一下比较简单，于是也拿过来玩儿一下。由于原项目没支持中文，就简单支持了一下，顺便简单地重构了一下代码。  代码地址（Fork）：https:&#x2F;&#x2F;github.com&#x2F;hscspring&#x2F;llm-colosseum 项目原地址：https:&#x2F;&#x2F;github.com&#x2F;OpenGenerativeAI&#x2F;llm-colosseum">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       LLM打街霸
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -159,9 +160,9 @@
 <h2 id="结果">结果</h2>
 <p>主要测了千问和智谱系列，测试结果仅供参考；）。以“行”为基准查看，1表示该模型胜过了列上的模型，0则相反。</p>
 <p>中文结果：</p>
-<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>英文结果：</p>
-<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/proj-llm-colosseum-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其实相差不太大，关注中文结果，我们发现，qwen-turbo、glm-turbo、glm-4不相上下。专门对qwen-turbo和glm-turbo进行了PK，结果也不是稳定的，双方互有输赢。感兴趣的朋友可以进一步探索，比如使用其他模型、调试提示词、更换角色、更换游戏等。值得一提的是，如果更换角色，相应的动作列表、基本配置可能需要修改；如果更换游戏，则需要改更多的配置。</p>
 <h2 id="最后">最后</h2>
 <p>LLM的测评是个非常有意思的话题，迄今为止主流做法还是各种数据集榜单，肯定不是最好的方法，但简单、直观，起码可以做个参考。有Paper在训练LLM的同时训练一个评测的LLM——即用LLM评测LLM。还有放在竞技场上的评测，给定输入，随机选择2个模型输出，由用户投票“好”的输出，最终统计所有模型的得分。当然还有很多非常规的评测方法，不过本项目又给我们提供了一个新的好玩儿的思路。其实这种思路就是“放在实际场景”评测的特殊版本，这种评测显然看起来更加合理些。</p>
@@ -212,10 +213,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" rel="prev"><span class="meta-nav">←</span> Tiny LLM Continual Pre-training：RHO-1</a></span>
+        <div class="nav-previous">
+          <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Tiny LLM Continual Pre-training：RHO-1</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" rel="next">LLM中的演绎推理、归纳推理和溯因推理 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">LLM中的演绎推理、归纳推理和溯因推理</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -340,8 +351,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

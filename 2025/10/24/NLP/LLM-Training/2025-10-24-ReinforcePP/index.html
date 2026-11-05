@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Reinforce++和它的KL Loss选择 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/">
   
   <meta name="description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       Reinforce++和它的KL Loss选择
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -307,7 +308,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p>因此，虽然 k3 计算更简单，但它会引入偏差和更高的方差，因此并不严格优于理论上无偏的 k2 估计。实验结果表明，在 GRPO 中使用 k3 估计相比 k2 估计，会导致更大的方差波动。</p>
 <h2 id="为什么GRPO用k3？">为什么GRPO用k3？</h2>
 <p>既然如此，为什么 GRPO 还是用了 k3 呢？注意，这里说的 GRPO 用 k3 指的是 Loss 部分的 KL 惩罚项。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>正好前几天刚好看到这个知乎回答：<a href="https://zhuanlan.zhihu.com/p/25862547100">k3估计的KL散度那么不好，为什么GRPO还要坚持用呢？</a><sup>[10]</sup>大概意思是因为 k3 的非负性保证，这一点在 <a href="https://arxiv.org/abs/2402.03300">GRPO 原始论文</a><sup>[7]</sup> 也有提到。为什么非负性很重要，知乎答案分析后认为，如果 KL 为负，上面的损失函数取负数（训练时要最大化期望，即损失最小）后 KL 这一项本身就很小了，这会导致模型“偷懒”掉到 KL 里面，而不去优化前面真正的目标。结果就是训练极不稳定，所以非负保证可以避免这种偷懒。</p>
 <p>但是，我们刚刚已经证明了 k3 是有偏的，所以，该知乎作者又发了一篇文章：<a href="https://zhuanlan.zhihu.com/p/1892008158626546312">k2 loss就是比k3 loss好，以及grpo off-policy、clip_std()</a><sup>[11]</sup>。如你所想，k2 被顶了出来。好吧，既然 k2 这么好，为啥 Reinforce++ 在 advantage 中用的是 k1 呢？这篇文章（3.3.2）认为，k2 和 k3 的恒正特性，导致无论 <code>πθ(at|st)</code> 与 <code>πref(at|st)</code> 的概率分布关系如何，根据式（16），</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><mo>−</mo><msub><mi mathvariant="normal">∇</mi><mi>θ</mi></msub><mrow><mi mathvariant="normal">K</mi><mi mathvariant="normal">L</mi></mrow><mrow><mo fence="true">(</mo><msub><mi>π</mi><mi>θ</mi></msub><mi mathvariant="normal">∥</mi><msub><mi>π</mi><mrow><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">f</mi></mrow></msub><mo fence="true">)</mo></mrow><mo>=</mo><mo>−</mo><msub><mi mathvariant="double-struck">E</mi><mrow><mi>x</mi><mo>∼</mo><mi>D</mi><mo separator="true">,</mo><mi>y</mi><mo>∼</mo><msub><mi>π</mi><msub><mi>θ</mi><mrow><mi mathvariant="normal">o</mi><mi mathvariant="normal">l</mi><mi mathvariant="normal">d</mi></mrow></msub></msub><mo stretchy="false">(</mo><mo>⋅</mo><mo>∣</mo><mi>x</mi><mo stretchy="false">)</mo></mrow></msub><mi>k</mi><mi>l</mi><msub><mi mathvariant="normal">∇</mi><mi>θ</mi></msub><mi>log</mi><mo>⁡</mo><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>a</mi><mi>t</mi></msub><mo>∣</mo><msub><mi>s</mi><mi>t</mi></msub><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(23)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">-\nabla_\theta \mathrm{KL}\left(\pi_\theta \| \pi_{\mathrm{ref}}\right)=-\mathbb{E}_{x \sim D, y \sim \pi_{\theta_{\mathrm{old}}}(\cdot \mid x)} k l \nabla_\theta \log \pi_\theta\left(a_t \mid s_t\right) \tag{23}
@@ -408,10 +409,20 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/" rel="prev"><span class="meta-nav">←</span> 子非我，安知我不知鱼之乐——AI、人类与意识的边界</a></span>
+        <div class="nav-previous">
+          <a href="/2025/10/25/AI/2025-10-25-Think-about-AGI-and-Human/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">子非我，安知我不知鱼之乐——AI、人类与意识的边界</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/" rel="next">Hybrid LLM 之 Gated Attention <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Hybrid LLM 之 Gated Attention</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -536,8 +547,9 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>R1相关：RL数据选择与Scaling | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">
   
   <meta name="description" content="本文介绍两篇对RL Scaling进一步探索的论文，都是关于数据方面的，结论有一定互补性。">
@@ -113,7 +113,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -133,6 +133,7 @@
       R1相关：RL数据选择与Scaling
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -197,10 +198,10 @@
 <p>最终效果如下：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-limr-1.jpg" alt=""></p>
 <p>过程精度、回复长度、奖励如下所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-limr-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-limr-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>回复长度只有LIMR呈现出明显的先降后升。</p>
 <p>然后是和SFT的对比：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-limr-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-limr-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>比LIMO好，不过这里也仅列出7B的模型，更小的模型上是不是依然有效还不得而知。</p>
 <h3 id="小结">小结</h3>
 <p>LIMR证明了RL需要精挑细选的样本，而不是很多样本。我个人理解这个还是和激活有关，这些被挑选的数据分布正好能够更好地激活基座模型能力。这也是强化微调（RFT）的美妙之处。</p>
@@ -266,11 +267,11 @@
 </ul>
 <p><strong>结果</strong></p>
 <p>Acc和响应长度一路增加，尤其是32B模型，比R1-Zero少5.8倍的训练步骤达到相同长度，300步时长度激增。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-orz-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-orz-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>质量分析</strong></p>
 <p>统计反思响应（带有类似 wait、recheck、retry、alternatively、however等反思词）数量，并计算正确反思（响应包含反思词且最后答案正确）响应的长度。</p>
 <p>如下图所示，正确反思响应长度始终超过平均响应长度，说明包含反思模式的响应利用更多的“思考时间”来获得正确答案。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-orz-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-orz-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>另外，在680步时能观察到一个同步加速现象，在其后的响应中也同时观察到了定性的更明显的反思模式。</p>
 <p><strong>消融</strong></p>
 <ul>
@@ -335,10 +336,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/02/27/AI/2025-02-27-AI-Discussion/" rel="prev"><span class="meta-nav">←</span> LLM、强化、蒸馏讨论</a></span>
+        <div class="nav-previous">
+          <a href="/2025/02/27/AI/2025-02-27-AI-Discussion/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM、强化、蒸馏讨论</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" rel="next">R1相关：少量高质量数据SFT激活LLM推理能力 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">R1相关：少量高质量数据SFT激活LLM推理能力</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -463,8 +474,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

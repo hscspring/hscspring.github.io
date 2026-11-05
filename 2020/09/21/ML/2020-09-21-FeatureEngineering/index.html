@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>特征工程 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/09/21/ML/2020-09-21-FeatureEngineering/">
   
   <meta name="description" content="常听一句话说 “你还能玩儿出花来”，我觉得特征工程就是这么个把那些看上去普普通通的 “数据” 玩儿出花的过程。如果用 DIKW 模型（Data Information Knowledge Wisdom）来理解，Data 显然就是原始的一个个数据值，Information 就是对数据进行分析、处理后得到的具有一定意义的东西。 严格的定义如下：特征工程是对原始数据进行一系列工程处理，将其提炼为特征根，">
@@ -113,7 +113,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -133,6 +133,7 @@
       特征工程
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -296,7 +297,7 @@
 </li>
 </ul>
 <p>在随机梯度下降求解优化问题中，归一化后更容易找到最优解。如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/ml-featureengineering-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/ml-featureengineering-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>所以，线性回归、逻辑回归、SVM、神经网络等模型通常需要归一化，但决策树模型不需要，因为决策树分裂的主要依据是数据集关于特征 x 的信息增益比（信息增益的一种校正，防止选择取值较多的特征），这跟是否经过归一化无关。</p>
 <p>特征 x 对训练数据集 D 的信息增益定义为 D 的经验熵与给定特征 x 下 D 的经验条件熵之差：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>g</mi><mo stretchy="false">(</mo><mi>D</mi><mo separator="true">,</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>H</mi><mo stretchy="false">(</mo><mi>D</mi><mo stretchy="false">)</mo><mo>−</mo><mi>H</mi><mo stretchy="false">(</mo><mi>D</mi><mi mathvariant="normal">∣</mi><mi>x</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">g(D, x) = H(D) - H(D|x)
@@ -404,10 +405,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/09/24/ML/2020-09-24-ModelParameters/" rel="prev"><span class="meta-nav">←</span> 建模调参</a></span>
+        <div class="nav-previous">
+          <a href="/2020/09/24/ML/2020-09-24-ModelParameters/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">建模调参</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/09/18/ML/2020-09-18-EDA/" rel="next">EDA <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/09/18/ML/2020-09-18-EDA/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">EDA</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -532,8 +543,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

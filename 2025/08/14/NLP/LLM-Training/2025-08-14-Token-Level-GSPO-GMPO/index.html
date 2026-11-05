@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/">
   
   <meta name="description" content="关于GRPO的优化，我们已经介绍过多篇文章（可以看这里[1]的小汇总）了。其中，比较有名的是DAPO[2]和DrGRPO[3]，而且，后者的两个发现（长度偏差和难度偏差）与前者的其中两个发现（Token级别损失和动态采样）是比较类似的，只是做法稍微不同。我们不妨看一下最终的损失函数。  DAPO的s.t.和DrGRPO的where处对应，当然我们特别想提的是大括号前面的部分——Token Leve">
@@ -29,9 +29,9 @@
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="GRPO">
 <meta property="article:tag" content="DAPO">
-<meta property="article:tag" content="GMPO">
 <meta property="article:tag" content="DrGRPO">
 <meta property="article:tag" content="GSPO">
+<meta property="article:tag" content="GMPO">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -165,7 +166,7 @@
 <p>我们在<a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵 | Yam</a><sup>[5]</sup>中提到过，GRPO虽然整体上是on-policy的，但更新过程有off-policy的成分。这也是为什么PPO和GRPO都有clip机制，其主要作用是避免偏离当前策略过远的样本参与梯度估计，从而维持训练的稳定性。</p>
 <p>但本文发现GRPO的目标函数本身就是病态的，其本质是对重要性采样权重的不当使用，Token级别的重要性权重计算方式在训练中引入了高方差的噪声。如前面所言，这种噪声在长序列中不断累积，并被clip机制进一步放大。实证结果表明，这种现象可能导致模型的灾难性崩溃，而且往往是不可逆的。也就是说，一旦崩溃发生，即便回退到之前的 checkpoint、精细调整超参数（如clip区间）、延长生成长度，或更换 RL query，训练也难以恢复。这些现象说明了GRPO设计存在问题——Token 级重要性权重失败——<strong>优化目标的单位应该与奖励的单位一致（应该都是序列级别）</strong>。</p>
 <p>值得一提的是，虽然原始的GRPO（首发于<a href="https://arxiv.org/abs/2402.03300">DeepSeek-Math</a><sup>[6]</sup>）是Token级别的，但在<a href="https://arxiv.org/abs/2501.12948">DeepSeek-R1</a><sup>[7]</sup>中，它的公式是序列级别的：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ds-r1-grpo.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>论文里没有写更多细节。不过，GRPO的R本来也不是Token，而是Relative。</p>
 <h3 id="算法设计">算法设计</h3>
 <p>简单来说，就是把重要性权重变成序列级别。不过引入了「长度归一化」，以降低方差并将其控制在一个统一的数值范围内。具体如下式所示：</p>
@@ -193,9 +194,9 @@ c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z"/></svg><
 c-1 5-5 9-11 9h-2L532 67 19 159h-2c-5 0-9-4-11-9l-5-22c-1-6 2-12 8-13z"/></svg></span></span></span></span></span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size2">)</span></span></span><span class="mclose delimcenter" style="top:0em;"><span class="delimsizing size4">]</span></span></span></span><span class="tag"><span class="strut" style="height:3.106em;vertical-align:-1.2777em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">2</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>Advantage的计算与GRPO一样，不多说了。由于重要性比率定义方式的不同，GSPO与GRPO的clip范围在数量级上通常存在差异。</p>
 <p>分析梯度（简单起见不考虑clip），GSPO梯度如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gspo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gspo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>GRPO梯度如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gspo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gspo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意，上面的求导利用了对数导数技巧（log-derivative trick）：概率的导数等于它自己乘以log的导数。</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable rowspacing="0.25em" columnalign="right" columnspacing=""><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mfrac><mi>d</mi><mrow><mi>d</mi><mi>θ</mi></mrow></mfrac><mi>log</mi><mo>⁡</mo><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mrow><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>⋅</mo><mfrac><mi>d</mi><mrow><mi>d</mi><mi>θ</mi></mrow></mfrac><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mo>⇒</mo><mfrac><mi>d</mi><mrow><mi>d</mi><mi>θ</mi></mrow></mfrac><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo><mo>=</mo><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo><mo>⋅</mo><mfrac><mi>d</mi><mrow><mi>d</mi><mi>θ</mi></mrow></mfrac><mi>log</mi><mo>⁡</mo><mi>π</mi><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mstyle></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
 \frac{d}{d \theta} \log \pi(o)=\frac{1}{\pi(o)} \cdot \frac{d}{d \theta} \pi(o) \\
@@ -215,30 +216,30 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi>s</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo>=</mo><mi mathvariant="normal">sg</mi><mo>⁡</mo><mrow><mo fence="true">[</mo><msub><mi>s</mi><mi>i</mi></msub><mo stretchy="false">(</mo><mi>θ</mi><mo stretchy="false">)</mo><mo fence="true">]</mo></mrow><mo>⋅</mo><mfrac><mrow><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>∣</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mrow><mi>i</mi><mo separator="true">,</mo><mo>≤</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow></mrow><mrow><mi mathvariant="normal">sg</mi><mo>⁡</mo><msup><mrow><mo fence="true">[</mo><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><msub><mi>y</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>t</mi></mrow></msub><mo>∣</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mrow><mi>i</mi><mo separator="true">,</mo><mo>≤</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow><mo fence="true">]</mo></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></mrow></mfrac></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(4)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">s_{i, t}(\theta)=\operatorname{sg}\left[s_i(\theta)\right] \cdot \frac{\pi_\theta\left(y_{i, t} \mid x, y_{i,\le t}\right)}{\operatorname{sg}\left[\pi_\theta\left(y_{i, t} \mid x, y_{i, \le t}\right)\right]^{\prime}} \tag{4}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mord mathrm" style="margin-right:0.0139em;">sg</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord"><span class="mord mathnormal">s</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0278em;">θ</span><span class="mclose">)</span><span class="mclose delimcenter" style="top:0em;">]</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:2.4949em;vertical-align:-1.0679em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.427em;"><span style="top:-2.2182em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mop"><span class="mord mathrm" style="margin-right:0.0139em;">sg</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mclose delimcenter" style="top:0em;">]</span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8918em;"><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mrel mtight">≤</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.0679em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span><span class="tag"><span class="strut" style="height:2.4949em;vertical-align:-1.0679em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">4</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>sg表示停止梯度只取数值，这个和<a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵 | Yam</a><sup>[5]</sup>中的做法一致。梯度如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cispo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cispo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意看，这个形式和序列级别的梯度是等价的。考虑到式（4）右边的分式恒等于1，<code>si,t(θ)</code>在数值上与<code>si(θ)</code>相等，它们的损失函数也是等价的（式2和式3）。</p>
 <p>进一步，当我们将响应 y_i 中所有 token 的优势值设为相同（即 <code>A_{bi,t} = A_{bi}</code>）时，GSPO-token 与 GSPO 在目标函数、剪枝条件和理论梯度上在数值上是相同的；而 GSPO-token 具有更高的灵活性，可以对每个 token 的优势值进行单独调整。</p>
 <h3 id="MoE模型">MoE模型</h3>
 <p>论文发现，采用 GRPO 时，MoE 中专家的激活波动性可能会导致强化学习训练无法正常收敛。具体来说，在一次或多次梯度更新之后，对同一个响应，所激活的专家可能会发生显著变化。这一现象在更深层的 MoE 模型中表现更加明显，导致 token 级别的重要性比率出现剧烈波动，进一步使这些比值失效，从而阻碍了RL训练的正常收敛。</p>
 <p>一个Naive的策略就是采用 Routing Replay 策略。具体来说，缓存旧策略中激活的专家，并在计算重要性比值时，在新策略中“重放”这些路由方式。从而保证激活专家的一致性。效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gspo-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gspo-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>重用路由方式的做法会带来额外的内存和通信开销，同时也可能限制 MoE 模型的实际容量。GSPO消除了对 Routing Replay 的依赖，能够直接计算重要性比值si(θ)，实现正常收敛并保持稳定优化。效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gspo-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gspo-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这里的关键原因是：GSPO 仅关注序列级的似然（πθ(yi|x)），对单个 token 的似然（πθ(yi,t|x, yi,&lt;t)）不敏感。由于 MoE 模型始终保持其语言建模能力，序列级的似然不会出现剧烈波动。</p>
 <h2 id="GMPO">GMPO</h2>
 <p>GRPO 在处理具有异常重要性加权奖励的 token 时，容易出现策略更新不稳定的问题。这种不稳定表现为训练过程中出现极端的<strong>重要性采样权重</strong>（新旧策略为某 token 分配的采样概率比）。GMPO全称<a href="https://arxiv.org/abs/2507.20673">Geometric-Mean Policy Optimization</a><sup>[8]</sup>，来自UCAS，它采用几何平均值保持重要性采样权重的稳定性。两者对比如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，sgn的意思是，A为正时取1，为负时取-1。</p>
 <p>看起来就是把算术平均改为几何平均，因为几何平均对边界异常值不敏感。同时，还有个好处是：可以使用更大的裁剪范围（ε1、ε2）进行更大的策略探索。所以，GMPO的核心=「稳定（对极端值鲁棒）+更好的策略探索（更小的KL背离和更高的熵）」。</p>
 <h3 id="算法设计-2">算法设计</h3>
 <p>训练目标如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>和GRPO的梯度分别如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到，GRPO中，权重是包含重要性比率的，极端的重要性比率将导致token梯度过大或过小，从而导致激进的策略更新。但是GMPO中，包含的是所有重要性比率的几何平均值，为策略更新提供了整体视图，并且对极值具有鲁棒性。</p>
 <p>注意，上面梯度的计算和前面一样，使用了对数导数技巧，这里GRPO的导数和前面其实是等价的。当然，简单起见都没有考虑clip。可以发现，GMPO和GSPO有异曲同工之妙呀！其实，不能说很像了，从梯度看只能说一样了；）而且两篇发表时间也是相当接近，也是挺有意思的，相信两方作者都会不由自主地会心一笑吧。</p>
 <h3 id="算法分析">算法分析</h3>
-<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gmpo-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Token级别clip</strong></p>
 <p>前面提过，与原始DeepSeek-math中的GRPO不同，DeepSeek-R1最大化序列Reward，clip也是序列级别。这其实是和前面GMPO的损失函数中连乘的重要性比率是等价的（等价于序列级别），但clip时采用了token级别。原因如下：</p>
 <ul>
@@ -382,10 +383,20 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/" rel="prev"><span class="meta-nav">←</span> GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走</a></span>
+        <div class="nav-previous">
+          <a href="/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/08/11/AI/2025-08-11-AI-Develop/" rel="next">群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/08/11/AI/2025-08-11-AI-Develop/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">群聊中的AGI拼图：GPT-5发布后关于全模态、推理、世界模型与实时学习的思考</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -510,8 +521,9 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

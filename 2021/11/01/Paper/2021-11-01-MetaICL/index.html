@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>MetaICL：Learning to Learn In Context | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/11/01/Paper/2021-11-01-MetaICL/">
   
   <meta name="description" content="论文：[2110.15943] MetaICL: Learning to Learn In Context Code：facebookresearch&#x2F;MetaICL: An original implementation of “MetaICL Learning to Learn In Context” by Sewon Min, Mike Lewis, Luke Zettlemoyer and">
@@ -104,7 +104,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -124,6 +124,7 @@
       MetaICL：Learning to Learn In Context
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -218,9 +219,9 @@
 <p>训练时：给定 k 个样本的 y 和 x，以及第 k+1 个样本的 y，生成第 k+1 个样本的 x；推理时，给定 k 个样本的 y 和 x，以及 c，最大化测试输入 x 的概率。</p>
 <h2 id="实验">实验</h2>
 <h3 id="基本设置">基本设置</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="基线设置">基线设置</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="实验评估">实验评估</h3>
 <p>使用 Macro-F1</p>
 <ul>
@@ -228,7 +229,7 @@
 <li>使用了 5 组 k 个训练样本</li>
 <li>去掉了模板，使用数据集给定的输入和标签词（如下图示）</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="训练细节">训练细节</h3>
 <ul>
 <li>Base LM = GPT-2 Large（770M 参数）</li>
@@ -239,7 +240,7 @@
 </ul>
 <h2 id="报告">报告</h2>
 <h3 id="实验结果">实验结果</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>相比没有 Meta-training（1-6 行），Channel In-context 效果最好</li>
 <li>Multi-task 0-shot 没有超过最好的 raw LM，原因可能是：模型小，与更强的「channel 基线」进行对比</li>
@@ -250,14 +251,14 @@
 </ul>
 <h3 id="实验消融">实验消融</h3>
 <p><strong>Meta-training 任务的数量</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>随着任务数增加效果增加</li>
 <li>Channel MetaICL 超过其他模型</li>
 <li>Meta-training 的不同选择（图 1 底部）会对性能产生重大影响</li>
 </ul>
 <p><strong>Meta-training 任务的多样性</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-7.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>多样性对 MetaICL 很重要</li>
 <li>高质量多领域数据有用</li>
@@ -268,7 +269,7 @@
 <li>基于 k 个样本建模可能可以不要 Instruction</li>
 <li>Instruction 可能有互补作用，能够为模型提供额外的有用信息</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-8.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-metaicl-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>不使用 Instruction 的 MetaICL 比使用了的 Multi-task 0-shot 好</li>
 <li>使用 Instruction 时 MetaICL 有进一步的改进（互补）</li>
@@ -324,10 +325,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/11/13/Python/2021-11-13-Ellipsis/" rel="prev"><span class="meta-nav">←</span> Python Ellipsis</a></span>
+        <div class="nav-previous">
+          <a href="/2021/11/13/Python/2021-11-13-Ellipsis/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Python Ellipsis</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/10/27/NLP/2021-10-27-Senta/" rel="next">浅析文本分类——情感分析与自然语言处理 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/10/27/NLP/2021-10-27-Senta/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">浅析文本分类——情感分析与自然语言处理</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -452,8 +463,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

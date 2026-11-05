@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>MIO | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/09/28/Paper/2024-09-28-MIO/">
   
   <meta name="description" content="Paper: https:&#x2F;&#x2F;arxiv.org&#x2F;abs&#x2F;2409.17692 核心：多模态输入输出，这里的多模态包括了文本、图像、语音和视频，相比AnyGPT多了视频。">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       MIO
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -169,7 +170,7 @@
 <p>图像Token因为使用Causal Q-Former所以包含causal语义，语音Token自然是autoregressive的。为了将音色先验注入（SpeechTokenizer需要），音色Token也由模型生成。</p>
 <p>为了消除由<code>&lt;PAD&gt;</code>引起的计算效率低下，使用packing策略。</p>
 <h2 id="训练方法">训练方法</h2>
-<p><img src="https://qnimg.lovevivian.cn/paper-mio-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-mio-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>三阶段：对齐表征、上下文语义、音频增强。</p>
 <ul>
 <li>阶段1：Pair对是对齐的，Interleaving（交错）是上下文依赖的（没那么对齐），视频-文本对被视作这一类数据，所以一阶段不包含它们。</li>
@@ -226,7 +227,7 @@
 </ul>
 <p><strong>Evaluation</strong></p>
 <p>预训练的和训练时一样，SFT如下表所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-mio-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-mio-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="小结">小结</h2>
 <p>通过端到端自回归方式整合了文本、图像、视频、音频多种模态。最大的创新点应该是加了视频数据，当然四阶段的训练过程也是效果的保证。至于Token化方法倒是和AnyGPT没啥区别。</p>
 
@@ -276,10 +277,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/09/30/Diary/2024-09-30-Work-Design/" rel="prev"><span class="meta-nav">←</span> 基础和取舍</a></span>
+        <div class="nav-previous">
+          <a href="/2024/09/30/Diary/2024-09-30-Work-Design/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">基础和取舍</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" rel="next">Tiny LLM Continual Pre-training：RHO-1 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Tiny LLM Continual Pre-training：RHO-1</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -404,8 +415,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

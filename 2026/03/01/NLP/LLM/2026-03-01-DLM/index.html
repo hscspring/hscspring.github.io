@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/03/01/NLP/LLM/2026-03-01-DLM/">
   
   <meta name="description" content="TL;DR 本文深度梳理了离散扩散语言模型（MDLM）的发展脉络。从 SEMDLM 的理论奠基，到 LLaDA 实现 100B 参数的 Scaling 验证，再到 2026 年初关于 DLM 十大挑战的宏观思考。文章重点剖析了 DLM 与自回归模型（ARM）的差异，介绍了 “DLM 规划 + ARM 执行” 等多种前沿混合架构，并探讨了 RL 后训练中的“灵活性陷阱”。核心观点认为：DLM 的真正">
@@ -113,7 +113,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -133,6 +133,7 @@
       DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -178,10 +179,10 @@
 <p>如上图a所示，随着计算资源预算增加，MDM 的验证 loss 根据幂律逐渐减少，速率与 ARM 相似。然而，MDM 仍需约 16 倍的计算资源才能实现与 ARM 相当的效果。此外，最优模型大小也遵循与计算预算的幂律关系，如图b所示。在不同计算资源预算下，MDM 的最优规模约为 ARM 的一半，反映了利用参数容量时类似的缩放行为。</p>
 <h3 id="LLaDA初发">LLaDA初发</h3>
 <p>有了 Scaling Law 的支持，2025 年 2 月份发布了 <a href="https://ml-gsai.github.io/LLaDA-demo/">LLaDA</a><sup>[14]</sup>（<strong>L</strong>arge <strong>La</strong>nguage <strong>D</strong>iffusion with m<strong>A</strong>sking），建模过程如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-llada-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-llada-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>整个过程可以看作去 Mask 的扩散过程。</p>
 <p>LLaDA 认为 scalability 主要来源于 Transformer 架构、模型规模、数据规模，以及生成式建模原则（下式）所诱导的 Fisher 一致性之间的相互作用，而非具体的建模方式（AR 只是其中一种）。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-llada-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-llada-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>另外，指令跟随和上下文学习能力似乎是所有在结构一致语言任务上的条件生成模型的内在属性，而不是自回归模型的专属优势。虽然自回归模型可以被解释为一种无损数据压缩器，但任何表达能力足够强的概率模型同样能够实现类似能力。</p>
 <p>与 ARM 不同，LLaDA 通过一个前向过程和反向过程来定义模型分布：</p>
 <ul>
@@ -190,7 +191,7 @@
 <li>对于 t∈(0,1)，序列处于部分 mask 状态，其中每个 token 以概率 t 被 mask，1-t 保持未 mask。</li>
 </ul>
 <p>LLaDA 的核心是一个 mask 预测器，模型以 xt 为输入，同时预测所有被 mask 掉的 token。训练时，仅在 mask 位置上计算交叉熵损失，如下式所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-llada-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-llada-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，x0 是一个训练样本，t 是从区间 <code>[0,1]</code> 均匀采样的连续变量，xt 由前向过程采样得到，L 表示序列长度。训练完成后，可以利用该 mask 预测器参数化地模拟反向过程，并将 t=0 时诱导得到的边缘分布定义为模型分布。上式的损失函数已被证明是 NIL（negative log-likelihood）的上界，使得目标函数具有理论依据。</p>
 <p>这里重点介绍一下推理过程（可同步参考前面的 Sampling 图）：</p>
 <ul>
@@ -256,7 +257,7 @@
 <p>刚刚提到的 DLM 前景看起来相当美好，而且改造的确实比较“彻底”，想来已经有不少机构在钻研了。不过，如果立足当下，是不是可以搞一些混合架构呢？答案是肯定的，本节我们就来看几种混合搞法。</p>
 <h3 id="DLM-Think-ARM-Evaluate">DLM Think + ARM Evaluate</h3>
 <p>不同于《<a href="https://arxiv.org/abs/2402.07754">2402 Diffusion of Thoughts: Chain-of-Thought Reasoning in Diffusion Language Models</a><sup>[18]</sup>》的纯 Diffusion CoT，《<a href="https://arxiv.org/abs/2510.27469">2510 Diffuse Thinking: Exploring Diffusion Language Models as Efficient Thought Proposers for Reasoning</a><sup>[19]</sup>》用 DLM 生成多样化的推理候选方案，然后利用 ARM 输入处理高效（输出成本较高）和语义理解能力较强的特点，评估和筛选中间推理结果。DLM 与 ARM 的协作是在完整“推理思维”层展开，形成协同增益的共推理范式。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-diffuse-thinking-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-diffuse-thinking-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，文章提出生成–评估树结构推理框架：</p>
 <ul>
 <li>DLM 生成一组候选解集合 P。</li>
@@ -266,14 +267,14 @@
 </ul>
 <h3 id="DLM-Think-ARM-Talk">DLM Think + ARM Talk</h3>
 <p>如果说上面的 Diffuse Thinking 看起来比较”硬“，那 NVIDIA 的《<a href="https://arxiv.org/abs/2511.08923">2511 TiDAR: Think in Diffusion, Talk in Autoregression</a><sup>[20]</sup>》就比较有意思了，它结合了 DLM 的并行生成潜力 + ARM 更好的生成质量，将两者统一到一个架构下：在扩散范式中进行 token 草稿生成，以自回归方式对最终输出进行（拒绝）采样。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tidar-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tidar-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>而且，通过精心设计结构化注意力掩码，TiDAR 可以在一次模型前向传播中同时完成两个过程：一方面对上一步的草稿 token 进行最终采样；另一方面并行地为下一步预生成。其核心机制是在序列的不同部分之间切换不同的注意力模式：</p>
 <ul>
 <li>对于上一步已生成的干净 token，采用<strong>因果注意力</strong>进行编码，以保持自回归一致性；</li>
 <li>对于用于下一步扩散预生成的 mask token，采用<strong>块因果注意力</strong>，即块内双向块间因果的结构，实现单步扩散式的并行预草稿生成。</li>
 </ul>
 <p>当某个前缀被接受后，对应的预生成候选即可直接选取并接续生成。缓存机制方面，所有通过因果路径前向计算的 token 都会写入 KV cache；若后续这些 token 未被接受，其对应的缓存条目将被清除，避免无效计算占用显存。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ditar-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ditar-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，训练时（左图），采用了一种特殊的训练掩码（block length = 3），在输入 token 后附加等长的 mask token。对于干净的输入 token，使用因果自注意力；而对于 mask token，则在各自块内采用双向注意力，并同时能够关注到前缀内容。推理时（右图），根据当前步骤的前缀，从预先初始化好的注意力掩码中裁剪出相应子掩码进行使用。简单来说，<strong>DLM 从边际分布并行生成 3 个草稿 token（并行预起草，one-step diffusion，不需要多步），ARM 对 next token 进行最终采样确认（即拒绝采样，判断上一步草稿 token 是否与当前步自回归联合分布预测一致）</strong>。</p>
 <p>注意，TiDAR 和 MTP、投机（推测）解码不同。MTP 在草稿阶段并未充分利用基础模型，而且由于草稿模型容量较低，预测能力有限，可能需要更多顺序验证（依赖基础验证模块顺序校验），导致其最大加速效果受到限制。从投机解码角度看，TiDAR 的主要优势之一在于它仅使用一个模型，就能在单次前向推理中同时完成草稿和采样。</p>
 <p>总的来说，在 TiDAR 中，</p>
@@ -291,13 +292,13 @@
 </ul>
 <p>这个有消融实验，效果是比 random mask 要好的。</p>
 <p>最终的 Loss 如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tidar-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tidar-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，α 是 loss 平衡因子，文章大多数设置下 α = 1。</p>
 <p>总的来说，这篇文章我个人很喜欢，质量不错。</p>
 <h3 id="Latent-DLM-Plan-ARM-Generate">Latent DLM Plan + ARM Generate</h3>
 <p>这篇文章《<a href="https://arxiv.org/abs/2602.20528">2602 Stop-Think-AutoRegress: Language Modeling with Latent Diffusion Planning</a><sup>[21]</sup>（STAR-LDM）》从人类写作方式出发：频繁停顿、反思、提前规划并反复修改文本，以确保整体连贯性、风格一致性以及对全局目标的遵循。标准自回归每一步都做出不可逆的局部决策，从根本上限制了其进行长程规划或对生成过程进行动态控制的能力。很难保证生成文本在全局层面满足复杂约束、保持一致的人设风格，或规避不良内容。</p>
 <p>STAR-LDM 的做法是引入 Latent Plan，如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-startldm-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-startldm-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>我们来看一下这个架构，</p>
 <ul>
 <li>紫色部分就是我们熟悉的 ARM，不多说。</li>
@@ -322,18 +323,18 @@
 <li>恢复到标准自回归。</li>
 </ul>
 <p>损失包含两部分：<code>L = L_LM + βL_DM</code>。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-starldm-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-starldm-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，p 是 prefix 长度。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-starldm-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-starldm-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，Ɛ 是噪声。注意，这里加噪实际采用 <a href="https://arxiv.org/abs/2202.00512"><strong>v-prediction</strong> 模式</a><sup>[22]</sup>，</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/justinlovelace/STAR-LDM/blob/main/star_ldm/diffusion/diff_utils.py#L24</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">predict_v_from_start_and_eps</span>(<span class="params">x, noise, alpha2</span>):</span><br><span class="line">    v = alpha2.sqrt() * noise - x* (<span class="number">1</span>-alpha2).sqrt()</span><br><span class="line">    <span class="keyword">return</span> v</span><br><span class="line"></span><br><span class="line">v_target = predict_v_from_start_and_eps(sentence_emb, eps, alpha2)</span><br></pre></td></tr></table></figure>
 <p>个人觉得这种模式也比较有意思，就是搞起来感觉麻烦了一些。当然，反过来也是一种即插即用的设计，扩散的引导可以是 prefix，也可以是其他可控制模块。</p>
 <p>另外要注意的是，此“Plan”其实是对未来 Token 的 Plan，并非常规意义理解的 “Plan（规划）”，它更多是一种“隐式”地对未来输出内容的一种表示。</p>
 <h3 id="CARDM">CARDM</h3>
 <p>这个思路是从数据和训练角度把 DLM 强行 ARM 化，也是比较有意思的，来自《<a href="https://arxiv.org/abs/2601.22031">2601 Causal Autoregressive Diffusion Language Model</a><sup>[23]</sup>》，做法如下图 D 所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cardm-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cardm-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其模型还是 DLM，但是建模方式是 ARM，可并行生成多个 token，如下所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cardm-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cardm-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>看起来和《<a href="https://arxiv.org/abs/2503.09573">2503 Block Diffusion: Interpolating Between Autoregressive and Diffusion Language Models</a><sup>[24]</sup>（BD3LM）》有点类似，不过 BD3LM 会引入显著的计算开销：为了实现按块训练，需要构造复杂的注意力掩码。而且，固定块大小无法适应自然语言中固有的信息密度变化，限制了动态并行能力的发挥。</p>
 <p>不过，在扩散框架中严格施加因果约束会引入一种独特的病态状态，CARD 中称之为“信息坍塌”。</p>
 <p>双向架构中，每个 token 都可以关注完整的全局序列，即使某个局部区域被大量 mask，模型仍然可以利用未来 token 作为锚点进行预测，从而在不同位置之间维持<strong>相对均匀的信息密度</strong>。</p>
@@ -341,7 +342,7 @@
 <p>为了解决 causal diffusion 的稳定性问题，CARD 提出了 soft-tailed 掩码机制和一个上下文敏感 reweighting 机制。</p>
 <p><strong>soft-tailed 掩码机制</strong></p>
 <p>很简单，就是将所有扰动集中在序列尾部……</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cardm-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cardm-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Context-aware Reweighting</strong></p>
 <p>当前缀被大量 mask 时，条件熵会急剧上升，在这种高度不确定性的情况下仍强迫模型给出确定性预测，会导致梯度噪声增大以及优化过程不稳定。</p>
 <p>扩散模型基于 ELBO 采用一种全局加权策略（比如 MDLM 的 1/t），在序列层面平衡不同噪声水平的贡献。但对因果模型来说，全局加权并不足够，因为有效噪声水平在每个 token 位置 n 上是局部变化的。上下文敏感 reweighting 从三个维度评估上下文的歧义性：</p>
@@ -351,7 +352,7 @@
 <li><strong>Density</strong>：连续受损的程度。</li>
 </ul>
 <p>消融结果表明，这两种机制都非常关键，如下表所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cardm-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cardm-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意，Strict Tail 设置中，序列末尾是一整块连续噪声区域；Relaxed Window 则在尾部窗口内允许干净 token 与噪声 token 混合；Random 则是整个序列随机，没有尾部 mask。</p>
 <p><strong>基于置信度的分块采样</strong></p>
 <p>推理时，先在序列尾部追加 K 个 mask token 进行初始化，执行迭代式并行去噪：每次迭代只有某个 token 的预测概率超过阈值 τ 时才会更新该位置。最后，将生成完成的块加入 KV cache。可以灵活调节的参数包括：</p>
@@ -465,10 +466,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/" rel="prev"><span class="meta-nav">←</span> Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求</a></span>
+        <div class="nav-previous">
+          <a href="/2026/03/09/Product/2026-03-09-From-Cai-and-Talkie-to-Roleplay/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Roleplay AI 观察：从 C.AI 到 Talkie，产品、数据、模型与情感需求</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/" rel="next">从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -593,8 +604,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DeepSeek R1深度技术解析及其影响 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/02/17/NLP/LLM-Training/2025-02-17-DeepSeek-R1/">
   
   <meta name="description" content="本文是2025年2月15日《2025 iFLYTEK 开发者TALK 杭州站《DeepSeek深度技术解析》分享的文字版，PPT可以在这里找到。由于时间关系，实际分享是本文的简化版。文字内容是近半个月陆陆续续记录的一些阅读笔记和思考，中途接到分享邀请（还好有点积累，不然怕是难顶doge），成稿于分享后。  距离2022年底ChatGPT发布开启LLM时代才过去两年多一点时间，刚进入2025年，D">
@@ -31,13 +31,13 @@
 <meta property="article:tag" content="Pre-training">
 <meta property="article:tag" content="Continual Pre-training">
 <meta property="article:tag" content="Post-training">
+<meta property="article:tag" content="LIMO">
+<meta property="article:tag" content="s1">
+<meta property="article:tag" content="Inference Scaling">
 <meta property="article:tag" content="R1">
 <meta property="article:tag" content="R1-Zero">
 <meta property="article:tag" content="oat-zero">
 <meta property="article:tag" content="DeepScaleR">
-<meta property="article:tag" content="LIMO">
-<meta property="article:tag" content="s1">
-<meta property="article:tag" content="Inference Scaling">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -116,7 +116,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -136,6 +136,7 @@
       DeepSeek R1深度技术解析及其影响
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -195,13 +196,13 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-deepseek-r1-1.jpg" alt=""></p>
 <p>非常漂亮的曲线，非常Nice的表现！而且，实际中还可以通过多数投票进一步提升性能，如红色曲线所示。</p>
 <p><strong>Self-evolution</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-r1-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-r1-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>然后是过程中表现出来的自我进化，它最引人注目的方面之一是<strong>随着推理时计算的增加，出现了复杂的行为</strong>。诸如反思（重新审视和重新评估先前的步骤）和探索解决问题的替代方法等行为。这些行为是自发产生的，是模型与强化学习环境交互的结果，而不是明确编程的、外部调整的结果。</p>
 <p><strong>Aha Moment</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-r1-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepseek-r1-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>接下来是很多人津津乐道的Aha Moment，其实就是模型自动学习重新评估、检查或验证，即自我反思和错误修正，有点类似”恍然大悟“。它显示出强化学习的神奇之处：我们并没有明确告诉模型如何解决问题，而是通过提供适当的激励，让它自主发展出高级的解决问题策略。</p>
 <p>Aha Moment可以看作是模型在”推理时思考“的表现，其<strong>外在表现</strong>就是出现类似确认、重新检查、评估、验证等词，并且回复长度增加。如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-yarz-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-yarz-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>但值得注意的是：</p>
 <ul>
 <li>Aha Moment并不是只有这种情况才会有。</li>
@@ -361,7 +362,7 @@
 <li>RL 缩放也可以表现在小型模型中。单独的 SFT 和 RL 都不够；相反，通过将<strong>高质量的 SFT 蒸馏与RL缩放相结合</strong>，可以真正释放 LLM 的推理潜力。 AIME 准确率从 28.9% 提高到 43.1%。</li>
 <li>迭代扩展长度可实现更有效的长度缩放。简单来说，就是先训短的简单的，然后提升难度和长度限制，这样会比直接训练更加高效。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-deepscaler-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deepscaler-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="LIMO和s1">LIMO和s1</h3>
 <p>这两篇都是用少量高质量数据SFT激活模型推理能力的研究，相关内容如下。</p>
 <ul>
@@ -387,16 +388,16 @@
 <p>这一轮的实验主要针对R1-Zero，除了验证上面的一些观点， 还有一些自己的想法。初步结论一并汇总在这里。</p>
 <p><strong>R1-Zero的起点不重要</strong></p>
 <p>有了前面的铺垫，相信这个结论是比较清晰的，就是说无论Base还是Instruct，无论是正常模型还是Math模型，理论上应该都能实现R1-Zero的效果。既有效果，又有类似的表现，姑且可以算复现了R1-Zero。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-yarz-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-yarz-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，绿色的是<code>Qwen2.5-7B-Instruct</code>，棕色的是<code>Qwen2.5-7B</code>，两者在奖励、格式错误率、整体正确率、测试集表现几乎呈现完全一致的走向。不过Instruct版本整体表现稍微好一些。在回复长度方面，二者整体趋势一致，都是先降低后增长，但Base模型长度增加更明显，而Instruct模型下降更久一些。猜测是Instruct模型因为经过了SFT，有了固有的指令跟随能力，因此需要比较久学习到新的要求；同时Instruct的能力又强于Base，因此回复长度也相对更短一些。</p>
 <p>另外值得注意的是，Base模型的起点几乎为0，但Instruct模型不是，它一开始就有一定的准确率，如第二行最右边图所示。</p>
 <p><strong>模型越新效果越好</strong></p>
 <p>虽然用的是在Qwen2.5发布之后的数据集，尽量保证了OOD，但我们确实无法知晓模型是否在预训练时加入过类似数据。原计划选择Qwen1做试验，不过代码改动稍微有点复杂，因此选择Qwen-1.5-7B进行对比。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-yarz-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-yarz-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如图所示，<code>Qwen1.5-7B</code>整体要明显逊色于<code>Qwen2.5-7B</code>，虽然它们整体的趋势也是一致的。我们从Qwen2.5的官方介绍也可以看到，其中加了Code和数学数据。</p>
 <p><strong>模型越大效果越好</strong></p>
 <p>这可能是句废话，但我们还想知道好多少，以及具体表现到底差在哪里。很遗憾，1.5B的Base模型并没有复现出来，虽然奖励、格式错误、整体准确率、测试集准确率都和前面表现一致，但回复长度是一路下降，直到收敛，没有观察到上升的情况。不过过程中依然还是表现出了Aha现象。最终还是选择了Math版本的1.5B模型，即<code>Qwen2.5-Math-1.5B</code>成功完成验证。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-yarz-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-yarz-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到这个性能差别真是有点大，即便是Math模型，和7B之间的差距依然巨大。另外，尝试了3B模型，也能观察到效果，但回复长度上升幅度不大。</p>
 <p><strong>交互式长度增加有效</strong></p>
 <p>这里主要是验证多阶段（按难度等级）RL，类似DeepScaleR的做法。两步的趋势依然相近，但回复长度第二阶段明显更长，指标也有一定提升。</p>
@@ -506,10 +507,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" rel="prev"><span class="meta-nav">←</span> R1相关：少量高质量数据SFT激活LLM推理能力</a></span>
+        <div class="nav-previous">
+          <a href="/2025/02/18/NLP/LLM-Training/2025-02-18-LLM-PostTrain-SFT-Data/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">R1相关：少量高质量数据SFT激活LLM推理能力</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/01/12/Diary/2025-01-12-Why-OpenSource/" rel="next">我为什么做开源？ <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/01/12/Diary/2025-01-12-Why-OpenSource/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">我为什么做开源？</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -634,8 +645,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

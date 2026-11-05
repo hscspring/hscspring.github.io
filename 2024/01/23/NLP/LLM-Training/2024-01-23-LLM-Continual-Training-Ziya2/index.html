@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM Continual Pre-training：Ziya2 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/">
   
   <meta name="description" content="LLM的训练策略非常讲究，本文主要记录Ziya2的继续训练策略。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       LLM Continual Pre-training：Ziya2
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -201,9 +202,9 @@
 </li>
 </ul>
 <p>数据如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>各个阶段的数据分布如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>优化器</strong></p>
 <p>AdamW，β1=0.9，β2=0.95。</p>
 <p>由于数据集中加入了额外的中文和代码数据导致和原模型数据分布有差异，因此需要额外的Warmup。所以将LLaMA2的0.4%的Warmup比例调到了1%。</p>
@@ -214,13 +215,13 @@
 <p>另外也用了Flash-Attention和Fused-Softmax提升训练效率。</p>
 <p><strong>训练稳定性</strong></p>
 <p>从Ziya-13B的FP16换成了BF16，保证收敛稳定性。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-stability.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-stability.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="评测情况">评测情况</h2>
 <p>Ziya2的评测方法是通用方法，即在多个Benchmark上跑分。Base是ChatGPT和7个开源模型，结果如下表所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-benchmark.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-benchmark.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>MMLU和CMMLU是NLU相关测评，涵盖多个主题的问题。C-Eval是中文的各专业多选题。GSM8K是小学数学题。MATH是数学竞赛题，有详细的分步解决方案。HumanEval是根据提供的文档进行编程的题。</p>
 <p>不说Base，光说和Ziya-13B的对比，确实提升非常明显。这除了归功于本文介绍到的各种优化，还有高质量的数据。效果如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-performance.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>阶段一：MMLU在训练开始时分数下降是因为加入了大量中文数据，随着训练增加分数增加；同时中文分数得到极大提升（CMMLU和C-Eval）。</p>
 <p>阶段二：在所有Benchmark上都有提升，尤其是C-Eval、GSM8K和MATH，说明加入监督数据能降低训练步数。</p>
 <p>阶段三：GSM8K、MATH和HumanEval得到极大提升，同时通用任务上分数基本没变，说明特定任务数据能显著提高特定任务分数，但另一方面这种提高不一定有益，因为可能只是学习到了问题的格式，而不是真正的能力。</p>
@@ -273,10 +274,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/" rel="prev"><span class="meta-nav">←</span> LLM DataManagement：Ziya2</a></span>
+        <div class="nav-previous">
+          <a href="/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM DataManagement：Ziya2</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/" rel="next">【Rust与AI】LLM模型基本架构 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/12/24/Rust/RustAI/2023-12-24-Rust-and-AI-LLM/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">【Rust与AI】LLM模型基本架构</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -401,8 +412,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

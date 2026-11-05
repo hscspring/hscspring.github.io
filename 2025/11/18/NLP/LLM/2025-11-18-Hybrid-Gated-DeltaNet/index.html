@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Hybrid LLM 之 Gated DeltaNet | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/11/18/NLP/LLM/2025-11-18-Hybrid-Gated-DeltaNet/">
   
   <meta name="description" content="Qwen3-Next 采用了混合架构让人眼前一亮，其中重要的 Gated DeltaNet 模块设计优雅，最大限度地在工程效率和模型效果之间探索平衡，值得学习了解。  TL; DR  DeltaNet：线性 attention 可以看作矩阵状态的累积记忆，DeltaNet 通过 delta rule 更加精确地更新 KV 关联，缓解传统线性 attention 记忆过载问题。 Gated Del">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       Hybrid LLM 之 Gated DeltaNet
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -199,7 +200,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <p>根据 <a href="https://sustcsonglin.github.io/blog/2024/deltanet-1/">DeltaNet</a><sup>[9]</sup> 的解释，标准 attention 如下：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-deltanet-1.jpg" alt=""></p>
 <p>下面的式子是对输出 o 展开后的情况。而线性 attention 如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-deltanet-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-deltanet-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如文章所言，去掉 softmax 并不能立刻降低计算复杂度（矩阵乘法复杂度还是二次方），但是带来了一个关键的数学属性：线性——输入和输出之间是矩阵相乘的形式，可以进行代数操作。这一特性，特别是结合律，能够以高效的方式重构计算。</p>
 <p>推理时，可以按下面的方式重写：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi>o</mi><mi>t</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>t</mi></munderover><msub><mi>v</mi><mi>j</mi></msub><mo stretchy="false">(</mo><msubsup><mi>k</mi><mi>j</mi><mi>T</mi></msubsup><msub><mi>q</mi><mi>t</mi></msub><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>j</mi><mo>=</mo><mn>1</mn></mrow><mi>t</mi></munderover><mo stretchy="false">(</mo><msub><mi>v</mi><mi>j</mi></msub><msubsup><mi>k</mi><mi>j</mi><mi>T</mi></msubsup><mo stretchy="false">)</mo><msub><mi>q</mi><mi>t</mi></msub><mspace width="1em"/><mo>∈</mo><msup><mi mathvariant="double-struck">R</mi><mi>d</mi></msup></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(2)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">o_t = \sum_{j=1}^t v_j (k_j^T q_t) = \sum_{j=1}^t (v_j k_j^T) q_t \quad \in \mathbb{R}^d \tag{2}
@@ -372,7 +373,7 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
 <p>输出是 sigmoid，一般用于二分类。</p>
 <h2 id="网络架构">网络架构</h2>
 <p>如下图所示（来自 <a href="https://sustcsonglin.github.io/blog/2024/deltanet-3/">DeltaNet Explained (Part III) | Songlin Yang</a><sup>[14]</sup>），</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-deltanet-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-deltanet-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到，和标准的 Attention 看起来有点类似，不过这里没有旋转位置编码，因为 DeltaNet 目标是构建一个“可训练状态空间模型”，状态动力学本身提供序列敏感性。</p>
 <h3 id="qk-L2">qk L2</h3>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mtable rowspacing="0.25em" columnalign="right left" columnspacing="0em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">S</mi><mi>t</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><msub><mi mathvariant="bold">S</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><msub><mi mathvariant="bold">A</mi><mi>t</mi></msub><mo>+</mo><msub><mi>β</mi><mi>t</mi></msub><msub><mi mathvariant="bold">v</mi><mi>t</mi></msub><msubsup><mi mathvariant="bold">k</mi><mi>t</mi><mi mathvariant="normal">⊤</mi></msubsup></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="true"><msub><mi mathvariant="bold">A</mi><mi>t</mi></msub></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="true"><mrow><mrow></mrow><mo>=</mo><mi mathvariant="bold">I</mi><mo>−</mo><msub><mi>β</mi><mi>t</mi></msub><msub><mi mathvariant="bold">k</mi><mi>t</mi></msub><msubsup><mi mathvariant="bold">k</mi><mi>t</mi><mi mathvariant="normal">⊤</mi></msubsup></mrow></mstyle></mtd></mtr></mtable></mtd><mtd width="50%"></mtd><mtd><mtext>(14)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{aligned}
@@ -420,7 +421,7 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="bold">S</mi><mi>t</mi></msub><mo>=</mo><msub><mi mathvariant="bold">S</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="false">(</mo><msub><mi>α</mi><mi>t</mi></msub><mo stretchy="false">(</mo><mi mathvariant="bold">I</mi><mo>−</mo><msub><mi>β</mi><mi>t</mi></msub><msub><mi mathvariant="bold">k</mi><mi>t</mi></msub><msubsup><mi mathvariant="bold">k</mi><mi>t</mi><mi mathvariant="normal">⊤</mi></msubsup><mo stretchy="false">)</mo><mo stretchy="false">)</mo><mo>+</mo><msub><mi>β</mi><mi>t</mi></msub><msub><mi mathvariant="bold">v</mi><mi>t</mi></msub><msubsup><mi mathvariant="bold">k</mi><mi>t</mi><mi mathvariant="normal">⊤</mi></msubsup></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(24)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathbf{S}_t = \mathbf{S}_{t-1} (\alpha_t(\mathbf{I} - \beta_t \mathbf{k}_t \mathbf{k}_t^{\top})) +\beta_t \mathbf{v}_t \mathbf{k}_t^{\top} \tag{24}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8361em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathbf">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathbf">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathbf">I</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1491em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0528em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">⊤</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mclose">))</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.1461em;vertical-align:-0.247em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0528em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0528em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf" style="margin-right:0.016em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.016em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathbf">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8991em;"><span style="top:-2.453em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">⊤</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span></span><span class="tag"><span class="strut" style="height:1.1491em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">24</span></span><span class="mord">)</span></span></span></span></span></span></p>
 <p>式 24 在式 8 的基础上增加了 α ∈ (0, 1)。它结合了门控机制和 Delta 规则的优点：门控项使得记忆能够自适应管理，而 delta 更新结构则促进了有效的 KV 关联学习。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gated-deltanet-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gated-deltanet-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如上图（来自 <a href="https://qwen.ai/blog?id=4074cca80393150c248e508aa62983f9cb7d27cd&amp;from=research.latest-advancements-list">Qwen3Next</a><sup>[20]</sup>）所示，和标准 transformer 相比，就是把 attention 换成了 Gated DeltaNet。</p>
 <p>其实，“Gated”这个技巧被用在很多地方，我们上篇 <a href="https://yam.gift/2025/09/25/NLP/LLM/2025-09-25-Hybrid-Gated-Attention/">Hybrid LLM 之 Gated Attention | 长琴</a><sup>[21]</sup> 就是，而且我们还在后面提到了“非LLM时代的 Gated Attention”和“非Attention的Gated”，感兴趣的朋友不妨再回去看一下。</p>
 <h2 id="混合架构">混合架构</h2>
@@ -502,10 +503,20 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/11/23/Python/2025-11-23-LLM-Message-Issue/" rel="prev"><span class="meta-nav">←</span> 两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</a></span>
+        <div class="nav-previous">
+          <a href="/2025/11/23/Python/2025-11-23-LLM-Message-Issue/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">两处容易踩的坑：LLM 消息数组与字典工具的隐藏副作用</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/" rel="next">Reward建模新范式：无验证器RL与Reference的妙用 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/11/11/NLP/LLM-Training/2025-11-11-RM-New-Paradigm-Verifier-Free-RL/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Reward建模新范式：无验证器RL与Reference的妙用</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -630,8 +641,9 @@ c100.7 8.3 195.3 44 280 108 55.3 42 101.7 93 139 153l9 14c2.7-4 5.7-8.7 9-14
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>从 Sentence-BERT 谈句子表征 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/12/27/Paper/2020-12-27-Sentence-Bert/">
   
   <meta name="description" content="在之前那篇 NLP 表征的历史与未来 | Yam 里，我们几乎从头到尾都在提及句子表征，也提出过一个很重要的概念：“句子” 才是语义理解的最小单位。不过当时并没有太过深入细节，直到做到文本相似度任务时才发现早已经有人将其 BERT 化了。这就是本文要提到的一篇很重要但又很顺其自然的一篇论文——Sentence-BERT: Sentence Embeddings using Siamese BERT">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       从 Sentence-BERT 谈句子表征
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -199,17 +200,17 @@
 </ul>
 <h3 id="效果评估">效果评估</h3>
 <p>首先看无监督任务，SBERT 训练数据：Wikipedia，NLI。注意，这里 NLI 数据是用来训练 SBERT 的，因为它是个相似度输出的模型（这点可能对其他模型略不公平，因为引入了新数据）。本任务评估的其实是预训练模型输出的句子向量表征的效果。结果如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看出 <code>CLS</code> 和直接对 BERT 的隐向量取平均效果都不行。后面的几个实验也得出了类似的结论。不过这里有个现象还是值得注意：直接用 BERT 取平均的结果居然能比 SBERT 差那么多。这充分说明：<strong>不同任务使用的不同方法对预训练结果影响比较明显</strong>。</p>
 <p>但这并不能说明 BERT 的句子表征能力弱。果然，接下来的有监督任务（相似度）就证明了这一点，如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>同样的配置下，BERT 表现比 SBERT 还要更好。这说明：<strong>下游任务精调效果显著</strong>。</p>
 <p>而且后面在 SentEval 数据集上的实验（下游分类任务）同样也证明了这点，如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>对此，文章中也做了解释：这主要是因为不同任务的配置不同。STS 任务使用 Cosine-Similarity 对句子向量进行评估，Cosine-Similarity 对所有维度平等处理；而 SentEval 使用逻辑回归分类器对句子向量分类，这就允许某些维度对分类结果有更高或更低的影响。同时，也可以发现 <strong>SBERT 对句子表征本身也有一定的提升作用</strong>，这应该算是个额外收获。</p>
 <p>结论就是：<strong>BERT 的 <code>CLS</code> 或输出向量无法和 “距离” 类的指标一起使用</strong>。这点也可以说是本文最大的价值所在，正如文章在 Related Work 中所言：还没有针对这些方法（<code>CLS</code> 和平均输出向量）是否能够带来有用句子表征的评估。</p>
 <p>另外，还有一个有意思的发现：<strong>在交叉主题场景下，BERT 比 SBERT 表现的好很多</strong>。论文的解释是：BERT 能够使用 Attention 直接对比句子，而 SBERT 必须将单个句子从一个没见过的主题映射到一个向量空间，以使具有相似主张和原因的论点接近。其实，即便是单主题下，BERT 也要好于 SBERT。具体如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-sentence-bert-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>这几个实验个人感觉还挺有价值，整理一下能带给我们的启发：</p>
 <ul>
 <li>BERT 是个 “预训练” 的结果，直接使用一般不会有好效果，最好能在具体场景业务上精调一下。说到这里，其实我是不太赞同重新训练领域的 BERT 的，已经有很多实验证明提升有限。而且，预训练模型最主要的就是一个 “泛”，太 “专” 未必就好。不过倒是可以在领域数据上做增量训练。</li>
@@ -277,10 +278,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/01/17/Paper/2021-01-17-SqueezeBERT/" rel="prev"><span class="meta-nav">←</span> SqueezeBERT 论文笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2021/01/17/Paper/2021-01-17-SqueezeBERT/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">SqueezeBERT 论文笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/12/13/Paper/2020-12-13-Bert-Flow/" rel="next">Bert-Flow 论文笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/12/13/Paper/2020-12-13-Bert-Flow/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Bert-Flow 论文笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -405,8 +416,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

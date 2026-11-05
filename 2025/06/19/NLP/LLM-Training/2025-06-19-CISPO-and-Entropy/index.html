@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>GRPO优化在继续——CISPO和熵 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">
   
   <meta name="description" content="来自MiniMax-M1: Scaling Test-Time Compute Efficiently with Lightning Attention[1]中的一个发现。其实R1-Zero后，关于GRPO的优化和研究已经有相当不少的文章了，光笔者自己都梳理过不少，如下。  VAPO：基于价值方法的新突破 | Yam[2] 异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ |">
@@ -111,7 +111,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -131,6 +131,7 @@
       GRPO优化在继续——CISPO和熵
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -247,7 +248,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p>“熵与置信度之间的内在张力”意味着：模型在不确定时需要探索（熵高），而在确定后会自然减少探索（熵低）。这种动态变化使得基于熵的探索机制具有自我调节能力，不会一直被人为鼓励，从而避免了过拟合或奖励欺骗。</p>
 </blockquote>
 <p>整体改动如下。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-entropy-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-entropy-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>对于输出 o 中的每个Token ot，当前策略对词表 V 的熵为：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">H</mi><mi>t</mi></msub><mo>=</mo><mo>−</mo><munder><mo>∑</mo><mrow><mi>v</mi><mo>∈</mo><mi mathvariant="script">V</mi></mrow></munder><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><mi>v</mi><mo>∣</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>o</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow><mi>log</mi><mo>⁡</mo><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><mi>v</mi><mo>∣</mo><mi>q</mi><mo separator="true">,</mo><msub><mi>o</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(9)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{H}_t=-\sum_{v \in \mathcal{V}} \pi_\theta\left(v \mid q, o_{\lt t}\right) \log \pi_\theta\left(v \mid q, o_{\lt t}\right) \tag{9}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.0097em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0097em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.3717em;vertical-align:-1.3217em;"></span><span class="mord">−</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.05em;"><span style="top:-1.8557em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0359em;">v</span><span class="mrel mtight">∈</span><span class="mord mathcal mtight" style="margin-right:0.0822em;">V</span></span></span></span><span style="top:-3.05em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.3217em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1774em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.0139em;">g</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">v</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">o</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mrel mtight">&lt;</span><span class="mord mathnormal mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1774em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span><span class="tag"><span class="strut" style="height:2.3717em;vertical-align:-1.3217em;"></span><span class="mord text"><span class="mord">(</span><span class="mord"><span class="mord">9</span></span><span class="mord">)</span></span></span></span></span></span></p>
@@ -260,7 +261,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Compute advantages as in PPO or GRPO </span></span><br><span class="line">adv = compute advantages(...)  </span><br><span class="line"><span class="comment"># Apply entropy-based term for advantage shaping </span></span><br><span class="line">adv += torch.<span class="built_in">min</span>(alpha * entropy.detach(), adv.<span class="built_in">abs</span>()/kappa)  </span><br><span class="line"><span class="comment"># Use the shaped advantages to compute the policy loss </span></span><br><span class="line">loss = compute policy loss(adv, ...)</span><br></pre></td></tr></table></figure>
 <p>实证结果表明，当At&gt;0时，更高的熵会导致对所选Token的更新更强，从而大幅提升其概率，使得输出分布更加集中。分布越集中，熵就越低，这反过来会降低 ψ(Ht) ，并削弱后续的更新强度。</p>
 <p>和基于熵的正则项对比如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-entropy-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-entropy-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>其中，<code>A_shaped = At + ψ(Ht) </code>。</p>
 <p>最终效果确实有少量提升。</p>
 <h2 id="小结">小结</h2>
@@ -360,10 +361,20 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" rel="prev"><span class="meta-nav">←</span> 指令跟随近期工作梳理（2025年上半年）</a></span>
+        <div class="nav-previous">
+          <a href="/2025/06/26/NLP/LLM-IF/2025-06-26-Instruction-Following/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">指令跟随近期工作梳理（2025年上半年）</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" rel="next">Reward Model建模 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/06/09/NLP/LLM-Training/2025-06-09-RM-Modeling/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Reward Model建模</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -488,8 +499,9 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

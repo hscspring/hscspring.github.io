@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>R1相关：R1-Zero的进一步理解和探索 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/">
   
   <meta name="description" content="TL;DR 本文通过对近期几篇R1-Zero相关工作进行梳理，同时结合部分已有的工作，从整体上对R1-Zero及其范式进行更深层次的理解和探索。主要观点整理如下：  Base模型是核心，RL在激活能力  强模型需高难度数据充分激活能力，弱模型需渐进引导。 强模型对格式限制不敏感，弱模型需适配模板以避免探索抑制。 自我反思频率与准确率无必然关联，需结合数据质量分析。模型层数增加时，简单问题易被“过度">
@@ -113,7 +113,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -133,6 +133,7 @@
       R1相关：R1-Zero的进一步理解和探索
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -202,14 +203,14 @@
 </li>
 <li>
 <p>强制使用固定格式的奖励机制（比如用框圈住答案）严重抑制模型的探索能力。对一开始就难以执行指令的Base模型影响更大。如下图所示，Llama3-8B相差巨大。格式居然会限制模型性能上限，这一点也比较新颖。不过可能还和Base模型能力有关，Base能力差，外在的“限制”更加会影响其“激活”。这里的核心还是“激活”而非真正的SFT，Base模型没见过这种格式，能力弱的Base可能直接就被干懵了。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>冷启动可以迅速提升Base模型性能，但会极大限制模型在强化学习阶段自由探索的能力。这种限制会削弱模型的最终性能，并抑制高级推理能力的涌现。如下图所示，最后性能最好的反而是没SFT的Base模型。这点看起来好像和我们之前的认识不太一样，因为SFT+RL一般会被认为能提升性能。个人猜测可能和论文中SFT的数据选择有关，SFT的数据质量要求非常高（数量并不重要）；另外可能也和模型选择有关（Mistral 24B），不知道换成Qwen2.5会怎样。不过我们认知的SFT+RL中的SFT做的其实是LongCoT，并不是激活，也就是我们在<a href="https://yam.gift/2025/03/15/NLP/LLM-Training/2025-03-15-R1-New-Paradigm/">DeepSeek R1后LLM新范式 | Yam</a><sup>[6]</sup>中提到的R1-R模式。所以，这里挑战的其实是R1的冷启动+RL模式。在那篇文章里我们也同时提到过：TTS让Base模型把“<strong>比较好的那条路径</strong>”给展示了出来；而SFT则是展示出来一条“<strong>相对还可以的固定路径</strong>”（因为激活的数据是确定的）。所以，SFT数据质量不同，激活的Base模型的推理能力就不同。而DPO正好介于SFT和其他RL之间，它展示出来的是一条“<strong>相_比较_还可以的固定路径</strong>”。是不是因为SFT后将模型“锁定”（尤其是能力弱的模型，可能更容易被锁定）在某条路径上导致后续RL效果打了折扣？</p>
 <blockquote>
 <p>说到这里，突然想起之前<a href="https://yam.gift/2025/02/27/NLP/LLM-Training/2025-02-27-LLM-PostTrain-PPO-Data/">LIMR</a><sup>[4]</sup>还有个有意思的结论：“RL 可能更有效地增强数据稀疏场景中的推理能力，<strong>尤其对小模型来说，可能比SFT更有效</strong>”。是不是意味着RL探索范围更广，对小模型更加“友好”；而SFT相对固定，所以需要Base模型本身能力强。</p>
 </blockquote>
-<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-simplerlzoo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <h3 id="Understanding-R1-Zero-Like-Training">Understanding R1-Zero-Like Training</h3>
@@ -446,10 +447,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/" rel="prev"><span class="meta-nav">←</span> VAPO：基于价值方法的新突破</a></span>
+        <div class="nav-previous">
+          <a href="/2025/04/19/NLP/LLM-Training/2025-04-19-VAPO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">VAPO：基于价值方法的新突破</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" rel="next">异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -574,8 +585,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

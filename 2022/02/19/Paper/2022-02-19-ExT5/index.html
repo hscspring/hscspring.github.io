@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/02/19/Paper/2022-02-19-ExT5/">
   
   <meta name="description" content="论文：[2111.10952] ExT5: Towards Extreme Multi-Task Scaling for Transfer Learning Code：T5 一句话概述：任务数量很多时，不妨试试 MTL 预训练。 摘要：尽管多任务和迁移学习取得了巨大成功，但很少有工作研究预训练期间扩大任务数量的效果。本文提出 ExMIX（Extreme Mixture）：一个包含 107 个有监督">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       ExT5：Towards Extreme Multi-Task Scaling for Transfer Learning
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -240,7 +241,7 @@
 <p><strong>第四个问题：需要加入多少标注数据？</strong></p>
 <p>使用了一个超参数 R，表示每个批次中样例的数量是正常（ExMIX）的 R 倍。</p>
 <p>效果如下图 4 所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ext5-2.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ext5-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结论：虽然 ExMIX 改进了预训练过程，但对大型非结构化语料库的自监督训练仍然至关重要。</p>
 <p><strong>第五个问题：更多任务有没有用？</strong></p>
 <p>通过随机选择 30 55 和 80 个任务，使用不同的 BatchSize（128 和 512）进行实验（先预训练再微调）。</p>
@@ -308,10 +309,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/03/05/Paper/2022-03-05-T5/" rel="prev"><span class="meta-nav">←</span> T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer</a></span>
+        <div class="nav-previous">
+          <a href="/2022/03/05/Paper/2022-03-05-T5/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">T5：Exploring the limits of Transfer Learning with a Unified Text-to-Text Transformer</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/12/26/Diary/2021-12-25-Lion-Dance/" rel="next">《舞狮少年》观后——信念、文化与希望 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/12/26/Diary/2021-12-25-Lion-Dance/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">《舞狮少年》观后——信念、文化与希望</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -436,8 +447,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

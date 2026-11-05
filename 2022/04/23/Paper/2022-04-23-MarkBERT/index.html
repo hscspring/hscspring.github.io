@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>MarkBERT | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/04/23/Paper/2022-04-23-MarkBERT/">
   
   <meta name="description" content="Paper：[2203.06378] MarkBERT: Marking Word Boundaries Improves Chinese BERT 一句话概述：在 Token 中加入你感兴趣的词的边界标记。 摘要：MarkBERT 不是基于词的 BERT，依然是基于字，但巧妙地将「词的边界标记」信息融入模型。这样可以统一处理任意词，无论是不是 OOV。另外，MarkBERT 还有两个额外的好处：">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       MarkBERT
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -167,7 +168,7 @@
 <p>在插入标记中，30% 的时间将词替换为基于读音的混淆词或基于同义词的混淆词，标记预测读音混淆标记或同义词混淆标记；其他时间标记预测正常单词标记。为了避免不平衡标签，只计算正常标记上 15% 的损失。</p>
 <h2 id="实验">实验</h2>
 <p>在 NER 任务上的效果如下表所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到，效果提升还是很明显的。</p>
 <p>在三个任务上做了消融实验：</p>
 <ul>
@@ -176,7 +177,7 @@
 <li>MarkBERT-w/o：在下游任务微调时去掉 Marker（和原始 BERT 一样用法）</li>
 </ul>
 <p>结果如下表所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结论如下：</p>
 <ul>
 <li>MarkBERT-MLM 在 NER 任务中获得显著提升，说明单词边界信息在细粒度任务中很重要。</li>
@@ -190,7 +191,7 @@
 <li>在下游任务中使用预训练模型时使用单词信息，如 WoBERT，AmBERT，Lichee。</li>
 </ul>
 <p>另外在与实体相关的 NLU 任务，特别是关系分类中有探讨插入标记的想法。给定一个主语实体和宾语实体，现有工作注入非类型标记或实体特定标记，并对实体之间的关系做出更好的预测。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-markbert-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-markbert-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这篇论文当时刷到时觉得真心不错，方法很简单但很巧妙，一下子解决了中文预训练模型「词」的处理，非常方便地就可以引入词级别的任务，以及丰富的词语义。其实，我们甚至可以只针对「部分感兴趣的词」添加标记，剩下的依然按字处理。</p>
 
       
@@ -239,10 +240,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/06/11/Paper/2022-06-11-W2NER/" rel="prev"><span class="meta-nav">←</span> 统一NER为词词关系分类</a></span>
+        <div class="nav-previous">
+          <a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">预训练模型与传统方法在排序上有啥不同？</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" rel="next">预训练模型与传统方法在排序上有啥不同？ <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">量化NLM模型的记忆力</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -367,8 +378,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>简单的对比学习框架：SimCSE | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/07/10/Paper/2021-07-10-SimCSE/">
   
   <meta name="description" content="论文：[2104.08821] SimCSE: Simple Contrastive Learning of Sentence Embeddings Code：princeton-nlp&#x2F;SimCSE: SimCSE: Simple Contrastive Learning of Sentence Embeddings 一句话概述：Dropout 增益句子 Embedding。 摘要：本文提出一个">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       简单的对比学习框架：SimCSE
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -208,15 +209,15 @@ s.t. \quad h_i^z = f_\theta(x_i, z)
 <li>STS-B 验证集（句子相似度）的皮尔逊相关系数要好于 next-sentence 目标</li>
 </ul>
 <p><strong>为什么有效</strong>？说实话我也很好奇……先看一张表：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simces-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simces-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>有个神奇的地方：当不使用 dropout（p=0）或固定 dropout（dropout mask 也一致）时，Embedding 几乎一致，此时表现会急剧下降。换句话说，p=0.1 的随机 dropout 就是全部的魔法。Surprise，Unbelievable。</p>
 <p>再来看另一个图：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>uniform 上比较接近，但是 align 上 No dropout 和 Fixed 0.1 就不太行了。对于 Delete one word，虽然在 align 上略有胜出，但是在 uniform 上差距有点大，整体还是不如 SimCSE。牛逼——完事了。</p>
 <h2 id="有监督-SimCSE">有监督 SimCSE</h2>
 <p><strong>探索数据集</strong></p>
 <p>大多数使用了有监督数据的模型效果要好于无监督：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>sample 是为了对比公平，采样了同样数量的正例对。</p>
 <p><strong>矛盾作为负例</strong></p>
 <p>x 为前提，x+ 是蕴涵，x- 是矛盾，Loss 函数：</p>
@@ -250,9 +251,9 @@ s.t. \quad h_i^z = f_\theta(x_i, z)
 <p>这有助于 SimCSE 避免灾难性地忘记 Token 级知识。</p>
 <h3 id="实验结果">实验结果</h3>
 <p><strong>语义文本相似度</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>迁移任务</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-7.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>有监督的 SimCSE 表现与之前的方法相当或更好，无监督模型趋势不清晰</li>
 <li>MLM 能提升表现，确认了之前的直觉——句子级别目标可能不会直接有益于转移任务</li>
@@ -274,16 +275,16 @@ s.t. \quad h_i^z = f_\theta(x_i, z)
 <li>在 SimCSE 中加入监督数据进一步修正了对齐</li>
 <li>SimCSE 可以有效地「扁平化」预训练嵌入的奇异值分布</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-8.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>相似度分布</strong></p>
 <ul>
 <li>所有基线模型相比，无监督和有监督的 SimCSE 都能更好地区分具有不同相似度的句子对，从而在 STS 任务上获得更好的性能。</li>
 <li>SimCSE 通常显示出比 BERT 或 SBERT 更分散的分布，但与白化分布相比，在语义相似的句子对上也保持较低的方差。进一步验证了 SimCSE 可以实现更好的对齐-均匀性平衡。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-9.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>定性比较</strong></p>
 <p>使用 SBERTbase 和 SimCSE-BERTbase 在一个小规模的召回检索实验上进行比较，使用来自 Flickr30k 数据集的 150k 字幕，并以任何随机句子作为查询来检索相似的句子（基于余弦相似度）。结果表明 SimCSE 召回的实例质量更高：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-simcse-10.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-simcse-10.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="结论">结论</h2>
 <ul>
 <li>提出简单的对比学习框架极大地提升了句子 Embedding 在语义文本相似任务上的表现。</li>
@@ -339,10 +340,20 @@ s.t. \quad h_i^z = f_\theta(x_i, z)
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/07/18/Paper/2021-07-18-VOLT/" rel="prev"><span class="meta-nav">←</span> 通过最优转移进行词表学习：VOLT</a></span>
+        <div class="nav-previous">
+          <a href="/2021/07/18/Paper/2021-07-18-VOLT/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">通过最优转移进行词表学习：VOLT</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" rel="next">高效深度学习：让模型更小、更快、更好 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">高效深度学习：让模型更小、更快、更好</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -467,8 +478,9 @@ s.t. \quad h_i^z = f_\theta(x_i, z)
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

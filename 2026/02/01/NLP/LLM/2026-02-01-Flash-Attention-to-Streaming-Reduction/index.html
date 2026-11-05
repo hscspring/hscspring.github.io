@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/02/01/NLP/LLM/2026-02-01-Flash-Attention-to-Streaming-Reduction/">
   
   <meta name="description" content="TL;DR 本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：Streaming Reduction。  只要算子具备“可结合的累积结构”与“平移&#x2F;缩放不变性”（能拆分、可压缩和能修正、可补偿），就能通过动态维护“参考系”和“代数补偿”，将原本依赖全局数据的算子改造为流式、可分块的并行实现。 统一了 S">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       从 FlashAttention 到 Streaming Reduction：如何把“全局算子”改写成可分块计算
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -164,10 +165,10 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-flash-attn-1.jpg" alt=""></p>
 <p>但是 Attention 是 N 平方的复杂度，N 太大的话就放不下了。Flash-Attention 把 Softmax 计算变成流式（看起来是来自《<a href="https://arxiv.org/abs/1805.02867">1805 Online normalizer calculation for softmax</a>》），不需要一次性看到全部元素。</p>
 <p>Softmax 公式如下（来自原论文）：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flash-attn-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flash-attn-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意，计算时减 max 是为了数值计算稳定（不改变结果），避免指数溢出。</p>
 <p>Online Softmax 过程如下（来自原论文）：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-flash-attn-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-flash-attn-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>虽然从 Softmax 公式看，我们需要知道所有值，以及 max 值，但 Online Softmax 告诉我们，这个过程是可以拆分的。我当时看到这里也是觉得很新奇，有点反直觉——明明是一个全局归一化操作，怎么可能边算边改 max，还能和一次性算完全一样？</p>
 <h3 id="公式推导">公式推导</h3>
 <p>先用数学语言看一下这个过程。简单但不失一般性，我们考虑两个 block，假设已经处理的集合为 A，新来一个 block B，我们维护了两个状态。</p>
@@ -514,10 +515,20 @@ m_t&amp;=\beta_1 m_{t-1}+\left(1-\beta_1\right) g_t \\
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/03/01/NLP/LLM/2026-03-01-DLM/" rel="prev"><span class="meta-nav">←</span> DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线</a></span>
+        <div class="nav-previous">
+          <a href="/2026/03/01/NLP/LLM/2026-03-01-DLM/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">DLM 漫谈：并行不是重点，模式才是 —— 从 ARM 到 DLM 的 LLM 第二曲线</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/01/26/ListenGlimmer/006/" rel="next">【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道” <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/01/26/ListenGlimmer/006/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">【聆听·微光】006：一位传统企业中层管理在AI转型升级中的“蜀道”</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -642,8 +653,9 @@ m_t&amp;=\beta_1 m_{t-1}+\left(1-\beta_1\right) g_t \\
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

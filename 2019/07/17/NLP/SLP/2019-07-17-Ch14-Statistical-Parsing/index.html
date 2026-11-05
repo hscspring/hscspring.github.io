@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Statistical Parsing Note (SLP Ch14) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/07/17/NLP/SLP/2019-07-17-Ch14-Statistical-Parsing/">
   
   <meta name="description" content="One crucial use of probabilistic parsing is to solve the problem of disambiguation. CYK only represent them. Probabilistic context-free grammar (PCFG) is the most commonly used probabilistic grammar f">
@@ -115,7 +115,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -135,6 +135,7 @@
       Statistical Parsing Note (SLP Ch14)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -258,7 +259,7 @@
 <li><strong>lexical rules</strong>: express the expansion of a pre-terminal to a word</li>
 <li><strong>internal rules</strong>: express the other rule expansions</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch12-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch12-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>The MLE estimate for the probability for the rule above would be:</p>
 <p><code>Count(VP(dumped,VBD) → VBD(dumped, VBD) NP(sacks,NNS) PP(into,P))/Count(VP(dumped,VBD))</code></p>
 <p>But we can’t get good estimates because they are too specific, most rule probabilities will be 0.</p>
@@ -308,7 +309,7 @@
 <p>Collins Model 2 adds more sophisticated features, conditioning on subcategorization frames for each verb and distinguishing arguments from adjuncts.</p>
 <p>Finally, smoothing is as important for statistical parsers as it was for N-gram models. The Collins model addresses this problem by interpolating three backed-off models: fully lexicalized (conditioning on<br>
 the headword), backing off to just the head tag, and altogether unlexicalized.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch12-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch12-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>P</mi><mi>R</mi></msub><mo stretchy="false">(</mo><mo>…</mo><mo stretchy="false">)</mo><mo>=</mo><msub><mi>λ</mi><mn>1</mn></msub><msub><mi>e</mi><mn>1</mn></msub><mo>+</mo><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><msub><mi>λ</mi><mn>1</mn></msub><mo fence="true">)</mo></mrow><mrow><mo fence="true">(</mo><msub><mi>λ</mi><mn>2</mn></msub><msub><mi>e</mi><mn>2</mn></msub><mo>+</mo><mrow><mo fence="true">(</mo><mn>1</mn><mo>−</mo><msub><mi>λ</mi><mn>2</mn></msub><mo fence="true">)</mo></mrow><msub><mi>e</mi><mn>3</mn></msub><mo fence="true">)</mo></mrow></mrow><annotation encoding="application/x-tex">P_{R}(\ldots)=\lambda_{1} e_{1}+\left(1-\lambda_{1}\right)\left(\lambda_{2} e_{2}+\left(1-\lambda_{2}\right) e_{3}\right)
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:-0.1389em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="minner">…</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.8444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">λ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3011em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">)</span></span></span></span></span></span></p>
 <p>In fact there are no “backoff” but interpolated models, e1, e2, e3 are the maximum likelihood estimates above. λ1, λ2 are set to implement Witten-Bell discounting.</p>
@@ -361,7 +362,7 @@ the headword), backing off to just the head tag, and altogether unlexicalized.</
 <h2 id="Evaluating-Parsers">Evaluating Parsers</h2>
 <p>Use PARSEVAL measures which were proposed by Black et al. (1991).</p>
 <p>The intuition is to measure how much the <strong>constituents</strong> in the hypothesis parse tree look like the constituents in a hand-labeled, gold-reference parse.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch12-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch12-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>F-measure</strong> is often used, can be seen <a href="https://yam.gift/2019/05/05/SLP/2019-05-05-NaiveBayes-and-Sentiment-Classification/">here</a>. An additional metric is used for each sentence: <strong>cross-brackets</strong>.</p>
 <p>Cross-brackets: the number of constituents for which the reference parse has a bracketing such as ((A B) C) but the hypothesis parse has a bracketing such as (A (B C)).</p>
 <p>For comparing parsers that use different grammars, the canonical implementation of the PARSEVAL metrics is called <strong>evalb</strong> (Sekine and Collins, 1997).</p>
@@ -434,10 +435,20 @@ The reason we use components is that it gives us a more fine-grained metric. Thi
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" rel="prev"><span class="meta-nav">←</span> Median of Two Sorted Arrays (LeetCode 4)</a></span>
+        <div class="nav-previous">
+          <a href="/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Median of Two Sorted Arrays (LeetCode 4)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/07/15/Diary/2019-07-15-diary/" rel="next">随笔：命运 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/07/15/Diary/2019-07-15-diary/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">随笔：命运</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -562,8 +573,9 @@ The reason we use components is that it gives us a more fine-grained metric. Thi
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

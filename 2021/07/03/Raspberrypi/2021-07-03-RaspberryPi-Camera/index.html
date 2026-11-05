@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>机器之眼：树莓派摄像头 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/07/03/Raspberrypi/2021-07-03-RaspberryPi-Camera/">
   
   <meta name="description" content="如果把树莓派比作机器人的大脑，那么摄像头相当于机器人的眼睛，我们需要使用摄像头不间断获取图片或视频流，然后通过图像识别技术判断「眼前」的物品&#x2F;人，进而做出一些响应。目前已调通，可以通过摄像头获取实时画面，所以赶紧记录一下。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       机器之眼：树莓派摄像头
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -158,23 +159,23 @@
 <p>这时候，任何一个和树莓派处于同一内网的设备都可以用 VLC 之类的设备通过访问树莓派地址加上面的端口来接收视频流了。比如我用自己的 Mac，打开 VLC，填好地址：</p>
 <p><img src="http://qnimg.lovevivian.cn/raspi-camera-0.jpg" alt=""></p>
 <p>效果如图：</p>
-<p><img src="http://qnimg.lovevivian.cn/raspi-camera-1.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/raspi-camera-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>当然，也可以推送 rtsp 流，输出换成 rtsp 相关的即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ raspivid -o - -t 0 -n -vf -w 640 -h 480 -fps 15|cvlc -vvv stream:///dev/stdin --sout <span class="string">&#x27;#rtp&#123;sdp=rtsp://:8160/&#125;&#x27;</span> :demux=h264</span><br></pre></td></tr></table></figure>
 <p>访问地址要注意修改为：<code>rtsp://host:port/</code>，特别注意不要少写了最后那个斜杠 <code>/</code>，上面的 http 没关系。</p>
 <p>效果如图：</p>
-<p><img src="http://qnimg.lovevivian.cn/raspi-camera-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/raspi-camera-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>关于两者的对比看下这篇文章：<a href="https://www.remlab.net/op/vod.shtml">Remlab: Video on Demand: RTSP vs HTTP</a>。</p>
 <p>接下来试一下直播推流，这个首先要在自己的电脑上起一个推流服务器，然后把树莓派的视频流推到服务器上，再用电脑的客户端访问电脑服务器上的（直播）视频。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 本机启动推流服务器</span></span><br><span class="line">$ docker run -it --<span class="built_in">rm</span> -p 1935:1935 --name nginx-rtmp tiangolo/nginx-rtmp</span><br><span class="line"><span class="comment"># 树莓派上启动推流</span></span><br><span class="line">$ raspivid -o - -t 0 -n -vf -w 640 -h 480 -fps 15 | cvlc -vvv stream:///dev/stdin --sout <span class="string">&#x27;#standard&#123;access=rtmp,mux=ffmpeg&#123;mux=flv&#125;,dst=rtmp://192.168.0.124:1935/live&#125;&#x27;</span> :demux=h264</span><br></pre></td></tr></table></figure>
 <p>注意这里的 dst 就是本机刚刚启动的推流服务器地址。成功播放（直播）流：</p>
-<p><img src="http://qnimg.lovevivian.cn/raspi-camera-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/raspi-camera-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意，此时播放器的地址 host 是「127.0.0.1」。</p>
 <h3 id="FFMPEG">FFMPEG</h3>
 <p>FFMPEG 可以做与 VLC 同样的事情，而且可以直接从摄像头读到数据流。我们以直播推流为例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ffmpeg -f video4linux2  -r 12 -s 640x480 -i /dev/video0 -vcodec libx264 -f flv -vf vflip rtmp://192.168.0.124/live/</span><br></pre></td></tr></table></figure>
 <p>效果如图：</p>
-<p><img src="http://qnimg.lovevivian.cn/raspi-camera-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/raspi-camera-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>推流服务默认端口是 1935，所以如果本机 Server 是 1935 的话，推流时可以不写端口号，否则要写 Server 对应的端口号。</p>
 <p>FFMPEG 还支持一个输入多个输出，可以同时推流和录制。FFMPEG 对我们后面的应用非常重要，以为它支持 Python 包调用，我们需要精确控制摄像头什么时候拍摄，拍多少张等等。</p>
 <p>Python 包：</p>
@@ -257,10 +258,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" rel="prev"><span class="meta-nav">←</span> 高效深度学习：让模型更小、更快、更好</a></span>
+        <div class="nav-previous">
+          <a href="/2021/07/04/Paper/2021-07-04-Efficient-DeepLearning/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">高效深度学习：让模型更小、更快、更好</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/" rel="next">Unix Cheat Sheet <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/07/02/Unix/2021-07-02-Unix-Cheat-Sheet/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Unix Cheat Sheet</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -385,8 +396,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

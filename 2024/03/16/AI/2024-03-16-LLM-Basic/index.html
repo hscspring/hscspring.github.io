@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM极简科普 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/03/16/AI/2024-03-16-LLM-Basic/">
   
   <meta name="description" content="编者按：本文内容来自Datawhale《AI第一课》，目标是向普通大众传播AI相关知识。本文是第一稿，太过于偏技术，因此需要重新修改打磨。不过从有编程背景读者的角度看我觉得内容尚可，特记录在此。同时也是便于后面对比最终内容和最初内容的差别，提升自己科普内容创作方面的技巧。  简介 本节主要介绍LLM（Large Language Model，大语言模型）的基础科普。大纲如下：  计算机如何识别文">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       LLM极简科普
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -184,10 +185,10 @@
 <p>文本里面常见的任务可以分为两类：理解和生成。常见的理解任务包括：情感分析、实体识别、意图理解等；常见的生成任务包括：文本摘要、文本续写改写、翻译等。我们直接动手尝试，方便起见，我们把每类任务合并掉让模型一次完成。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 理解任务</span></span><br><span class="line">prompt = <span class="string">&quot;&quot;&quot;给你一段文本，你需要进行情感分析（判断文本情感倾向为正向、中性或负向），实体识别（找出其中的实体，并注明类型，最好先输出类型，再给出对应的实体），意图理解（判断文本意图，输出词即可，不要输出句子）。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">文本：我想学人工智能，Datawhale有什么相关内容吗？我不了解这个组织，你怎么评价？</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>结果如下所示（来自文心一言）：</p>
-<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/yiyan_nlu.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/yiyan_nlu.png" alt="" loading="lazy" decoding="async"></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成任务</span></span><br><span class="line">prompt = <span class="string">&quot;&quot;&quot;给你一段文本，你需要将其总结成一句话的摘要，同时你需要将这句摘要改成鲁迅风格的，我还需要你输出这句摘要的英文版本。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">文本：</span></span><br><span class="line"><span class="string">Datawhale是一个专注于AI领域的开源组织，致力于构建一个纯粹的学习圈子，帮助学习者更好地成长。我们专注于机器学习，深度学习，编程和数学等AI领域内容的产出与学习。</span></span><br><span class="line"><span class="string">Datawhale发展于2018年12月6日。团队成员规模也在不断扩大，有来自双非院校的优秀同学，也有来自上交、武大、清华等名校的小伙伴，同时也有来自微软、字节、百度等企业的工程师。</span></span><br><span class="line"><span class="string">我们将一群有能力有想法的理想青年们集结在一起，共同改善学习的模式。在这里，我们没有标签。如果你是小白，我们将为你提供学习和改变的机会，如果你是优秀的学习者，我们将向你提供提升和发展的平台。</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
 <p>结果如下所示（来自文心一言）：</p>
-<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/yiyan_nlg.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/yiyan_nlg.png" alt="" loading="lazy" decoding="async"></p>
 <h2 id="LLM如何生成回复">LLM如何生成回复</h2>
 <p>刚刚我们已经看到模型可以处理各种任务了，这说明LLM它理解了我们给它的输入，而且它同时也知道应该输出什么。那LLM又是怎么输出的呢？</p>
 <p>我们前面已经知道模型是通过预测下一个Token来进行学习的，推理生成时那肯定也是一个Token接着一个Token出来的。也就是说，每次只能输出一个Token，我们现在要探索的是它怎么输出这个Token的。</p>
@@ -202,7 +203,7 @@
 <p>接下来就是把这个32000大小的向量变成归一化（就是所有值加起来等于1）的概率。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 取到最后一个32000</span></span><br><span class="line">logits = output[:,-<span class="number">1</span>,:]</span><br><span class="line">probs = logits2probs(logits)</span><br></pre></td></tr></table></figure>
 <p><code>logits2probs</code> 方法有很多，我们这里用最简单的——取概率最大的Token，得到下一个Token的ID，然后循环执行这个过程，就可以不断输出回复内容了。整个过程如下所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/llm_gen.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ai-firstcourse/llm_gen.png" alt="" loading="lazy" decoding="async"></p>
 <p>我们只生成了20个Token（每个用空格分开）。可以看到，模型接着我们的问题开始输出。</p>
 <p>这就是模型如何生成回复的过程，它理解了我们给的输入，然后据此一个Token一个Token输出它基于输入的回复内容。</p>
 <h2 id="总结">总结</h2>
@@ -254,10 +255,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" rel="prev"><span class="meta-nav">←</span> LLM中的演绎推理、归纳推理和溯因推理</a></span>
+        <div class="nav-previous">
+          <a href="/2024/04/06/Paper/2024-04-06-Deductive-Inductive-Abductive/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM中的演绎推理、归纳推理和溯因推理</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" rel="next">Programming Language Environment Cheat Sheet <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Programming Language Environment Cheat Sheet</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -382,8 +393,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

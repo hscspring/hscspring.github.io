@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM Tiny Pretrain：H2O-Danube and Stable LM | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/02/03/NLP/LLM-Training/2024-02-03-LLM-Tiny-Pretrain/">
   
   <meta name="description" content="StableLM 一直致力于小模型（从7B、3B 到 1.6B），不过 License 商用有些限制，H2O-Danube 是 Apache2.0 的小模型（1.8B），整体指标略逊于 StableLM。本文通过这两篇 Paper，记录小模型的预训练。">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       LLM Tiny Pretrain：H2O-Danube and Stable LM
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -245,10 +246,10 @@
 <p>我们看下 Danube 给出的测评结果，先看在 Open LLM Leaderboard 上的效果。</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-danube-eva1.jpg" alt=""></p>
 <p>上面是预训练后的结果，Danube 没有用数学相关数据集，结果 GSM 很差，去除该数据集，比 Qwen 和 Stable LM 略差一些。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-danube-eva2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-danube-eva2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>上面是最终模型效果，GSM 因为用了数学数据所以上升了，整体比 Stable LM 略差一些，比 Qwen 稍好一点。</p>
 <p>另外，额外看一下预训练后的模型在常识推理、世界知识和阅读理解 Benchmark 上的测评情况。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-danube-eva3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-danube-eva3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这个结果和前面的差不多，但重点关注一下 Token 数。考虑到几个模型用到的数据集都差不多（开源数据集），这在一定程度上进一步验证了 Scale Law。</p>
 <h3 id="关于小模型">关于小模型</h3>
 <p>根据笔者的实际经验，7B 级别的模型的理解能力就比较弱了，如果把 7B 这个级别看作 base 版，那本文讨论的就是 tiny 版了。按这个标准看，tiny 版的基本属于弱智了，我们可以理解为依然在 BERT 时代的套路上，这个级别的模型可以认为并没有理解能力。</p>
@@ -305,10 +306,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" rel="prev"><span class="meta-nav">←</span> Programming Language Environment Cheat Sheet</a></span>
+        <div class="nav-previous">
+          <a href="/2024/03/06/Unix/2024-03-06-LanguageEnvCheatSheet/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Programming Language Environment Cheat Sheet</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" rel="next">LLM DataManagement：Weaver <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">LLM DataManagement：Weaver</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -433,8 +444,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

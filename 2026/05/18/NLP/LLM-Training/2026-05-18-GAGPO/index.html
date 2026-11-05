@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>GAGPO：如果把GiGPO拉回PPO+GAE | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/05/18/NLP/LLM-Training/2026-05-18-GAGPO/">
   
   <meta name="description" content="今天介绍一篇 Agentic RL 相关的比较巧妙的论文：2605 GAGPO: Generalized Advantage Grouped Policy Optimization[1]，如果用一句话简要概括，那就是：“用 GROUP 的方法计算 V”，效果不错，以至于当时看了第一反应是怀疑。不过仔细阅读全文后，发现确实很有意思，而且实验也比较全面。 它的出发点很简单——不要 Value 模型，怎">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       GAGPO：如果把GiGPO拉回PPO+GAE
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -215,7 +216,7 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <h2 id="vs-GiGPO">vs GiGPO</h2>
 <p>GiGPO 是双层 A 的搞法，episode-level 就是普通的 GRPO，没啥说的；重点是 step-level，引入一个锚定状态（同轨迹中重复出现的环境状态）分组机制，GAGPO 的做法也差不多。<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>R</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">R_t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.2806em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">t</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 的定义也是一样的，区别只是 GiGPO 是直接用 R 去算 A，GAGPO 则是用类似方法去算 V，然后用 GAE 方法去算 A，感觉可以叫 “双折扣驱动的 step-level 优势函数”。</p>
 <p>但是 GAGPO 在实验上居然比 GiGPO 好了很多（看最后两行）：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gagpo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gagpo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这也是我刚看到这篇 paper 时有点疑惑的地方，感觉得找个时间试一下。盲猜可能是：</p>
 <ul>
 <li>GAE 提供了 bias-variance trade-off？</li>
@@ -281,10 +282,20 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/" rel="prev"><span class="meta-nav">←</span> 你可能没那么懂 SFT：SFT 与 RL 的爱恨纠葛</a></span>
+        <div class="nav-previous">
+          <a href="/2026/06/01/NLP/LLM-Training/2026-06-01-SFT-vs-RL/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">你可能没那么懂 SFT：SFT 与 RL 的爱恨纠葛</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/" rel="next">TRPO深度拆解：为什么做后训练应该读懂TRPO <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/05/11/NLP/LLM-Training/2026-05-11-TRPO/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">TRPO深度拆解：为什么做后训练应该读懂TRPO</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -409,8 +420,9 @@ l0,-144c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

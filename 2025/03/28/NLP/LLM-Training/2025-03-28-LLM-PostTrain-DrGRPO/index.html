@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！ | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/">
   
   <meta name="description" content="DrGRPO来自Understanding R1-Zero-Like Training: A Critical Perspective，是oat-zero同一个团队的最新成果。没错，这虽然是一篇综合分析Base和RL的文章，但我们这里重点关注其中的RL部分，尤其是针对GRPO两个偏差的优化。它的发布时间就在DAPO发布一周后。">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -180,15 +181,15 @@
 <li>针对问题难度偏差，则通过动态采样，去掉了准确度为1和0的样本，因为一个提示词的一组输出都是1或0时，Advantage直接为0了，没意义。这个和Dr. GRPO其实还是有区别的，后者针对的是<strong>几乎为1或0</strong>的情况，这种情况下DAPO并不会去掉该提示（样本）。所以，两者其实是可以结合的！</li>
 </ul>
 <p>实验是在Qwen2.5-1.5B Base上做的，基于规则奖励，正确1，错误0，效果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>观察到，响应长度随训练奖励增加，与R1-Zero类似，但GRPO在奖励增益放缓时，仍然持续生成更长的回复。尽管这种现象通常被认为是“自然涌现”（Aha），但可能还受到响应级别的长度偏差影响。Dr. GRPO显著减少了错误响应的长度，不仅提高了效率，还能缓解模型过度思考。</p>
 <p>这里看起来是有一定道理的，不过我还是有一点疑惑：最终答案错误是不是意味着中间过程都是错的？这个假设如果成立，上面的结论才更有说服力。另外，1.5B的模型有点太小了，结论是否适用于更大模型，比如7B或32B？</p>
 <h2 id="模板与数据覆盖对RL影响">模板与数据覆盖对RL影响</h2>
 <p>因为Base模型（尤其是Qwen2.5系列）本身具备一定推理和指令跟随能力，所以考察了模板如何影响RL训练，以及不同模板和不同问题覆盖范围之间的相互作用。</p>
 <p>实验基于Qwen2.5-Math-1.5B，不同数据及分布如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>核心结论如下：</p>
 <ul>
 <li>Qwen2.5-Math-1.5B Base已经具备强大数学能力，添加模板反而会破坏其原有能力，RL 训练过程相当于重建这一能力。</li>
@@ -200,7 +201,7 @@
 <p>大多数复现R1-Zero都用Qwen2.5，但Qwen2.5本身已经具备一定推理和Aha能力。这里考察R1-Zero类似的训练方法能否在<strong>数学推理能力较弱的基础模型</strong>上取得成功。</p>
 <p>实验基于Llama-3.2-3B Base，FineMath是在该数据集上继续训练的模型，NuminaQA则是在该QA数据集上基于FineMath模型继续训练的模型。</p>
 <p>结果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>核心结论如下：</p>
 <ul>
 <li>RL可以改善原始的Llama基础模型，但提升较小。</li>
@@ -208,11 +209,11 @@
 <li>Dr. GRPO和GRPO的表现也和前面一致。</li>
 </ul>
 <p>以上结论再次印证了我们一直以来的认知，前面也提到过，即：能力在Base。根据我自己的实验结果，LLaMA3.1-8B模型（一般被认为没有Aha能力）在逻辑推理任务上通过R1-Zero也能带来性能提升，但并没有表现出长度增加的效果，如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-understanding-r1-zero-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>Reward、Acc都在持续增加，但回复长度是一路下降。思考过程一直是模板中的提示词：<code> &lt;think&gt; reasoning process here &lt;/think&gt;</code>。当然，这可能和数据集的选择有关（这里只是逻辑题目），但确实没有表现出想要的思考能力，它只是学会了那个格式。不过这个实验也说明，即使Base模型没有很强的推理能力，RL也能提升性能，也会让模型遵循格式。</p>
 <h2 id="小结">小结</h2>
 <p>精彩呀！非常有意思的Paper。我们把GRPO、DAPO和Dr. GAPO的损失函数一起写下来。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-drgrpo-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-drgrpo-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>看起来一目了然。没想到一个小小的GRPO居然有这么多细节。虽说数据就是一切，但这种算法层面精细地分析和优化永远动人心弦。总的来说，Dr. GRPO解决了响应长度和问题难度两个方面的偏差，关于advantage的计算，Dr. GRPO是可以和DAPO融合的，但是关于响应长度的优化，两者是不相同的。如果更关注单个token的贡献，可以采用DAPO的做法，如果更关注整体回复（是否正确），则采用Dr. GRPO的做法。通俗点来说，那就是：如果只关心结果就用Dr. GRPO的做法，如果更关心过程就用DAPO的做法。</p>
 <hr>
 <blockquote>
@@ -265,10 +266,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/" rel="prev"><span class="meta-nav">←</span> R1相关：R1-Zero的进一步理解和探索</a></span>
+        <div class="nav-previous">
+          <a href="/2025/04/10/NLP/LLM-Training/2025-04-10-Think-More-about-R1-Zero/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">R1相关：R1-Zero的进一步理解和探索</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" rel="next">DAPO：为GRPO的锦上加四点花 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">DAPO：为GRPO的锦上加四点花</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -393,8 +404,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

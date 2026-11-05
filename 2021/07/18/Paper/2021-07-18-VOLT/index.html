@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>通过最优转移进行词表学习：VOLT | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/07/18/Paper/2021-07-18-VOLT/">
   
   <meta name="description" content="论文：[2012.15671] Vocabulary Learning via Optimal Transport for Machine Translation Code：Jingjing-NLP&#x2F;VOLT: Code for paper “Vocabulary Learning via Optimal Transport for Neural Machine Translation” 一句话概">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       通过最优转移进行词表学习：VOLT
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -286,9 +287,9 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 c10,0,16.667,-5,20,-15 v-585 v-600 v-585 c-2.667,-10,-9.667,-15,-21,-15
 c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.65em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal">ϵ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.6016em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:0.5em;"></span></span></span></span></span></span></span></p>
 <p>具体可以参考下图：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>严格来说，这是一个非平衡熵正则化最优转移问题。尽管如此，仍然可以使用广义 Sinkhorn 算法来有效地找到目标词表。算法细节如下所示。在每个时间步长 t，可以根据转移矩阵 P 生成与熵分数相关的新词表。最后，收集这些与熵分数相关的词表，并输出满足 Eq3 的词表。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>实现</strong></p>
 <ul>
 <li>对所有 Token 按频率从大到小排序，简单起见，采用 BPE 生成的 Token 作为候选 Token。实际上任何分割算法都可以初始化 Token 候选，不同的初始化方法结果接近。</li>
@@ -304,26 +305,26 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <ol>
 <li>VOLT 搜索的词表效果优于之前广泛使用的方法，可以找到具有更高 BLEU 和更小尺寸的性能良好的词汇表。</li>
 </ol>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <ol start="2">
 <li>VOLT 搜索的词汇表与低资源数据集上启发式搜索的词汇表相当。</li>
 </ol>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <ol start="3">
 <li>VOLT 在多语言翻译上运行良好。</li>
 </ol>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <ol start="4">
 <li>VOLT 是一种绿色词汇解决方案，与需要数百 GPU 小时的 BPE-Search 相比，可以在单个 CPU 上 0.5 小时内找到具有竞争力的词汇。</li>
 </ol>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-7.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>讨论</strong></p>
 <ol>
 <li>带有 VOLT 生成的词汇表的简单基线达到 SOTA 结果，换句话说，简单的基线可以通过定义明确的词汇表获得良好的结果。（Table5）</li>
 <li>胜过 SentencePiece 和 WordPiece。（Table5）</li>
 <li>适用于各种架构。</li>
 </ol>
-<p><img src="http://qnimg.lovevivian.cn/paper-volt-8.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-volt-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <ol start="4">
 <li>可以在训练期间带来轻微的加速。
 <ul>
@@ -389,10 +390,20 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/07/31/Paper/2021-07-31-UniLM/" rel="prev"><span class="meta-nav">←</span> UniLM</a></span>
+        <div class="nav-previous">
+          <a href="/2021/07/31/Paper/2021-07-31-UniLM/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">UniLM</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/07/10/Paper/2021-07-10-SimCSE/" rel="next">简单的对比学习框架：SimCSE <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/07/10/Paper/2021-07-10-SimCSE/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">简单的对比学习框架：SimCSE</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -517,8 +528,9 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

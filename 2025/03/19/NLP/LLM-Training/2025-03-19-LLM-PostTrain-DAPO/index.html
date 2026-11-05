@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DAPO：为GRPO的锦上加四点花 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">
   
   <meta name="description" content="GitHub：BytedTsinghua-SIA&#x2F;DAPO: An Open-source RL System from ByteDance Seed and Tsinghua AIR Paper：DAPO: An Open-Source LLM Reinforcement Learning System at Scale DAPO DAPO，一个对GRPO全方位优化的Policy优化算法，有必要">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       DAPO：为GRPO的锦上加四点花
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -212,7 +213,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p>现有RL算法的问题：当某些提示词Acc等于1时的梯度消失问题。因为Acc为1时，GRPO一组输出的Reward都是1，Advantage等于0，此时Policy没有优化，因此降低了样本效率。根据经验，精度等于1的样本数量会在训练过程中持续增加。</p>
 <p>因此，使用过采样并过滤掉准确度等于1和0的提示词，也就是损失函数中的 s.t. 部分，equivalent的意思是样本是等效的（过滤掉无效的）。具体做法是：在训练前持续采样，直到批次被准确率既不为 0 也不为 1 的样本完全填充。</p>
 <p>这个策略不一定会影响训练效率。但是更快地达到相同的性能。效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-dapo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dapo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Token-Level-Policy-Gradient-Loss">Token-Level Policy Gradient Loss</h2>
 <p>GRPO采用样本级别的Loss计算，即首先在每个样本内按Token对损失进行平均，然后在样本之间聚合损失。每个样本对总Loss是等权的。</p>
 <p>论文发现，较长回复中的Token可能对总体损失的贡献不成比例地较低，这可能导致两个不良影响。</p>
@@ -224,13 +225,13 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p>观察到过长的样本通常会表现出低质量的模式，如无意义的词语和重复的词汇。由于样本级损失计算无法有效地惩罚长样本中的这些不良模式，导致了熵和响应长度的非正常增加，如图所示。</p>
 </li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/paper-dapo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dapo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>为什么较长回复中的Token对总体损失的贡献更低？因为每个样本都被平均到Token级别了，和长度无关了，导致长样本的影响被“稀释”了，对总Loss的贡献和短样本相同。所以就可能导致高质量的长样本学习的较差，而低质量的长文本又无法得到惩罚。</p>
 <p>改进部分体现在损失函数的求和部分。此时，较长的序列（相比短的）对整体Loss的影响更大。此外，从单个Token的角度来看，如果某种特定的生成模式能够导致奖励的增加或减少，那么无论该模式出现在多长的回复中，它都会被同等地促进或抑制。</p>
 <h2 id="Overlong-Reward-Shaping">Overlong Reward Shaping</h2>
 <p>在 RL 训练中，通常为生成设置最大长度，过长的回复会相应截断。论文发现，截断样本的不当奖励塑造（一般提取不到答案，所以Reward为-1）会引入奖励噪声，并严重扰乱训练过程。因为一个合理的推理过程可能仅因长度过长而受到惩罚，使模型对其推理过程的有效性产生困惑。</p>
 <p>因此采用过长样本过滤（Overlong Filtering）策略，对被截断的样本屏蔽其损失。论文发现，此方法能显著稳定训练并提升模型性能。如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-dapo-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dapo-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>另外，提出了一种基于长度的惩罚机制——软过长惩罚（Soft Overlong Punishment）。</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>R</mi><mtext>length </mtext></msub><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mrow><mo fence="true">{</mo><mtable rowspacing="0.36em" columnalign="left left" columnspacing="1em"><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mn>0</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mi mathvariant="normal">∣</mi><mi>y</mi><mi mathvariant="normal">∣</mi><mo>≤</mo><msub><mi>L</mi><mi>max</mi><mo>⁡</mo></msub><mo>−</mo><msub><mi>L</mi><mtext>cache </mtext></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mfrac><mrow><mrow><mo fence="true">(</mo><msub><mi>L</mi><mi>max</mi><mo>⁡</mo></msub><mo>−</mo><msub><mi>L</mi><mtext>cache </mtext></msub><mo fence="true">)</mo></mrow><mo>−</mo><mi mathvariant="normal">∣</mi><mi>y</mi><mi mathvariant="normal">∣</mi></mrow><msub><mi>L</mi><mtext>cache </mtext></msub></mfrac><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mi>L</mi><mi>max</mi><mo>⁡</mo></msub><mo>−</mo><msub><mi>L</mi><mtext>cache </mtext></msub><mo>&lt;</mo><mi mathvariant="normal">∣</mi><mi>y</mi><mi mathvariant="normal">∣</mi><mo>≤</mo><msub><mi>L</mi><mi>max</mi><mo>⁡</mo></msub></mrow></mstyle></mtd></mtr><mtr><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><mo>−</mo><mn>1</mn><mo separator="true">,</mo></mrow></mstyle></mtd><mtd><mstyle scriptlevel="0" displaystyle="false"><mrow><msub><mi>L</mi><mi>max</mi><mo>⁡</mo></msub><mo>&lt;</mo><mi mathvariant="normal">∣</mi><mi>y</mi><mi mathvariant="normal">∣</mi></mrow></mstyle></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">R_{\text {length }}(y)= \begin{cases}0, &amp; |y| \leq L_{\max }-L_{\text {cache }} \\ \frac{\left(L_{\max }-L_{\text {cache }}\right)-|y|}{L_{\text {cache }}}, &amp; L_{\max }-L_{\text {cache }} \lt |y| \leq L_{\max } \\ -1, &amp; L_{\max } \lt |y|\end{cases}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0361em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0077em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">length </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:4.3409em;vertical-align:-1.9204em;"></span><span class="minner"><span class="mopen"><span class="delimsizing mult"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.35em;"><span style="top:-2.2em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:-2.192em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.316em" style="width:0.8889em" viewBox="0 0 888.89 316" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"/></svg></span></span><span style="top:-3.15em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-4.292em;"><span class="pstrut" style="height:3.15em;"></span><span style="height:0.316em;width:0.8889em;"><svg xmlns="http://www.w3.org/2000/svg" width="0.8889em" height="0.316em" style="width:0.8889em" viewBox="0 0 888.89 316" preserveAspectRatio="xMinYMin"><path d="M384 0 H504 V316 H384z M384 0 H504 V316 H384z"/></svg></span></span><span style="top:-4.6em;"><span class="pstrut" style="height:3.15em;"></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.85em;"><span></span></span></span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.4204em;"><span style="top:-4.4224em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord">0</span><span class="mpunct">,</span></span></span><span style="top:-2.9804em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">cache </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="minner mtight"><span class="mopen mtight delimcenter" style="top:0em;"><span class="mtight">(</span></span><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1645em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.143em;"><span></span></span></span></span></span></span><span class="mbin mtight">−</span><span class="mord mtight"><span class="mord mathnormal mtight">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3488em;margin-left:0em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">cache </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1512em;"><span></span></span></span></span></span></span><span class="mclose mtight delimcenter" style="top:0em;"><span class="mtight">)</span></span></span><span class="mbin mtight">−</span><span class="mord mtight">∣</span><span class="mord mathnormal mtight" style="margin-right:0.0359em;">y</span><span class="mord mtight">∣</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.4509em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mpunct">,</span></span></span><span style="top:-1.5216em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord">−</span><span class="mord">1</span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9204em;"><span></span></span></span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:2.4204em;"><span style="top:-4.4224em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">cache </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-2.9804em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight">cache </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord">∣</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≤</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-1.5216em;"><span class="pstrut" style="height:3.01em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">L</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.1514em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mop mtight"><span class="mtight">m</span><span class="mtight">a</span><span class="mtight">x</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&lt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">∣</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mord">∣</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.9204em;"><span></span></span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
@@ -238,7 +239,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <p>论文中，预期的最大长度设为 16384 个 Token，并额外分配 4096 个 Token 作为软惩罚缓冲区。因此，生成的最大 Token 数被设定为 20480 个。</p>
 <h2 id="各改进贡献">各改进贡献</h2>
 <p>四个改进的贡献分别如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-dapo-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dapo-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>Token级别损失提升很小，但它可以增强训练的稳定性，并使长度增长更加合理（参考上面《Token-Level Policy Gradient Loss》的图）。</p>
 <p>对于动态采样，尽管需要采样更多数据，但整体训练时间并未受到显著影响。因为所需的训练步数减少，模型的收敛时间反而缩短（参考《Dynamic Sampling》的图）。</p>
 <h2 id="实验过程监控">实验过程监控</h2>
@@ -249,7 +250,7 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <li>Actor（Policy）的熵和生成概率：与模型的探索能力相关，熵需要保持在适当的范围内。过低的熵表明概率分布过于尖锐，导致探索能力丧失；相反，过高的熵通常与过度探索问题相关，如无意义的内容和重复生成，如下图c所示。对于生成概率，情况恰恰相反，如下图d所示。实验发现，保持熵的缓慢上升趋势有助于模型性能的提升。</li>
 </ul>
 <p>具体如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-dapo-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-dapo-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>额外补充一下熵，它一般用来衡量系统的不确定性，熵越大不确定性越大。很大的熵意味着稍微有一点额外信息就可能带来大的“确定性”（所以有最大熵模型）；相反则意味着系统趋于稳定状态。训练过程中保持熵的缓慢增加意味着保持进一步探索。</p>
 <blockquote>
 <p>最大熵原理的核心思想：在满足已知约束的情况下，选择熵最大的概率分布。这个原则可以解释为：在不知道更多信息的情况下，假设分布尽可能“均匀”或“无偏”，即最大化熵。</p>
@@ -307,10 +308,20 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" rel="prev"><span class="meta-nav">←</span> 异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！</a></span>
+        <div class="nav-previous">
+          <a href="/2025/03/28/NLP/LLM-Training/2025-03-28-LLM-PostTrain-DrGRPO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">异曲同工之妙的DrGRPO——DAPO几乎同时出现的又一GRPO优化！</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/03/15/AI/2025-03-15-LLM-App-Develop/" rel="next">DeepSeek R1后应用、职业与行业影响——2025年梳理 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/03/15/AI/2025-03-15-LLM-App-Develop/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">DeepSeek R1后应用、职业与行业影响——2025年梳理</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -435,8 +446,9 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

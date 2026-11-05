@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>浅析文本分类——情感分析与自然语言处理 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/10/27/NLP/2021-10-27-Senta/">
   
   <meta name="description" content="文本分类是自然语言处理（以下使用 NLP 简称）最基础核心的任务，或者换句话说，几乎所有的任务都是「分类」任务，或者涉及到「分类」这个概念。比如分词、词性标注、命名实体识别等序列标注任务其实就是 Token 粒度的分类；再比如文本生成其实也可以理解为 Token 粒度在整个词表上的分类任务。为何会如此？这篇分类与AI可能会给您带来一点启示。 本文篇幅较长，主要分为以下几个部分：  背景介绍：主要简">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       浅析文本分类——情感分析与自然语言处理
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -363,7 +364,7 @@
 <p>Embedding 有效地解决了上一种方法的问题，但它本身也是有一些问题的，比如没考虑外部知识，这就进入了我们下一个时代——预训练模型。</p>
 <h4 id="预训练-微调">预训练+微调</h4>
 <p>预训练模型「<strong>基于大规模语料训练</strong>」，其本质是一种迁移学习——将大规模语料中的知识学习到模型中，然后用在各个实际的任务中，是对上一种方法的改进。我们以百度的 ERNIE 为例说明。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ernie-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ernie-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>首先是它的输入比上一种方法多了新的信息，但最终每个 Token 依然会得到一个 Embedding，然后经过一个复杂的预训练模型 ERNIE 就会得到最终的输出向量（类似上个方法的中间步骤），进而就可以得到标签的概率分布。预训练模型已经在很多 NLP 任务上达到了最好的效果。</p>
 <p>当然，要说预训练模型有什么不好，那就是太大太贵了，大是指模型大以及参数规模大（起码上亿），贵则是训练过程需要消耗的资源很多。不过大多数情况下，我们并不需要自己训练一个，只要使用开源的即可，因为预训练的语料足够大，几乎涵盖了所有领域，大部分时候会包含您任务所需要的信息。</p>
 <p>以上涉及的代码可以参考：<a href="http://nbviewer.org/github/hscspring/All4NLP/blob/master/Senta/senta.ipynb">http://nbviewer.org/github/hscspring/All4NLP/blob/master/Senta/senta.ipynb</a></p>
@@ -470,10 +471,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/11/01/Paper/2021-11-01-MetaICL/" rel="prev"><span class="meta-nav">←</span> MetaICL：Learning to Learn In Context</a></span>
+        <div class="nav-previous">
+          <a href="/2021/11/01/Paper/2021-11-01-MetaICL/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">MetaICL：Learning to Learn In Context</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/09/21/NLP/2021-09-21-TensorBay-Intro/" rel="next">TensorBay 指南 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/09/21/NLP/2021-09-21-TensorBay-Intro/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">TensorBay 指南</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -598,8 +609,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Node2Vec 论文+代码笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/03/30/Paper/2020-03-30-Node2Vec/">
   
   <meta name="description" content="Paper：node2vec: Scalable Feature Learning for Networks Code：aditya-grover&#x2F;node2vec 核心思想：通过给网络节点的邻居定义一个灵活的概念，并设计了一个能够有效探索邻居多样性的有偏随机游走程序，来学习网络的节点表征。">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       Node2Vec 论文+代码笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -299,18 +300,18 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <li><a href="https://github.com/phanein/deepwalk">DeepWalk</a>：其实就是 Node2Vec 的特殊情况（当 p=1，q=1 时）。</li>
 <li><a href="https://github.com/tangjianpku/LINE">LINE</a>：两阶段学习特征，在第一阶段，它通过 BFS 式的模拟在节点的临近节点上学习 d / 2 维；在第二阶段，它通过严格从源节点开始以 2 跳距离采样节点来学习下一个 d / 2 维。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>这个 Gain of node2vec 意思是采用 pq 设置带来的增益。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>这里的 x 轴表示训练-测试数据比例。</p>
 <p><strong>参数敏感性</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>低 q 倾向于向外探索，低 p 倾向于在节点附近。d 包括 r, l, k。k 就是训练词向量时的窗口大小。最后一列的两幅图分别表示缺失边和随机边。</p>
 <p><strong>Link prediction</strong></p>
 <p>随机移除 50% 的边作为正例，负例随机抽样无边的节点对。</p>
 <p>评分方法：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-5.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-5.jpeg" alt="" loading="lazy" decoding="async"></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-node2vec-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Discussion">Discussion</h2>
 <h3 id="相关工作">相关工作</h3>
 <ul>
@@ -423,10 +424,20 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/04/07/Paper/2020-04-07-GPT2/" rel="prev"><span class="meta-nav">←</span> GPT-2 论文+代码笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2020/04/07/Paper/2020-04-07-GPT2/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">GPT-2 论文+代码笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/03/21/Paper/2020-03-21-Text-Rank/" rel="next">TextRank Keyword Extraction 论文+代码笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/03/21/Paper/2020-03-21-Text-Rank/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">TextRank Keyword Extraction 论文+代码笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -551,8 +562,9 @@ M347 1759 V0 H263 V1759 v0 v1759 h84z"/></svg></span></span></span><span class="
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

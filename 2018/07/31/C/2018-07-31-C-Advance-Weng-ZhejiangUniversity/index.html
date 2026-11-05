@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>浙大翁恺老师《C 语言程序设计进阶》笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2018/07/31/C/2018-07-31-C-Advance-Weng-ZhejiangUniversity/">
   
   <meta name="description" content="说明：本文档为浙大翁恺老师《C 语言程序设计进阶》课程内容笔记，主要记录学习过程中的一些重要或自己不懂的知识点，方便随时反复查看，内容不一定适合其他人。 如果想看 C 语言基础版的，可以移步：浙大翁恺老师《程序设计入门——C语言》笔记 | Yam。 小感想：自从大学上过这门课后就再没碰过了。这次学完两门课，写了一些代码，才慢慢有了一些感觉。这种感觉不光是对 C，更是对写代码和深入探索未知的过程。">
@@ -104,7 +104,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -124,6 +124,7 @@
       浙大翁恺老师《C 语言程序设计进阶》笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -401,7 +402,7 @@
 </li>
 <li>
 <p>但是指向不同类型的指针不能直接互相赋值</p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>这是为了<strong>避免用错指针</strong></p>
@@ -564,7 +565,7 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 <li>
 <p>小端（低位在前）</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	<span class="type">char</span> ch[<span class="keyword">sizeof</span>(<span class="type">int</span>)];</span><br><span class="line">&#125; CHI;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">	CHI chi;</span><br><span class="line">	<span class="type">int</span> i;</span><br><span class="line">	chi.i = <span class="number">1234</span>;</span><br><span class="line">	<span class="keyword">for</span> (i=<span class="number">0</span>; i&lt;<span class="keyword">sizeof</span>(<span class="type">int</span>); i++) &#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%02hhX\n&quot;</span>, chi.ch[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>应用场合：得到内部的各个字节</p>
@@ -593,7 +594,7 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 </li>
 <li>
 <p>可能会申请不到：</p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 <li>
 <p>解决办法：每次申请一个 BLOCK 大小的内存，然后和已有的链起来。既避免了拷贝（节约了时间）又充分利用了内存。</p>
@@ -911,7 +912,7 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 </li>
 <li>
 <p>setup 做完后进入消息循环 loop，如果之前注册过回调函数，则调用回调函数，否则不动。如果回调函数是死循环，窗口都无法关闭。</p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <h3 id="图形交互消息">图形交互消息</h3>
@@ -990,13 +991,13 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 </li>
 <li>
 <p>type</p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-8.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-8.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <h3 id="scanf">scanf</h3>
 <p><code>%[flag]type</code></p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-9.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-10.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-9.jpeg" alt="" loading="lazy" decoding="async"></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-10.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="printf-和-scanf-的返回值">printf 和 scanf 的返回值</h3>
 <ul>
 <li>输出的字符数</li>
@@ -1023,7 +1024,7 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 </li>
 <li>
 <p>fopen（当文件打开出现错误时，fopen 返回 0）</p>
-<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-11.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/video-zheda-cadvan-11.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <h2 id="二进制文件">二进制文件</h2>
@@ -1200,10 +1201,20 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2018/08/14/AI/2018-08-14-Ng-CNN/" rel="prev"><span class="meta-nav">←</span> NG CNN 笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2018/08/14/AI/2018-08-14-Ng-CNN/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">NG CNN 笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2018/07/22/NLP/2018-07-22-NLP-and-AI/" rel="next">NLP 与 AI <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2018/07/22/NLP/2018-07-22-NLP-and-AI/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">NLP 与 AI</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -1328,8 +1339,9 @@ printf(&quot;%d&quot;, q-p); // 5，地址差/sizeof
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

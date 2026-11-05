@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>「差值即信号」：OPD 蒸馏的新范式 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/08/11/NLP/LLM-Training/2026-08-11-OPD-Diff-is-Signal/">
   
   <meta name="description" content="随着 OPD 不断成熟，现在的做法早已不再是简单的 teacher 蒸馏了，最近看了几篇相关文章，发现一个研究范式转移：从「怎么蒸馏（温度&#x2F;KL方向&#x2F;采样策略）」到「蒸馏什么（信号分解与归因）」。具体做法可以用一个简单公式说明： 1有效信号 &#x3D; f(output_A) − f(output_B) A、B 在恰好关心的那一维度不同，其余对齐。这个本质是反事实对比在 token-level 蒸馏上的应">
@@ -116,7 +116,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -136,6 +136,7 @@
       「差值即信号」：OPD 蒸馏的新范式
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -174,7 +175,7 @@
 <p>这个来自 MIT 的《<a href="https://arxiv.org/abs/2607.28449">2607 Lightning OPD 2.0: Mitigating Style Bias in Cross-Teacher On-Policy Distillation for Large Reasoning Models</a>》本来是解决 Lightning OPD 的风格偏差问题，具体来说，Lightning OPD 提前生成 rollout 并算好 log-prob，但 SFT 数据的来源可能由多个模型生成的，复用 SFT 数据时这种多 teacher 来源可能造成不一致。</p>
 <p>站在 token 角度，有些 token 承载了与具体问题相关的推理信息，而另一些 token 主要用于表达响应风格，两种情况在更新时无法区分，导致后者可能会系统性地干扰更加依赖具体上下文的推理信号。论文提出一种可观测的统计代理指标：与风格 token 相关的不一致更可能通过相似的词汇选择、响应位置以及相对于参考策略的惊讶程度水平，在不同的无关 rollout 之间重复出现；而与推理相关的不一致则更强地依赖于当前的问题和推理状态。</p>
 <p>因此，这里的做法就是将 rollout 之间具有可预测性的那部分成分视为风格 token 偏差的代理指标，并将剩余的残差部分视为可能承载与推理相关的 teacher 信息的候选信号。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lighting-opd2-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lighting-opd2-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>计算 OPD 教师与 SFT 参考之间的 token 级别对数概率差异。</li>
 <li>将缓存的 rollouts 划分为多个 fold，并使用其他 fold 来构建两个查找表：一个以 token identity 为索引；另一个以归一化响应位置和参考策略意外度为索引。通过对这两个查找表中的值取平均，可以为每一个 held-out token 估计其重复出现的风格偏差，同时避免使用该 token 所在 rollout 本身的信息。其实就相当于根据 token + 位置 + 意外度计算 style 成分。</li>
@@ -184,7 +185,7 @@
 <h2 id="VAD">VAD</h2>
 <p>这是来自小红书的《<a href="https://arxiv.org/abs/2607.28590">2607 VAD: Attributing Visual Evidence for Target Reconstruction in Multimodal On-Policy Distillation</a>》是一个多模态方向的，不过做的事情也是类似的。它要解决的是多模态蒸馏中，教师的 token 纠正<strong>有多少真的由视觉输入驱动</strong>（source 混合问题），看起来和 Lightning OPD 2.0 有点类似。</p>
 <p>VAD 是视觉归因蒸馏，一种反事实目标重构算法，用于估计教师修正中可归因于视觉的部分，评估同一固定教师在相关证据（与当前细粒度视觉推理任务最相关的局部图像区域）存在和被移除两种情况下的表现。具体来说，对于每个由学生生成的前缀，VAD 在保持文本上下文不变的情况下，用同一固定教师在“存在证据”和“移除证据”两种视角下计算下一个 token 的分布。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-vad-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-vad-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>有证据 vs 无证据，分别跑教师，取 centered log-prob 变化量作为代理指标 <code>ut</code>。中心化主要是消除偏移，凸显变化。</li>
 <li>采用正则化投影，将教师校正投影到 <code>ut</code> 方向上，来估计原始教师校正中与该干预相一致（视觉相关）的部分；其余部分则被视为<strong>代理信号无法解释的残差</strong>，而不是简单地将其视为纯粹的非视觉成分。注意，这里 <code>ut</code> 只是一个方向指针，而不是“合理的概率分布”，所以需要投影到干预方向上。</li>
@@ -193,7 +194,7 @@
 <h2 id="RP-OPSD">RP-OPSD</h2>
 <p>中科大的《<a href="https://arxiv.org/abs/2607.24447">2607 RP-OPSD: Resolution-Privileged On-Policy Self-Distillation for Multimodal Large Language Models</a>》主要出发点是解决 OPSD 特权信息问题：现有方法通常使用<strong>参考答案、经过验证的解题轨迹或上下文示例</strong>，这些方式非常适合答案定义清晰的文本任务。然而，多模态模型产生错误的原因可能包括<strong>遗漏物体、视觉细节丢失、定位不准确或跨模态关联薄弱</strong>等问题，因此往往需要额外的<strong>区域标注、多模态解释或证据定位信息</strong>。现有方法依赖于外部生成、目标识别、区域分割或局部裁剪等操作，增加了数据构建和质量控制的成本。而且，额外的上下文并不一定能够提供有效的教师信号，因为 OPD 的效果还可能取决于教师模型的选择、学生模型的能力以及监督上下文。</p>
 <p>因此，OPSD 扩展到多模态的关键是找到<strong>简单且有效的特权信息</strong>，其来源需具备三个理想特性：应在教师与学生之间形成有意义的能力差距；保留其输入的语义内容；并且既不需要外部模型、也不需要额外的标注。本文用分辨率作为这个信息，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rp-opsd-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rp-opsd-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>学生 policy 从 1/4 原始分辨率图像生成 on-policy 轨迹。</li>
 <li>教师 policy 使用原始分辨率图像提供监督。</li>
@@ -205,13 +206,13 @@
 <p>为了将 OPD 扩展至教师之外，文章提出输出外推法——利用每个任务教师与一个共享的 base 模型的差异进行学习，具体来说，构造外推目标：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ṽ = v_teacher + α(s) · (v_teacher − v_base)</span><br><span class="line">  = v_base + (1 + α(s)) · (v_teacher − v_base)</span><br></pre></td></tr></table></figure>
 <p>差值 <code>(v_teacher − v_base)</code> = 后训练相对于 base 模型引入的能力方向。α(s) 从 0 线性预热，逐步放大外推幅度，并最终固定。同时（为了解决对齐问题）对 student/teacher 的中间层表示做方向+幅度对齐，不只在输出层监督。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-stepopd-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-stepopd-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>左侧表示在选定的相邻块之间对齐 teacher/student 隐藏状态变化的方向和幅度，右侧是任务特定输出外推法，教师和基础模型均保持冻结，差值不传播梯度。</p>
 <h2 id="Poly-OPD">Poly-OPD</h2>
 <p>最后这篇是来自京东 Joy 的《<a href="https://arxiv.org/abs/2608.04349">2608 Poly-OPD: Heterogeneous Multi-Teacher On-Policy Distillation for Capability-Selectable Flow Models</a>》，主要解决多个异构 teacher（不同架构/latent space 不兼容）如何同时蒸馏的问题。这里有三个难题：用教师生成的图像进行训练（绕开坐标系不一致问题）是 off-policy，<strong>训推不一致</strong>限制了学生学习教师行为；将多种能力蒸馏到同一个网络中会产生<strong>能力之间的相互干扰</strong>；构图能力本身也存在不均衡问题（有的技能很快饱和，有的一直是瓶颈）。</p>
 <p>Poly-OPD 将学生自身的样本解码为「像素」这个异构模型唯一共享的坐标系，然后重新编码至教师潜在空间，由教师根据匹配的噪声水平进行优化，并在通用的 DINOv2 特征空间中用作感知监督。</p>
 <p>可选择能力的适配器隔离特定模式的前馈网络更新，同时共享注意力 LoRA 解决能力干扰问题。Gap 感知的采样则将组合提示重新分配给教师与学生之间差异最大的类别，解决能力不均衡问题。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-polyopd-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-polyopd-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这里的重点就是这个「Gap 感知自适应采样」，也就是，训练时不再根据绝对难度分配资源，而是根据“教师–学生之间尚未弥合的差距”来分配。</p>
 <p>每 K 步用 k 条探针计算各能力类别的 teacher-student 分差，指数移动平均平滑后 softmax 采样，自动向差距最大的类别倾斜训练预算。差距收敛后权重自然退化为均匀分布，无需外部调度。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gap_k = <span class="built_in">max</span>(teacher_score_k − student_score_k, <span class="number">0</span>)</span><br><span class="line">p(category) = softmax(smoothed_gap / τ)    τ=<span class="number">0.1</span></span><br></pre></td></tr></table></figure>
@@ -327,10 +328,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/08/26/AI/2026-08-26-Reward-Design-Philosophy/" rel="prev"><span class="meta-nav">←</span> Reward 设计的本质：从 hack 到 hard</a></span>
+        <div class="nav-previous">
+          <a href="/2026/08/26/AI/2026-08-26-Reward-Design-Philosophy/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Reward 设计的本质：从 hack 到 hard</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/08/08/AI/2026-08-08-Next-AI/" rel="next">从持续学习到下一代 AI 方向探讨 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/08/08/AI/2026-08-08-Next-AI/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">从持续学习到下一代 AI 方向探讨</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -455,8 +466,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

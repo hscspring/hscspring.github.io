@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？ | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/">
   
   <meta name="description" content="来自快手的 KAT-Coder-V1 Pro 重磅升级，揭秘强化学习训练稳定性关键因素 - KwaiPilot[1]，直接给出了让人惊讶的发现： RL 训练不稳定的主导因素并不是训推不一致，而是采样噪声本身。 他们发现，当显式抑制噪声强度后，即使存在明显的训推差异，训练依旧保持稳定，并能获得更快的收敛速度。 这可真是——玄之又玄啊。">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -182,7 +183,7 @@
 <li>确定性推理：从 infra 层消除噪声，推理端在相同输入下输出完全一致的 logits 与 logprob，同时保证训练和推理 logprob 的比特级一致。</li>
 </ul>
 <p>效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-kat-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-kat-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>看起来相当不错。但是，如我们前面所言，这其实只是降低了推理估计器的方差，并没有降低训推不一致带来的偏差。也就是说，它解决的是“rollout 估计器的方差问题”，而不是“策略不一致问题”。</p>
 <h2 id="原因猜想">原因猜想</h2>
 <p>那为什么还有效果呢？</p>
@@ -247,10 +248,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/01/25/AI/2026-01-25-AI-Future-Framework/" rel="prev"><span class="meta-nav">←</span> 通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考</a></span>
+        <div class="nav-previous">
+          <a href="/2026/01/25/AI/2026-01-25-AI-Future-Framework/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">通向 AGI 的技术路径：多模态、强化学习与新架构的交汇点——结合近期研究者访谈的一些技术判断与个人思考</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" rel="next">为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -375,8 +386,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

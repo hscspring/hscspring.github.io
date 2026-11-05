@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ChatBot 设计方案 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/07/20/NLP/2019-07-20-ChatBot-Design/">
   
   <meta name="description" content="最近公司有个客服机器人的需求，下午大概看了一下网上现有的一些方案，总感觉不是特别满意，而且整个 AI 圈子都透露出一点点的浮躁。其实对话机器人这个主题并不新颖，但对我来说，最早是在大学期间（2004-2008年）了，那时候的对话机器人都是基于模板的，印象很深刻有个网页版的机器人，名字叫 God，闲聊非常顺溜；再往后一点，记得在 2009 年看到的一篇文章，当时就特别想做一个，可惜不会写代码；然后就">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       ChatBot 设计方案
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -298,10 +299,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" rel="prev"><span class="meta-nav">←</span> ERNIE Tutorial（论文笔记 + 实践指南）</a></span>
+        <div class="nav-previous">
+          <a href="/2019/08/02/Paper/2019-08-02-Baidu-ERNIE-Tutorial/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">ERNIE Tutorial（论文笔记 + 实践指南）</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" rel="next">Median of Two Sorted Arrays (LeetCode 4) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/07/18/DSA/LeetCode/2019-07-15-Median-of-Two-Sorted-Arrays/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Median of Two Sorted Arrays (LeetCode 4)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -426,8 +437,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

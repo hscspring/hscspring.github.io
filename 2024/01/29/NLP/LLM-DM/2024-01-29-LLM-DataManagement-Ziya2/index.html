@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM DataManagement：Ziya2 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/01/29/NLP/LLM-DM/2024-01-29-LLM-DataManagement-Ziya2/">
   
   <meta name="description" content="高质量的数据对LLM的重要性无需赘述，本文记录Ziya2的数据管理。">
@@ -29,8 +29,8 @@
 <meta property="article:tag" content="LLM">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="DataManagement">
-<meta property="article:tag" content="Ziya">
 <meta property="article:tag" content="Continual Pretraining">
+<meta property="article:tag" content="Ziya">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       LLM DataManagement：Ziya2
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -187,12 +188,12 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-ziya2-dataset-metrics.jpg" alt=""></p>
 <p>Level是级别，表示对相应指标应用的严格程度。不超过1‰（千分之一）就认为是合规的。</p>
 <p>每一步处理完保留和过滤掉的数据情况如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-preprocess.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-preprocess.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>灰色部分是每一步过滤掉的数据，可以看到，最后数据只剩下1/3的样子。</p>
 <h2 id="数据分布">数据分布</h2>
 <p>原始数据来自：Common Crawl、Wudao、Yuan1.0、Pile、Redpajama、Wanjuan、MetaMath以及自己收集的数据（代码和图书）。</p>
 <p>原始数据13T，数据预处理完后得到4.5T，如下表所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-data-dist.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>Sampling是指从原始数据集中抽取的数据的比率。</p>
 <p>数据集信息如下。</p>
 <ul>
@@ -210,7 +211,7 @@
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 中文监督数据</span></span><br><span class="line"></span><br><span class="line">Prompt</span><br><span class="line"></span><br><span class="line">问题:&#123;问题和内容&#125; 回答:&#123;回答的内容&#125; </span><br><span class="line"></span><br><span class="line">Question:&#123;the question&#125; Answer:&#123;the answer&#125; </span><br><span class="line"></span><br><span class="line">Text </span><br><span class="line"></span><br><span class="line">问题： </span><br><span class="line">请问下面描述属于哪一种事件类型？文章：昨晚，在号称“亚洲第一魔鬼主场”的天河体育场，国足在占据 天时地利人和的情况下，半场就击垮对手，狂轰6球&#123;...&#125; 这样的战绩和表现也在赛后引发了巨大的争议。 </span><br><span class="line">A.胜负 </span><br><span class="line">B.加息 </span><br><span class="line">C.融资 </span><br><span class="line">D.爆炸 </span><br><span class="line">回答：答案：A.胜负 </span><br><span class="line"></span><br><span class="line">Question: </span><br><span class="line">May I ask which type of event does the following description belong to? Article: Last night, at the Tianhe Stadium, which is known as the &quot;Number One Devil’s Stadium in Asia,&quot; the Chinese football team occupied Under the favorable conditions of timing, location, and people, he defeated his opponent in half time and roared 6 goals &#123;...&#125; Such achievements and performances have also sparked great controversy after the game. </span><br><span class="line">A.Success or Failure </span><br><span class="line">B.Raise Interest Rates </span><br><span class="line">C.Financing </span><br><span class="line">D.Explosion </span><br><span class="line">Answer: The answer is：A.Success or Failure</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section"># MetaMath</span></span><br><span class="line"></span><br><span class="line">Prompt </span><br><span class="line"></span><br><span class="line">Question/Q:&#123;the question&#125; Answer/A:&#123;the answer&#125; </span><br><span class="line"></span><br><span class="line">Text </span><br><span class="line"></span><br><span class="line">Question: </span><br><span class="line">The coffee shop sold 8 more than four times the number of lattes as it did teas. If 6 teas were sold how many lattes did the coffee shop sell? </span><br><span class="line">Answer: </span><br><span class="line">If the coffee shop sold 6 teas, then the number of lattes sold is 8 more than four times the number of teas. Four times the number of teas is 4 * 6 = 24. So, the number of lattes sold is 24 + 8 = 32. The answer is: 32</span><br></pre></td></tr></table></figure>
 <p>这些数据集主要用于二、三阶段预训练。</p>
 <p>不同阶段训练数据分布如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-ziya2-training-strategy-data-dist.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="小结">小结</h2>
 <p>Ziya2的标题是<em>Data-centric Learning is All LLMs Need</em>，重点讨论了继续训练和数据质量的重要性。数据质量的重要性早已经成为共识，我们不需要再强化这个认知了。但是怎么获取高质量数据，以及怎么调整数据集在预训练过程中的分布，相关的研究并不太多。Ziya2给出的方案看起来比较完整、通用，为我们提供了相关的经验。</p>
 <p>另外，关于去重，有人可能会有疑问，为什么不用字面量的编辑距离，或者语义距离等。这个主要还是效率上的考虑，即使编辑距离相比SimHash（或MinHash）依然是极慢的。笔者在若干年前写过一个非常简单的相关库：<a href="https://github.com/hscspring/sto">hscspring/sto: MinHash and LSH Based Store and Query</a>，感兴趣的读者可以查阅。</p>
@@ -269,10 +270,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" rel="prev"><span class="meta-nav">←</span> LLM DataManagement：Weaver</a></span>
+        <div class="nav-previous">
+          <a href="/2024/02/01/NLP/LLM-DM/2024-02-01-LLM-DataManagement-Weaver/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">LLM DataManagement：Weaver</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" rel="next">LLM Continual Pre-training：Ziya2 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/01/23/NLP/LLM-Training/2024-01-23-LLM-Continual-Training-Ziya2/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">LLM Continual Pre-training：Ziya2</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -397,8 +408,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

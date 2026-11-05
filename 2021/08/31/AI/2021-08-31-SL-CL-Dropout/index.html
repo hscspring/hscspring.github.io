@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>在 TextCNN 上实验 Dropout 和对比学习 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/08/31/AI/2021-08-31-SL-CL-Dropout/">
   
   <meta name="description" content="一句话概述：即使在简单模型上，使用 SimCSE 和 R-Drop 也能够起到一定效果，但太简单的模型（类似 TextCNN）效果可能不太明显。如果嫌麻烦也可以不用，但 Dropout 最好使用，主要用在稠密连接，比如 Embedding、Concat、Attention、FC 等层的后面。  如果只想看结论，到这里就可以结束啦。">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       在 TextCNN 上实验 Dropout 和对比学习
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -331,10 +332,20 @@ Tensorflow Keras 的代码最后调用了 <code>nn.dropout</code>，我们直接
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/09/21/NLP/2021-09-21-TensorBay-Intro/" rel="prev"><span class="meta-nav">←</span> TensorBay 指南</a></span>
+        <div class="nav-previous">
+          <a href="/2021/09/21/NLP/2021-09-21-TensorBay-Intro/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">TensorBay 指南</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/08/18/Paper/2021-08-18-R-Drop/" rel="next">R-Drop <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/08/18/Paper/2021-08-18-R-Drop/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">R-Drop</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -459,8 +470,9 @@ Tensorflow Keras 的代码最后调用了 <code>nn.dropout</code>，我们直接
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

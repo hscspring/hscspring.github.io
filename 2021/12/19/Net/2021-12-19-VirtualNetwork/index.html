@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>虚拟网络指南 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/12/19/Net/2021-12-19-VirtualNetwork/">
   
   <meta name="description" content="问题的研究总是源于现实，这不，一直对虚拟机的几种网络懵懵懂懂，直到有个需求冒出来，这才想办法（有机会）一把撸掉。 业务背景描述：一台 Win10 的主机，跟了我很多年的 ThinkPad，只有 4 核 4G；由于工作、生活各种需要，里面用 VirtualBox 装了个 Ubuntu18 的虚拟机。平时写代码，跑个实验啥的就都在虚拟机上。突然需要在局域网多台终端上能够访问到虚拟机中的某个服务，自然少">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       虚拟网络指南
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -216,7 +217,7 @@
 <p>虚拟机（主机是无线网时）需<strong>手动配置IP 地址（与主机地址在同一网段）、网关和 DNS 服务器</strong>。MAC 地址（与主机 MAC 一致），一般选择本模式后会自动一致，无须再次配置。</p>
 <p>再次强调，如果主机有用的是无线网卡（wireless），由于不支持混杂模式，虚拟机和主机之间是无法 ping 通的，官方<a href="https://www.virtualbox.org/manual/ch06.html">文档</a>和<a href="https://forums.virtualbox.org/viewtopic.php?t=98133">论坛</a>都有相关描述。此时可以在登陆虚拟机后，将其物理（MAC）地址设置为无线网卡的地址，然后手动指定 IP 地址为和主机同一网段的其他地址，重新连接后即可桥接。这里的 IP 地址如果自动获取的话会得到和主机一样的 IP，因为 DHCP 会根据 MAC 地址分发 IP。这个技巧是在这篇博文中看到的：<a href="https://www.revolutionweb.com.au/computer-security/use-wireless-adapter-virtualbox-bridge-mode/">How To Use Your Wireless Adapter With VirtualBox Bridge Mode – Revolution Digital</a>。</p>
 <h3 id="NAT">NAT</h3>
-<p><img src="https://qnimg.lovevivian.cn/virtual-network-nat.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/virtual-network-nat.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>一句话描述：主机被当做路由器，主机可通过端口转发访问虚拟机。</p>
 <p>虚拟机的 IP 地址一般是 <code>10.0.2.x</code>，网关是 <code>10.0.2.2</code>，此时：</p>
 <ul>
@@ -238,7 +239,7 @@
 </ul>
 <p>虚拟机 IP 地址等全部自动获取。这种模式比较常见，且基本能实现日常所需大多数网络需求。</p>
 <h3 id="Host-only">Host-only</h3>
-<p><img src="https://qnimg.lovevivian.cn/virtual-network-host-only.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/virtual-network-host-only.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>一句话描述：主机与虚拟机通过虚拟卡互通，仅主机可访问虚拟机。</p>
 <p>虚拟机的 IP 地址一般是 <code>192.168.56.x</code>，有一张虚拟网卡 <code>192.168.56.1</code> 作为网关，此时：</p>
 <ul>
@@ -309,10 +310,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/12/25/Paper/2021-12-25-MLT-Promote/" rel="prev"><span class="meta-nav">←</span> Multitask Prompted Training Enables Zero-shot Task Generalization</a></span>
+        <div class="nav-previous">
+          <a href="/2021/12/25/Paper/2021-12-25-MLT-Promote/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Multitask Prompted Training Enables Zero-shot Task Generalization</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/12/04/Paper/2021-12-04-Prompt/" rel="next">Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/12/04/Paper/2021-12-04-Prompt/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -437,8 +448,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

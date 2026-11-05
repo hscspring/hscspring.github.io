@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>量化NLM模型的记忆力 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/04/15/Paper/2022-04-15-Quantifying-Memorization-NLM/">
   
   <meta name="description" content="Paper：[2202.07646] Quantifying Memorization Across Neural Language Models 一句话概述：更大的模型更可能学到重复数据的特性，去重是缓解模型记忆危害的不错策略。 摘要：语言模型能够记住一些训练数据，如果经过合适地提示引导，可能会生成记住的数据。这肯定不太合适，因为可能会侵犯隐私、降低效用（重复的容易记住的词往往质量比较低），并且">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       量化NLM模型的记忆力
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -163,7 +164,7 @@
 <p><strong>更长的提示记住更多</strong></p>
 <p>如图 c 所示，随着提示长度的增加，记忆也有显著的增加。作者称其为「可发现现象」：一些记忆只有在特定条件下才会变得明显，例如当模型被提示具有足够长的上下文时。一方面看这是好的，因为一些记忆难以被发现；另一方面看，也会损害我们在机器学习模型审计隐私的能力。</p>
 <p>以下是备用实验设置，结果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-qualitifying-memorization-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-qualitifying-memorization-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>随机采样</strong></p>
 <p>为 100 200 500 1000 的长度各随机选择了 10 万，结果如图 a 和 b 所示，记忆的绝对概率远低于之前实验的结果，不过整体的趋势是一样的。另外，长序列相比短序列更容易预测正确（图 b Baseline，GPT2-XL，1.5B）。</p>
 <p><strong>解码策略</strong></p>
@@ -173,12 +174,12 @@
 <p>结果如图 c（右）所示，稍微用脑子想一下都知道结果肯定是增加了，而且随着重复次数的增加，差异更加明显。</p>
 <p><strong>定性分析</strong></p>
 <p>普遍的记忆序列都是非常规文本，如代码片段或高度重复的文本（如开源许可）。另外，增加模型大小会导致大量非重叠的记忆序列，尽管每个模型都有一些彼此不同享的记忆量。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-quantifying-memorization-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-quantifying-memorization-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>同时，还发现虽然较小模型的生成和训练数据不匹配，但通常主题相关且局部一致，但它们只是语法上合理，语义上不正确。</p>
 <h3 id="复制研究">复制研究</h3>
 <p>接下来，进一步将上面的分析复制到在不同数据集（重复的 C4）和具有不同训练目标上训练的不同语言模型家族（T5）上。</p>
 <p>实验结果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-quantifying-memorization-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-quantifying-memorization-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>T5 MLM</strong></p>
 <p>首先需要重新定义一下什么是记忆，由于是 MLM，这里就定义为可以完美地完成填空（15% 的空），简单起见每句只检查一组。结果如上图 a 所示，结果与图 1 类似，随着参数的增加，记忆增加。虽然趋势一致，但与同等大小的因果模型相比，MLM 的记忆要少一个数量级。</p>
 <p>接下来是重复样本的情况，如上图 b 所示，结果开始变得不那么明朗，趋势并不明显，出现大约 140 次的序列更可能被记住。进一步定性分析发现，138-158 重复组中包含的大多数重复样本大多是空格 Token，这就比其他重复次数的序列更容易预测。</p>
@@ -237,10 +238,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/04/23/Paper/2022-04-23-Pretrained-for-Rank/" rel="prev"><span class="meta-nav">←</span> 预训练模型与传统方法在排序上有啥不同？</a></span>
+        <div class="nav-previous">
+          <a href="/2022/04/23/Paper/2022-04-23-MarkBERT/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">MarkBERT</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" rel="next">NLP预训练模型的不可能三角 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/04/15/Paper/2022-04-15-Impossible-Triangle/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">NLP预训练模型的不可能三角</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -365,8 +376,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

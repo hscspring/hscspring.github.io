@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Language Model Note (SLP Ch03) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2017/10/14/NLP/SLP/2017-10-14-Ch03-Language-Model/">
   
   <meta name="description" content="Ngram   Count up the frequency and divide (use maximum likelihood estimation or MLE):   PML(xi∣xi−n+1,...,xi−1):&#x3D;c(xi−n+1,...,xi)c(xi−n+1,...,xi−1)P_{ML}(x_i | x_{i-n+1} ,..., x_{i-1}) :&#x3D; \frac {c(x_{">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       Language Model Note (SLP Ch03)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -302,7 +303,7 @@
 <li>
 <p>Absolute discounting formalizes this intuition by subtracting a ﬁxed (absolute) discount <strong>d(0.75)</strong> from each count.</p>
 <ul>
-<li><img src="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg" alt="PAbsoluteDiscounting"></li>
+<li><img src="http://qnimg.lovevivian.cn/books-Kneser-Ney-Smoothing.jpeg" alt="PAbsoluteDiscounting" loading="lazy" decoding="async"></li>
 <li>the second term the unigram with an interpolation weight λ.</li>
 </ul>
 </li>
@@ -312,7 +313,7 @@
 <li>P_CONTINUATION: We hypothesize that words that have appeared in more contexts in the past are more likely to appear in some new context as well. 如果一个词以前更容易与别的词组成词组，那么在新的文本中也会更容易组成词组。比如：“蝶” 出现的次数远高于 “榨”（因为 “蝴蝶” 出现的次数高），但 “蝶” 组合成词的可能性（基本上只有 “蝴蝶”）低于 “榨”，所以在给定上文的情况下，下一个字更可能是 “榨” 而不是 “蝶”。注：<a href="http://lingua.mtsu.edu/chinese-computing/statistics/char/list.php?Which=TO">词频参考</a></li>
 <li>The Kneser-Ney intuition is to base our estimate of P CONTINUATION on the number of different contexts word w has appeared in, that is, the number of bigram types it completes. The number of times a word w appears as a novel continuation can be expressed as:
 <ul>
-<li><img src="http://qnimg.lovevivian.cn/books-kneser-ney-smoothing-pcontinuation.jpeg" alt=""></li>
+<li><img src="http://qnimg.lovevivian.cn/books-kneser-ney-smoothing-pcontinuation.jpeg" alt="" loading="lazy" decoding="async"></li>
 <li>其实就是给能组成更多 Bigram 的单个词更高的概率分布，A frequent word (“蝴”) occurring in only one context (“蝶”) will have a low continuation probability.</li>
 </ul>
 </li>
@@ -321,8 +322,8 @@
 <li>
 <p>The ﬁnal equation for <strong>Interpolated Kneser-Ney smoothing</strong> is</p>
 <ul>
-<li><img src="http://qnimg.lovevivian.cn/books-interpolated-kneser-ney-smoothing.jpeg" alt=""></li>
-<li>The λ is a normalizing constant that is used to distribute the probability mass we’ve discounted:  <img src="http://qnimg.lovevivian.cn/books-interpolated-lambda.jpeg" alt="">
+<li><img src="http://qnimg.lovevivian.cn/books-interpolated-kneser-ney-smoothing.jpeg" alt="" loading="lazy" decoding="async"></li>
+<li>The λ is a normalizing constant that is used to distribute the probability mass we’ve discounted:  <img src="http://qnimg.lovevivian.cn/books-interpolated-lambda.jpeg" alt="" loading="lazy" decoding="async">
 <ul>
 <li>The ﬁrst term <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>d</mi><mrow><mi>C</mi><mo stretchy="false">(</mo><msub><mi>w</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn><mtext> </mtext></mrow></msub><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">\frac {d} {C(w_{i-1\ })}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.4001em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8801em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0715em;">C</span><span class="mopen mtight">(</span><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3281em;"><span style="top:-2.357em;margin-left:-0.0269em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span><span class="mspace mtight"><span class="mtight"> </span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2025em;"><span></span></span></span></span></span></span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">d</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span> is the normalized discount.</li>
 <li>The second term <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">∣</mo><mrow><mi>w</mi><mo>:</mo><mi>C</mi><mo stretchy="false">(</mo><msub><mi>w</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mi>w</mi><mo stretchy="false">)</mo><mo>&gt;</mo><mn>0</mn></mrow><mo stretchy="false">∣</mo></mrow><annotation encoding="application/x-tex">\lvert {w : C(w_{i−1}w) &gt; 0} \rvert</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">∣</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord mathnormal" style="margin-right:0.0715em;">C</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">&gt;</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mord">0</span></span><span class="mclose">∣</span></span></span></span> is the number of word types that can follow <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>w</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">w_{i−1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6389em;vertical-align:-0.2083em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0269em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2083em;"><span></span></span></span></span></span></span></span></span></span> or, equivalently, the number of word types that we discounted; in other words, the number of times we applied the normalized discount.</li>
@@ -333,20 +334,20 @@
 <li>
 <p>The <strong>general recursive formulation</strong> is as follows:</p>
 <ul>
-<li><img src="http://qnimg.lovevivian.cn/books-general-recursive-formulation.jpeg" alt="">
+<li><img src="http://qnimg.lovevivian.cn/books-general-recursive-formulation.jpeg" alt="" loading="lazy" decoding="async">
 <ul>
-<li><img src="http://qnimg.lovevivian.cn/books-ckn.jpeg" alt=""></li>
+<li><img src="http://qnimg.lovevivian.cn/books-ckn.jpeg" alt="" loading="lazy" decoding="async"></li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-<p><img src="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/books-pkn-20180129.jpeg" alt="" loading="lazy" decoding="async"></p>
 </li>
 </ul>
 <p>The best-performing version of Kneser-Ney smoothing is called <strong>modiﬁed KneserNey smoothing</strong>, and is due to Chen and Goodman (1998). Rather than use a single ﬁxed discount d, modiﬁed Kneser-Ney uses three different discounts d1 , d2 , and d3+ for N-grams with counts of 1, 2 and three or more, respectively.</p>
 <h3 id="The-Web-and-Stupid-Backoff">The Web and Stupid Backoff</h3>
-<p><img src="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/books-spupid-backoff-180129.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>S is score, not probability.<br>
 The backoff terminates in the unigram, which has probability S(w) = count(w)/N .<br>
 Brants et al. (2007) ﬁnd that a value of 0.4 worked well for λ.</p>
@@ -411,7 +412,7 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.1389em;">P</span><span class="mord mathnormal" style="margin-right:0.0278em;">er</span><span class="mord mathnormal" style="margin-right:0.0197em;">pl</span><span class="mord mathnormal">e</span><span class="mord mathnormal">x</span><span class="mord mathnormal">i</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right:0.0359em;">y</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1389em;">W</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.938em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.938em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0813em;">H</span><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.1389em;">W</span><span class="mclose mtight">)</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
 </li>
 <li>PPT 上的 A Refresher on Evaluation:<br>
-<img src="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg" alt=""></li>
+<img src="http://qnimg.lovevivian.cn/course-cmu-nn4nlp-chap2-1.jpeg" alt="" loading="lazy" decoding="async"></li>
 </ul>
 <h2 id="What-Can-we-Do-w-LMs">What Can we Do w/ LMs?</h2>
 <ul>
@@ -500,10 +501,20 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" rel="prev"><span class="meta-nav">←</span> 由一场供应链讲座引发的思考</a></span>
+        <div class="nav-previous">
+          <a href="/2017/12/23/Economy/2017-12-23-Thinking-From-a-Supply-Chain-Lecture/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">由一场供应链讲座引发的思考</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/" rel="next">语言、AI、情感 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2017/09/07/NLP/2017-09-07-Language-AI-Emotion/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">语言、AI、情感</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -628,8 +639,9 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

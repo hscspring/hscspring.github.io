@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Bart 论文+代码笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/06/13/Paper/2020-06-13-Bart/">
   
   <meta name="description" content="Paper：https:&#x2F;&#x2F;arxiv.org&#x2F;pdf&#x2F;1910.13461.pdf Code：https:&#x2F;&#x2F;github.com&#x2F;pytorch&#x2F;fairseq 核心思想：基于 Transformer Seq2Seq 架构适应各种不同的输入噪声。">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       Bart 论文+代码笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -171,7 +172,7 @@
 <li>句子排列：文档被切分成句子，然后随机 shuffle。</li>
 <li>文档旋转：随机均匀选择一个 Token，让文档从选中的 Token 开始，训练模型识别文档的开始。</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-bart-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bart-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>以下代码我们参考 Transformer 中的实现。首先看配置：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># From transformers</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">BartConfig</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params"></span></span><br><span class="line"><span class="params">        self,</span></span><br><span class="line"><span class="params">        activation_dropout=<span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        activation_function=<span class="string">&quot;gelu&quot;</span>,</span></span><br><span class="line"><span class="params">        vocab_size=<span class="number">50265</span>,</span></span><br><span class="line"><span class="params">        d_model=<span class="number">1024</span>,</span></span><br><span class="line"><span class="params">        encoder_ffn_dim=<span class="number">4096</span>,</span></span><br><span class="line"><span class="params">        encoder_layers=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">        encoder_attention_heads=<span class="number">16</span>,</span></span><br><span class="line"><span class="params">        decoder_ffn_dim=<span class="number">4096</span>,</span></span><br><span class="line"><span class="params">        decoder_layers=<span class="number">12</span>,</span></span><br><span class="line"><span class="params">        decoder_attention_heads=<span class="number">16</span>,</span></span><br><span class="line"><span class="params">        encoder_layerdrop=<span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        decoder_layerdrop=<span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        attention_dropout=<span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        dropout=<span class="number">0.1</span>,</span></span><br><span class="line"><span class="params">        max_position_embeddings=<span class="number">1024</span>,</span></span><br><span class="line"><span class="params">        init_std=<span class="number">0.02</span>,</span></span><br><span class="line"><span class="params">        classifier_dropout=<span class="number">0.0</span>,</span></span><br><span class="line"><span class="params">        output_past=<span class="literal">False</span>,</span></span><br><span class="line"><span class="params">        num_labels=<span class="number">3</span>,</span></span><br><span class="line"><span class="params">        is_encoder_decoder=<span class="literal">True</span>,</span></span><br><span class="line"><span class="params">        pad_token_id=<span class="number">1</span>,</span></span><br><span class="line"><span class="params">        bos_token_id=<span class="number">0</span>,</span></span><br><span class="line"><span class="params">        eos_token_id=<span class="number">2</span>,</span></span><br><span class="line"><span class="params">        **common_kwargs</span></span><br><span class="line"><span class="params">    </span>): <span class="keyword">pass</span></span><br></pre></td></tr></table></figure>
 <p>然后是模型：</p>
@@ -228,7 +229,7 @@
 <h3 id="数据和实验">数据和实验</h3>
 <p><strong>Base</strong></p>
 <p>需要说明的是，作者这里对对比模型重新进行了训练，细节可以参考论文。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-bart-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bart-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结论如下：</p>
 <ul>
 <li>预训练方法的性能在各个任务中有很大不同</li>
@@ -249,12 +250,12 @@
 <li>数据集 160G，包括新闻、书籍、故事和网络文本</li>
 </ul>
 <p>分类任务：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-bart-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bart-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>生成任务：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-bart-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bart-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>除了摘要外，在对话回复、QA 方面也取得了 state-of-the-art 结果。</p>
 <p>翻译：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-bart-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-bart-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>Baseline 是 Transformer 架构。</p>
 <p>整体而言，在理解+生成的任务上表现想当可观，比如文本摘要、对话回复。</p>
 <h2 id="Discussion">Discussion</h2>
@@ -320,10 +321,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/06/25/Paper/2020-06-25-RoBERTa/" rel="prev"><span class="meta-nav">←</span> RoBERTa 论文+代码笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2020/06/25/Paper/2020-06-25-RoBERTa/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">RoBERTa 论文+代码笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" rel="next">中文分词系列一：思考分词 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">中文分词系列一：思考分词</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -448,8 +459,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

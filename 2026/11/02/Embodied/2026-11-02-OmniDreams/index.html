@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>OmniDreams：实时世界模型背后的 Self Forcing 与 DMD | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/11/02/Embodied/2026-11-02-OmniDreams/">
   
   <meta name="description" content="TL;DR  OmniDreams 的完整性比单点算法更重要：它把领域迁移、多视角建模、自回归适配、少步蒸馏和推理优化串成了一个实时闭环世界模型。 Self Forcing 解决历史分布的训推不一致：训练时不再只看真实历史，而是在模型自己生成的历史上学习，让长时 rollout 的累积误差真正暴露出来。 DMD 把分布差异直接变成梯度：生成分布与真实分布的 Score Difference，恰好给">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       OmniDreams：实时世界模型背后的 Self Forcing 与 DMD
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -218,7 +219,7 @@
 <li>Cross-view Attention：每个时间步上跨不同视角执行。来自不同视角的 token 相互关注，使模型能够对共享场景元素（例如几何结构、物体位置和运动）形成一致的表示。</li>
 </ul>
 <p>这个设计让复杂度从 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><msup><mi>N</mi><mn>2</mn></msup><msup><mi>T</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N^2T^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 降低到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><msup><mi>T</mi><mn>2</mn></msup><mo stretchy="false">)</mo><mo>+</mo><mi>O</mi><mo stretchy="false">(</mo><mi>T</mi><msup><mi>N</mi><mn>2</mn></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(NT^2)+O(TN^2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1.0641em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">O</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.1389em;">T</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，实际最多支持 7 个同步视角。架构图大概这样子：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-omni-dreams-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-omni-dreams-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="训练">训练</h2>
 <p>整体看起来还是比较复杂的，不是算法层面的复杂，而是场景任务适配方面比较复杂。训练包括三个阶段：</p>
 <ul>
@@ -672,7 +673,12 @@ v_j(x)^\top
     <h3 class="assistive-text">文章导航</h3>
     
     
-        <span class="nav-next"><a href="/2026/10/25/AI/2026-10-25-Attention-and-Freedom/" rel="next">想做，但可以不做：AI 时代的注意力与自由 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/10/25/AI/2026-10-25-Attention-and-Freedom/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">想做，但可以不做：AI 时代的注意力与自由</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -797,8 +803,9 @@ v_j(x)^\top
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

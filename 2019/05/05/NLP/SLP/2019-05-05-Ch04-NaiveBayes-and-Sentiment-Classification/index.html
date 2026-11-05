@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Naive Bayes and Sentiment Classification Note (SLP Ch04) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/05/05/NLP/SLP/2019-05-05-Ch04-NaiveBayes-and-Sentiment-Classification/">
   
   <meta name="description" content="Text categorization, the task of assigning a label or category to an entire text or document.  sentiment analysis spam detection subject category or topic label  Probabilistic classifier additionally">
@@ -27,9 +27,9 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="Evaluation">
 <meta property="article:tag" content="Naive Bayes">
 <meta property="article:tag" content="Sentiment Classification">
+<meta property="article:tag" content="Evaluation">
 <meta property="article:tag" content="F1">
 <meta property="article:tag" content="Test">
 <meta name="twitter:card" content="summary_large_image">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       Naive Bayes and Sentiment Classification Note (SLP Ch04)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -257,8 +258,8 @@
 <li>microaveraging: collect the decisions for all classes into a single contingency table, and<br>
 then compute precision and recall from that table.</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch4-2.jpeg" alt=""></p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch4-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch4-2.jpeg" alt="" loading="lazy" decoding="async"></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch4-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Test-sets-and-Cross-validation">Test sets and Cross-validation</h2>
 <p>We use the <strong>development test set</strong> (devset) to tune some parameters.</p>
 <p>If we could use all our data both for training and test, we do this by <strong>cross-validation</strong>:</p>
@@ -269,7 +270,7 @@ then compute precision and recall from that table.</li>
 <p>Repeat times n, we get an average error rate, it is called <strong>n-fold cross-validation</strong>.</p>
 <p>As all the data is used for test, we need the whole corpus to be blind, means we can’t examine any of the data to suggest possible features and see what’s going on. But looking at the corpus is often important.</p>
 <p>So it is common to create a fixed training and test set, then do cross-validation inside the training set, but compute error rate the normal way in the test set.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch4-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch4-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Statistical-Significance-Testing">Statistical Significance Testing</h2>
 <p>We have a test set x of n observations x = x1, x2, … xn on which A’s performance is better than B by δ(x). We need to reject the <strong>null hypothesis</strong> that A isn’t really better than B and this difference δ(x) occurred purely by chance.</p>
 <p>In language processing we use non-parametric tests like the <strong>bootstrap test</strong>, or a similar test <strong>approximate randomization</strong> because most metrics are not normally distributed. <strong>Bootstrapping</strong> refers to repeatedly drawing large numbers of smaller samples with replacement (bootstrap samples) from an original larger sample.</p>
@@ -336,10 +337,20 @@ then compute precision and recall from that table.</li>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/05/08/NLP/SLP/2019-05-08-Ch05-Logistic-Regression/" rel="prev"><span class="meta-nav">←</span> Logistic Regression Note (SLP Ch05)</a></span>
+        <div class="nav-previous">
+          <a href="/2019/05/08/NLP/SLP/2019-05-08-Ch05-Logistic-Regression/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Logistic Regression Note (SLP Ch05)</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" rel="next">Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/04/22/NLP/SLP/2019-04-22-Ch02-RegularExpressions-TextNormalization-EditDistance/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Regular Expressions, Text Normalization, and Edit Distance Note (SLP Ch02)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -464,8 +475,9 @@ then compute precision and recall from that table.</li>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

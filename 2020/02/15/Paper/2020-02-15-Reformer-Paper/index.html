@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Reformer, The Efficient Transformer 论文笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/02/15/Paper/2020-02-15-Reformer-Paper/">
   
   <meta name="description" content="paper: Reformer: The Efficient Transformer code: trax&#x2F;trax&#x2F;models&#x2F;reformer at master · google&#x2F;trax Abstract Transformer 在训练时成本过高（尤其是长句子），文章提出两种改进方法：  将点乘的 attention 替换为局部敏感哈希，复杂度从 O(N^2) 降为 O(N logN)，">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       Reformer, The Efficient Transformer 论文笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -252,13 +253,13 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <p>根据之前的符号预测下一个符号，只考虑序列的后半部分</p>
 </li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果显示，原 attention 和 LSH attention 可以一起使用，只是精度降低了。4 个哈希的模型达到了几乎完美的精度。</p>
 <h2 id="Reversible-Transformer">Reversible Transformer</h2>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>从上表可以看出，每一层前的激活函数已经是 <code>b·l·d_model</code> 的大小了，所以 <code>n_l</code> 层 layer 的内存至少也是：<code>b·l·d_model·n_l</code>，更糟糕的是，在 Transformer 的前馈层中将会进达到：<code>b·l·d_ff·n_l</code>，大 Transformer 中 <code>d_ff = 4k</code>，<code>n_l = 16</code>，如果 <code>l=64k</code>，这要再用掉 16G（一个 float 占 4 个字节）的内存。</p>
 <p>这部分主要是如何降低时空复杂度：使用【可逆层】处理 nl 部分，chunking 处理 <code>d_ff</code> 问题。不同方法的影响结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>RevNets</strong></p>
 <p>Gomez et al. (2017) 提出可逆残差网络，主要思想是允许仅使用模型参数从下一层的激活中恢复任何给定层的激活。当反向传播从网络的输出传播到网络的输入时，可以一层一层地反转各个层，而不必为返回过程使用中间值。</p>
 <p>一个可逆层对输入/输出对起作用，形式如下：</p>
@@ -281,12 +282,12 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <p>有了分块和可逆层，在整个网络中用于激活的内存与层数无关。我们可以在不进行计算时在 CPU 内存之间交换层参数。 在标准的 Transformer 中，这是低效的，因为向 CPU 的内存传输速度很慢。 但是，在 Reformer 中，批次大小乘以长度要大得多，因此使用参数完成的计算量将摊销其传输成本。</p>
 <h2 id="Experiments">Experiments</h2>
 <p><strong>sharing-QK 和可逆层的影响</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>LSH Attention</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>其中纵坐标的意思是 bits per dim。</p>
 <p><strong>Reformer</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-reformer-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-reformer-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Related-Work">Related Work</h2>
 <p><strong>Transformer 应用</strong></p>
 <ul>
@@ -391,10 +392,20 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/03/21/Paper/2020-03-21-Text-Rank/" rel="prev"><span class="meta-nav">←</span> TextRank Keyword Extraction 论文+代码笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2020/03/21/Paper/2020-03-21-Text-Rank/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">TextRank Keyword Extraction 论文+代码笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" rel="next">Bahdanau Attention 论文笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/02/08/Paper/2020-02-08-Bahdanau-Attention-Paper/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Bahdanau Attention 论文笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -519,8 +530,9 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

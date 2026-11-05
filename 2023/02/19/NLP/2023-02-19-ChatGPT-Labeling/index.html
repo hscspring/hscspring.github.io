@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ChatGPT 标注指南：任务、数据与规范 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/02/19/NLP/2023-02-19-ChatGPT-Labeling/">
   
   <meta name="description" content="ChatGPT 刚刚出来时，业内人士一致认为高质量的数据是一个非常关键的因素。且不论这个结论在 ChatGPT 这里是否正确，但高质量的数据对模型大有裨益却是公认的。而且，我们也可以从公开的 InstructGPT 标注指南中对此窥探一二。本文主要就围绕这份指南进行介绍，有点标题党了，但是考虑到 ChatGPT 和 InstructGPT 是兄弟关系，我们有理由相信 ChatGPT 的标注也是基于">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       ChatGPT 标注指南：任务、数据与规范
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -252,12 +253,12 @@
 <li>RM 数据集：包含来自 API 和标注人员编写的 33k Prompt。标注人员排序模型输出，用来训练 RM。</li>
 <li>PPO 数据集：仅包含来自 API 的 31k Prompt。没有标注，用作 RLHF 微调的输入。</li>
 </ul>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>SFT 数据集中，标注人员编写的更多。</p>
 <p>最后是一些数据集相关的描述性统计，包括：按用户、按 Prompt 长度、按 Prompt 和答案长度等。这里主要列举按类型 Prompt 的长度情况和 Prompt+答案的长度情况。</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>平均而言，头脑风暴和开放式 QA 的 Prompt 比较短，对话、摘要相对较长。</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意，这里是 SFT 的数据集（需要 Prompt+答案）。12845+1533（上表） == 11295+1430+1550+103（Table6 SFT 数据集）。</p>
 <p><strong>小结</strong></p>
 <p>上面对数据情况进行了介绍，总的来说并不复杂（可能会比较麻烦）。不过有两点我们需要特别再说明一下：</p>
@@ -278,11 +279,11 @@
 <p>对标注人员的筛选，最关键的是要明白目的——即本任务需要什么样的人；然后就是根据目标设计具体的测验，这些测验往往是端到端的，比如上面的两个一致性，只要他的输出满足预期（和我们想要的一样），那就是 OK 的。</p>
 <p>不过我们从这些标准也可以看出敏感言论的重要性，尤其是对像 ChatGPT 这类生成型应用和产品来说，应该是从一开始就要重点考虑的。这块有个相关的领域：可控文本生成，不过这里的控制更多是反向的——不想生成某类结果。常用的方案是用一个属性判别模型将属性相关信息注入到生成过程中，比如 PPLM【相关文献5】、Gedi【相关文献6】。RLHF（Reinforcement Learning from Huamn Feedback）流行之后，除了 InstructGPT【核心文献1】外，还有一篇出自 Allen AI 的 Quark【相关文献7】可以关注。</p>
 <p>回到标注人员，InstructGPT 对标注人员进行了基本的统计，包括：性别、种族、国家、年龄、最高学历等。数据来自标注人员自愿的匿名调查，共收集到 19 份。整体男女比例相当，东南亚占了一半以上，大部分在 35 岁以下，本科占了一半以上。我们这里仅列出国家分布情况：</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>排在前两位的分别是菲律宾和孟加拉国。这些基本统计可以从侧面提供一些辅助佐证信息，比如国家分布范围越广泛，标注结果的可适用性也越广。</p>
 <p>此外，还有一份对标注人员满意度的调查，也出自上面那 19 份。调查的内容包括：说明清晰、任务有趣、任务重复、报酬合理等。总体来看，标注人员满意度较高。</p>
 <p>最后，还需要给标注人员一个统一的用户界面，可以方便地进行各种标注任务。比如 InstructGPT 提供的下面这个页面，标注人员需要对整体质量给一个 Likert 分数（1-7 分），还需要提供各种元标签。</p>
-<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/blog-chatgpt-labeling-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>需要说明的是，研究人员也使用这一套工具。关于这些元信息，我们在下一节介绍。</p>
 <h2 id="标注规范">标注规范</h2>
 <p>标注规范是整个标注工作的行为指南，其中最关键的是制定标注标准，即明确告诉标注人员，对每个任务期望给出什么结果。对此，InstructGPT 给出了三个考量指标：有帮助（helpful）、真实性（truthfulness）和无害性（harmlessness）。标注人员的工作是评估模型输出，确保它们有帮助、真实和无害。需要说明的是，在训练时，优先考虑有帮助作为最重要的标准，但在最终评估时，优先考虑真实性和无害性。</p>
@@ -492,10 +493,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/" rel="prev"><span class="meta-nav">←</span> ChatGPT 影响冲击：职业、行业与产业</a></span>
+        <div class="nav-previous">
+          <a href="/2023/02/21/NLP/2023-02-21-ChatGPT-Impact/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">ChatGPT 影响冲击：职业、行业与产业</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" rel="next">ChatGPT Prompt 示例 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">ChatGPT Prompt 示例</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -620,8 +631,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

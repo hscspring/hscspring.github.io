@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>DeBERTa 论文+代码笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/06/27/Paper/2020-06-27-DeBERTa/">
   
   <meta name="description" content="Paper：[2006.03654] DeBERTa: Decoding-enhanced BERT with Disentangled Attention Code：microsoft&#x2F;DeBERTa: The implementation of DeBERTa 核心思想：增加位置-内容与内容-位置的自注意力增强位置和内容之间的依赖，用 EMD 缓解 BERT 预训练和精调因为 MASK 造成的">
@@ -109,7 +109,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -129,6 +129,7 @@
       DeBERTa 论文+代码笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -249,12 +250,12 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <p><strong>Large</strong>：</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-deberta-1.jpeg" alt=""></p>
 <p><strong>Base</strong>：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-deberta-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-deberta-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Ablation</strong>：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-deberta-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-deberta-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>结果表明每个点（EMD，C2P 和 P2C）都挺重要的。</p>
 <p><strong>Attention</strong>：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-deberta-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-deberta-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>DeBERTa 并没有观察到明显的对角线效应（Token 注意到自己），这归功于 EMD。</li>
 <li>RoBERTa 出现的竖直条纹主要由高频虚词引起，DeBERTa 的主要出现在第一列，表示 <code>[CLS]</code>。因此对于一个好的预训练模型，强调 <code>[CLS]</code> 是可取的，因为它的向量通常用作下游任务中整个输入序列的上下文表示。</li>
@@ -314,10 +315,20 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/07/05/AIQA/2020-07-05-Introduction/" rel="prev"><span class="meta-nav">←</span> QA 小课堂：Introduction</a></span>
+        <div class="nav-previous">
+          <a href="/2020/07/05/AIQA/2020-07-05-Introduction/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">QA 小课堂：Introduction</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/06/25/Paper/2020-06-25-RoBERTa/" rel="next">RoBERTa 论文+代码笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/06/25/Paper/2020-06-25-RoBERTa/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">RoBERTa 论文+代码笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -442,8 +453,9 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

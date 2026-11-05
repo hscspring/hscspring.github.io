@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>语言模型级联 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/01/27/Paper/2023-01-27-Language-Model-Cascades/">
   
   <meta name="description" content="这是一篇来自 Google 的研究结果，通过一定的方法和策略，比如多个预训练模型结合，进一步提升模型整体推理能力。本文主要是对这方面的研究做了一个整体统一的划分，包括：思维链（Chain-of-Thought），验证器（Verifiers, STaR）选择-推理（Selection-Inference），工具使用（Tool Use）等，这些统称为：语言模型级联（Language Model Cas">
@@ -27,8 +27,8 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="NLP">
-<meta property="article:tag" content="Cascades">
 <meta property="article:tag" content="CoT">
+<meta property="article:tag" content="Cascades">
 <meta property="article:tag" content="Verifier">
 <meta property="article:tag" content="STaR">
 <meta property="article:tag" content="Selection-Inference">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       语言模型级联
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -174,13 +175,13 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">qta</span>():</span><br><span class="line">    q = <span class="keyword">yield</span> S(<span class="string">&quot;question&quot;</span>)</span><br><span class="line">    t = <span class="keyword">yield</span> S(<span class="string">&quot;thought&quot;</span>, question=q)</span><br><span class="line">    a = <span class="keyword">yield</span> S(<span class="string">&quot;answer&quot;</span>, question=q, thought=t)</span><br><span class="line">    <span class="keyword">return</span> a</span><br></pre></td></tr></table></figure>
 <p><strong>半监督学习</strong></p>
 <p>更具扩展性的是先给一个 (Q, T, A) 三元组小数据集，然后给一个 (Q, A) 大数据集，可以通过添加隐变量 T 来完善大数据集的三元组。这是典型的半监督方式。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>选择-推理</strong></p>
 <p>将推理分成选择-推理两个模块，选择模块选择一组事实，推理模块据此推理出新的事实。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>验证器</strong></p>
 <p>对 answer 或 thought 的有效性进行验证。这在可能有多种方法推导答案的环境中特别有用。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lm-cascades-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如上图所示，双环节点是确定性缓冲区节点，它们拼接输入，累积过去字符串。其他节点都是随机的，验证器用来「观察」正确值。</p>
 <p><strong>工具使用</strong></p>
 <p>上面讨论的涉及一个模型，以及一些内部控制流，但没有外部反馈。工具的使用主要是增加与外部系统的交互，比如用 LM+计算器做数学任务。</p>
@@ -253,10 +254,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" rel="prev"><span class="meta-nav">←</span> ChatGPT Prompt 示例</a></span>
+        <div class="nav-previous">
+          <a href="/2023/01/31/NLP/2023-01-31-ChatGPT-Prompt-Example/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">ChatGPT Prompt 示例</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" rel="next">ChatGPT Prompt工程：设计、实践与思考 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/01/25/NLP/2023-01-25-ChatGPT-Prompt-Engineering/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">ChatGPT Prompt工程：设计、实践与思考</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -381,8 +392,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

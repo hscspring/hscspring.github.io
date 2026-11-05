@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Information Extraction Note (SLP Ch18) | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2019/04/09/NLP/SLP/2019-04-09-Ch18-Information-Extraction/">
   
   <meta name="description" content="Recently, I wanted to build an information extraction system, so I searched for Google. However there were little Chinese articles, the quality was not so good as well. Fortunately, I found several En">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       Information Extraction Note (SLP Ch18)
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -185,10 +186,10 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">prefix(w_i) = L                	suffix(w_i) = tane</span><br><span class="line">prefix(w_i) = L&#x27;               	suffix(w_i) = ane</span><br><span class="line">prefix(w_i) = L&#x27;O				suffix(w_i) = ne</span><br><span class="line">prefix(w_i) = L&#x27;Oc				suffix(w_i) = e</span><br><span class="line">word-shape(w_i) = X&#x27;Xxxxxxxx	short-word-shape(w_i) = X&#x27;Xx</span><br></pre></td></tr></table></figure>
 <p>A <strong>gazetteer</strong> is a list of place names, often providing millions of entriesfor locations with detailed geographical and political information. A related resource is <strong>name-lists</strong>, similar lists also contain <strong>corporations, commercial products, and all manner of things biological and mineral</strong>. While gazetteers can be quite effective, list of persons and organizations are not always helpful.</p>
 <p>A sequence classifier like an MEMM can be trained to label new sentences. If we assume a context window that includes the two preceding and following words, then the features available to the classifier are those shown in the boxed area.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-1.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-1.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="A-neural-algorithm-for-NER">A neural algorithm for NER</h3>
 <p>A bi-LSTM output a softmax over all NER tags, but it’s insufficient, since it doesn’t allow us to impose the strong constraintsneighboring tokens have on each other. Instead a CRF layer is normally used on top of the bi-LSTM output, and the Viterbi decoding algorithm is used to decode.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="Rule-based-NER">Rule-based NER</h3>
 <p>While sequence models are the norm in academic research, commercial approaches to NER are often based on pragmatic combinations of lists and rules, with smaller amount of supervised machine learning. For example <a href="https://www.aclweb.org/anthology/N18-3010">SystemT: Declarative Text Understanding for Enterprise</a>.</p>
 <p>One common approach:</p>
@@ -209,7 +210,7 @@ negative for I-ORG.</p>
 <li><a href="https://wordnet.princeton.edu/">WordNet | A Lexical Database for English</a> or other ontologies offer useful ontological relations that express hieris-a archical relations between words or concepts.</li>
 </ul>
 <h3 id="Using-Patterns-to-Extract-Relations">Using Patterns to Extract Relations</h3>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>
 <p>Advantage: high-precision and can be tailored to specific domains</p>
@@ -226,7 +227,7 @@ negative for I-ORG.</p>
 <li>A classifier is trained to assign a label to the relations that were found by step 2</li>
 </ul>
 <p>For the feature-based classifiers like LR, RF, the most important step is to identify useful features. Consider features for classifying the relationship  between <em>American Airlines (M1)</em> and <em>Tim Wagner (M2)</em> from the sentence: “American Airlines, a unit of AMR, immediately matched the move, spokesman Tim Wagner said”.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>Labeling a large training set is extremely expensive and supervised models are brittle: they don’t generalize well to different text genres. So much research has focused on the semi-supervised and unsupervised approaches.</p>
 <h3 id="Semisupervised-Relation-Extraction-via-Bootstrapping">Semisupervised Relation Extraction via Bootstrapping</h3>
 <p>Suppose we just have a few high-precision <strong>seed patterns</strong> or a few <strong>seed tuples</strong>, that’s enough to bootstrap a classifier.</p>
@@ -321,7 +322,7 @@ Adverb: hourly, daily, monthly, yearly</p>
 </ul>
 <h3 id="Temporal-Ordering-of-Events">Temporal Ordering of Events</h3>
 <p>The temporal relation between events is classified into one of the <strong>Allen relations</strong> standard set.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="Template-Filling">Template Filling</h2>
 <p><strong>Template filling</strong> is to find documents that invoke particular scripts and then fill the slots in the associated templates with fillers extracted from the text. These slot-fillers may consist of text segments extracted directly from the text, or they may consist of concepts that have been inferred from text elements through some additional processing.</p>
 <h3 id="Machine-Learning-Approaches-to-Template-Filling">Machine Learning Approaches to Template Filling</h3>
@@ -345,7 +346,7 @@ syntactic chunk tags, and named entity tags.</li>
 <h3 id="Earlier-Finite-State-Template-Filling-Systems">Earlier Finite-State Template-Filling Systems</h3>
 <p>Early systems for dealing with complex templates were based on cascades of transducers based on hand-written rules.</p>
 <p>The first four stages use hand-written regular expression and grammar rules to do basic tokenization, chunking, and parsing. Stage 5 then recognizes entities and events with a FST-based recognizer and inserts the recognized objects into the appropriate slots in templates. The merging algorithm, after performing coreference resolution, merges two activities that are likely to be describing the same events.</p>
-<p><img src="http://qnimg.lovevivian.cn/slp-ch17-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/slp-ch17-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>This is an example of <a href="https://www.isi.edu/~hobbs/fastus-schabes-jul95.pdf">FASTUS: A Cascaded Finite-State Transducer for Extracting Information from Natural-Language Text</a>.</p>
 <h2 id="Summary">Summary</h2>
 <ul>
@@ -483,10 +484,20 @@ syntactic chunk tags, and named entity tags.</li>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2019/04/10/Python/Py4F/2019-04-10-Python-for-Freshman-Ch00/" rel="prev"><span class="meta-nav">←</span> Python 小白快速从入门到放弃：在开始前</a></span>
+        <div class="nav-previous">
+          <a href="/2019/04/10/Python/Py4F/2019-04-10-Python-for-Freshman-Ch00/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Python 小白快速从入门到放弃：在开始前</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" rel="next">自然语言计算机形式分析的理论与方法笔记(Ch18) <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2019/04/08/NLP/NLPFA/2019-04-08-Ch18-Rationalism-and-Empiricism-in-NLP/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">自然语言计算机形式分析的理论与方法笔记(Ch18)</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -611,8 +622,9 @@ syntactic chunk tags, and named entity tags.</li>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

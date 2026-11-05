@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>SIS：不硬clip，大部分token其实可转为on-policy | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/07/13/NLP/LLM-Training/2026-07-13-SIS/">
   
   <meta name="description" content="关于重要性采样系数，之前已经介绍过不少了，不过主要方案还是 clip，比如《GRPO“又一背锅侠”：Clip的各种拉扯 | 长琴[1]》中介绍的一系列文章，更进一步的优化是《GRPO优化在继续——CISPO和熵 | 长琴[2]》的 sg 和 特定 token mask，Minimax 后续模型也都用了自家的 CISPO，但是依然没有脱离 clip 和超参数设置。 Clip 有助于训练稳定，这没问题">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       SIS：不硬clip，大部分token其实可转为on-policy
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -157,7 +158,7 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-sis-2.jpg" alt=""></p>
 <span id="more"></span>
 <p>核心图先放这里：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-sis-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-sis-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="从off到on">从off到on</h2>
 <p>来看看具体怎么做吧。对于每个位置 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi></mrow><annotation encoding="application/x-tex">t</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6151em;"></span><span class="mord mathnormal">t</span></span></span></span>，计算常数：</p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi>M</mi><mi>t</mi></msub><mo>=</mo><munder><mrow><mi>max</mi><mo>⁡</mo></mrow><mrow><mi>v</mi><mo>∈</mo><mi mathvariant="script">V</mi></mrow></munder><mfrac><mrow><msub><mi>π</mi><mi>θ</mi></msub><mrow><mo fence="true">(</mo><mi>v</mi><mo>∣</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow></mrow><mrow><msub><mi>π</mi><msub><mi>θ</mi><mtext>old </mtext></msub></msub><mrow><mo fence="true">(</mo><mi>v</mi><mo>∣</mo><mi>x</mi><mo separator="true">,</mo><msub><mi>y</mi><mrow><mo>&lt;</mo><mi>t</mi></mrow></msub><mo fence="true">)</mo></mrow></mrow></mfrac></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">M_t=\max _{v \in \mathcal{V}} \frac{\pi_\theta\left(v \mid x, y_{\lt t}\right)}{\pi_{\theta_{\text {old }}}\left(v \mid x, y_{\lt t}\right)} \tag{1}
@@ -370,10 +371,20 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/07/26/AI/2026-07-26-AI-Two-adged-Sword/" rel="prev"><span class="meta-nav">←</span> AI是双刃剑</a></span>
+        <div class="nav-previous">
+          <a href="/2026/07/26/AI/2026-07-26-AI-Two-adged-Sword/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">AI是双刃剑</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/07/04/NLP/LLM-Training/2026-07-04-SVM-to-Alignment/" rel="next">从 SVM 到分布对齐：后训练方法的另一个统一视角 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/07/04/NLP/LLM-Training/2026-07-04-SVM-to-Alignment/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">从 SVM 到分布对齐：后训练方法的另一个统一视角</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -498,8 +509,9 @@ c-10,0,-16.667,5,-20,15z M188 15 H145 v585 v600 v585 h43z"/></svg></span></span>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

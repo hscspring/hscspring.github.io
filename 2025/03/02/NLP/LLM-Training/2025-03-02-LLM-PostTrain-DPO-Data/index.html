@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>R1相关：DPO数据选择与DPO等RL算法 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/03/02/NLP/LLM-Training/2025-03-02-LLM-PostTrain-DPO-Data/">
   
   <meta name="description" content="本文介绍两篇与DPO以及其他RL算法相关的。R1-Zero在表现出潜力后，GRPO自不必多说，得到大家关注。PPO、Reinforce++等也被用来尝试实验，结果也很亮眼。既然如此，其他RL算法可以吗，尤其是前LLM时代流行的DPO。于是就有了本文的两篇研究。">
@@ -31,9 +31,9 @@
 <meta property="article:tag" content="RL">
 <meta property="article:tag" content="Continual Pre-training">
 <meta property="article:tag" content="Post-training">
-<meta property="article:tag" content="Online-DPO-R1">
-<meta property="article:tag" content="LIMD">
 <meta property="article:tag" content="DPO">
+<meta property="article:tag" content="LIMD">
+<meta property="article:tag" content="Online-DPO-R1">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       R1相关：DPO数据选择与DPO等RL算法
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -188,7 +189,7 @@
 <p>提示词：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;|im_start|&gt;system\nPlease reason step by step, and put your final answer within </span><br><span class="line">\boxed&#123;&#125;.&lt;|im_end|&gt;\n&lt;|im_start|&gt;user\n&#123;Question&#125; Let<span class="string">&#x27;s think step by step and </span></span><br><span class="line"><span class="string">output the final answer within \boxed&#123;&#125;&lt;|im_end|&gt;\n&lt;|im_start|&gt;assistant</span></span><br></pre></td></tr></table></figure>
 <p><strong>结果</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-online-dpo-r1-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-online-dpo-r1-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>Qwen-DPO-NLL-R1-Zero和Qwen-DPO-R1-Zero是在数据集更多的Numina-Math上训的，效果要比MATH7500好一些，Qwen-RAFT-R1-Zero也是Numina-Math，效果比DPO差一些。注意Qwen-DPO-R1-Zero和Qwen-DPO-R1-MATH7500-Zero，前者用了20k的Numina-Math，效果并没有比MATH7500提升很多（3%），但是<strong>比PPO在同等配置下提升多</strong>（1.3%）。</p>
 <p>另外值得注意的是最后一组，在Qwen-DPO-R1-Zero之前，先在 MATH 训练集上使用QwQ-32B生成15K长CoT数据对模型进行 SFT（这个Warmup是不是数据太多了点……），这一步后效果达到44.4%，和RAFT齐平了，加了DPO后到了51.5%。也就是说SFT+RL的范式取得最好的效果，这点之前DeepScaleR做过验证。</p>
 <p>最后说说Aha Moment，这个一开始被很多人莫名神话的东西。本文的发现和oat-zero类似：</p>
@@ -263,7 +264,7 @@ m_{im} = r_{im}(x, y_w) - r_{im}(x, y_l)
 </ul>
 <p><strong>结果</strong></p>
 <p>首先是整体评估。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-limd-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-limd-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结果如下：</p>
 <ul>
 <li>DM在每个任务上表现都接近最优，没有其他对照组的短板。</li>
@@ -271,7 +272,7 @@ m_{im} = r_{im}(x, y_w) - r_{im}(x, y_l)
 <li>不同奖励间隔在不同任务上表现不同。</li>
 </ul>
 <p>接下来分析DM。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-limd-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-limd-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结果如下：</p>
 <ul>
 <li>隐式奖励间隔和外部奖励间隔相关性较弱，说明两种奖励捕捉到了不同的偏好模式，说明集成的重要性。</li>
@@ -364,10 +365,20 @@ m_{im} = r_{im}(x, y_w) - r_{im}(x, y_l)
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2025/03/08/Paper/MM/2025-03-08-OMNI-Papers-2025/" rel="prev"><span class="meta-nav">←</span> OMNI论文速览（2025）</a></span>
+        <div class="nav-previous">
+          <a href="/2025/03/08/Paper/MM/2025-03-08-OMNI-Papers-2025/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">OMNI论文速览（2025）</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/" rel="next">预训练：NTP和Scaling Law <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2025/02/28/NLP/LLM-Training/2025-02-28-LLM-Pretrain-NTP-and-ScaleLaw/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">预训练：NTP和Scaling Law</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -492,8 +503,9 @@ m_{im} = r_{im}(x, y_w) - r_{im}(x, y_l)
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

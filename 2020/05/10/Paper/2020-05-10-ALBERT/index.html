@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ALBERT 论文+代码笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/05/10/Paper/2020-05-10-ALBERT/">
   
   <meta name="description" content="Paper：1909.11942.pdf Code：google-research&#x2F;albert: ALBERT: A Lite BERT for Self-supervised Learning of Language Representations 核心思想：基于 Bert 的改进版本：分解 Embedding 参数、层间参数共享、SOP 替代 NSP。">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       ALBERT 论文+代码笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -226,19 +227,19 @@
 <p><strong>层间相似度</strong>，对应《模型和算法》的第二个调整：</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-albert-1.jpeg" alt=""></p>
 <p><strong>参数量</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>RoBERTa 的参数量在<a href="https://github.com/pytorch/fairseq/tree/master/examples/roberta">这里</a>，DistilBERT 的参数量是 66M。</p>
 <p><strong>Bert vs. ALBERT</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>Speedup 是训练时间，以 Bert large 为基准，ALBERT large 速度是 1.7 倍，但 xxlarge 比 Bert large 慢了 3 倍。</p>
 <p><strong>Embedding Size 的影响</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-4.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-4.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>层间参数共享的影响</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-5.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>NSP vs. SOP</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-6.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Dropout</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-albert-7.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-albert-7.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>在各项任务中的表现可以查阅<a href="https://github.com/google-research/albert">这里</a>。</p>
 <h2 id="Discussion">Discussion</h2>
 <h3 id="相关工作">相关工作</h3>
@@ -375,10 +376,20 @@ CNN 中同时使用批归一化和 dropout 可能导致结果更差：</p>
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" rel="prev"><span class="meta-nav">←</span> 中文分词系列一：思考分词</a></span>
+        <div class="nav-previous">
+          <a href="/2020/05/13/NLP/2020-05-13-Segmentation-Thinking/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">中文分词系列一：思考分词</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" rel="next">多贝里《清醒思考的艺术》读书笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/04/28/CogPsy/2020-04-28-The-Art-of-Clearly-Thinking/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">多贝里《清醒思考的艺术》读书笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -503,8 +514,9 @@ CNN 中同时使用批归一化和 dropout 可能导致结果更差：</p>
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

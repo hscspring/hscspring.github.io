@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>COPO：基于认知模式的 Step-Level Agentic RL 优化 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/">
   
   <meta name="description" content="今天介绍一篇 Agentic RL 的小文章吧，来自 2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents[1]，我们在《LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴[2]》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       COPO：基于认知模式的 Step-Level Agentic RL 优化
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -224,12 +225,12 @@ l0,-744c-2,-159.3,-10,-310.7,-24,-454c-53.3,-528,-210,-949.7,
 M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.85em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mord mathnormal" style="margin-right:0.0528em;">β</span><span class="mord"><span class="mord mathbb">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3283em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight">KL</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top:0em;">[</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">θ</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord">∥</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0359em;">π</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361em;"><span style="top:-2.55em;margin-left:-0.0359em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathrm mtight" style="margin-right:0.0778em;">ref</span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose delimcenter" style="top:0em;">]</span></span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mpunct">,</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:4.211em;"><span></span></span></span></span></span></span></span></span></span></span></span></p>
 <p>其中，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><msup><mi mathvariant="script">I</mi><mo lspace="0em" rspace="0em">+</mo></msup></mrow><annotation encoding="application/x-tex">i \in \mathcal{I}^{+}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6986em;vertical-align:-0.0391em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7713em;"></span><span class="mord"><span class="mord mathcal" style="margin-right:0.0738em;">I</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7713em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span></span></span></span></span></span></span></span></span></span></span></span> 就是成功的轨迹，失败的轨迹做法就是标准 GRPO，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>=</mo><mi>c</mi><mi>l</mi><mi>i</mi><mi>p</mi><mo stretchy="false">(</mo><mi>r</mi><mo separator="true">,</mo><mn>1</mn><mo>−</mo><mi>ε</mi><mo separator="true">,</mo><mn>1</mn><mo>+</mo><mi>ε</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">r = clip(r, 1−ε, 1+ε)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.4306em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">c</span><span class="mord mathnormal" style="margin-right:0.0197em;">l</span><span class="mord mathnormal">i</span><span class="mord mathnormal">p</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.0278em;">r</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.8389em;vertical-align:-0.1944em;"></span><span class="mord mathnormal">ε</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">ε</span><span class="mclose">)</span></span></span></span>。</p>
 <p>效果表格就不贴了，看个收敛速度的小图（也包含成功率 SR）：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-copo-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-copo-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>可以看到，提升还是非常明显的。</p>
 <p>然后训练后不同 Level 的分布是这样的：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-copo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-copo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>SFT 还是分布比较均衡的，RL 后和其他算法表现出明显的不同，GRPO 和 GiGPO 都倾向于 L4（更深层的思考通常与更高的最终奖励相关），COPO 则实现逐步的自适应思考——只在有益时才采用更深层的思考。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-copo-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-copo-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>如上图左所示，L4 在初始化阶段达到峰值，此时复杂任务需要全局目标评估和长时规划，随后占比开始下降；L2 同样在初始阶段占主导，因为此时对环境的感知对于解析观测信息和评估可选动作至关重要，随后稳定；L1 一路上升，说明后期大多数步骤已经转化为无需深度思考的常规执行；L3 在各阶段相对均匀，只有在出现错误或需要借助过往经验进行决策时才会在特定上下文中出现。</p>
 <blockquote>
 <p>L1（本能反应）、L2（情境意识）、L3（经验整合）和L4（战略规划）。</p>
@@ -291,10 +292,20 @@ M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/05/08/Physics/2026-05-08-Why-Beans-Roll/" rel="prev"><span class="meta-nav">←</span> 红豆为什么会滚——从两岁女儿的玩耍说起</a></span>
+        <div class="nav-previous">
+          <a href="/2026/05/08/Physics/2026-05-08-Why-Beans-Roll/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">红豆为什么会滚——从两岁女儿的玩耍说起</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/" rel="next">LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -419,8 +430,9 @@ M347 1759 V0 H263 V1759 v600 v1759 h84z"/></svg></span></span></span><span class
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

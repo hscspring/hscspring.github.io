@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Luong Attention 论文+代码笔记 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/04/14/Paper/2020-04-14-Luong-Attention/">
   
   <meta name="description" content="Paper：1508.04025v5.pdf Code：文章未提供，见 Appendix 核心思想：通过在 Decoder 的每一步使用 Encoder 信息，并对 Encoder 信息赋予不同权重来获得更好的 Decoder 结果。">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       Luong Attention 论文+代码笔记
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -219,7 +220,7 @@ e_{ij} = a(s_{i-1}, h_j)
 </li>
 </ul>
 <p><a href="https://stackoverflow.com/questions/44238154/what-is-the-difference-between-luong-attention-and-bahdanau-attention">Stackoverflow</a> 上找到一张图比较直观：</p>
-<p><img src="https://i.stack.imgur.com/yqJpG.png" alt=""></p>
+<p><img src="https://i.stack.imgur.com/yqJpG.png" alt="" loading="lazy" decoding="async"></p>
 <p>接下来看一下代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 参考自：https://github.com/kevinlu1211/pytorch-batch-luong-attention</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">LuongAttnDecoder</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, hidden_size, input_size, output_size,  n_layers, dropout</span>):</span><br><span class="line">        <span class="built_in">super</span>(LuongAttnDecoder, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="variable language_">self</span>.hidden_size = hidden_size</span><br><span class="line">        <span class="variable language_">self</span>.input_size = input_size <span class="comment"># embedding shape</span></span><br><span class="line">        <span class="variable language_">self</span>.output_size = output_size</span><br><span class="line">        <span class="variable language_">self</span>.n_layers = n_layers</span><br><span class="line">        <span class="variable language_">self</span>.dropout = dropout</span><br><span class="line">        </span><br><span class="line">        <span class="variable language_">self</span>.embedding = nn.Embedding(<span class="variable language_">self</span>.output_size, <span class="variable language_">self</span>.hidden_size)</span><br><span class="line">        <span class="variable language_">self</span>.attn = nn.Linear(<span class="variable language_">self</span>.hidden_size, <span class="variable language_">self</span>.hidden_size)</span><br><span class="line">        <span class="variable language_">self</span>.gru = nn.GRU(<span class="variable language_">self</span>.input_size, <span class="variable language_">self</span>.hidden_size, n_layers, dropout=<span class="variable language_">self</span>.dropout)</span><br><span class="line">        <span class="variable language_">self</span>.concat = nn.Linear(<span class="variable language_">self</span>.hidden_size * <span class="number">2</span>, <span class="variable language_">self</span>.hidden_size)</span><br><span class="line">        <span class="variable language_">self</span>.out = nn.Linear(<span class="variable language_">self</span>.hidden_size, <span class="variable language_">self</span>.output_size)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, <span class="built_in">input</span>, hidden, encoder_outputs</span>):</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        input: shape = batch_size</span></span><br><span class="line"><span class="string">        hidden: shape = n_layers, batch_size, hidden_size</span></span><br><span class="line"><span class="string">        encoder_outputs: shape = max_length, batch_size, hidden_size</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        here, max_length is the max length of batch sequence.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        batch_size = <span class="built_in">input</span>.size(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># (1, batch_size, input_size)</span></span><br><span class="line">        embedded = <span class="variable language_">self</span>.embedding(<span class="built_in">input</span>).view(<span class="number">1</span>, batch_size, <span class="variable language_">self</span>.input_size)</span><br><span class="line">        <span class="comment"># (1, batch_size, hidden_size), (n_layers, batch_size, hidden_size)</span></span><br><span class="line">        output, hidden = <span class="variable language_">self</span>.gru(embedded, hidden)</span><br><span class="line">        <span class="comment"># (batch_size, 1, max_length) general score function</span></span><br><span class="line">        attn_weights = F.softmax(torch.bmm(<span class="variable language_">self</span>.attn(output).transpose(<span class="number">1</span>, <span class="number">0</span>), </span><br><span class="line">                                           encoder_outputs.permute(<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>)), <span class="number">2</span>)</span><br><span class="line">        <span class="comment"># (batch_size, 1, max_length) @ (batch_size, max_length, hidden size)</span></span><br><span class="line">        <span class="comment"># (batch_size, 1, hidden_size)</span></span><br><span class="line">        context = attn_weights.bmm(encoder_outputs.transpose(<span class="number">0</span>, <span class="number">1</span>))</span><br><span class="line">        <span class="comment"># (batch_size, hidden_size)</span></span><br><span class="line">        output = output.squeeze(<span class="number">0</span>)</span><br><span class="line">        <span class="comment"># (batch_size, hidden_size)</span></span><br><span class="line">        context = context.squeeze(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># (batch_size, hidden_size * 2)</span></span><br><span class="line">        concat_input = torch.cat((output, context), <span class="number">1</span>)</span><br><span class="line">        <span class="comment"># (batch_size, hidden_size) h ̃t</span></span><br><span class="line">        concat_output = F.tanh(<span class="variable language_">self</span>.concat(concat_input))</span><br><span class="line">        <span class="comment"># (batch_size, output_size)</span></span><br><span class="line">        output = <span class="variable language_">self</span>.out(concat_output)</span><br><span class="line">        <span class="keyword">return</span> output, hidden, attn_weights</span><br></pre></td></tr></table></figure>
 <p>注意，这里使用了 general 计算 score，其他的类似。</p>
@@ -271,9 +272,9 @@ align 函数和 global 的一样，根据经验设置 σ = D/2，pt 是实数，
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> <span class="built_in">range</span>(max_target_length):</span><br><span class="line">    decoder_output, decoder_hidden, attn_weights = decoder(</span><br><span class="line">        decoder_input, decoder_hidden, encoder_outputs)</span><br><span class="line">    topv, topi = decoder_output.data.topk(<span class="number">1</span>)</span><br><span class="line">    decoder_input = topi.squeeze().detach()</span><br><span class="line">    <span class="built_in">print</span>([index2word(topi[i].item()) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(batch_size)])</span><br></pre></td></tr></table></figure>
 <h3 id="数据和实验">数据和实验</h3>
 <p>使用了 WMT 英德互译的平行语料，结果如下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-luong-attention-2.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-luong-attention-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>另外有个 Attention 机制的结果可以注意下：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-luong-attention-3.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-luong-attention-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>作者得出的结论为：</p>
 <ul>
 <li>Global + location 效果不好</li>
@@ -386,10 +387,20 @@ align 函数和 global 的一样，根据经验设置 σ = D/2，pt 是实数，
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/04/23/Paper/2020-04-23-Transformer/" rel="prev"><span class="meta-nav">←</span> Transformer 代码笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2020/04/23/Paper/2020-04-23-Transformer/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Transformer 代码笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/04/07/Paper/2020-04-07-GPT2/" rel="next">GPT-2 论文+代码笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/04/07/Paper/2020-04-07-GPT2/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">GPT-2 论文+代码笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -514,8 +525,9 @@ align 函数和 global 的一样，根据经验设置 σ = D/2，pt 是实数，
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/">
   
   <meta name="description" content="TL;DR 本文系统梳理了让LLM&quot;先规划再回答&quot;的各类方法，从数据构造（结构化中间表示、层次抽象）、机制设计（注意力对齐、思维 token 注入）到认知启发（ACT-R分层、元思维进化）逐层深入，最后追问&quot;规划的本质&quot;，指出显式token规划存在局限，潜在空间（latent）规划或许更接近真正的思考——非线性、可中断、全局感知。  当 reasoning">
@@ -27,8 +27,8 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
-<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="Reasoning">
+<meta property="article:tag" content="NLP">
 <meta property="article:tag" content="DLM">
 <meta property="article:tag" content="Planning">
 <meta property="article:tag" content="Thinking">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -159,28 +160,28 @@
 <p><img src="https://qnimg.lovevivian.cn/paper-lepa-1.jpg" alt=""></p>
 <p>具体而言，在数据生成过程中，LEPA 会提示 LLM 先制定一个包含高级问题解决步骤的预期规划，然后生成一个与问题和规划都相符的解决方案。如果解决方案正确，则将 “规划 - 解决方案对” 存储到训练数据集中。否则，会要求 LLM 反思规划和错误的解决方案，并改进规划，直到它成功促使 LLM 生成正确的解决方案。</p>
 <p>Agentic 也是类似做法，只不过反馈的是执行或 action，<a href="https://arxiv.org/abs/2504.07081">Self-Steering Language Models</a><sup>[2]</sup> 提出 DisCIPL（Distributional Constraints by Inference Programming with Language Models）的“自引导”语言模型方法，其中规划器模型生成特定于任务的推理程序，并由一组跟随者模型执行。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-self-steering-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-self-steering-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>一个规划器语言模型（Planner LM）编写推理程序，以定义逐步计算过程，从而引导一组跟随者语言模型（Follower LMs）。该方法结合了串行与并行方法的优势：规划器通过构造保证正确性，而跟随者则通过协同搜索高概率序列。</p>
 <h2 id="如何做好规划">如何做好规划</h2>
 <h3 id="数据角度">数据角度</h3>
 <p>最直观的做法是结构化过程。<a href="https://arxiv.org/abs/2603.29500">2603 Learning to Generate Formally Verifiable Step-by-Step Logic Reasoning via Structured Formal Intermediaries</a><sup>[3]</sup> 针对的是中等规模模型直接生成极难形式化证明的成功率低下的问题。具体做法就是让模型首先输出与自然语言对应的<strong>结构化形式化中间表示</strong>，用于刻画逻辑依赖关系、推导出的结论，以及对形式推理规则（如假言三段论）的应用。随后利用形式化工具对这些中间步骤进行严格检验，构建出一条只有推理链条完全正确的解答才能获得奖励的强化闭环。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lgfvslgsfi-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lgfvslgsfi-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><a href="https://arxiv.org/abs/2602.00929">2602 Learning Abstractions for Hierarchical Planning in Program-Synthesis Agents</a><sup>[4]</sup> 的做法要更进一步，它利用 LLM 的上下文学习能力，通过<strong>从经验中合成抽象概念并将其整合到分层规划过程中</strong>，主动学习可重用的抽象概念，而不是依赖于人工指定的抽象概念。虽然是个代码 agent，但这种从经验中先学习抽象概念，然后再进行分层规划的做法是通用的。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-lahppsa-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-lahppsa-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>还可以从具体数据反推，比如 <a href="https://arxiv.org/abs/2503.18866">2503 Reasoning to Learn from Latent Thoughts</a><sup>[5]</sup>，它将网络文本视为冗长人类思维过程的最终压缩结果，认为可以通过推断和解压缩的思想来增强观察到的数据，实现更高效的学习——推理学习。这是<strong>显式地建模和推断文本生成过程中潜在的思维模式</strong>，其出发点来自人类学习——人类能够从相同的压缩文本中高效学习，比如，当我们阅读一篇研究论文时，我们会分析具体的主张，将其与先验知识相结合，并尝试“解压缩”作者的原始思维过程。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-bolt-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-bolt-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>注意， Latent thought 依然以自回归的方式对每一段文本进行建模。</p>
 <h3 id="机制角度">机制角度</h3>
 <p>首先看 <a href="https://arxiv.org/abs/2510.03223">2510 Self-Anchor: Large Language Model Reasoning via Step-by-step Attention Alignment</a><sup>[6]</sup>，它的做法是显式地对齐大语言模型的注意力。这基于两个关键洞察：（1）复杂的推理问题可以分解为结构化的计划；（2）每个分解后的计划可自然地作为注意力对齐的组成部分。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-self-anchor-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-self-anchor-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>具体而言，Self-Anchor <strong>将原始提示词分解为具有相应推理步骤的计划步骤</strong>。在生成过程中，它会自动选择并引导模型注意力聚焦于提示和相应的计划。这使得 LLM 能够持续关注问题声明和当前的推理目标，从而防止在不断扩展的推理步骤中出现注意力偏差。从形式上看，这个就是简单的规划，不过是从显式注意力角度出发的。</p>
 <p><a href="https://arxiv.org/abs/2510.03223">2510 Attention-Aligned Reasoning for Large Language Models</a><sup>[7]</sup> 也是类似思路，通过交替进行规划步骤和执行步骤，显式地引导注意力，在全局目标（原始问题）与局部目标（当前规划步骤）之间取得平衡。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-self-anchor-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-self-anchor-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>比较有意思的是 <a href="https://arxiv.org/abs/2503.24370">2503 Effectively Controlling Reasoning Models through Thinking Intervention</a><sup>[8]</sup>，它的做法有点像 CoT 的魔法语句：“Let’s think step by step”——<strong>策略性地插入或修改特定的思维 token</strong> 来显式地引导 LLM 的内部推理过程。</p>
 <p>论文分析表明，推理过程的注意力主要集中在模型内部，而不是外部输入 token。因此，标准的提示工程效果有限，因为模型几乎不会将注意力指向这些提示。相比之下，在采用 Thinking Intervention 的注意力图中，可以观察到在推理过程中，模型对显式注入的干预 token 的内部注意力显著增强。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-thinking-intervention-reason-control-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-thinking-intervention-reason-control-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>下面是一个展示如何将 Thinking Intervention 与 Vanilla Prompting 和 Reminder Prompting 等提示技术相结合的示例，可用于指令遵循任务。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-thinking-intervention-reason-control-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-thinking-intervention-reason-control-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>还有一些相关的消融：</p>
 <ul>
 <li>干预位置：相较于早期阶段的干预，在推理后期施加的干预效果明显减弱。</li>
@@ -191,7 +192,7 @@
 <h3 id="认知角度">认知角度</h3>
 <p>前面的规划多少还是有点具体，缺乏一个抽象的设计。这里我们来看几个从认知角度设计（更高级）思考的做法。</p>
 <p>首先是 <a href="https://arxiv.org/abs/2602.12662">2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents</a><sup>[11]</sup>，它<strong>基于 ACT-R 理论，设计了四个层级的认知结构</strong>，涵盖从本能反应到策略性规划的各个层面。具体包括：L1（本能反应）、L2（情境意识）、L3（经验整合）和L4（战略规划）。然后再训练智能体在每个步骤中动态调整认知深度，其核心思想是，合适的认知深度应最大化最终行动的置信度。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-scdala-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-scdala-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>为此，还提出了两阶段训练方法，重新定义了 SFT 和 RL。</p>
 <ul>
 <li>认知感知监督微调（CoSFT），用于构建稳定的特定层级认知模式。</li>
@@ -204,7 +205,7 @@
 <p>感兴趣的读者可以阅读：<a href="https://yam.gift/2018/05/07/AI/2018-05-07-RL-Series/">“心有麟熙”《强化学习炼金术》系列笔记 | Yam</a><sup>[13]</sup></p>
 </blockquote>
 <p>整个方案如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-meta-thoughts-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-meta-thoughts-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>受人类认知过程启发，一个元思维包含两个元素：</p>
 <ul>
 <li><strong>认知心态</strong>：模型为完成任务而采用的适当视角、专业知识或角色。</li>
@@ -239,7 +240,7 @@
 </ul>
 <p>总的来说，通过先确定思维策略再生成回复的推理时设计（无需训练），MetaScale 取得了不错的效果。</p>
 <p>如果说 MetaScale 的策略是自底向上的，那 <a href="https://arxiv.org/abs/2503.12918">2503 ThinkPatterns-21k: A Systematic Study on the Impact of Thinking Patterns in LLMs</a><sup>[14]</sup> 就是直接分析<strong>不同思维模式如何影响不同规模模型的性能</strong>。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-thinkpatterns-21k-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-thinkpatterns-21k-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>每种思维模式的特点如下：</p>
 <table>
 <thead>
@@ -377,10 +378,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/" rel="prev"><span class="meta-nav">←</span> COPO：基于认知模式的 Step-Level Agentic RL 优化</a></span>
+        <div class="nav-previous">
+          <a href="/2026/04/23/NLP/LLM-Training/2026-04-23-COPO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">COPO：基于认知模式的 Step-Level Agentic RL 优化</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/04/11/NLP/LLM-Training/2026-04-11-Real-time-Learning-from-PEFT/" rel="next">探寻实时学习新路径：挖掘极致高效的“子空间微调” <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/04/11/NLP/LLM-Training/2026-04-11-Real-time-Learning-from-PEFT/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">探寻实时学习新路径：挖掘极致高效的“子空间微调”</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -505,8 +516,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Tiny LLM Continual Pre-training：RHO-1 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2024/04/13/NLP/LLM-Training/2024-04-13-LLM-Tiny-Continual-Training-RHO-1/">
   
   <meta name="description" content="并不是所有的Next Token都有用，RHO-1选择那些最有用的Next Token，提升了小模型的继续训练效率。">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       Tiny LLM Continual Pre-training：RHO-1
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -162,7 +163,7 @@
 <h2 id="Token级别学习">Token级别学习</h2>
 <p>结论：并不是所有Token都同样重要。显著的损失减少仅限于一组Token，许多Token是已经学习到的“简单Token”。而有些是“Hard Token”，具体表现是波动的损失且不收敛，这些Token可能导致无效的梯度更新。</p>
 <p>做法：在15B的Token（OpenWebMath）上继续训练TinyLLaMA-1B，每1B的Token保存一次，然后验证这些间隔Token级别的损失。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>**发现1：**如上图a所示，Token轨迹表现出四类，如下所示。</p>
 <ul>
 <li>H→H：11%，可能由于高度的不确定性。</li>
@@ -171,11 +172,11 @@
 <li>L→L：51%，损失没有变化，都很低，是此前已经学到了的（简单Token）。</li>
 </ul>
 <p>**发现2：**如上图b和c所示，L→L和H→H中，一些Token损失表现出持续的波动，且不收敛。结果发现这些Token大部分都是噪音。如下图所示。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>小结：在训练期间，与每个Token相关的损失不会像总体损失那样平稳下降；相反，不同的Token之间存在复杂的动态变化。如果在训练期间能够为模型选择适当的Token，就可能稳定模型的训练轨迹并提高效率。</p>
 <h2 id="SLM">SLM</h2>
 <p>受文档级别过滤用的参考模型启发，本文提出Token级别的数据选择。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>这里的直觉是，高超额损失的Token更易学习，更符合预期分布，且自然排除了无关或低质量的Token。</p>
 <p><strong>Reference Modeling</strong></p>
 <p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mtable width="100%"><mtr><mtd width="50%"></mtd><mtd><mrow><msub><mi mathvariant="script">L</mi><mtext>ref </mtext></msub><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo fence="true">)</mo></mrow><mo>=</mo><mo>−</mo><mi>log</mi><mo>⁡</mo><mi>P</mi><mrow><mo fence="true">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>∣</mo><mi>x</mi><mo>&lt;</mo><mi>i</mi><mo fence="true">)</mo></mrow></mrow></mtd><mtd width="50%"></mtd><mtd><mtext>(1)</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">\mathcal{L}_{\text {ref }}\left(x_i\right)=-\log P\left(x_i \mid x&lt;i\right) \tag{1}
@@ -224,25 +225,25 @@
 </ul>
 <h2 id="实验结果">实验结果</h2>
 <p><strong>数学</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>1B模型的提升远大于7B。</p>
 <p><strong>通用</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>为啥没有横向的对比？也没有7B的结果。</p>
 <h2 id="分析">分析</h2>
 <p><strong>选择的Token的损失和下游性能表现更一致</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-7.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>这种表现呈现出二次幂关系</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-8.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-8.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>选择了哪些Token？</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-9.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-9.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>都是选择的数学相关的Token。</p>
 <p><strong>而且，后面ckpt选择的Token在训练后期具有更高的PPL</strong>，如Figure8所示，这表明模型可能首先优化了具有更大可学习空间的Token，从而提高了学习效率。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-10.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-10.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>不同Token选择率的效果</strong></p>
 <p>如Figure9所示，60%时效果最佳。</p>
 <p><strong>Weak-to-Strong泛化</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-rho1-11.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-rho1-11.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>TinyLLaMA-1.1B为RM+LLaMA2-7B继续训练，依然可以受益。但是感觉收益明显不多。</p>
 <p>考虑到前面的实验结果，看起来模型规模越大，这种Trick的收益越小。</p>
 <h2 id="讨论">讨论</h2>
@@ -306,10 +307,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2024/09/28/Paper/2024-09-28-MIO/" rel="prev"><span class="meta-nav">←</span> MIO</a></span>
+        <div class="nav-previous">
+          <a href="/2024/09/28/Paper/2024-09-28-MIO/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">MIO</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" rel="next">LLM打街霸 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2024/04/08/NLP/2024-04-08-LLM-Colosseum/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">LLM打街霸</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -434,8 +445,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

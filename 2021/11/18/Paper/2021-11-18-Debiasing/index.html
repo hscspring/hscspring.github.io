@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Debiasing Techniques for Pre-Trained Language Models | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/11/18/Paper/2021-11-18-Debiasing/">
   
   <meta name="description" content="论文：[2110.08527] An Empirical Survey of the Effectiveness of Debiasing Techniques for Pre-Trained Language Models Code：McGill-NLP&#x2F;debias-eval 一句话概述：去偏技术尚不明朗。 摘要：研究表明预训练模型有一定的社会偏见（这个真得怪社会），所以我们不得不从技术角度去">
@@ -106,7 +106,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -126,6 +126,7 @@
       Debiasing Techniques for Pre-Trained Language Models
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -217,7 +218,7 @@
 <p>性别偏见：</p>
 <p><img src="http://qnimg.lovevivian.cn/paper-debiasing-1.jpg" alt=""></p>
 <p>种族和宗教偏见：<br>
-<img src="http://qnimg.lovevivian.cn/paper-debiasing-2.jpg" alt=""></p>
+<img src="http://qnimg.lovevivian.cn/paper-debiasing-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>小结：</p>
 <ul>
 <li>BERT 的去偏有效果，GPT-2 没效果。</li>
@@ -225,7 +226,7 @@
 <li>CDA 和 Dropout 在种族和区域领域表现稳定。</li>
 </ul>
 <p><strong>StereoSet 和 CorwS-Pairs</strong></p>
-<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>StereoSet 小结：</p>
 <ul>
 <li>对性别偏见，大部分去偏技术有效。</li>
@@ -240,14 +241,14 @@
 <p>这里有个很重要的问题：去偏模型可能不是由于缓解了实际偏见，而仅仅因为变成了一个更差的语言模型（类似于随机）从而得到较低的刻板印象分数。</p>
 <h2 id="建模能力影响">建模能力影响</h2>
 <p>对 MLM 模型，计算伪 ppl 代替 ppl。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>小结：</p>
 <ul>
 <li>Dropout 和 CDA 降低了 ppl，可能是因为额外的预训练。</li>
 <li>Dropout 或 CDA 额外的预训练增强了 BERT 的语言模型能力。</li>
 </ul>
 <h2 id="下游任务影响">下游任务影响</h2>
-<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-debiasing-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>小结：去偏技术对模型执行下游 NLU 任务的能力只有很小的负面影响。</p>
 <h2 id="讨论">讨论</h2>
 <p><strong>去偏技术效果如何</strong></p>
@@ -322,10 +323,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/11/28/Paper/2021-11-28-DataAugmentation/" rel="prev"><span class="meta-nav">←</span> Data Augmentation Approaches in Natural Language Processing：A Survey</a></span>
+        <div class="nav-previous">
+          <a href="/2021/11/28/Paper/2021-11-28-DataAugmentation/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Data Augmentation Approaches in Natural Language Processing：A Survey</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/11/13/Python/2021-11-13-Ellipsis/" rel="next">Python Ellipsis <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/11/13/Python/2021-11-13-Ellipsis/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Python Ellipsis</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -450,8 +461,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

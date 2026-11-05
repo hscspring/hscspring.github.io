@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>稳定压倒一切：MoE RL 训推不一致问题及解决策略 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/">
   
   <meta name="description" content="TL;DR  核心矛盾：MoE 模型对输入极度敏感，训练引擎与推理引擎在算子实现、数值精度上的微小差异，会导致同一 Token 在两端选择不同的专家。 现象严重性：实验显示约 94% 的 Token 在一次前向传播中至少有一层路由决策不一致，直接导致策略梯度出现剧烈噪声，引发训练不稳定。 不同策略：算法鲁棒化的 GSPO&#x2F;GMPO，数学偏差补偿的 TIS&#x2F;IcePop，系统强行对齐的 R3&#x2F;Dee">
@@ -27,9 +27,9 @@
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="AI">
 <meta property="article:tag" content="LLM">
+<meta property="article:tag" content="DeepSeek">
 <meta property="article:tag" content="NLP">
 <meta property="article:tag" content="RL">
-<meta property="article:tag" content="DeepSeek">
 <meta property="article:tag" content="GRPO">
 <meta property="article:tag" content="GSPO">
 <meta property="article:tag" content="TIS">
@@ -113,7 +113,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -133,6 +133,7 @@
       稳定压倒一切：MoE RL 训推不一致问题及解决策略
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -168,29 +169,29 @@
 <p>图（b）展示的是针对每一个 token，MoE Router 在所有层中做出不同专家选择的次数。结果显示，在一次前向传播过程中，94% 的 token 至少在一层中选择了不同的专家。</p>
 <p>图（c）展示每一条序列每个 token 的路由分布差异，然后在 token 维度上取平均，得到该序列的平均差异。结果显示，每个 token 的平均差异是 6 个路由。也就是说，一次前向传播大约有 6 次路由决策表现出训推不一致。</p>
 <p>带来的结果就是训推概率分布的不一致（用 KL K3 计算衡量），</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-r3-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-r3-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>前 3 个图无需多言，最后一个是极端（训推分布概率比值超过阈值τ）token 所占比例。</p>
 <p>以上现象表明，MoE 模型在训练与推理阶段之间存在显著更高程度的分布差异。而这种差异会让训练不稳定，甚至崩溃。比如 <a href="https://ringtech.notion.site/icepop">IcePop</a><sup>[2]</sup> 给出的现象，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-icepop-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-icepop-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>接下来我们看看大家如何各显神通来解决这个问题。</p>
 <h2 id="解决策略">解决策略</h2>
 <h3 id="GSPO">GSPO</h3>
 <p>Qwen 发布的，这个我们在《<a href="https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/">GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | 长琴</a><sup>[3]</sup>》中专门介绍过，虽然 GSPO 的出发点不是解决这个问题，但它有个正向的外部性：稳定 MoE 训练。其原因是序列级别关注，对 token 没那么敏感。效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gspo-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gspo-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>嗯，看起来比 GRPO + Routing Replay 效果还要好一些。</p>
 <p>还有同时期的 GMPO 其实和 GSPO 非常像（从出发点到解决方案），我们在刚刚那篇文章中也提到过了，这里不再赘述。</p>
 <h3 id="TIS">TIS</h3>
 <p>来自《<a href="https://fengyao.notion.site/off-policy-rl">2508 Your Efficient RL Framework Secretly Brings You Off-Policy RL Training | Notion</a><sup>[4]</sup>》，其方案是：调整模型更新方式，使其感知到这种训推不匹配。具体做法很简单，对重要性采样（比率）进行校正，经典的做法是“截断”——在原目标前面乘一个截断的重要性比率系数。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tis-1.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tis-1.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>公式表达了一切信息，前面是新增的 TIS 系数，后面是 PPO 目标，θ 是 policy 参数。</p>
 <p>你可能会想，就不能把后面的重要性采样系数换成 TIS 吗？嘿，有的，文章后面做了两个变体实验：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tis-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tis-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>结果如下图所示，</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tis-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tis-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>两个变体看起来都不怎么样。</p>
 <p>对于 Vanilla-IS，如果 IS 比较大，方差会更大（平方放大），进而导致不稳定。而对于 PPO-IS，实验效果也比较差，文章的解释是：这种情况下即便 θ 相同，由于 policy 不同，可能导致系数不等于 1，这和 PPO 的设计（θ 相等时比率=1）是有偏差的。其结果就是，PPO 的 clip 被系统噪声提前触发，梯度还没来得及反映“真实 policy 更新”就被 clip 掉了。</p>
 <p>而 TIS 其实是做了一个因式分解：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-tis-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-tis-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>第一项就是 TIS 前面的那个 IS，属于系统性偏差，截断变成 TIS 是防止方差过大；</li>
 <li>第二项是 policy update 的 IS，用 PPO 的 clip。</li>
@@ -214,9 +215,9 @@
 <li>Mask：从梯度更新中移除差异过大的 token。</li>
 </ul>
 <p>损失函数如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-icepop-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-icepop-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>看到这个 Mask，很容易就想起了 <a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">CISPO</a><sup>[6]</sup> 有没有，就 Mask 的这个作用来看，它们其实是一致的，只不过对象不同。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-cispo-2.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-cispo-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>大家都是为了稳定呀。</p>
 <p>IcePop 看起来和 TIS 有点像，文中解释了两者的区别：</p>
 <ul>
@@ -224,7 +225,7 @@
 <li>当 IS &gt; β 时，TIS 会乘以一个适中的系数持续更新 policy。而 IcePop 梯度为零，这意味着放弃所有噪声更新，只保留那些健康的策略梯度。</li>
 </ul>
 <p>其实 <strong>IcePop 看起来像是 token 级别截断的 TIS</strong>。效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-icepop-3.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-icepop-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>后续的分析表明，TIS 和 IcePop 都能将训练-推理概率的 KL 散度控制在合理范围内，但 IcePop 的差异一直相对较小，TIS 始终表现出更大的极端差异和更快的增长速度。作者猜测这可能由于 TIS 在训练过程中包含了噪声策略更新导致。</p>
 <h3 id="R3">R3</h3>
 <p>来自罗福莉挂名，小米的《<a href="https://arxiv.org/abs/2510.11370">2510 Stabilizing MoE Reinforcement Learning by Aligning Training and Inference Routers</a><sup>[7]</sup>》，R3 = Rollout Routing Replay。不知道为啥，每次看到 Replay 都会莫名想到 “重放攻击”……</p>
@@ -248,7 +249,7 @@
 <li>保持梯度传递：只重放路由分布（<strong>而不是固定权重</strong>），梯度仍然可以回传到 logits（权重可以改变）。类似软对齐和硬对齐的区别。</li>
 </ul>
 <p>我们还是看一下最终效果，毕竟里面还有 GSPO 和 TIS。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-r3-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-r3-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>括号里的是最佳步数。看起来 GRPO + R3 好像就可以了。</p>
 <h3 id="路由保持">路由保持</h3>
 <p>DeepSeek V3.2 的策略，这个我们在《<a href="https://yam.gift/2025/12/03/NLP/LLM-Training/2025-12-03-DeepSeek-V32-PostTraining/">DeepSeekV3.2后训练：稳定压倒一切 | 长琴</a><sup>[8]</sup>》中介绍过，他们的做法是比较粗暴的：直接在推理框架中保留采样时使用的专家路由路径，并在训练阶段强制使用相同的路由路径。显然，这肯定是有效果的，应该说是最有效果了。论文虽然没有给出对比图，但明确提到这一操作对稳定性至关重要。</p>
@@ -346,10 +347,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" rel="prev"><span class="meta-nav">←</span> 为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</a></span>
+        <div class="nav-previous">
+          <a href="/2026/01/18/AI/2026-01-18-Upgrade-VibeCoding/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">为了让AI干活儿，我竭尽所能——我的 Vibe Coding 认知升级之路</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2026/01/15/ListenGlimmer/004/" rel="next">【聆听·微光】004：一位算法后端开发工程师的AI转型之路 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2026/01/15/ListenGlimmer/004/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">【聆听·微光】004：一位算法后端开发工程师的AI转型之路</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -474,8 +485,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

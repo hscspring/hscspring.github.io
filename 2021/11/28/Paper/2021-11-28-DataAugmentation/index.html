@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>Data Augmentation Approaches in Natural Language Processing：A Survey | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/11/28/Paper/2021-11-28-DataAugmentation/">
   
   <meta name="description" content="论文：[2110.01852] Data Augmentation Approaches in Natural Language Processing: A Survey Code：无 一句话概述：全面和结构化的数据增强文献综述。 摘要：DA 缓解了深度学习中数据不足的场景，在图像领域首先得到广泛使用，进而延伸到 NLP 领域，并在许多任务上取得效果。一个主要的方向是增加训练数据的多样性，从而提高">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       Data Augmentation Approaches in Natural Language Processing：A Survey
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -161,7 +162,7 @@
 <h2 id="NLP中的数据增强方法">NLP中的数据增强方法</h2>
 <h3 id="基于释义的方法">基于释义的方法</h3>
 <p>释义的重点是使增强数据的语义尽可能与原始数据相似。可能出现在多个层次：词汇、短语和句子。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>同义词：
 <ul>
@@ -212,7 +213,7 @@
 </ul>
 <h3 id="基于噪声的方法">基于噪声的方法</h3>
 <p>基于噪声的方法添加了不严重影响语义的微弱噪声，使其适当偏离原始数据。人类可以通过对语言现象和先验知识的掌握，大大降低弱噪声对语义理解的影响，但这种噪声可能会给模型带来挑战。因此，该方法不仅扩大了训练数据量，而且提高了模型的鲁棒性。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>
 <p>交换</p>
@@ -312,7 +313,7 @@
 <p>Bti Btj 表示两个原始句子的第 t 个词，f(Bi) f(Bj) 表示隐层句子表示，yi yj 表示相应的原始标签。</p>
 <h3 id="基于采样的方法">基于采样的方法</h3>
 <p>与基于释义的模型类似，它们也涉及规则和已训练的模型来生成增强数据。不同之处在于基于采样的方法是特定于任务的，需要任务信息，如标签和数据格式。</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>规则：与释义方法不同，不保证结果与原始数据相似（甚至不同标签）
 <ul>
@@ -437,7 +438,7 @@
 </tbody>
 </table>
 <h3 id="分析">分析</h3>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <ul>
 <li>可学习的方法常常更加复杂，因此基于采样的方法可以生成更加多样和流畅的数据。</li>
 <li>Mixup 是唯一的在线学习方法，就是说增强数据的生成不依赖下游任务训练。因此，Mixup 是唯一一种从增强数据中输出交叉标签和离散嵌入的方法。</li>
@@ -496,7 +497,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-da-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-da-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <h3 id="过滤">过滤</h3>
 <ul>
 <li>在初始阶段过滤一些输入数据，以避免不适当的输入影响增强效果。典型的例子是句子长度——过滤掉太短的句子。</li>
@@ -574,10 +575,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/12/04/Paper/2021-12-04-Prompt/" rel="prev"><span class="meta-nav">←</span> Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP</a></span>
+        <div class="nav-previous">
+          <a href="/2021/12/04/Paper/2021-12-04-Prompt/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Pretrain, Prompt and Predict, A Systematic Survey of Prompting Methods in NLP</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/11/18/Paper/2021-11-18-Debiasing/" rel="next">Debiasing Techniques for Pre-Trained Language Models <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/11/18/Paper/2021-11-18-Debiasing/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">Debiasing Techniques for Pre-Trained Language Models</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -702,8 +713,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

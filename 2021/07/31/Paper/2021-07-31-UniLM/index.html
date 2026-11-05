@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>UniLM | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2021/07/31/Paper/2021-07-31-UniLM/">
   
   <meta name="description" content="论文：[1905.03197] Unified Language Model Pre-training for Natural Language Understanding and Generation Code：microsoft&#x2F;unilm: UniLM AI - Unified “Language” Model Pre-training across Tasks, Languages, an">
@@ -107,7 +107,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -127,6 +127,7 @@
       UniLM
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -152,7 +153,7 @@
 </ul>
 <h2 id="UniLM">UniLM</h2>
 <p>主要就是使用 Mask 来控制在计算上下文表征时需要哪些以及多少上下文的 Token，高清大图：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-2.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-2.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>输入</strong></p>
 <ul>
 <li>单向 LM：一个文本分割</li>
@@ -209,7 +210,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <li>作为 Seq2Seq 模型进行微调，Document 作为第一个分割，Summary 作为第二个分割。</li>
 <li>微调 30 Epoch，MaskProb=0.7，Label 平滑 rate=0.1，BeamSearch BeamSize=5</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-3.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-3.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>QA</strong></p>
 <ul>
 <li>抽取式 QA：
@@ -229,7 +230,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </ul>
 </li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-4.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>问题生成</strong></p>
 <ul>
 <li>给定输入段落和 Answer Span，生成答案的问题。</li>
@@ -239,7 +240,7 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <li>Decoding 时：长度为 464 Token 包含 Answer 的段落块</li>
 <li>问题生成任务生成的增强数据能够提升 QA 模型的效果</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-6.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>Response 生成</strong></p>
 <ul>
 <li>生成多轮对话的回复，既要使会话恰当，同时也能反映文档内容</li>
@@ -248,13 +249,13 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <li>微调 20 Epoch，BatchSize=64，MaskProb=0.5，MaxLen=512</li>
 <li>Decoding：BeamSearch BeamSize=10，回复的 MaxLen=40</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-5.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p><strong>GLUE</strong></p>
 <ul>
 <li>作为双向 LM 微调，最大 Epoch=5</li>
 <li>Adamax 优化器，LR=5e-5，BatchSize=32，Linear LR Decay，Warmup 0.1，最后的线性连接 Dropout=0.1（MNLI 0.3，CoLA/SST-2 0.05），梯度截断 1，MaxLen=512</li>
 </ul>
-<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-7.jpg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-unilmv1-7.jpg" alt="" loading="lazy" decoding="async"></p>
 <h2 id="结论">结论</h2>
 <p>提出了一个统一的预训练模型，使用参数共享同时优化几个不同的 LM，使得预训练模型可以同时在 NLU 和 NLG 上进行微调。未来的改进方向：</p>
 <ul>
@@ -309,10 +310,20 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2021/08/05/Unix/2021-08-05-Docker/" rel="prev"><span class="meta-nav">←</span> Docker Memo</a></span>
+        <div class="nav-previous">
+          <a href="/2021/08/05/Unix/2021-08-05-Docker/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Docker Memo</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2021/07/18/Paper/2021-07-18-VOLT/" rel="next">通过最优转移进行词表学习：VOLT <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2021/07/18/Paper/2021-07-18-VOLT/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">通过最优转移进行词表学习：VOLT</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -437,8 +448,9 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

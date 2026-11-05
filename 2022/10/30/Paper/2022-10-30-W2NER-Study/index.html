@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>W2NER解读 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2022/10/30/Paper/2022-10-30-W2NER-Study/">
   
   <meta name="description" content="NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：NNW（Next-Neighboring-Word）和">
@@ -112,7 +112,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -132,6 +132,7 @@
       W2NER解读
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -163,7 +164,7 @@
 <p>大多数现有的 NER 工作主要考虑更准确的实体边界识别，不过在仔细重新思考了三种不同类型 NER 的共同特征后，作者发现统一 NER 的瓶颈更多在于<strong>实体词之间相邻关系的建模</strong>。这种邻接相关性本质上描述了部分文本片段之间的语义连通性，尤其对于重叠和不连续的部分起着关键作用。如下图 a 所示：</p>
 <p><img src="https://qnimg.lovevivian.cn/paper-w2ner-1.jpeg" alt=""></p>
 <p>因此，本文提出了一种词-词关系分类的架构——W2NER，有效地对实体边界和实体词之间相邻关系进行建模。如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-3.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-3.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>关系包括以下几种类型：</p>
 <ul>
 <li><code>NONE</code>：表示词对没有任何关系；</li>
@@ -174,7 +175,7 @@
 <p>而且 NNW 和 THW 关系还暗示 NER 的其他影响，比如 NNW 关系将同一不连续的实体片段关联起来（如 aching in 和 shoulders），也有利于识别实体词（相邻的）和非实体词（不相邻的）。THW 关系有助于识别实体的边界。</p>
 <h2 id="模型架构">模型架构</h2>
 <p>整体的网络架构如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-2.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-2.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>总的来看，首先 BERT 和 LSTM 提供上下文特征，然后一个词-词关系的 2D 网格被构建，接下来是一个多粒度 2D 卷积用来精调词对表示，有效捕获相邻或不相邻词对的交互。最后一个联合预测器对词-词关系进行推理并产生所有可能的实体 Mention，其中 Biaffine 和 MLP 被联合使用以获得互补好处。</p>
 <h2 id="输入">输入</h2>
 <p>假设使用如下量句训练数据：</p>
@@ -286,7 +287,7 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Biaffine</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, n_in, n_out=<span class="number">1</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(Biaffine, <span class="variable language_">self</span>).__init__()</span><br><span class="line"></span><br><span class="line">        <span class="variable language_">self</span>.n_in = n_in</span><br><span class="line">        <span class="variable language_">self</span>.n_out = n_out</span><br><span class="line">        <span class="variable language_">self</span>.bias_x = <span class="literal">True</span></span><br><span class="line">        <span class="variable language_">self</span>.bias_y = <span class="literal">True</span></span><br><span class="line">        weight = torch.zeros((n_out, n_in + <span class="built_in">int</span>(bias_x), n_in + <span class="built_in">int</span>(bias_y)))</span><br><span class="line">        nn.init.xavier_normal_(weight)</span><br><span class="line">        <span class="comment"># LNxHXH</span></span><br><span class="line">        <span class="variable language_">self</span>.weight = nn.Parameter(weight, requires_grad=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, y</span>):</span><br><span class="line">        <span class="comment"># 输入x和y：BxLxH</span></span><br><span class="line">        <span class="comment"># 加bias</span></span><br><span class="line">        x = torch.cat((x, torch.ones_like(x[..., :<span class="number">1</span>])), -<span class="number">1</span>)</span><br><span class="line">        y = torch.cat((y, torch.ones_like(y[..., :<span class="number">1</span>])), -<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># [batch_size, n_out(LN), seq_len, seq_len]</span></span><br><span class="line">        <span class="comment"># oij,bxi-&gt;bxoj, bxoj,byj-&gt;boxy</span></span><br><span class="line">        s = torch.einsum(<span class="string">&#x27;bxi,oij,byj-&gt;boxy&#x27;</span>, x, <span class="variable language_">self</span>.weight, y)</span><br><span class="line">        <span class="comment"># remove dim 1 if n_out == 1</span></span><br><span class="line">        s = s.permute(<span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> s</span><br><span class="line">    </span><br><span class="line"><span class="keyword">class</span> <span class="title class_">CoPredictor</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, cls_num, hid_size, biaffine_size, channels, ffnn_hid_size, dropout=<span class="number">0</span></span>):</span><br><span class="line">        <span class="built_in">super</span>().__init__()</span><br><span class="line">        <span class="variable language_">self</span>.mlp1 = MLP(n_in=hid_size, n_out=biaffine_size, dropout=dropout)</span><br><span class="line">        <span class="variable language_">self</span>.mlp2 = MLP(n_in=hid_size, n_out=biaffine_size, dropout=dropout)</span><br><span class="line">        <span class="variable language_">self</span>.biaffine = Biaffine(n_in=biaffine_size, n_out=cls_num, bias_x=<span class="literal">True</span>, bias_y=<span class="literal">True</span>)</span><br><span class="line">        <span class="variable language_">self</span>.mlp_rel = MLP(channels, ffnn_hid_size, dropout=dropout)</span><br><span class="line">        <span class="variable language_">self</span>.linear = nn.Linear(ffnn_hid_size, cls_num)</span><br><span class="line">        <span class="variable language_">self</span>.dropout = nn.Dropout(dropout)</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x, y, z</span>):</span><br><span class="line">        <span class="comment"># 直接用词表征</span></span><br><span class="line">        h = <span class="variable language_">self</span>.dropout(<span class="variable language_">self</span>.mlp1(x))</span><br><span class="line">        t = <span class="variable language_">self</span>.dropout(<span class="variable language_">self</span>.mlp2(y))</span><br><span class="line">        o1 = <span class="variable language_">self</span>.biaffine(h, t)</span><br><span class="line">        <span class="comment"># 用卷积输出</span></span><br><span class="line">        z = <span class="variable language_">self</span>.dropout(<span class="variable language_">self</span>.mlp_rel(z))</span><br><span class="line">        o2 = <span class="variable language_">self</span>.linear(z)</span><br><span class="line">        <span class="keyword">return</span> o1 + o2</span><br><span class="line"></span><br><span class="line">outputs = <span class="variable language_">self</span>.predictor(word_reps, word_reps, conv_outputs)</span><br></pre></td></tr></table></figure>
 <h2 id="Decoding">Decoding</h2>
 <p>模型预测的是词和它们的关系，可以看作有向图，解码目标是使用 NNW 关系在图中查找从一个单词到另一个单词的某些路径。每个路径对应于一个实体 Mention。除了 NER 的类型和边界标识外，THW 关系还可以用作消除歧义的辅助信息。</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-5.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-5.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>如上图所示几个例子：</p>
 <ul>
 <li>a：两个路径对应平铺的实体，THW 关系表示边界和类型。</li>
@@ -302,20 +303,20 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 <h2 id="结果">结果</h2>
 <p>共 14 个数据集，包括平铺的、重叠的和不连续的。Baseline 包括常用的几种方法（前文介绍过）。</p>
 <p><strong>平铺NER</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-6.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-6.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>在中英文数据集均取得不错的效果。</p>
 <p><strong>重叠NER</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-7.jpeg" alt=""></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-8.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-7.jpeg" alt="" loading="lazy" decoding="async"></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-8.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>通过上面的结果可以发现，除了本文的方法，其实基于 Span 的方法也是效果不错的。</p>
 <p><strong>不连续NER</strong></p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-9.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-9.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>此外，考虑到后面两种情况中也包含了平铺 NER，所以，也评估了只有重叠和不连续 NER 的效果：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-10.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-10.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>这下效果明显了，尤其是不连续 NER，效果好出一大截。</p>
 <p><strong>消融</strong></p>
 <p>结果如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-11.jpeg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-w2ner-11.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>列出比较重要的因素：</p>
 <ul>
 <li>NNW：尤其对不连续 NER 效果明显（CADEC 数据集）</li>
@@ -372,10 +373,20 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2022/11/15/Unix/2022-11-15-IDE/" rel="prev"><span class="meta-nav">←</span> IDE Memo</a></span>
+        <div class="nav-previous">
+          <a href="/2022/11/15/Unix/2022-11-15-IDE/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">IDE Memo</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/10/23/CogPsy/2022-10-23-Structured-Strategic-Thought/" rel="next">《麦肯锡战略化思维》读书笔记 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/10/23/CogPsy/2022-10-23-Structured-Strategic-Thought/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">《麦肯锡战略化思维》读书笔记</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -500,8 +511,9 @@ c-4-3.333-8.333-7.667-13 -13l-13-13l77-155 77-156c66 199.333 139 419.667
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

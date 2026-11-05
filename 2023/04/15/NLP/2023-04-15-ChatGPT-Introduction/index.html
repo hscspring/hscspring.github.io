@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>ChatGPT 基础科普：知其一点所以然 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/04/15/NLP/2023-04-15-ChatGPT-Introduction/">
   
   <meta name="description" content="本文属于DataWhale开源组织HuggingLLM开源项目内容，更多内容请移步开源项目。  2022年底，ChatGPT突然间在AI圈开始流行，准确来说是搞自然语言处理（Natural Language Processing，NLP）圈子里先火起来了。遥想当时，本以为就会在圈内火一阵，结果现在……没想到居然成了AI的救命稻草，当然对AI工程师尤其是NLP工程师是什么就不好说了。海内外沸腾之后">
@@ -114,7 +114,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -134,6 +134,7 @@
       ChatGPT 基础科普：知其一点所以然
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -192,10 +193,10 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">X = [<span class="number">0.001</span>, <span class="number">0.002</span>, <span class="number">0.0052</span>, ..., <span class="number">0.0341</span>] <span class="comment"># d维，加起来和1没关系，大小是1×d</span></span><br><span class="line">Y = [<span class="number">0.1</span>, <span class="number">0.5</span>, ..., <span class="number">0.005</span>, <span class="number">0.3</span>] <span class="comment"># N个，加起来=1，大小是1×N</span></span><br><span class="line">W·X = Y  <span class="comment"># W自然可以是 d×N 维的矩阵</span></span><br></pre></td></tr></table></figure>
 <p>上面的W就是模型的参数，其实X也可以看作是参数自动学习到。因为我们知道了输入和输出的大小，所以中间其实可以经过任意随意的计算，总之就是各种张量（三维以上数组）运算，只要保证最后的形式不变就行。这中间的各种计算就意味着各种不同的模型。</p>
 <p>在深度学习的初期，最著名的语言模型是RNN，Recurrent Neural Network，中文叫循环神经网络。RNN 模型与其他神经网络不同的地方在于，它的节点之间存在循环连接，这使得它能够记住之前的信息，并将它们应用于当前的输入。这种记忆能力使得 RNN 在处理时间序列数据时特别有用，例如预测未来的时间序列数据、自然语言处理等。通俗地说，RNN 就像一个具有记忆功能的人，可以根据之前的经验和知识对当前的情况做出反应，并预测未来的发展趋势。如下图所示：</p>
-<p><img src="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" alt=""></p>
+<p><img src="https://colah.github.io/posts/2015-08-Understanding-LSTMs/img/RNN-unrolled.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图2：RNN，来自：<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/%EF%BC%89">https://colah.github.io/posts/2015-08-Understanding-LSTMs/）</a></p>
 <p>右边是左边的展开，A就是参数，X是输入，h就是输出，由于自然语言是Token by Token的，所以就组成了一个序列。那这个参数怎么学习呢？这就要稍微解释一下学习过程，请看下面的图：</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-2.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-2.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图3：语言模型输入输出）</p>
 <p>第一行就是X，第二行就是Y，SOS表示Start of Sentence，EOS就不多解释了。注意，上面的h并不是那个输出的概率，而是hidden state，如果需要概率，可以将h再做一个张量运算，归一化到整个词表即可。简单的演示一下代码：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line">rnn = nn.RNN(<span class="number">32</span>, <span class="number">64</span>)</span><br><span class="line"><span class="built_in">input</span> = torch.randn(<span class="number">4</span>, <span class="number">32</span>)</span><br><span class="line">h0 = torch.randn(<span class="number">1</span>, <span class="number">64</span>)</span><br><span class="line">output, hn  = rnn(<span class="built_in">input</span>, h0)</span><br><span class="line">output.shape, hn.shape</span><br><span class="line"><span class="comment"># (torch.Size([4, 64]), torch.Size([1, 64]))</span></span><br></pre></td></tr></table></figure>
@@ -209,11 +210,11 @@
 <p>接下来出场的是Transformer，一个刚开始在NLP领域，后来横跨到语音和图像领域，并最终统一几乎所有模态的架构。这是Google2017年发的一篇论文，标题叫《Attention Is All You Need》，其最重要的核心就是提出来的Self-Attention机制，中文也叫自注意力。简单来说，就是在语言模型建模过程中，把注意力放在那些重要的Token上。想来，Google在发表论文之初也没有料想到今天吧。</p>
 <p>Transformer是一种Encoder-Decoder架构，简单来说就是先把输入映射到Encoder，这里大家可以把Encoder先想象成上面介绍的RNN，Decoder也可以想象成RNN。这样，左边负责编码，右边则负责解码。这里面不同的是，左边因为我们是知道数据的，所以建模时可以同时利用当前Token的历史Token和未来（前面的）Token；但解码时，因为是一个Token一个Token输出来的，所以只能根据历史Token以及Encoder的Token表示进行建模，而不能利用未来的Token。</p>
 <p>Transformer的这种架构从更普遍的角度来看，其实是Seq2Seq架构，大家别慌，这简单来说就是序列到序列模型，也就是输入是一个文本序列，输出是另一个文本序列。翻译就是个很好的例子，我们看下面这个来自Google的GNMT（Google Neutral Machine Translation）的经典图片：</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-3.gif" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-3.gif" alt="" loading="lazy" decoding="async"></p>
 <p>（图4：GNMT图示，来自GNMT GitHub：<a href="https://github.com/belvo/Google-Neural-Machine-Translation-GNMT-%EF%BC%89">https://github.com/belvo/Google-Neural-Machine-Translation-GNMT-）</a></p>
 <p>刚刚已经说了，Encoder和Decoder可以采用RNN，最终就是Encoder所有Token最终输出一个向量，作为整句话的表示。说到这里，整句话又怎么表示呢？刚刚上面我们也提到过，如果RNN这种结构，可以把最后一个Token的输出作为整个句子的表示。当然了，很符合直觉地，你也可以取每个Token向量的平均值，或第一个和最后一个的平均值，或后面N个的平均值。这些都可以，问题不大，不过一般取平均的情况比较多，效果要好一些。除了平均值，也可以求和、取最大值等，我们就不多深入讨论了。现在重点来了，看Decoder的过程，仔细看，其实它在生成每一个Token时都用到了Encoder每一个Token的信息，以及它已经生成的Token的信息。前面这种关注Encoder中Token的信息的机制就是Attention（注意力机制）。直观点解释，当生成Knowledge时，「知识」两个字会被赋予更多权重，其他也是类似。</p>
 <p>让我们带着上面的记忆，看一下Transformer的结构，如下图所示：</p>
-<p><img src="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-1.jpeg" alt=""></p>
+<p><img src="http://qnimg.lovevivian.cn/paper-attention-is-all-you-need-1.jpeg" alt="" loading="lazy" decoding="async"></p>
 <p>（图5：Transformer，来自Transformer论文）</p>
 <p>这个图更多的是体现了内部结构。左边是Encoder的一个Block（一共N个），右边是Decoder的一个Block（一共N个），简单起见，我们可以假设N=1，那左边这个结构就是一个Encoder，右边的就是Decoder。也可以把它们就想象成一个RNN，这样有助于从宏观上把握。现在，想象完了，我们回到现实，Transformer 用到的东西和RNN并没有关系，通过上图也可以看出来，它主要用了两个模块：Multi-Head Attention和Feed Forward。对于前者，我们不妨回顾一下GNMT的Attention，它是Decoder中的Token和Encoder中每一个Token的重要性权重。Multi-Head Attention中用到一个东西叫SelfAttention，和刚刚说的Attention非常类似，只不过它是自己的每一个Token和自己的每一个Token的重要性权重。简单来说，就是一句话到底哪里重要。这玩意儿可以说是非常精髓了，无论是ChatGPT，还是其他非文本的模型，几乎都用到了它，可以说是真正的一统江湖。Multi-Head是啥意思呢，简单来说，就是把刚刚的这种自己注意自己重复Multi次（Multi个Head），每个注意到的信息不一样，这样就可以捕获到更多信息。比如我们前面提过的这句话：「我喜欢在深夜的星空下伴随着月亮轻轻地想你」，有的Head「我」注意到「喜欢」，有的Head「我」注意到「深夜」，有的Head「我」注意到「想你」……这样看起来是不是更加Make Sense。对于Feed Forward，大家可以把它当做「记忆层」，大模型的大部分知识都存在这里面，Multi-Head Attention则根据不同权重的注意提取知识。</p>
 <p>实际中，大多数NLP任务其实并不是Seq2Seq的，最常见的主要包括这么几种：句子级别分类、Token级别分类（也叫序列标注）、相似度匹配和生成；而前三种应用最为广泛。这时候Encoder和Decoder就可以拆开用了。左边的Encoder在把句子表示成一个向量时，可以利用上下文信息，也就是说，可以把它看作是双向的；右边的Decoder不能看到未来的Token，一般只利用上文，是单向的。虽然它们都可以用来完成刚刚提到的几个任务，但从效果上来说，Encoder更加适合非生成类任务，Decoder更加适合生成类任务。在NLP领域，一般也会把它们分别叫做NLU（Natural Language Understanding，自然语言理解）任务和NLG（Natural Language Generation，自然语言生成）任务。</p>
@@ -223,11 +224,11 @@
 <h3 id="GPT">GPT</h3>
 <p>GPT，Generative Pre-trained Transformer，没错了，就是ChatGPT的那个GPT，中文叫「生成式预训练Transformer」。生成式的意思就是类似语言模型那样，Token by Token生成文本，也就是上面提到的Decoder。预训练刚刚液体过了，就是在大量语料上训练的语言模型。GPT模型从1到4，一共经历了5个版本，中间有个ChatGPT是3.5版，接下来我们分别介绍它们的基本思想。</p>
 <p>GPT1和BERT一样，走的是下游任务微调套路，也就是固定住预训练模型不动，然后在不同下游任务上微调一个模型，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-4.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-4.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图6：GPT基本结构，来自GPT论文）</p>
 <p>左边我们上面已经介绍过了，用的就是Transformer的架构（GPT中是Decoder），具体里面的子模块可以不用关注。重点看看右边，这里有一个值得注意的地方，就是针对不同的任务输入，都拼接成文本序列，然后丢给Transformer Decoder再通过一个Linear+SoftMax输出结果。Linear是一种最基础的网络结构，SoftMax我们前面介绍过，主要用来把输出映射到概率分布（和为1）。这种拼接输入的方法日后在当时那个大模型时代非常流行的，紧跟其后的BERT也是类似的方式。这样统一的处理方法能够减少不同任务对模型的改动。反正不管什么任务，都想方设法搞成一个序列就行。</p>
 <p>这篇文章还有几个点在当时看起来可能没啥感觉，但现在回看却有点意思（就像乔布斯说的dot）。第一个是预训练层数和任务表现的关系，如左下图所示；第二个是训练参数数量和模型性能关系。</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-5.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-5.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图7：左图是GPT参数量与效果图，右图是Zero-Shot能力，来自GPT论文）</p>
 <p>上图可以得出两个基本结论：第一，预训练模型中的每一层都包含用于解决目标任务的有用功能，说明多层有更多能力；第二，随着参数的增加，Zero-Shot获得更好的性能。简单总结来看就是，模型大了不仅能学到更多知识，有助于解决下游任务，还表现出了Zero-Shot能力。</p>
 <blockquote>
@@ -235,7 +236,7 @@
 </blockquote>
 <p>好了，有了上面的结论，很自然会怎么样？是不是想看看更多层（更多参数）的表现如何？于是半年多后GPT-2来了，参数量从GPT的110M增加到了1.5B，十倍于前者。更有意思的是，在GPT论文的<a href="https://openai.com/research/language-unsupervised">博客</a>中有一个「未来工作」，放在第一个的就是扩大规模，还有两个分别是提升微调和更好地理解为什么生成式预训练能提升理解（NLU）能力。</p>
 <p>GPT发表于2018年6月，GPT-2发表于2019年2月，就是前者的升级版：一个是扩大规模，再就是Zero-Shot。如果说前者是观察到了这个现象，那后者就是进一步研究这个现象。请看下面这张图：</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-6.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-6.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图8：参数量和Zero-Shot表现，来自GPT-2论文）</p>
 <p>纵坐标是不同任务的评估指标，横坐标是参数量，效果一目了然。进一步验证了前面的想法，那下一步要做的就是继续扩大规模……不过且慢，在此之前我们不妨看一下GPT-2中的Token生成策略，也就是生成下一个Token时的方法。前面第一部分我们提到过比较优秀的Beam Search，不过它有两个比较明显的问题，第一是生成的内容容易重复；第二是高质量的文本和高概率并不一定相关，人更加喜欢有「不一样」的内容，而不是完全可预测的，比如张爱玲说过「孤独的人有他们自己的泥沼」，这种独一无二的文字用高概率的词大概率是得不到的。简单来看，这两个问题其实可以归结为一个点：生成的内容确定性太大。</p>
 <p>现在，我们介绍一种基于采样的方法，简单点来说，就是基于已有的上下文随机选择下一个Token。不过随机也有问题，那就是可能生成不连贯的文本（很容易理解对吧）。这里有个Trick可以缓解这个问题——进一步增加高概率词的可能性，降低低概率词的可能性。这样就不太容易随机到很低概率（很可能不连贯）的生成。具体的做法是用过一个<code>temperature</code>的参数调整输出的概率分布，这个参数值越大，分布就看起来越平滑，也就是高概率和低概率的差距拉小了（对输出不那么确定）；当然越小的话，高概率和低概率的差距更明显了（对输出比较确定）。如果趋近于0，那就和Greedy Search一样了。这在深度学习中是一种比较常见的方法，感兴趣的读者可以进一步读一下这个StackOverflow的<a href="https://stackoverflow.com/questions/58764619/why-should-we-use-temperature-in-softmax/63471046#63471046">解释</a>。</p>
@@ -243,7 +244,7 @@
 <p>于是，2020年的这篇<a href="https://arxiv.org/pdf/1904.09751.pdf">论文</a>提出了另外一种采样方案：Top-P，GPT-2里也有这个策略。这种策略是在累计概率超过P的词里进行选择。这样，对于概率分布比较均匀的情况，可选的词就会多一些（可能要几十个词的概率和才会超过P）；对于概率分布不均匀的情况，可选的词就少一些（可能2-3个词的概率就超过了P）。</p>
 <p>Top-P看起来更加优雅一些，两者也可以结合使用，不过大部分时候当我们需要调的时候，调一个就好，包括前面的tempreture参数。如果要调多个，请确保理解每个参数的作用。最后，需要说明的是，任何一种采样策略都不能100%保证每一次生成的效果都很好，也没办法避免生成重复的话（可以考虑使用类似后处理的方法缓解）。也没有一种策略是在任何场景下都适用的，需要根据实际情况灵活选择。</p>
 <p>GPT-3是2020年7月发表的，在当时也是个大新闻，因为它的参数量已经达到了其他任何模型在当时望尘莫及的量级：175B，是GPT-2的100多倍。而且，没有开源。伸手党有点尴尬。GPT-3是觉得既然有Zero-Shot能力，那能不能不微调呢，碰到一个任务就微调这多麻烦。你看看人类，只要几个例子（Few-Shot）和一些简单的说明就可以处理任务了是不是。怎么办？GPT-2不是进一步确认了Zero-Shot能力了吗，上，继续上，加大参数量，于是就有了175B的GPT-3。也就是说，各种任务来吧，我不调参数，顶多就要几个例子（下一步连这个也不要了），我就能给你搞定它。其实现在回头看，这篇论文是具有里程碑意义的，因为它从根本上触动了原有的范式，而且是革命式地触动。关于这点，我之前写过一篇文章：<a href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/">GPT3 和它的 In-Context Learning | Yam</a>，感兴趣的读者可以进一步阅读。可惜当时没读出来，现在回忆，还是因为175B在当时看起来太大了，而且也太贵了（几百万美元呢），效果再好又能咋样，玩儿不起啊。这不光是小部分人没意识到，可能是除了OpenAI团队之外的整个世界都没意识到。先看下面这个图：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>（图9：X-Shot在不同参数量级的表现，来自GPT-3论文）</p>
 <p>这张图可以提供几个信息：</p>
 <ul>
@@ -252,7 +253,7 @@
 <li>Few-Shot的边际收益在递减。大概8-Shot以下时，Prompt作用明显，但从One-Shot到8-Shot，Prompt的作用也在递减。超过10-Shot时，Prompt基本没作用了。</li>
 </ul>
 <p>总而言之，大模型具有In-Context能力，这种能力使得它不需要针对不同任务再进行适应性训练（微调），它用的就是它自己本身的理解力。这本来应该很让人震惊（甚至有一丢丢惊恐），不过大家可能都先被它的价格和规模震惊到了。接下来，我们在直观感受一下利用这种In-Context能力完成任务的方式，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>（图10：如何使用In-Context能力完成任务，来自GPT-3论文）</p>
 <p>看起来一点都不复杂，你只要按照它的格式把输入构建好放进去就可以了。这，也是本项目之所以存在的一个很重要的原因——AI已经平民化了，现在你只要有手（可能以后没手也行），通过使用LLM（Large Language Model）就可以做出AI应用了。</p>
 <p>最后值得一提的是GPT-3中的展望（他们真的是沿着「展望」在往前推进，而不是写一下就完事了）。在论文的《局限》小节，他们提出了GPT-3目前的一些问题，其中有两点要特别指出，因为它们是下一代InstructGPT（也是ChatGPT的姐妹版）以及更高级版本的方向。</p>
@@ -264,11 +265,11 @@
 <h3 id="RLHF">RLHF</h3>
 <p>RLHF，Reinforcement Learning from Human Feedback，从人类反馈中学习，听起来怎么平平无奇。确实，它的思想非常朴素简单，但却有着不可忽视的效果。刚刚我们已经提到了，GPT-3说未来要找新的方法，这其中就包括从人类中学习、强化学习微调、多模态等。时至今日，从InstructGPT到ChatGPT，再到GPT-4，它一步一步在实现这些新的方法。这里有一点需要提醒，这些方向并不是一开始就清晰地摆在那里的，中间还是有非常多的探索和阶段性成果（既有他们自己的研究，也有其他从业人员的研究）。千万不要看到结果觉得平平无奇，尤其是作为非行业人士（特别是有些媒体），这中间的艰难探索永远值得尊敬。另外，有时候即便知道了方法，要做出来，还做出效果来，这也是非常有难度的。而且本文由于科普性质，只能介绍一丢丢内容，虽然整体结构比较完整，但总体还是比较浅显（所以标题是「一点所以然」）。总的来说，要做出来很有难度，不过我们只是用的话，如前面所言，有手就行。</p>
 <p>好了，言归正传，RLHF被人熟知应该主要是源自OpenAI的InstructGPT这篇论文，当然更大范围的熟知就是ChatGPT的发布。因为后者没有论文，也没有开源，所以我们也只能拿InstructGPT的管窥一窥ChatGPT的豹。当然，如果按照ChatGPT<a href="https://openai.com/blog/chatgpt">官方页面</a>的说法，这个「管」可能还比较粗。如果用简单的语言来描述InstructGPT，其实就是用强化学习的算法微调一个根据人类反馈改进的语言模型。重要的是，它调出了效果——1.3B的InstructGPT堪比175B的GPT-3，如下图所示：</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-7.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-7.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图11：不同策略不同模型效果对比，来自InstructGPT论文）</p>
 <p>上面一共五根线，我们稍微解释一下，上面两根（PPO）的，就是InstructGPT设置下的结果；中间那根SFT可以理解成GPT-3+微调，理论上来说（实际也是这样）微调后的效果要好于Few-Shot，更好于Zero-Shot；下面两根是GPT-3的结果。当然，这个评测方式可能有一点值得商酌。</p>
 <p>好了，现在咱们看看它是如何做的，RLHF在其中又是起了什么作用，如何起作用的。还是那张被到处张贴的图，如果要统计引用率，我感觉这张图绝对不低。</p>
-<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-8.png" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/ChatGPT-Intro-8.png" alt="" loading="lazy" decoding="async"></p>
 <p>（图12：InstructGPT工作流程，来自InstructGPT论文）</p>
 <p>这张图比较直观的展示了InstructGPT的整个流程。共三个步骤：</p>
 <ul>
@@ -353,10 +354,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" rel="prev"><span class="meta-nav">←</span> ChatGPT 开发指南：Hugging LLM Hugging Future</a></span>
+        <div class="nav-previous">
+          <a href="/2023/04/22/NLP/2023-04-22-ChatGPT-Development/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">ChatGPT 开发指南：Hugging LLM Hugging Future</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2023/02/27/AI/2023-02-27-Enpower-AI/" rel="next">「+AI」需要什么？ <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2023/02/27/AI/2023-02-27-Enpower-AI/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">「+AI」需要什么？</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -481,8 +492,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

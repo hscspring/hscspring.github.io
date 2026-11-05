@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>GPT3 和它的 In-Context Learning | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2023/01/20/NLP/2023-01-20-GPT3/">
   
   <meta name="description" content="ChatGPT 的爆火让很多 NLPer 大吃一惊，焦虑感爆棚，它的思路和方法都不复杂，但效果却出奇的好。我想任何研究成果的爆发都不可能是一蹴而就的，期间必然包含这一系列小的创新和优化。于是，重新把 GPT3 的 Paper 拉出来读了一遍，重点关注了实验结果之外的东西，果然发现不少细节。因此，本文还是以 GPT3 为主。">
@@ -110,7 +110,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -130,6 +130,7 @@
       GPT3 和它的 In-Context Learning
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -174,13 +175,13 @@
 <li>Zero-Shot Learning：没有样例，只有一个自然语言指令（instruction）</li>
 </ul>
 <p>效果如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-4.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>而且，模型大小和上下文中样例数量的一般趋势适用于大多数任务。更大的模型是更熟练的元学习者。</p>
 <p>更加可喜的是，在 Zero-Shot 和 One-Shot 下效果都不错，Few-Shot 下甚至偶尔能超过 SOTA。One-Shot 和 Few-Shot 也显示出了快速的适应或即时推理能力。当然，也有一些 GPT3 + Few-Shot 都搞不定的情况，比如 NLI 和一些阅读理解任务。</p>
 <p>除此之外，文章还研究了数据污染问题，偏见、公平性以及广泛的社会影响。</p>
 <h2 id="方法和数据">方法和数据</h2>
 <p>关于方法，主要是前面提到的三种设置，文章给了一个非常直观的样例：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-5.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-5.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>对此不再赘述，不过有一点比较有意思，就是与人类学习的细微差别：人一般会通过问一些问题来确认或进一步确认他们已经理解了要回答的问题，一般是以一种交互的方式；而 GPT3 是通过一些样例来指导模型（或者可以理解为让模型先了解再判断）。它们之间的根本区别可以简单的概括为：人类以理解（推理）为核心，而 GPT3 以表征为核心。当然，你也可以认为后者也是一种「理解」。</p>
 <p>接下来是数据，这里最核心的是一个提高数据质量的操作，共包括三步：</p>
 <ul>
@@ -189,7 +190,7 @@
 <li>将已知的高质量参考语料库添加到训练数据集合中，增强 CommonCrawl 并增加多样性。</li>
 </ul>
 <p>最终数据集如下：</p>
-<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-6.jpg" alt=""></p>
+<p><img src="https://qnimg.lovevivian.cn/paper-gpt3-6.jpg" alt="" loading="lazy" decoding="async"></p>
 <p>值得注意的是它的采样策略，并不是根据不同数据集的 size 进行采样，而是根据数据质量——数据质量越高的数据集越有可能被采样到。比如 CommonCrawl 和 Book2 的数据有可能采样不到一次（不一定全部被使用），但其他数据集可能被采样 2-3 次。</p>
 <h2 id="局限和影响">局限和影响</h2>
 <p><strong>局限</strong></p>
@@ -279,10 +280,20 @@
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2023/01/21/Diary/2023-01-21-Life/" rel="prev"><span class="meta-nav">←</span> 人生随笔</a></span>
+        <div class="nav-previous">
+          <a href="/2023/01/21/Diary/2023-01-21-Life/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">人生随笔</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2022/11/15/Unix/2022-11-15-IDE/" rel="next">IDE Memo <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2022/11/15/Unix/2022-11-15-IDE/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">IDE Memo</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -407,8 +418,9 @@
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">

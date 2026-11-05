@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   
@@ -11,7 +11,7 @@
   
   
   <title>矩阵分解 | 长琴</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://yam.gift/2020/10/24/RecSys/2020-10-24-MF/">
   
   <meta name="description" content="本文主要介绍推荐系统中的矩阵分解技术。之前在协同过滤 | Yam中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实">
@@ -108,7 +108,7 @@
                 
                 </ul>
             </div>
-            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog" aria-expanded="false">
               <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="6.5"></circle>
                 <path d="M16 16l4.25 4.25"></path>
@@ -128,6 +128,7 @@
       矩阵分解
     </h1>
   
+
 
         
       </header><!-- .entry-header -->
@@ -391,10 +392,20 @@ s.t. \quad e_{i,j} = r_{i,j} - \hat{r_{ij}} = r_{i,j} - \mu - b_i - b_j - \sum_{
 <nav class="nav-single">
     <h3 class="assistive-text">文章导航</h3>
     
-        <span class="nav-previous"><a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" rel="prev"><span class="meta-nav">←</span> Wide and Deep Learning for Recommender System 论文笔记</a></span>
+        <div class="nav-previous">
+          <a href="/2020/10/27/Paper/2020-10-27-WideDeepLearning4RecSys/" rel="prev">
+            <span class="post-nav-label">← 上一篇</span>
+            <span class="post-nav-title">Wide and Deep Learning for Recommender System 论文笔记</span>
+          </a>
+        </div>
     
     
-        <span class="nav-next"><a href="/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" rel="next">协同过滤 <span class="meta-nav">→</span></a></span>
+        <div class="nav-next">
+          <a href="/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/" rel="next">
+            <span class="post-nav-label">下一篇 →</span>
+            <span class="post-nav-title">协同过滤</span>
+          </a>
+        </div>
     
 </nav><!-- .nav-single -->
 
@@ -519,8 +530,9 @@ s.t. \quad e_{i,j} = r_{i,j} - \hat{r_{ij}} = r_{i,j} - \mu - b_i - b_j - \sum_{
       <footer id="colophon" role="contentinfo">
     <p>&copy; 2026 hscspring
     All rights reserved.</p>
-    <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
+    <p>Powered by <a href="https://hexo.io/" target="_blank" rel="noopener noreferrer">Hexo</a></p>
 </footer>
+
     <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
   <div class="global-search-panel">
     <div class="global-search-header">
