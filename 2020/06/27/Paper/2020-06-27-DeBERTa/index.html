@@ -109,8 +109,16 @@
                 
                 </ul>
             </div>
+            <button class="site-search-trigger global-search-trigger" type="button" aria-label="搜索全站" aria-haspopup="dialog" aria-controls="global-search-dialog">
+              <svg class="global-search-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="11" cy="11" r="6.5"></circle>
+                <path d="M16 16l4.25 4.25"></path>
+              </svg>
+              <span>搜索</span>
+            </button>
     </nav>
 </header>
+
       <div id="main" class="wrapper">
         <div id="primary" class="site-content"><div id="content" role="main"><article id="post-Paper/2020-06-27-DeBERTa" class="post-Paper/2020-06-27-DeBERTa post type-post status-publish format-standard hentry">
       <header class="entry-header">
@@ -368,211 +376,6 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
 </div></div>
         <div id="secondary" class="widget-area" role="complementary">
   
-    <aside id="search" class="widget widget_search">
-  <h3 class="widget-title">搜索</h3>
-  <div class="local-search">
-    <input
-      id="local-search-input"
-      type="search"
-      placeholder="搜索文章 / 标签 / 内容"
-      autocomplete="off"
-      spellcheck="false"
-    />
-    <div id="local-search-status" class="local-search-status"></div>
-    <div id="local-search-results" class="local-search-results"></div>
-  </div>
-</aside>
-
-<style>
-  .local-search { position: relative; }
-  #local-search-input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    outline: none;
-  }
-  #local-search-input:focus { border-color: #0a8cd1; }
-  .local-search-status {
-    margin-top: 6px;
-    font-size: 12px;
-    color: #888;
-    min-height: 1em;
-  }
-  .local-search-results {
-    margin-top: 6px;
-    max-height: 360px;
-    overflow-y: auto;
-  }
-  .local-search-results .search-hit {
-    display: block;
-    padding: 6px 8px;
-    border-bottom: 1px solid #eee;
-    color: #333;
-    text-decoration: none;
-    line-height: 1.4;
-  }
-  .local-search-results .search-hit:hover { background: #f5f5f5; }
-  .local-search-results .search-title {
-    font-size: 13px;
-    word-break: break-word;
-  }
-  .local-search-results .search-meta {
-    font-size: 11px;
-    color: #999;
-    margin-top: 2px;
-  }
-  .local-search-results .search-excerpt {
-    margin-top: 3px;
-    color: #666;
-    font-size: 11px;
-    line-height: 1.5;
-  }
-  .local-search-results mark {
-    background: #fff3a3;
-    color: inherit;
-    padding: 0 1px;
-  }
-</style>
-
-<script>
-(function () {
-  var input = document.getElementById('local-search-input');
-  var statusEl = document.getElementById('local-search-status');
-  var results = document.getElementById('local-search-results');
-  if (!input) return;
-
-  var data = null;
-  var loading = false;
-
-  function setStatus(msg) {
-    statusEl.textContent = msg || '';
-  }
-
-  function load() {
-    if (data || loading) return Promise.resolve();
-    loading = true;
-    setStatus('加载索引...');
-    return fetch('/search.json')
-      .then(function (r) { return r.json(); })
-      .then(function (json) {
-        data = json;
-        data.forEach(function (p) {
-          p._title = (p.title || '').toLowerCase();
-          p._tags = (p.tags || []).join(' ').toLowerCase();
-          p._categories = (p.categories || []).join(' ').toLowerCase();
-          p._content = (p.content || '').toLowerCase();
-        });
-        setStatus('共 ' + data.length + ' 篇文章可搜索');
-      })
-      .catch(function () { setStatus('索引加载失败'); })
-      .then(function () { loading = false; });
-  }
-
-  function escapeReg(s) {
-    return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  function escapeHtml(s) {
-    return s
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  }
-
-  function highlight(text, terms) {
-    var re = new RegExp(terms.map(escapeReg).sort(function (a, b) {
-      return b.length - a.length;
-    }).join('|'), 'gi');
-    return escapeHtml(text).replace(re, function (m) { return '<mark>' + m + '</mark>'; });
-  }
-
-  function excerpt(content, lowerContent, terms) {
-    if (!content) return '';
-    var first = -1;
-    terms.forEach(function (term) {
-      var index = lowerContent.indexOf(term);
-      if (index !== -1 && (first === -1 || index < first)) first = index;
-    });
-    if (first === -1) return '';
-
-    var start = Math.max(0, first - 46),
-      end = Math.min(content.length, first + 92),
-      text = content.slice(start, end);
-    return (start ? '…' : '') + highlight(text, terms) + (end < content.length ? '…' : '');
-  }
-
-  function search(q) {
-    if (!data) return;
-    if (!q) { results.innerHTML = ''; setStatus('共 ' + data.length + ' 篇文章可搜索'); return; }
-    var terms = q.toLowerCase().split(/\s+/).filter(Boolean),
-      hits = [];
-    for (var i = 0; i < data.length; i++) {
-      var p = data[i];
-      var searchable = p._title + ' ' + p._tags + ' ' + p._categories + ' ' + p._content;
-      if (terms.every(function (term) { return searchable.indexOf(term) !== -1; })) {
-        var score = 0;
-        terms.forEach(function (term) {
-          if (p._title.indexOf(term) !== -1) score += 8;
-          if (p._tags.indexOf(term) !== -1) score += 4;
-          if (p._categories.indexOf(term) !== -1) score += 2;
-          if (p._content.indexOf(term) !== -1) score += 1;
-        });
-        hits.push({
-          item: p,
-          score: score,
-        });
-      }
-    }
-    hits.sort(function (a, b) { return b.score - a.score; });
-    render(hits.slice(0, 8), q, hits.length);
-  }
-
-  function render(hits, q, total) {
-    if (!hits.length) {
-      results.innerHTML = '';
-      setStatus('无匹配结果');
-      return;
-    }
-    setStatus('共 ' + total + ' 条匹配，显示前 ' + hits.length);
-    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
-    var html = hits.map(function (h) {
-      var p = h.item;
-      var title = highlight(p.title, terms);
-      var labels = (p.tags && p.tags.length ? p.tags : p.categories || []).slice(0, 2);
-      var meta = (p.date || '') + (labels.length ? ' · ' + labels.join(', ') : '');
-      var context = excerpt(p.content, p._content, terms);
-      return '<a href="' + p.url + '" class="search-hit">'
-        + '<div class="search-title">' + title + '</div>'
-        + '<div class="search-meta">' + escapeHtml(meta) + '</div>'
-        + (context ? '<div class="search-excerpt">' + context + '</div>' : '')
-        + '</a>';
-    }).join('');
-    results.innerHTML = html;
-  }
-
-  var timer;
-  input.addEventListener('input', function (e) {
-    var q = e.target.value.trim();
-    clearTimeout(timer);
-    if (!q) {
-      results.innerHTML = '';
-      setStatus(data ? '共 ' + data.length + ' 篇文章可搜索' : '输入关键词开始搜索');
-      return;
-    }
-    timer = setTimeout(function () {
-      load().then(function () { search(q); });
-    }, 120);
-  });
-  input.addEventListener('focus', function () {
-    if (!data) setStatus('输入关键词开始搜索');
-  });
-})();
-</script>
-
-  
     
   <aside class="widget">
     <h3 class="widget-title">Recents</h3>
@@ -641,7 +444,28 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
     All rights reserved.</p>
     <p>Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></p>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+    <div id="global-search-dialog" class="global-search-dialog" hidden role="dialog" aria-modal="true" aria-labelledby="global-search-title">
+  <div class="global-search-panel">
+    <div class="global-search-header">
+      <h2 id="global-search-title">搜索</h2>
+      <button class="global-search-close" type="button" aria-label="关闭搜索">关闭</button>
+    </div>
+    <div class="local-search global-local-search" data-search-limit="12">
+      <input
+        class="local-search-input"
+        type="search"
+        placeholder="搜索文章 / 标签 / 内容"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <div class="local-search-status" aria-live="polite">输入关键词开始搜索</div>
+      <div class="local-search-results"></div>
+    </div>
+  </div>
+</div>
+
+
+<script src="/js/jquery-2.0.3.min.js"></script>
 
 <script src="/js/qrcode.min.js"></script>
 
