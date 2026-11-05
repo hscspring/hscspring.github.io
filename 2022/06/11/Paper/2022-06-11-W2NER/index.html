@@ -130,8 +130,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">6 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%A1%B7"><span class="toc-text">初衷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NER-%E2%86%92-%E8%AF%8D%E8%AF%8D%E5%85%B3%E7%B3%BB%E5%88%86%E7%B1%BB"><span class="toc-text">NER → 词词关系分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A"><span class="toc-text">实验报告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>Paper：<a href="https://arxiv.org/abs/2112.10070">[2112.10070] Unified Named Entity Recognition as Word-Word Relation Classification</a></p>
 <p>一句话概述：基于词-词关系分类、可同时解决平铺、重叠和不连续 NER 的统一框架。</p>
 <p>摘要：NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：<code>NNW</code>（<code>Next-Neighboring-Word</code>）和 <code>THW-*</code>（<code>Tail-Head-Word-*</code>）。具体而言，构造一个 2D 的词词关系网格，然后使用多粒度 2D 卷积，以更好地细化网格表示。最后，使用一个共同预测器来推理词-词关系。效果自然是最新的 STOA。</p>

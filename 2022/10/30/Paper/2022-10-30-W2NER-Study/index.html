@@ -130,8 +130,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">10 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E6%9E%B6%E6%9E%84"><span class="toc-text">模型架构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5"><span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Encoder"><span class="toc-text">Encoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Convolution"><span class="toc-text">Convolution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Co-Predictor"><span class="toc-text">Co-Predictor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decoding"><span class="toc-text">Decoding</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>NER 任务主要有三种类型：Flat（平铺）、overlapped（重叠或嵌套）、discontinuous（不连续），越来越多的研究致力于将它们统一起来。当前的 STOA 主要包括基于 Span 和 Seq2Seq 模型，不过它们很少关注边界，可能会导致后续的偏移。本文提出的统一方法（W2NER）是将其视为词词关系分类，为此引入两种词词关系：<code>NNW</code>（<code>Next-Neighboring-Word</code>）和 <code>THW-*</code>（<code>Tail-Head-Word-*</code>）。具体而言，构造一个 2D 的词词关系网格，然后使用多粒度 2D 卷积，以更好地细化网格表示。最后，使用一个共同预测器来推理词-词关系。</p>
 <span id="more"></span>
 <h2 id="背景">背景</h2>

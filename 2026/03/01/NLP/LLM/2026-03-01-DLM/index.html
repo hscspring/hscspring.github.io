@@ -131,8 +131,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">17 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MDLM"><span class="toc-text">MDLM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LLaDA"><span class="toc-text">LLaDA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Scaling-Law"><span class="toc-text">Scaling Law</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LLaDA%E5%88%9D%E5%8F%91"><span class="toc-text">LLaDA初发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LLaDA%E9%95%BF%E6%88%90"><span class="toc-text">LLaDA长成</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DLM-vs-ARM"><span class="toc-text">DLM vs ARM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-DLM"><span class="toc-text">为什么需要 DLM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%81%E5%A4%A7%E6%8C%91%E6%88%98"><span class="toc-text">十大挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%88%98%E7%95%A5%E6%B4%9E%E8%A7%81"><span class="toc-text">战略洞见</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hybrid"><span class="toc-text">Hybrid</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DLM-Think-ARM-Evaluate"><span class="toc-text">DLM Think + ARM Evaluate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DLM-Think-ARM-Talk"><span class="toc-text">DLM Think + ARM Talk</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Latent-DLM-Plan-ARM-Generate"><span class="toc-text">Latent DLM Plan + ARM Generate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CARDM"><span class="toc-text">CARDM</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RL-Post-Train"><span class="toc-text">RL Post-Train</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Summary"><span class="toc-text">Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>TL;DR</p>
 <p>本文深度梳理了离散扩散语言模型（MDLM）的发展脉络。从 SEMDLM 的理论奠基，到 LLaDA 实现 100B 参数的 Scaling 验证，再到 2026 年初关于 DLM 十大挑战的宏观思考。文章重点剖析了 DLM 与自回归模型（ARM）的差异，介绍了 “DLM 规划 + ARM 执行” 等多种前沿混合架构，并探讨了 RL 后训练中的“灵活性陷阱”。核心观点认为：DLM 的真正潜力不在于并行推理，而在于其非线性推理、全局编辑与迭代修正的认知模式。</p>
 <hr>

@@ -127,8 +127,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">12 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E9%AA%8C%E8%AF%81"><span class="toc-text">实验验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-text">为什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E7%BA%BF%E6%80%A7"><span class="toc-text">非线性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%80%E7%96%8F%E6%80%A7"><span class="toc-text">稀疏性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%A4%96%E9%83%A8%E6%80%A7"><span class="toc-text">正外部性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E8%A7%A3Attention-Sink"><span class="toc-text">缓解Attention-Sink</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%89%E5%8A%A9%E4%BA%8E%E4%B8%8A%E4%B8%8B%E6%96%87%E9%95%BF%E5%BA%A6%E6%89%A9%E5%B1%95"><span class="toc-text">有助于上下文长度扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E4%B8%80%E4%B8%8B"><span class="toc-text">扩展一下</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9ELLM%E6%97%B6%E4%BB%A3%E7%9A%84Gated-Attention"><span class="toc-text">非LLM时代的Gated Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9EAttention%E7%9A%84Gated"><span class="toc-text">非Attention的Gated</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p><a href="https://qwen.ai/blog?id=4074cca80393150c248e508aa62983f9cb7d27cd&amp;from=research.latest-advancements-list">Qwen3-Next</a><sup>[1]</sup> 发布后，算是真正开启了 hybrid 序幕，原本还想着后面再慢慢补这块，现在看来是不行了，得提前了。好在东西也不多，我们就借着这次机会过一轮吧。</p>
 <p>这是第一篇，我们简单点，从 Gated Attention 开始，来自 Paper：<a href="https://arxiv.org/abs/2505.06708">Gated Attention for Large Language Models: Non-linearity, Sparsity, and Attention-Sink-Free</a><sup>[2]</sup>，5 月份的一篇论文了，官方 <a href="https://github.com/qiuzh20/gated_attention">GitHub</a><sup>[3]</sup> 关注的人不多，没想到这就成了 Qwen 新版本的标准配置了。</p>
 <span id="more"></span>

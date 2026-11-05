@@ -126,8 +126,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">10 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%85%B1%E4%BA%AB-token-%E6%A2%AF%E5%BA%A6%E5%86%B2%E7%AA%81%E5%92%8C%E7%AD%96%E7%95%A5%E5%9D%8D%E5%A1%8C%E7%9A%84-GTPO"><span class="toc-text">解决共享 token 梯度冲突和策略坍塌的 GTPO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Token-level-%E6%83%A9%E7%BD%9A"><span class="toc-text">Token-level 惩罚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5%E5%9D%8D%E5%A1%8C"><span class="toc-text">策略坍塌</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E7%BB%86%E7%B2%92%E5%BA%A6-token-%E7%BA%A7%E5%88%AB%E5%A5%96%E5%8A%B1%E9%97%AE%E9%A2%98%E7%9A%84-GTPO"><span class="toc-text">解决细粒度 token 级别奖励问题的 GTPO</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86-2"><span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GTPO"><span class="toc-text">GTPO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GRPO-S"><span class="toc-text">GRPO-S</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>上一篇 <a href="https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/">GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | Yam</a><sup>[1]</sup> 中，我们重点分析了 GSPO 和 GMPO 这两个非常相似的与 token 级别有关的优化算法，它们瞄准的是重要性比率。本文要介绍的 GTPO 和 GTPO（哈哈，两个撞名了）则是瞄准了 token 粒度有关的的梯度和优势/奖励，而且两者都重点关注了“熵”的作用。值得注意的是，虽然瞄准的是梯度和优势/奖励，但与<a href="https://arxiv.org/abs/2505.23585">OPO</a><sup>[2]</sup> 和 <a href="https://arxiv.org/abs/2505.14264">AAPO</a><sup>[3]</sup>、<a href="https://arxiv.org/abs/2506.02864">BNPO</a><sup>[4]</sup> 不同，关注到 token 粒度。</p>
 <span id="more"></span>
 <h2 id="解决共享-token-梯度冲突和策略坍塌的-GTPO">解决共享 token 梯度冲突和策略坍塌的 GTPO</h2>

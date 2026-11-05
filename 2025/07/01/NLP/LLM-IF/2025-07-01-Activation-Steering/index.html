@@ -126,8 +126,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">18 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BA%E6%96%87"><span class="toc-text">论文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Steering-LM-with-AE"><span class="toc-text">Steering LM with AE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Improve-LM-Instruction-Following-with-AS"><span class="toc-text">Improve LM Instruction-Following with AS</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AE%E5%AE%9E%E9%AA%8C"><span class="toc-text">AE实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1%EF%BC%9A%E5%9F%BA%E6%9C%AC%E5%8F%82%E6%95%B0"><span class="toc-text">实验1：基本参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C2%EF%BC%9A%E6%9D%A1%E4%BB%B6%E7%B1%BB%E5%9E%8B"><span class="toc-text">实验2：条件类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C3%EF%BC%9A%E6%9D%A1%E4%BB%B6%E6%95%B0%E9%87%8F"><span class="toc-text">实验3：条件数量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9ACase"><span class="toc-text">更多Case</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AS%E5%AE%9E%E9%AA%8C"><span class="toc-text">AS实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C1%EF%BC%9ANo-Instruction"><span class="toc-text">实验1：No Instruction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C2%EF%BC%9AWith-Instruction"><span class="toc-text">实验2：With Instruction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E7%A4%BA%E4%BE%8B"><span class="toc-text">更多示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-5"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AE%E6%8E%A8%E8%8D%90%E9%85%8D%E7%BD%AE"><span class="toc-text">AE推荐配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AS%E6%8E%A8%E8%8D%90%E9%85%8D%E7%BD%AE"><span class="toc-text">AS推荐配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>偶尔看到这篇文章：<a href="https://zhuanlan.zhihu.com/p/1897652941978055993">如何不通过提示词或微调来引导大模型的输出 - 知乎</a><sup>[1]</sup>，感觉很有意思，于是根据文章提供的代码做了一些实验，同时，也查阅了相关Paper，补充了一些实验和论文阅读，一并记录在此。</p>
 <span id="more"></span>
 <h2 id="论文">论文</h2>

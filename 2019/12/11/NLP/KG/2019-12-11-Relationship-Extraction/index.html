@@ -124,8 +124,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">13 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E6%8F%90%E5%8F%96%E6%96%B9%E6%B3%95"><span class="toc-text">关系提取方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF"><span class="toc-text">基于模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8F%A5%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">基于句法分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-text">基于机器学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-text">基于深度学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%8A%E7%9B%91%E7%9D%A3"><span class="toc-text">基于半监督</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%BF%9C%E7%A8%8B%E7%9B%91%E7%9D%A3"><span class="toc-text">基于远程监督</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%A0%E7%9B%91%E7%9D%A3"><span class="toc-text">基于无监督</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AF%94%E8%B5%9B"><span class="toc-text">比赛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%84%E4%BB%B7%E6%96%B9%E6%B3%95"><span class="toc-text">评价方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9B%B4%E5%A4%9A%E8%B5%84%E6%BA%90"><span class="toc-text">更多资源</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>之前整理过一篇关于信息提取的笔记，也是基于大名鼎鼎的 <a href="https://web.stanford.edu/~jurafsky/slp3/">SLP</a> 第 18 章的内容，最近在做一个 chatbot 的 <a href="https://yam.gift/2019/12/02/2019-12-02-NLM/">NLMLayer</a> 时涉及到了不少知识图谱有关的技术，由于 NLMLayer 默认的输入是 NLU 的 output，所以实体识别（包括实体和类别）已经自动完成了。接下来最重要的就是实体属性和关系提取了，所以这里就针对这块内容做一个整理。</p>
 <p>属性一般的形式是（实体，属性，属性值），关系的一般形式是（实体，关系，实体）。简单来区分的话，关系涉及到两个实体，而属性只有一个实体。属性提取的文章比较少，关系提取方面倒是比较成熟，不过这两者之间其实可以借鉴的。具体的一些方法其实<a href="https://yam.gift/2019/04/09/SLP/2019-04-09-Information-Extraction/">这里</a>已经提到不少了，这里单独提出来再梳理一遍。</p>
 <span id="more"></span>

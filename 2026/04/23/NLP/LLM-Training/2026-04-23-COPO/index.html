@@ -128,8 +128,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">5 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E7%9F%A5%E7%BB%84%E6%9E%84%E5%BB%BA"><span class="toc-text">认知组构建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E7%BD%AE%E4%BF%A1%E5%BA%A6%E7%9A%84%E4%BC%98%E5%8A%BF%E9%87%8D%E5%8A%A0%E6%9D%83"><span class="toc-text">基于置信度的优势重加权</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#COPO"><span class="toc-text">COPO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>今天介绍一篇 Agentic RL 的小文章吧，来自 <a href="https://arxiv.org/abs/2602.12662">2602 Think Fast and Slow: Step-Level Cognitive Depth Adaptation for LLM Agents</a><sup>[1]</sup>，我们在《<a href="https://yam.gift/2026/04/17/NLP/LLM-Training/2026-04-17-Think-Strategy/">LLM 的下一步：从“会答”到“会想”——Planning as Data 与思考范式重构 | 长琴</a><sup>[2]</sup>》中提过一嘴，不过当时关注的是它的认知结构（本文不再赘述）。这里重点看下它提出来的 COPO（认知感知策略优化）——用于通过置信度感知优势重加权来实现步骤级的权重分配。</p>
 <span id="more"></span>
 <p>出发点很简单，GRPO 对轨迹中的所有步骤统一分配优势，并不会区分每一步所采用的认知模式在当前上下文中是否合适。COPO 基于动作预测的置信度，实现了逐步（step-level）的信用分配。这里有个关键洞察：合适的认知模式应当能够促进模型做出高置信度且正确的动作选择。</p>

@@ -126,8 +126,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">9 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E5%88%86%E8%A7%A3%E6%8A%80%E6%9C%AF"><span class="toc-text">矩阵分解技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Funk-MF"><span class="toc-text">Funk MF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SVD"><span class="toc-text">SVD++</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%9E%E5%AF%B9%E7%A7%B0-SVD"><span class="toc-text">非对称 SVD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E5%AE%9A%E7%BB%84-SVD"><span class="toc-text">特定组 SVD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-text">优化方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-text">参考资料</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>本文主要介绍推荐系统中的矩阵分解技术。之前在<a href="https://yam.gift/2020/10/22/RecSys/2020-10-22-CollaborativeFiltering/">协同过滤 | Yam</a>中分别提到过基于用户和商品的方法，它们分别基于相似用户和相似物品完成推荐。但是协同过滤有个很大的问题就是数据稀疏，以一个电商网站为例，可能大部分的商品都只有很少的用户购买，而热门商品又有很多人购买。这导致的结果就是难以找到相似的用户（基于用户的协同过滤）或头部效应（基于商品的协同过滤）。这一问题是协同过滤算法的天然缺陷，表现出来的其实正是 2-8 定律和马太效应，再往深了想，从客观角度看是因为信息不对称，主观角度看则是因为羊群效应。所以，很自然的想法就是将稀疏表征稠密化。稠密化表示也就意味着特征的多元化，直观来看自然是表征能力和泛化能力更强。矩阵分解正是这样的技术。</p>
 <span id="more"></span>
 <h2 id="基本思想">基本思想</h2>

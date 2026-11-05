@@ -130,8 +130,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">12 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8C%91%E6%88%98"><span class="toc-text">挑战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%BF%E5%BA%8F%E5%88%97%E4%BB%B7%E5%80%BC%E6%A8%A1%E5%9E%8B%E5%81%8F%E7%A7%BB"><span class="toc-text">长序列价值模型偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%97%B6%E5%BC%82%E6%9E%84%E5%BA%8F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="toc-text">训练时异构序列长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81%E4%BB%BB%E5%8A%A1%E5%A5%96%E5%8A%B1%E7%A8%80%E7%96%8F%E6%80%A7"><span class="toc-text">验证任务奖励稀疏性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88"><span class="toc-text">方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E8%A7%A3%E9%95%BF%E5%BA%8F%E5%88%97%E4%BB%B7%E5%80%BC%E6%A8%A1%E5%9E%8B%E5%81%8F%E7%A7%BB"><span class="toc-text">缓解长序列价值模型偏移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%A1%E7%90%86%E8%AE%AD%E7%BB%83%E6%97%B6%E5%BC%82%E6%9E%84%E5%BA%8F%E5%88%97%E9%95%BF%E5%BA%A6"><span class="toc-text">管理训练时异构序列长度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E9%AA%8C%E8%AF%81%E4%BB%BB%E5%8A%A1%E7%9A%84%E7%A8%80%E7%96%8F%E5%A5%96%E5%8A%B1"><span class="toc-text">处理验证任务的稀疏奖励</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>刚出了 <a href="https://yam.gift/2025/03/19/NLP/LLM-Training/2025-03-19-LLM-PostTrain-DAPO/">DAPO：为GRPO的锦上加四点花 | Yam</a><sup>[1]</sup>，字节Seed团队马上就送来新的 <a href="https://arxiv.org/abs/2504.05118">VAPO</a><sup>[2]</sup>，同样的清晰、高质量。</p>
 <p>VAPO，全称 Value-based Augmented Proximal Policy Optimization，没错了，这是基于价值的方法。本文指出了困扰基于价值方法的三个关键挑战：价值模型偏差、序列长度异质性以及奖励信号的稀疏性，并分别对其进行优化，最终在 AIME 2024 上比 DAPO 提升10个点，并且更加稳定，需要的训练步数更少。</p>
 <span id="more"></span>

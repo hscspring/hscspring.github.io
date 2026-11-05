@@ -126,8 +126,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">5 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%A7%E7%BB%AD%E8%AE%AD%E7%BB%83%E6%95%B0%E6%8D%AE"><span class="toc-text">继续训练数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%81%B5%E5%BE%AA"><span class="toc-text">指令遵循</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SFT%E6%95%B0%E6%8D%AE"><span class="toc-text">SFT数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DPO%E6%95%B0%E6%8D%AE"><span class="toc-text">DPO数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>本文记录 <a href="http://arxiv.org/abs/2401.17268">Weaver</a> 的数据处理。</p>
 <p>Weaver是一个垂直领域（文字创作）的LLM，做的是继续训练，训练上循规蹈矩，没有什么好说的。稍微有一点点特色的是数据这块，对垂直领域可能有一定借鉴意义。</p>
 <p>另外有提出一个Constitutional DPO的东西，其实就是利用专家写的规则（原则）合成违反这些规则的负样本。相较而言，遵循这些规则的就是正样本。这其实和数据有点关系，垂直领域往往有不少正样本（比如文字创作领域大家的小说、散文等），但负样本却不好找，所以就违反”好“的规则生成负样本。</p>

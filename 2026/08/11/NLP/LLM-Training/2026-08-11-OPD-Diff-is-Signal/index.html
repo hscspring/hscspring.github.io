@@ -134,8 +134,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">8 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#W2S-OPD"><span class="toc-text">W2S OPD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lightning-OPD-2-0"><span class="toc-text">Lightning OPD 2.0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VAD"><span class="toc-text">VAD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RP-OPSD"><span class="toc-text">RP-OPSD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#STEP-OPD"><span class="toc-text">STEP-OPD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Poly-OPD"><span class="toc-text">Poly-OPD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94%E6%80%BB%E7%BB%93"><span class="toc-text">对比总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%8D%E8%B0%88OPSD%E4%B8%8ERL"><span class="toc-text">再谈OPSD与RL</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>随着 OPD 不断成熟，现在的做法早已不再是简单的 teacher 蒸馏了，最近看了几篇相关文章，发现一个研究范式转移：从「怎么蒸馏（温度/KL方向/采样策略）」到「蒸馏什么（信号分解与归因）」。具体做法可以用一个简单公式说明：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">有效信号 = f(output_A) − f(output_B)</span><br></pre></td></tr></table></figure>
 <p>A、B 在<strong>恰好关心的那一维度</strong>不同，其余对齐。这个本质是<strong>反事实对比</strong>在 token-level 蒸馏上的应用——不学习教师原始输出，而是学习「教师在特定条件变化下的输出差」。简单来说，不是直接学教师，而是学教师在不同情况下的「差异」，类似于学这种「能力」。本文我们就看看它们都是怎么做的，以及会给我们什么启发。</p>

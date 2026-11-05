@@ -133,8 +133,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">11 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-k-as-reward"><span class="toc-text">Pass@k as reward</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bootstrap-Sampling"><span class="toc-text">Bootstrap Sampling</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Analytical-Solution"><span class="toc-text">Analytical Solution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E8%83%BD%E5%8A%9B"><span class="toc-text">深入分析能力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pass-1%E4%B8%8EPass-k%E5%8C%BA%E5%88%AB"><span class="toc-text">Pass@1与Pass@k区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%8E%A8%E5%B9%BF"><span class="toc-text">进一步推广</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E6%9E%9Creward%E8%BF%9E%E7%BB%AD"><span class="toc-text">如果reward连续</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%AB%E6%80%A5%EF%BC%8C%E6%9C%80%E5%90%8E%E6%83%B3%E6%83%B3"><span class="toc-text">别急，最后想想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%AB%E6%80%A5%EF%BC%8C%E5%86%8D%E5%BE%80%E5%89%8D%E6%83%B3%E6%83%B3"><span class="toc-text">别急，再往前想想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E5%9B%9E%E6%98%AF%E7%9C%9F%E7%9A%84%E6%9C%80%E5%90%8E%E4%BA%86"><span class="toc-text">这回是真的最后了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>谈到 GRPO，我们不由自主会想到它的“抛光”特点——在 Base 的基础上做进一步锐化，我们之前在不少文章中都提到过，比如《<a href="https://yam.gift/2025/12/31/NLP/LLM-Training/2025-12-31-RL-Are-You-OK/">RL究竟能不能突破Base边界——关于推理能力外推、稳定性与训练条件的系统分析 | 长琴</a><sup>[1]</sup>》。为了保持模型的探索性，常见的基本做法就是控制熵，这个方向有一大堆论文研究，我们也写过一点，比如《<a href="https://yam.gift/2025/08/30/NLP/LLM-Training/2025-08-30-GTPO/">GRPO“第一背锅侠”Token Level X2：GTPO双“T”傍地走 | 长琴</a><sup>[2]</sup>》、《<a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵 | 长琴</a><sup>[3]</sup>》。</p>
 <p>今天介绍一个新的思路和方向，比训练中控制更前一步，直接优化 Pass@k，而不是 Pass@1——《<a href="https://arxiv.org/abs/2508.10751">2508 Pass@k Training for Adaptively Balancing Exploration and Exploitation of Large Reasoning Models</a><sup>[4]</sup>》，来自字节 seed × 人大。至于为什么会突然关注到这个方向，那自然是工作中遇到需要保持多样性的优化问题了。发现这个新方向后感觉还挺有意思，就拿来了解一下。</p>
 <span id="more"></span>

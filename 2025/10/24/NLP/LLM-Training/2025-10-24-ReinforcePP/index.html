@@ -127,8 +127,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">10 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reinforce"><span class="toc-text">Reinforce</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8EReinforce%E5%88%B0"><span class="toc-text">从Reinforce到++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Advantage%E6%9C%89%E5%81%8F%E7%9A%84GRPO"><span class="toc-text">Advantage有偏的GRPO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reinforce-2"><span class="toc-text">Reinforce++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88GRPO%E7%94%A8k3%EF%BC%9F"><span class="toc-text">为什么GRPO用k3？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E7%BB%ADReinforce"><span class="toc-text">继续Reinforce++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8EPPO%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">与PPO的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97"><span class="toc-text">实践指南</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>TL;DR</p>
 <p>Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。</p>
 <span id="more"></span>

@@ -129,8 +129,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">9 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%B4%E8%A7%82%E6%A1%86%E6%9E%B6"><span class="toc-text">直观框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diff-to-Target"><span class="toc-text">Diff to Target</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diff-to-Reward"><span class="toc-text">Diff to Reward</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Diff-to-Gradient"><span class="toc-text">Diff to Gradient</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1%E8%A7%86%E8%A7%92"><span class="toc-text">投影视角</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95A%EF%BC%9A%E8%AF%81%E6%98%8EDiff-RM"><span class="toc-text">附录A：证明Diff&#x3D;RM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95B%EF%BC%9AOPRD%E6%A2%AF%E5%BA%A6%E7%BA%BF%E6%80%A7%E5%8F%98%E6%8D%A2"><span class="toc-text">附录B：OPRD梯度线性变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>OPD 大家熟知是需要一个 teacher 提供 logits 的，OPSD（自蒸馏）一般是拿一个外部信号让模型自己提升，都是现在的主流范式。我们前阵子介绍的《<a href="https://yam.gift/2026/08/11/NLP/LLM-Training/2026-08-11-OPD-Diff-is-Signal/">「差值即信号」：OPD 蒸馏的新范式 | 长琴</a><sup>[1]</sup>》在 OPD 这个方向上更进一步——不是直接学教师，而是学教师在不同情况下的「差异」，类似于学这种「能力」。我们把这种差值简称为 diff。</p>
 <p>Diff 出现后，一个很自然的问题就来了——teacher 不一定再需要一个更大更强的模型，只要能提供 diff 那就是 teacher。这就是前文提到的 W2S（weak to strong）OPD，weak 模型便宜好训，可以训练一大堆不同方向的，然后 diff 一股脑儿给 student。</p>
 <p>但是这里怎么给还是有蛮多做法的，这就引出了现在大家正在看的这篇文章。</p>

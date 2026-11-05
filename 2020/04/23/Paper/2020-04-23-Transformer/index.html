@@ -128,8 +128,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">5 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Multi-Head-Attention"><span class="toc-text">Multi-Head Attention</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Position-Encoder"><span class="toc-text">Position Encoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transformer-Encoder"><span class="toc-text">Transformer Encoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Transformer-Decoder"><span class="toc-text">Transformer Decoder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Appendix"><span class="toc-text">Appendix</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>之前写过一篇关于 <a href="https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a> 的 <a href="https://yam.gift/2019/08/04/Paper/2019-08-04-Transformer-Paper/">论文笔记</a>，不过那时候写的笔记都没有深入 Code 环节，再加上其实已经有了一篇 <a href="http://nlp.seas.harvard.edu/2018/04/03/attention.html">The Annotated Transformer</a>，也没必要做重复工作。不过现在 Transformer 已经大放异彩到几乎成为了标准配件，所以觉得有必要单独拿出来就组件角度再次学习一遍，于是就有了这篇文章。</p>
 <p>本文代码主要基于 <a href="https://github.com/OpenNMT/OpenNMT-py">OpenNMT</a>，另外也参考了一点 <a href="https://github.com/pytorch/fairseq">fairseq</a>，这俩都是 PyTorch 实现的。Tensorflow 实现的版本相对更多一些，详见 Appendix 部分。</p>
 <span id="more"></span>

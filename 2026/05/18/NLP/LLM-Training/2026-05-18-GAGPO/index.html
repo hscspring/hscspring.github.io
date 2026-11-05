@@ -127,8 +127,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">6 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8ELoss%E5%BC%80%E5%A7%8B"><span class="toc-text">从Loss开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%AE%97V"><span class="toc-text">如何算V</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E7%82%B9%E8%AE%A8%E8%AE%BA"><span class="toc-text">关键点讨论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vs-GiGPO"><span class="toc-text">vs GiGPO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>今天介绍一篇 Agentic RL 相关的比较巧妙的论文：<a href="https://arxiv.org/abs/2605.13217">2605 GAGPO: Generalized Advantage Grouped Policy Optimization</a><sup>[1]</sup>，如果用一句话简要概括，那就是：“用 GROUP 的方法计算 V”，效果不错，以至于当时看了第一反应是怀疑。不过仔细阅读全文后，发现确实很有意思，而且实验也比较全面。</p>
 <p>它的出发点很简单——不要 Value 模型，怎么把后续结果有效地回传到每个中间步骤。本文提出的 GAGPO = Generalized Advantage Grouped Policy Optimization，它是一种无需 Critic 的 RL 算法，能够实现精确的、与步骤对齐的时序 credit assignment。</p>
 <p>做法更加简单——从采样得到的 rollout 中构建一个<strong>非参数化的分组价值代理</strong>，然后通过 TD/GAE 把最终结果的监督信号沿时间维度传播到前面的每一步（注意是 Step，不是 Token）。</p>

@@ -126,8 +126,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">7 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NumPy%E5%8F%98%E9%95%BF%E6%B6%88%E6%81%AF"><span class="toc-text">NumPy变长消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0-2"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95-2"><span class="toc-text">解决方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>在 LLM 应用开发里，我们经常需要处理多轮消息、对话历史等结构化内容。理论上，这些对象应该是简单、透明、可控的——但在 NumPy 和特定字典工具（如 <code>addict.Dict</code>）参与后，一些微妙的行为会悄悄改变数据结构，让输出变得诡异甚至完全不对。本篇记录我在实际开发（尤其是 verl 与 transformers）中遇到的两个“小问题”：一个来自 NumPy 的自动维度推断，另一个来自字典工具的默认属性行为。它们不是 bug，却可能让你花一阵子 debug。</p>
 <p>TL;DR</p>
 <ul>

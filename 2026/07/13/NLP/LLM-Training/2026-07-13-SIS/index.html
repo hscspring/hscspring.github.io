@@ -130,8 +130,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">6 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8Eoff%E5%88%B0on"><span class="toc-text">从off到on</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%91%E4%BC%BC%E8%AE%A1%E7%AE%97"><span class="toc-text">近似计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E8%AF%81%E6%98%8E"><span class="toc-text">理论证明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>关于重要性采样系数，之前已经介绍过不少了，不过主要方案还是 clip，比如《<a href="https://yam.gift/2025/09/12/NLP/LLM-Training/2025-09-12-GRPO-Clip/">GRPO“又一背锅侠”：Clip的各种拉扯 | 长琴</a><sup>[1]</sup>》中介绍的一系列文章，更进一步的优化是《<a href="https://yam.gift/2025/06/19/NLP/LLM-Training/2025-06-19-CISPO-and-Entropy/">GRPO优化在继续——CISPO和熵 | 长琴</a><sup>[2]</sup>》的 sg 和 特定 token mask，Minimax 后续模型也都用了自家的 CISPO，但是依然没有脱离 clip 和超参数设置。</p>
 <p>Clip 有助于训练稳定，这没问题，但它最大的问题是会抑制来自高偏差策略样本的梯度，从而丢失有价值的学习信号。本文我们介绍的 SIS（Selective Importance Sampling）来自论文 <a href="https://arxiv.org/abs/2607.04728">Turning Off-Policy Tokens On-Policy: A Plug-in Approach for Improving LLM Alignment (arxiv:2607.04728)</a><sup>[3]</sup>（文章图片、公式均来自此论文），在这个方向上再进一步。他们的出发点很简单——将那些 off-policy 的 token 转为 on-policy，自然就不需要 IS 了。具体怎么做的呢？他们将旧策略作为建议分布，执行 token 级别的拒绝测试：被接受的 token 自然就可以看作 on-policy 的，被拒绝的那就保持原来的 IS。</p>
 <p>SIS 是即插即用的，仅修改重要性采样系数，而且它还有个正的外部性——提升训练的稳定性。关于稳定性我们在《<a href="https://yam.gift/2025/08/14/NLP/LLM-Training/2025-08-14-Token-Level-GSPO-GMPO/">GRPO“第一背锅侠”Token Level X：DAPO/DrGRPO与GSPO/GMPO的殊途同归 | 长琴</a><sup>[4]</sup>》提过，后面又专门写了两篇相关文章：《<a href="https://yam.gift/2026/01/17/NLP/LLM-Training/2026-01-17-RL-MoE-Stable/">稳定压倒一切：MoE RL 训推不一致问题及解决策略 | 长琴</a><sup>[5]</sup>》、《<a href="https://yam.gift/2026/01/22/NLP/LLM-Training/2026-01-22-RL-MoE-Stable-2/">MoE RL 训练不稳定性再思考：训推不一致，还是采样噪声？ | 长琴</a><sup>[6]</sup>》，感兴趣的同学可以进一步阅读。</p>

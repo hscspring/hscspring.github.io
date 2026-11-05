@@ -125,8 +125,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">7 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95"><span class="toc-text">方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B51-SFT-Co-Training-for-Policy-Initialization"><span class="toc-text">阶段1: SFT Co-Training for Policy Initialization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B6%E6%AE%B52-Sim-Real-Co-Training-with-Real-Regularized-RL"><span class="toc-text">阶段2: Sim-Real Co-Training with Real-Regularized RL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D"><span class="toc-text">消融</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>一直对 EmbodiedAI 比较关注，大概是从 <a href="https://arxiv.org/abs/2103.04918">2103 A Survey of Embodied AI: From Simulators to Research Tasks</a><sup>[1]</sup> 开始，主要是一直对机器人感兴趣，看了《超能陆战队》后就总想自己也搞一个，再加上自己也是搞 AI 算法，关注到这个方向其实是比较自然的。后面陆续出来 <a href="https://robotics-transformer2.github.io/">RT-2: Vision-Language-Action Models</a><sup>[2]</sup>、<a href="https://say-can.github.io./">SayCan: Grounding Language in Robotic Affordances</a><sup>[3]</sup>、<a href="https://arxiv.org/abs/2303.03378">2303 PaLM-E: An Embodied Multimodal Language Model</a><sup>[4]</sup> 等研究（都是 Google 的），不过再往后就基本没怎么关注了。工作忙起来了，事情也多起来了。</p>
 <p>不过事情来到 2026 年就不一样了，记得我在 2025 年底跨年夜晚上发了一条朋友圈：“2025是RL、多模态、AI Coding年。2026继续，再补一个Embodied AI”，没几个月过去已经开始应验，现在半年过去简直要暴走。我自认为自己在这个方向还是比较浅薄的，所以准备补一补，多读几篇相关论文，本文就从《<a href="https://arxiv.org/abs/2602.12628">2602 Beyond Imitation: Reinforcement Learning-Based Sim-Real Co-Training for VLA Models</a><sup>[5]</sup>》开始吧。</p>
 <span id="more"></span>

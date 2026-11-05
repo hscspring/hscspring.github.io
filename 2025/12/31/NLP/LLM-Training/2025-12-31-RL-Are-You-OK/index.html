@@ -128,8 +128,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">10 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E5%92%8C%E9%97%AE%E9%A2%98"><span class="toc-text">背景和问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E4%BB%AC%E7%9F%A5%E9%81%93%E4%BB%80%E4%B9%88"><span class="toc-text">我们知道什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E6%83%85%E8%BF%98%E6%9C%AA%E7%BB%93%E6%9D%9F"><span class="toc-text">事情还未结束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E5%AD%A6%E4%B9%A0%E6%80%A7"><span class="toc-text">可学习性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E9%A1%BF%E6%82%9F"><span class="toc-text">加速顿悟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%9B%E5%8C%96%E8%83%BD%E5%8A%9B"><span class="toc-text">泛化能力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E6%8C%87%E5%BC%95"><span class="toc-text">一些指引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E8%AF%A5%E5%B7%AE%E4%B8%8D%E5%A4%9A%E4%BA%86"><span class="toc-text">应该差不多了</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">参考文献</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>在 DeepSeek R1 之后，GRPO 几乎成了后训练的默认选项。它确实“好用”——在很多任务上，模型的 pass@1 明显提高了。但一个更根本的问题始终没有被真正回答：<strong>我们是在把模型“教得更会想”，还是只是在把它“已有的正确想法更容易采出来”？</strong></p>
 <p>如果答案只是后者，那么强化学习更像是一种采样精炼器；而如果答案是前者，那就意味着模型的推理能力可以被系统性地“向外推”。</p>
 <p>这两种理解对应着不同的训练目标，也自然导向了不同的训练策略。与之相关的研究结论之所以看似分化，往往源于训练设定与任务分布的差异：在某些工作中，RL 被观察到伴随能力跃迁；而在另一些设定下，其作用则始终未超出 Base 模型的能力边界。</p>

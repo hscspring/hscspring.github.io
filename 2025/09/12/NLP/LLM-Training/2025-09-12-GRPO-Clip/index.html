@@ -128,8 +128,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">13 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E9%A1%BE%E5%88%86%E6%9E%90%E4%B8%8E%E4%BC%98%E5%8C%96"><span class="toc-text">回顾分析与优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DAPO-%E7%9A%84-Clip-Higher"><span class="toc-text">DAPO 的 Clip-Higher</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GMPO-%E7%9A%84-Clip-Wider"><span class="toc-text">GMPO 的 Clip-Wider</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%90%E5%88%B6%E6%8E%A2%E7%B4%A2%E7%9A%84%E6%9C%BA%E7%90%86"><span class="toc-text">限制探索的机理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Advantage-%E6%9C%9F%E6%9C%9B%E4%B8%BA-0"><span class="toc-text">Advantage 期望为 0</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A3%81%E5%89%AA%E5%81%8F%E5%B7%AE"><span class="toc-text">裁剪偏差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8D%9F%E5%A4%B1%E6%A2%AF%E5%BA%A6"><span class="toc-text">损失梯度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8E-Clip-Higer-%E7%B1%BB%E4%BC%BC%E7%9A%84%E5%88%86%E6%9E%90"><span class="toc-text">与 Clip-Higer 类似的分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E4%B8%80%E6%AD%A5%E4%BC%98%E5%8C%96"><span class="toc-text">进一步优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81-Clip-%E7%9A%84-DCPO"><span class="toc-text">动态 Clip 的 DCPO</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#What%E2%80%99s-Next"><span class="toc-text">What’s Next</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>之前在 <a href="https://yam.gift/2025/07/13/NLP/LLM-Training/2025-07-13-RM-Data/">解锁模型潜能：Reward 数据如何塑造与激发 LLM 的推理策略 | Yam</a><sup>[1]</sup> 中，我们在介绍论文 Spurious Rewards 时提过：“关于GRPO 截断那部分推导和进一步分析也不错，有时间单独择文再议”。本文就来聊聊 GRPO 中的 clip。</p>
 <span id="more"></span>
 <h2 id="回顾分析与优化">回顾分析与优化</h2>

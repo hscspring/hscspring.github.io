@@ -129,8 +129,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">15 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LoRA%E5%9B%9E%E9%A1%BE"><span class="toc-text">LoRA回顾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8ELoRA%E5%88%B0%E5%AD%90%E7%A9%BA%E9%97%B4%E5%88%A9%E7%94%A8"><span class="toc-text">从LoRA到子空间利用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8ESVD%E5%88%B0MiCA"><span class="toc-text">从SVD到MiCA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SVD"><span class="toc-text">SVD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MiCA"><span class="toc-text">MiCA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E6%95%B0%E8%9E%8D%E5%90%88"><span class="toc-text">参数融合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E8%9E%8D%E5%AE%9E%E9%AA%8C"><span class="toc-text">消融实验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E6%80%9D%E8%80%83"><span class="toc-text">扩展思考</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E6%8F%92%E4%BB%B6"><span class="toc-text">更好的插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RL%E4%B8%8E%E5%B0%91%E5%8F%82%E6%95%B0%E5%AD%A6%E4%B9%A0"><span class="toc-text">RL与少参数学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LoRA-XS"><span class="toc-text">LoRA-XS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TinyLoRA"><span class="toc-text">TinyLoRA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TinyLoRA-MiCA"><span class="toc-text">TinyLoRA+MiCA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-text">Reference</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>TL;DR</p>
 <p>在大模型微调的语境下，我们习惯了 LoRA 带来的“低秩”红利。但当参数量被压缩到极致，甚至低至 13 个参数时，模型还在学习什么？TinyLoRA 给了我们答案。另外，MiCA 的出现又给了我们一个清奇的视角：与其在拥挤的主导子空间里寻找增量，不如去那些被遗忘的“次要奇异方向”开垦荒原。本文将结合这两篇论文，聊聊如何通过挖掘特定的子空间，实现一种近乎“无损”且“实时”的插件化学习能力，这可能也是一种低成本、高独立性、可插拔的“实时学习”新范式。</p>
 <span id="more"></span>

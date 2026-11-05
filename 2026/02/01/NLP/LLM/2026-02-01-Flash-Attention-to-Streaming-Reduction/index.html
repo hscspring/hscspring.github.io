@@ -130,8 +130,18 @@
 
     <div class="entry-content">
       
-            <!-- Table of Contents -->
-              
+        
+        
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count">13 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Online-Softmax"><span class="toc-text">Online Softmax</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC"><span class="toc-text">公式推导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-text">一个例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E5%90%8E%E5%8E%9F%E7%90%86"><span class="toc-text">背后原理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream-Pattern"><span class="toc-text">Stream Pattern</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LayerNorm-RMSNorm"><span class="toc-text">LayerNorm&#x2F;RMSNorm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adam-RMSProp"><span class="toc-text">Adam&#x2F;RMSProp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%AD%E7%9A%84-Stream-Pattern"><span class="toc-text">大数据和分布式中的 Stream Pattern</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reduction"><span class="toc-text">Reduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Pattern%E5%AF%B9%E6%AF%94"><span class="toc-text">Pattern对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Streaming%E7%BB%B4%E5%BA%A6"><span class="toc-text">Streaming维度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E6%B3%A8%E7%AE%97%E5%AD%90%EF%BC%9A%E5%A6%82%E4%BD%95%E7%B3%BB%E7%BB%9F%E5%8C%96%E6%8C%96%E6%8E%98-Streaming-Reduction-%E7%BB%93%E6%9E%84%EF%BC%9F"><span class="toc-text">关注算子：如何系统化挖掘 Streaming &#x2F; Reduction 结构？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">小结</span></a></li></ol>
+            </div>
+          </details>
+        
         <p>TL;DR</p>
 <p>本文深度解析了 FlashAttention 核心机制——Online Softmax 的数学原理，并由此发散展开，揭示了高性能计算中的通用模式：<strong>Streaming Reduction</strong>。</p>
 <ul>
