@@ -1,5 +1,5 @@
 <%- partial('_partial/head') %>
-<body class="home blog custom-background custom-font-enabled single-author<% if (is_post()) { %> single-post<% } %>">
+<body class="home blog custom-background custom-font-enabled single-author<% if (is_post()) { %> single-post<% } %><% if (is_page()) { %> single-page<% } %><% if (is_archive()) { %> archive-page<% } %>">
   <div id="page" class="hfeed site">
       <%- partial('_partial/header', null, {cache: !config.relative_link}) %>
       <div id="main" class="wrapper">
