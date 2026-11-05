@@ -31,6 +31,221 @@
     stopSearchAnim();
   });
 
+  // Full-text search shared by the sidebar and the global dialog.
+  var searchIndex = null,
+    searchIndexPromise = null;
+
+  var loadSearchIndex = function(){
+    if (searchIndex) return Promise.resolve(searchIndex);
+    if (searchIndexPromise) return searchIndexPromise;
+
+    searchIndexPromise = fetch('/search.json')
+      .then(function(response){
+        if (!response.ok) throw new Error('Search index request failed');
+        return response.json();
+      })
+      .then(function(data){
+        data.forEach(function(post){
+          post._title = (post.title || '').toLowerCase();
+          post._tags = (post.tags || []).join(' ').toLowerCase();
+          post._categories = (post.categories || []).join(' ').toLowerCase();
+          post._content = (post.content || '').toLowerCase();
+        });
+        searchIndex = data;
+        return searchIndex;
+      })
+      .catch(function(error){
+        searchIndexPromise = null;
+        throw error;
+      });
+    return searchIndexPromise;
+  };
+
+  var escapeSearchRegExp = function(text){
+    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  };
+
+  var escapeSearchHtml = function(text){
+    return String(text || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  };
+
+  var highlightSearchText = function(text, terms){
+    var expression = new RegExp(terms.map(escapeSearchRegExp).sort(function(a, b){
+      return b.length - a.length;
+    }).join('|'), 'gi');
+    return escapeSearchHtml(text).replace(expression, function(match){
+      return '<mark>' + match + '</mark>';
+    });
+  };
+
+  var searchExcerpt = function(content, lowerContent, terms){
+    if (!content) return '';
+    var first = -1;
+    terms.forEach(function(term){
+      var index = lowerContent.indexOf(term);
+      if (index !== -1 && (first === -1 || index < first)) first = index;
+    });
+    if (first === -1) return '';
+
+    var start = Math.max(0, first - 46),
+      end = Math.min(content.length, first + 92),
+      text = content.slice(start, end);
+    return (start ? '…' : '') + highlightSearchText(text, terms) + (end < content.length ? '…' : '');
+  };
+
+  $('.local-search').each(function(){
+    var $search = $(this),
+      $input = $search.find('.local-search-input'),
+      $status = $search.find('.local-search-status'),
+      $results = $search.find('.local-search-results'),
+      limit = parseInt($search.attr('data-search-limit'), 10) || 8,
+      timer;
+
+    var setSearchStatus = function(message){
+      $status.text(message || '');
+    };
+
+    var renderSearchResults = function(hits, query, total){
+      if (!hits.length){
+        $results.empty();
+        setSearchStatus('无匹配结果');
+        return;
+      }
+
+      var terms = query.toLowerCase().split(/\s+/).filter(Boolean),
+        html = hits.map(function(hit){
+          var post = hit.item,
+            title = highlightSearchText(post.title, terms),
+            labels = (post.tags && post.tags.length ? post.tags : post.categories || []).slice(0, 2),
+            meta = (post.date || '') + (labels.length ? ' · ' + labels.join(', ') : ''),
+            context = searchExcerpt(post.content, post._content, terms);
+          return '<a href="' + escapeSearchHtml(post.url) + '" class="search-hit">'
+            + '<div class="search-title">' + title + '</div>'
+            + '<div class="search-meta">' + escapeSearchHtml(meta) + '</div>'
+            + (context ? '<div class="search-excerpt">' + context + '</div>' : '')
+            + '</a>';
+        }).join('');
+
+      setSearchStatus('共 ' + total + ' 条匹配，显示前 ' + hits.length);
+      $results.html(html);
+    };
+
+    var runSearch = function(query){
+      if (!searchIndex) return;
+      if (!query){
+        $results.empty();
+        setSearchStatus('共 ' + searchIndex.length + ' 篇文章可搜索');
+        return;
+      }
+
+      var terms = query.toLowerCase().split(/\s+/).filter(Boolean),
+        hits = [];
+      searchIndex.forEach(function(post){
+        var searchable = post._title + ' ' + post._tags + ' ' + post._categories + ' ' + post._content;
+        if (!terms.every(function(term){ return searchable.indexOf(term) !== -1; })) return;
+
+        var score = 0;
+        terms.forEach(function(term){
+          if (post._title.indexOf(term) !== -1) score += 8;
+          if (post._tags.indexOf(term) !== -1) score += 4;
+          if (post._categories.indexOf(term) !== -1) score += 2;
+          if (post._content.indexOf(term) !== -1) score += 1;
+        });
+        hits.push({item: post, score: score});
+      });
+      hits.sort(function(a, b){ return b.score - a.score; });
+      renderSearchResults(hits.slice(0, limit), query, hits.length);
+    };
+
+    $input.on('input', function(){
+      var query = $.trim($input.val());
+      clearTimeout(timer);
+      if (!query){
+        $results.empty();
+        setSearchStatus(searchIndex ? '共 ' + searchIndex.length + ' 篇文章可搜索' : '输入关键词开始搜索');
+        return;
+      }
+
+      timer = setTimeout(function(){
+        setSearchStatus('加载索引...');
+        loadSearchIndex().then(function(){
+          runSearch($.trim($input.val()));
+        }).catch(function(){
+          setSearchStatus('索引加载失败');
+        });
+      }, 120);
+    }).on('focus', function(){
+      if (!$input.val()){
+        setSearchStatus(searchIndex ? '共 ' + searchIndex.length + ' 篇文章可搜索' : '输入关键词开始搜索');
+      }
+    });
+  });
+
+  var $globalSearch = $('#global-search-dialog'),
+    $globalSearchInput = $globalSearch.find('.local-search-input'),
+    globalSearchPreviousFocus = null;
+
+  var closeGlobalSearch = function(){
+    if ($globalSearch.prop('hidden')) return;
+    $globalSearch.prop('hidden', true);
+    $('body').removeClass('global-search-open');
+    if (globalSearchPreviousFocus && globalSearchPreviousFocus.focus){
+      globalSearchPreviousFocus.focus();
+    }
+  };
+
+  $('.global-search-trigger').on('click', function(){
+    globalSearchPreviousFocus = this;
+    $globalSearch.prop('hidden', false);
+    $('body').addClass('global-search-open');
+    $('.menu-toggle.toggled-on').trigger('click');
+    setTimeout(function(){ $globalSearchInput.focus(); }, 0);
+  });
+  $globalSearch.find('.global-search-close').on('click', closeGlobalSearch);
+  $globalSearch.on('click', function(event){
+    if (event.target === this) closeGlobalSearch();
+  });
+  $(document).on('keydown', function(event){
+    if (event.key === 'Escape' && !$globalSearch.prop('hidden')){
+      closeGlobalSearch();
+    }
+  });
+
+  // Reading progress for long posts, measured against the article body only.
+  var $readingContent = $('.single-post .entry-content');
+  if ($readingContent.length){
+    var $readingProgress = $('<div class="article-reading-progress" aria-hidden="true"><span></span></div>').appendTo('body'),
+      $readingProgressBar = $readingProgress.find('span'),
+      readingFrame = null;
+
+    var updateReadingProgress = function(){
+      readingFrame = null;
+      var contentTop = $readingContent.offset().top,
+        contentHeight = $readingContent.outerHeight(),
+        viewportHeight = window.innerHeight || document.documentElement.clientHeight,
+        scrollTop = window.pageYOffset || document.documentElement.scrollTop,
+        readableDistance = Math.max(contentHeight - viewportHeight, 1),
+        progress = Math.max(0, Math.min(1, (scrollTop - contentTop) / readableDistance)),
+        isLongPost = contentHeight > viewportHeight * 1.35;
+
+      $readingProgress.prop('hidden', !isLongPost);
+      $readingProgressBar.css('transform', 'scaleX(' + progress + ')');
+    };
+
+    var requestReadingProgressUpdate = function(){
+      if (readingFrame !== null) return;
+      readingFrame = window.requestAnimationFrame(updateReadingProgress);
+    };
+
+    $(window).on('scroll.articleProgress resize.articleProgress load.articleProgress', requestReadingProgressUpdate);
+    requestReadingProgressUpdate();
+  }
+
   // Article share
   $('.article-share').each(function(){
     var $share = $(this),
