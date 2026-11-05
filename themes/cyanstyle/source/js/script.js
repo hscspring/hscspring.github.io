@@ -186,6 +186,24 @@
     });
   });
 
+  var trapDialogFocus = function($dialog, event){
+    if (event.key !== 'Tab') return;
+    var $focusable = $dialog
+      .find('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+      .filter(':visible');
+    if (!$focusable.length) return;
+
+    var first = $focusable[0],
+      last = $focusable[$focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first){
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last){
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   var $globalSearch = $('#global-search-dialog'),
     $globalSearchInput = $globalSearch.find('.local-search-input'),
     globalSearchPreviousFocus = null;
@@ -194,6 +212,7 @@
     if ($globalSearch.prop('hidden')) return;
     $globalSearch.prop('hidden', true);
     $('body').removeClass('global-search-open');
+    $('.global-search-trigger').attr('aria-expanded', 'false');
     if (globalSearchPreviousFocus && globalSearchPreviousFocus.focus){
       globalSearchPreviousFocus.focus();
     }
@@ -203,6 +222,7 @@
     globalSearchPreviousFocus = this;
     $globalSearch.prop('hidden', false);
     $('body').addClass('global-search-open');
+    $(this).attr('aria-expanded', 'true');
     $('.menu-toggle.toggled-on').trigger('click');
     setTimeout(function(){ $globalSearchInput.focus(); }, 0);
   });
@@ -213,6 +233,8 @@
   $(document).on('keydown', function(event){
     if (event.key === 'Escape' && !$globalSearch.prop('hidden')){
       closeGlobalSearch();
+    } else if (!$globalSearch.prop('hidden')){
+      trapDialogFocus($globalSearch, event);
     }
   });
 
@@ -245,6 +267,49 @@
     $(window).on('scroll.articleProgress resize.articleProgress load.articleProgress', requestReadingProgressUpdate);
     requestReadingProgressUpdate();
   }
+
+  // Copy action for Hexo code blocks.
+  $('.single-post figure.highlight').each(function(){
+    var $block = $(this),
+      $lines = $block.find('.code .line'),
+      $tools = $('<div class="code-block-tools"></div>'),
+      $copy = $('<button class="code-block-copy" type="button">复制</button>');
+
+    $tools.append($copy).prependTo($block);
+
+    var getCodeText = function(){
+      if ($lines.length){
+        return $lines.map(function(){ return this.textContent; }).get().join('\n');
+      }
+      return $block.find('.code pre, pre').first().text();
+    };
+
+    var fallbackCopyCode = function(text){
+      var $textarea = $('<textarea class="code-copy-fallback" aria-hidden="true"></textarea>')
+        .val(text)
+        .appendTo('body')
+        .select();
+      var copied = false;
+      try { copied = document.execCommand('copy'); } catch (error) { copied = false; }
+      $textarea.remove();
+      return copied ? Promise.resolve() : Promise.reject();
+    };
+
+    $copy.on('click', function(){
+      var text = getCodeText(),
+        copyPromise = navigator.clipboard && window.isSecureContext
+          ? navigator.clipboard.writeText(text)
+          : fallbackCopyCode(text);
+
+      copyPromise.then(function(){
+        $copy.text('已复制').addClass('is-copied');
+        setTimeout(function(){ $copy.text('复制').removeClass('is-copied'); }, 1600);
+      }).catch(function(){
+        $copy.text('复制失败');
+        setTimeout(function(){ $copy.text('复制'); }, 1600);
+      });
+    });
+  });
 
   // Article share
   $('.article-share').each(function(){
@@ -508,6 +573,8 @@
     $(document).on('keydown', function(event){
       if (event.key === 'Escape' && !$lightbox.prop('hidden')){
         closeLightbox();
+      } else if (!$lightbox.prop('hidden')){
+        trapDialogFocus($lightbox, event);
       }
     });
   }
