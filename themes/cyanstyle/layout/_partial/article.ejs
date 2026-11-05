@@ -14,13 +14,26 @@
           </p>
         <% } %>
       <% } else { %>
-            <!-- Table of Contents -->
-              <% if(post.toc == true){ %>
-              <div id="toc" class="toc-article">
-                <strong class="toc-title">目录</strong>
-                <%- toc(post.content,{list_number:false}) %>
-              </div>
-            <% } %>
+        <%
+        var articleHeadingCount = ((post.content || '').match(/<h[23](?:\s[^>]*)?>/g) || []).length;
+        var showAutomaticToc = !index && post.layout === 'post' && post.toc !== false && articleHeadingCount >= 5;
+        %>
+        <% if (showAutomaticToc){ %>
+          <details id="toc" class="toc-article toc-article-collapsible">
+            <summary>
+              <span>文章目录</span>
+              <span class="toc-count"><%= articleHeadingCount %> 节</span>
+            </summary>
+            <div class="toc-article-content">
+              <%- toc(post.content, {list_number:false, min_depth:2, max_depth:3}) %>
+            </div>
+          </details>
+        <% } else if (post.toc == true){ %>
+          <div id="toc" class="toc-article">
+            <strong class="toc-title">目录</strong>
+            <%- toc(post.content, {list_number:false}) %>
+          </div>
+        <% } %>
         <%- post.content %>
       <% } %>
     </div><!-- .entry-content -->
