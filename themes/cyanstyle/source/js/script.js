@@ -31,59 +31,169 @@
     stopSearchAnim();
   });
 
-  // Share
-  /*$('body').on('click', function(){
-    $('.article-share-box.on').removeClass('on');
-  }).on('click', '.article-share-link', function(e){
-    e.stopPropagation();
+  // Article share
+  $('.article-share').each(function(){
+    var $share = $(this),
+      $trigger = $share.find('.article-share-trigger'),
+      $panel = $share.find('.article-share-panel'),
+      $copy = $share.find('.article-share-copy'),
+      $shareX = $share.find('.article-share-x'),
+      $qrToggle = $share.find('.article-share-qr-toggle'),
+      $qrSave = $share.find('.article-share-qr-save'),
+      $qr = $share.find('.article-share-qr'),
+      $qrCode = $share.find('.article-share-qr-code'),
+      $status = $share.find('.article-share-status'),
+      url = $share.attr('data-share-url'),
+      title = $share.attr('data-share-title'),
+      qrRendered = false,
+      statusTimer;
 
-    var $this = $(this),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      id = 'article-share-box-' + $this.attr('data-id'),
-      offset = $this.offset();
+    $shareX.attr('href', 'https://x.com/intent/post?text=' + encodeURIComponent(title) + '&url=' + encodeURIComponent(url));
 
-    if ($('#' + id).length){
-      var box = $('#' + id);
+    var setStatus = function(message){
+      clearTimeout(statusTimer);
+      $status.text(message);
+      if (message){
+        statusTimer = setTimeout(function(){
+          $status.text('');
+        }, 2200);
+      }
+    };
 
-      if (box.hasClass('on')){
-        box.removeClass('on');
+    var setPanelOpen = function(open){
+      $panel.prop('hidden', !open);
+      $trigger.attr('aria-expanded', open ? 'true' : 'false');
+    };
+
+    var copyUrl = function(){
+      if (navigator.clipboard && window.isSecureContext){
+        return navigator.clipboard.writeText(url);
+      }
+
+      return new Promise(function(resolve, reject){
+        var textarea = document.createElement('textarea');
+        textarea.value = url;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy') ? resolve() : reject();
+        } catch (error){
+          reject(error);
+        }
+        document.body.removeChild(textarea);
+      });
+    };
+
+    $trigger.on('click', function(){
+      var useNativeShare = navigator.share && window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+
+      if (useNativeShare){
+        navigator.share({title: title, url: url}).catch(function(error){
+          if (error && error.name !== 'AbortError'){
+            setPanelOpen(true);
+          }
+        });
         return;
       }
-    } else {
-      var html = [
-        '<div id="' + id + '" class="article-share-box">',
-          '<input class="article-share-input" value="' + url + '">',
-          '<div class="article-share-links">',
-			'<a href="http://tieba.baidu.com/f/commit/share/openShareApi?url=' + encodedUrl + '" class="article-share-tieba" target="_blank" title="百度贴吧"></a>',
-			'<a href="http://service.weibo.com/share/share.php?url=' + encodedUrl + '" class="article-share-weibo" target="_blank" title="新浪微博"></a>',
-			'<a href="http://share.v.t.qq.com/index.php?c=share&a=index&url=' + encodedUrl + '" class="article-share-tqq" target="_blank" title="腾讯微博"></a>',
-			'<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '" class="article-share-renren" target="_blank" title="人人"></a>',
-          '</div>',
-        '</div>'
-      ].join('');
 
-      var box = $(html);
+      setPanelOpen($panel.prop('hidden'));
+    });
 
-      $('body').append(box);
-    }
+    $copy.on('click', function(){
+      copyUrl().then(function(){
+        setStatus('链接已复制');
+      }).catch(function(){
+        setStatus('复制失败，请从地址栏复制');
+      });
+    });
 
-    $('.article-share-box.on').hide();
+    $qrToggle.on('click', function(){
+      var open = $qr.prop('hidden');
 
-    box.css({
-      top: offset.top + 25,
-      left: offset.left
-    }).addClass('on');
-  }).on('click', '.article-share-box', function(e){
-    e.stopPropagation();
-  }).on('click', '.article-share-box-input', function(){
-    $(this).select();
-  }).on('click', '.article-share-box-link', function(e){
-    e.preventDefault();
-    e.stopPropagation();
+      if (open && !qrRendered){
+        if (window.QRCode){
+          new QRCode($qrCode[0], {
+            text: url,
+            width: 168,
+            height: 168,
+            colorDark: '#222222',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+          $qrCode.find('img').attr('alt', '本文链接二维码');
+          qrRendered = true;
+        } else {
+          setStatus('二维码组件加载失败');
+          return;
+        }
+      }
 
-    window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-  });*/
+      $qr.prop('hidden', !open);
+      $qrToggle.attr('aria-expanded', open ? 'true' : 'false').text(open ? '收起二维码' : '显示二维码');
+    });
+
+    $qrSave.on('click', function(){
+      var canvas = $qrCode.find('canvas')[0];
+
+      if (!canvas){
+        setStatus('二维码尚未生成');
+        return;
+      }
+
+      canvas.toBlob(function(blob){
+        if (!blob){
+          setStatus('二维码导出失败');
+          return;
+        }
+
+        var file;
+        try {
+          file = new File([blob], 'yam-gift-qrcode.png', {type: 'image/png'});
+        } catch (error){
+          file = null;
+        }
+
+        if (file && navigator.share && navigator.canShare && navigator.canShare({files: [file]})){
+          navigator.share({
+            files: [file],
+            title: title,
+            text: title
+          }).catch(function(error){
+            if (error && error.name !== 'AbortError'){
+              setStatus('系统分享失败，请尝试保存二维码');
+            }
+          });
+          return;
+        }
+
+        var objectUrl = URL.createObjectURL(blob),
+          link = document.createElement('a');
+        link.href = objectUrl;
+        link.download = 'yam-gift-qrcode.png';
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(function(){
+          URL.revokeObjectURL(objectUrl);
+        }, 1000);
+        setStatus('二维码已保存或打开');
+      }, 'image/png');
+    });
+
+    $(document).on('click', function(event){
+      if (!$share[0].contains(event.target)){
+        setPanelOpen(false);
+      }
+    }).on('keydown', function(event){
+      if (event.key === 'Escape'){
+        setPanelOpen(false);
+      }
+    });
+  });
 
   // Caption
   $('.article-entry').each(function(i){
