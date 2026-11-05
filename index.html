@@ -4,10 +4,6 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="不追风口、只追长期 —— 一个 AI 算法工程师的技术与人文笔记。Agentic RL、推理优化、业务工程，也聊读书、哲学，以及对世界的思考。" />
-  
-
-  
   <meta name="keywords" content="长琴, AI, Agentic RL, 大模型, LLM, 强化学习, 推理优化, 多模态, 哲学" />
   
   
@@ -17,6 +13,7 @@
   <title>长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="canonical" href="https://yam.gift/">
+  
   <meta name="description" content="不追风口、只追长期 —— 一个 AI 算法工程师的技术与人文笔记。Agentic RL、推理优化、业务工程，也聊读书、哲学，以及对世界的思考。">
 <meta property="og:type" content="website">
 <meta property="og:title" content="长琴">
@@ -27,7 +24,7 @@
 <meta property="og:image" content="https://yam.gift/og.jpg">
 <meta property="article:author" content="hscspring">
 <meta property="article:tag" content="长琴, AI, Agentic RL, 大模型, LLM, 强化学习, 推理优化, 多模态, 哲学">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
   
@@ -43,6 +40,7 @@
   <!-- baidu webmaster push -->
 <meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml">
 </head>
+
 <body class="home blog custom-background custom-font-enabled single-author">
   <div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
@@ -124,7 +122,16 @@
 
     <div class="entry-content">
       
-        <p>大模型出来后一直在做这方面的后训练，从业务魔改到训练框架都做过，今年开始尝试设计新的算法，冲一冲 sota。大型的已经三次了，每次野心都很大，不过都没有特别成功。第一次是统一可验证/不可验证方向 GRPO，结果 sota 没有扩到更大 Size 模型；第二次是想一次解决 dense reward 的问题，还是差点意思；第三次是统一整个后训练（SFT、DPO、GRPO、OPD 等等）框架，目前看效果还没有特别明显。</p>
+        <p><strong>TL;DR</strong></p>
+<ul>
+<li><strong>OmniDreams 的完整性比单点算法更重要</strong>：它把领域迁移、多视角建模、自回归适配、少步蒸馏和推理优化串成了一个实时闭环世界模型。</li>
+<li><strong>Self Forcing 解决历史分布的训推不一致</strong>：训练时不再只看真实历史，而是在模型自己生成的历史上学习，让长时 rollout 的累积误差真正暴露出来。</li>
+<li><strong>DMD 把分布差异直接变成梯度</strong>：生成分布与真实分布的 Score Difference，恰好给出反向 KL 的修正方向；表面的 MSE，实际是一种精巧的梯度工程。</li>
+<li><strong>后训练不应该被模态切开</strong>：从 token 到视频，底层仍是同一条逻辑——先进入模型自己的分布，再利用差异和反馈纠偏。</li>
+</ul>
+<p><img src="https://qnimg.lovevivian.cn/promotion/2026-11-02-OmniDreams/knowledge-map.png" alt=""></p>
+<hr>
+<p>大模型出来后一直在做这方面的后训练，从业务魔改到训练框架都做过，今年开始尝试设计新的算法，冲一冲 sota。大型的已经三次了，每次野心都很大，不过都没有特别成功。第一次是统一可验证/不可验证方向 GRPO，结果 sota 没有扩到更大 Size 模型；第二次是想一次解决 dense reward 的问题，还是差点意思；第三次是统一整个后训练（SFT、DPO、GRPO、OPD 等等）框架，目前看效果还没有特别明显。</p>
 <p>后训练的论文看的有点多（感兴趣的朋友可以通过<a href="https://github.com/hscspring/post-training-atlas">这个项目</a><sup>[1]</sup>了解），有时候忽然有种不想看的感觉，来来回回就是那些做法，GRPO 火了，就猛改，整个链路每个点都被薅干；OPD 火了，GRPO 的方法拿过来再撸一遍。看多了，真有种看山还是山的感觉，有时候觉得索然无味。但是自己偏偏又没法稳定 sota，而且在这种红海里，其实能研究的点本身就很挤（换个方向就好很多）。</p>
 <p>于是就想换换脑子，恰好一直对 Embodied 感兴趣，之前其实已经写过一篇《<a href="https://yam.gift/2026/06/07/Embodied/2026-06-07-RLinf/">VLA Sim-Real 协同训练 | 长琴</a><sup>[2]</sup>》了，那就继续这个方向吧，正好世界模型现在如火如荼，就读点这方面的工作看看。再者说，后训练为啥要区分模态呢？模态之间说不定还能彼此借鉴呢。</p>
 <p>再说点题外话，很多人可能在想，现在 AI 都这么强了，还有必要看 paper 吗，AI 直接整理出来不香吗？的确如此，绝大多数论文（保守估计 95%）不需要认真读，现在水文在 AI 的助长下更多了，每篇都看就是浪费生命。但是一些好论文还是值得仔细研读的，这里的读其实是让脉络在我们自己脑海里展开、联结，形成新的认知。</p>

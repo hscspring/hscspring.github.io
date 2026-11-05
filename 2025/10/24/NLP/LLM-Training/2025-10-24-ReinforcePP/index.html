@@ -4,10 +4,6 @@
   <meta charset="utf-8">
   
   
-  <meta name="description" content="不追风口、只追长期 —— 一个 AI 算法工程师的技术与人文笔记。Agentic RL、推理优化、业务工程，也聊读书、哲学，以及对世界的思考。" />
-  
-
-  
   <meta name="keywords" content="长琴, AI, Agentic RL, 大模型, LLM, 强化学习, 推理优化, 多模态, 哲学" />
   
   
@@ -17,6 +13,7 @@
   <title>Reinforce++和它的KL Loss选择 | 长琴</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="canonical" href="https://yam.gift/2025/10/24/NLP/LLM-Training/2025-10-24-ReinforcePP/">
+  
   <meta name="description" content="TL;DR Reinforce++ 通过移除 critic 并在整个 batch 上全局归一化 advantage，解决了 GRPO 对特定 prompt 过拟合和奖励 hacking 的问题。同时也揭示了一个隐藏细节：GRPO 广泛使用的 k3 KL 惩罚项虽保证非负，却引入偏差和不对称梯度；而 Reinforce++ 改用无偏的 k2形式，提升了训练稳定性。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reinforce++和它的KL Loss选择">
@@ -34,7 +31,7 @@
 <meta property="article:tag" content="GRPO">
 <meta property="article:tag" content="Reinforce++">
 <meta property="article:tag" content="PPO">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://yam.gift/og.jpg">
   
   
@@ -50,6 +47,7 @@
   <!-- baidu webmaster push -->
 <meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="长琴" type="application/atom+xml">
 </head>
+
 <body class="home blog custom-background custom-font-enabled single-author">
   <div id="page" class="hfeed site">
       <header id="masthead" class="site-header" role="banner">
