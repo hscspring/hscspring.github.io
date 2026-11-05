@@ -430,6 +430,12 @@
     color: #999;
     margin-top: 2px;
   }
+  .local-search-results .search-excerpt {
+    margin-top: 3px;
+    color: #666;
+    font-size: 11px;
+    line-height: 1.5;
+  }
   .local-search-results mark {
     background: #fff3a3;
     color: inherit;
@@ -459,6 +465,12 @@
       .then(function (r) { return r.json(); })
       .then(function (json) {
         data = json;
+        data.forEach(function (p) {
+          p._title = (p.title || '').toLowerCase();
+          p._tags = (p.tags || []).join(' ').toLowerCase();
+          p._categories = (p.categories || []).join(' ').toLowerCase();
+          p._content = (p.content || '').toLowerCase();
+        });
         setStatus('共 ' + data.length + ' 篇文章可搜索');
       })
       .catch(function () { setStatus('索引加载失败'); })
@@ -476,20 +488,47 @@
       .replace(/>/g, '&gt;');
   }
 
+  function highlight(text, terms) {
+    var re = new RegExp(terms.map(escapeReg).sort(function (a, b) {
+      return b.length - a.length;
+    }).join('|'), 'gi');
+    return escapeHtml(text).replace(re, function (m) { return '<mark>' + m + '</mark>'; });
+  }
+
+  function excerpt(content, lowerContent, terms) {
+    if (!content) return '';
+    var first = -1;
+    terms.forEach(function (term) {
+      var index = lowerContent.indexOf(term);
+      if (index !== -1 && (first === -1 || index < first)) first = index;
+    });
+    if (first === -1) return '';
+
+    var start = Math.max(0, first - 46),
+      end = Math.min(content.length, first + 92),
+      text = content.slice(start, end);
+    return (start ? '…' : '') + highlight(text, terms) + (end < content.length ? '…' : '');
+  }
+
   function search(q) {
     if (!data) return;
     if (!q) { results.innerHTML = ''; setStatus('共 ' + data.length + ' 篇文章可搜索'); return; }
-    var lq = q.toLowerCase();
-    var hits = [];
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean),
+      hits = [];
     for (var i = 0; i < data.length; i++) {
       var p = data[i];
-      var inTitle = p.title && p.title.toLowerCase().indexOf(lq) !== -1;
-      var inTag = p.tags && p.tags.some(function (t) { return t.toLowerCase().indexOf(lq) !== -1; });
-      var inContent = p.content && p.content.toLowerCase().indexOf(lq) !== -1;
-      if (inTitle || inTag || inContent) {
+      var searchable = p._title + ' ' + p._tags + ' ' + p._categories + ' ' + p._content;
+      if (terms.every(function (term) { return searchable.indexOf(term) !== -1; })) {
+        var score = 0;
+        terms.forEach(function (term) {
+          if (p._title.indexOf(term) !== -1) score += 8;
+          if (p._tags.indexOf(term) !== -1) score += 4;
+          if (p._categories.indexOf(term) !== -1) score += 2;
+          if (p._content.indexOf(term) !== -1) score += 1;
+        });
         hits.push({
           item: p,
-          score: (inTitle ? 4 : 0) + (inTag ? 2 : 0) + (inContent ? 1 : 0),
+          score: score,
         });
       }
     }
@@ -504,14 +543,17 @@
       return;
     }
     setStatus('共 ' + total + ' 条匹配，显示前 ' + hits.length);
-    var re = new RegExp(escapeReg(q), 'gi');
+    var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
     var html = hits.map(function (h) {
       var p = h.item;
-      var title = escapeHtml(p.title).replace(re, function (m) { return '<mark>' + m + '</mark>'; });
-      var meta = (p.date || '') + (p.tags && p.tags.length ? ' · ' + p.tags.slice(0, 2).join(', ') : '');
+      var title = highlight(p.title, terms);
+      var labels = (p.tags && p.tags.length ? p.tags : p.categories || []).slice(0, 2);
+      var meta = (p.date || '') + (labels.length ? ' · ' + labels.join(', ') : '');
+      var context = excerpt(p.content, p._content, terms);
       return '<a href="' + p.url + '" class="search-hit">'
         + '<div class="search-title">' + title + '</div>'
         + '<div class="search-meta">' + escapeHtml(meta) + '</div>'
+        + (context ? '<div class="search-excerpt">' + context + '</div>' : '')
         + '</a>';
     }).join('');
     results.innerHTML = html;
@@ -521,11 +563,18 @@
   input.addEventListener('input', function (e) {
     var q = e.target.value.trim();
     clearTimeout(timer);
+    if (!q) {
+      results.innerHTML = '';
+      setStatus(data ? '共 ' + data.length + ' 篇文章可搜索' : '输入关键词开始搜索');
+      return;
+    }
     timer = setTimeout(function () {
       load().then(function () { search(q); });
     }, 120);
   });
-  input.addEventListener('focus', function () { load(); }, { once: true });
+  input.addEventListener('focus', function () {
+    if (!data) setStatus('输入关键词开始搜索');
+  });
 })();
 </script>
 
