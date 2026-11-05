@@ -1,3 +1,10 @@
+<% if (is_archive()){ %>
+  <header class="archive-page-header">
+    <h1>文章存档<% if (is_month()){ %> · <%= page.year %>/<%= page.month %><% } else if (is_year()){ %> · <%= page.year %><% } %></h1>
+    <p>沿时间回看写过的文章，也看看关注与思考如何一路变化。</p>
+  </header>
+<% } %>
+
 <% if (pagination == 2){ %>
   <% page.posts.each(function(post){ %>
     <%- partial('article', {post: post, index: true}) %>

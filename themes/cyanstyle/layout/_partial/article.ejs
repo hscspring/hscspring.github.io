@@ -57,11 +57,13 @@
     </section>
     <% } %>
 
-    <footer class="entry-meta">
-    <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
-    <%- partial('post/category') %>
-    <%- partial('post/tag') %>
-    </footer>
+    <% if (post.layout === 'post'){ %>
+      <footer class="entry-meta">
+      <%- partial('post/date', {class_name: 'article-date', date_format: null}) %>
+      <%- partial('post/category') %>
+      <%- partial('post/tag') %>
+      </footer>
+    <% } %>
 </article>
 
 <% if (!index){ %>
