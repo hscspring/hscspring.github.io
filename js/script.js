@@ -195,25 +195,106 @@
     });
   });
 
-  // Caption
-  $('.article-entry').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
+  // Article image viewer
+  var $articleImages = $('.single-post .entry-content img').filter(function(){
+    var $link = $(this).closest('a');
+    if (!$link.length) return true;
 
-      var alt = this.alt;
-
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
+    var imageUrl = this.currentSrc || this.src,
+      linkUrl = $link[0].href;
+    return linkUrl === imageUrl;
   });
 
-  if ($.fancybox){
-    $('.fancybox').fancybox();
+  if ($articleImages.length){
+    var lightboxHtml = [
+      '<div class="article-image-lightbox" hidden role="dialog" aria-modal="true" aria-label="图片查看器">',
+        '<div class="article-image-lightbox-toolbar">',
+          '<button class="article-image-lightbox-original" type="button">查看原图</button>',
+          '<button class="article-image-lightbox-close" type="button" aria-label="关闭图片">关闭</button>',
+        '</div>',
+        '<div class="article-image-lightbox-stage">',
+          '<img src="" alt="">',
+        '</div>',
+        '<p class="article-image-lightbox-caption"></p>',
+      '</div>'
+    ].join(''),
+      $lightbox = $(lightboxHtml).appendTo('body'),
+      $lightboxStage = $lightbox.find('.article-image-lightbox-stage'),
+      $lightboxImage = $lightbox.find('img'),
+      $lightboxCaption = $lightbox.find('.article-image-lightbox-caption'),
+      $lightboxOriginal = $lightbox.find('.article-image-lightbox-original'),
+      $lightboxClose = $lightbox.find('.article-image-lightbox-close'),
+      previousFocus = null;
+
+    var setOriginalSize = function(original){
+      $lightboxStage.toggleClass('is-original', original);
+      $lightboxImage.toggleClass('is-original', original);
+      $lightboxOriginal.text(original ? '适应屏幕' : '查看原图').attr('aria-pressed', original ? 'true' : 'false');
+      if (!original){
+        $lightboxStage.scrollTop(0).scrollLeft(0);
+      }
+    };
+
+    var openLightbox = function(image){
+      var source = image.currentSrc || image.src,
+        alt = image.alt || '';
+
+      previousFocus = document.activeElement;
+      setOriginalSize(false);
+      $lightboxImage.attr({src: source, alt: alt});
+      $lightboxCaption.text(alt).toggle(!!alt);
+      $lightbox.prop('hidden', false);
+      $('body').addClass('article-image-lightbox-open');
+      $lightboxClose.focus();
+    };
+
+    var closeLightbox = function(){
+      $lightbox.prop('hidden', true);
+      $lightboxImage.attr({src: '', alt: ''});
+      $('body').removeClass('article-image-lightbox-open');
+      if (previousFocus && previousFocus.focus){
+        previousFocus.focus();
+      }
+    };
+
+    $articleImages.each(function(){
+      $(this).addClass('article-image-zoom').attr({
+        tabindex: '0',
+        role: 'button',
+        'aria-label': (this.alt ? this.alt + '，' : '') + '点击查看大图'
+      });
+    }).on('click', function(event){
+      event.preventDefault();
+      openLightbox(this);
+    }).on('keydown', function(event){
+      if (event.key === 'Enter' || event.key === ' '){
+        event.preventDefault();
+        openLightbox(this);
+      }
+    });
+
+    $lightboxOriginal.on('click', function(){
+      setOriginalSize(!$lightboxImage.hasClass('is-original'));
+    });
+    $lightboxImage.on('click', function(){
+      setOriginalSize(!$lightboxImage.hasClass('is-original'));
+    });
+    $lightboxStage.on('click', function(event){
+      if (event.target === this){
+        closeLightbox();
+      }
+    });
+    $lightboxClose.on('click', closeLightbox);
+    $lightbox.on('click', function(event){
+      if (event.target === this){
+        closeLightbox();
+      }
+    });
+    $(document).on('keydown', function(event){
+      if (event.key === 'Escape' && !$lightbox.prop('hidden')){
+        closeLightbox();
+      }
+    });
   }
 
   // Mobile nav
