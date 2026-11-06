@@ -16,12 +16,12 @@
       <% } else { %>
         <%
         var articleHeadingCount = ((post.content || '').match(/<h[23](?:\s[^>]*)?>/g) || []).length;
-        var showAutomaticToc = !index && post.layout === 'post' && post.toc !== false && articleHeadingCount >= 5;
+        var showAutomaticToc = !index && (post.layout === 'post' || post.toc === true) && post.toc !== false && articleHeadingCount >= 5;
         %>
         <% if (showAutomaticToc){ %>
           <details id="toc" class="toc-article toc-article-collapsible">
             <summary>
-              <span>文章目录</span>
+              <span><%= post.layout === 'page' ? '页面目录' : '文章目录' %></span>
               <span class="toc-count"><%= articleHeadingCount %> 节</span>
             </summary>
             <div class="toc-article-content">
