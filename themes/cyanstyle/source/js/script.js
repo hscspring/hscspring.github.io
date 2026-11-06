@@ -1,4 +1,15 @@
 (function($){
+  // Mark the current top-level navigation item.
+  var currentPath = window.location.pathname.replace(/index\.html$/, '');
+  $('.main-navigation .nav-menu a').each(function(){
+    var linkPath = new URL(this.href, window.location.origin).pathname.replace(/index\.html$/, ''),
+      isCurrent = linkPath === '/' ? currentPath === '/' : currentPath.indexOf(linkPath) === 0;
+    if (isCurrent){
+      $(this).parent('li').addClass('current-menu-item');
+      $(this).attr('aria-current', 'page');
+    }
+  });
+
   // Search
   var $searchWrap = $('#search-form-wrap'),
     isSearchAnim = false,
